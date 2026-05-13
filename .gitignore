@@ -1,0 +1,33 @@
+# Dependencies
+node_modules
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/sdks
+!.yarn/releases
+!.yarn/versions
+.pnp.*
+
+# Local env files
+.env
+.env.local
+
+# Build Outputs
+.next
+.out
+out
+.eslintcache
+
+# Debug & logs
+debug.log
+yarn-debug.log*
+yarn-error.log*
+
+# Misc
+.DS_Store
+
+# Claude Code / OMC
+.claude/
+.omc/
+
+certificates

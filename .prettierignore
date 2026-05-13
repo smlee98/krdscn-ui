@@ -1,0 +1,10 @@
+.next
+.out
+.yarn
+**/.cache
+**/.tmp
+*.log
+next-env.d.ts
+yarn.lock
+.omc
+.claude
