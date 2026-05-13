@@ -88,8 +88,7 @@ function Tab({
 // ─── TabList ─────────────────────────────────────────────────────────────────
 
 function TabList({ children, className, ...rest }: TabListProps) {
-  const { variant, size } = React.useContext(TabContext);
-  const isFill = variant === "fill";
+  const { size } = React.useContext(TabContext);
   const isFull = size === "full";
 
   return (

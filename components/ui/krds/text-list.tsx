@@ -25,19 +25,14 @@ function TextList({ type = "dash", children, className, ...rest }: TextListProps
     decimal: "list-decimal pl-5",
     ordered: "list-decimal pl-5",
     dash: "list-none pl-0",
-    hollow: "list-none pl-0",
+    hollow: "list-none pl-0"
   }[type];
 
   if (isOrdered) {
     return (
       <ol
         data-type={type}
-        className={cn(
-          listStyle,
-          "flex flex-col gap-1",
-          "text-sm text-krds-gray-90",
-          className
-        )}
+        className={cn(listStyle, "flex flex-col gap-1", "text-krds-gray-90 text-sm", className)}
         {...(rest as React.HTMLAttributes<HTMLOListElement>)}
       >
         {children}
@@ -48,12 +43,7 @@ function TextList({ type = "dash", children, className, ...rest }: TextListProps
   return (
     <ul
       data-type={type}
-      className={cn(
-        listStyle,
-        "flex flex-col gap-1",
-        "text-sm text-krds-gray-90",
-        className
-      )}
+      className={cn(listStyle, "flex flex-col gap-1", "text-krds-gray-90 text-sm", className)}
       {...(rest as React.HTMLAttributes<HTMLUListElement>)}
     >
       {children}
@@ -63,10 +53,7 @@ function TextList({ type = "dash", children, className, ...rest }: TextListProps
 
 function TextListItem({ children, className, number, ...rest }: TextListItemProps) {
   return (
-    <li
-      className={cn("flex items-start gap-1", className)}
-      {...rest}
-    >
+    <li className={cn("flex items-start gap-1", className)} {...rest}>
       {number !== undefined && (
         <span aria-hidden="true" className="shrink-0">
           {number}.

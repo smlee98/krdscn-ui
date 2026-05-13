@@ -26,18 +26,18 @@ const sizeClasses: Record<LinkSize, string> = {
   small: "text-sm",
   medium: "text-base",
   large: "text-lg",
-  xlarge: "text-xl",
+  xlarge: "text-xl"
 };
 
 const underlineClasses: Record<LinkUnderline, string> = {
   always: "underline",
   hover: "no-underline hover:underline",
-  none: "no-underline",
+  none: "no-underline"
 };
 
 const variantColorClasses: Record<Exclude<LinkVariant, "unstyled">, string> = {
   default: "text-krds-primary-50 hover:text-krds-primary-90",
-  basic: "text-krds-gray-90",
+  basic: "text-krds-gray-90"
 };
 
 function Link({
@@ -70,12 +70,10 @@ function Link({
     underlineClasses[underline],
     colorClass,
     disabled && "pointer-events-none opacity-50",
-    className,
+    className
   );
 
-  const externalProps = external
-    ? { target: "_blank", rel: "noopener noreferrer" }
-    : {};
+  const externalProps = external ? { target: "_blank", rel: "noopener noreferrer" } : {};
 
   const content = (
     <>
@@ -86,23 +84,14 @@ function Link({
 
   if (!href || disabled) {
     return (
-      <span
-        role="link"
-        aria-disabled={disabled}
-        className={classes}
-      >
+      <span role="link" aria-disabled={disabled} className={classes}>
         {content}
       </span>
     );
   }
 
   return (
-    <NextLink
-      href={href}
-      className={classes}
-      {...externalProps}
-      {...rest}
-    >
+    <NextLink href={href} className={classes} {...externalProps} {...rest}>
       {content}
     </NextLink>
   );

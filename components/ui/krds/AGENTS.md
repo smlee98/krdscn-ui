@@ -37,7 +37,7 @@ Three categories determine how a wrapper is implemented:
 
 | Category | Technique           | Example files                         |
 |----------|---------------------|---------------------------------------|
-| 2D       | native  cva         | `button.tsx`                          |
+| 2D       | native + cva        | `button.tsx`                          |
 | 1D       | shadcn JSX wrap     | `badge.tsx`, `modal.tsx`, `select.tsx`|
 | Custom   | native HTML + utils | `link.tsx`, `tag.tsx`, `spinner.tsx`  |
 
@@ -59,11 +59,49 @@ RadioGroup, ToggleSwitch (→ shadcn Switch), Modal (→ shadcn Dialog), AlertMo
 (→ shadcn AlertDialog), Select, Calendar (→ shadcn Calendar with `DayButton` slot),
 DateInput (→ shadcn Popover + new Calendar), TextInput (→ shadcn Input), Textarea.
 
+**Phase 6 1D wrappers (added by unwrapped-krds-implementation):**
+
+| Component | shadcn base | File |
+|---|---|---|
+| ContextualHelp | `popover.tsx` | `contextual-help.tsx` |
+| HelpPanel | `sheet.tsx` | `help-panel.tsx` |
+| Table | `table.tsx` | `table.tsx` |
+| MainMenu | `navigation-menu.tsx` | `main-menu.tsx` |
+| LanguageSwitcher | `popover.tsx` | `language-switcher.tsx` |
+| SideNavigation | `collapsible.tsx` | `side-navigation.tsx` |
+| CoachMark | `popover.tsx` | `coach-mark.tsx` |
+| TutorialPanel | `sheet.tsx` | `tutorial-panel.tsx` |
+
+> **MainMenu R1 note:** shadcn `NavigationMenu` (Radix `NavigationMenuPrimitive`) was sufficient for the KRDS Default story shape (one level of submenu items). The R1 fallback (pure-custom `<nav aria-haspopup/aria-expanded>`) was **not** needed.
+
 ### Custom keep
 
 Components with no shadcn equivalent stay fully custom but must still use `bg-krds-*` /
 `text-krds-*` / `border-krds-*` / `ring-krds-*` utilities for color. Examples: Link, Tag,
 TextList, StepIndicator, Spinner, FileUpload, Pagination.
+
+**Phase 6 Custom wrappers (added by unwrapped-krds-implementation):**
+
+| Component | DOM root | RSC | File |
+|---|---|---|---|
+| Resize | native button group | `rsc:client` | `resize.tsx` |
+| InPageNavigation | `<nav>` + IntersectionObserver | `rsc:client` | `in-page-navigation.tsx` |
+| CriticalAlert | `<div role="alert">` | `rsc:client` | `critical-alert.tsx` |
+| Identifier | `<div role="contentinfo">` | `rsc:safe` | `identifier.tsx` |
+| Masthead | `<div role="banner">` | `rsc:safe` | `masthead.tsx` |
+| SkipLink | `<a>` sr-only/focus reveal | `rsc:safe` | `skip-link.tsx` |
+| StructuredList | `<dl>` grid | `rsc:safe` | `structured-list.tsx` |
+| Footer | `<footer>` 3-column | `rsc:safe` | `footer.tsx` |
+
+### P5 composition-of-wrappers
+
+Components that compose other KRDS wrappers (not shadcn primitives directly).
+
+| Component | Composes | File |
+|---|---|---|
+| Header | SkipLink + Masthead + MainMenu + LanguageSwitcher + Resize | `header.tsx` |
+
+> **WAI constraint (F7):** `SkipLink` MUST be the first child of `<header>` per the WAI Skip Navigation pattern. `Header` enforces this layout — do not move SkipLink below Masthead.
 
 ## Compound export pattern
 
@@ -95,6 +133,70 @@ in `lib/cn.ts` with an inline rationale comment.
 KRDS wrappers do NOT expose `asChild`, `Slot`, or `as?: T` generic polymorphism, with
 ONE narrow exception: `ModalTrigger` and `ModalClose` preserve `asChild?: boolean` to
 match the original KRDS surface exactly (required for accessibility pattern).
+
+## Phase 6 layout note
+
+Each of the 17 Phase 6 wrappers renders under its own `Phase 6.N — <Name>` `<h2>` heading
+in `app/comparison-grid.tsx`. This sub-section structure enables per-component
+dark-invariance verdicts from the verification scripts.
+
+**Shared regex contract — BIDIRECTIONAL, keep in lock-step:**
+
+Both verification scripts parse the bare component name from `<h2>` text via:
+
+```js
+const m = text.match(/Phase\s+\d+(?:\.\d+)?\s*—\s*(.+)$/);
+```
+
+| Script | Location |
+|---|---|
+| `scripts/krds/visual-diff-per-component.mjs` | line 51 |
+| `scripts/krds/visual-diff-vs-storybook.mjs` | line 122 |
+
+**Rules for future heading authoring:**
+- Every Phase 6 heading MUST match `/^Phase\s+\d+(?:\.\d+)?\s*—\s*\S.*$/` exactly.
+- The em-dash `—` (U+2014) and single spaces around it are required — not a hyphen.
+- If you add a new Phase 6.N section, update both script files' regex capture at the same time if the pattern changes.
+- The `\d+(?:\.\d+)?` form covers both legacy `Phase 5 — Calendar` and new `Phase 6.1 — ContextualHelp` shapes.
+
+## RSC marker rule
+
+Every wrapper file in `components/ui/krds/` MUST have an RSC posture marker as its
+**first non-blank line**, before any `"use client"` directive or imports:
+
+```
+// rsc:safe    ← file has NO "use client"; safe to import from RSC
+// rsc:client  ← file has "use client" on the next line
+```
+
+**Audit command** (must return 17 after Phase 6 is complete):
+```sh
+grep -cE "^// rsc:(safe|client)$" components/ui/krds/*.tsx
+```
+
+**RSC-safe files** (must contain NO `"use client"` directive):
+`identifier.tsx`, `masthead.tsx`, `skip-link.tsx`, `structured-list.tsx`, `footer.tsx`, `table.tsx`
+
+**RSC-safe verification:**
+```sh
+grep -L '"use client"' components/ui/krds/{identifier,masthead,skip-link,structured-list,footer,table}.tsx
+# must return all 6 files
+```
+
+## Reviewer spot-check rule (G3)
+
+For every PR touching `components/ui/krds/`, the reviewer MUST verify:
+
+**For `// rsc:safe` files** — no client-only React hooks appear in the file body:
+```sh
+grep -E "useState|useEffect|useRef|useLayoutEffect|useReducer|useContext" \
+  components/ui/krds/{identifier,masthead,skip-link,structured-list,footer,table}.tsx
+# must return empty (zero matches)
+```
+
+This check is required because `app/comparison-grid.tsx` is already `"use client"` at
+line 1, so importing a `rsc:safe` wrapper into the grid page does NOT prove the wrapper
+itself is RSC-compatible. The marker + grep is the auditable gate.
 
 ## Verification page
 

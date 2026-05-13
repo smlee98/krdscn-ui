@@ -10,10 +10,7 @@ import { cn } from "@/lib/cn";
 import { Textarea as ShadcnTextarea } from "@/components/ui/textarea";
 
 interface TextareaProps
-  extends Omit<
-    React.TextareaHTMLAttributes<HTMLTextAreaElement>,
-    "onChange" | "value" | "defaultValue"
-  > {
+  extends Omit<React.TextareaHTMLAttributes<HTMLTextAreaElement>, "onChange" | "value" | "defaultValue"> {
   onChange?: (value: string) => void;
   label?: string;
   showCount?: boolean;
@@ -34,16 +31,11 @@ function Textarea({
   ...rest
 }: TextareaProps) {
   const currentLength = typeof value === "string" ? value.length : undefined;
-  const isOverLimit =
-    countTotal !== undefined && currentLength !== undefined && currentLength > countTotal;
+  const isOverLimit = countTotal !== undefined && currentLength !== undefined && currentLength > countTotal;
 
   return (
     <div className="flex flex-col gap-1">
-      {label && (
-        <label className="text-sm font-medium text-krds-gray-90">
-          {label}
-        </label>
-      )}
+      {label && <label className="text-krds-gray-90 text-sm font-medium">{label}</label>}
       <ShadcnTextarea
         {...rest}
         value={value}
@@ -53,12 +45,7 @@ function Textarea({
         className={cn("min-h-20 resize-y px-3 py-2", className)}
       />
       {showCount && (
-        <span
-          className={cn(
-            "text-right text-xs",
-            isOverLimit ? "text-krds-danger-50" : "text-krds-gray-50",
-          )}
-        >
+        <span className={cn("text-right text-xs", isOverLimit ? "text-krds-danger-50" : "text-krds-gray-50")}>
           {currentLength ?? 0}
           {countTotal !== undefined && ` / ${countTotal}`}
         </span>

@@ -69,7 +69,24 @@ const COMPONENT_MAP = [
       section: "Phase 2 — DateInput",
       triggerSelector: 'button[aria-haspopup="dialog"]'
     }
-  }
+  },
+  { wrapper: "ContextualHelp", storyId: "components-contextualhelp--default" },
+  { wrapper: "HelpPanel", storyId: "components-helppanel--default" },
+  { wrapper: "Table", storyId: "components-table--default" },
+  { wrapper: "MainMenu", storyId: "components-mainmenu--default" },
+  { wrapper: "LanguageSwitcher", storyId: "components-languageswitcher--default" },
+  { wrapper: "Resize", storyId: "components-resize--default" },
+  { wrapper: "SideNavigation", storyId: "components-sidenavigation--default" },
+  { wrapper: "InPageNavigation", storyId: "components-inpagenavigation--default" },
+  { wrapper: "CoachMark", storyId: "components-coachmark--default" },
+  { wrapper: "TutorialPanel", storyId: "components-tutorialpanel--default" },
+  { wrapper: "CriticalAlert", storyId: "components-criticalalert--default" },
+  { wrapper: "Identifier", storyId: "components-identifier--default" },
+  { wrapper: "Masthead", storyId: "components-masthead--default" },
+  { wrapper: "SkipLink", storyId: "components-skiplink--default" },
+  { wrapper: "StructuredList", storyId: "components-structuredlist--default" },
+  { wrapper: "Footer", storyId: "components-footer--default" },
+  { wrapper: "Header", storyId: "components-header--default" }
 ];
 
 function safeName(s) {
@@ -119,7 +136,7 @@ async function captureWrapperSections(page) {
       const startRect = start.getBoundingClientRect();
       const endY = end ? end.getBoundingClientRect().top : grid.getBoundingClientRect().bottom;
       const text = start.textContent?.trim() ?? `section-${i}`;
-      const m = text.match(/Phase\s+\d+\s*—\s*(.+)$/);
+      const m = text.match(/Phase\s+\d+(?:\.\d+)?\s*—\s*(.+)$/);
       const name = m ? m[1].trim() : text;
       result.push({
         name,

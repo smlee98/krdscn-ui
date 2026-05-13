@@ -115,7 +115,6 @@ function ModalTrigger({ asChild, children, className, ...rest }: ModalTriggerPro
 // ─── ModalOverlay ─────────────────────────────────────────────────────────────
 // No-op stub: shadcn's DialogContent renders its own overlay via portal internally.
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 function ModalOverlay(_props: ModalOverlayProps) {
   return null;
 }

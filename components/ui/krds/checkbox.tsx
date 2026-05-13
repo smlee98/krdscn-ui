@@ -62,7 +62,7 @@ function Checkbox({
   className,
   id,
   name,
-  value,
+  value
 }: CheckboxProps) {
   const autoId = React.useId();
   const inputId = id ?? autoId;
@@ -83,10 +83,10 @@ function Checkbox({
         onCheckedChange={(state) => onChange?.(state === true)}
         className={cn(
           controlSize,
-          "mt-0.5 shrink-0 rounded-[0.1875rem] border-krds-gray-30",
+          "border-krds-gray-30 mt-0.5 shrink-0 rounded-[0.1875rem]",
           "data-[state=checked]:bg-krds-primary-50 data-[state=checked]:border-krds-primary-50",
           "disabled:border-krds-gray-20 disabled:bg-krds-gray-5",
-          "focus-visible:ring-krds-primary-50/30",
+          "focus-visible:ring-krds-primary-50/30"
         )}
       />
 
@@ -96,22 +96,16 @@ function Checkbox({
             <label
               htmlFor={inputId}
               className={cn(
-                "cursor-pointer select-none leading-tight text-krds-gray-90",
+                "text-krds-gray-90 cursor-pointer leading-tight select-none",
                 fontSize,
-                disabled && "text-krds-gray-30 cursor-not-allowed",
+                disabled && "text-krds-gray-30 cursor-not-allowed"
               )}
             >
               {label}
             </label>
           )}
           {description && (
-            <span
-              className={cn(
-                descFontSize,
-                "text-krds-gray-50",
-                disabled && "text-krds-gray-30",
-              )}
-            >
+            <span className={cn(descFontSize, "text-krds-gray-50", disabled && "text-krds-gray-30")}>
               {description}
             </span>
           )}
@@ -124,17 +118,7 @@ function Checkbox({
 // ─── CheckboxGroup ─────────────────────────────────────────────────────────────
 
 function CheckboxGroup({ children, column = false, className }: CheckboxGroupProps) {
-  return (
-    <div
-      className={cn(
-        "inline-flex flex-wrap gap-2",
-        column && "flex-col",
-        className,
-      )}
-    >
-      {children}
-    </div>
-  );
+  return <div className={cn("inline-flex flex-wrap gap-2", column && "flex-col", className)}>{children}</div>;
 }
 
 // ─── CheckboxChip ──────────────────────────────────────────────────────────────
@@ -149,7 +133,7 @@ function CheckboxChip({
   className,
   id,
   name,
-  value,
+  value
 }: CheckboxChipProps) {
   const autoId = React.useId();
   const inputId = id ?? autoId;
@@ -157,25 +141,25 @@ function CheckboxChip({
   const sizeClass = {
     small: "h-7 px-2.5 rounded-full text-xs",
     medium: "h-8 px-3 rounded-full text-sm",
-    large: "h-10 px-4 rounded-full text-base",
+    large: "h-10 px-4 rounded-full text-base"
   }[size];
 
   const checkSize = {
     small: "size-3",
     medium: "size-3.5",
-    large: "size-4",
+    large: "size-4"
   }[size];
 
   return (
     <label
       htmlFor={inputId}
       className={cn(
-        "inline-flex cursor-pointer select-none items-center gap-1 border transition-colors",
+        "inline-flex cursor-pointer items-center gap-1 border transition-colors select-none",
         "bg-krds-gray-0 border-krds-gray-20 text-krds-gray-90",
         checked && "bg-krds-primary-5 border-krds-primary-50 text-krds-primary-50",
         disabled && "bg-krds-gray-5 border-krds-gray-20 text-krds-gray-30 cursor-not-allowed",
         sizeClass,
-        className,
+        className
       )}
     >
       <ShadcnCheckbox
@@ -188,9 +172,7 @@ function CheckboxChip({
         onCheckedChange={(state) => onChange?.(state === true)}
         className="sr-only"
       />
-      {checked && (
-        <CheckIcon className={cn("shrink-0 text-krds-primary-50", checkSize)} />
-      )}
+      {checked && <CheckIcon className={cn("text-krds-primary-50 shrink-0", checkSize)} />}
       {children}
     </label>
   );

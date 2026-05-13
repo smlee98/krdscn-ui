@@ -14,7 +14,7 @@ import {
   AlertDialogContent,
   AlertDialogDescription,
   AlertDialogTitle,
-  AlertDialogTrigger,
+  AlertDialogTrigger
 } from "@/components/ui/alert-dialog";
 import { cn } from "@/lib/cn";
 
@@ -73,32 +73,21 @@ function AlertModal({
   onCancel,
   trigger,
   className,
-  children,
+  children
 }: AlertModalProps) {
   return (
     <AlertDialog open={open} defaultOpen={defaultOpen} onOpenChange={onOpenChange}>
-      {trigger && (
-        <AlertDialogTrigger asChild>
-          {trigger}
-        </AlertDialogTrigger>
-      )}
+      {trigger && <AlertDialogTrigger asChild>{trigger}</AlertDialogTrigger>}
 
       <AlertDialogContent
-        className={cn(
-          "bg-krds-gray-0 border-krds-gray-10 rounded-xl p-6 min-h-48 sm:max-w-sm",
-          className
-        )}
+        className={cn("bg-krds-gray-0 border-krds-gray-10 min-h-48 rounded-xl p-6 sm:max-w-sm", className)}
       >
         {/* Header */}
-        <AlertDialogTitle
-          className="text-lg font-semibold text-krds-gray-90 leading-none"
-        >
-          {title}
-        </AlertDialogTitle>
+        <AlertDialogTitle className="text-krds-gray-90 text-lg leading-none font-semibold">{title}</AlertDialogTitle>
 
         {/* Body */}
         {(description ?? children) && (
-          <AlertDialogDescription className="pt-4 pb-4 text-krds-gray-90 text-sm">
+          <AlertDialogDescription className="text-krds-gray-90 pt-4 pb-4 text-sm">
             {description ?? children}
           </AlertDialogDescription>
         )}

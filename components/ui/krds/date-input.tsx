@@ -43,7 +43,7 @@ export interface DateInputProps
 const sizeClasses: Record<DateInputSize, string> = {
   small: "h-8 rounded text-sm",
   medium: "h-10 rounded-md text-sm",
-  large: "h-12 rounded-lg text-base",
+  large: "h-12 rounded-lg text-base"
 };
 
 function DateInput({
@@ -111,9 +111,7 @@ function DateInput({
 
   return (
     <div className="flex flex-col gap-1">
-      {label && (
-        <label className="text-sm font-medium text-krds-gray-90">{label}</label>
-      )}
+      {label && <label className="text-krds-gray-90 text-sm font-medium">{label}</label>}
 
       <div className="relative flex items-center">
         <input
@@ -125,10 +123,10 @@ function DateInput({
           onChange={handleInputChange}
           aria-invalid={hasError || undefined}
           className={cn(
-            "w-full border pr-10 px-3 transition-colors",
-            "border-krds-gray-30 bg-white text-krds-gray-90",
+            "w-full border px-3 pr-10 transition-colors",
+            "border-krds-gray-30 text-krds-gray-90 bg-white",
             "placeholder:text-krds-gray-50",
-            "focus:outline-none focus:border-krds-primary-50",
+            "focus:border-krds-primary-50 focus:outline-none",
             "disabled:bg-krds-gray-5 disabled:border-krds-gray-30 disabled:text-krds-gray-50",
             sizeClasses[size],
             hasError && "border-krds-danger-50 focus:border-krds-danger-50",
@@ -142,7 +140,7 @@ function DateInput({
               type="button"
               aria-label={openButtonLabel}
               disabled={disabled}
-              className="absolute right-2 flex items-center justify-center size-5 text-krds-gray-70 disabled:opacity-40"
+              className="text-krds-gray-70 absolute right-2 flex size-5 items-center justify-center disabled:opacity-40"
             >
               <svg
                 aria-hidden="true"
@@ -161,7 +159,7 @@ function DateInput({
           <PopoverContent
             align="start"
             side={calendarPosition}
-            className="p-0 border-0 bg-transparent shadow-none w-auto"
+            className="w-auto border-0 bg-transparent p-0 shadow-none"
           >
             <Calendar
               mode="single"
@@ -191,9 +189,7 @@ function DateInput({
         </Popover>
       </div>
 
-      {messageText && (
-        <span className={cn("text-xs", messageClass)}>{messageText}</span>
-      )}
+      {messageText && <span className={cn("text-xs", messageClass)}>{messageText}</span>}
     </div>
   );
 }

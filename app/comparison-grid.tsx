@@ -39,6 +39,23 @@ import { TextList, TextListItem } from "@/components/ui/krds/text-list";
 import { Textarea } from "@/components/ui/krds/textarea";
 import { ToggleSwitch } from "@/components/ui/krds/toggle-switch";
 import { Tooltip } from "@/components/ui/krds/tooltip";
+import { CoachMark } from "@/components/ui/krds/coach-mark";
+import { ContextualHelp } from "@/components/ui/krds/contextual-help";
+import { CriticalAlert } from "@/components/ui/krds/critical-alert";
+import { Footer } from "@/components/ui/krds/footer";
+import { Header } from "@/components/ui/krds/header";
+import { HelpPanel } from "@/components/ui/krds/help-panel";
+import { Identifier } from "@/components/ui/krds/identifier";
+import { InPageNavigation } from "@/components/ui/krds/in-page-navigation";
+import { LanguageSwitcher } from "@/components/ui/krds/language-switcher";
+import { MainMenu } from "@/components/ui/krds/main-menu";
+import { Masthead } from "@/components/ui/krds/masthead";
+import { Resize } from "@/components/ui/krds/resize";
+import { SideNavigation } from "@/components/ui/krds/side-navigation";
+import { SkipLink } from "@/components/ui/krds/skip-link";
+import { StructuredList, StructuredListItem } from "@/components/ui/krds/structured-list";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/krds/table";
+import { TutorialPanel } from "@/components/ui/krds/tutorial-panel";
 
 export { ComparisonGrid };
 
@@ -965,6 +982,203 @@ function ComparisonGrid() {
         </Row>
         <Row label="range mode (fixed dates)">
           <Calendar mode="range" defaultStartDate="2026.01.05" defaultEndDate="2026.01.10" />
+        </Row>
+        <Section title="Phase 6.1 — ContextualHelp" />
+        <Row label="default (open)">
+          <ContextualHelp
+            defaultOpen={true}
+            title="서비스 안내"
+            content="이 기능에 대한 도움말입니다. 자세한 내용은 관련 문서를 참조하세요."
+          />
+        </Row>
+
+        <Section title="Phase 6.2 — HelpPanel" />
+        <Row label="default (trigger)">
+          <HelpPanel
+            title="도움말"
+            links={[
+              { label: "관련 문서", href: "#" },
+              { label: "FAQ", href: "#" }
+            ]}
+          >
+            자주 묻는 질문과 답변을 확인하세요. 추가 도움이 필요하면 고객센터에 문의하세요.
+          </HelpPanel>
+        </Row>
+
+        <Section title="Phase 6.3 — Table" />
+        <Row label="default">
+          <Table>
+            <TableHeader>
+              <TableRow>
+                <TableHead>이름</TableHead>
+                <TableHead>역할</TableHead>
+                <TableHead>상태</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              <TableRow>
+                <TableCell>홍길동</TableCell>
+                <TableCell>관리자</TableCell>
+                <TableCell>활성</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell>김철수</TableCell>
+                <TableCell>사용자</TableCell>
+                <TableCell>비활성</TableCell>
+              </TableRow>
+            </TableBody>
+          </Table>
+        </Row>
+
+        <Section title="Phase 6.4 — MainMenu" />
+        <Row label="default">
+          <MainMenu
+            items={[
+              {
+                label: "정책정보",
+                children: [
+                  { label: "주요정책", href: "#" },
+                  { label: "정책자료", href: "#" }
+                ]
+              },
+              {
+                label: "알림·소식",
+                children: [
+                  { label: "공지사항", href: "#" },
+                  { label: "보도자료", href: "#" }
+                ]
+              },
+              { label: "민원서비스", href: "#" },
+              { label: "기관소개", href: "#" }
+            ]}
+          />
+        </Row>
+
+        <Section title="Phase 6.5 — LanguageSwitcher" />
+        <Row label="default">
+          <LanguageSwitcher defaultValue="ko" />
+        </Row>
+
+        <Section title="Phase 6.6 — Resize" />
+        <Row label="default (scoped font scale)">
+          <div data-krds-resize-scope="" className="flex flex-col gap-3">
+            <Resize />
+            <p style={{ fontSize: "calc(1rem * var(--krds-font-scale, 1))" }} className="text-sm">
+              글자 크기 조절 미리보기 텍스트입니다.
+            </p>
+          </div>
+        </Row>
+
+        <Section title="Phase 6.7 — SideNavigation" />
+        <Row label="default">
+          <SideNavigation
+            items={[
+              {
+                label: "정책정보",
+                children: [
+                  { label: "주요정책", href: "#", active: true },
+                  { label: "정책자료", href: "#" }
+                ]
+              },
+              { label: "알림·소식", href: "#" },
+              { label: "민원서비스", href: "#" }
+            ]}
+          />
+        </Row>
+
+        <Section title="Phase 6.8 — InPageNavigation" />
+        <Row label="default">
+          <InPageNavigation
+            items={[
+              { id: "section-overview", label: "개요" },
+              { id: "section-detail", label: "상세 내용" },
+              { id: "section-related", label: "관련 정보" }
+            ]}
+          />
+        </Row>
+
+        <Section title="Phase 6.9 — CoachMark" />
+        <Row label="default (open)">
+          <CoachMark
+            defaultOpen={true}
+            steps={[
+              { title: "첫 번째 단계", description: "이 버튼을 클릭하면 새 항목을 추가할 수 있습니다." },
+              { title: "두 번째 단계", description: "목록에서 항목을 선택해 상세 정보를 확인하세요." }
+            ]}
+          >
+            <button type="button" className="rounded-md border border-gray-300 px-3 py-1.5 text-sm">
+              대상 요소
+            </button>
+          </CoachMark>
+        </Row>
+
+        <Section title="Phase 6.10 — TutorialPanel" />
+        <Row label="default (trigger)">
+          <TutorialPanel
+            steps={[
+              { title: "서비스 시작하기", content: "환영합니다! 이 튜토리얼을 따라 서비스를 시작하세요." },
+              { title: "기능 살펴보기", content: "다양한 기능을 탐색하고 원하는 작업을 수행하세요." },
+              { title: "완료", content: "튜토리얼을 완료했습니다. 이제 서비스를 자유롭게 이용하세요." }
+            ]}
+          />
+        </Row>
+
+        <Section title="Phase 6.11 — CriticalAlert" />
+        <Row label="default">
+          <CriticalAlert>서비스 점검 중입니다. (2026.01.15 02:00 ~ 04:00)</CriticalAlert>
+        </Row>
+
+        <Section title="Phase 6.12 — Identifier" />
+        <Row label="default">
+          <Identifier
+            agencyName="대한민국 정부"
+            siteDescription="정부 공식 웹사이트"
+            links={[
+              { label: "개인정보처리방침", href: "#" },
+              { label: "저작권정책", href: "#" }
+            ]}
+          />
+        </Row>
+
+        <Section title="Phase 6.13 — Masthead" />
+        <Row label="default">
+          <Masthead />
+        </Row>
+
+        <Section title="Phase 6.14 — SkipLink" />
+        <Row label="default (sr-only; visible on keyboard focus)">
+          <div className="relative h-8">
+            <SkipLink targetId="main" />
+            <span className="text-krds-gray-50 text-xs">Tab 키를 눌러 건너뛰기 링크를 표시합니다</span>
+          </div>
+        </Row>
+
+        <Section title="Phase 6.15 — StructuredList" />
+        <Row label="default">
+          <StructuredList>
+            <StructuredListItem label="성명" value="홍길동" />
+            <StructuredListItem label="생년월일" value="1990.01.01" />
+            <StructuredListItem label="연락처" value="010-0000-0000" />
+          </StructuredList>
+        </Row>
+
+        <Section title="Phase 6.16 — Footer" />
+        <Row label="default + sibling Identifier">
+          <Footer organizationName="대한민국 정부">
+            <Identifier
+              agencyName="대한민국 정부"
+              siteDescription="정부 공식 웹사이트"
+              links={[
+                { label: "개인정보처리방침", href: "#" },
+                { label: "저작권정책", href: "#" }
+              ]}
+            />
+          </Footer>
+        </Row>
+
+        <Section title="Phase 6.17 — Header" />
+        <Row label="default (composition: SkipLink + Masthead + Logo + MainMenu)">
+          <Header />
         </Row>
       </div>
     </>

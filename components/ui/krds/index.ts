@@ -123,3 +123,71 @@ export type {
   CalendarDropdownProps,
   CalendarTableProps
 } from "@/components/ui/krds/calendar";
+
+// Phase 6 — 미래핑 17 신규
+export { ContextualHelp } from "@/components/ui/krds/contextual-help";
+export type { ContextualHelpProps } from "@/components/ui/krds/contextual-help";
+export { HelpPanel } from "@/components/ui/krds/help-panel";
+export type { HelpPanelProps, HelpPanelLink } from "@/components/ui/krds/help-panel";
+export {
+  Table,
+  TableHeader,
+  TableBody,
+  TableFooter,
+  TableHead,
+  TableRow,
+  TableCell,
+  TableCaption
+} from "@/components/ui/krds/table";
+export type {
+  TableProps,
+  TableHeaderProps,
+  TableBodyProps,
+  TableFooterProps,
+  TableHeadProps,
+  TableRowProps,
+  TableCellProps,
+  TableCaptionProps
+} from "@/components/ui/krds/table";
+export { MainMenu } from "@/components/ui/krds/main-menu";
+export type { MainMenuProps, MainMenuItem, MainMenuSubItem } from "@/components/ui/krds/main-menu";
+export { LanguageSwitcher } from "@/components/ui/krds/language-switcher";
+export type { LanguageSwitcherProps, LanguageOption } from "@/components/ui/krds/language-switcher";
+export { Resize } from "@/components/ui/krds/resize";
+export type { ResizeProps, ScaleKey } from "@/components/ui/krds/resize";
+export { SideNavigation } from "@/components/ui/krds/side-navigation";
+export type { SideNavigationProps, SideNavigationItem } from "@/components/ui/krds/side-navigation";
+export { InPageNavigation } from "@/components/ui/krds/in-page-navigation";
+export type { InPageNavigationProps, InPageNavItem } from "@/components/ui/krds/in-page-navigation";
+export { CoachMark } from "@/components/ui/krds/coach-mark";
+export type { CoachMarkProps, CoachMarkStep } from "@/components/ui/krds/coach-mark";
+export { TutorialPanel } from "@/components/ui/krds/tutorial-panel";
+export type { TutorialPanelProps, TutorialPanelStep } from "@/components/ui/krds/tutorial-panel";
+export { CriticalAlert } from "@/components/ui/krds/critical-alert";
+export type { CriticalAlertProps } from "@/components/ui/krds/critical-alert";
+export { Identifier } from "@/components/ui/krds/identifier";
+export type { IdentifierProps, IdentifierLink } from "@/components/ui/krds/identifier";
+export { Masthead } from "@/components/ui/krds/masthead";
+export type { MastheadProps } from "@/components/ui/krds/masthead";
+
+export { SkipLink } from "@/components/ui/krds/skip-link";
+export type { SkipLinkProps } from "@/components/ui/krds/skip-link";
+
+export {
+  StructuredList,
+  StructuredListItem,
+  StructuredListLabel,
+  StructuredListValue
+} from "@/components/ui/krds/structured-list";
+export type {
+  StructuredListProps,
+  StructuredListItemProps,
+  StructuredListLabelProps,
+  StructuredListValueProps
+} from "@/components/ui/krds/structured-list";
+
+export { Footer, FooterColumn, FooterLink } from "@/components/ui/krds/footer";
+export type { FooterProps, FooterColumnProps, FooterLinkItem } from "@/components/ui/krds/footer";
+
+export { Header } from "@/components/ui/krds/header";
+export type { HeaderProps } from "@/components/ui/krds/header";

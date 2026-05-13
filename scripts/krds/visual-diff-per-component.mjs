@@ -29,7 +29,7 @@ function cropPng(srcPng, x, y, w, h) {
 async function captureSections(page, theme) {
   await page.goto(`${BASE_URL}${VERIFY_PATH}?theme=${theme}`, {
     waitUntil: "networkidle",
-    timeout: 30000,
+    timeout: 30000
   });
   await page.waitForSelector("[data-krds-comparison-grid]", { timeout: 10000 });
   await page.waitForTimeout(500);
@@ -48,7 +48,7 @@ async function captureSections(page, theme) {
       const startRect = start.getBoundingClientRect();
       const endY = end ? end.getBoundingClientRect().top : grid.getBoundingClientRect().bottom;
       const text = start.textContent?.trim() ?? `section-${i}`;
-      const m = text.match(/Phase\s+\d+\s*—\s*(.+)$/);
+      const m = text.match(/Phase\s+\d+(?:\.\d+)?\s*—\s*(.+)$/);
       const name = m ? m[1].trim() : text;
       result.push({
         name,
@@ -56,7 +56,7 @@ async function captureSections(page, theme) {
         x: Math.max(0, Math.floor(startRect.left + window.scrollX)),
         y: Math.max(0, Math.floor(startRect.top + window.scrollY)),
         width: Math.ceil(startRect.width),
-        height: Math.max(10, Math.ceil(endY - startRect.top - 8)),
+        height: Math.max(10, Math.ceil(endY - startRect.top - 8))
       });
     }
     return result;
@@ -92,7 +92,7 @@ function diff(lightPng, darkPng) {
     lightW: lightPng.width,
     darkW: darkPng.width,
     lightH: lightPng.height,
-    darkH: darkPng.height,
+    darkH: darkPng.height
   };
 }
 
@@ -136,7 +136,7 @@ async function run() {
       dim: `${result.w}x${result.h}`,
       sizeMatch: result.lightW === result.darkW && result.lightH === result.darkH,
       lightSize: `${result.lightW}x${result.lightH}`,
-      darkSize: `${result.darkW}x${result.darkH}`,
+      darkSize: `${result.darkW}x${result.darkH}`
     });
   }
 
@@ -146,7 +146,8 @@ async function run() {
   md += `Generated: ${new Date().toISOString()}\n`;
   md += `Source: \`${VERIFY_PATH}?theme={light,dark}\` on \`${BASE_URL}\`\n\n`;
   md += "Each row pixelmatches the same DOM section captured at `?theme=light` vs `?theme=dark`.\n";
-  md += "Sorted by mismatch density (high → low). Real dark-mode leaks should produce >5% ratios; OS-level font-rendering noise typically <1%.\n\n";
+  md +=
+    "Sorted by mismatch density (high → low). Real dark-mode leaks should produce >5% ratios; OS-level font-rendering noise typically <1%.\n\n";
   md += "| # | Component | Px Diff | Area | Mismatch | Dim (L/D) | Verdict |\n";
   md += "|---|---|---:|---:|---:|---|---|\n";
 
@@ -158,10 +159,13 @@ async function run() {
     }
     const pct = (r.ratio * 100).toFixed(3);
     const verdict =
-      r.ratio > 0.05 ? "🚨 LEAK SUSPECTED"
-        : r.ratio > 0.01 ? "⚠️ INVESTIGATE"
-        : r.ratio > 0.001 ? "✓ noise"
-        : "✓ clean";
+      r.ratio > 0.05
+        ? "🚨 LEAK SUSPECTED"
+        : r.ratio > 0.01
+          ? "⚠️ INVESTIGATE"
+          : r.ratio > 0.001
+            ? "✓ noise"
+            : "✓ clean";
     const dimNote = r.sizeMatch ? r.dim : `${r.lightSize} / ${r.darkSize} (mismatch)`;
     md += `| ${i + 1} | ${r.name} | ${r.px} | ${r.area} | ${pct}% | ${dimNote} | ${verdict} |\n`;
   }

@@ -3,6 +3,7 @@
 import * as React from "react";
 import { type DayButton, type DateRange } from "react-day-picker";
 import { format } from "date-fns";
+import { ko } from "date-fns/locale";
 
 import { Calendar as ShadcnCalendar } from "@/components/ui/calendar";
 import { cn } from "@/lib/cn";
@@ -394,6 +395,7 @@ function Calendar({
   const sharedProps = {
     captionLayout: "dropdown" as const,
     defaultMonth,
+    locale: ko,
     disabled: disabledMatcher.length > 0 ? disabledMatcher : undefined,
     modifiers: eventDateObjects.length > 0 ? { hasEvent: eventDateObjects } : undefined,
     components: { DayButton: KrdsDayButton },
