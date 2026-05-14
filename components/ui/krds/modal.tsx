@@ -26,7 +26,7 @@ import { cn } from "@/lib/cn";
 export type ModalSize = "sm" | "md" | "lg";
 export type ModalVariant = "default" | "bottom-sheet";
 
-export interface ModalRootProps {
+export type ModalRootProps = {
   open?: boolean;
   defaultOpen?: boolean;
   onOpenChange?: (open: boolean) => void;
@@ -40,7 +40,7 @@ export interface ModalRootProps {
   /** @deprecated Portal container is now document.body. Ignored. */
   portalContainer?: string | HTMLElement;
   children?: React.ReactNode;
-}
+};
 
 export type ModalTriggerProps = React.ComponentProps<"button"> & {
   asChild?: boolean;
@@ -67,11 +67,11 @@ export type ModalCloseProps = React.ComponentProps<"button"> & {
 
 // ─── Context ──────────────────────────────────────────────────────────────────
 
-interface ModalContextValue {
+type ModalContextValue = {
   size: ModalSize;
   variant: ModalVariant;
   closeOnOverlayClick: boolean;
-}
+};
 
 const ModalContext = React.createContext<ModalContextValue>({
   size: "md",
@@ -106,7 +106,7 @@ function ModalRoot({
 
 function ModalTrigger({ asChild, children, className, ...rest }: ModalTriggerProps) {
   return (
-    <DialogTrigger asChild={asChild} className={className} {...rest}>
+    <DialogTrigger data-slot="krds-modal-trigger" asChild={asChild} className={className} {...rest}>
       {children}
     </DialogTrigger>
   );
@@ -134,6 +134,7 @@ function ModalContent({ className, children, ...rest }: ModalContentProps) {
 
   return (
     <DialogContent
+      data-slot="krds-modal-content"
       showCloseButton={false}
       onInteractOutside={(e) => {
         if (!closeOnOverlayClick) e.preventDefault();
@@ -158,6 +159,7 @@ function ModalHeader({ title, titleId, className, children, ...rest }: ModalHead
   const idProp = titleId ? { id: titleId } : {};
   return (
     <DialogTitle
+      data-slot="krds-modal-header"
       {...idProp}
       className={cn("text-krds-gray-90 text-lg leading-none font-semibold", className)}
       {...(rest as React.ComponentProps<typeof DialogTitle>)}
@@ -171,7 +173,11 @@ function ModalHeader({ title, titleId, className, children, ...rest }: ModalHead
 
 function ModalBody({ descriptionId, className, children, ...rest }: ModalBodyProps) {
   return (
-    <div className={cn("text-krds-gray-90 gap-2 pt-4 pb-4", className)} {...rest}>
+    <div
+      data-slot="krds-modal-body"
+      className={cn("text-krds-gray-90 gap-2 pt-4 pb-4", className)}
+      {...rest}
+    >
       {descriptionId ? (
         <DialogDescription id={descriptionId} className="contents">
           {children}
@@ -187,7 +193,11 @@ function ModalBody({ descriptionId, className, children, ...rest }: ModalBodyPro
 
 function ModalFooter({ className, children, ...rest }: ModalFooterProps) {
   return (
-    <div className={cn("flex items-center justify-end gap-3 pt-4", className)} {...rest}>
+    <div
+      data-slot="krds-modal-footer"
+      className={cn("flex items-center justify-end gap-3 pt-4", className)}
+      {...rest}
+    >
       {children}
     </div>
   );
@@ -198,7 +208,7 @@ function ModalFooter({ className, children, ...rest }: ModalFooterProps) {
 function ModalClose({ asChild, children, className, ...rest }: ModalCloseProps) {
   if (children) {
     return (
-      <DialogClose asChild={asChild} className={className} {...rest}>
+      <DialogClose data-slot="krds-modal-close" asChild={asChild} className={className} {...rest}>
         {children}
       </DialogClose>
     );
@@ -207,6 +217,7 @@ function ModalClose({ asChild, children, className, ...rest }: ModalCloseProps) 
     <DialogClose asChild>
       <button
         type="button"
+        data-slot="krds-modal-close"
         className={cn(
           "absolute top-4 right-4 outline-none",
           "text-krds-gray-90",

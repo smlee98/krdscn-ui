@@ -1,58 +1,58 @@
-import { AnchorHTMLAttributes, HTMLAttributes, ReactNode } from "react";
+import * as React from "react";
+import { cva, type VariantProps } from "class-variance-authority";
+import { Slot } from "radix-ui";
+
 import { cn } from "@/lib/cn";
 
 type TagSize = "small" | "medium" | "large";
 
-interface BaseTagProps {
-  children: ReactNode;
-  className?: string;
-  size?: TagSize;
-}
+const tagVariants = cva(
+  [
+    "inline-flex items-center justify-center rounded-full border font-medium whitespace-nowrap shrink-0 leading-none",
+    "bg-krds-gray-0 border-krds-gray-20 text-krds-gray-90",
+    "hover:bg-krds-gray-10 hover:border-krds-gray-10",
+    "active:bg-krds-gray-20 active:border-krds-gray-20",
+  ].join(" "),
+  {
+    variants: {
+      size: {
+        small: "h-6 px-1.5 gap-1 text-[0.6875rem]",
+        medium: "h-8 px-2 gap-1.5 text-xs",
+        large: "h-10 px-2.5 gap-1.5 text-sm",
+      },
+    },
+    defaultVariants: { size: "medium" },
+  }
+);
 
-interface DeletableTagProps extends BaseTagProps, Omit<HTMLAttributes<HTMLSpanElement>, "children"> {
-  variant?: "deletable";
-  onDelete?: () => void;
-  deleteDisabled?: boolean;
-}
+type DeletableTagProps = Omit<React.ComponentProps<"span">, "children"> &
+  VariantProps<typeof tagVariants> & {
+    variant?: "deletable";
+    children: React.ReactNode;
+    onDelete?: () => void;
+    deleteDisabled?: boolean;
+    asChild?: boolean;
+  };
 
-interface LinkTagProps extends BaseTagProps, Omit<AnchorHTMLAttributes<HTMLAnchorElement>, "children"> {
-  variant: "link";
-  href: string;
-}
+type LinkTagProps = Omit<React.ComponentProps<"a">, "children"> &
+  VariantProps<typeof tagVariants> & {
+    variant: "link";
+    href: string;
+    children: React.ReactNode;
+    asChild?: boolean;
+  };
 
 type TagProps = DeletableTagProps | LinkTagProps;
 
-const sizeStyles: Record<TagSize, { root: string; text: string; btn: string }> = {
-  small: {
-    root: "h-6 px-1.5 gap-1",
-    text: "text-[0.6875rem]",
-    btn: "size-4"
-  },
-  medium: {
-    root: "h-8 px-2 gap-1.5",
-    text: "text-xs",
-    btn: "size-4"
-  },
-  large: {
-    root: "h-10 px-2.5 gap-1.5",
-    text: "text-sm",
-    btn: "size-4"
-  }
-};
-
-const rootBase =
-  "inline-flex items-center justify-center rounded-full border font-medium whitespace-nowrap shrink-0 leading-none" +
-  " bg-krds-gray-0" +
-  " border-krds-gray-20" +
-  " text-krds-gray-90" +
-  " hover:bg-krds-gray-10" +
-  " hover:border-krds-gray-10" +
-  " active:bg-krds-gray-20" +
-  " active:border-krds-gray-20";
-
 function CloseIcon({ className }: { className?: string }) {
   return (
-    <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" className={className}>
+    <svg
+      viewBox="0 0 16 16"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      aria-hidden="true"
+      className={className}
+    >
       <path
         d="M12 4L4 12M4 4l8 8"
         stroke="currentColor"
@@ -66,21 +66,31 @@ function CloseIcon({ className }: { className?: string }) {
 
 function Tag(props: TagProps) {
   const { children, className, size = "medium" } = props;
-  const sz = sizeStyles[size];
 
   if (props.variant === "link") {
-    const { variant: _v, href, size: _s, ...rest } = props;
+    const { variant: _v, size: _s, asChild, className: _c, children: _ch, ...rest } = props;
+    const Comp = asChild ? Slot.Root : "a";
     return (
-      <a href={href} className={cn(rootBase, sz.root, sz.text, "cursor-pointer", className)} {...rest}>
+      <Comp
+        data-slot="krds-tag"
+        className={cn(tagVariants({ size, className }), "cursor-pointer")}
+        {...rest}
+      >
         <span>{children}</span>
-      </a>
+      </Comp>
     );
   }
 
-  const { variant: _v, onDelete, deleteDisabled, size: _s, ...rest } = props as DeletableTagProps;
+  const { variant: _v, onDelete, deleteDisabled, size: _s, asChild, className: _c, children: _ch, ...rest } =
+    props as DeletableTagProps;
+  const Comp = asChild ? Slot.Root : "span";
 
   return (
-    <span className={cn(rootBase, sz.root, sz.text, className)} {...rest}>
+    <Comp
+      data-slot="krds-tag"
+      className={cn(tagVariants({ size, className }))}
+      {...rest}
+    >
       <span>{children}</span>
       {onDelete !== undefined && (
         <button
@@ -89,8 +99,7 @@ function Tag(props: TagProps) {
           disabled={deleteDisabled}
           onClick={onDelete}
           className={cn(
-            sz.btn,
-            "inline-flex shrink-0 items-center justify-center rounded-full",
+            "size-4 inline-flex shrink-0 items-center justify-center rounded-full",
             "text-krds-gray-90",
             "disabled:cursor-not-allowed disabled:opacity-40"
           )}
@@ -98,9 +107,9 @@ function Tag(props: TagProps) {
           <CloseIcon className="size-full" />
         </button>
       )}
-    </span>
+    </Comp>
   );
 }
 
+export { Tag, tagVariants };
 export type { TagProps, TagSize, DeletableTagProps, LinkTagProps };
-export { Tag };

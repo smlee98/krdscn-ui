@@ -1,21 +1,19 @@
-"use client";
-
 import * as React from "react";
 
 import { cn } from "@/lib/cn";
 
-export interface SpinnerProps {
+type SpinnerProps = React.ComponentProps<"div"> & {
   label?: string;
-  className?: string;
-  children?: React.ReactNode;
-}
+};
 
-function Spinner({ label, className, children }: SpinnerProps) {
+function Spinner({ label, className, children, ...props }: SpinnerProps) {
   return (
     <div
+      data-slot="krds-spinner"
       role="status"
       aria-label={label ?? "로딩 중"}
       className={cn("inline-flex flex-col items-center justify-center gap-2", className)}
+      {...props}
     >
       <span
         aria-hidden="true"
@@ -32,3 +30,4 @@ function Spinner({ label, className, children }: SpinnerProps) {
 }
 
 export { Spinner };
+export type { SpinnerProps };

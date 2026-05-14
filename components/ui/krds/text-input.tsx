@@ -59,7 +59,7 @@ function TextInput({
         : "text-krds-gray-50";
 
   return (
-    <div className="flex flex-col gap-1">
+    <div data-slot="krds-text-input" className="flex flex-col gap-1">
       {label && <label className="text-krds-gray-90 mb-1 text-sm font-medium">{label}</label>}
       <Input
         {...rest}

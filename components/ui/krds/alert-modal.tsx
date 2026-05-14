@@ -20,7 +20,7 @@ import { cn } from "@/lib/cn";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
-export interface AlertModalProps {
+type AlertModalProps = {
   open?: boolean;
   defaultOpen?: boolean;
   onOpenChange?: (open: boolean) => void;
@@ -39,7 +39,7 @@ export interface AlertModalProps {
   /** Additional class on the content panel */
   className?: string;
   children?: React.ReactNode;
-}
+};
 
 // ─── Button class helpers ─────────────────────────────────────────────────────
 
@@ -80,6 +80,7 @@ function AlertModal({
       {trigger && <AlertDialogTrigger asChild>{trigger}</AlertDialogTrigger>}
 
       <AlertDialogContent
+        data-slot="krds-alert-modal"
         className={cn("bg-krds-gray-0 border-krds-gray-10 min-h-48 rounded-xl p-6 sm:max-w-sm", className)}
       >
         {/* Header */}
@@ -107,3 +108,4 @@ function AlertModal({
 }
 
 export { AlertModal };
+export type { AlertModalProps };

@@ -1,79 +1,77 @@
+// rsc:client
 "use client";
 
 import * as React from "react";
 import NextLink from "next/link";
+import { cva, type VariantProps } from "class-variance-authority";
+import { Slot } from "radix-ui";
 
 import { cn } from "@/lib/cn";
 
-export type LinkVariant = "default" | "basic" | "unstyled";
-export type LinkUnderline = "always" | "hover" | "none";
-export type LinkSize = "xsmall" | "small" | "medium" | "large" | "xlarge";
+type LinkVariant = "default" | "basic" | "unstyled";
+type LinkUnderline = "always" | "hover" | "none";
+type LinkSize = "xsmall" | "small" | "medium" | "large" | "xlarge";
 
-export interface LinkProps extends Omit<React.AnchorHTMLAttributes<HTMLAnchorElement>, "size"> {
-  variant?: LinkVariant;
-  underline?: LinkUnderline;
-  preserveColorOnHover?: boolean;
-  icon?: React.ReactNode;
-  external?: boolean;
-  size?: LinkSize;
-  disabled?: boolean;
-  children?: React.ReactNode;
-  className?: string;
-}
-
-const sizeClasses: Record<LinkSize, string> = {
-  xsmall: "text-xs",
-  small: "text-sm",
-  medium: "text-base",
-  large: "text-lg",
-  xlarge: "text-xl"
-};
-
-const underlineClasses: Record<LinkUnderline, string> = {
-  always: "underline",
-  hover: "no-underline hover:underline",
-  none: "no-underline"
-};
-
-const variantColorClasses: Record<Exclude<LinkVariant, "unstyled">, string> = {
-  default: "text-krds-primary-50 hover:text-krds-primary-90",
-  basic: "text-krds-gray-90"
-};
+const linkVariants = cva(
+  "inline-flex items-center gap-1",
+  {
+    variants: {
+      variant: {
+        default: "text-krds-primary-50 hover:text-krds-primary-90",
+        basic: "text-krds-gray-90",
+        unstyled: "",
+      },
+      underline: {
+        always: "underline",
+        hover: "no-underline hover:underline",
+        none: "no-underline",
+      },
+      size: {
+        xsmall: "text-xs",
+        small: "text-sm",
+        medium: "text-base",
+        large: "text-lg",
+        xlarge: "text-xl",
+      },
+    },
+    defaultVariants: {
+      variant: "default",
+      underline: "always",
+      size: "medium",
+    },
+  }
+);
 
 function Link({
   variant = "default",
   underline = "always",
+  size = "medium",
   preserveColorOnHover = false,
   icon,
   external = false,
-  size = "medium",
   disabled = false,
+  asChild = false,
   children,
   className,
   href,
-  ...rest
-}: LinkProps) {
-  const colorClass =
-    variant === "unstyled"
-      ? ""
-      : variant === "basic"
-        ? "text-krds-gray-90"
-        : disabled
-          ? "text-krds-gray-30"
-          : preserveColorOnHover
-            ? "text-krds-primary-50"
-            : variantColorClasses.default;
-
+  ...props
+}: Omit<React.ComponentProps<"a">, "size"> &
+  VariantProps<typeof linkVariants> & {
+    asChild?: boolean;
+    preserveColorOnHover?: boolean;
+    icon?: React.ReactNode;
+    external?: boolean;
+    disabled?: boolean;
+  }) {
   const classes = cn(
-    "inline-flex items-center gap-1",
-    sizeClasses[size],
-    underlineClasses[underline],
-    colorClass,
-    disabled && "pointer-events-none opacity-50",
-    className
+    linkVariants({ variant, underline, size, className }),
+    disabled && "pointer-events-none opacity-50 text-krds-gray-30",
+    preserveColorOnHover && variant === "default" && "hover:text-krds-primary-50"
   );
 
-  const externalProps = external ? { target: "_blank", rel: "noopener noreferrer" } : {};
+  const externalProps = external
+    ? { target: "_blank" as const, rel: "noopener noreferrer" }
+    : {};
 
   const content = (
     <>
@@ -82,19 +80,34 @@ function Link({
     </>
   );
 
+  if (asChild) {
+    return (
+      <Slot.Root data-slot="krds-link" className={classes} {...externalProps} {...props}>
+        {children}
+      </Slot.Root>
+    );
+  }
+
   if (!href || disabled) {
     return (
-      <span role="link" aria-disabled={disabled} className={classes}>
+      <span data-slot="krds-link" role="link" aria-disabled={disabled} className={classes}>
         {content}
       </span>
     );
   }
 
   return (
-    <NextLink href={href} className={classes} {...externalProps} {...rest}>
+    <NextLink
+      data-slot="krds-link"
+      href={href}
+      className={classes}
+      {...externalProps}
+      {...props}
+    >
       {content}
     </NextLink>
   );
 }
 
-export { Link };
+export { Link, linkVariants };
+export type { LinkVariant, LinkUnderline, LinkSize };

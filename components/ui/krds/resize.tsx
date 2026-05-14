@@ -19,19 +19,16 @@ import { cn } from "@/lib/cn";
 // ─── Types ────────────────────────────────────────────────────────────────────
 
 const SCALE_MAP = { S: 0.875, M: 1, L: 1.125 } as const;
-export type ScaleKey = keyof typeof SCALE_MAP;
+type ScaleKey = keyof typeof SCALE_MAP;
 
-export interface ResizeProps {
-  /** Initial active scale key (default: "M"). */
+type ResizeProps = React.ComponentProps<"div"> & {
   defaultScale?: ScaleKey;
-  /** Called when scale changes. */
   onScaleChange?: (scale: ScaleKey) => void;
-  className?: string;
-}
+};
 
 // ─── Resize ───────────────────────────────────────────────────────────────────
 
-function Resize({ defaultScale = "M", onScaleChange, className }: ResizeProps) {
+function Resize({ defaultScale = "M", onScaleChange, className, ...props }: ResizeProps) {
   const [active, setActive] = React.useState<ScaleKey>(defaultScale);
   const ref = React.useRef<HTMLDivElement>(null);
 
@@ -53,6 +50,7 @@ function Resize({ defaultScale = "M", onScaleChange, className }: ResizeProps) {
   return (
     <div
       ref={ref}
+      data-slot="krds-resize"
       role="group"
       aria-label="글자 크기 조절"
       className={cn(
@@ -60,6 +58,7 @@ function Resize({ defaultScale = "M", onScaleChange, className }: ResizeProps) {
         "border-krds-gray-20 bg-krds-gray-0",
         className
       )}
+      {...props}
     >
       {(["S", "M", "L"] as ScaleKey[]).map((key) => {
         const isActive = key === active;
@@ -87,3 +86,4 @@ function Resize({ defaultScale = "M", onScaleChange, className }: ResizeProps) {
 }
 
 export { Resize };
+export type { ScaleKey, ResizeProps };

@@ -13,7 +13,7 @@ import { cn } from "@/lib/cn";
 export type CalendarMode = "single" | "range";
 export type CalendarPosition = "top" | "bottom";
 
-export interface CalendarDate {
+export type CalendarDate = {
   year: number;
   month: number;
   day: number;
@@ -27,16 +27,16 @@ export interface CalendarDate {
   isStart?: boolean;
   isEnd?: boolean;
   isPeriod?: boolean;
-}
+};
 
-export interface CalendarYearMonth {
+export type CalendarYearMonth = {
   value: number;
   label: string;
   isActive?: boolean;
   isDisabled?: boolean;
-}
+};
 
-export interface CalendarProps extends Omit<React.HTMLAttributes<HTMLDivElement>, "onChange"> {
+export type CalendarProps = Omit<React.HTMLAttributes<HTMLDivElement>, "onChange"> & {
   mode?: CalendarMode;
   position?: CalendarPosition;
   value?: string;
@@ -71,33 +71,33 @@ export interface CalendarProps extends Omit<React.HTMLAttributes<HTMLDivElement>
   confirmButtonText?: string;
   disabled?: boolean;
   readOnly?: boolean;
-}
+};
 
-export interface CalendarInputProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, "onChange"> {
+export type CalendarInputProps = Omit<React.InputHTMLAttributes<HTMLInputElement>, "onChange"> & {
   mode?: CalendarMode;
   onChange?: (value: string) => void;
-}
+};
 
-export interface CalendarButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+export type CalendarButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
   variant?: "icon" | "move" | "switch" | "date" | "action";
   isActive?: boolean;
   isSelected?: boolean;
-}
+};
 
-export interface CalendarDropdownProps extends React.HTMLAttributes<HTMLDivElement> {
+export type CalendarDropdownProps = React.HTMLAttributes<HTMLDivElement> & {
   isOpen?: boolean;
   items?: CalendarYearMonth[];
   onItemSelect?: (item: CalendarYearMonth) => void;
   onToggle?: () => void;
-}
+};
 
-export interface CalendarTableProps extends React.HTMLAttributes<HTMLTableElement> {
+export type CalendarTableProps = React.HTMLAttributes<HTMLTableElement> & {
   dates?: CalendarDate[];
   mode?: CalendarMode;
   currentYear?: number;
   currentMonth?: number;
   onDateClick?: (date: CalendarDate) => void;
-}
+};
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
 
@@ -162,6 +162,7 @@ function KrdsDayButton({ className, day, modifiers, children, ...rest }: React.C
 function CalendarInput({ mode: _mode, onChange, className, ...rest }: CalendarInputProps) {
   return (
     <input
+      data-slot="krds-calendar-input"
       type="text"
       className={cn(
         "rounded-md border px-3 py-1.5 text-sm",
@@ -175,10 +176,18 @@ function CalendarInput({ mode: _mode, onChange, className, ...rest }: CalendarIn
   );
 }
 
-function CalendarButton({ variant = "date", isActive, isSelected, className, children, ...rest }: CalendarButtonProps) {
+function CalendarButton({
+  variant = "date",
+  isActive,
+  isSelected,
+  className,
+  children,
+  ...rest
+}: CalendarButtonProps) {
   return (
     <button
       type="button"
+      data-slot="krds-calendar-button"
       data-active={isActive || undefined}
       data-selected={isSelected || undefined}
       className={cn(
@@ -202,9 +211,16 @@ function CalendarButton({ variant = "date", isActive, isSelected, className, chi
   );
 }
 
-function CalendarDropdown({ isOpen, items = [], onItemSelect, onToggle, className, ...rest }: CalendarDropdownProps) {
+function CalendarDropdown({
+  isOpen,
+  items = [],
+  onItemSelect,
+  onToggle,
+  className,
+  ...rest
+}: CalendarDropdownProps) {
   return (
-    <div className={cn("relative", className)} {...rest}>
+    <div data-slot="krds-calendar-dropdown" className={cn("relative", className)} {...rest}>
       <button
         type="button"
         onClick={onToggle}
@@ -216,7 +232,7 @@ function CalendarDropdown({ isOpen, items = [], onItemSelect, onToggle, classNam
           width="12"
           height="12"
           viewBox="0 0 12 12"
-          style={{ transform: isOpen ? "rotate(180deg)" : undefined, transition: "transform 0.15s" }}
+          className={cn("transition-transform duration-150", isOpen && "rotate-180")}
         >
           <path d="M2 4l4 4 4-4" stroke="currentColor" strokeWidth="1.5" fill="none" strokeLinecap="round" />
         </svg>
@@ -260,7 +276,7 @@ function CalendarTable({
     weeks.push(dates.slice(i, i + 7));
   }
   return (
-    <table className={cn("w-full border-collapse", className)} {...rest}>
+    <table data-slot="krds-calendar-table" className={cn("w-full border-collapse", className)} {...rest}>
       <caption className="sr-only">
         {currentYear}년 {currentMonth}월 달력
       </caption>
@@ -435,6 +451,7 @@ function Calendar({
 
   return (
     <div
+      data-slot="krds-calendar"
       className={cn(
         "border-krds-gray-30 inline-flex flex-col overflow-hidden rounded-lg border bg-white shadow-sm",
         disabled && "pointer-events-none opacity-50",

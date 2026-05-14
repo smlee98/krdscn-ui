@@ -1,22 +1,11 @@
 // rsc:safe
-
+import * as React from "react";
 import { cn } from "@/lib/cn";
 
-interface IdentifierLink {
-  label: string;
-  href: string;
-}
-
-interface IdentifierProps {
-  agencyName: string;
-  siteDescription?: string;
-  links?: IdentifierLink[];
-  className?: string;
-}
-
-function Identifier({ agencyName, siteDescription, links, className }: IdentifierProps) {
+function Identifier({ className, ...props }: React.ComponentProps<"div">) {
   return (
     <div
+      data-slot="krds-identifier"
       role="contentinfo"
       className={cn(
         "flex flex-col gap-1 px-4 py-3",
@@ -24,23 +13,43 @@ function Identifier({ agencyName, siteDescription, links, className }: Identifie
         "text-krds-gray-70 text-sm",
         className
       )}
-    >
-      <span className="text-krds-gray-90 font-semibold">{agencyName}</span>
-      {siteDescription && <span>{siteDescription}</span>}
-      {links && links.length > 0 && (
-        <ul className="mt-1 flex flex-wrap gap-x-3 gap-y-1">
-          {links.map((link, i) => (
-            <li key={`${i}-${link.href}`}>
-              <a href={link.href} className="text-krds-primary-50 hover:text-krds-primary-70 underline">
-                {link.label}
-              </a>
-            </li>
-          ))}
-        </ul>
-      )}
-    </div>
+      {...props}
+    />
   );
 }
 
-export type { IdentifierProps, IdentifierLink };
-export { Identifier };
+function IdentifierOrg({ className, ...props }: React.ComponentProps<"span">) {
+  return (
+    <span
+      data-slot="krds-identifier-org"
+      className={cn("text-krds-gray-90 font-semibold", className)}
+      {...props}
+    />
+  );
+}
+
+function IdentifierLinks({ className, ...props }: React.ComponentProps<"ul">) {
+  return (
+    <ul
+      data-slot="krds-identifier-links"
+      className={cn("mt-1 flex flex-wrap gap-x-3 gap-y-1", className)}
+      {...props}
+    />
+  );
+}
+
+function IdentifierLink({ className, ...props }: React.ComponentProps<"a">) {
+  return (
+    <li data-slot="krds-identifier-link">
+      <a
+        className={cn(
+          "text-krds-primary-50 hover:text-krds-primary-70 underline",
+          className
+        )}
+        {...props}
+      />
+    </li>
+  );
+}
+
+export { Identifier, IdentifierOrg, IdentifierLinks, IdentifierLink };

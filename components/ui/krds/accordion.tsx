@@ -2,7 +2,7 @@
  * KRDS Accordion compound wrapper — composes @/components/ui/accordion
  * Sub-parts (locked): Accordion (Root), AccordionItem, AccordionHeader, AccordionPanel
  * IMPORTANT: Root value is string[] (ARRAY), onChange: (values: string[]) => void
- * Intentionally omitted: asChild, Slot, polymorphic as generic, no dark variants
+ * Intentionally omitted: polymorphic as generic, no dark variants
  */
 "use client";
 
@@ -19,32 +19,34 @@ import { cn } from "@/lib/cn";
 
 type AccordionVariant = "default" | "line";
 
-interface AccordionProps extends Omit<React.HTMLAttributes<HTMLDivElement>, "onChange"> {
+type AccordionContextValue = { variant: AccordionVariant };
+
+type AccordionProps = Omit<React.HTMLAttributes<HTMLDivElement>, "onChange"> & {
   variant?: AccordionVariant;
   allowMultiple?: boolean;
   value?: string[];
   onChange?: (values: string[]) => void;
   defaultValue?: string[];
   children: React.ReactNode;
-}
+};
 
-interface AccordionItemProps extends Omit<React.HTMLAttributes<HTMLDivElement>, "title"> {
+type AccordionItemProps = Omit<React.HTMLAttributes<HTMLDivElement>, "title"> & {
   value: string;
   children: React.ReactNode;
-}
+};
 
-interface AccordionHeaderProps extends Omit<React.HTMLAttributes<HTMLElement>, "onClick"> {
+type AccordionHeaderProps = Omit<React.HTMLAttributes<HTMLElement>, "onClick"> & {
   children: React.ReactNode;
   onClick?: () => void;
-}
+};
 
-interface AccordionPanelProps extends React.HTMLAttributes<HTMLDivElement> {
+type AccordionPanelProps = React.HTMLAttributes<HTMLDivElement> & {
   children: React.ReactNode;
-}
+};
 
 // ─── Context ─────────────────────────────────────────────────────────────────
 
-const AccordionContext = React.createContext<{ variant: AccordionVariant }>({
+const AccordionContext = React.createContext<AccordionContextValue>({
   variant: "default"
 });
 
@@ -65,6 +67,7 @@ function Accordion({
   const radixDir = dir as "ltr" | "rtl" | undefined;
 
   const commonProps = {
+    "data-slot": "krds-accordion",
     "data-variant": variant,
     className: cn("flex flex-col", isLine ? "gap-0" : "gap-1", className),
     dir: radixDir,
@@ -107,6 +110,7 @@ function AccordionItem({ value, children, className, ...rest }: AccordionItemPro
 
   return (
     <ShadcnAccordionItem
+      data-slot="krds-accordion-item"
       value={value}
       className={cn(
         "overflow-hidden",
@@ -128,6 +132,7 @@ function AccordionHeader({ children, onClick, className, ...rest }: AccordionHea
 
   return (
     <ShadcnAccordionTrigger
+      data-slot="krds-accordion-header"
       onClick={onClick}
       className={cn(
         "text-krds-gray-90 flex w-full items-center justify-between py-4 font-semibold transition-colors outline-none",
@@ -151,7 +156,11 @@ function AccordionHeader({ children, onClick, className, ...rest }: AccordionHea
 
 function AccordionPanel({ children, className, ...rest }: AccordionPanelProps) {
   return (
-    <ShadcnAccordionContent className={cn("text-krds-gray-50 px-4 pt-0 pb-4", className)} {...rest}>
+    <ShadcnAccordionContent
+      data-slot="krds-accordion-panel"
+      className={cn("text-krds-gray-50 px-4 pt-0 pb-4", className)}
+      {...rest}
+    >
       {children}
     </ShadcnAccordionContent>
   );

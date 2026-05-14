@@ -2,16 +2,16 @@
 
 import { type ReactNode } from "react";
 import { cn } from "@/lib/cn";
-import { Tooltip as ShadcnTooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
+import { Tooltip as ShadcnTooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 
 type TooltipVariant = "horizontal" | "vertical" | "box";
 
-interface TooltipProps {
+type TooltipProps = {
   children: ReactNode;
   text: string;
   variant?: TooltipVariant;
   className?: string;
-}
+};
 
 const contentStyles: Record<TooltipVariant, string> = {
   horizontal:
@@ -29,16 +29,19 @@ const sideMap: Record<TooltipVariant, "top" | "right" | "bottom" | "left"> = {
 
 function Tooltip({ children, text, variant = "horizontal", className }: TooltipProps) {
   return (
-    <ShadcnTooltip delayDuration={0}>
-      <TooltipTrigger asChild>{children}</TooltipTrigger>
-      <TooltipContent
-        side={sideMap[variant]}
-        sideOffset={4}
-        className={cn("z-50 max-w-[15rem] text-xs leading-snug", contentStyles[variant], className)}
-      >
-        {text}
-      </TooltipContent>
-    </ShadcnTooltip>
+    <TooltipProvider>
+      <ShadcnTooltip delayDuration={0}>
+        <TooltipTrigger asChild>{children}</TooltipTrigger>
+        <TooltipContent
+          data-slot="krds-tooltip"
+          side={sideMap[variant]}
+          sideOffset={4}
+          className={cn("z-50 max-w-[15rem] text-xs leading-snug", contentStyles[variant], className)}
+        >
+          {text}
+        </TooltipContent>
+      </ShadcnTooltip>
+    </TooltipProvider>
   );
 }
 

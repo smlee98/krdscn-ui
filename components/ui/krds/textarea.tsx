@@ -34,7 +34,7 @@ function Textarea({
   const isOverLimit = countTotal !== undefined && currentLength !== undefined && currentLength > countTotal;
 
   return (
-    <div className="flex flex-col gap-1">
+    <div data-slot="krds-textarea" className="flex flex-col gap-1">
       {label && <label className="text-krds-gray-90 text-sm font-medium">{label}</label>}
       <ShadcnTextarea
         {...rest}

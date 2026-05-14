@@ -1,19 +1,17 @@
 /**
  * KRDS Button — native + cva implementation (no shadcn import).
- * Intentionally omitted: asChild, Slot, as-generic polymorphism.
- * For link rendering, pass href — renders <a>; otherwise renders <button>.
- *
  * Colors driven exclusively by bg-krds-* / text-krds-* / border-krds-* utilities
  * (tokens declared in app/globals.css @theme inline block).
  */
 
 import { cva, type VariantProps } from "class-variance-authority";
 import * as React from "react";
+import { Slot } from "radix-ui";
 
 import { cn } from "@/lib/cn";
 
-export type ButtonVariant = "primary" | "secondary" | "tertiary" | "text" | "link" | "icon";
-export type ButtonSize = "xsmall" | "small" | "medium" | "large" | "xlarge";
+type ButtonVariant = "primary" | "secondary" | "tertiary" | "text" | "link" | "icon";
+type ButtonSize = "xsmall" | "small" | "medium" | "large" | "xlarge";
 
 const buttonVariants = cva(
   [
@@ -61,7 +59,7 @@ const buttonVariants = cva(
           "hover:bg-krds-gray-10",
           "active:bg-krds-gray-20",
           "disabled:text-krds-gray-30 disabled:border-krds-gray-20 disabled:bg-krds-gray-5",
-          "aspect-square p-0"
+          "aspect-square p-0 rounded-lg"
         ].join(" ")
       },
       size: {
@@ -79,58 +77,27 @@ const buttonVariants = cva(
   }
 );
 
-export interface ButtonProps extends VariantProps<typeof buttonVariants> {
-  children?: React.ReactNode;
-  className?: string;
-  disabled?: boolean;
-  /** When provided, renders an <a> element instead of <button>. */
-  href?: string;
-  onClick?: React.MouseEventHandler<HTMLButtonElement | HTMLAnchorElement>;
-  type?: "button" | "submit" | "reset";
-  "aria-label"?: string;
-  "aria-expanded"?: boolean;
-  "aria-haspopup"?: boolean | "dialog" | "menu" | "listbox" | "tree" | "grid";
-  id?: string;
-  role?: string;
-  tabIndex?: number;
-  style?: React.CSSProperties;
-}
-
 function Button({
+  className,
   variant = "primary",
   size = "medium",
-  className,
-  href,
-  children,
-  disabled,
-  type = "button",
-  ...rest
-}: ButtonProps) {
-  const classes = cn(buttonVariants({ variant, size }), variant === "icon" && "rounded-lg", className);
-
-  if (href) {
-    return (
-      <a
-        href={disabled ? undefined : href}
-        aria-disabled={disabled}
-        className={classes}
-        {...(rest as React.HTMLAttributes<HTMLAnchorElement>)}
-      >
-        {children}
-      </a>
-    );
-  }
-
+  asChild = false,
+  ...props
+}: React.ComponentProps<"button"> &
+  VariantProps<typeof buttonVariants> & {
+    asChild?: boolean;
+  }) {
+  const Comp = asChild ? Slot.Root : "button";
   return (
-    <button
-      type={type}
-      disabled={disabled}
-      className={classes}
-      {...(rest as React.ButtonHTMLAttributes<HTMLButtonElement>)}
-    >
-      {children}
-    </button>
+    <Comp
+      data-slot="krds-button"
+      data-variant={variant}
+      data-size={size}
+      className={cn(buttonVariants({ variant, size, className }))}
+      {...props}
+    />
   );
 }
 
 export { Button, buttonVariants };
+export type { ButtonVariant, ButtonSize };

@@ -1,21 +1,12 @@
 "use client";
 
+import * as React from "react";
 import { useId } from "react";
+
 import { cn } from "@/lib/cn";
 import { Switch as ShadcnSwitch } from "@/components/ui/switch";
 
 type ToggleSwitchSize = "medium" | "large";
-
-interface ToggleSwitchProps {
-  checked?: boolean;
-  defaultChecked?: boolean;
-  onCheckedChange?: (checked: boolean) => void;
-  size?: ToggleSwitchSize;
-  label?: string;
-  disabled?: boolean;
-  id?: string;
-  className?: string;
-}
 
 const sizeClasses: Record<ToggleSwitchSize, { track: string; thumb: string }> = {
   medium: {
@@ -31,21 +22,34 @@ const sizeClasses: Record<ToggleSwitchSize, { track: string; thumb: string }> = 
 };
 
 function ToggleSwitch({
-  checked,
-  defaultChecked,
-  onCheckedChange,
   size = "medium",
   label,
   disabled,
   id: idProp,
-  className
-}: ToggleSwitchProps) {
+  className,
+  checked,
+  defaultChecked,
+  onCheckedChange,
+  ...props
+}: Omit<React.ComponentProps<"span">, "id"> & {
+  checked?: boolean;
+  defaultChecked?: boolean;
+  onCheckedChange?: (checked: boolean) => void;
+  size?: ToggleSwitchSize;
+  label?: string;
+  disabled?: boolean;
+  id?: string;
+}) {
   const generatedId = useId();
   const id = idProp ?? generatedId;
   const sz = sizeClasses[size];
 
   return (
-    <span className={cn("inline-flex items-center gap-2", className)}>
+    <span
+      data-slot="krds-toggle-switch"
+      className={cn("inline-flex items-center gap-2", className)}
+      {...props}
+    >
       <ShadcnSwitch
         id={id}
         checked={checked}
@@ -76,5 +80,5 @@ function ToggleSwitch({
   );
 }
 
-export type { ToggleSwitchProps, ToggleSwitchSize };
 export { ToggleSwitch };
+export type { ToggleSwitchSize };

@@ -6,9 +6,19 @@ import { InfoIcon } from "lucide-react";
 import { Popover, PopoverTrigger, PopoverContent } from "@/components/ui/popover";
 import { cn } from "@/lib/cn";
 
-// ─── Types ────────────────────────────────────────────────────────────────────
+// ─── ContextualHelp ───────────────────────────────────────────────────────────
 
-export interface ContextualHelpProps {
+function ContextualHelp({
+  content,
+  title,
+  open,
+  defaultOpen,
+  onOpenChange,
+  triggerIcon,
+  triggerLabel = "도움말",
+  className,
+  ...props
+}: React.ComponentProps<"button"> & {
   /** Help body rendered inside the popover panel. */
   content: React.ReactNode;
   /** Optional heading rendered above the body. */
@@ -23,26 +33,13 @@ export interface ContextualHelpProps {
   triggerIcon?: React.ReactNode;
   /** Accessible label for the trigger button (default: "도움말"). */
   triggerLabel?: string;
-  className?: string;
-}
-
-// ─── ContextualHelp ───────────────────────────────────────────────────────────
-
-function ContextualHelp({
-  content,
-  title,
-  open,
-  defaultOpen,
-  onOpenChange,
-  triggerIcon,
-  triggerLabel = "도움말",
-  className
-}: ContextualHelpProps) {
+}) {
   return (
     <Popover open={open} defaultOpen={defaultOpen} onOpenChange={onOpenChange}>
       <PopoverTrigger asChild>
         <button
           type="button"
+          data-slot="krds-contextual-help"
           aria-label={triggerLabel}
           className={cn(
             "inline-flex size-5 items-center justify-center rounded-full",
@@ -52,6 +49,7 @@ function ContextualHelp({
             "focus-visible:ring-krds-primary-50 focus-visible:ring-offset-2",
             className
           )}
+          {...props}
         >
           {triggerIcon ?? <InfoIcon className="size-4" aria-hidden="true" />}
         </button>

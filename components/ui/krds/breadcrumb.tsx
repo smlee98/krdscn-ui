@@ -1,86 +1,110 @@
-import { type HTMLAttributes } from "react";
+// rsc:safe
 import * as React from "react";
-import { Home as HomeIcon } from "lucide-react";
-import { cn } from "@/lib/cn";
 import {
   Breadcrumb as ShadcnBreadcrumb,
-  BreadcrumbList,
+  BreadcrumbList as ShadcnBreadcrumbList,
   BreadcrumbItem as ShadcnBreadcrumbItem,
-  BreadcrumbLink,
-  BreadcrumbPage,
-  BreadcrumbSeparator
+  BreadcrumbLink as ShadcnBreadcrumbLink,
+  BreadcrumbPage as ShadcnBreadcrumbPage,
+  BreadcrumbSeparator as ShadcnBreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
+import { cn } from "@/lib/cn";
 
-interface BreadcrumbItem {
-  text: string;
-  href: string;
-  disabled?: boolean;
-}
-
-interface BreadcrumbProps extends HTMLAttributes<HTMLElement> {
-  items: BreadcrumbItem[];
-  className?: string;
-  ariaLabel?: string;
-}
-
-function Breadcrumb({ items, className, ariaLabel = "breadcrumb", ...rest }: BreadcrumbProps) {
+function Breadcrumb({ className, ...props }: React.ComponentProps<"nav">) {
   return (
-    <ShadcnBreadcrumb aria-label={ariaLabel} className={cn("inline-flex items-center", className)} {...rest}>
-      <BreadcrumbList className="flex-wrap items-center gap-0 text-xs leading-none">
-        {items.map((item, index) => {
-          const isLast = index === items.length - 1;
-          const isHome = index === 0;
-          return (
-            <React.Fragment key={item.href + index}>
-              <ShadcnBreadcrumbItem className="inline-flex items-center gap-0">
-                {isLast ? (
-                  <BreadcrumbPage className="text-krds-gray-90 inline-flex items-center gap-1 rounded-sm px-1 text-xs leading-none font-medium">
-                    {isHome && <HomeIcon aria-hidden="true" className="size-3.5" />}
-                    {item.text}
-                  </BreadcrumbPage>
-                ) : (
-                  <BreadcrumbLink
-                    href={item.disabled ? undefined : item.href}
-                    aria-disabled={item.disabled}
-                    tabIndex={item.disabled ? -1 : undefined}
-                    className={cn(
-                      "inline-flex items-center gap-1 rounded-sm px-1 text-xs leading-none transition-colors",
-                      item.disabled
-                        ? "text-krds-gray-30 pointer-events-none cursor-not-allowed"
-                        : "text-krds-gray-90 hover:bg-krds-gray-10 active:bg-krds-gray-20 hover:underline"
-                    )}
-                  >
-                    {isHome && <HomeIcon aria-hidden="true" className="size-3.5" />}
-                    {item.text}
-                  </BreadcrumbLink>
-                )}
-              </ShadcnBreadcrumbItem>
-              {!isLast && (
-                <BreadcrumbSeparator className="inline-flex items-center [&>svg]:size-3.5">
-                  <svg
-                    viewBox="0 0 16 16"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                    aria-hidden="true"
-                    className="text-krds-gray-90"
-                  >
-                    <path
-                      d="M6 4l4 4-4 4"
-                      stroke="currentColor"
-                      strokeWidth="1.5"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                  </svg>
-                </BreadcrumbSeparator>
-              )}
-            </React.Fragment>
-          );
-        })}
-      </BreadcrumbList>
-    </ShadcnBreadcrumb>
+    <ShadcnBreadcrumb
+      data-slot="krds-breadcrumb"
+      className={cn("inline-flex items-center", className)}
+      {...props}
+    />
   );
 }
 
-export type { BreadcrumbProps, BreadcrumbItem };
-export { Breadcrumb };
+function BreadcrumbList({ className, ...props }: React.ComponentProps<"ol">) {
+  return (
+    <ShadcnBreadcrumbList
+      data-slot="krds-breadcrumb-list"
+      className={cn("flex-wrap items-center gap-0 text-xs leading-none", className)}
+      {...props}
+    />
+  );
+}
+
+function BreadcrumbItem({ className, ...props }: React.ComponentProps<"li">) {
+  return (
+    <ShadcnBreadcrumbItem
+      data-slot="krds-breadcrumb-item"
+      className={cn("inline-flex items-center gap-0", className)}
+      {...props}
+    />
+  );
+}
+
+function BreadcrumbLink({
+  className,
+  asChild = false,
+  ...props
+}: React.ComponentProps<"a"> & { asChild?: boolean }) {
+  return (
+    <ShadcnBreadcrumbLink
+      data-slot="krds-breadcrumb-link"
+      asChild={asChild}
+      className={cn(
+        "inline-flex items-center gap-1 rounded-sm px-1 text-xs leading-none transition-colors",
+        "text-krds-gray-90 hover:bg-krds-gray-10 active:bg-krds-gray-20 hover:underline",
+        className
+      )}
+      {...props}
+    />
+  );
+}
+
+function BreadcrumbPage({ className, ...props }: React.ComponentProps<"span">) {
+  return (
+    <ShadcnBreadcrumbPage
+      data-slot="krds-breadcrumb-page"
+      className={cn(
+        "text-krds-gray-90 inline-flex items-center gap-1 rounded-sm px-1 text-xs leading-none font-medium",
+        className
+      )}
+      {...props}
+    />
+  );
+}
+
+function BreadcrumbSeparator({ children, className, ...props }: React.ComponentProps<"li">) {
+  return (
+    <ShadcnBreadcrumbSeparator
+      data-slot="krds-breadcrumb-separator"
+      className={cn("inline-flex items-center [&>svg]:size-3.5", className)}
+      {...props}
+    >
+      {children ?? (
+        <svg
+          viewBox="0 0 16 16"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+          aria-hidden="true"
+          className="text-krds-gray-90"
+        >
+          <path
+            d="M6 4l4 4-4 4"
+            stroke="currentColor"
+            strokeWidth="1.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+        </svg>
+      )}
+    </ShadcnBreadcrumbSeparator>
+  );
+}
+
+export {
+  Breadcrumb,
+  BreadcrumbList,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+};

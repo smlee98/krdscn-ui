@@ -8,8 +8,7 @@ import { cn } from "@/lib/cn";
 
 export type DateInputSize = "small" | "medium" | "large";
 
-export interface DateInputProps
-  extends Omit<React.InputHTMLAttributes<HTMLInputElement>, "onChange" | "value" | "defaultValue" | "size" | "type"> {
+type DateInputProps = Omit<React.InputHTMLAttributes<HTMLInputElement>, "onChange" | "value" | "defaultValue" | "size" | "type"> & {
   onChange?: (value: string) => void;
   label?: string;
   hint?: string;
@@ -38,7 +37,7 @@ export interface DateInputProps
   todayButtonText?: string;
   cancelButtonText?: string;
   confirmButtonText?: string;
-}
+};
 
 const sizeClasses: Record<DateInputSize, string> = {
   small: "h-8 rounded text-sm",
@@ -110,7 +109,7 @@ function DateInput({
   }
 
   return (
-    <div className="flex flex-col gap-1">
+    <div data-slot="krds-date-input" className="flex flex-col gap-1">
       {label && <label className="text-krds-gray-90 text-sm font-medium">{label}</label>}
 
       <div className="relative flex items-center">
@@ -195,3 +194,4 @@ function DateInput({
 }
 
 export { DateInput };
+export type { DateInputProps };

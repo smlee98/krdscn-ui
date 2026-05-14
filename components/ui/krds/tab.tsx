@@ -2,7 +2,7 @@
  * KRDS Tab compound wrapper — composes @/components/ui/tabs
  * Sub-parts (locked): Tab (Root), TabList, TabTrigger, TabContent, TabPanel
  * IMPORTANT: TabContent (no value) and TabPanel (value: string) are DISTINCT types.
- * Intentionally omitted: asChild, Slot, polymorphic as generic, no dark variants
+ * Intentionally omitted: polymorphic as generic, no dark variants
  */
 "use client";
 
@@ -15,7 +15,12 @@ import { cn } from "@/lib/cn";
 type TabVariant = "line" | "fill";
 type TabSize = "normal" | "full";
 
-interface TabProps {
+type TabContextValue = {
+  variant: TabVariant;
+  size: TabSize;
+};
+
+type TabProps = {
   value?: string;
   defaultValue?: string;
   onValueChange?: (value: string) => void;
@@ -23,36 +28,27 @@ interface TabProps {
   size?: TabSize;
   children: React.ReactNode;
   className?: string;
-}
+};
 
-interface TabListProps extends React.HTMLAttributes<HTMLDivElement> {
+type TabListProps = React.HTMLAttributes<HTMLDivElement> & {
   children?: React.ReactNode;
-  className?: string;
-}
+};
 
-interface TabTriggerProps extends Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, "value"> {
+type TabTriggerProps = Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, "value"> & {
   value: string;
   children: React.ReactNode;
-  className?: string;
-}
+};
 
-interface TabContentProps extends React.HTMLAttributes<HTMLDivElement> {
+type TabContentProps = React.HTMLAttributes<HTMLDivElement> & {
   children: React.ReactNode;
-  className?: string;
-}
+};
 
-interface TabPanelProps extends React.HTMLAttributes<HTMLDivElement> {
+type TabPanelProps = React.HTMLAttributes<HTMLDivElement> & {
   value: string;
   children: React.ReactNode;
-  className?: string;
-}
+};
 
 // ─── Context ─────────────────────────────────────────────────────────────────
-
-interface TabContextValue {
-  variant: TabVariant;
-  size: TabSize;
-}
 
 const TabContext = React.createContext<TabContextValue>({ variant: "line", size: "normal" });
 
@@ -74,6 +70,7 @@ function Tab({
         value={value}
         defaultValue={defaultValue}
         onValueChange={onValueChange}
+        data-slot="krds-tab"
         data-variant={variant}
         data-size={size}
         className={cn("flex flex-col", className)}
@@ -93,6 +90,7 @@ function TabList({ children, className, ...rest }: TabListProps) {
 
   return (
     <TabsList
+      data-slot="krds-tab-list"
       className={cn(
         "flex h-auto items-end justify-start rounded-none bg-transparent p-0",
         "border-krds-gray-20 border-b",
@@ -115,6 +113,7 @@ function TabTrigger({ value, children, className, ...rest }: TabTriggerProps) {
 
   return (
     <TabsTrigger
+      data-slot="krds-tab-trigger"
       value={value}
       className={cn(
         "relative h-10 min-w-[3.75rem] border-0 px-4 py-0 shadow-none select-none",
@@ -147,7 +146,11 @@ function TabTrigger({ value, children, className, ...rest }: TabTriggerProps) {
 
 function TabContent({ children, className, ...rest }: TabContentProps) {
   return (
-    <div className={cn("pt-4", className)} {...rest}>
+    <div
+      data-slot="krds-tab-content"
+      className={cn("pt-4", className)}
+      {...rest}
+    >
       {children}
     </div>
   );
@@ -158,7 +161,12 @@ function TabContent({ children, className, ...rest }: TabContentProps) {
 
 function TabPanel({ value, children, className, ...rest }: TabPanelProps) {
   return (
-    <TabsContent value={value} className={cn("outline-none", className)} {...rest}>
+    <TabsContent
+      data-slot="krds-tab-panel"
+      value={value}
+      className={cn("outline-none", className)}
+      {...rest}
+    >
       {children}
     </TabsContent>
   );

@@ -1,24 +1,21 @@
 // rsc:safe
-import type { HTMLAttributes } from "react";
+import * as React from "react";
 import { cn } from "@/lib/cn";
 
-export interface MastheadProps extends HTMLAttributes<HTMLDivElement> {
-  /** 정부 포털 링크 (기본: https://www.korea.go.kr) */
-  portalHref?: string;
-  /** 로고/엠블럼 표시 여부 */
-  showEmblem?: boolean;
-  className?: string;
-}
-
-function Masthead({ portalHref = "https://www.korea.go.kr", showEmblem = true, className, ...rest }: MastheadProps) {
+function Masthead({ className, ...props }: React.ComponentProps<"div">) {
   return (
     <div
+      data-slot="krds-masthead"
       role="banner"
-      className={cn("flex h-8 items-center px-4", "bg-krds-gray-5 border-krds-gray-10 border-b", className)}
-      {...rest}
+      className={cn(
+        "flex h-8 items-center px-4",
+        "bg-krds-gray-5 border-krds-gray-10 border-b",
+        className
+      )}
+      {...props}
     >
       <a
-        href={portalHref}
+        href="https://www.korea.go.kr"
         target="_blank"
         rel="noopener noreferrer"
         className={cn(
@@ -28,16 +25,22 @@ function Masthead({ portalHref = "https://www.korea.go.kr", showEmblem = true, c
           "focus-visible:ring-krds-primary-50 rounded-sm focus-visible:ring-2 focus-visible:outline-none"
         )}
       >
-        {showEmblem && <EmblemIcon className="h-4 w-auto shrink-0" aria-hidden="true" />}
+        <MastheadEmblem className="h-4 w-auto shrink-0" aria-hidden="true" />
         <span>대한민국 정부</span>
       </a>
     </div>
   );
 }
 
-function EmblemIcon({ className }: { className?: string }) {
+function MastheadEmblem({ className }: { className?: string }) {
   return (
-    <svg viewBox="0 0 24 16" fill="none" xmlns="http://www.w3.org/2000/svg" className={className} aria-hidden="true">
+    <svg
+      viewBox="0 0 24 16"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      className={className}
+      aria-hidden="true"
+    >
       {/* 태극 문양 간략화 심볼 */}
       <circle cx="12" cy="8" r="6" fill="#cd2e3a" opacity="0.15" />
       <circle cx="12" cy="8" r="6" stroke="#cd2e3a" strokeWidth="1.2" fill="none" />

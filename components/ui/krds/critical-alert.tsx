@@ -1,38 +1,51 @@
 // rsc:client
 "use client";
 
-import { useState } from "react";
+import * as React from "react";
 import { XIcon } from "lucide-react";
-
 import { cn } from "@/lib/cn";
 
-interface CriticalAlertProps {
-  children: React.ReactNode;
+// ─── Types ────────────────────────────────────────────────────────────────────
+
+export type CriticalAlertProps = React.ComponentProps<"div"> & {
   defaultVisible?: boolean;
   onClose?: () => void;
-  className?: string;
-}
+};
 
-function CriticalAlert({ children, defaultVisible = true, onClose, className }: CriticalAlertProps) {
-  const [visible, setVisible] = useState(defaultVisible);
+type CriticalAlertTitleProps = React.ComponentProps<"span">;
 
-  if (!visible) return null;
+type CriticalAlertDescriptionProps = React.ComponentProps<"span">;
+
+// ─── CriticalAlert (Root) ─────────────────────────────────────────────────────
+
+function CriticalAlert({
+  children,
+  defaultVisible = true,
+  onClose,
+  className,
+  ...props
+}: CriticalAlertProps) {
+  const [visible, setVisible] = React.useState(defaultVisible);
 
   function handleClose() {
     setVisible(false);
     onClose?.();
   }
 
+  if (!visible) return null;
+
   return (
     <div
+      data-slot="krds-critical-alert"
       role="alert"
       className={cn(
         "flex w-full items-center justify-between gap-4 px-4 py-3",
         "bg-krds-danger-50 text-sm font-medium text-white",
         className
       )}
+      {...props}
     >
-      <span className="flex-1">{children}</span>
+      <span className="flex flex-1 flex-col gap-0.5">{children}</span>
       <button
         type="button"
         aria-label="알림 닫기"
@@ -49,5 +62,28 @@ function CriticalAlert({ children, defaultVisible = true, onClose, className }: 
   );
 }
 
-export type { CriticalAlertProps };
-export { CriticalAlert };
+// ─── CriticalAlertTitle ───────────────────────────────────────────────────────
+
+function CriticalAlertTitle({ className, ...props }: CriticalAlertTitleProps) {
+  return (
+    <span
+      data-slot="krds-critical-alert-title"
+      className={cn("font-semibold", className)}
+      {...props}
+    />
+  );
+}
+
+// ─── CriticalAlertDescription ─────────────────────────────────────────────────
+
+function CriticalAlertDescription({ className, ...props }: CriticalAlertDescriptionProps) {
+  return (
+    <span
+      data-slot="krds-critical-alert-description"
+      className={cn("font-normal opacity-90", className)}
+      {...props}
+    />
+  );
+}
+
+export { CriticalAlert, CriticalAlertTitle, CriticalAlertDescription };

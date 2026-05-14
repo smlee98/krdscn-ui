@@ -1,64 +1,66 @@
-import { type ReactNode } from "react";
+import * as React from "react";
+import { cva, type VariantProps } from "class-variance-authority";
+import { Slot } from "radix-ui";
+
 import { cn } from "@/lib/cn";
-import { Badge as ShadcnBadge } from "@/components/ui/badge";
 
-type BadgeVariant =
-  | "basic"
-  | "primary"
-  | "secondary"
-  | "success"
-  | "warning"
-  | "danger"
-  | "information"
-  | "point"
-  | "gray"
-  | "disabled";
+const badgeVariants = cva(
+  "inline-flex shrink-0 items-center justify-center border leading-none font-medium whitespace-nowrap",
+  {
+    variants: {
+      variant: {
+        basic: "bg-krds-gray-0 text-krds-gray-90 border-krds-gray-20",
+        primary: "bg-krds-primary-50 text-white border-transparent",
+        secondary: "bg-krds-secondary-50 text-white border-transparent",
+        success: "bg-krds-success-50 text-white border-transparent",
+        warning: "bg-[#ffb114] text-krds-gray-90 border-transparent",
+        danger: "bg-krds-danger-50 text-white border-transparent",
+        information: "bg-krds-info-50 text-white border-transparent",
+        point: "bg-krds-warning-50 text-white border-transparent",
+        gray: "bg-krds-gray-50 text-white border-transparent",
+        disabled: "bg-krds-gray-20 text-krds-gray-50 border-transparent cursor-not-allowed",
+      },
+      size: {
+        small: "h-5 px-1.5 text-xs",
+        medium: "h-6 px-2 text-xs",
+        large: "h-7 px-2 text-sm",
+      },
+      rounded: {
+        true: "rounded-full",
+        false: "rounded-sm",
+      },
+    },
+    defaultVariants: {
+      variant: "basic",
+      size: "medium",
+      rounded: false,
+    },
+  }
+);
 
-type BadgeSize = "small" | "medium" | "large";
+type BadgeVariant = NonNullable<VariantProps<typeof badgeVariants>["variant"]>;
+type BadgeSize = NonNullable<VariantProps<typeof badgeVariants>["size"]>;
 
-interface BadgeProps {
-  variant?: BadgeVariant;
-  size?: BadgeSize;
-  rounded?: boolean;
-  className?: string;
-  children: ReactNode;
-}
-
-const variantStyles: Record<BadgeVariant, string> = {
-  basic: "bg-krds-gray-0 text-krds-gray-90 border-krds-gray-20",
-  primary: "bg-krds-primary-50 text-white border-transparent",
-  secondary: "bg-krds-secondary-50 text-white border-transparent",
-  success: "bg-krds-success-50 text-white border-transparent",
-  warning: "bg-[#ffb114] text-krds-gray-90 border-transparent",
-  danger: "bg-krds-danger-50 text-white border-transparent",
-  information: "bg-krds-info-50 text-white border-transparent",
-  point: "bg-krds-warning-50 text-white border-transparent",
-  gray: "bg-krds-gray-50 text-white border-transparent",
-  disabled: "bg-krds-gray-20 text-krds-gray-50 border-transparent cursor-not-allowed"
-};
-
-const sizeStyles: Record<BadgeSize, string> = {
-  small: "h-5 px-1.5 text-xs",
-  medium: "h-6 px-2 text-xs",
-  large: "h-7 px-2 text-sm"
-};
-
-function Badge({ variant = "basic", size = "medium", rounded = false, className, children }: BadgeProps) {
+function Badge({
+  className,
+  variant = "basic",
+  size = "medium",
+  rounded = false,
+  asChild = false,
+  ...props
+}: React.ComponentProps<"span"> &
+  VariantProps<typeof badgeVariants> & {
+    asChild?: boolean;
+  }) {
+  const Comp = asChild ? Slot.Root : "span";
   return (
-    <ShadcnBadge
-      variant="outline"
-      className={cn(
-        "inline-flex shrink-0 items-center justify-center border leading-none font-medium whitespace-nowrap",
-        rounded ? "rounded-full" : "rounded-sm",
-        variantStyles[variant],
-        sizeStyles[size],
-        className
-      )}
-    >
-      {children}
-    </ShadcnBadge>
+    <Comp
+      data-slot="krds-badge"
+      className={cn(badgeVariants({ variant, size, rounded, className }))}
+      {...props}
+    />
   );
 }
 
-export type { BadgeProps, BadgeVariant, BadgeSize };
-export { Badge };
+export { Badge, badgeVariants };
+export type { BadgeVariant, BadgeSize };

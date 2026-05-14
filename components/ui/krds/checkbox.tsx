@@ -1,7 +1,6 @@
 /**
  * KRDS Checkbox, CheckboxGroup, CheckboxChip — composes @/components/ui/checkbox
  * Mirrors KRDS surface: Checkbox, CheckboxGroup, CheckboxChip.
- * Intentionally omitted: asChild, Slot, as-generic polymorphism.
  */
 
 "use client";
@@ -13,10 +12,10 @@ import { cn } from "@/lib/cn";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
-export type CheckboxSize = "medium" | "large";
-export type CheckboxChipSize = "small" | "medium" | "large";
+type CheckboxSize = "medium" | "large";
+type CheckboxChipSize = "small" | "medium" | "large";
 
-export interface CheckboxProps {
+type CheckboxProps = {
   size?: CheckboxSize;
   description?: string;
   defaultValue?: boolean;
@@ -28,15 +27,13 @@ export interface CheckboxProps {
   id?: string;
   name?: string;
   value?: string;
-}
+};
 
-export interface CheckboxGroupProps {
-  children: React.ReactNode;
+type CheckboxGroupProps = React.ComponentProps<"div"> & {
   column?: boolean;
-  className?: string;
-}
+};
 
-export interface CheckboxChipProps {
+type CheckboxChipProps = {
   size?: CheckboxChipSize;
   defaultValue?: boolean;
   checked?: boolean;
@@ -47,7 +44,7 @@ export interface CheckboxChipProps {
   id?: string;
   name?: string;
   value?: string;
-}
+};
 
 // ─── Checkbox ─────────────────────────────────────────────────────────────────
 
@@ -72,7 +69,7 @@ function Checkbox({
   const descFontSize = size === "large" ? "text-sm" : "text-xs";
 
   return (
-    <div className={cn("inline-flex items-start gap-2", className)}>
+    <div data-slot="krds-checkbox" className={cn("inline-flex items-start gap-2", className)}>
       <ShadcnCheckbox
         id={inputId}
         name={name}
@@ -105,7 +102,9 @@ function Checkbox({
             </label>
           )}
           {description && (
-            <span className={cn(descFontSize, "text-krds-gray-50", disabled && "text-krds-gray-30")}>
+            <span
+              className={cn(descFontSize, "text-krds-gray-50", disabled && "text-krds-gray-30")}
+            >
               {description}
             </span>
           )}
@@ -117,8 +116,16 @@ function Checkbox({
 
 // ─── CheckboxGroup ─────────────────────────────────────────────────────────────
 
-function CheckboxGroup({ children, column = false, className }: CheckboxGroupProps) {
-  return <div className={cn("inline-flex flex-wrap gap-2", column && "flex-col", className)}>{children}</div>;
+function CheckboxGroup({ children, column = false, className, ...props }: CheckboxGroupProps) {
+  return (
+    <div
+      data-slot="krds-checkbox-group"
+      className={cn("inline-flex flex-wrap gap-2", column && "flex-col", className)}
+      {...props}
+    >
+      {children}
+    </div>
+  );
 }
 
 // ─── CheckboxChip ──────────────────────────────────────────────────────────────
@@ -152,6 +159,7 @@ function CheckboxChip({
 
   return (
     <label
+      data-slot="krds-checkbox-chip"
       htmlFor={inputId}
       className={cn(
         "inline-flex cursor-pointer items-center gap-1 border transition-colors select-none",
@@ -179,3 +187,4 @@ function CheckboxChip({
 }
 
 export { Checkbox, CheckboxGroup, CheckboxChip };
+export type { CheckboxProps, CheckboxGroupProps, CheckboxChipProps, CheckboxSize, CheckboxChipSize };

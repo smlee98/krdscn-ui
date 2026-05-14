@@ -1,78 +1,139 @@
 // rsc:client
 "use client";
 
-import { useState } from "react";
+/**
+ * KRDS CoachMark — multi-step guided overlay anchored to target elements.
+ *
+ * Composition API (controlled):
+ *   <CoachMark
+ *     step={coachStep}          // -1 = hidden; 0+ = active step index
+ *     onClose={() => setCoachStep(-1)}
+ *     onNext={() => setCoachStep((s) => s + 1)}
+ *     onPrev={() => setCoachStep((s) => s - 1)}
+ *   >
+ *     <CoachMarkStep step={0} target="#el1" placement="bottom">
+ *       <p className="font-semibold">제목</p>
+ *       <p>설명 내용</p>
+ *     </CoachMarkStep>
+ *     <CoachMarkStep step={1} target="#el2">...</CoachMarkStep>
+ *   </CoachMark>
+ *
+ * Each CoachMarkStep renders its own Radix Popover portaled to body,
+ * positioned via virtualRef pointing to the target selector element.
+ */
 
+import * as React from "react";
 import { Popover, PopoverAnchor, PopoverContent } from "@/components/ui/popover";
 import { cn } from "@/lib/cn";
 
-interface CoachMarkStep {
-  title: string;
-  description: string;
-}
+// ─── Context ──────────────────────────────────────────────────────────────────
 
-interface CoachMarkProps {
-  steps: CoachMarkStep[];
-  open?: boolean;
-  defaultOpen?: boolean;
+type CoachMarkContextValue = {
+  step: number;
+  total: number;
+  onClose: () => void;
+  onNext: () => void;
+  onPrev: () => void;
+};
+
+const CoachMarkContext = React.createContext<CoachMarkContextValue | null>(null);
+
+// ─── CoachMark ────────────────────────────────────────────────────────────────
+
+function CoachMark({
+  step,
+  onClose,
+  onNext,
+  onPrev,
+  className,
+  children,
+  ...props
+}: React.ComponentProps<"div"> & {
+  /** Active step index. Use -1 (or any value < 0) to hide all steps. */
+  step: number;
   onClose?: () => void;
-  /** The element the coach mark popover anchors to. */
-  children: React.ReactNode;
-  className?: string;
-}
-
-function CoachMark({ steps, open: controlledOpen, defaultOpen = false, onClose, children, className }: CoachMarkProps) {
-  const isControlled = controlledOpen !== undefined;
-  const [internalOpen, setInternalOpen] = useState(defaultOpen);
-  const [step, setStep] = useState(0);
-
-  const open = isControlled ? controlledOpen : internalOpen;
-
-  function handleClose() {
-    if (!isControlled) setInternalOpen(false);
-    setStep(0);
-    onClose?.();
-  }
-
-  function handleOpenChange(next: boolean) {
-    if (!next) handleClose();
-    else if (!isControlled) setInternalOpen(true);
-  }
-
-  function handleNext() {
-    if (step < steps.length - 1) {
-      setStep((s) => s + 1);
-    } else {
-      handleClose();
-    }
-  }
-
-  function handlePrev() {
-    if (step > 0) setStep((s) => s - 1);
-  }
-
-  const currentStep = steps[step];
-  const isFirst = step === 0;
-  const isLast = step === steps.length - 1;
+  onNext?: () => void;
+  onPrev?: () => void;
+}) {
+  const total = React.Children.count(children);
 
   return (
-    <Popover open={open} onOpenChange={handleOpenChange}>
-      <PopoverAnchor asChild>{children}</PopoverAnchor>
+    <CoachMarkContext.Provider
+      value={{
+        step,
+        total,
+        onClose: onClose ?? (() => undefined),
+        onNext: onNext ?? (() => undefined),
+        onPrev: onPrev ?? (() => undefined),
+      }}
+    >
+      <div data-slot="krds-coach-mark" className={cn(className)} {...props}>
+        {children}
+      </div>
+    </CoachMarkContext.Provider>
+  );
+}
+
+// ─── CoachMarkStep ────────────────────────────────────────────────────────────
+
+function CoachMarkStep({
+  step: stepIndex,
+  target,
+  placement = "bottom",
+  className,
+  children,
+}: {
+  /** This step's index (matches CoachMark's `step` prop to show). */
+  step: number;
+  /** CSS selector for the DOM element to anchor the popover to. */
+  target?: string;
+  placement?: "top" | "bottom" | "left" | "right";
+  className?: string;
+  children?: React.ReactNode;
+}) {
+  const ctx = React.useContext(CoachMarkContext);
+
+  // virtualRef for Radix Popover positioning relative to the target DOM element
+  const virtualRef = React.useRef<{ getBoundingClientRect: () => DOMRect } | null>(null);
+
+  React.useEffect(() => {
+    if (target) {
+      virtualRef.current = document.querySelector(target);
+    }
+  }, [target]);
+
+  const isActive = ctx !== null && ctx.step === stepIndex;
+  const isFirst = stepIndex === 0;
+  const isLast = stepIndex === (ctx?.total ?? 1) - 1;
+
+  return (
+    <Popover
+      open={isActive}
+      onOpenChange={(open) => {
+        if (!open) ctx?.onClose();
+      }}
+    >
+      {/* Virtual anchor — no DOM element rendered; used only for positioning */}
+      <PopoverAnchor virtualRef={virtualRef as React.RefObject<{ getBoundingClientRect: () => DOMRect }>} />
+
       <PopoverContent
-        side="bottom"
+        data-slot="krds-coach-mark-step"
+        side={placement}
         align="start"
         sideOffset={8}
+        onInteractOutside={(e) => e.preventDefault()}
+        onEscapeKeyDown={ctx?.onClose}
         className={cn("border-krds-gray-20 w-72 rounded-md border bg-white p-4 shadow-md", className)}
       >
-        {/* Header row: step count + close button */}
+        {/* Header: step counter + close button */}
         <div className="mb-2 flex items-center justify-between">
           <span className="text-krds-gray-50 text-xs">
-            {step + 1} / {steps.length}
+            {stepIndex + 1} / {ctx?.total ?? 1}
           </span>
           <button
             type="button"
             aria-label="코치마크 닫기"
-            onClick={handleClose}
+            onClick={ctx?.onClose}
             className={cn(
               "text-krds-gray-50 rounded-sm p-0.5",
               "hover:text-krds-gray-90",
@@ -87,31 +148,26 @@ function CoachMark({ steps, open: controlledOpen, defaultOpen = false, onClose, 
 
         {/* Step dots */}
         <div className="mb-3 flex items-center gap-1">
-          {steps.map((_, idx) => (
+          {Array.from({ length: ctx?.total ?? 1 }, (_, idx) => (
             <span
               key={idx}
               className={cn(
                 "h-1.5 rounded-full transition-all duration-200",
-                idx === step ? "bg-krds-primary-50 w-4" : "bg-krds-gray-20 w-1.5"
+                idx === stepIndex ? "bg-krds-primary-50 w-4" : "bg-krds-gray-20 w-1.5"
               )}
             />
           ))}
         </div>
 
-        {/* Content */}
-        {currentStep && (
-          <>
-            <p className="text-krds-gray-90 mb-1 text-sm font-semibold">{currentStep.title}</p>
-            <p className="text-krds-gray-70 mb-4 text-sm leading-relaxed">{currentStep.description}</p>
-          </>
-        )}
+        {/* Step content */}
+        <div className="mb-4 text-sm">{children}</div>
 
         {/* Navigation buttons */}
         <div className="flex items-center justify-end gap-2">
           {!isFirst && (
             <button
               type="button"
-              onClick={handlePrev}
+              onClick={ctx?.onPrev}
               className={cn(
                 "border-krds-gray-20 rounded-sm border px-3 py-1.5",
                 "text-krds-gray-70 text-xs font-medium",
@@ -124,7 +180,7 @@ function CoachMark({ steps, open: controlledOpen, defaultOpen = false, onClose, 
           )}
           <button
             type="button"
-            onClick={handleNext}
+            onClick={isLast ? ctx?.onClose : ctx?.onNext}
             className={cn(
               "bg-krds-primary-50 rounded-sm px-3 py-1.5",
               "text-xs font-medium text-white",
@@ -140,5 +196,4 @@ function CoachMark({ steps, open: controlledOpen, defaultOpen = false, onClose, 
   );
 }
 
-export type { CoachMarkStep, CoachMarkProps };
-export { CoachMark };
+export { CoachMark, CoachMarkStep };

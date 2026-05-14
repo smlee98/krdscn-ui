@@ -6,107 +6,134 @@ import { CheckIcon, ChevronDownIcon } from "lucide-react";
 import { Popover, PopoverTrigger, PopoverContent } from "@/components/ui/popover";
 import { cn } from "@/lib/cn";
 
+// ─── Context ──────────────────────────────────────────────────────────────────
+
+type LanguageSwitcherContextType = {
+  value: string;
+  onSelect: (value: string) => void;
+};
+
+const LanguageSwitcherContext = React.createContext<LanguageSwitcherContextType | null>(null);
+
+function useLanguageSwitcherContext() {
+  const ctx = React.useContext(LanguageSwitcherContext);
+  if (!ctx) throw new Error("LanguageSwitcherOption must be inside <LanguageSwitcher>");
+  return ctx;
+}
+
 // ─── Types ────────────────────────────────────────────────────────────────────
 
-export interface LanguageOption {
-  code: string;
-  label: string;
-}
-
-const DEFAULT_LANGUAGES: LanguageOption[] = [
-  { code: "ko", label: "KO" },
-  { code: "en", label: "EN" },
-  { code: "zh", label: "中" },
-  { code: "ja", label: "日" }
-];
-
-const FALLBACK_LANGUAGE: LanguageOption = { code: "ko", label: "KO" };
-
-export interface LanguageSwitcherProps {
-  languages?: LanguageOption[];
-  /** Controlled selected language code. */
+type LanguageSwitcherProps = Omit<React.ComponentProps<"button">, "value" | "defaultValue"> & {
   value?: string;
-  /** Uncontrolled initial selected language code. */
   defaultValue?: string;
-  /** Called when a language is selected. */
-  onChange?: (code: string) => void;
-  /** Controlled popover open state. */
+  onValueChange?: (value: string) => void;
   open?: boolean;
-  /** Uncontrolled popover initial open state. */
   defaultOpen?: boolean;
-  /** Called when popover open state changes. */
   onOpenChange?: (open: boolean) => void;
+  children: React.ReactNode;
+};
+
+type LanguageSwitcherOptionProps = {
+  value: string;
+  children: React.ReactNode;
   className?: string;
-}
+};
 
 // ─── LanguageSwitcher ─────────────────────────────────────────────────────────
 
 function LanguageSwitcher({
-  languages = DEFAULT_LANGUAGES,
   value,
   defaultValue = "ko",
-  onChange,
+  onValueChange,
   open,
   defaultOpen,
   onOpenChange,
-  className
+  className,
+  children,
+  ...props
 }: LanguageSwitcherProps) {
-  // Uncontrolled internal state; when `value` prop is provided the component is controlled.
-  const [internalSelected, setInternalSelected] = React.useState<string>(defaultValue);
-  const selected = value !== undefined ? value : internalSelected;
-  const current: LanguageOption = languages.find((l) => l.code === selected) ?? languages[0] ?? FALLBACK_LANGUAGE;
+  const [internalValue, setInternalValue] = React.useState<string>(defaultValue);
+  const currentValue = value !== undefined ? value : internalValue;
+
+  // Derive label from matching LanguageSwitcherOption child
+  let currentLabel = currentValue;
+  React.Children.forEach(children, (child) => {
+    if (
+      React.isValidElement<LanguageSwitcherOptionProps>(child) &&
+      child.props.value === currentValue &&
+      typeof child.props.children === "string"
+    ) {
+      currentLabel = child.props.children;
+    }
+  });
 
   function handleSelect(code: string) {
-    if (value === undefined) setInternalSelected(code);
-    onChange?.(code);
+    if (value === undefined) setInternalValue(code);
+    onValueChange?.(code);
   }
 
   return (
-    <Popover open={open} defaultOpen={defaultOpen} onOpenChange={onOpenChange}>
-      <PopoverTrigger asChild>
-        <button
-          type="button"
-          aria-haspopup="listbox"
-          aria-label={`언어 선택: ${current.label}`}
-          className={cn(
-            "inline-flex h-8 items-center gap-1 rounded-md border px-2.5 text-sm font-medium",
-            "border-krds-gray-20 bg-krds-gray-0 text-krds-gray-90",
-            "hover:bg-krds-gray-5",
-            "focus-visible:ring-2 focus-visible:outline-none",
-            "focus-visible:ring-krds-primary-50 focus-visible:ring-offset-2",
-            className
-          )}
+    <LanguageSwitcherContext.Provider value={{ value: currentValue, onSelect: handleSelect }}>
+      <Popover open={open} defaultOpen={defaultOpen} onOpenChange={onOpenChange}>
+        <PopoverTrigger asChild>
+          <button
+            data-slot="krds-language-switcher"
+            type="button"
+            aria-haspopup="listbox"
+            aria-label={`언어 선택: ${currentLabel}`}
+            className={cn(
+              "inline-flex h-8 items-center gap-1 rounded-md border px-2.5 text-sm font-medium",
+              "border-krds-gray-20 bg-krds-gray-0 text-krds-gray-90",
+              "hover:bg-krds-gray-5",
+              "focus-visible:ring-2 focus-visible:outline-none",
+              "focus-visible:ring-krds-primary-50 focus-visible:ring-offset-2",
+              className
+            )}
+            {...props}
+          >
+            <span>{currentLabel}</span>
+            <ChevronDownIcon className="text-krds-gray-50 size-3.5" aria-hidden="true" />
+          </button>
+        </PopoverTrigger>
+        <PopoverContent
+          className={cn("w-28 p-1", "bg-krds-gray-0 border-krds-gray-20")}
+          align="start"
+          sideOffset={4}
         >
-          <span>{current.label}</span>
-          <ChevronDownIcon className="text-krds-gray-50 size-3.5" aria-hidden="true" />
-        </button>
-      </PopoverTrigger>
-      <PopoverContent className={cn("w-28 p-1", "bg-krds-gray-0 border-krds-gray-20")} align="start" sideOffset={4}>
-        <ul role="listbox" aria-label="언어 선택">
-          {languages.map((lang) => {
-            const isSelected = lang.code === selected;
-            return (
-              <li key={lang.code} role="option" aria-selected={isSelected}>
-                <button
-                  type="button"
-                  onClick={() => handleSelect(lang.code)}
-                  className={cn(
-                    "flex w-full items-center justify-between rounded-sm px-3 py-1.5 text-sm",
-                    isSelected
-                      ? "bg-krds-primary-5 text-krds-primary-50 font-semibold"
-                      : "text-krds-gray-90 hover:bg-krds-gray-5"
-                  )}
-                >
-                  {lang.label}
-                  {isSelected && <CheckIcon className="size-3.5" aria-hidden="true" />}
-                </button>
-              </li>
-            );
-          })}
-        </ul>
-      </PopoverContent>
-    </Popover>
+          <ul role="listbox" aria-label="언어 선택">
+            {children}
+          </ul>
+        </PopoverContent>
+      </Popover>
+    </LanguageSwitcherContext.Provider>
   );
 }
 
-export { LanguageSwitcher };
+// ─── LanguageSwitcherOption ───────────────────────────────────────────────────
+
+function LanguageSwitcherOption({ value, children, className }: LanguageSwitcherOptionProps) {
+  const { value: selected, onSelect } = useLanguageSwitcherContext();
+  const isSelected = selected === value;
+
+  return (
+    <li data-slot="krds-language-switcher-option" role="option" aria-selected={isSelected}>
+      <button
+        type="button"
+        onClick={() => onSelect(value)}
+        className={cn(
+          "flex w-full items-center justify-between rounded-sm px-3 py-1.5 text-sm",
+          isSelected
+            ? "bg-krds-primary-5 text-krds-primary-50 font-semibold"
+            : "text-krds-gray-90 hover:bg-krds-gray-5",
+          className
+        )}
+      >
+        {children}
+        {isSelected && <CheckIcon className="size-3.5" aria-hidden="true" />}
+      </button>
+    </li>
+  );
+}
+
+export { LanguageSwitcher, LanguageSwitcherOption };
+export type { LanguageSwitcherProps, LanguageSwitcherOptionProps };

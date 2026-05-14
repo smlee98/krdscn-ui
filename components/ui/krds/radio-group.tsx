@@ -1,6 +1,5 @@
 /**
  * KRDS Radio, RadioGroup, RadioChip wrappers — composes @/components/ui/radio-group
- * Intentionally omitted: asChild, Slot, polymorphic as generic
  * RadioGroup provides name/value context for coordination.
  * onChange adapter: (value: string) => void (no synthetic event)
  */
@@ -12,11 +11,11 @@ import { cn } from "@/lib/cn";
 
 // ─── Context ────────────────────────────────────────────────────────────────
 
-interface RadioGroupContextType {
+type RadioGroupContextType = {
   value: string | undefined;
   onChange: (value: string) => void;
   name: string;
-}
+};
 
 const RadioGroupContext = React.createContext<RadioGroupContextType | null>(null);
 
@@ -31,7 +30,7 @@ function useRadioGroupContext() {
 type RadioSize = "medium" | "large";
 type RadioChipSize = "small" | "medium" | "large";
 
-interface RadioGroupProps {
+type RadioGroupProps = {
   value?: string;
   defaultValue?: string;
   onChange?: (value: string) => void;
@@ -39,27 +38,37 @@ interface RadioGroupProps {
   children: React.ReactNode;
   className?: string;
   column?: boolean;
-}
+};
 
-interface RadioProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, "size" | "defaultChecked"> {
+type RadioProps = Omit<React.ComponentProps<"input">, "size" | "defaultChecked"> & {
   size?: RadioSize;
   description?: string;
   defaultChecked?: boolean;
   value: string;
   children?: React.ReactNode;
-}
+};
 
-interface RadioChipProps
-  extends Omit<React.InputHTMLAttributes<HTMLInputElement>, "size" | "defaultValue" | "defaultChecked"> {
+type RadioChipProps = Omit<
+  React.ComponentProps<"input">,
+  "size" | "defaultValue" | "defaultChecked"
+> & {
   size?: RadioChipSize;
   defaultChecked?: boolean;
   value: string;
   children?: React.ReactNode;
-}
+};
 
 // ─── RadioGroup ───────────────────────────────────────────────────────────────
 
-function RadioGroup({ value, defaultValue, onChange, name, children, className, column = true }: RadioGroupProps) {
+function RadioGroup({
+  value,
+  defaultValue,
+  onChange,
+  name,
+  children,
+  className,
+  column = true,
+}: RadioGroupProps) {
   const [internalValue, setInternalValue] = React.useState<string | undefined>(defaultValue);
   const isControlled = value !== undefined;
   const currentValue = isControlled ? value : internalValue;
@@ -75,6 +84,7 @@ function RadioGroup({ value, defaultValue, onChange, name, children, className, 
   return (
     <RadioGroupContext.Provider value={{ value: currentValue, onChange: handleChange, name }}>
       <ShadcnRadioGroup
+        data-slot="krds-radio-group"
         value={currentValue}
         onValueChange={handleChange}
         className={cn("flex gap-2", column ? "flex-col" : "flex-row flex-wrap", className)}
@@ -87,7 +97,15 @@ function RadioGroup({ value, defaultValue, onChange, name, children, className, 
 
 // ─── Radio ────────────────────────────────────────────────────────────────────
 
-function Radio({ size = "medium", description, value, children, disabled, className, ...rest }: RadioProps) {
+function Radio({
+  size = "medium",
+  description,
+  value,
+  children,
+  disabled,
+  className,
+  ...rest
+}: RadioProps) {
   const ctx = useRadioGroupContext();
   const isChecked = ctx.value === value;
 
@@ -97,7 +115,12 @@ function Radio({ size = "medium", description, value, children, disabled, classN
 
   return (
     <label
-      className={cn("flex cursor-pointer items-start gap-2", disabled && "cursor-not-allowed opacity-60", className)}
+      data-slot="krds-radio"
+      className={cn(
+        "flex cursor-pointer items-start gap-2",
+        disabled && "cursor-not-allowed opacity-60",
+        className
+      )}
     >
       <input
         {...rest}
@@ -109,29 +132,40 @@ function Radio({ size = "medium", description, value, children, disabled, classN
         className="sr-only"
         onChange={() => ctx.onChange(value)}
       />
-      {/* custom radio visual */}
       <span
         aria-hidden="true"
         className={cn(
           "mt-0.5 inline-flex shrink-0 items-center justify-center rounded-full border-2 bg-white transition-colors",
           outerSize,
-          isChecked ? "border-krds-primary-50" : disabled ? "border-krds-gray-20" : "border-krds-gray-30"
+          isChecked
+            ? "border-krds-primary-50"
+            : disabled
+              ? "border-krds-gray-20"
+              : "border-krds-gray-30"
         )}
       >
         <span
           className={cn(
             "rounded-full transition-colors",
             innerSize,
-            isChecked ? (disabled ? "bg-krds-gray-30" : "bg-krds-primary-50") : "bg-transparent"
+            isChecked
+              ? disabled
+                ? "bg-krds-gray-30"
+                : "bg-krds-primary-50"
+              : "bg-transparent"
           )}
         />
       </span>
       <span className="flex flex-col">
         {children && (
-          <span className={cn(fontSize, disabled ? "text-krds-gray-30" : "text-krds-gray-90")}>{children}</span>
+          <span className={cn(fontSize, disabled ? "text-krds-gray-30" : "text-krds-gray-90")}>
+            {children}
+          </span>
         )}
         {description && (
-          <span className={cn("text-xs", disabled ? "text-krds-gray-30" : "text-krds-gray-50")}>{description}</span>
+          <span className={cn("text-xs", disabled ? "text-krds-gray-30" : "text-krds-gray-50")}>
+            {description}
+          </span>
         )}
       </span>
     </label>
@@ -140,7 +174,14 @@ function Radio({ size = "medium", description, value, children, disabled, classN
 
 // ─── RadioChip ────────────────────────────────────────────────────────────────
 
-function RadioChip({ size = "medium", value, children, disabled, className, ...rest }: RadioChipProps) {
+function RadioChip({
+  size = "medium",
+  value,
+  children,
+  disabled,
+  className,
+  ...rest
+}: RadioChipProps) {
   const ctx = useRadioGroupContext();
   const isChecked = ctx.value === value;
 
@@ -151,7 +192,10 @@ function RadioChip({ size = "medium", value, children, disabled, className, ...r
   }[size];
 
   return (
-    <label className={cn("inline-flex cursor-pointer items-center", disabled && "cursor-not-allowed")}>
+    <label
+      data-slot="krds-radio-chip"
+      className={cn("inline-flex cursor-pointer items-center", disabled && "cursor-not-allowed")}
+    >
       <input
         {...rest}
         type="radio"
@@ -179,4 +223,4 @@ function RadioChip({ size = "medium", value, children, disabled, className, ...r
 }
 
 export { Radio, RadioGroup, RadioChip };
-export type { RadioProps, RadioGroupProps, RadioChipProps };
+export type { RadioProps, RadioGroupProps, RadioChipProps, RadioSize, RadioChipSize };

@@ -1,95 +1,138 @@
 // rsc:client
 "use client";
 
+import * as React from "react";
 import { useState } from "react";
 import { ChevronRightIcon } from "lucide-react";
-
-import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { cn } from "@/lib/cn";
 
-interface SideNavItem {
-  label: string;
-  href?: string;
-  active?: boolean;
-  children?: SideNavItem[];
-}
+// ─── Group context ─────────────────────────────────────────────────────────────
 
-interface SideNavigationProps {
-  items: SideNavItem[];
-  className?: string;
-  "aria-label"?: string;
-}
+type SideNavigationGroupCtx = { open: boolean; setOpen: (v: boolean) => void };
+const SideNavigationGroupContext = React.createContext<SideNavigationGroupCtx | null>(null);
 
-function SideNavLeaf({ item }: { item: SideNavItem }) {
+// ─── Root ──────────────────────────────────────────────────────────────────────
+
+function SideNavigation({ className, ...props }: React.ComponentProps<"nav">) {
   return (
-    <a
-      href={item.href ?? "#"}
-      aria-current={item.active ? "page" : undefined}
-      className={cn(
-        "block rounded-sm px-3 py-2 text-sm transition-colors select-none",
-        "text-krds-gray-70 hover:bg-krds-gray-10 hover:text-krds-gray-90",
-        item.active && "bg-krds-primary-10 text-krds-primary-50 font-medium"
-      )}
-    >
-      {item.label}
-    </a>
+    <nav
+      data-slot="krds-side-navigation"
+      role="navigation"
+      aria-label="사이드 내비게이션"
+      className={cn("flex w-56 flex-col gap-0.5", className)}
+      {...props}
+    />
   );
 }
 
-function SideNavGroup({ item, defaultOpen = false }: { item: SideNavItem; defaultOpen?: boolean }) {
-  const [open, setOpen] = useState(defaultOpen);
-  const hasChildren = item.children && item.children.length > 0;
+// ─── Group ─────────────────────────────────────────────────────────────────────
 
-  if (!hasChildren) {
-    return <SideNavLeaf item={item} />;
+function SideNavigationGroup({
+  className,
+  defaultOpen = true,
+  children,
+  ...props
+}: React.ComponentProps<"div"> & { defaultOpen?: boolean }) {
+  const [open, setOpen] = useState(defaultOpen);
+
+  return (
+    <SideNavigationGroupContext.Provider value={{ open, setOpen }}>
+      <div
+        data-slot="krds-side-navigation-group"
+        className={cn("flex flex-col gap-0.5", className)}
+        {...props}
+      >
+        {children}
+      </div>
+    </SideNavigationGroupContext.Provider>
+  );
+}
+
+// ─── GroupLabel ────────────────────────────────────────────────────────────────
+
+function SideNavigationGroupLabel({
+  className,
+  children,
+  ...props
+}: React.ComponentProps<"button">) {
+  const ctx = React.useContext(SideNavigationGroupContext);
+
+  if (ctx) {
+    return (
+      <button
+        type="button"
+        data-slot="krds-side-navigation-group-label"
+        aria-expanded={ctx.open}
+        onClick={() => ctx.setOpen(!ctx.open)}
+        className={cn(
+          "flex w-full items-center justify-between rounded-sm px-3 py-2",
+          "text-sm font-medium transition-colors select-none",
+          "text-krds-gray-90 hover:bg-krds-gray-10",
+          "focus:ring-krds-primary-50 focus:ring-2 focus:outline-none",
+          className
+        )}
+        {...props}
+      >
+        <span>{children}</span>
+        <ChevronRightIcon
+          className={cn(
+            "size-4 shrink-0 transition-transform duration-200",
+            ctx.open && "rotate-90"
+          )}
+          aria-hidden="true"
+        />
+      </button>
+    );
   }
 
   return (
-    <Collapsible open={open} onOpenChange={setOpen}>
-      <CollapsibleTrigger asChild>
-        <button
-          type="button"
-          aria-expanded={open}
-          className={cn(
-            "flex w-full items-center justify-between rounded-sm px-3 py-2",
-            "text-sm font-medium transition-colors select-none",
-            "text-krds-gray-90 hover:bg-krds-gray-10",
-            "focus:ring-krds-primary-50 focus:ring-2 focus:outline-none"
-          )}
-        >
-          <span>{item.label}</span>
-          <ChevronRightIcon
-            className={cn("size-4 shrink-0 transition-transform duration-200", open && "rotate-90")}
-            aria-hidden="true"
-          />
-        </button>
-      </CollapsibleTrigger>
-      <CollapsibleContent>
-        <ul className="border-krds-gray-20 mt-0.5 ml-3 flex flex-col gap-0.5 border-l pl-2">
-          {item.children!.map((child, idx) => (
-            <li key={idx}>
-              <SideNavLeaf item={child} />
-            </li>
-          ))}
-        </ul>
-      </CollapsibleContent>
-    </Collapsible>
+    <p
+      data-slot="krds-side-navigation-group-label"
+      className={cn(
+        "px-3 py-1.5 text-xs font-semibold uppercase tracking-wide text-krds-gray-50",
+        className
+      )}
+    >
+      {children}
+    </p>
   );
 }
 
-function SideNavigation({ items, className, "aria-label": ariaLabel = "사이드 내비게이션" }: SideNavigationProps) {
+// ─── Item ──────────────────────────────────────────────────────────────────────
+
+function SideNavigationItem({
+  className,
+  active,
+  ...props
+}: React.ComponentProps<"a"> & { active?: boolean }) {
+  const ctx = React.useContext(SideNavigationGroupContext);
+
+  // Inside a collapsed group → hide
+  if (ctx && !ctx.open) return null;
+
+  // Inside an open group → indent
+  const isNested = ctx !== null;
+
   return (
-    <nav role="navigation" aria-label={ariaLabel} className={cn("flex w-56 flex-col gap-0.5", className)}>
-      <ul className="flex flex-col gap-0.5">
-        {items.map((item, idx) => (
-          <li key={idx}>
-            <SideNavGroup item={item} defaultOpen={idx === 0 && !!item.children?.length} />
-          </li>
-        ))}
-      </ul>
-    </nav>
+    <a
+      data-slot="krds-side-navigation-item"
+      aria-current={active ? "page" : undefined}
+      data-active={active || undefined}
+      className={cn(
+        "block rounded-sm px-3 py-2 text-sm transition-colors select-none",
+        "text-krds-gray-70 hover:bg-krds-gray-10 hover:text-krds-gray-90",
+        active && "bg-krds-primary-10 text-krds-primary-50 font-medium",
+        isNested && "ml-3 border-l border-krds-gray-20 pl-2 rounded-l-none",
+        className
+      )}
+      {...props}
+    />
   );
 }
 
-export type { SideNavItem as SideNavigationItem, SideNavigationProps };
-export { SideNavigation };
+export {
+  SideNavigation,
+  SideNavigationGroup,
+  SideNavigationGroupLabel,
+  SideNavigationItem,
+};

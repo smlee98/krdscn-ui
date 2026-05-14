@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/krds/button";
 
 export type FileUploadSize = "small" | "medium" | "large";
 
-export interface FileItem {
+type FileItem = {
   id: string;
   name: string;
   size: number;
@@ -17,9 +17,9 @@ export interface FileItem {
   onDownload?: () => void;
   onPreview?: () => void;
   deletable?: boolean;
-}
+};
 
-export interface FileUploadProps extends Omit<React.ComponentPropsWithRef<"div">, "onChange"> {
+type FileUploadProps = Omit<React.ComponentPropsWithRef<"div">, "onChange"> & {
   title?: string;
   description?: string;
   uploadText?: string;
@@ -35,7 +35,7 @@ export interface FileUploadProps extends Omit<React.ComponentPropsWithRef<"div">
   allowDelete?: boolean;
   className?: string;
   children?: React.ReactNode;
-}
+};
 
 function formatBytes(bytes: number): string {
   if (bytes < 1024) return `${bytes} B`;
@@ -105,7 +105,7 @@ function FileUpload({
   const atMax = maxFiles !== undefined && files.length >= maxFiles;
 
   return (
-    <div ref={ref} className={cn("flex flex-col gap-3", className)} {...rest}>
+    <div data-slot="krds-file-upload" ref={ref} className={cn("flex flex-col gap-3", className)} {...rest}>
       {/* Upload trigger area */}
       <div
         className={cn(
@@ -245,3 +245,4 @@ function FileUpload({
 }
 
 export { FileUpload };
+export type { FileItem, FileUploadProps };

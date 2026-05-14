@@ -1,45 +1,37 @@
 // rsc:safe
-import type { HTMLAttributes, ReactNode } from "react";
+import * as React from "react";
 import { cn } from "@/lib/cn";
 
-/* ------------------------------------------------------------------ */
-/*  StructuredList — <dl> 기반 라벨/값 그리드                            */
-/* ------------------------------------------------------------------ */
+export type StructuredListProps = React.ComponentProps<"dl">;
 
-export interface StructuredListProps extends HTMLAttributes<HTMLDListElement> {
-  children?: ReactNode;
-  className?: string;
-}
+export type StructuredListItemProps = React.ComponentProps<"div"> & {
+  label: React.ReactNode;
+  value: React.ReactNode;
+};
 
-export interface StructuredListItemProps extends HTMLAttributes<HTMLDivElement> {
-  label: ReactNode;
-  value: ReactNode;
-  className?: string;
-}
+export type StructuredListLabelProps = React.ComponentProps<"dt">;
 
-export interface StructuredListLabelProps extends HTMLAttributes<HTMLElement> {
-  children?: ReactNode;
-  className?: string;
-}
-
-export interface StructuredListValueProps extends HTMLAttributes<HTMLElement> {
-  children?: ReactNode;
-  className?: string;
-}
+export type StructuredListValueProps = React.ComponentProps<"dd">;
 
 /** 루트 `<dl>` 컨테이너 */
-function StructuredList({ children, className, ...rest }: StructuredListProps) {
+function StructuredList({ className, ...props }: StructuredListProps) {
   return (
-    <dl className={cn("divide-krds-gray-10 w-full divide-y", "border-krds-gray-20 border-t", className)} {...rest}>
-      {children}
-    </dl>
+    <dl
+      data-slot="krds-structured-list"
+      className={cn("divide-krds-gray-10 w-full divide-y", "border-krds-gray-20 border-t", className)}
+      {...props}
+    />
   );
 }
 
 /** dt + dd 한 쌍을 감싸는 행 */
-function StructuredListItem({ label, value, className, ...rest }: StructuredListItemProps) {
+function StructuredListItem({ label, value, className, ...props }: StructuredListItemProps) {
   return (
-    <div className={cn("flex min-h-[3rem] items-start", "border-krds-gray-10 border-b", className)} {...rest}>
+    <div
+      data-slot="krds-structured-list-item"
+      className={cn("flex min-h-[3rem] items-start", "border-krds-gray-10 border-b", className)}
+      {...props}
+    >
       <StructuredListLabel>{label}</StructuredListLabel>
       <StructuredListValue>{value}</StructuredListValue>
     </div>
@@ -47,23 +39,24 @@ function StructuredListItem({ label, value, className, ...rest }: StructuredList
 }
 
 /** `<dt>` — 라벨 셀 */
-function StructuredListLabel({ children, className, ...rest }: StructuredListLabelProps) {
+function StructuredListLabel({ className, ...props }: StructuredListLabelProps) {
   return (
     <dt
+      data-slot="krds-structured-list-label"
       className={cn("w-1/3 shrink-0 px-4 py-3", "text-krds-gray-70 text-sm font-medium", "bg-krds-gray-5", className)}
-      {...rest}
-    >
-      {children}
-    </dt>
+      {...props}
+    />
   );
 }
 
 /** `<dd>` — 값 셀 */
-function StructuredListValue({ children, className, ...rest }: StructuredListValueProps) {
+function StructuredListValue({ className, ...props }: StructuredListValueProps) {
   return (
-    <dd className={cn("flex-1 px-4 py-3", "text-krds-gray-90 text-sm", className)} {...rest}>
-      {children}
-    </dd>
+    <dd
+      data-slot="krds-structured-list-value"
+      className={cn("flex-1 px-4 py-3", "text-krds-gray-90 text-sm", className)}
+      {...props}
+    />
   );
 }
 

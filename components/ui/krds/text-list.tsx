@@ -1,24 +1,19 @@
 "use client";
 
 import * as React from "react";
-
 import { cn } from "@/lib/cn";
 
 export type TextListType = "decimal" | "dash" | "hollow" | "ordered";
 
-export interface TextListProps extends Omit<React.HTMLAttributes<HTMLUListElement | HTMLOListElement>, "type"> {
+export type TextListProps = Omit<React.HTMLAttributes<HTMLUListElement | HTMLOListElement>, "type"> & {
   type?: TextListType;
-  children?: React.ReactNode;
-  className?: string;
-}
+};
 
-export interface TextListItemProps extends React.HTMLAttributes<HTMLLIElement> {
-  children?: React.ReactNode;
-  className?: string;
+export type TextListItemProps = React.ComponentProps<"li"> & {
   number?: string;
-}
+};
 
-function TextList({ type = "dash", children, className, ...rest }: TextListProps) {
+function TextList({ type = "dash", className, ...rest }: TextListProps) {
   const isOrdered = type === "decimal" || type === "ordered";
 
   const listStyle = {
@@ -31,29 +26,31 @@ function TextList({ type = "dash", children, className, ...rest }: TextListProps
   if (isOrdered) {
     return (
       <ol
+        data-slot="krds-text-list"
         data-type={type}
         className={cn(listStyle, "flex flex-col gap-1", "text-krds-gray-90 text-sm", className)}
         {...(rest as React.HTMLAttributes<HTMLOListElement>)}
-      >
-        {children}
-      </ol>
+      />
     );
   }
 
   return (
     <ul
+      data-slot="krds-text-list"
       data-type={type}
       className={cn(listStyle, "flex flex-col gap-1", "text-krds-gray-90 text-sm", className)}
       {...(rest as React.HTMLAttributes<HTMLUListElement>)}
-    >
-      {children}
-    </ul>
+    />
   );
 }
 
-function TextListItem({ children, className, number, ...rest }: TextListItemProps) {
+function TextListItem({ className, number, children, ...props }: TextListItemProps) {
   return (
-    <li className={cn("flex items-start gap-1", className)} {...rest}>
+    <li
+      data-slot="krds-text-list-item"
+      className={cn("flex items-start gap-1", className)}
+      {...props}
+    >
       {number !== undefined && (
         <span aria-hidden="true" className="shrink-0">
           {number}.
