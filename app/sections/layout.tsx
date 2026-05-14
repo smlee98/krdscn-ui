@@ -19,6 +19,13 @@ import {
 } from "@/components/ui/krds/modal";
 import { Badge } from "@/components/ui/krds/badge";
 import { Accordion, AccordionItem, AccordionHeader, AccordionPanel } from "@/components/ui/krds/accordion";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselPrevious,
+  CarouselNext,
+} from "@/components/ui/krds/carousel";
 import { Tab, TabList, TabTrigger, TabContent, TabPanel } from "@/components/ui/krds/tab";
 import {
   Table,
@@ -164,6 +171,34 @@ export function LayoutSection() {
                 </AccordionPanel>
               </AccordionItem>
             </Accordion>
+          </div>
+        </DemoCard>
+      </DemoSection>
+
+      <DemoSection id="carousel" title="캐러셀 / Carousel">
+        <DemoCard>
+          <div className="w-full max-w-md mx-auto">
+            <Carousel className="w-full">
+              <CarouselContent>
+                <CarouselItem>
+                  <div className="flex aspect-[16/9] items-center justify-center rounded-md border border-krds-gray-20 bg-krds-gray-5 text-krds-gray-90">
+                    <span className="text-2xl font-semibold">슬라이드 1</span>
+                  </div>
+                </CarouselItem>
+                <CarouselItem>
+                  <div className="flex aspect-[16/9] items-center justify-center rounded-md border border-krds-gray-20 bg-krds-gray-5 text-krds-gray-90">
+                    <span className="text-2xl font-semibold">슬라이드 2</span>
+                  </div>
+                </CarouselItem>
+                <CarouselItem>
+                  <div className="flex aspect-[16/9] items-center justify-center rounded-md border border-krds-gray-20 bg-krds-gray-5 text-krds-gray-90">
+                    <span className="text-2xl font-semibold">슬라이드 3</span>
+                  </div>
+                </CarouselItem>
+              </CarouselContent>
+              <CarouselPrevious />
+              <CarouselNext />
+            </Carousel>
           </div>
         </DemoCard>
       </DemoSection>
