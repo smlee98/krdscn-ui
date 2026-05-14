@@ -2,6 +2,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
 
 import {
   Breadcrumb,
@@ -15,6 +16,7 @@ import { Separator } from "@/components/ui/separator";
 import { SidebarTrigger } from "@/components/ui/sidebar";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 import { useTheme } from "next-themes";
+import { SIDEBAR_GROUPS } from "@/lib/sidebar-nav";
 import { KrdsLogo } from "../logo/krds";
 import { ShadcnLogo } from "../logo/shadcn";
 
@@ -52,7 +54,22 @@ function ThemeToggle() {
   );
 }
 
+function useBreadcrumb() {
+  const pathname = usePathname();
+  const segments = pathname.split("/").filter(Boolean);
+  if (segments.length === 3 && segments[0] === "components") {
+    const group = SIDEBAR_GROUPS.find((g) => g.id === segments[1]);
+    const item = group?.items.find((i) => i.id === segments[2]);
+    if (group && item) {
+      return { groupTitle: group.title, itemLabel: item.labelKo };
+    }
+  }
+  return null;
+}
+
 function KrdsPageHeader() {
+  const crumbs = useBreadcrumb();
+
   return (
     <header
       data-slot="krds-page-header"
@@ -63,13 +80,25 @@ function KrdsPageHeader() {
         <Separator orientation="vertical" className="mr-2 h-4!" />
         <Breadcrumb>
           <BreadcrumbList>
-            <BreadcrumbItem>
-              <BreadcrumbLink href="/">Home</BreadcrumbLink>
-            </BreadcrumbItem>
-            <BreadcrumbSeparator />
-            <BreadcrumbItem>
-              <BreadcrumbPage>KRDS 컴포넌트 라이브러리</BreadcrumbPage>
-            </BreadcrumbItem>
+            {crumbs ? (
+              <>
+                <BreadcrumbItem>
+                  <BreadcrumbLink href="/">홈</BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
+                <BreadcrumbItem>
+                  <span className="text-muted-foreground">{crumbs.groupTitle}</span>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
+                <BreadcrumbItem>
+                  <BreadcrumbPage>{crumbs.itemLabel}</BreadcrumbPage>
+                </BreadcrumbItem>
+              </>
+            ) : (
+              <BreadcrumbItem>
+                <BreadcrumbPage>홈</BreadcrumbPage>
+              </BreadcrumbItem>
+            )}
           </BreadcrumbList>
         </Breadcrumb>
       </div>

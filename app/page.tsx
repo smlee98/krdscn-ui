@@ -1,18 +1,18 @@
-import { ComparisonGrid } from "@/app/comparison-grid";
-import { KrdsAppShell } from "@/components/krds-app/app-shell";
+import { KrdsLogo } from "@/components/logo/krds";
+import { ShadcnLogo } from "@/components/logo/shadcn";
 
-export { KrdsVerifyPage as default };
-
-function KrdsVerifyPage() {
+export default function WelcomePage() {
   return (
-    <KrdsAppShell>
-      <main className="mx-auto w-full max-w-4xl">
-        <h1 className="text-2xl font-bold mb-4">KRDS 컴포넌트 라이브러리</h1>
-        <p className="text-sm text-muted-foreground mb-8">
-          Each cell carries <code>data-krds-token</code> for getComputedStyle assertions.
-        </p>
-        <ComparisonGrid />
-      </main>
-    </KrdsAppShell>
+    <main className="flex min-h-screen flex-col items-center justify-center gap-6 p-8">
+      <div className="flex items-center gap-3">
+        <KrdsLogo className="size-10" />
+        <span className="text-muted-foreground text-2xl font-semibold">+</span>
+        <ShadcnLogo className="size-10" />
+      </div>
+      <h1 className="text-3xl font-bold tracking-tight">KRDS × shadcn/ui</h1>
+      <p className="text-muted-foreground max-w-md text-center">
+        한국 디자인 시스템(KRDS) 컴포넌트를 shadcn/ui 프리미티브 위에 구현한 레퍼런스 카탈로그입니다.
+      </p>
+    </main>
   );
 }
