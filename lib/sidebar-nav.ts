@@ -47,12 +47,10 @@ export const SIDEBAR_GROUPS: readonly SidebarGroup[] = [
       { id: "modal", labelKo: "모달", labelEn: "Modal", implemented: true },
       { id: "badge", labelKo: "배지", labelEn: "Badge", implemented: true },
       { id: "accordion", labelKo: "아코디언", labelEn: "Accordion", implemented: true },
-      { id: "image", labelKo: "이미지", labelEn: "Image", implemented: false },
       { id: "carousel", labelKo: "캐러셀", labelEn: "Carousel", implemented: false },
       { id: "tab", labelKo: "탭", labelEn: "Tab", implemented: true },
       { id: "table", labelKo: "표", labelEn: "Table", implemented: true },
-      { id: "text-list", labelKo: "텍스트 목록", labelEn: "Text list", implemented: true },
-      { id: "favicon", labelKo: "파비콘", labelEn: "Favicon", implemented: false }
+      { id: "text-list", labelKo: "텍스트 목록", labelEn: "Text list", implemented: true }
     ]
   },
   {
