@@ -9,12 +9,14 @@ import {
   BreadcrumbLink,
   BreadcrumbList,
   BreadcrumbPage,
-  BreadcrumbSeparator,
+  BreadcrumbSeparator
 } from "@/components/ui/breadcrumb";
 import { Separator } from "@/components/ui/separator";
 import { SidebarTrigger } from "@/components/ui/sidebar";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 import { useTheme } from "next-themes";
+import { KrdsLogo } from "../logo/krds";
+import { ShadcnLogo } from "../logo/shadcn";
 
 export { KrdsPageHeader };
 
@@ -39,10 +41,12 @@ function ThemeToggle() {
       aria-label="컬러셋 토글"
     >
       <ToggleGroupItem value="krds" aria-label="KRDS 컬러">
+        <KrdsLogo className="size-4" />
         KRDS
       </ToggleGroupItem>
       <ToggleGroupItem value="shadcn" aria-label="shadcn 기본">
-        shadcn
+        <ShadcnLogo className="size-4" />
+        shadcn/ui
       </ToggleGroupItem>
     </ToggleGroup>
   );
