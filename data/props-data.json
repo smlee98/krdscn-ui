@@ -1,1 +1,2746 @@
-{}
+{
+  "KrdsAccordion": [
+    {
+      "name": "allowMultiple",
+      "type": "boolean",
+      "defaultValue": "true",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "aria-label",
+      "type": "string",
+      "description": "Defines a string value that labels the current element.\n@see aria-labelledby.",
+      "required": false
+    },
+    {
+      "name": "className",
+      "type": "string",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "id",
+      "type": "string",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "onChange",
+      "type": "((values: string[]) => void)",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "onClick",
+      "type": "MouseEventHandler<HTMLDivElement>",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "style",
+      "type": "CSSProperties",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "tabIndex",
+      "type": "number",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "value",
+      "type": "string[]",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "variant",
+      "type": "enum",
+      "defaultValue": "default",
+      "description": "",
+      "required": false
+    }
+  ],
+  "KrdsAlertModal": [
+    {
+      "name": "cancelLabel",
+      "type": "string",
+      "defaultValue": "취소",
+      "description": "Cancel button label (default: \"취소\")",
+      "required": false
+    },
+    {
+      "name": "className",
+      "type": "string",
+      "description": "Additional class on the content panel",
+      "required": false
+    },
+    {
+      "name": "confirmLabel",
+      "type": "string",
+      "defaultValue": "확인",
+      "description": "Confirm button label (default: \"확인\")",
+      "required": false
+    },
+    {
+      "name": "defaultOpen",
+      "type": "boolean",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "description",
+      "type": "ReactNode",
+      "description": "Modal body / description",
+      "required": false
+    },
+    {
+      "name": "onCancel",
+      "type": "(() => void)",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "onConfirm",
+      "type": "(() => void)",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "onOpenChange",
+      "type": "((open: boolean) => void)",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "open",
+      "type": "boolean",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "title",
+      "type": "ReactNode",
+      "description": "Modal title",
+      "required": true
+    },
+    {
+      "name": "trigger",
+      "type": "ReactNode",
+      "description": "Trigger element",
+      "required": false
+    }
+  ],
+  "KrdsBadge": [
+    {
+      "name": "aria-label",
+      "type": "string",
+      "description": "Defines a string value that labels the current element.\n@see aria-labelledby.",
+      "required": false
+    },
+    {
+      "name": "asChild",
+      "type": "boolean",
+      "defaultValue": "false",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "className",
+      "type": "string",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "id",
+      "type": "string",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "onClick",
+      "type": "MouseEventHandler<HTMLSpanElement>",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "rounded",
+      "type": "boolean | null",
+      "defaultValue": "false",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "size",
+      "type": "\"small\" | \"medium\" | \"large\" | null",
+      "defaultValue": "medium",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "style",
+      "type": "CSSProperties",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "tabIndex",
+      "type": "number",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "variant",
+      "type": "\"basic\" | \"primary\" | \"secondary\" | \"success\" | \"warning\" | \"danger\" | \"information\" | \"point\" | \"gray\" | \"disabled\" | null",
+      "defaultValue": "basic",
+      "description": "",
+      "required": false
+    }
+  ],
+  "KrdsBreadcrumb": [
+    {
+      "name": "aria-label",
+      "type": "string",
+      "description": "Defines a string value that labels the current element.\n@see aria-labelledby.",
+      "required": false
+    },
+    {
+      "name": "className",
+      "type": "string",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "id",
+      "type": "string",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "onClick",
+      "type": "MouseEventHandler<HTMLElement>",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "style",
+      "type": "CSSProperties",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "tabIndex",
+      "type": "number",
+      "description": "",
+      "required": false
+    }
+  ],
+  "KrdsButton": [
+    {
+      "name": "aria-label",
+      "type": "string",
+      "description": "Defines a string value that labels the current element.\n@see aria-labelledby.",
+      "required": false
+    },
+    {
+      "name": "asChild",
+      "type": "boolean",
+      "defaultValue": "false",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "className",
+      "type": "string",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "disabled",
+      "type": "boolean",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "id",
+      "type": "string",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "onClick",
+      "type": "MouseEventHandler<HTMLButtonElement>",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "size",
+      "type": "\"xsmall\" | \"small\" | \"medium\" | \"large\" | \"xlarge\" | null",
+      "defaultValue": "medium",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "style",
+      "type": "CSSProperties",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "tabIndex",
+      "type": "number",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "type",
+      "type": "enum",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "variant",
+      "type": "\"primary\" | \"secondary\" | \"tertiary\" | \"text\" | \"link\" | \"icon\" | null",
+      "defaultValue": "primary",
+      "description": "",
+      "required": false
+    }
+  ],
+  "KrdsCalendar": [
+    {
+      "name": "aria-label",
+      "type": "string",
+      "description": "Defines a string value that labels the current element.\n@see aria-labelledby.",
+      "required": false
+    },
+    {
+      "name": "cancelButtonText",
+      "type": "string",
+      "defaultValue": "취소",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "className",
+      "type": "string",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "confirmButtonText",
+      "type": "string",
+      "defaultValue": "확인",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "defaultEndDate",
+      "type": "string",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "defaultStartDate",
+      "type": "string",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "disabled",
+      "type": "boolean",
+      "defaultValue": "false",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "disabledDates",
+      "type": "string[]",
+      "defaultValue": "[]",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "endDate",
+      "type": "string",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "endPlaceholder",
+      "type": "string",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "endTitle",
+      "type": "string",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "eventDates",
+      "type": "string[]",
+      "defaultValue": "[]",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "id",
+      "type": "string",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "inputId",
+      "type": "string",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "label",
+      "type": "string",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "mode",
+      "type": "enum",
+      "defaultValue": "single",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "monthSelectLabel",
+      "type": "string",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "nextButtonLabel",
+      "type": "string",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "onCancel",
+      "type": "(() => void)",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "onChange",
+      "type": "((value: string) => void)",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "onClick",
+      "type": "MouseEventHandler<HTMLDivElement>",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "onConfirm",
+      "type": "(() => void)",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "onMonthChange",
+      "type": "((month: number) => void)",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "onRangeChange",
+      "type": "((startDate: string, endDate: string) => void)",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "onTodayClick",
+      "type": "(() => void)",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "onYearChange",
+      "type": "((year: number) => void)",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "openButtonLabel",
+      "type": "string",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "placeholder",
+      "type": "string",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "position",
+      "type": "enum",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "prevButtonLabel",
+      "type": "string",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "readOnly",
+      "type": "boolean",
+      "defaultValue": "false",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "startDate",
+      "type": "string",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "startPlaceholder",
+      "type": "string",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "startTitle",
+      "type": "string",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "style",
+      "type": "CSSProperties",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "tabIndex",
+      "type": "number",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "todayButtonText",
+      "type": "string",
+      "defaultValue": "오늘",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "value",
+      "type": "string",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "yearSelectLabel",
+      "type": "string",
+      "description": "",
+      "required": false
+    }
+  ],
+  "KrdsCarousel": [
+    {
+      "name": "aria-label",
+      "type": "string",
+      "description": "Defines a string value that labels the current element.\n@see aria-labelledby.",
+      "required": false
+    },
+    {
+      "name": "className",
+      "type": "string",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "id",
+      "type": "string",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "onClick",
+      "type": "MouseEventHandler<HTMLDivElement>",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "opts",
+      "type": "Partial<OptionsType>",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "orientation",
+      "type": "enum",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "plugins",
+      "type": "CreatePluginType<LoosePluginType, {}>[]",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "setApi",
+      "type": "((api: EmblaCarouselType) => void)",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "style",
+      "type": "CSSProperties",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "tabIndex",
+      "type": "number",
+      "description": "",
+      "required": false
+    }
+  ],
+  "KrdsCheckbox": [
+    {
+      "name": "checked",
+      "type": "boolean",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "className",
+      "type": "string",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "defaultValue",
+      "type": "boolean",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "description",
+      "type": "string",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "disabled",
+      "type": "boolean",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "id",
+      "type": "string",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "label",
+      "type": "string",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "name",
+      "type": "string",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "onChange",
+      "type": "((checked: boolean) => void)",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "size",
+      "type": "enum",
+      "defaultValue": "medium",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "value",
+      "type": "string",
+      "description": "",
+      "required": false
+    }
+  ],
+  "KrdsCoachMark": [
+    {
+      "name": "aria-label",
+      "type": "string",
+      "description": "Defines a string value that labels the current element.\n@see aria-labelledby.",
+      "required": false
+    },
+    {
+      "name": "className",
+      "type": "string",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "id",
+      "type": "string",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "onClick",
+      "type": "MouseEventHandler<HTMLDivElement>",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "onClose",
+      "type": "(() => void)",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "onNext",
+      "type": "(() => void)",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "onPrev",
+      "type": "(() => void)",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "step",
+      "type": "number",
+      "description": "Active step index. Use -1 (or any value < 0) to hide all steps.",
+      "required": true
+    },
+    {
+      "name": "style",
+      "type": "CSSProperties",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "tabIndex",
+      "type": "number",
+      "description": "",
+      "required": false
+    }
+  ],
+  "KrdsContextualHelp": [
+    {
+      "name": "aria-label",
+      "type": "string",
+      "description": "Defines a string value that labels the current element.\n@see aria-labelledby.",
+      "required": false
+    },
+    {
+      "name": "className",
+      "type": "string",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "defaultOpen",
+      "type": "boolean",
+      "description": "Uncontrolled initial open state.",
+      "required": false
+    },
+    {
+      "name": "disabled",
+      "type": "boolean",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "id",
+      "type": "string",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "onClick",
+      "type": "MouseEventHandler<HTMLButtonElement>",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "onOpenChange",
+      "type": "((open: boolean) => void)",
+      "description": "Called when open state changes.",
+      "required": false
+    },
+    {
+      "name": "open",
+      "type": "boolean",
+      "description": "Controlled open state.",
+      "required": false
+    },
+    {
+      "name": "style",
+      "type": "CSSProperties",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "tabIndex",
+      "type": "number",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "triggerIcon",
+      "type": "ReactNode",
+      "description": "Override trigger icon (defaults to InfoIcon).",
+      "required": false
+    },
+    {
+      "name": "triggerLabel",
+      "type": "string",
+      "defaultValue": "도움말",
+      "description": "Accessible label for the trigger button (default: \"도움말\").",
+      "required": false
+    },
+    {
+      "name": "type",
+      "type": "enum",
+      "description": "",
+      "required": false
+    }
+  ],
+  "KrdsCriticalAlert": [
+    {
+      "name": "aria-label",
+      "type": "string",
+      "description": "Defines a string value that labels the current element.\n@see aria-labelledby.",
+      "required": false
+    },
+    {
+      "name": "className",
+      "type": "string",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "defaultVisible",
+      "type": "boolean",
+      "defaultValue": "true",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "id",
+      "type": "string",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "onClick",
+      "type": "MouseEventHandler<HTMLDivElement>",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "onClose",
+      "type": "(() => void)",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "style",
+      "type": "CSSProperties",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "tabIndex",
+      "type": "number",
+      "description": "",
+      "required": false
+    }
+  ],
+  "KrdsDateInput": [
+    {
+      "name": "aria-label",
+      "type": "string",
+      "description": "Defines a string value that labels the current element.\n@see aria-labelledby.",
+      "required": false
+    },
+    {
+      "name": "calendarPosition",
+      "type": "enum",
+      "defaultValue": "bottom",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "cancelButtonText",
+      "type": "string",
+      "defaultValue": "취소",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "className",
+      "type": "string",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "confirmButtonText",
+      "type": "string",
+      "defaultValue": "확인",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "defaultIsCalendarOpen",
+      "type": "boolean",
+      "defaultValue": "false",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "defaultValue",
+      "type": "string",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "disabled",
+      "type": "boolean",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "disabledDates",
+      "type": "string[]",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "error",
+      "type": "string",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "eventDates",
+      "type": "string[]",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "hint",
+      "type": "string",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "id",
+      "type": "string",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "information",
+      "type": "string",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "isCalendarOpen",
+      "type": "boolean",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "label",
+      "type": "string",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "monthSelectLabel",
+      "type": "string",
+      "defaultValue": "월 선택",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "nextButtonLabel",
+      "type": "string",
+      "defaultValue": "다음 달",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "onCalendarOpenChange",
+      "type": "((isOpen: boolean) => void)",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "onCancel",
+      "type": "(() => void)",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "onChange",
+      "type": "((value: string) => void)",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "onClick",
+      "type": "MouseEventHandler<HTMLInputElement>",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "onConfirm",
+      "type": "(() => void)",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "onMonthChange",
+      "type": "((month: number) => void)",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "onTodayClick",
+      "type": "(() => void)",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "onYearChange",
+      "type": "((year: number) => void)",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "openButtonLabel",
+      "type": "string",
+      "defaultValue": "달력 열기",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "prevButtonLabel",
+      "type": "string",
+      "defaultValue": "이전 달",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "size",
+      "type": "enum",
+      "defaultValue": "medium",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "style",
+      "type": "CSSProperties",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "success",
+      "type": "string",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "tabIndex",
+      "type": "number",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "todayButtonText",
+      "type": "string",
+      "defaultValue": "오늘",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "value",
+      "type": "string",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "yearSelectLabel",
+      "type": "string",
+      "defaultValue": "년도 선택",
+      "description": "",
+      "required": false
+    }
+  ],
+  "KrdsDisclosure": [
+    {
+      "name": "aria-label",
+      "type": "string",
+      "description": "Defines a string value that labels the current element.\n@see aria-labelledby.",
+      "required": false
+    },
+    {
+      "name": "className",
+      "type": "string",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "defaultOpen",
+      "type": "boolean",
+      "defaultValue": "false",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "id",
+      "type": "string",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "onClick",
+      "type": "MouseEventHandler<HTMLDivElement>",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "onOpenChange",
+      "type": "((open: boolean) => void)",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "open",
+      "type": "boolean",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "style",
+      "type": "CSSProperties",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "tabIndex",
+      "type": "number",
+      "description": "",
+      "required": false
+    }
+  ],
+  "KrdsFileUpload": [
+    {
+      "name": "acceptedFileTypes",
+      "type": "string[]",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "allowDelete",
+      "type": "boolean",
+      "defaultValue": "true",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "aria-label",
+      "type": "string",
+      "description": "Defines a string value that labels the current element.\n@see aria-labelledby.",
+      "required": false
+    },
+    {
+      "name": "className",
+      "type": "string",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "description",
+      "type": "string",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "disabled",
+      "type": "boolean",
+      "defaultValue": "false",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "files",
+      "type": "FileItem[]",
+      "defaultValue": "[]",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "id",
+      "type": "string",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "maxFiles",
+      "type": "number",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "maxFileSize",
+      "type": "number",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "onAllFilesDelete",
+      "type": "(() => void)",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "onClick",
+      "type": "MouseEventHandler<HTMLDivElement>",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "onFileDelete",
+      "type": "((fileId: string) => void)",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "onFilesChange",
+      "type": "((files: FileItem[]) => void)",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "onFileUpload",
+      "type": "((file: File) => Promise<void>)",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "style",
+      "type": "CSSProperties",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "tabIndex",
+      "type": "number",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "uploadText",
+      "type": "string",
+      "defaultValue": "파일 선택",
+      "description": "",
+      "required": false
+    }
+  ],
+  "KrdsFooter": [
+    {
+      "name": "aria-label",
+      "type": "string",
+      "description": "Defines a string value that labels the current element.\n@see aria-labelledby.",
+      "required": false
+    },
+    {
+      "name": "className",
+      "type": "string",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "id",
+      "type": "string",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "onClick",
+      "type": "MouseEventHandler<HTMLElement>",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "style",
+      "type": "CSSProperties",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "tabIndex",
+      "type": "number",
+      "description": "",
+      "required": false
+    }
+  ],
+  "KrdsHeader": [
+    {
+      "name": "aria-label",
+      "type": "string",
+      "description": "Defines a string value that labels the current element.\n@see aria-labelledby.",
+      "required": false
+    },
+    {
+      "name": "className",
+      "type": "string",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "id",
+      "type": "string",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "onClick",
+      "type": "MouseEventHandler<HTMLElement>",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "style",
+      "type": "CSSProperties",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "tabIndex",
+      "type": "number",
+      "description": "",
+      "required": false
+    }
+  ],
+  "KrdsHelpPanel": [
+    {
+      "name": "className",
+      "type": "string",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "defaultOpen",
+      "type": "boolean",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "onOpenChange",
+      "type": "((open: boolean) => void)",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "open",
+      "type": "boolean",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "trigger",
+      "type": "ReactNode",
+      "description": "",
+      "required": false
+    }
+  ],
+  "KrdsIdentifier": [
+    {
+      "name": "aria-label",
+      "type": "string",
+      "description": "Defines a string value that labels the current element.\n@see aria-labelledby.",
+      "required": false
+    },
+    {
+      "name": "className",
+      "type": "string",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "id",
+      "type": "string",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "onClick",
+      "type": "MouseEventHandler<HTMLDivElement>",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "style",
+      "type": "CSSProperties",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "tabIndex",
+      "type": "number",
+      "description": "",
+      "required": false
+    }
+  ],
+  "KrdsInPageNavigation": [
+    {
+      "name": "aria-label",
+      "type": "string",
+      "description": "Defines a string value that labels the current element.\n@see aria-labelledby.",
+      "required": false
+    },
+    {
+      "name": "className",
+      "type": "string",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "id",
+      "type": "string",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "onClick",
+      "type": "MouseEventHandler<HTMLElement>",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "style",
+      "type": "CSSProperties",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "tabIndex",
+      "type": "number",
+      "description": "",
+      "required": false
+    }
+  ],
+  "KrdsLanguageSwitcher": [
+    {
+      "name": "aria-label",
+      "type": "string",
+      "description": "Defines a string value that labels the current element.\n@see aria-labelledby.",
+      "required": false
+    },
+    {
+      "name": "className",
+      "type": "string",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "defaultOpen",
+      "type": "boolean",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "defaultValue",
+      "type": "string",
+      "defaultValue": "ko",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "disabled",
+      "type": "boolean",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "id",
+      "type": "string",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "onClick",
+      "type": "MouseEventHandler<HTMLButtonElement>",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "onOpenChange",
+      "type": "((open: boolean) => void)",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "onValueChange",
+      "type": "((value: string) => void)",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "open",
+      "type": "boolean",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "style",
+      "type": "CSSProperties",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "tabIndex",
+      "type": "number",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "type",
+      "type": "enum",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "value",
+      "type": "string",
+      "description": "",
+      "required": false
+    }
+  ],
+  "KrdsLink": [
+    {
+      "name": "aria-label",
+      "type": "string",
+      "description": "Defines a string value that labels the current element.\n@see aria-labelledby.",
+      "required": false
+    },
+    {
+      "name": "asChild",
+      "type": "boolean",
+      "defaultValue": "false",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "className",
+      "type": "string",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "disabled",
+      "type": "boolean",
+      "defaultValue": "false",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "external",
+      "type": "boolean",
+      "defaultValue": "false",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "icon",
+      "type": "ReactNode",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "id",
+      "type": "string",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "onClick",
+      "type": "MouseEventHandler<HTMLAnchorElement>",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "preserveColorOnHover",
+      "type": "boolean",
+      "defaultValue": "false",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "size",
+      "type": "\"xsmall\" | \"small\" | \"medium\" | \"large\" | \"xlarge\" | null",
+      "defaultValue": "medium",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "style",
+      "type": "CSSProperties",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "tabIndex",
+      "type": "number",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "type",
+      "type": "string",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "underline",
+      "type": "\"always\" | \"hover\" | \"none\" | null",
+      "defaultValue": "always",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "variant",
+      "type": "\"default\" | \"basic\" | \"unstyled\" | null",
+      "defaultValue": "default",
+      "description": "",
+      "required": false
+    }
+  ],
+  "KrdsMainMenu": [
+    {
+      "name": "className",
+      "type": "string",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "defaultValue",
+      "type": "string",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "onValueChange",
+      "type": "((value: string) => void)",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "value",
+      "type": "string",
+      "description": "",
+      "required": false
+    }
+  ],
+  "KrdsMasthead": [
+    {
+      "name": "aria-label",
+      "type": "string",
+      "description": "Defines a string value that labels the current element.\n@see aria-labelledby.",
+      "required": false
+    },
+    {
+      "name": "className",
+      "type": "string",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "id",
+      "type": "string",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "onClick",
+      "type": "MouseEventHandler<HTMLDivElement>",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "style",
+      "type": "CSSProperties",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "tabIndex",
+      "type": "number",
+      "description": "",
+      "required": false
+    }
+  ],
+  "KrdsModal": [
+    {
+      "name": "closeOnEsc",
+      "type": "boolean",
+      "defaultValue": "true",
+      "description": "Pressing Escape closes the dialog (default: true). Implemented via Radix default.",
+      "required": false
+    },
+    {
+      "name": "closeOnOverlayClick",
+      "type": "boolean",
+      "defaultValue": "true",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "defaultOpen",
+      "type": "boolean",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "onOpenChange",
+      "type": "((open: boolean) => void)",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "open",
+      "type": "boolean",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "portalContainer",
+      "type": "string | HTMLElement",
+      "description": "@deprecated Portal container is now document.body. Ignored.",
+      "required": false
+    },
+    {
+      "name": "size",
+      "type": "enum",
+      "defaultValue": "md",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "usePortal",
+      "type": "boolean",
+      "defaultValue": "true",
+      "description": "@deprecated Portal is now managed by the shadcn Dialog layer. Ignored.",
+      "required": false
+    },
+    {
+      "name": "variant",
+      "type": "enum",
+      "defaultValue": "default",
+      "description": "",
+      "required": false
+    }
+  ],
+  "KrdsPagination": [
+    {
+      "name": "aria-label",
+      "type": "string",
+      "description": "Defines a string value that labels the current element.\n@see aria-labelledby.",
+      "required": false
+    },
+    {
+      "name": "className",
+      "type": "string",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "id",
+      "type": "string",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "onClick",
+      "type": "MouseEventHandler<HTMLElement>",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "style",
+      "type": "CSSProperties",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "tabIndex",
+      "type": "number",
+      "description": "",
+      "required": false
+    }
+  ],
+  "KrdsRadioGroup": [
+    {
+      "name": "aria-label",
+      "type": "string",
+      "description": "Defines a string value that labels the current element.\n@see aria-labelledby.",
+      "required": false
+    },
+    {
+      "name": "className",
+      "type": "string",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "defaultChecked",
+      "type": "boolean",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "description",
+      "type": "string",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "disabled",
+      "type": "boolean",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "id",
+      "type": "string",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "onClick",
+      "type": "MouseEventHandler<HTMLInputElement>",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "size",
+      "type": "enum",
+      "defaultValue": "medium",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "style",
+      "type": "CSSProperties",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "tabIndex",
+      "type": "number",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "type",
+      "type": "HTMLInputTypeAttribute",
+      "description": "",
+      "required": false
+    }
+  ],
+  "KrdsResize": [
+    {
+      "name": "aria-label",
+      "type": "string",
+      "description": "Defines a string value that labels the current element.\n@see aria-labelledby.",
+      "required": false
+    },
+    {
+      "name": "className",
+      "type": "string",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "defaultScale",
+      "type": "enum",
+      "defaultValue": "M",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "id",
+      "type": "string",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "onClick",
+      "type": "MouseEventHandler<HTMLDivElement>",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "onScaleChange",
+      "type": "((scale: \"S\" | \"M\" | \"L\") => void)",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "style",
+      "type": "CSSProperties",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "tabIndex",
+      "type": "number",
+      "description": "",
+      "required": false
+    }
+  ],
+  "KrdsSelect": [
+    {
+      "name": "autoComplete",
+      "type": "string",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "defaultOpen",
+      "type": "boolean",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "defaultValue",
+      "type": "string",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "dir",
+      "type": "enum",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "disabled",
+      "type": "boolean",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "form",
+      "type": "string",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "name",
+      "type": "string",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "onOpenChange",
+      "type": "((open: boolean) => void)",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "onValueChange",
+      "type": "((value: string) => void)",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "open",
+      "type": "boolean",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "required",
+      "type": "boolean",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "value",
+      "type": "string",
+      "description": "",
+      "required": false
+    }
+  ],
+  "KrdsSideNavigation": [
+    {
+      "name": "aria-label",
+      "type": "string",
+      "description": "Defines a string value that labels the current element.\n@see aria-labelledby.",
+      "required": false
+    },
+    {
+      "name": "className",
+      "type": "string",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "id",
+      "type": "string",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "onClick",
+      "type": "MouseEventHandler<HTMLElement>",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "style",
+      "type": "CSSProperties",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "tabIndex",
+      "type": "number",
+      "description": "",
+      "required": false
+    }
+  ],
+  "KrdsSkipLink": [
+    {
+      "name": "aria-label",
+      "type": "string",
+      "description": "Defines a string value that labels the current element.\n@see aria-labelledby.",
+      "required": false
+    },
+    {
+      "name": "asChild",
+      "type": "boolean",
+      "defaultValue": "false",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "className",
+      "type": "string",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "id",
+      "type": "string",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "onClick",
+      "type": "MouseEventHandler<HTMLAnchorElement>",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "style",
+      "type": "CSSProperties",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "tabIndex",
+      "type": "number",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "type",
+      "type": "string",
+      "description": "",
+      "required": false
+    }
+  ],
+  "KrdsSpinner": [
+    {
+      "name": "aria-label",
+      "type": "string",
+      "description": "Defines a string value that labels the current element.\n@see aria-labelledby.",
+      "required": false
+    },
+    {
+      "name": "className",
+      "type": "string",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "id",
+      "type": "string",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "label",
+      "type": "string",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "onClick",
+      "type": "MouseEventHandler<HTMLDivElement>",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "style",
+      "type": "CSSProperties",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "tabIndex",
+      "type": "number",
+      "description": "",
+      "required": false
+    }
+  ],
+  "KrdsStepIndicator": [
+    {
+      "name": "aria-label",
+      "type": "string",
+      "description": "Defines a string value that labels the current element.\n@see aria-labelledby.",
+      "required": false
+    },
+    {
+      "name": "className",
+      "type": "string",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "currentStep",
+      "type": "number",
+      "defaultValue": "1",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "id",
+      "type": "string",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "onClick",
+      "type": "MouseEventHandler<HTMLDivElement>",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "pageTitle",
+      "type": "string",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "style",
+      "type": "CSSProperties",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "tabIndex",
+      "type": "number",
+      "description": "",
+      "required": false
+    }
+  ],
+  "KrdsStructuredList": [
+    {
+      "name": "aria-label",
+      "type": "string",
+      "description": "Defines a string value that labels the current element.\n@see aria-labelledby.",
+      "required": false
+    },
+    {
+      "name": "className",
+      "type": "string",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "id",
+      "type": "string",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "onClick",
+      "type": "MouseEventHandler<HTMLDListElement>",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "style",
+      "type": "CSSProperties",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "tabIndex",
+      "type": "number",
+      "description": "",
+      "required": false
+    }
+  ],
+  "KrdsTab": [
+    {
+      "name": "className",
+      "type": "string",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "defaultValue",
+      "type": "string",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "onValueChange",
+      "type": "((value: string) => void)",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "size",
+      "type": "enum",
+      "defaultValue": "normal",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "value",
+      "type": "string",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "variant",
+      "type": "enum",
+      "defaultValue": "line",
+      "description": "",
+      "required": false
+    }
+  ],
+  "KrdsTable": [
+    {
+      "name": "aria-label",
+      "type": "string",
+      "description": "Defines a string value that labels the current element.\n@see aria-labelledby.",
+      "required": false
+    },
+    {
+      "name": "className",
+      "type": "string",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "id",
+      "type": "string",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "onClick",
+      "type": "MouseEventHandler<HTMLTableElement>",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "style",
+      "type": "CSSProperties",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "tabIndex",
+      "type": "number",
+      "description": "",
+      "required": false
+    }
+  ],
+  "KrdsTag": [
+    {
+      "name": "aria-label",
+      "type": "string",
+      "description": "Defines a string value that labels the current element.\n@see aria-labelledby.",
+      "required": false
+    },
+    {
+      "name": "asChild",
+      "type": "boolean",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "className",
+      "type": "string",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "deleteDisabled",
+      "type": "boolean",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "id",
+      "type": "string",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "onClick",
+      "type": "MouseEventHandler<HTMLSpanElement> | MouseEventHandler<HTMLAnchorElement>",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "onDelete",
+      "type": "(() => void)",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "size",
+      "type": "\"small\" | \"medium\" | \"large\" | null",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "style",
+      "type": "CSSProperties",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "tabIndex",
+      "type": "number",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "type",
+      "type": "string",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "variant",
+      "type": "enum",
+      "description": "",
+      "required": false
+    }
+  ],
+  "KrdsTextInput": [
+    {
+      "name": "aria-label",
+      "type": "string",
+      "description": "Defines a string value that labels the current element.\n@see aria-labelledby.",
+      "required": false
+    },
+    {
+      "name": "className",
+      "type": "string",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "defaultValue",
+      "type": "string",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "disabled",
+      "type": "boolean",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "error",
+      "type": "string",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "hint",
+      "type": "string",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "id",
+      "type": "string",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "information",
+      "type": "string",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "label",
+      "type": "string",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "onChange",
+      "type": "((value: string) => void)",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "onClick",
+      "type": "MouseEventHandler<HTMLInputElement>",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "showClearButton",
+      "type": "boolean",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "showPasswordToggle",
+      "type": "boolean",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "size",
+      "type": "enum",
+      "defaultValue": "medium",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "style",
+      "type": "CSSProperties",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "success",
+      "type": "string",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "tabIndex",
+      "type": "number",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "type",
+      "type": "HTMLInputTypeAttribute",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "value",
+      "type": "string",
+      "description": "",
+      "required": false
+    }
+  ],
+  "KrdsTextList": [
+    {
+      "name": "aria-label",
+      "type": "string",
+      "description": "Defines a string value that labels the current element.\n@see aria-labelledby.",
+      "required": false
+    },
+    {
+      "name": "className",
+      "type": "string",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "id",
+      "type": "string",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "onClick",
+      "type": "MouseEventHandler<HTMLUListElement | HTMLOListElement>",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "style",
+      "type": "CSSProperties",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "tabIndex",
+      "type": "number",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "type",
+      "type": "enum",
+      "defaultValue": "dash",
+      "description": "",
+      "required": false
+    }
+  ],
+  "KrdsTextarea": [
+    {
+      "name": "aria-label",
+      "type": "string",
+      "description": "Defines a string value that labels the current element.\n@see aria-labelledby.",
+      "required": false
+    },
+    {
+      "name": "className",
+      "type": "string",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "countTotal",
+      "type": "number",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "defaultValue",
+      "type": "string",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "disabled",
+      "type": "boolean",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "id",
+      "type": "string",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "label",
+      "type": "string",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "onChange",
+      "type": "((value: string) => void)",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "onClick",
+      "type": "MouseEventHandler<HTMLTextAreaElement>",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "showCount",
+      "type": "boolean",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "style",
+      "type": "CSSProperties",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "tabIndex",
+      "type": "number",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "value",
+      "type": "string",
+      "description": "",
+      "required": false
+    }
+  ],
+  "KrdsToggleSwitch": [
+    {
+      "name": "aria-label",
+      "type": "string",
+      "description": "Defines a string value that labels the current element.\n@see aria-labelledby.",
+      "required": false
+    },
+    {
+      "name": "checked",
+      "type": "boolean",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "className",
+      "type": "string",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "disabled",
+      "type": "boolean",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "id",
+      "type": "string",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "label",
+      "type": "string",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "onCheckedChange",
+      "type": "((checked: boolean) => void)",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "onClick",
+      "type": "MouseEventHandler<HTMLSpanElement>",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "size",
+      "type": "enum",
+      "defaultValue": "medium",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "style",
+      "type": "CSSProperties",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "tabIndex",
+      "type": "number",
+      "description": "",
+      "required": false
+    }
+  ],
+  "KrdsTooltip": [
+    {
+      "name": "className",
+      "type": "string",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "text",
+      "type": "string",
+      "description": "",
+      "required": true
+    },
+    {
+      "name": "variant",
+      "type": "enum",
+      "defaultValue": "horizontal",
+      "description": "",
+      "required": false
+    }
+  ],
+  "KrdsTutorialPanel": [
+    {
+      "name": "className",
+      "type": "string",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "defaultOpen",
+      "type": "boolean",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "onOpenChange",
+      "type": "((open: boolean) => void)",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "open",
+      "type": "boolean",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "totalSteps",
+      "type": "number",
+      "defaultValue": "1",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "trigger",
+      "type": "ReactNode",
+      "description": "",
+      "required": false
+    }
+  ]
+}
