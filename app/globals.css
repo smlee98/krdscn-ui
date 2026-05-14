@@ -323,3 +323,43 @@
 .no-scrollbar::-webkit-scrollbar {
   display: none;
 }
+
+.dark {
+  --sidebar: hsl(240 5.9% 10%);
+  --sidebar-foreground: hsl(240 4.8% 95.9%);
+  --sidebar-primary: hsl(224.3 76.3% 48%);
+  --sidebar-primary-foreground: hsl(0 0% 100%);
+  --sidebar-accent: hsl(240 3.7% 15.9%);
+  --sidebar-accent-foreground: hsl(240 4.8% 95.9%);
+  --sidebar-border: hsl(240 3.7% 15.9%);
+  --sidebar-ring: hsl(217.2 91.2% 59.8%);
+}
+
+[data-theme="shadcn"] {
+  --krds-color-primary-50: var(--primary);
+  --krds-color-primary-5:  var(--accent);
+  --krds-color-primary-90: var(--foreground);
+  --krds-color-secondary-50: var(--secondary-foreground);
+  --krds-color-secondary-5:  var(--secondary);
+  --krds-color-secondary-90: var(--foreground);
+  --krds-color-gray-0:  var(--background);
+  --krds-color-gray-5:  var(--muted);
+  --krds-color-gray-10: var(--border);
+  --krds-color-gray-20: var(--border);
+  --krds-color-gray-30: var(--muted-foreground);
+  --krds-color-gray-50: var(--muted-foreground);
+  --krds-color-gray-70: var(--foreground);
+  --krds-color-gray-90: var(--foreground);
+  --krds-color-danger-50: var(--destructive);
+  --krds-color-danger-5:  color-mix(in oklch, var(--destructive) 10%, var(--background));
+  --krds-color-danger-90: var(--foreground);
+  --krds-color-info-50: var(--chart-3);
+  --krds-color-info-5:  color-mix(in oklch, var(--chart-3) 10%, var(--background));
+  --krds-color-info-90: var(--foreground);
+  --krds-color-success-50: var(--chart-2);
+  --krds-color-success-5:  color-mix(in oklch, var(--chart-2) 10%, var(--background));
+  --krds-color-success-90: var(--foreground);
+  --krds-color-warning-50: var(--chart-4);
+  --krds-color-warning-5:  color-mix(in oklch, var(--chart-4) 10%, var(--background));
+  --krds-color-warning-90: var(--foreground);
+}
