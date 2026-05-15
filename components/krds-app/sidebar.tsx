@@ -21,10 +21,32 @@ export { KrdsSidebar };
 
 function KrdsSidebar() {
   const pathname = usePathname();
+  const isHomeActive = pathname === "/";
 
   return (
     <Sidebar collapsible="none" className="sticky top-0 h-svh w-56 shrink-0">
       <SidebarContent aria-label="컴포넌트 네비게이션">
+        <SidebarGroup>
+          <SidebarGroupContent>
+            <SidebarMenu>
+              <SidebarMenuItem>
+                <SidebarMenuButton
+                  asChild
+                  isActive={isHomeActive}
+                  className={cn(
+                    isHomeActive
+                      ? "bg-krds-primary-5 text-krds-primary-60 font-medium"
+                      : "text-krds-gray-70 hover:bg-krds-gray-5 hover:text-krds-gray-90"
+                  )}
+                >
+                  <Link href="/" aria-current={isHomeActive ? "page" : undefined}>
+                    홈
+                  </Link>
+                </SidebarMenuButton>
+              </SidebarMenuItem>
+            </SidebarMenu>
+          </SidebarGroupContent>
+        </SidebarGroup>
         {SIDEBAR_GROUPS.map((group) => (
           <SidebarGroup key={group.id}>
             <SidebarGroupLabel className="text-krds-gray-50 text-[10px] font-semibold tracking-widest uppercase">
