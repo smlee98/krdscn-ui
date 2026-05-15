@@ -1,3 +1,5 @@
+import { Calendar } from "@/components/ui/krds";
+
 export default function CalendarDefault() {
-  return <div>TODO: CalendarDefault</div>;
+  return <Calendar mode="single" defaultValue="2024.03.15" />;
 }

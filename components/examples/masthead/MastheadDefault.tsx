@@ -1,3 +1,5 @@
+import { Masthead } from "@/components/ui/krds/masthead";
+
 export default function MastheadDefault() {
-  return <div>TODO: MastheadDefault</div>;
+  return <Masthead />;
 }
