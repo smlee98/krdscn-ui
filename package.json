@@ -7,6 +7,7 @@
     "dev": "next dev -p 8080 -H 0.0.0.0 --experimental-https",
     "build": "yarn props:generate && next build",
     "props:generate": "tsx scripts/generate-props-data.ts",
+    "scaffold:examples": "tsx scripts/scaffold-examples.ts",
     "start": "next start",
     "lint": "eslint . --cache",
     "format": "prettier --write \"**/*.{js,jsx,ts,tsx,cjs,mjs,html,css,json,md}\"",
