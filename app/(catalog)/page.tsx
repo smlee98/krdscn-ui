@@ -20,7 +20,7 @@ export default function WelcomePage() {
   const [demoTheme, setDemoTheme] = useState<ThemeOption>("krds");
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center gap-20 p-8">
+    <main className="flex flex-col items-center justify-center gap-20 py-12">
       {/* ─── Hero section — KRDS first (≈70 % visual weight) ─── */}
       <section className="flex flex-col items-center gap-7 text-center">
         {/* Big KRDS mark */}

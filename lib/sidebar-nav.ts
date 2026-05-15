@@ -108,10 +108,5 @@ export const SIDEBAR_GROUPS: readonly SidebarGroup[] = [
       { id: "language-switcher", labelKo: "언어 변경", labelEn: "Language switcher", implemented: true },
       { id: "resize", labelKo: "화면 크기 조정", labelEn: "Resize", implemented: true }
     ]
-  },
-  {
-    id: "demo",
-    title: "인터랙티브 데모",
-    items: [{ id: "integrated-form", labelKo: "통합 폼 데모", labelEn: "Integrated form", implemented: true }]
   }
 ] as const;

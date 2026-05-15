@@ -82,10 +82,7 @@ export const EXAMPLES_CONFIG = {
 
   // ── Settings (G30) — 2 components × 1-2 each = 3 files ───────────────────
   "language-switcher": ["LanguageSwitcherDefault", "LanguageSwitcherCompact"],
-  resize: ["ResizeDefault"],
-
-  // ── Demo (G31) — 1 file ───────────────────────────────────────────────────
-  "integrated-form": ["IntegratedFormDemo"]
+  resize: ["ResizeDefault"]
 } as const satisfies Record<SidebarItemId, readonly [string, ...string[]]>;
 
 export type ExamplesConfig = typeof EXAMPLES_CONFIG;

@@ -67,7 +67,6 @@ import _ex54 from "@/components/examples/help-panel/HelpPanelWithActions";
 import _ex55 from "@/components/examples/identifier/IdentifierDefault";
 import _ex56 from "@/components/examples/in-page-navigation/InPageNavigationDefault";
 import _ex57 from "@/components/examples/in-page-navigation/InPageNavigationFixed";
-import _ex58 from "@/components/examples/integrated-form/IntegratedFormDemo";
 import _ex59 from "@/components/examples/language-switcher/LanguageSwitcherCompact";
 import _ex60 from "@/components/examples/language-switcher/LanguageSwitcherDefault";
 import _ex61 from "@/components/examples/link/LinkButton";
@@ -208,7 +207,6 @@ export const EXAMPLE_REGISTRY: Record<string, ComponentType> = {
   "identifier/IdentifierDefault": _ex55,
   "in-page-navigation/InPageNavigationDefault": _ex56,
   "in-page-navigation/InPageNavigationFixed": _ex57,
-  "integrated-form/IntegratedFormDemo": _ex58,
   "language-switcher/LanguageSwitcherCompact": _ex59,
   "language-switcher/LanguageSwitcherDefault": _ex60,
   "link/LinkButton": _ex61,
