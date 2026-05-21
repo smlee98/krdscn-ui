@@ -1,27 +1,17 @@
-import { MainMenu, MainMenuContent, MainMenuItem, MainMenuLink, MainMenuTrigger } from "@/components/ui/krds/main-menu";
+import { MainMenu, MainMenuBar, MainMenuBarItem } from "@/components/ui/krds/(navigation)/main-menu";
 
 export default function MainMenuDefault() {
   return (
     <MainMenu>
-      <MainMenuItem value="home">
-        <MainMenuLink href="/">홈</MainMenuLink>
-      </MainMenuItem>
-      <MainMenuItem value="services">
-        <MainMenuTrigger>서비스</MainMenuTrigger>
-        <MainMenuContent>
-          <div className="grid gap-1 p-3 md:w-72">
-            <MainMenuLink href="/services/民원">민원 신청</MainMenuLink>
-            <MainMenuLink href="/services/document">증명서 발급</MainMenuLink>
-            <MainMenuLink href="/services/welfare">복지 안내</MainMenuLink>
-          </div>
-        </MainMenuContent>
-      </MainMenuItem>
-      <MainMenuItem value="news">
-        <MainMenuLink href="/news">소식</MainMenuLink>
-      </MainMenuItem>
-      <MainMenuItem value="contact">
-        <MainMenuLink href="/contact">문의</MainMenuLink>
-      </MainMenuItem>
+      <MainMenuBar aria-label="주요 메뉴">
+        <MainMenuBarItem href="#" hasSubmenu>
+          정책정보
+        </MainMenuBarItem>
+        <MainMenuBarItem href="#" hasSubmenu>
+          서비스
+        </MainMenuBarItem>
+        <MainMenuBarItem href="#">공지사항</MainMenuBarItem>
+      </MainMenuBar>
     </MainMenu>
   );
 }

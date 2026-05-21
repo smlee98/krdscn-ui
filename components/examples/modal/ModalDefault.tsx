@@ -1,3 +1,4 @@
+import { Button } from "@/components/ui/krds/(action)/button";
 import {
   ModalRoot,
   ModalTrigger,
@@ -5,9 +6,8 @@ import {
   ModalHeader,
   ModalBody,
   ModalFooter,
-  ModalClose,
-  Button
-} from "@/components/ui/krds";
+  ModalClose
+} from "@/components/ui/krds/(layout)/modal";
 
 export default function ModalDefault() {
   return (
@@ -17,15 +17,19 @@ export default function ModalDefault() {
       </ModalTrigger>
       <ModalContent>
         <ModalClose />
-        <ModalHeader title="민원 신청 확인" />
-        <ModalBody descriptionId="modal-default-desc">
-          선택하신 민원을 신청하시겠습니까? 신청 후에는 취소가 어려울 수 있습니다.
-        </ModalBody>
+        <ModalHeader title="모달 제목" />
+        <ModalBody>대화 상자는 사용자에게 작업에 대해 알리고 중요한 정보를 포함합니다.</ModalBody>
         <ModalFooter>
           <ModalClose asChild>
-            <Button variant="secondary">취소</Button>
+            <Button variant="tertiary" size="medium">
+              아니요
+            </Button>
           </ModalClose>
-          <Button variant="primary">확인</Button>
+          <ModalClose asChild>
+            <Button variant="primary" size="medium">
+              예
+            </Button>
+          </ModalClose>
         </ModalFooter>
       </ModalContent>
     </ModalRoot>

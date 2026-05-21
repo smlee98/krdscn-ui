@@ -203,36 +203,13 @@
     {
       "name": "aria-label",
       "type": "string",
-      "description": "Defines a string value that labels the current element.\n@see aria-labelledby.",
+      "defaultValue": "이동 경로",
+      "description": "",
       "required": false
     },
     {
       "name": "className",
       "type": "string",
-      "description": "",
-      "required": false
-    },
-    {
-      "name": "id",
-      "type": "string",
-      "description": "",
-      "required": false
-    },
-    {
-      "name": "onClick",
-      "type": "MouseEventHandler<HTMLElement>",
-      "description": "",
-      "required": false
-    },
-    {
-      "name": "style",
-      "type": "CSSProperties",
-      "description": "",
-      "required": false
-    },
-    {
-      "name": "tabIndex",
-      "type": "number",
       "description": "",
       "required": false
     }
@@ -331,7 +308,7 @@
     {
       "name": "confirmButtonText",
       "type": "string",
-      "defaultValue": "확인",
+      "defaultValue": "선택",
       "description": "",
       "required": false
     },
@@ -828,51 +805,15 @@
   ],
   "KrdsCriticalAlert": [
     {
-      "name": "aria-label",
-      "type": "string",
-      "description": "Defines a string value that labels the current element.\n@see aria-labelledby.",
-      "required": false
-    },
-    {
       "name": "className",
       "type": "string",
       "description": "",
       "required": false
     },
     {
-      "name": "defaultVisible",
-      "type": "boolean",
-      "defaultValue": "true",
-      "description": "",
-      "required": false
-    },
-    {
-      "name": "id",
-      "type": "string",
-      "description": "",
-      "required": false
-    },
-    {
-      "name": "onClick",
-      "type": "MouseEventHandler<HTMLDivElement>",
-      "description": "",
-      "required": false
-    },
-    {
-      "name": "onClose",
-      "type": "(() => void)",
-      "description": "",
-      "required": false
-    },
-    {
-      "name": "style",
-      "type": "CSSProperties",
-      "description": "",
-      "required": false
-    },
-    {
-      "name": "tabIndex",
-      "type": "number",
+      "name": "type",
+      "type": "enum",
+      "defaultValue": "emergency",
       "description": "",
       "required": false
     }
@@ -1311,38 +1252,8 @@
   ],
   "KrdsHeader": [
     {
-      "name": "aria-label",
-      "type": "string",
-      "description": "Defines a string value that labels the current element.\n@see aria-labelledby.",
-      "required": false
-    },
-    {
       "name": "className",
       "type": "string",
-      "description": "",
-      "required": false
-    },
-    {
-      "name": "id",
-      "type": "string",
-      "description": "",
-      "required": false
-    },
-    {
-      "name": "onClick",
-      "type": "MouseEventHandler<HTMLElement>",
-      "description": "",
-      "required": false
-    },
-    {
-      "name": "style",
-      "type": "CSSProperties",
-      "description": "",
-      "required": false
-    },
-    {
-      "name": "tabIndex",
-      "type": "number",
       "description": "",
       "required": false
     }
@@ -1381,38 +1292,15 @@
   ],
   "KrdsIdentifier": [
     {
-      "name": "aria-label",
-      "type": "string",
-      "description": "Defines a string value that labels the current element.\n@see aria-labelledby.",
-      "required": false
-    },
-    {
       "name": "className",
       "type": "string",
       "description": "",
       "required": false
     },
     {
-      "name": "id",
-      "type": "string",
-      "description": "",
-      "required": false
-    },
-    {
-      "name": "onClick",
-      "type": "MouseEventHandler<HTMLDivElement>",
-      "description": "",
-      "required": false
-    },
-    {
-      "name": "style",
-      "type": "CSSProperties",
-      "description": "",
-      "required": false
-    },
-    {
-      "name": "tabIndex",
-      "type": "number",
+      "name": "notice",
+      "type": "ReactNode",
+      "defaultValue": "이 누리집은 정부 산하기관 누리집입니다.",
       "description": "",
       "required": false
     }
@@ -1421,36 +1309,13 @@
     {
       "name": "aria-label",
       "type": "string",
-      "description": "Defines a string value that labels the current element.\n@see aria-labelledby.",
+      "defaultValue": "이 페이지의 구성",
+      "description": "",
       "required": false
     },
     {
       "name": "className",
       "type": "string",
-      "description": "",
-      "required": false
-    },
-    {
-      "name": "id",
-      "type": "string",
-      "description": "",
-      "required": false
-    },
-    {
-      "name": "onClick",
-      "type": "MouseEventHandler<HTMLElement>",
-      "description": "",
-      "required": false
-    },
-    {
-      "name": "style",
-      "type": "CSSProperties",
-      "description": "",
-      "required": false
-    },
-    {
-      "name": "tabIndex",
-      "type": "number",
       "description": "",
       "required": false
     }
@@ -1647,33 +1512,9 @@
       "type": "string",
       "description": "",
       "required": false
-    },
-    {
-      "name": "defaultValue",
-      "type": "string",
-      "description": "",
-      "required": false
-    },
-    {
-      "name": "onValueChange",
-      "type": "((value: string) => void)",
-      "description": "",
-      "required": false
-    },
-    {
-      "name": "value",
-      "type": "string",
-      "description": "",
-      "required": false
     }
   ],
   "KrdsMasthead": [
-    {
-      "name": "aria-label",
-      "type": "string",
-      "description": "Defines a string value that labels the current element.\n@see aria-labelledby.",
-      "required": false
-    },
     {
       "name": "className",
       "type": "string",
@@ -1681,26 +1522,9 @@
       "required": false
     },
     {
-      "name": "id",
-      "type": "string",
-      "description": "",
-      "required": false
-    },
-    {
-      "name": "onClick",
-      "type": "MouseEventHandler<HTMLDivElement>",
-      "description": "",
-      "required": false
-    },
-    {
-      "name": "style",
-      "type": "CSSProperties",
-      "description": "",
-      "required": false
-    },
-    {
-      "name": "tabIndex",
-      "type": "number",
+      "name": "notice",
+      "type": "ReactNode",
+      "defaultValue": "이 누리집은 대한민국 공식 전자정부 누리집입니다.",
       "description": "",
       "required": false
     }
@@ -1770,36 +1594,13 @@
     {
       "name": "aria-label",
       "type": "string",
-      "description": "Defines a string value that labels the current element.\n@see aria-labelledby.",
+      "defaultValue": "페이지 네비게이션",
+      "description": "",
       "required": false
     },
     {
       "name": "className",
       "type": "string",
-      "description": "",
-      "required": false
-    },
-    {
-      "name": "id",
-      "type": "string",
-      "description": "",
-      "required": false
-    },
-    {
-      "name": "onClick",
-      "type": "MouseEventHandler<HTMLElement>",
-      "description": "",
-      "required": false
-    },
-    {
-      "name": "style",
-      "type": "CSSProperties",
-      "description": "",
-      "required": false
-    },
-    {
-      "name": "tabIndex",
-      "type": "number",
       "description": "",
       "required": false
     }
@@ -2002,87 +1803,28 @@
     {
       "name": "aria-label",
       "type": "string",
-      "description": "Defines a string value that labels the current element.\n@see aria-labelledby.",
+      "defaultValue": "사이드 내비게이션",
+      "description": "",
       "required": false
     },
     {
       "name": "className",
       "type": "string",
-      "description": "",
-      "required": false
-    },
-    {
-      "name": "id",
-      "type": "string",
-      "description": "",
-      "required": false
-    },
-    {
-      "name": "onClick",
-      "type": "MouseEventHandler<HTMLElement>",
-      "description": "",
-      "required": false
-    },
-    {
-      "name": "style",
-      "type": "CSSProperties",
-      "description": "",
-      "required": false
-    },
-    {
-      "name": "tabIndex",
-      "type": "number",
       "description": "",
       "required": false
     }
   ],
   "KrdsSkipLink": [
     {
-      "name": "aria-label",
-      "type": "string",
-      "description": "Defines a string value that labels the current element.\n@see aria-labelledby.",
-      "required": false
-    },
-    {
-      "name": "asChild",
-      "type": "boolean",
-      "defaultValue": "false",
-      "description": "",
-      "required": false
-    },
-    {
       "name": "className",
       "type": "string",
       "description": "",
       "required": false
     },
     {
-      "name": "id",
+      "name": "href",
       "type": "string",
-      "description": "",
-      "required": false
-    },
-    {
-      "name": "onClick",
-      "type": "MouseEventHandler<HTMLAnchorElement>",
-      "description": "",
-      "required": false
-    },
-    {
-      "name": "style",
-      "type": "CSSProperties",
-      "description": "",
-      "required": false
-    },
-    {
-      "name": "tabIndex",
-      "type": "number",
-      "description": "",
-      "required": false
-    },
-    {
-      "name": "type",
-      "type": "string",
+      "defaultValue": "#main-content",
       "description": "",
       "required": false
     }
@@ -2184,38 +1926,15 @@
   ],
   "KrdsStructuredList": [
     {
-      "name": "aria-label",
-      "type": "string",
-      "description": "Defines a string value that labels the current element.\n@see aria-labelledby.",
-      "required": false
-    },
-    {
       "name": "className",
       "type": "string",
       "description": "",
       "required": false
     },
     {
-      "name": "id",
-      "type": "string",
-      "description": "",
-      "required": false
-    },
-    {
-      "name": "onClick",
-      "type": "MouseEventHandler<HTMLDListElement>",
-      "description": "",
-      "required": false
-    },
-    {
-      "name": "style",
-      "type": "CSSProperties",
-      "description": "",
-      "required": false
-    },
-    {
-      "name": "tabIndex",
-      "type": "number",
+      "name": "variant",
+      "type": "enum",
+      "defaultValue": "vertical",
       "description": "",
       "required": false
     }

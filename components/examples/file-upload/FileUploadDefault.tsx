@@ -1,21 +1,15 @@
-"use client";
-
-import * as React from "react";
-import { FileUpload, type FileItem } from "@/components/ui/krds/file-upload";
+import { FileUpload } from "@/components/ui/krds/(input)/file-upload";
 
 export default function FileUploadDefault() {
-  const [files, setFiles] = React.useState<FileItem[]>([]);
-
   return (
-    <div className="w-full max-w-xl">
+    <div className="w-full max-w-[760px] rounded-[12px] border border-[#b1b8be] bg-white p-10">
       <FileUpload
-        title="첨부 파일"
-        description="PDF, HWP, DOCX 파일을 업로드할 수 있습니다."
-        maxFiles={1}
-        maxFileSize={10 * 1024 * 1024}
-        acceptedFileTypes={[".pdf", ".hwp", ".docx"]}
-        files={files}
-        onFilesChange={setFiles}
+        title="타이틀영역"
+        description="컨텐츠 영역"
+        uploadText="첨부할 파일을 여기에 끌어다 놓거나, 파일 선택 버튼을 눌러 파일을 직접 선택해주세요."
+        maxFiles={10}
+        maxFileSize={20 * 1024 * 1024}
+        acceptedFileTypes={["pdf", "doc", "docx", "hwp", "jpg", "png"]}
       />
     </div>
   );

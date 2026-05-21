@@ -1,12 +1,51 @@
-import { StructuredList, StructuredListItem } from "@/components/ui/krds";
+import { Heart, Share2 } from "lucide-react";
+import { Button } from "@/components/ui/krds/(action)/button";
+import {
+  StructuredList,
+  StructuredListActions,
+  StructuredListBadge,
+  StructuredListBody,
+  StructuredListDescription,
+  StructuredListHeader,
+  StructuredListMetadata,
+  StructuredListMetadataItem,
+  StructuredListPeriod,
+  StructuredListSubAction,
+  StructuredListSubActions,
+  StructuredListTitle
+} from "@/components/ui/krds/(layout)/structured-list";
 
 export default function StructuredListDefault() {
   return (
-    <StructuredList>
-      <StructuredListItem label="이름" value="홍길동" />
-      <StructuredListItem label="소속기관" value="행정안전부" />
-      <StructuredListItem label="직위" value="사무관" />
-      <StructuredListItem label="연락처" value="02-1234-5678" />
+    <StructuredList variant="vertical">
+      <StructuredListBody>
+        <StructuredListHeader>
+          <StructuredListBadge>복지</StructuredListBadge>
+          <StructuredListTitle>아동수당 신청 안내</StructuredListTitle>
+        </StructuredListHeader>
+        <StructuredListDescription>
+          만 8세 미만 아동에게 매월 10만원을 지급하여 양육 부담을 완화하고 아동의 권리를 보장합니다. 온라인으로 간편하게
+          신청하실 수 있습니다.
+        </StructuredListDescription>
+        <StructuredListPeriod>2024.01.01 - 2024.12.31</StructuredListPeriod>
+        <StructuredListMetadata>
+          <StructuredListMetadataItem>조회수 1,234</StructuredListMetadataItem>
+          <StructuredListMetadataItem>등록일 2024.01.01</StructuredListMetadataItem>
+        </StructuredListMetadata>
+        <StructuredListActions>
+          <StructuredListSubActions>
+            <StructuredListSubAction icon={<Share2 size={20} />} aria-label="공유하기">
+              공유하기
+            </StructuredListSubAction>
+            <StructuredListSubAction icon={<Heart size={20} />} aria-label="찜하기">
+              찜하기
+            </StructuredListSubAction>
+          </StructuredListSubActions>
+          <Button variant="primary" size="medium">
+            신청하기
+          </Button>
+        </StructuredListActions>
+      </StructuredListBody>
     </StructuredList>
   );
 }

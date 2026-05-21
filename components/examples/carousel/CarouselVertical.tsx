@@ -1,4 +1,11 @@
-import { Carousel, CarouselContent, CarouselItem, CarouselPrevious, CarouselNext } from "@/components/ui/krds";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselPrevious,
+  CarouselNext,
+  CarouselNumber
+} from "@/components/ui/krds/(layout)/carousel";
 
 const STEPS = [
   { step: "01", label: "신청서 작성", desc: "민원 정보를 입력합니다." },
@@ -9,22 +16,29 @@ const STEPS = [
 
 export default function CarouselVertical() {
   return (
-    <Carousel orientation="vertical" className="w-full max-w-xs" opts={{ align: "start" }}>
-      <CarouselContent className="-mt-2 h-48">
-        {STEPS.map((step, idx) => (
-          <CarouselItem key={idx} className="basis-1/2 pt-2">
-            <div className="bg-krds-gray-5 flex items-center gap-4 rounded-lg px-4 py-3">
-              <span className="text-krds-primary-50 text-lg font-bold">{step.step}</span>
-              <div>
-                <p className="text-krds-gray-90 text-sm font-semibold">{step.label}</p>
-                <p className="text-krds-gray-50 text-xs">{step.desc}</p>
+    <div className="flex w-full max-w-xs items-center gap-3">
+      <Carousel orientation="vertical" className="flex-1" opts={{ align: "start" }}>
+        <CarouselContent className="-mt-2 h-48">
+          {STEPS.map((step, idx) => (
+            <CarouselItem key={idx} className="basis-1/2 pt-2">
+              <div className="bg-krds-gray-5 flex h-full items-center gap-4 rounded-lg px-4 py-3">
+                <span className="text-krds-primary-50 text-lg font-bold">{step.step}</span>
+                <div>
+                  <p className="text-krds-gray-90 text-sm font-semibold">{step.label}</p>
+                  <p className="text-krds-gray-50 text-xs">{step.desc}</p>
+                </div>
               </div>
-            </div>
-          </CarouselItem>
-        ))}
-      </CarouselContent>
-      <CarouselPrevious />
-      <CarouselNext />
-    </Carousel>
+            </CarouselItem>
+          ))}
+        </CarouselContent>
+        <div className="mt-3 flex items-center justify-between gap-2">
+          <CarouselNumber />
+          <div className="flex items-center gap-2">
+            <CarouselPrevious />
+            <CarouselNext />
+          </div>
+        </div>
+      </Carousel>
+    </div>
   );
 }

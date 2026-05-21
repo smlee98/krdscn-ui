@@ -1,4 +1,11 @@
-import { Carousel, CarouselContent, CarouselItem, CarouselPrevious, CarouselNext } from "@/components/ui/krds";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselPrevious,
+  CarouselNext,
+  CarouselDots
+} from "@/components/ui/krds/(layout)/carousel";
 
 const SERVICES = [
   { icon: "📋", name: "주민등록등본" },
@@ -22,8 +29,13 @@ export default function CarouselMultiple() {
           </CarouselItem>
         ))}
       </CarouselContent>
-      <CarouselPrevious />
-      <CarouselNext />
+      <div className="mt-4 flex items-center justify-between gap-2">
+        <CarouselDots />
+        <div className="flex items-center gap-2">
+          <CarouselPrevious />
+          <CarouselNext />
+        </div>
+      </div>
     </Carousel>
   );
 }

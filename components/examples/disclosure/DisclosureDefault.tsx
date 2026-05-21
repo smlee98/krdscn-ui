@@ -1,14 +1,13 @@
-import { Disclosure, DisclosureTrigger, DisclosureContent } from "@/components/ui/krds";
+import { Disclosure, DisclosureTrigger, DisclosureContent } from "@/components/ui/krds/(layout)/disclosure";
 
 export default function DisclosureDefault() {
   return (
-    <Disclosure defaultOpen>
-      <DisclosureTrigger>신청 자격 요건 안내</DisclosureTrigger>
+    <Disclosure>
+      <DisclosureTrigger>신청 서비스안내</DisclosureTrigger>
       <DisclosureContent>
         <ul className="text-krds-gray-70 list-disc space-y-1 pl-4 text-sm">
-          <li>대한민국 국적을 보유한 만 19세 이상 성인</li>
-          <li>주민등록 상 주소지가 신청 지역에 해당하는 분</li>
-          <li>소득 기준 중위소득 80% 이하 가구</li>
+          <li>하나의 아이디로 안전하고 편리하게 여러 전자정부 서비스를 이용할 수 있는 서비스입니다.</li>
+          <li>디지털원패스 이용문의 : 1533-3713 (평일9~18시, 공휴일제외)</li>
         </ul>
       </DisclosureContent>
     </Disclosure>

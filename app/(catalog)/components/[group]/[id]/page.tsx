@@ -8,6 +8,7 @@ import { PropsTable } from "@/components/krds-app/props-table";
 import { EXAMPLES_CONFIG, type ExampleSlug } from "@/components/examples/examples-config";
 import { COMPONENT_COPY, type SidebarItemId } from "@/lib/component-copy";
 import { getExampleSource } from "@/lib/get-example-source";
+import { getExampleTitle } from "@/lib/example-titles";
 import { getPropsData } from "@/lib/get-props-data";
 import { SIDEBAR_GROUPS } from "@/lib/sidebar-nav";
 
@@ -50,6 +51,7 @@ export default async function ComponentPage({ params }: PageProps) {
 
   const examples = exampleNames.map((name) => ({
     name,
+    title: getExampleTitle(slug, name),
     source: getExampleSource(slug, name)
   }));
 
@@ -73,9 +75,12 @@ export default async function ComponentPage({ params }: PageProps) {
           예제
         </h2>
         <div className="space-y-8">
-          {examples.map(({ name, source }) => (
+          {examples.map(({ name, title, source }) => (
             <div key={name} className="space-y-3">
-              <ExamplePreview label={name}>
+              {title ? (
+                <h3 className="text-lg font-semibold tracking-tight">{title}</h3>
+              ) : null}
+              <ExamplePreview>
                 <ExampleHost slug={slug} name={name} />
               </ExamplePreview>
               <CodeBlock code={source} lang="tsx" collapsible />

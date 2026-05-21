@@ -1,10 +1,10 @@
-import { TextList, TextListItem } from "@/components/ui/krds";
+import { TextList, TextListItem } from "@/components/ui/krds/(layout)/text-list";
 
 export default function TextListOrdered() {
   return (
     <div className="flex flex-col gap-6">
       <div>
-        <p className="text-krds-gray-70 mb-2 text-sm font-medium">숫자 목록 (decimal)</p>
+        <p className="text-krds-gray-70 mb-2 text-sm font-medium">레벨 1 — decimal (1.)</p>
         <TextList type="decimal">
           <TextListItem>정부24 홈페이지에 접속합니다.</TextListItem>
           <TextListItem>원하는 민원 서비스를 검색합니다.</TextListItem>
@@ -13,11 +13,19 @@ export default function TextListOrdered() {
         </TextList>
       </div>
       <div>
-        <p className="text-krds-gray-70 mb-2 text-sm font-medium">속 번호 목록 (number prop)</p>
-        <TextList type="dash">
-          <TextListItem number="1">접수 후 담당자 배정</TextListItem>
-          <TextListItem number="2">서류 검토 및 현장 확인</TextListItem>
-          <TextListItem number="3">결과 통보 (문자 + 이메일)</TextListItem>
+        <p className="text-krds-gray-70 mb-2 text-sm font-medium">레벨 2 — alpha (a.)</p>
+        <TextList type="alpha">
+          <TextListItem>접수 후 담당자 배정</TextListItem>
+          <TextListItem>서류 검토 및 현장 확인</TextListItem>
+          <TextListItem>결과 통보 (문자 + 이메일)</TextListItem>
+        </TextList>
+      </div>
+      <div>
+        <p className="text-krds-gray-70 mb-2 text-sm font-medium">레벨 3 — circle-num (①)</p>
+        <TextList type="circle-num">
+          <TextListItem>신분증 사본 준비</TextListItem>
+          <TextListItem>주민등록등본 발급</TextListItem>
+          <TextListItem>소득확인서류 첨부</TextListItem>
         </TextList>
       </div>
     </div>

@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { Checkbox } from "@/components/ui/krds/checkbox";
+import { Checkbox, CheckboxGroup } from "@/components/ui/krds/(selection)/checkbox";
 
 const items = ["전기 사용 동의", "가스 사용 동의", "수도 사용 동의"] as const;
 
@@ -12,14 +12,22 @@ export default function CheckboxIndeterminate() {
     "수도 사용 동의": false
   });
 
-  const allChecked = items.every((item) => checked[item]);
+  const checkedCount = items.filter((item) => checked[item]).length;
+  const allChecked = checkedCount === items.length;
+  const isIndeterminate = checkedCount > 0 && checkedCount < items.length;
 
   const handleAll = (value: boolean) => setChecked(Object.fromEntries(items.map((item) => [item, value])));
 
   return (
     <div className="flex flex-col gap-3">
-      <Checkbox label="전체 동의" size="large" checked={allChecked} onChange={handleAll} />
-      <div className="border-krds-gray-20 flex flex-col gap-2 border-t pt-3 pl-3">
+      <Checkbox
+        size="large"
+        label="전체 동의"
+        checked={allChecked}
+        indeterminate={isIndeterminate}
+        onChange={handleAll}
+      />
+      <CheckboxGroup column className="border-krds-gray-20 border-t pt-3 pl-3">
         {items.map((item) => (
           <Checkbox
             key={item}
@@ -28,7 +36,7 @@ export default function CheckboxIndeterminate() {
             onChange={(v) => setChecked((prev) => ({ ...prev, [item]: v }))}
           />
         ))}
-      </div>
+      </CheckboxGroup>
     </div>
   );
 }

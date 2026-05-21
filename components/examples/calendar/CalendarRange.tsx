@@ -1,5 +1,5 @@
-import { Calendar } from "@/components/ui/krds";
+import { Calendar } from "@/components/ui/krds/(layout)/calendar";
 
 export default function CalendarRange() {
-  return <Calendar mode="range" defaultStartDate="2024.03.10" defaultEndDate="2024.03.20" />;
+  return <Calendar mode="range" defaultStartDate="2024.12.07" defaultEndDate="2024.12.16" />;
 }

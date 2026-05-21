@@ -1,18 +1,27 @@
-import { Badge } from "@/components/ui/krds";
+import { Badge } from "@/components/ui/krds/(layout)/badge";
 
 export default function BadgeVariants() {
   return (
-    <div className="flex flex-wrap items-center gap-3">
-      <Badge variant="basic">일반</Badge>
-      <Badge variant="primary">주요</Badge>
-      <Badge variant="secondary">보조</Badge>
-      <Badge variant="success">성공</Badge>
-      <Badge variant="warning">경고</Badge>
-      <Badge variant="danger">위험</Badge>
-      <Badge variant="information">정보</Badge>
-      <Badge variant="point">포인트</Badge>
-      <Badge variant="gray">비활성</Badge>
-      <Badge variant="disabled">사용불가</Badge>
+    <div className="flex flex-col gap-3">
+      <div className="flex flex-wrap items-center gap-2">
+        <Badge type="solid">Solid</Badge>
+        <Badge type="outline">Outline</Badge>
+        <Badge type="solid-pastel">Pastel</Badge>
+      </div>
+      <div className="flex flex-wrap items-center gap-2">
+        <Badge type="solid" color="danger">
+          위험
+        </Badge>
+        <Badge type="solid" color="warning">
+          경고
+        </Badge>
+        <Badge type="solid" color="success">
+          성공
+        </Badge>
+        <Badge type="solid" color="info">
+          정보
+        </Badge>
+      </div>
     </div>
   );
 }

@@ -1,7 +1,8 @@
 "use client";
 
 import * as React from "react";
-import { Accordion, AccordionItem, AccordionHeader, AccordionPanel, Button } from "@/components/ui/krds";
+import { Button } from "@/components/ui/krds/(action)/button";
+import { Accordion, AccordionItem, AccordionHeader, AccordionPanel } from "@/components/ui/krds/(layout)/accordion";
 
 const ITEMS = ["faq-1", "faq-2", "faq-3"];
 

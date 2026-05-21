@@ -1,25 +1,38 @@
+import { Search } from "lucide-react";
 import {
   Header,
-  HeaderActionButton,
+  HeaderActionItem,
   HeaderActions,
   HeaderBrand,
   HeaderNav,
-  HeaderNavItem
-} from "@/components/ui/krds/header";
+  HeaderNavItem,
+  HeaderUtility,
+  HeaderUtilityDivider,
+  HeaderUtilityItem
+} from "@/components/ui/krds/(identity)/header";
 
 export default function HeaderDefault() {
   return (
     <Header>
-      <HeaderBrand href="/">정부24</HeaderBrand>
+      <HeaderUtility>
+        <HeaderUtilityItem href="#">KRDS 소개</HeaderUtilityItem>
+        <HeaderUtilityDivider />
+        <HeaderUtilityItem asSelect>사용자 지원</HeaderUtilityItem>
+      </HeaderUtility>
+      <HeaderBrand href="/">KRDS</HeaderBrand>
       <HeaderActions>
-        <HeaderActionButton>로그인</HeaderActionButton>
-        <HeaderActionButton>회원가입</HeaderActionButton>
+        <HeaderActionItem icon={<Search />}>검색</HeaderActionItem>
+        <HeaderActionItem href="#">로그인</HeaderActionItem>
+        <HeaderActionItem href="#">회원가입</HeaderActionItem>
       </HeaderActions>
-      <HeaderNav>
-        <HeaderNavItem href="#">서비스 안내</HeaderNavItem>
-        <HeaderNavItem href="#">민원 신청</HeaderNavItem>
-        <HeaderNavItem href="#">정보 공개</HeaderNavItem>
-        <HeaderNavItem href="#">고객 지원</HeaderNavItem>
+      <HeaderNav aria-label="주요 메뉴">
+        <HeaderNavItem href="#" hasSubmenu>
+          디자인 시스템
+        </HeaderNavItem>
+        <HeaderNavItem href="#" hasSubmenu>
+          자료실
+        </HeaderNavItem>
+        <HeaderNavItem href="#">정책</HeaderNavItem>
       </HeaderNav>
     </Header>
   );

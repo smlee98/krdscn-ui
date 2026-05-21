@@ -1,0 +1,272 @@
+// rsc:client
+"use client";
+
+import * as React from "react";
+import { ArrowLeft, ArrowRight, MoreHorizontal } from "lucide-react";
+import { cn } from "@/lib/cn";
+
+// ─── Page list builder ────────────────────────────────────────────────────────
+
+function buildPageItems(current: number, total: number, boundary: number, sibling: number): (number | "dots")[] {
+  if (total <= 1) return [1];
+
+  const pages = new Set<number>();
+
+  for (let i = 1; i <= Math.min(boundary, total); i++) pages.add(i);
+  for (let i = Math.max(total - boundary + 1, 1); i <= total; i++) pages.add(i);
+  for (let i = Math.max(current - sibling, 1); i <= Math.min(current + sibling, total); i++) pages.add(i);
+
+  const sorted = Array.from(pages).sort((a, b) => a - b);
+
+  const result: (number | "dots")[] = [];
+  let prev = 0;
+  for (const p of sorted) {
+    if (p - prev > 1) result.push("dots");
+    result.push(p);
+    prev = p;
+  }
+  return result;
+}
+
+// ─── Pagination (root) ────────────────────────────────────────────────────────
+
+type PaginationProps = {
+  className?: string;
+  children?: React.ReactNode;
+  "aria-label"?: string;
+};
+
+function Pagination({ className, children, "aria-label": ariaLabel = "페이지 네비게이션" }: PaginationProps) {
+  return (
+    <nav
+      data-slot="krds-pagination"
+      aria-label={ariaLabel}
+      className={cn("flex flex-col items-center gap-6", className)}
+    >
+      {children}
+    </nav>
+  );
+}
+
+// ─── PaginationContent (number-button row) ────────────────────────────────────
+
+type PaginationContentProps = {
+  className?: string;
+  children?: React.ReactNode;
+};
+
+function PaginationContent({ className, children }: PaginationContentProps) {
+  return (
+    <div data-slot="krds-pagination-content" className={cn("flex items-center gap-2", className)}>
+      {children}
+    </div>
+  );
+}
+
+// ─── Base button style ────────────────────────────────────────────────────────
+
+const btnBase = cn(
+  "inline-flex h-10 items-center justify-center rounded-[6px] bg-transparent select-none",
+  "text-[17px] leading-[1.5] text-krds-gray-70",
+  "hover:bg-krds-gray-5 active:bg-krds-gray-10",
+  "focus-visible:ring-krds-primary-50 focus-visible:ring-2 focus-visible:outline-none",
+  "disabled:cursor-not-allowed disabled:bg-transparent disabled:text-[#8a949e] disabled:pointer-events-none"
+);
+
+// ─── PaginationPrev ───────────────────────────────────────────────────────────
+
+type PaginationPrevProps = {
+  className?: string;
+  children?: React.ReactNode;
+  disabled?: boolean;
+  onClick?: React.MouseEventHandler<HTMLButtonElement>;
+  "aria-label"?: string;
+};
+
+function PaginationPrev({
+  className,
+  children,
+  disabled,
+  onClick,
+  "aria-label": ariaLabel = "이전"
+}: PaginationPrevProps) {
+  return (
+    <button
+      type="button"
+      data-slot="krds-pagination-prev"
+      aria-label={ariaLabel}
+      disabled={disabled}
+      onClick={onClick}
+      className={cn(btnBase, "gap-1 pr-2 pl-1", className)}
+    >
+      <ArrowLeft size={20} aria-hidden="true" />
+      <span>{children ?? "이전"}</span>
+    </button>
+  );
+}
+
+// ─── PaginationNext ───────────────────────────────────────────────────────────
+
+type PaginationNextProps = {
+  className?: string;
+  children?: React.ReactNode;
+  disabled?: boolean;
+  onClick?: React.MouseEventHandler<HTMLButtonElement>;
+  "aria-label"?: string;
+};
+
+function PaginationNext({
+  className,
+  children,
+  disabled,
+  onClick,
+  "aria-label": ariaLabel = "다음"
+}: PaginationNextProps) {
+  return (
+    <button
+      type="button"
+      data-slot="krds-pagination-next"
+      aria-label={ariaLabel}
+      disabled={disabled}
+      onClick={onClick}
+      className={cn(btnBase, "gap-1 pr-1 pl-2", className)}
+    >
+      <span>{children ?? "다음"}</span>
+      <ArrowRight size={20} aria-hidden="true" />
+    </button>
+  );
+}
+
+// ─── PaginationItem (numbered page) ───────────────────────────────────────────
+
+type PaginationItemProps = {
+  className?: string;
+  children?: React.ReactNode;
+  active?: boolean;
+  disabled?: boolean;
+  onClick?: React.MouseEventHandler<HTMLButtonElement>;
+};
+
+function PaginationItem({ className, children, active, disabled, onClick }: PaginationItemProps) {
+  return (
+    <button
+      type="button"
+      data-slot="krds-pagination-item"
+      aria-current={active ? "page" : undefined}
+      data-active={active || undefined}
+      disabled={disabled}
+      onClick={onClick}
+      className={cn(
+        btnBase,
+        "w-10",
+        active && "bg-[#063a74] font-bold text-white hover:bg-[#063a74] active:bg-[#063a74]",
+        className
+      )}
+    >
+      {children}
+    </button>
+  );
+}
+
+// ─── PaginationEllipsis ───────────────────────────────────────────────────────
+
+type PaginationEllipsisProps = {
+  className?: string;
+};
+
+function PaginationEllipsis({ className }: PaginationEllipsisProps) {
+  return (
+    <span
+      data-slot="krds-pagination-ellipsis"
+      aria-hidden="true"
+      className={cn("text-krds-gray-70 inline-flex h-10 w-10 items-center justify-center select-none", className)}
+    >
+      <MoreHorizontal size={24} aria-hidden="true" />
+    </span>
+  );
+}
+
+// ─── PaginationJump (input + total + go button row) ───────────────────────────
+
+type PaginationJumpProps = {
+  className?: string;
+  total: number;
+  value?: number;
+  defaultValue?: number;
+  onJump?: (page: number) => void;
+  goLabel?: string;
+  inputAriaLabel?: string;
+};
+
+function PaginationJump({
+  className,
+  total,
+  value,
+  defaultValue = 1,
+  onJump,
+  goLabel = "이동",
+  inputAriaLabel = "이동할 페이지 번호"
+}: PaginationJumpProps) {
+  const [draft, setDraft] = React.useState(String(value ?? defaultValue));
+  const [prevValue, setPrevValue] = React.useState(value);
+  if (value !== prevValue) {
+    setPrevValue(value);
+    if (value !== undefined) setDraft(String(value));
+  }
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const n = Number(draft);
+    if (!Number.isFinite(n) || n < 1 || n > total) return;
+    onJump?.(n);
+  };
+
+  return (
+    <form
+      data-slot="krds-pagination-jump"
+      onSubmit={handleSubmit}
+      className={cn("flex items-center justify-center gap-4", className)}
+    >
+      <div className="flex items-center">
+        <input
+          type="text"
+          inputMode="numeric"
+          pattern="[0-9]*"
+          aria-label={inputAriaLabel}
+          value={draft}
+          onChange={(e) => setDraft(e.target.value)}
+          className={cn(
+            "h-10 w-14 rounded-[6px] border border-[#58616a] bg-white px-4",
+            "text-krds-gray-90 text-center text-[15px] leading-[1.5]",
+            "focus-visible:ring-krds-primary-50 focus-visible:ring-2 focus-visible:outline-none"
+          )}
+        />
+        <span className="text-krds-gray-70 flex h-10 w-10 items-center justify-center px-2 text-[15px] leading-[1.5]">
+          /{total}
+        </span>
+      </div>
+      <button
+        type="submit"
+        className={cn(
+          "inline-flex h-10 min-w-16 items-center justify-center rounded-[6px] px-3",
+          "border border-[#256ef4] bg-[#ecf2fe] text-[15px] leading-[1.5] text-[#0b50d0]",
+          "hover:bg-[#dbe8fd] active:bg-[#cbdcfc]",
+          "focus-visible:ring-krds-primary-50 focus-visible:ring-2 focus-visible:outline-none"
+        )}
+      >
+        {goLabel}
+      </button>
+    </form>
+  );
+}
+
+export {
+  buildPageItems,
+  Pagination,
+  PaginationContent,
+  PaginationPrev,
+  PaginationNext,
+  PaginationItem,
+  PaginationEllipsis,
+  PaginationJump
+};

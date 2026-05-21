@@ -9,12 +9,12 @@ import {
   PaginationNext,
   PaginationPrev,
   buildPageItems
-} from "@/components/ui/krds/pagination";
+} from "@/components/ui/krds/(navigation)/pagination";
 
 export default function PaginationDefault() {
-  const total = 20;
-  const [current, setCurrent] = React.useState(7);
-  const items = buildPageItems(current, total, 1, 1);
+  const total = 10;
+  const [current, setCurrent] = React.useState(4);
+  const items = buildPageItems(current, total, 1, 3);
 
   return (
     <Pagination>

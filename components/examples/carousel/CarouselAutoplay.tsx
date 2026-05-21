@@ -1,4 +1,16 @@
-import { Carousel, CarouselContent, CarouselItem, CarouselPrevious, CarouselNext } from "@/components/ui/krds";
+"use client";
+
+import * as React from "react";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselPrevious,
+  CarouselNext,
+  CarouselDots,
+  CarouselPlayPause,
+  type CarouselApi
+} from "@/components/ui/krds/(layout)/carousel";
 
 const NOTICES = [
   { date: "2024.03.20", title: "시스템 점검 안내 (00:00 ~ 06:00)" },
@@ -8,8 +20,20 @@ const NOTICES = [
 ];
 
 export default function CarouselAutoplay() {
+  const [api, setApi] = React.useState<CarouselApi>();
+  const [isPlaying, setIsPlaying] = React.useState(true);
+
+  React.useEffect(() => {
+    if (!api || !isPlaying) return;
+    const id = window.setInterval(() => {
+      if (api.canScrollNext()) api.scrollNext();
+      else api.scrollTo(0);
+    }, 3000);
+    return () => window.clearInterval(id);
+  }, [api, isPlaying]);
+
   return (
-    <Carousel opts={{ loop: true }} className="w-full max-w-xl">
+    <Carousel setApi={setApi} opts={{ loop: true }} className="w-full max-w-xl">
       <CarouselContent>
         {NOTICES.map((notice, idx) => (
           <CarouselItem key={idx}>
@@ -20,8 +44,16 @@ export default function CarouselAutoplay() {
           </CarouselItem>
         ))}
       </CarouselContent>
-      <CarouselPrevious />
-      <CarouselNext />
+      <div className="mt-4 flex items-center justify-between gap-2">
+        <div className="flex items-center gap-2">
+          <CarouselPlayPause isPlaying={isPlaying} onToggle={setIsPlaying} />
+          <CarouselDots />
+        </div>
+        <div className="flex items-center gap-2">
+          <CarouselPrevious />
+          <CarouselNext />
+        </div>
+      </div>
     </Carousel>
   );
 }

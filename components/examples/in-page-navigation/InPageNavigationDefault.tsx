@@ -1,16 +1,30 @@
-import { InPageNavigation, InPageNavigationItem } from "@/components/ui/krds/in-page-navigation";
+import {
+  InPageNavigation,
+  InPageNavigationEyebrow,
+  InPageNavigationHeader,
+  InPageNavigationItem,
+  InPageNavigationList,
+  InPageNavigationTitle
+} from "@/components/ui/krds/(navigation)/in-page-navigation";
 
 export default function InPageNavigationDefault() {
   return (
-    <InPageNavigation className="border-krds-gray-20 w-56 border-l pl-2">
-      <InPageNavigationItem href="#overview" active>
-        개요
-      </InPageNavigationItem>
-      <InPageNavigationItem href="#install">설치</InPageNavigationItem>
-      <InPageNavigationItem href="#usage">사용법</InPageNavigationItem>
-      <InPageNavigationItem href="#props">Props</InPageNavigationItem>
-      <InPageNavigationItem href="#examples">예제</InPageNavigationItem>
-      <InPageNavigationItem href="#accessibility">접근성</InPageNavigationItem>
+    <InPageNavigation>
+      <InPageNavigationHeader>
+        <InPageNavigationEyebrow>이 페이지의 구성</InPageNavigationEyebrow>
+        <InPageNavigationTitle>장애아동수당</InPageNavigationTitle>
+      </InPageNavigationHeader>
+      <InPageNavigationList>
+        <InPageNavigationItem href="#overview" active>
+          제도 개요
+        </InPageNavigationItem>
+        <InPageNavigationItem href="#eligibility">신청 자격</InPageNavigationItem>
+        <InPageNavigationItem href="#apply">신청 방법</InPageNavigationItem>
+        <InPageNavigationItem href="#amount">지급 금액</InPageNavigationItem>
+        <InPageNavigationItem href="#schedule">지급일 안내</InPageNavigationItem>
+        <InPageNavigationItem href="#documents">증명서 발급</InPageNavigationItem>
+        <InPageNavigationItem href="#faq">자주 묻는 질문</InPageNavigationItem>
+      </InPageNavigationList>
     </InPageNavigation>
   );
 }

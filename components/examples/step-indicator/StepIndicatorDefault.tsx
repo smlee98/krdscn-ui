@@ -1,11 +1,12 @@
-import { StepIndicator, StepIndicatorItem } from "@/components/ui/krds/step-indicator";
+import { StepIndicator, StepIndicatorItem } from "@/components/ui/krds/(feedback)/step-indicator";
 
 export default function StepIndicatorDefault() {
   return (
-    <StepIndicator currentStep={1} pageTitle="회원가입" className="max-w-sm">
+    <StepIndicator currentStep={2}>
       <StepIndicatorItem step={1}>약관 동의</StepIndicatorItem>
-      <StepIndicatorItem step={2}>정보 입력</StepIndicatorItem>
-      <StepIndicatorItem step={3}>완료</StepIndicatorItem>
+      <StepIndicatorItem step={2}>본인 인증</StepIndicatorItem>
+      <StepIndicatorItem step={3}>정보 입력</StepIndicatorItem>
+      <StepIndicatorItem step={4}>가입 완료</StepIndicatorItem>
     </StepIndicator>
   );
 }

@@ -3,6 +3,27 @@
 This directory (`components/ui/krds/`) contains KRDS design-system wrappers that coexist
 with the existing shadcn/ui components at `components/ui/`. Call sites pick by import path.
 
+## Import path convention
+
+Wrappers live under `components/ui/krds/(<group>)/<file>.tsx`, where `(<group>)` is the
+literal directory name (the parentheses are part of the folder, not Next.js route-group
+syntax — this folder is outside `app/` so it has no routing semantics).
+
+The barrel `components/ui/krds/index.ts` has been **removed**. Consumers MUST import
+directly from the owning wrapper file:
+
+```tsx
+// correct
+import { Button } from "@/components/ui/krds/(action)/button";
+import { ModalRoot, ModalContent } from "@/components/ui/krds/(layout)/modal";
+
+// incorrect (barrel no longer exists)
+import { Button, ModalRoot } from "@/components/ui/krds";
+```
+
+One import statement per owning wrapper file; symbols from the same file stay grouped.
+Sort import statements alphabetically by path for stable diffs.
+
 ## Mandatory invariants (enforce on every file)
 
 1. **shadcn-first composition** — wrappers compose `@/components/ui/*` (shadcn) as their base,
@@ -35,16 +56,16 @@ with the existing shadcn/ui components at `components/ui/`. Call sites pick by i
 
 Three categories determine how a wrapper is implemented:
 
-| Category | Technique           | Example files                         |
-|----------|---------------------|---------------------------------------|
-| 2D       | native + cva        | `button.tsx`                          |
-| 1D       | shadcn JSX wrap     | `badge.tsx`, `modal.tsx`, `select.tsx`|
-| Custom   | native HTML + utils | `link.tsx`, `tag.tsx`, `spinner.tsx`  |
+| Category | Technique           | Example files                                              |
+|----------|---------------------|------------------------------------------------------------|
+| 2D       | native + cva        | `(action)/button.tsx`                                      |
+| 1D       | shadcn JSX wrap     | `(layout)/badge.tsx`, `(layout)/modal.tsx`, `(selection)/select.tsx` |
+| Custom   | native HTML + utils | `(action)/link.tsx`, `(selection)/tag.tsx`, `(feedback)/spinner.tsx` |
 
 
 ### 2D variant×color — native + cva
 
-`button.tsx` uses a native `<button>` element + `cva()` directly — no
+`(action)/button.tsx` uses a native `<button>` element + `cva()` directly — no
 `import { Button } from "@/components/ui/button"`. Rationale: the 2D variant×color matrix
 (kind × color) requires full cva control, and wrapping shadcn Button would leak its
 `asChild`/Slot surface. Any wrapper requiring more than 2 `!important` overrides should
@@ -63,14 +84,14 @@ DateInput (→ shadcn Popover + new Calendar), TextInput (→ shadcn Input), Tex
 
 | Component | shadcn base | File |
 |---|---|---|
-| ContextualHelp | `popover.tsx` | `contextual-help.tsx` |
-| HelpPanel | `sheet.tsx` | `help-panel.tsx` |
-| Table | `table.tsx` | `table.tsx` |
-| MainMenu | `navigation-menu.tsx` | `main-menu.tsx` |
-| LanguageSwitcher | `popover.tsx` | `language-switcher.tsx` |
-| SideNavigation | `collapsible.tsx` | `side-navigation.tsx` |
-| CoachMark | `popover.tsx` | `coach-mark.tsx` |
-| TutorialPanel | `sheet.tsx` | `tutorial-panel.tsx` |
+| ContextualHelp | `popover.tsx` | `(help)/contextual-help.tsx` |
+| HelpPanel | `sheet.tsx` | `(help)/help-panel.tsx` |
+| Table | `table.tsx` | `(layout)/table.tsx` |
+| MainMenu | `navigation-menu.tsx` | `(navigation)/main-menu.tsx` |
+| LanguageSwitcher | `popover.tsx` | `(settings)/language-switcher.tsx` |
+| SideNavigation | `collapsible.tsx` | `(navigation)/side-navigation.tsx` |
+| CoachMark | `popover.tsx` | `(help)/coach-mark.tsx` |
+| TutorialPanel | `sheet.tsx` | `(help)/tutorial-panel.tsx` |
 
 > **MainMenu R1 note:** shadcn `NavigationMenu` (Radix `NavigationMenuPrimitive`) was sufficient for the KRDS Default story shape (one level of submenu items). The R1 fallback (pure-custom `<nav aria-haspopup/aria-expanded>`) was **not** needed.
 
@@ -84,14 +105,14 @@ TextList, StepIndicator, Spinner, FileUpload, Pagination.
 
 | Component | DOM root | RSC | File |
 |---|---|---|---|
-| Resize | native button group | `rsc:client` | `resize.tsx` |
-| InPageNavigation | `<nav>` + IntersectionObserver | `rsc:client` | `in-page-navigation.tsx` |
-| CriticalAlert | `<div role="alert">` | `rsc:client` | `critical-alert.tsx` |
-| Identifier | `<div role="contentinfo">` | `rsc:safe` | `identifier.tsx` |
-| Masthead | `<div role="banner">` | `rsc:safe` | `masthead.tsx` |
-| SkipLink | `<a>` sr-only/focus reveal | `rsc:safe` | `skip-link.tsx` |
-| StructuredList | `<dl>` grid | `rsc:safe` | `structured-list.tsx` |
-| Footer | `<footer>` 3-column | `rsc:safe` | `footer.tsx` |
+| Resize | native button group | `rsc:client` | `(settings)/resize.tsx` |
+| InPageNavigation | `<nav>` + IntersectionObserver | `rsc:client` | `(navigation)/in-page-navigation.tsx` |
+| CriticalAlert | `<div role="alert">` | `rsc:client` | `(layout)/critical-alert.tsx` |
+| Identifier | `<div role="contentinfo">` | `rsc:safe` | `(identity)/identifier.tsx` |
+| Masthead | `<div role="banner">` | `rsc:safe` | `(identity)/masthead.tsx` |
+| SkipLink | `<a>` sr-only/focus reveal | `rsc:safe` | `(navigation)/skip-link.tsx` |
+| StructuredList | `<dl>` grid | `rsc:safe` | `(layout)/structured-list.tsx` |
+| Footer | `<footer>` 3-column | `rsc:safe` | `(identity)/footer.tsx` |
 
 ### P5 composition-of-wrappers
 
@@ -99,7 +120,7 @@ Components that compose other KRDS wrappers (not shadcn primitives directly).
 
 | Component | Composes | File |
 |---|---|---|
-| Header | SkipLink + Masthead + MainMenu + LanguageSwitcher + Resize | `header.tsx` |
+| Header | SkipLink + Masthead + MainMenu + LanguageSwitcher + Resize | `(identity)/header.tsx` |
 
 > **WAI constraint (F7):** `SkipLink` MUST be the first child of `<header>` per the WAI Skip Navigation pattern. `Header` enforces this layout — do not move SkipLink below Masthead.
 
@@ -113,9 +134,9 @@ export { ModalRoot, ModalTrigger, ModalOverlay, ModalContent, ModalHeader, Modal
 ## Spinner naming-collision policy
 
 The project's canonical loading spinner is `components/spinner.tsx` (Loader2-based).
-The KRDS Spinner is at `components/ui/krds/spinner.tsx`. In mixed pages, always alias:
+The KRDS Spinner is at `components/ui/krds/(feedback)/spinner.tsx`. In mixed pages, always alias:
 ```tsx
-import { Spinner as KrdsSpinner } from "@/components/ui/krds";
+import { Spinner as KrdsSpinner } from "@/components/ui/krds/(feedback)/spinner";
 ```
 Never shadow the project spinner with an unaliased import.
 
@@ -169,17 +190,17 @@ Every wrapper file in `components/ui/krds/` MUST have an RSC posture marker as i
 // rsc:client  ← file has "use client" on the next line
 ```
 
-**Audit command** (must return 17 after Phase 6 is complete):
+**Audit command** (must return 20 — every wrapper with an explicit posture marker):
 ```sh
-grep -cE "^// rsc:(safe|client)$" components/ui/krds/*.tsx
+grep -crE "^// rsc:(safe|client)$" "components/ui/krds/"**/*.tsx | awk -F: '{s+=$NF} END {print s}'
 ```
 
 **RSC-safe files** (must contain NO `"use client"` directive):
-`identifier.tsx`, `masthead.tsx`, `skip-link.tsx`, `structured-list.tsx`, `footer.tsx`, `table.tsx`
+`(identity)/identifier.tsx`, `(identity)/masthead.tsx`, `(navigation)/skip-link.tsx`, `(layout)/structured-list.tsx`, `(identity)/footer.tsx`, `(layout)/table.tsx`
 
 **RSC-safe verification:**
 ```sh
-grep -L '"use client"' components/ui/krds/{identifier,masthead,skip-link,structured-list,footer,table}.tsx
+grep -L '"use client"' "components/ui/krds/(identity)/identifier.tsx" "components/ui/krds/(identity)/masthead.tsx" "components/ui/krds/(navigation)/skip-link.tsx" "components/ui/krds/(layout)/structured-list.tsx" "components/ui/krds/(identity)/footer.tsx" "components/ui/krds/(layout)/table.tsx"
 # must return all 6 files
 ```
 
@@ -190,7 +211,9 @@ For every PR touching `components/ui/krds/`, the reviewer MUST verify:
 **For `// rsc:safe` files** — no client-only React hooks appear in the file body:
 ```sh
 grep -E "useState|useEffect|useRef|useLayoutEffect|useReducer|useContext" \
-  components/ui/krds/{identifier,masthead,skip-link,structured-list,footer,table}.tsx
+  "components/ui/krds/(identity)/identifier.tsx" "components/ui/krds/(identity)/masthead.tsx" \
+  "components/ui/krds/(navigation)/skip-link.tsx" "components/ui/krds/(layout)/structured-list.tsx" \
+  "components/ui/krds/(identity)/footer.tsx" "components/ui/krds/(layout)/table.tsx"
 # must return empty (zero matches)
 ```
 

@@ -1,4 +1,4 @@
-import { Button } from "@/components/ui/krds/button";
+import { Button } from "@/components/ui/krds/(action)/button";
 
 export default function ButtonSizes() {
   return (
