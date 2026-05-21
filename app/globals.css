@@ -149,10 +149,6 @@
   --krds-color-warning-90: #2e1f00;
 }
 
-.kogas {
-  --primary: oklch(0.4635 0.1304 249.77);
-}
-
 @layer base {
   *,
   ::backdrop,
@@ -198,15 +194,6 @@
       "calt" 1;
   }
 
-  pre,
-  code {
-    @apply font-mono!;
-  }
-
-  thead th {
-    @apply bg-secondary whitespace-nowrap;
-  }
-
   textarea {
     @apply resize-none;
   }
@@ -217,91 +204,6 @@
   }
 }
 
-@utility prose {
-  table {
-    @apply w-auto min-w-full table-fixed caption-bottom text-sm;
-    thead {
-      @apply [&_tr]:border-b;
-      th {
-        @apply text-muted-foreground h-10 px-2 py-0 text-left align-middle font-medium [&:has([role=checkbox])]:pr-0 [&>[role=checkbox]]:translate-y-[2px];
-      }
-    }
-    tbody {
-      @apply [&_tr:last-child]:border-0;
-      tr {
-        @apply hover:bg-muted/50 data-[state=selected]:bg-muted border-b transition-colors;
-      }
-      td {
-        @apply p-2 align-middle [&:has([role=checkbox])]:pr-0 [&>[role=checkbox]]:translate-y-[2px];
-      }
-    }
-  }
-}
-
-@utility loader {
-  width: 55px;
-  aspect-ratio: 1;
-  --g1: conic-gradient(from 90deg at 3px 3px, #0000 90deg, var(--primary) 0);
-  --g2: conic-gradient(from -90deg at 22px 22px, #0000 90deg, var(--primary) 0);
-  background: var(--g1), var(--g1), var(--g1), var(--g2), var(--g2), var(--g2);
-  background-size: 25px 25px;
-  background-repeat: no-repeat;
-  animation: loading 1.5s infinite;
-}
-
-@utility table-inner {
-  & {
-    @apply border-b;
-  }
-  [data-slot="table-head"] {
-    @apply first:pl-6 last:pr-6;
-  }
-  [data-slot="table-cell"] {
-    @apply first:pl-6 last:pr-6;
-    &:has(button) {
-      @apply py-0;
-    }
-  }
-  [data-slot="form-message"] {
-    @apply px-3 pb-1;
-  }
-}
-
-@layer utilities {
-  @keyframes loading {
-    0% {
-      background-position:
-        0 0,
-        0 100%,
-        100% 100%;
-    }
-    25% {
-      background-position:
-        100% 0,
-        0 100%,
-        100% 100%;
-    }
-    50% {
-      background-position:
-        100% 0,
-        0 0,
-        100% 100%;
-    }
-    75% {
-      background-position:
-        100% 0,
-        0 0,
-        0 100%;
-    }
-    100% {
-      background-position:
-        100% 100%,
-        0 0,
-        0 100%;
-    }
-  }
-}
-
 @layer base {
   * {
     @apply border-border outline-ring/50;
@@ -309,19 +211,6 @@
   body {
     @apply bg-background text-foreground;
   }
-}
-
-.thread-viewport > [data-radix-scroll-area-content] {
-  @apply flex flex-col items-center self-stretch bg-inherit;
-}
-
-.no-scrollbar {
-  -ms-overflow-style: none;
-  scrollbar-width: none;
-}
-
-.no-scrollbar::-webkit-scrollbar {
-  display: none;
 }
 
 .dark {

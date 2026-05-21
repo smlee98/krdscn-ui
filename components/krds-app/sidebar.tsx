@@ -75,11 +75,7 @@ function KrdsSidebar() {
                     </SidebarMenuItem>
                   ) : (
                     <SidebarMenuItem key={item.id}>
-                      <SidebarMenuButton
-                        disabled
-                        aria-disabled="true"
-                        className="text-krds-gray-30 cursor-not-allowed"
-                      >
+                      <SidebarMenuButton disabled aria-disabled="true" className="text-krds-gray-30 cursor-not-allowed">
                         <span>
                           {item.labelKo} <span className="text-xs">(준비중)</span>
                         </span>
