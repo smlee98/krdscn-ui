@@ -1,7 +1,7 @@
 // rsc:client
 "use client";
 
-import { useContext, useSyncExternalStore } from "react";
+import { useContext } from "react";
 import { usePathname } from "next/navigation";
 
 import {
@@ -23,44 +23,13 @@ import { UISystemContext, useUISystem, type UISystem } from "@/lib/ui-system";
 
 export { KrdsPageHeader };
 
-// useSyncExternalStore-based mount check: avoids setState-in-effect lint rule
-// server snapshot = false (not mounted), client snapshot = true (mounted)
-const isMounted = () => true;
-const isNotMounted = () => false;
-const noSubscribe = () => () => {};
-
-function ThemeToggle() {
-  const { theme, setTheme } = useTheme();
-  const mounted = useSyncExternalStore(noSubscribe, isMounted, isNotMounted);
-
-  return (
-    <ToggleGroup
-      type="single"
-      value={mounted ? (theme ?? "krds") : "krds"}
-      onValueChange={(value) => {
-        if (value) setTheme(value);
-      }}
-      variant="outline"
-      size="sm"
-      data-slot="krds-theme-toggle"
-      aria-label="컬러셋 토글"
-    >
-      <ToggleGroupItem value="krds" aria-label="KRDS 컬러">
-        <KrdsLogo className="size-4" />
-        KRDS
-      </ToggleGroupItem>
-      <ToggleGroupItem value="shadcn" aria-label="shadcn 기본">
-        <ShadcnLogo className="size-4" />
-        shadcn/ui
-      </ToggleGroupItem>
-    </ToggleGroup>
-  );
-}
-
-// UISystemToggle reads system via useUISystem() (useSyncExternalStore — hydration-safe,
-// no mounted guard needed: getServerSnapshot returns "krds" matching SSR output)
-function UISystemToggle() {
+// Unified toggle: changes BOTH color theme (next-themes data-theme) and
+// component dispatch system (UISystem context) together.
+// Value source: useUISystem() — hydration-safe (useSyncExternalStore with
+// matching server/client snapshots); no mounted gate needed.
+function SystemToggle() {
   const system = useUISystem();
+  const { setTheme } = useTheme();
   const { setSystem } = useContext(UISystemContext);
 
   return (
@@ -68,11 +37,14 @@ function UISystemToggle() {
       type="single"
       value={system}
       onValueChange={(value) => {
-        if (value) setSystem(value as UISystem);
+        if (value) {
+          setTheme(value);
+          setSystem(value as UISystem);
+        }
       }}
       variant="outline"
       size="sm"
-      data-slot="krds-ui-system-toggle"
+      data-slot="krds-system-toggle"
       aria-label="UI 시스템 토글"
     >
       <ToggleGroupItem value="krds" aria-label="KRDS 컴포넌트">
@@ -81,7 +53,7 @@ function UISystemToggle() {
       </ToggleGroupItem>
       <ToggleGroupItem value="shadcn" aria-label="shadcn 컴포넌트">
         <ShadcnLogo className="size-4" />
-        shadcn
+        shadcn/ui
       </ToggleGroupItem>
     </ToggleGroup>
   );
@@ -136,8 +108,7 @@ function KrdsPageHeader() {
         </Breadcrumb>
       </div>
       <Separator orientation="vertical" className="h-4!" />
-      <UISystemToggle />
-      <ThemeToggle />
+      <SystemToggle />
     </header>
   );
 }
