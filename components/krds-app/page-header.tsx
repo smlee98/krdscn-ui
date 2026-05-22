@@ -23,8 +23,7 @@ import { UISystemContext, useUISystem, type UISystem } from "@/lib/ui-system";
 export { KrdsPageHeader };
 
 // Controls component dispatch (KRDS ↔ shadcn) only.
-// Color theme (data-theme / next-themes) is fixed at "krds" via ThemeProvider
-// defaultTheme — no UI toggle needed for it.
+// next-themes and data-theme are fully removed (T-10) — no color remapping on toggle.
 function UISystemToggle() {
   const system = useUISystem();
   const { setSystem } = useContext(UISystemContext);
