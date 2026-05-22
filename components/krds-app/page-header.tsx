@@ -15,7 +15,6 @@ import {
 import { Separator } from "@/components/ui/separator";
 import { SidebarTrigger } from "@/components/ui/sidebar";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
-import { useTheme } from "next-themes";
 import { SIDEBAR_GROUPS } from "@/lib/sidebar-nav";
 import { KrdsLogo } from "../logo/krds";
 import { ShadcnLogo } from "../logo/shadcn";
@@ -23,13 +22,11 @@ import { UISystemContext, useUISystem, type UISystem } from "@/lib/ui-system";
 
 export { KrdsPageHeader };
 
-// Unified toggle: changes BOTH color theme (next-themes data-theme) and
-// component dispatch system (UISystem context) together.
-// Value source: useUISystem() — hydration-safe (useSyncExternalStore with
-// matching server/client snapshots); no mounted gate needed.
-function SystemToggle() {
+// Controls component dispatch (KRDS ↔ shadcn) only.
+// Color theme (data-theme / next-themes) is fixed at "krds" via ThemeProvider
+// defaultTheme — no UI toggle needed for it.
+function UISystemToggle() {
   const system = useUISystem();
-  const { setTheme } = useTheme();
   const { setSystem } = useContext(UISystemContext);
 
   return (
@@ -37,14 +34,11 @@ function SystemToggle() {
       type="single"
       value={system}
       onValueChange={(value) => {
-        if (value) {
-          setTheme(value);
-          setSystem(value as UISystem);
-        }
+        if (value) setSystem(value as UISystem);
       }}
       variant="outline"
       size="sm"
-      data-slot="krds-system-toggle"
+      data-slot="krds-ui-system-toggle"
       aria-label="UI 시스템 토글"
     >
       <ToggleGroupItem value="krds" aria-label="KRDS 컴포넌트">
@@ -108,7 +102,7 @@ function KrdsPageHeader() {
         </Breadcrumb>
       </div>
       <Separator orientation="vertical" className="h-4!" />
-      <SystemToggle />
+      <UISystemToggle />
     </header>
   );
 }
