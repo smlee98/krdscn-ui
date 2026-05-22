@@ -1,7 +1,7 @@
 // rsc:client
 "use client";
 
-import { useEffect, useState } from "react";
+import { useContext, useSyncExternalStore } from "react";
 import { usePathname } from "next/navigation";
 
 import {
@@ -19,16 +19,19 @@ import { useTheme } from "next-themes";
 import { SIDEBAR_GROUPS } from "@/lib/sidebar-nav";
 import { KrdsLogo } from "../logo/krds";
 import { ShadcnLogo } from "../logo/shadcn";
+import { UISystemContext, useUISystem, type UISystem } from "@/lib/ui-system";
 
 export { KrdsPageHeader };
 
-function ThemeToggle() {
-  const [mounted, setMounted] = useState(false);
-  const { theme, setTheme } = useTheme();
+// useSyncExternalStore-based mount check: avoids setState-in-effect lint rule
+// server snapshot = false (not mounted), client snapshot = true (mounted)
+const isMounted = () => true;
+const isNotMounted = () => false;
+const noSubscribe = () => () => {};
 
-  useEffect(() => {
-    setMounted(true);
-  }, []);
+function ThemeToggle() {
+  const { theme, setTheme } = useTheme();
+  const mounted = useSyncExternalStore(noSubscribe, isMounted, isNotMounted);
 
   return (
     <ToggleGroup
@@ -49,6 +52,36 @@ function ThemeToggle() {
       <ToggleGroupItem value="shadcn" aria-label="shadcn 기본">
         <ShadcnLogo className="size-4" />
         shadcn/ui
+      </ToggleGroupItem>
+    </ToggleGroup>
+  );
+}
+
+// UISystemToggle reads system via useUISystem() (useSyncExternalStore — hydration-safe,
+// no mounted guard needed: getServerSnapshot returns "krds" matching SSR output)
+function UISystemToggle() {
+  const system = useUISystem();
+  const { setSystem } = useContext(UISystemContext);
+
+  return (
+    <ToggleGroup
+      type="single"
+      value={system}
+      onValueChange={(value) => {
+        if (value) setSystem(value as UISystem);
+      }}
+      variant="outline"
+      size="sm"
+      data-slot="krds-ui-system-toggle"
+      aria-label="UI 시스템 토글"
+    >
+      <ToggleGroupItem value="krds" aria-label="KRDS 컴포넌트">
+        <KrdsLogo className="size-4" />
+        KRDS
+      </ToggleGroupItem>
+      <ToggleGroupItem value="shadcn" aria-label="shadcn 컴포넌트">
+        <ShadcnLogo className="size-4" />
+        shadcn
       </ToggleGroupItem>
     </ToggleGroup>
   );
@@ -102,6 +135,8 @@ function KrdsPageHeader() {
           </BreadcrumbList>
         </Breadcrumb>
       </div>
+      <Separator orientation="vertical" className="h-4!" />
+      <UISystemToggle />
       <ThemeToggle />
     </header>
   );
