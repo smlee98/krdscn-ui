@@ -24,9 +24,9 @@ export function ComparisonGrid() {
       <section className="mb-10">
         <h2 className="mb-4 text-base font-semibold">Phase 1 — Spinner</h2>
         <div className="flex flex-wrap items-center gap-6">
-          <Spinner size="small" label="small" />
-          <Spinner size="medium" label="medium" />
-          <Spinner size="large" label="large" />
+          <Spinner size="small" aria-label="small 로딩 중" />
+          <Spinner size="medium" aria-label="medium 로딩 중" />
+          <Spinner size="large" aria-label="large 로딩 중" />
         </div>
       </section>
     </div>
