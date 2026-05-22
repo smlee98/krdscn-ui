@@ -23,14 +23,11 @@ type SpinnerProps = Omit<React.ComponentProps<"div">, "children"> &
     children?: React.ReactNode;
   };
 
+type KrdsSpinnerProps = SpinnerProps;
+
 function Spinner({ size, label, className, children, ...props }: SpinnerProps) {
   const spinner = (
-    <div
-      data-slot="krds-spinner"
-      role="status"
-      className={cn("inline-flex items-center gap-3", className)}
-      {...props}
-    >
+    <div data-slot="krds-spinner" role="status" className={cn("inline-flex items-center gap-3", className)} {...props}>
       <span aria-hidden="true" className={spinnerVariants({ size })} />
       <span className="sr-only">로딩 중</span>
       {label ? <span className="text-krds-gray-90 text-[0.9375rem]">{label}</span> : null}
@@ -46,7 +43,7 @@ function Spinner({ size, label, className, children, ...props }: SpinnerProps) {
           aria-label={label ?? "로딩 중"}
           className={cn(
             spinnerVariants({ size: "small" }),
-            "pointer-events-none absolute right-3 top-1/2 -translate-y-1/2"
+            "pointer-events-none absolute top-1/2 right-3 -translate-y-1/2"
           )}
         />
       </div>
@@ -57,4 +54,4 @@ function Spinner({ size, label, className, children, ...props }: SpinnerProps) {
 }
 
 export { Spinner, spinnerVariants };
-export type { SpinnerProps };
+export type { SpinnerProps, KrdsSpinnerProps };

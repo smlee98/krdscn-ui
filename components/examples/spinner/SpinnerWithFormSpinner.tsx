@@ -1,4 +1,4 @@
-import { Spinner } from "@/components/ui/krds/(feedback)/spinner";
+import { Spinner } from "@/components/ui/dynamic/spinner";
 
 export default function SpinnerWithFormSpinner() {
   return (
@@ -12,7 +12,7 @@ export default function SpinnerWithFormSpinner() {
           type="text"
           placeholder="placeholder"
           disabled
-          className="border-krds-gray-30 text-krds-gray-90 placeholder:text-krds-gray-50 disabled:bg-krds-gray-5 disabled:text-krds-gray-50 disabled:cursor-not-allowed h-10 w-64 rounded-md border px-3 text-[0.9375rem]"
+          className="border-krds-gray-30 text-krds-gray-90 placeholder:text-krds-gray-50 disabled:bg-krds-gray-5 disabled:text-krds-gray-50 h-10 w-64 rounded-md border px-3 text-[0.9375rem] disabled:cursor-not-allowed"
         />
       </Spinner>
     </div>

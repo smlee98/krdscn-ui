@@ -10,8 +10,8 @@
  *   T-1.1+ → switch to dispatcher: @/components/ui/dynamic/<name>
  */
 
-// T-0.7: KRDS direct import. Phase 1 T-1.1 will switch to @/components/ui/dynamic/spinner.
-import { Spinner } from "@/components/ui/krds/(feedback)/spinner";
+// T-1.1+: dispatcher import — routes to KRDS or shadcn per UISystem context.
+import { Spinner } from "@/components/ui/dynamic/spinner";
 
 export function ComparisonGrid() {
   return (

@@ -1,4 +1,4 @@
-import { Spinner } from "@/components/ui/krds/(feedback)/spinner";
+import { Spinner } from "@/components/ui/dynamic/spinner";
 
 export default function SpinnerWithoutLabel() {
   return <Spinner size="small" />;
