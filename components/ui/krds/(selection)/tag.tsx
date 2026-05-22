@@ -1,6 +1,6 @@
 import * as React from "react";
 import { cva, type VariantProps } from "class-variance-authority";
-import { Slot } from "radix-ui";
+import { Root as Slot } from "@radix-ui/react-slot";
 
 import { cn } from "@/lib/cn";
 
@@ -70,12 +70,23 @@ function Tag(props: TagProps) {
   const { children, className, size = "medium" } = props;
 
   if (props.variant === "link") {
-    const { variant: _v, size: _s, asChild, className: _c, children: _ch, interactive: _i, ...rest } = props as LinkTagProps & { interactive?: boolean };
-    const Comp = asChild ? Slot.Root : "a";
+    const {
+      variant: _v,
+      size: _s,
+      asChild,
+      className: _c,
+      children: _ch,
+      interactive: _i,
+      ...rest
+    } = props as LinkTagProps & { interactive?: boolean };
+    const Comp = asChild ? Slot : "a";
     return (
       <Comp
         data-slot="krds-tag"
-        className={cn(tagVariants({ size, interactive: true, className }), "cursor-pointer hover:underline active:underline focus-visible:underline")}
+        className={cn(
+          tagVariants({ size, interactive: true, className }),
+          "cursor-pointer hover:underline focus-visible:underline active:underline"
+        )}
         {...rest}
       >
         <span>{children}</span>
@@ -94,7 +105,7 @@ function Tag(props: TagProps) {
     interactive: _i,
     ...rest
   } = props as DeletableTagProps & { interactive?: boolean };
-  const Comp = asChild ? Slot.Root : "span";
+  const Comp = asChild ? Slot : "span";
 
   return (
     <Comp data-slot="krds-tag" className={cn(tagVariants({ size, interactive: false, className }))} {...rest}>

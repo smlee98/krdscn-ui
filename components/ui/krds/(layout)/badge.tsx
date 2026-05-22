@@ -9,7 +9,7 @@
 
 import * as React from "react";
 import { cva, type VariantProps } from "class-variance-authority";
-import { Slot } from "radix-ui";
+import { Root as Slot } from "@radix-ui/react-slot";
 
 import { cn } from "@/lib/cn";
 
@@ -99,7 +99,7 @@ type BadgeProps = React.ComponentProps<"span"> &
   };
 
 function Badge({ className, size, type, color, disabled, asChild = false, ...props }: BadgeProps) {
-  const Comp = asChild ? Slot.Root : "span";
+  const Comp = asChild ? Slot : "span";
   return (
     <Comp
       data-slot="krds-badge"

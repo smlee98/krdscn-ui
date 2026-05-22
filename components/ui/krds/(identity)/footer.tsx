@@ -1,6 +1,6 @@
 // rsc:safe
 import * as React from "react";
-import { Slot } from "radix-ui";
+import { Root as Slot } from "@radix-ui/react-slot";
 import { cn } from "@/lib/cn";
 
 function Footer({ className, children, ...props }: React.ComponentProps<"footer">) {
@@ -54,7 +54,7 @@ function FooterColumnLinks({ className, ...props }: React.ComponentProps<"ul">) 
 }
 
 function FooterLink({ asChild = false, className, ...props }: React.ComponentProps<"a"> & { asChild?: boolean }) {
-  const Comp = asChild ? Slot.Root : "a";
+  const Comp = asChild ? Slot : "a";
   return (
     <li data-slot="krds-footer-link">
       <Comp
