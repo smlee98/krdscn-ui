@@ -5,7 +5,11 @@ import { Loader2 } from "lucide-react";
 
 import { cn } from "@/lib/cn";
 import { useUISystem } from "@/lib/ui-system";
-import { Spinner as KrdsSpinner, type KrdsSpinnerProps } from "@/components/ui/krds/(feedback)/spinner";
+import {
+  Spinner as KrdsSpinner,
+  spinnerVariants,
+  type KrdsSpinnerProps
+} from "@/components/ui/krds/(feedback)/spinner";
 
 export type SpinnerProps = KrdsSpinnerProps;
 
@@ -18,13 +22,39 @@ const SHADCN_SIZE: Record<NonNullable<KrdsSpinnerProps["size"]>, string> = {
 function Spinner({ size = "large", label, children, className, ...props }: SpinnerProps) {
   const system = useUISystem();
 
+  // Form-spinner composition mode (children present): preserve KRDS layout,
+  // swap ONLY the inner spinning element between systems.
+  if (children) {
+    const inner =
+      system === "shadcn" ? (
+        <Loader2
+          role="status"
+          aria-label={label ?? "로딩 중"}
+          className="text-muted-foreground pointer-events-none absolute top-1/2 right-3 size-5 -translate-y-1/2 animate-spin"
+        />
+      ) : (
+        <span
+          role="status"
+          aria-label={label ?? "로딩 중"}
+          className={cn(
+            spinnerVariants({ size: "small" }),
+            "pointer-events-none absolute top-1/2 right-3 -translate-y-1/2"
+          )}
+        />
+      );
+
+    return (
+      <div data-slot="krds-form-spinner" className="relative inline-flex w-fit items-center">
+        {children}
+        {inner}
+      </div>
+    );
+  }
+
+  // Standalone mode: pure dispatch
   if (system === "shadcn") {
-    if (process.env.NODE_ENV !== "production") {
-      if (label) console.warn('[krds-dispatcher:spinner] prop="label" has no shadcn equivalent — silently dropped');
-      if (children)
-        console.warn(
-          '[krds-dispatcher:spinner] prop="children" (form-spinner) has no shadcn equivalent — silently dropped'
-        );
+    if (process.env.NODE_ENV !== "production" && label) {
+      console.warn('[krds-dispatcher:spinner] prop="label" has no shadcn equivalent — silently dropped');
     }
     return (
       <Loader2
@@ -35,11 +65,7 @@ function Spinner({ size = "large", label, children, className, ...props }: Spinn
     );
   }
 
-  return (
-    <KrdsSpinner size={size} label={label} className={className} {...props}>
-      {children}
-    </KrdsSpinner>
-  );
+  return <KrdsSpinner size={size} label={label} className={className} {...props} />;
 }
 
 export { Spinner };
