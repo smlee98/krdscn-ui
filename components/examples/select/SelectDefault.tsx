@@ -1,4 +1,5 @@
 import { Select } from "@/components/ui/krds/(selection)/select";
+import { FieldHint } from "@/components/ui/krds/(input)/field-message";
 
 const options = [
   { value: "option1", label: "항목1" },
@@ -10,7 +11,10 @@ const options = [
 export default function SelectDefault() {
   return (
     <div className="w-full max-w-sm">
-      <Select options={options} label="레이블" hint="도움말" defaultValue="option1" />
+      <div className="flex w-full flex-col gap-2">
+        <Select options={options} label="레이블" defaultValue="option1" />
+        <FieldHint>도움말</FieldHint>
+      </div>
     </div>
   );
 }

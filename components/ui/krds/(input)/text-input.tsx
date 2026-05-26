@@ -1,18 +1,12 @@
 "use client";
 
 import * as React from "react";
-import { Info, CheckCircle2, CircleAlert, Eye, EyeOff } from "lucide-react";
+import { Eye, EyeOff } from "lucide-react";
 import { cn } from "@/lib/cn";
 
 function IconDelete({ className }: { className?: string }) {
   return (
-    <svg
-      viewBox="0 0 20 20"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      aria-hidden
-      className={className}
-    >
+    <svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden className={className}>
       <rect width="20" height="20" rx="10" fill="#CDD1D5" />
       <path
         fillRule="evenodd"
@@ -32,10 +26,6 @@ type TextInputProps = Omit<
 > & {
   onChange?: (value: string) => void;
   label?: string;
-  hint?: string;
-  error?: string;
-  success?: string;
-  information?: string;
   size?: TextInputSize;
   value?: string;
   defaultValue?: string;
@@ -44,29 +34,25 @@ type TextInputProps = Omit<
 };
 
 const sizeBox: Record<TextInputSize, string> = {
-  small:  "h-10 rounded-[6px] px-4",
+  small: "h-10 rounded-[6px] px-4",
   medium: "h-12 rounded-[6px] px-4",
-  large:  "h-14 rounded-[8px] px-4",
+  large: "h-14 rounded-[8px] px-4"
 };
 
 const sizeText: Record<TextInputSize, string> = {
-  small:  "text-[15px]",
+  small: "text-[15px]",
   medium: "text-[17px]",
-  large:  "text-[19px]",
+  large: "text-[19px]"
 };
 
 const sizeIcon: Record<TextInputSize, string> = {
-  small:  "size-4",
+  small: "size-4",
   medium: "size-5",
-  large:  "size-6",
+  large: "size-6"
 };
 
 function TextInput({
   label,
-  hint,
-  error,
-  success,
-  information,
   size = "large",
   value,
   defaultValue,
@@ -77,25 +63,17 @@ function TextInput({
   type,
   disabled,
   readOnly,
+  id: propId,
   ...rest
 }: TextInputProps) {
+  const generatedId = React.useId();
+  const id = propId ?? generatedId;
+
   const [internal, setInternal] = React.useState(defaultValue ?? "");
   const [visible, setVisible] = React.useState(false);
 
   const isControlled = value !== undefined;
   const currentValue = isControlled ? value : internal;
-
-  const hasError = Boolean(error?.trim());
-
-  const messageContent = error?.trim()
-    ? { text: error, icon: <CircleAlert className="size-4 shrink-0" />, cls: "text-[#bd2c0f]" }
-    : success?.trim()
-      ? { text: success, icon: <CheckCircle2 className="size-4 shrink-0" />, cls: "text-[#267337]" }
-      : information?.trim()
-        ? { text: information, icon: <Info className="size-4 shrink-0" />, cls: "text-[#096ab3]" }
-        : null;
-
-  const showHint = hint?.trim() && !messageContent;
 
   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
     const v = e.target.value;
@@ -116,11 +94,9 @@ function TextInput({
   return (
     <div data-slot="krds-text-input" className={cn("flex w-full flex-col gap-2", className)}>
       {label && (
-        <label className="block text-[15px] leading-[1.5] text-[#464c53]">{label}</label>
-      )}
-
-      {showHint && (
-        <p className="text-[13px] leading-[1.5] text-[#464c53]">{hint}</p>
+        <label htmlFor={id} className="block text-[15px] leading-[1.5] text-[#464c53]">
+          {label}
+        </label>
       )}
 
       <div
@@ -129,18 +105,18 @@ function TextInput({
           sizeBox[size],
           "border border-[#58616a] bg-white",
           "focus-within:border-2 focus-within:border-[#256ef4]",
-          hasError && "border-2 border-[#de3412] focus-within:border-[#de3412]",
+          "has-[input[aria-invalid=true]]:border-2 has-[input[aria-invalid=true]]:border-[#de3412] has-[input[aria-invalid=true]]:focus-within:border-[#de3412]",
           disabled && "border border-[#b1b8be] bg-[#cdd1d5]",
           readOnly && !disabled && "border border-[#b1b8be] bg-[#cdd1d5]"
         )}
       >
         <input
           {...rest}
+          id={id}
           type={resolvedType}
           value={currentValue}
           disabled={disabled}
           readOnly={readOnly}
-          aria-invalid={hasError || undefined}
           onChange={handleChange}
           className={cn(
             "h-full flex-1 bg-transparent leading-[1.5] outline-none",
@@ -170,21 +146,10 @@ function TextInput({
             onClick={() => setVisible((v) => !v)}
             className="inline-flex shrink-0 items-center justify-center text-[#1e2124]"
           >
-            {visible ? (
-              <EyeOff className={sizeIcon[size]} />
-            ) : (
-              <Eye className={sizeIcon[size]} />
-            )}
+            {visible ? <EyeOff className={sizeIcon[size]} /> : <Eye className={sizeIcon[size]} />}
           </button>
         )}
       </div>
-
-      {messageContent && (
-        <div className={cn("flex items-center gap-1 text-[13px] leading-[1.5]", messageContent.cls)}>
-          {messageContent.icon}
-          <span className="translate-y-px">{messageContent.text}</span>
-        </div>
-      )}
     </div>
   );
 }

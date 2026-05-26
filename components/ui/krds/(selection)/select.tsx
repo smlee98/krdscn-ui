@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import * as SelectPrimitive from "@radix-ui/react-select";
-import { AlertCircle, CheckCircle2, ChevronDownIcon, Info, CheckIcon } from "lucide-react";
+import { ChevronDownIcon, CheckIcon } from "lucide-react";
 import { cn } from "@/lib/cn";
 
 type SelectSize = "small" | "medium" | "large";
@@ -13,10 +13,7 @@ type SelectOption = { value: string; label: string };
 interface SelectProps {
   options: SelectOption[];
   label?: string;
-  hint?: string;
-  error?: string;
-  success?: string;
-  information?: string;
+  "aria-invalid"?: boolean;
   size?: SelectSize;
   variant?: SelectVariant;
   disabled?: boolean;
@@ -98,8 +95,7 @@ const checkIconSize: Record<SelectSize, string> = {
 
 // ── Internal styled primitives (self-contained, not exported) ──────────────
 
-interface KrdsSelectContentProps
-  extends React.ComponentPropsWithoutRef<typeof SelectPrimitive.Content> {
+interface KrdsSelectContentProps extends React.ComponentPropsWithoutRef<typeof SelectPrimitive.Content> {
   matchTriggerWidth?: boolean;
   minWidth?: string;
 }
@@ -118,12 +114,12 @@ function KrdsSelectContent({
         sideOffset={4}
         className={cn(
           // animation / z
-          "z-50 data-[state=open]:animate-in data-[state=closed]:animate-out",
+          "data-[state=open]:animate-in data-[state=closed]:animate-out z-50",
           "data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0",
           "data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95",
           "data-[side=bottom]:slide-in-from-top-2 data-[side=top]:slide-in-from-bottom-2",
           // panel look
-          "bg-white border border-krds-gray-20 rounded-md p-2 shadow-md",
+          "border-krds-gray-20 rounded-md border bg-white p-2 shadow-md",
           "overflow-hidden",
           // exact-match to trigger width (default) or custom min-width override
           matchTriggerWidth && "w-[var(--radix-select-trigger-width)]",
@@ -138,8 +134,7 @@ function KrdsSelectContent({
   );
 }
 
-interface KrdsSelectItemProps
-  extends React.ComponentPropsWithoutRef<typeof SelectPrimitive.Item> {
+interface KrdsSelectItemProps extends React.ComponentPropsWithoutRef<typeof SelectPrimitive.Item> {
   size: SelectSize;
 }
 
@@ -148,8 +143,8 @@ function KrdsSelectItem({ className, children, size, ...props }: KrdsSelectItemP
     <SelectPrimitive.Item
       className={cn(
         // base
-        "rounded-md py-2.5 px-2 cursor-pointer outline-hidden select-none",
-        "flex items-center justify-between gap-2 text-krds-gray-90",
+        "cursor-pointer rounded-md px-2 py-2.5 outline-hidden select-none",
+        "text-krds-gray-90 flex items-center justify-between gap-2",
         // hover / focus
         "focus:bg-krds-secondary-5",
         // active / pressed
@@ -157,7 +152,7 @@ function KrdsSelectItem({ className, children, size, ...props }: KrdsSelectItemP
         // selected
         "data-[state=checked]:bg-krds-secondary-5 data-[state=checked]:text-krds-secondary-90",
         // disabled
-        "data-[disabled]:opacity-50 data-[disabled]:pointer-events-none",
+        "data-[disabled]:pointer-events-none data-[disabled]:opacity-50",
         itemFont[size],
         className
       )}
@@ -165,10 +160,7 @@ function KrdsSelectItem({ className, children, size, ...props }: KrdsSelectItemP
     >
       <SelectPrimitive.ItemText>{children}</SelectPrimitive.ItemText>
       <SelectPrimitive.ItemIndicator>
-        <CheckIcon
-          className={cn("text-krds-secondary-50 shrink-0", checkIconSize[size])}
-          aria-hidden="true"
-        />
+        <CheckIcon className={cn("text-krds-secondary-50 shrink-0", checkIconSize[size])} aria-hidden="true" />
       </SelectPrimitive.ItemIndicator>
     </SelectPrimitive.Item>
   );
@@ -179,10 +171,7 @@ function KrdsSelectItem({ className, children, size, ...props }: KrdsSelectItemP
 function Select({
   options,
   label,
-  hint,
-  error,
-  success,
-  information,
+  "aria-invalid": ariaInvalid,
   size = "large",
   variant = "default",
   disabled,
@@ -197,7 +186,6 @@ function Select({
 }: SelectProps) {
   const autoId = React.useId();
   const inputId = id ?? autoId;
-  const hasError = Boolean(error);
 
   const [internal, setInternal] = React.useState<string | undefined>(defaultValue);
   const isControlled = value !== undefined;
@@ -227,7 +215,7 @@ function Select({
             id={inputId}
             aria-label={label ?? "정렬"}
             className={cn(
-              "text-krds-gray-90 inline-flex h-auto cursor-pointer items-center appearance-none rounded-sm border border-transparent bg-transparent leading-[1.5] outline-none transition-colors",
+              "text-krds-gray-90 inline-flex h-auto cursor-pointer appearance-none items-center rounded-sm border border-transparent bg-transparent leading-[1.5] transition-colors outline-none",
               "hover:bg-krds-gray-5 active:bg-krds-gray-10",
               "focus-visible:ring-krds-primary-50 focus-visible:ring-2 focus-visible:ring-offset-1",
               "disabled:text-krds-gray-50 disabled:cursor-not-allowed disabled:bg-transparent",
@@ -262,25 +250,12 @@ function Select({
   }
 
   // ── Default variant ──────────────────────────────────────────────────────
-  const messageText = error ?? success ?? information ?? hint;
-  const messageColor = error
-    ? "text-krds-danger-50"
-    : success
-      ? "text-krds-success-50"
-      : information
-        ? "text-krds-info-50"
-        : "text-krds-gray-70";
-  const MessageIcon = error ? AlertCircle : success ? CheckCircle2 : information ? Info : null;
-
   return (
     <div data-slot="krds-select" className={cn("flex w-full flex-col gap-2", className)}>
       {label && (
         <label htmlFor={inputId} className="text-krds-gray-90 text-[15px] leading-[1.5]">
           {label}
         </label>
-      )}
-      {hint && !error && !success && !information && (
-        <p className="text-krds-gray-70 text-[13px] leading-[1.5]">{hint}</p>
       )}
       <SelectPrimitive.Root
         value={isControlled ? currentValue : undefined}
@@ -291,18 +266,18 @@ function Select({
       >
         <SelectPrimitive.Trigger
           id={inputId}
-          aria-invalid={hasError || undefined}
+          aria-invalid={ariaInvalid}
           className={cn(
             // base
-            "border-krds-gray-50 bg-krds-gray-0 text-krds-gray-90 relative w-full flex items-center border px-4 outline-none transition-colors",
+            "border-krds-gray-50 bg-krds-gray-0 text-krds-gray-90 relative flex w-full items-center border px-4 transition-colors outline-none",
             // placeholder colour (when no value selected)
             "data-[placeholder]:text-krds-gray-50",
             // focus
             "focus:border-krds-primary-50 focus:border-2 focus:px-[15px]",
             // disabled
             "disabled:bg-krds-gray-20 disabled:border-krds-gray-30 disabled:text-krds-gray-50 disabled:cursor-not-allowed",
-            // error
-            hasError && "border-krds-danger-50 focus:border-krds-danger-50 border-2 px-[15px]",
+            // error (via aria-invalid)
+            "aria-invalid:border-krds-danger-50 aria-invalid:focus:border-krds-danger-50 aria-invalid:border-2 aria-invalid:px-[15px]",
             triggerHeight[size],
             triggerFont[size],
             triggerRadius[size],
@@ -315,7 +290,7 @@ function Select({
           <SelectPrimitive.Icon asChild>
             <ChevronDownIcon
               className={cn(
-                "pointer-events-none absolute top-1/2 -translate-y-1/2 shrink-0",
+                "pointer-events-none absolute top-1/2 shrink-0 -translate-y-1/2",
                 disabled ? "text-krds-gray-50" : "text-krds-gray-90",
                 triggerIconSize[size],
                 triggerIconRight[size]
@@ -332,12 +307,6 @@ function Select({
           ))}
         </KrdsSelectContent>
       </SelectPrimitive.Root>
-      {messageText && (
-        <span className={cn("inline-flex items-start gap-1 text-[13px] leading-[1.5]", messageColor)}>
-          {MessageIcon && <MessageIcon className="mt-0.5 size-4 shrink-0" aria-hidden="true" />}
-          {messageText}
-        </span>
-      )}
     </div>
   );
 }
