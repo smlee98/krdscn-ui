@@ -13,26 +13,20 @@ const Ctx = React.createContext<StepIndicatorCtx>({ currentStep: 1, totalSteps: 
 function StepIndicator({
   className,
   currentStep = 1,
-  pageTitle,
+  "aria-label": ariaLabel = "단계 표시",
   type = "full",
   children,
   ...props
 }: React.ComponentProps<"div"> & {
   currentStep?: number;
-  pageTitle?: string;
+  "aria-label"?: string;
   type?: "full" | "fixed";
 }) {
   const totalSteps = React.Children.count(children);
   return (
     <Ctx.Provider value={{ currentStep, totalSteps, type }}>
       <div data-slot="krds-step-indicator" className={cn("", className)} {...props}>
-        {pageTitle && (
-          <p className="text-krds-gray-90 mb-3 text-sm font-medium">{pageTitle}</p>
-        )}
-        <ol
-          className={cn("flex items-start", type === "full" ? "w-full" : "")}
-          aria-label={pageTitle ?? "단계 표시"}
-        >
+        <ol className={cn("flex items-start", type === "full" ? "w-full" : "")} aria-label={ariaLabel}>
           {children}
         </ol>
       </div>
@@ -42,12 +36,7 @@ function StepIndicator({
 
 // ─── Item ──────────────────────────────────────────────────────────────────────
 
-function StepIndicatorItem({
-  className,
-  step,
-  children,
-  ...props
-}: React.ComponentProps<"li"> & { step: number }) {
+function StepIndicatorItem({ className, step, children, ...props }: React.ComponentProps<"li"> & { step: number }) {
   const { currentStep, totalSteps, type } = React.useContext(Ctx);
   const isDone = step < currentStep;
   const isActive = step === currentStep;
@@ -59,7 +48,7 @@ function StepIndicatorItem({
       data-slot="krds-step-indicator-item"
       className={cn(
         "flex flex-col items-start gap-2",
-        type === "full" ? "flex-1 min-w-0" : "w-[120px] shrink-0",
+        type === "full" ? "min-w-0 flex-1" : "w-[120px] shrink-0",
         className
       )}
       aria-current={isActive ? "step" : undefined}
@@ -78,13 +67,7 @@ function StepIndicatorItem({
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
             >
-              <path
-                d="M1 4L3.5 6.5L9 1"
-                stroke="#fff"
-                strokeWidth="1.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
+              <path d="M1 4L3.5 6.5L9 1" stroke="#fff" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
           </div>
         ) : isActive ? (
@@ -95,12 +78,10 @@ function StepIndicatorItem({
           <div className="bg-krds-gray-10 border-krds-gray-30 size-5 shrink-0 rounded-full border" />
         )}
         {/* connector (skip on last item) */}
-        {!isLast && (
-          <div className={cn("h-px flex-1", lineActive ? "bg-krds-primary-50" : "bg-krds-gray-20")} />
-        )}
+        {!isLast && <div className={cn("h-px flex-1", lineActive ? "bg-krds-primary-50" : "bg-krds-gray-20")} />}
       </div>
       {/* title block */}
-      <div className="flex flex-col gap-0.5 pr-6 leading-[1.5] w-full">
+      <div className="flex w-full flex-col gap-0.5 pr-6 leading-[1.5]">
         <span className="text-krds-gray-70 text-[0.8125rem]">{`${step}단계`}</span>
         <span className="text-krds-gray-90 text-[0.9375rem] font-bold">{children}</span>
       </div>

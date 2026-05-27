@@ -62,8 +62,6 @@ const SIZE_TO_CANONICAL: Record<LinkSizeProp, LinkSize> = {
   xlarge: "large"
 };
 
-const ICON_PX: Record<LinkSize, number> = { small: 16, medium: 20, large: 24 };
-
 function resolveUnderlineOverride(underline?: LinkUnderline): string {
   switch (underline) {
     case "always":
@@ -82,7 +80,6 @@ function Link({
   variant,
   size = "medium",
   underline,
-  icon,
   external = false,
   disabled = false,
   asChild = false,
@@ -100,7 +97,6 @@ function Link({
   underline?: LinkUnderline;
   asChild?: boolean;
   preserveColorOnHover?: boolean;
-  icon?: React.ReactNode;
   external?: boolean;
   disabled?: boolean;
 }) {
@@ -116,22 +112,6 @@ function Link({
 
   const externalProps = external ? { target: "_blank" as const, rel: "noopener noreferrer" } : {};
 
-  const iconPx = ICON_PX[resolvedSize];
-  const content = (
-    <>
-      {children}
-      {icon && (
-        <span
-          aria-hidden="true"
-          className="inline-flex shrink-0 items-center justify-center"
-          style={{ width: iconPx, height: iconPx }}
-        >
-          {icon}
-        </span>
-      )}
-    </>
-  );
-
   if (asChild) {
     return (
       <Slot data-slot="krds-link" className={classes} {...externalProps} {...props}>
@@ -143,14 +123,14 @@ function Link({
   if (!href || disabled) {
     return (
       <span data-slot="krds-link" role="link" aria-disabled={disabled} className={classes}>
-        {content}
+        {children}
       </span>
     );
   }
 
   return (
     <NextLink data-slot="krds-link" href={href} className={classes} {...externalProps} {...props}>
-      {content}
+      {children}
     </NextLink>
   );
 }

@@ -35,8 +35,6 @@ type DeletableTagProps = Omit<React.ComponentProps<"span">, "children"> &
   VariantProps<typeof tagVariants> & {
     variant?: "deletable";
     children: React.ReactNode;
-    onDelete?: () => void;
-    deleteDisabled?: boolean;
     asChild?: boolean;
   };
 
@@ -66,6 +64,23 @@ function CloseIcon({ className }: { className?: string }) {
   );
 }
 
+function TagDelete({ className, ...props }: React.ComponentProps<"button">) {
+  return (
+    <button
+      type="button"
+      aria-label="태그 삭제"
+      className={cn(
+        "inline-flex size-4 shrink-0 items-center justify-center",
+        "disabled:cursor-not-allowed disabled:opacity-40",
+        className
+      )}
+      {...props}
+    >
+      <CloseIcon className="size-full" />
+    </button>
+  );
+}
+
 function Tag(props: TagProps) {
   const { children, className, size = "medium" } = props;
 
@@ -89,15 +104,13 @@ function Tag(props: TagProps) {
         )}
         {...rest}
       >
-        <span>{children}</span>
+        {children}
       </Comp>
     );
   }
 
   const {
     variant: _v,
-    onDelete,
-    deleteDisabled,
     size: _s,
     asChild,
     className: _c,
@@ -109,24 +122,10 @@ function Tag(props: TagProps) {
 
   return (
     <Comp data-slot="krds-tag" className={cn(tagVariants({ size, interactive: false, className }))} {...rest}>
-      <span>{children}</span>
-      {onDelete !== undefined && (
-        <button
-          type="button"
-          aria-label="태그 삭제"
-          disabled={deleteDisabled}
-          onClick={onDelete}
-          className={cn(
-            "inline-flex size-4 shrink-0 items-center justify-center",
-            "disabled:cursor-not-allowed disabled:opacity-40"
-          )}
-        >
-          <CloseIcon className="size-full" />
-        </button>
-      )}
+      {children}
     </Comp>
   );
 }
 
-export { Tag, tagVariants };
+export { Tag, TagDelete, tagVariants };
 export type { TagProps, TagSize, DeletableTagProps, LinkTagProps };
