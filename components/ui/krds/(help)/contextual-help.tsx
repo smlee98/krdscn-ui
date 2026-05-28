@@ -15,13 +15,12 @@ import { cn } from "@/lib/cn";
 // horizontal anchor (left/center/right). Arrow is rendered manually as
 // inline SVG at a fixed 24px offset from the popover edge (per Figma),
 // since Radix's PopoverArrow can't replicate the exact placement.
+//
+// Compose ContextualHelpTitle as the first child for a bold panel heading.
+// Compose ContextualHelpLabel as a sibling before <ContextualHelp> for a trigger label.
 
 type ContextualHelpProps = {
-  /** Small label text shown next to the trigger button. */
-  label?: string;
-  /** Popover title heading. Required. */
-  title: string;
-  /** Popover body content. Required. */
+  /** Popover body content. Compose ContextualHelpTitle as first child for a heading. */
   children: React.ReactNode;
   /** Vertical position of the popover relative to the trigger. */
   position?: "top" | "bottom";
@@ -49,15 +48,13 @@ type ContextualHelpProps = {
 const ALIGN_OFFSET = -23;
 
 function ContextualHelp({
-  label,
-  title,
   children,
   position = "top",
   alignment = "left",
   open,
   defaultOpen,
   onOpenChange,
-  className,
+  className
 }: ContextualHelpProps) {
   const align = alignment === "left" ? "start" : alignment === "right" ? "end" : "center";
   const alignOffset = alignment === "center" ? 0 : ALIGN_OFFSET;
@@ -70,7 +67,6 @@ function ContextualHelp({
         data-alignment={alignment}
         className={cn("inline-flex items-center gap-2", className)}
       >
-        {label && <p className="text-krds-gray-90 text-[15px] leading-[1.5]">{label}</p>}
         <PopoverTrigger asChild>
           <button
             type="button"
@@ -102,7 +98,7 @@ function ContextualHelp({
       >
         <div className="flex flex-col gap-4">
           <div className="flex items-start gap-4">
-            <h4 className="flex-1 text-[17px] leading-[1.5] font-bold text-[#131416]">{title}</h4>
+            <div className="flex flex-1 flex-col gap-4 text-[15px] leading-[1.5] text-[#1e2124]">{children}</div>
             <PopoverPrimitiveClose
               aria-label="닫기"
               className={cn(
@@ -114,7 +110,6 @@ function ContextualHelp({
               <X className="size-4" aria-hidden="true" />
             </PopoverPrimitiveClose>
           </div>
-          <div className="text-[15px] leading-[1.5] text-[#1e2124]">{children}</div>
         </div>
 
         {/* Arrow follows the actually rendered side via Radix's data-side attribute,
@@ -125,11 +120,7 @@ function ContextualHelp({
             "pointer-events-none absolute block h-3 w-[22px]",
             "group-data-[side=top]/cxh:-bottom-3",
             "group-data-[side=bottom]/cxh:-top-3 group-data-[side=bottom]/cxh:rotate-180",
-            alignment === "left"
-              ? "left-6"
-              : alignment === "right"
-                ? "right-6"
-                : "left-1/2 -translate-x-[11px]"
+            alignment === "left" ? "left-6" : alignment === "right" ? "right-6" : "left-1/2 -translate-x-[11px]"
           )}
         >
           <svg viewBox="0 0 22 12" xmlns="http://www.w3.org/2000/svg" className="block size-full overflow-visible">
@@ -145,5 +136,27 @@ function ContextualHelp({
   );
 }
 
-export { ContextualHelp };
+// ─── ContextualHelpTitle ──────────────────────────────────────────────────────
+// Compose as the first child of <ContextualHelp> for a bold panel heading.
+
+function ContextualHelpTitle({ className, children, ...props }: React.ComponentProps<"h4">) {
+  return (
+    <h4 className={cn("text-[17px] leading-[1.5] font-bold text-[#131416]", className)} {...props}>
+      {children}
+    </h4>
+  );
+}
+
+// ─── ContextualHelpLabel ──────────────────────────────────────────────────────
+// Compose as a sibling before <ContextualHelp> (not inside it) for a trigger label.
+
+function ContextualHelpLabel({ className, children, ...props }: React.ComponentProps<"p">) {
+  return (
+    <p className={cn("text-krds-gray-90 text-[15px] leading-[1.5]", className)} {...props}>
+      {children}
+    </p>
+  );
+}
+
+export { ContextualHelp, ContextualHelpTitle, ContextualHelpLabel };
 export type { ContextualHelpProps };

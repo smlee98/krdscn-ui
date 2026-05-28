@@ -1,11 +1,15 @@
-import { ContextualHelp } from "@/components/ui/krds/(help)/contextual-help";
+import { ContextualHelp, ContextualHelpLabel, ContextualHelpTitle } from "@/components/ui/krds/(help)/contextual-help";
 
 export default function ContextualHelpDefault() {
   return (
     <div className="flex items-center justify-center p-16">
-      <ContextualHelp label="도움말 라벨" title="도움말 제목">
-        <p>도움말 내용</p>
-      </ContextualHelp>
+      <div className="inline-flex items-center gap-2">
+        <ContextualHelpLabel>도움말 라벨</ContextualHelpLabel>
+        <ContextualHelp>
+          <ContextualHelpTitle>도움말 제목</ContextualHelpTitle>
+          <p>도움말 내용</p>
+        </ContextualHelp>
+      </div>
     </div>
   );
 }

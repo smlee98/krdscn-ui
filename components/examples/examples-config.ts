@@ -22,7 +22,7 @@ export const EXAMPLES_CONFIG = {
 
   // ── Navigation (G23) — canonical KRDS Storybook names ────────────────────
   "skip-link": ["SkipLinkDefault", "SkipLinkCustomTarget"],
-  "main-menu": ["MainMenuDefault"],
+  "main-menu": ["MainMenuDefault", "MainMenuWithPanel"],
   breadcrumb: ["BreadcrumbDefault", "BreadcrumbSingleItem", "BreadcrumbWithDisabledItem"],
   "side-navigation": ["SideNavigationDefault", "SideNavigationSimpleMenu", "SideNavigationWithPopupOnly"],
   "in-page-navigation": [
@@ -167,10 +167,41 @@ export const EXAMPLES_CONFIG = {
   tooltip: ["TooltipVertical", "TooltipHorizontal", "TooltipBox", "TooltipWithIcon", "TooltipKeyboard"],
 
   // ── Input (G29) — 4 components × 3-5 each = 17 files ─────────────────────
-  "date-input": ["DateInputDefault", "DateInputWithHint", "DateInputWithDefaultValue", "DateInputControlled", "DateInputAllStates"],
-  textarea: ["TextareaDefault", "TextareaWithCounter", "TextareaWithMaxLength", "TextareaStates", "TextareaErrorWithCounter", "TextareaControlled"],
-  "text-input": ["TextInputDefault", "TextInputSizes", "TextInputStates", "TextInputWithPasswordToggle", "TextInputWithClearButton", "TextInputWithMultipleButtons", "TextInputControlled", "TextInputUncontrolled", "TextInputWithoutLabel", "TextInputWithoutHint"],
-  "file-upload": ["FileUploadDefault", "FileUploadWithFiles", "FileUploadDisabled", "FileUploadNoDelete", "FileUploadRestrictedFileTypes", "FileUploadInteractive"],
+  "date-input": [
+    "DateInputDefault",
+    "DateInputWithHint",
+    "DateInputWithDefaultValue",
+    "DateInputControlled",
+    "DateInputAllStates"
+  ],
+  textarea: [
+    "TextareaDefault",
+    "TextareaWithCounter",
+    "TextareaWithMaxLength",
+    "TextareaStates",
+    "TextareaErrorWithCounter",
+    "TextareaControlled"
+  ],
+  "text-input": [
+    "TextInputDefault",
+    "TextInputSizes",
+    "TextInputStates",
+    "TextInputWithPasswordToggle",
+    "TextInputWithClearButton",
+    "TextInputWithMultipleButtons",
+    "TextInputControlled",
+    "TextInputUncontrolled",
+    "TextInputWithoutLabel",
+    "TextInputWithoutHint"
+  ],
+  "file-upload": [
+    "FileUploadDefault",
+    "FileUploadWithFiles",
+    "FileUploadDisabled",
+    "FileUploadNoDelete",
+    "FileUploadRestrictedFileTypes",
+    "FileUploadInteractive"
+  ],
 
   // ── Settings (G30) — 2 components × 1-2 each = 3 files ───────────────────
   "language-switcher": ["LanguageSwitcherDefault", "LanguageSwitcherSimple", "LanguageSwitcherControlled"],

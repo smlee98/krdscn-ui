@@ -7,6 +7,9 @@ import {
   PaginationEllipsis,
   PaginationItem,
   PaginationJump,
+  PaginationJumpButton,
+  PaginationJumpInput,
+  PaginationJumpTotal,
   PaginationNext,
   PaginationPrev,
   buildPageItems
@@ -32,7 +35,11 @@ export default function PaginationWithManyPages() {
         )}
         <PaginationNext disabled={current === total} onClick={() => setCurrent((p) => Math.min(total, p + 1))} />
       </PaginationContent>
-      <PaginationJump total={total} value={current} onJump={(n) => setCurrent(n)} />
+      <PaginationJump total={total} value={current} onJump={(n) => setCurrent(n)}>
+        <PaginationJumpInput aria-label="이동할 페이지 번호" />
+        <PaginationJumpTotal />
+        <PaginationJumpButton>이동</PaginationJumpButton>
+      </PaginationJump>
     </Pagination>
   );
 }

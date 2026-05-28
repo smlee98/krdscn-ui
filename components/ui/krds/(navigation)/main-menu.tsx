@@ -69,64 +69,57 @@ function MainMenuBarItem({ className, children, href, hasSubmenu }: MainMenuBarI
 type MainMenuPanelProps = {
   className?: string;
   children?: React.ReactNode;
-  title?: React.ReactNode;
-  shortcutHref?: string;
-  shortcutLabel?: React.ReactNode;
-  sidebar?: React.ReactNode;
 };
 
-function MainMenuPanel({
-  className,
-  children,
-  title,
-  shortcutHref,
-  shortcutLabel = "바로가기",
-  sidebar
-}: MainMenuPanelProps) {
-  const titleRow = title && (
-    <div className="flex w-full items-center gap-4">
-      <div className="flex h-14 items-center px-1">
-        <span className="text-krds-gray-90 text-[24px] leading-[1.5] font-bold">{title}</span>
-      </div>
-      {shortcutHref && (
-        <a
-          href={shortcutHref}
-          className={cn(
-            "inline-flex items-center gap-0.5 px-0.5",
-            "text-krds-gray-90 text-[15px] leading-[1.5]",
-            "focus-visible:ring-krds-primary-50 rounded-sm focus-visible:ring-2 focus-visible:outline-none"
-          )}
-        >
-          <span className="underline">{shortcutLabel}</span>
-          <ChevronRight size={16} aria-hidden="true" />
-        </a>
-      )}
+function MainMenuPanel({ className, children }: MainMenuPanelProps) {
+  return (
+    <div data-slot="krds-main-menu-panel" className={cn("mx-auto flex w-full max-w-[1200px]", className)}>
+      {children}
     </div>
   );
+}
 
-  if (sidebar) {
-    return (
-      <div
-        data-slot="krds-main-menu-panel"
-        className={cn("mx-auto flex w-full max-w-[1200px] items-stretch", className)}
-      >
-        <aside className="bg-krds-secondary-5 flex w-[266px] flex-col py-4">{sidebar}</aside>
-        <div className="bg-krds-gray-0 flex flex-1 flex-col gap-4 px-10 py-4">
-          {titleRow}
-          <div className="flex w-full items-start gap-6">{children}</div>
-        </div>
-      </div>
-    );
-  }
+// ─── MainMenuPanelHeader (title row container) ────────────────────────────────
 
+function MainMenuPanelHeader({ className, children, ...props }: React.ComponentProps<"div">) {
   return (
-    <div
-      data-slot="krds-main-menu-panel"
-      className={cn("bg-krds-gray-0 mx-auto flex w-full max-w-[1200px] flex-col gap-4 px-4 py-4", className)}
-    >
-      {titleRow}
-      <div className="flex w-full items-start gap-6">{children}</div>
+    <div data-slot="krds-main-menu-panel-header" className={cn("flex h-14 items-center px-1", className)} {...props}>
+      <span className="text-krds-gray-90 text-[24px] leading-[1.5] font-bold">{children}</span>
     </div>
+  );
+}
+
+// ─── MainMenuPanelShortcut (바로가기 link) ────────────────────────────────────
+
+function MainMenuPanelShortcut({ className, children, ...props }: React.ComponentProps<"a">) {
+  return (
+    <a
+      data-slot="krds-main-menu-panel-shortcut"
+      className={cn(
+        "inline-flex items-center gap-0.5 px-0.5",
+        "text-krds-gray-90 text-[15px] leading-[1.5]",
+        "focus-visible:ring-krds-primary-50 rounded-sm focus-visible:ring-2 focus-visible:outline-none",
+        className
+      )}
+      {...props}
+    >
+      <span className="translate-y-px underline">{children ?? "바로가기"}</span>
+      <ChevronRight size={16} aria-hidden="true" />
+    </a>
+  );
+}
+
+// ─── MainMenuPanelSidebar (optional sidebar column) ──────────────────────────
+
+function MainMenuPanelSidebar({ className, children, ...props }: React.ComponentProps<"aside">) {
+  return (
+    <aside
+      data-slot="krds-main-menu-panel-sidebar"
+      className={cn("bg-krds-secondary-5 flex w-[266px] flex-col py-4", className)}
+      {...props}
+    >
+      {children}
+    </aside>
   );
 }
 
@@ -211,4 +204,15 @@ function MainMenuSidebarItem({ className, children, href, active, hasMore, exter
   );
 }
 
-export { MainMenu, MainMenuBar, MainMenuBarItem, MainMenuPanel, MainMenuColumn, MainMenuLink, MainMenuSidebarItem };
+export {
+  MainMenu,
+  MainMenuBar,
+  MainMenuBarItem,
+  MainMenuPanel,
+  MainMenuPanelHeader,
+  MainMenuPanelShortcut,
+  MainMenuPanelSidebar,
+  MainMenuColumn,
+  MainMenuLink,
+  MainMenuSidebarItem
+};

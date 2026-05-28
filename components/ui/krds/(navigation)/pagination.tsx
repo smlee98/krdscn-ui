@@ -186,27 +186,32 @@ function PaginationEllipsis({ className }: PaginationEllipsisProps) {
   );
 }
 
-// ─── PaginationJump (input + total + go button row) ───────────────────────────
+// ─── PaginationJump context ───────────────────────────────────────────────────
+
+type PaginationJumpContextValue = {
+  draft: string;
+  setDraft: (v: string) => void;
+  totalPages: number;
+};
+
+const PaginationJumpContext = React.createContext<PaginationJumpContextValue>({
+  draft: "1",
+  setDraft: () => {},
+  totalPages: 1
+});
+
+// ─── PaginationJump (form root) ───────────────────────────────────────────────
 
 type PaginationJumpProps = {
   className?: string;
+  children?: React.ReactNode;
   total: number;
   value?: number;
   defaultValue?: number;
   onJump?: (page: number) => void;
-  goLabel?: string;
-  inputAriaLabel?: string;
 };
 
-function PaginationJump({
-  className,
-  total,
-  value,
-  defaultValue = 1,
-  onJump,
-  goLabel = "이동",
-  inputAriaLabel = "이동할 페이지 번호"
-}: PaginationJumpProps) {
+function PaginationJump({ className, children, total, value, defaultValue = 1, onJump }: PaginationJumpProps) {
   const [draft, setDraft] = React.useState(String(value ?? defaultValue));
   const [prevValue, setPrevValue] = React.useState(value);
   if (value !== prevValue) {
@@ -222,41 +227,103 @@ function PaginationJump({
   };
 
   return (
-    <form
-      data-slot="krds-pagination-jump"
-      onSubmit={handleSubmit}
-      className={cn("flex items-center justify-center gap-4", className)}
-    >
-      <div className="flex items-center">
-        <input
-          type="text"
-          inputMode="numeric"
-          pattern="[0-9]*"
-          aria-label={inputAriaLabel}
-          value={draft}
-          onChange={(e) => setDraft(e.target.value)}
-          className={cn(
-            "h-10 w-14 rounded-[6px] border border-[#58616a] bg-white px-4",
-            "text-krds-gray-90 text-center text-[15px] leading-[1.5]",
-            "focus-visible:ring-krds-primary-50 focus-visible:ring-2 focus-visible:outline-none"
-          )}
-        />
-        <span className="text-krds-gray-70 flex h-10 w-10 items-center justify-center px-2 text-[15px] leading-[1.5]">
-          /{total}
-        </span>
-      </div>
-      <button
-        type="submit"
-        className={cn(
-          "inline-flex h-10 min-w-16 items-center justify-center rounded-[6px] px-3",
-          "border border-[#256ef4] bg-[#ecf2fe] text-[15px] leading-[1.5] text-[#0b50d0]",
-          "hover:bg-[#dbe8fd] active:bg-[#cbdcfc]",
-          "focus-visible:ring-krds-primary-50 focus-visible:ring-2 focus-visible:outline-none"
-        )}
+    <PaginationJumpContext.Provider value={{ draft, setDraft, totalPages: total }}>
+      <form
+        data-slot="krds-pagination-jump"
+        onSubmit={handleSubmit}
+        className={cn("flex items-center justify-center gap-4", className)}
       >
-        {goLabel}
-      </button>
-    </form>
+        {children}
+      </form>
+    </PaginationJumpContext.Provider>
+  );
+}
+
+// ─── PaginationJumpInput ──────────────────────────────────────────────────────
+
+type PaginationJumpInputProps = Omit<React.ComponentProps<"input">, "value" | "onChange" | "type"> & {
+  value?: number;
+  defaultValue?: number;
+  onValueChange?: (n: number | undefined) => void;
+};
+
+function PaginationJumpInput({
+  value,
+  defaultValue: _defaultValue,
+  onValueChange,
+  "aria-label": ariaLabel = "이동할 페이지 번호",
+  className,
+  ...props
+}: PaginationJumpInputProps) {
+  const ctx = React.useContext(PaginationJumpContext);
+  // Use explicit numeric value if provided; otherwise read draft from context
+  const inputValue = value !== undefined ? String(value) : ctx.draft;
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const raw = e.target.value;
+    if (value === undefined) ctx.setDraft(raw);
+    const n = Number(raw);
+    onValueChange?.(raw === "" || !Number.isFinite(n) ? undefined : n);
+  };
+
+  return (
+    <input
+      type="text"
+      inputMode="numeric"
+      pattern="[0-9]*"
+      aria-label={ariaLabel}
+      value={inputValue}
+      onChange={handleChange}
+      className={cn(
+        "h-10 w-14 rounded-[6px] border border-[#58616a] bg-white px-4",
+        "text-krds-gray-90 text-center text-[15px] leading-[1.5]",
+        "focus-visible:ring-krds-primary-50 focus-visible:ring-2 focus-visible:outline-none",
+        className
+      )}
+      {...props}
+    />
+  );
+}
+
+// ─── PaginationJumpTotal ──────────────────────────────────────────────────────
+
+type PaginationJumpTotalProps = React.ComponentProps<"span"> & { total?: number };
+
+function PaginationJumpTotal({ total, className, ...props }: PaginationJumpTotalProps) {
+  const ctx = React.useContext(PaginationJumpContext);
+  const totalPages = total ?? ctx.totalPages;
+  return (
+    <span
+      className={cn(
+        "text-krds-gray-70 flex h-10 w-10 items-center justify-center px-2 text-[15px] leading-[1.5]",
+        className
+      )}
+      {...props}
+    >
+      /{totalPages}
+    </span>
+  );
+}
+
+// ─── PaginationJumpButton ─────────────────────────────────────────────────────
+
+type PaginationJumpButtonProps = React.ComponentProps<"button">;
+
+function PaginationJumpButton({ children, type = "submit", className, ...props }: PaginationJumpButtonProps) {
+  return (
+    <button
+      type={type}
+      className={cn(
+        "inline-flex h-10 min-w-16 items-center justify-center rounded-[6px] px-3",
+        "border border-[#256ef4] bg-[#ecf2fe] text-[15px] leading-[1.5] text-[#0b50d0]",
+        "hover:bg-[#dbe8fd] active:bg-[#cbdcfc]",
+        "focus-visible:ring-krds-primary-50 focus-visible:ring-2 focus-visible:outline-none",
+        className
+      )}
+      {...props}
+    >
+      {children ?? "이동"}
+    </button>
   );
 }
 
@@ -268,5 +335,8 @@ export {
   PaginationNext,
   PaginationItem,
   PaginationEllipsis,
-  PaginationJump
+  PaginationJump,
+  PaginationJumpInput,
+  PaginationJumpTotal,
+  PaginationJumpButton
 };
