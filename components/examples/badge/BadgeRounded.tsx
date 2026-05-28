@@ -3,22 +3,22 @@ import { Badge } from "@/components/ui/krds/(layout)/badge";
 export default function BadgeRounded() {
   return (
     <div className="flex flex-wrap items-center gap-2">
-      <Badge type="solid" color="primary">
+      <Badge type="solid" variant="default">
         primary solid
       </Badge>
-      <Badge type="outline" color="primary">
+      <Badge type="outline" variant="default">
         primary outline
       </Badge>
-      <Badge type="solid-pastel" color="primary">
+      <Badge type="pastel" variant="default">
         primary pastel
       </Badge>
-      <Badge type="solid" color="danger">
+      <Badge type="solid" variant="destructive">
         danger solid
       </Badge>
-      <Badge type="outline" color="danger">
+      <Badge type="outline" variant="destructive">
         danger outline
       </Badge>
-      <Badge type="solid-pastel" color="danger">
+      <Badge type="pastel" variant="destructive">
         danger pastel
       </Badge>
     </div>
