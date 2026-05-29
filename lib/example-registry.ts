@@ -99,6 +99,7 @@ import _ex81 from "@/components/examples/link/LinkUnderlines";
 import _ex82 from "@/components/examples/link/LinkVariants";
 import _ex83 from "@/components/examples/link/LinkWithIcons";
 import _ex84 from "@/components/examples/main-menu/MainMenuDefault";
+import _exMainMenuWithPanel from "@/components/examples/main-menu/MainMenuWithPanel";
 import _ex85 from "@/components/examples/masthead/MastheadDefault";
 import _ex86 from "@/components/examples/modal/ModalAsChildTrigger";
 import _ex87 from "@/components/examples/modal/ModalBottomSheet";
@@ -305,6 +306,7 @@ export const EXAMPLE_REGISTRY: Record<string, ComponentType> = {
   "link/LinkVariants": _ex82,
   "link/LinkWithIcons": _ex83,
   "main-menu/MainMenuDefault": _ex84,
+  "main-menu/MainMenuWithPanel": _exMainMenuWithPanel,
   "masthead/MastheadDefault": _ex85,
   "modal/ModalAsChildTrigger": _ex86,
   "modal/ModalBottomSheet": _ex87,
