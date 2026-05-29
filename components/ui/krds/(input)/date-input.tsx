@@ -4,7 +4,7 @@ import * as React from "react";
 import { Calendar as CalendarIcon } from "lucide-react";
 
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
-import { Calendar } from "@/components/ui/krds/(layout)/calendar";
+import { Calendar } from "@/components/ui/dynamic/calendar";
 import { cn } from "@/lib/cn";
 
 export type DateInputSize = "small" | "medium" | "large";

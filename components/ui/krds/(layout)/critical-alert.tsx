@@ -1,6 +1,7 @@
 // rsc:safe
 import * as React from "react";
 import { ChevronRight, Info, Siren, TriangleAlert } from "lucide-react";
+import { Button } from "@/components/ui/dynamic/button";
 import { cn } from "@/lib/cn";
 
 // ─── Type config ──────────────────────────────────────────────────────────────
@@ -118,15 +119,17 @@ function CriticalAlertAction({
   }
 
   return (
-    <button
+    <Button
       type="button"
+      variant="text"
+      size="sm"
       data-slot="krds-critical-alert-action"
       onClick={onClick as React.MouseEventHandler<HTMLButtonElement>}
       aria-label={ariaLabel}
-      className={sharedClassName}
+      className={cn("shrink-0 gap-1 hover:underline", className)}
     >
       {inner}
-    </button>
+    </Button>
   );
 }
 

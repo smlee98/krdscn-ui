@@ -16,6 +16,7 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger
 } from "@/components/ui/alert-dialog";
+import { Button } from "@/components/ui/dynamic/button";
 import { cn } from "@/lib/cn";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
@@ -40,24 +41,6 @@ type AlertModalProps = {
   className?: string;
   children?: React.ReactNode;
 };
-
-// ─── Button class helpers ─────────────────────────────────────────────────────
-
-const btnBase =
-  "inline-flex items-center justify-center min-w-24 h-11 px-4 rounded text-sm font-medium outline-none " +
-  "focus-visible:ring-2 focus-visible:ring-krds-primary-50 focus-visible:ring-offset-2";
-
-const cancelCls = cn(
-  btnBase,
-  "bg-krds-gray-0 border border-krds-gray-20 text-krds-gray-90",
-  "hover:bg-krds-gray-5 active:bg-krds-gray-10"
-);
-
-const confirmCls = cn(
-  btnBase,
-  "bg-krds-primary-50 border border-krds-primary-50 text-white",
-  "hover:bg-krds-primary-90 active:bg-krds-primary-90"
-);
 
 // ─── AlertModal ───────────────────────────────────────────────────────────────
 
@@ -95,11 +78,15 @@ function AlertModal({
 
         {/* Footer */}
         <div className="flex items-center justify-end gap-3 pt-4">
-          <AlertDialogCancel onClick={onCancel} className={cancelCls}>
-            {cancelLabel}
+          <AlertDialogCancel asChild>
+            <Button variant="tertiary" size="default" className="min-w-24" onClick={onCancel}>
+              {cancelLabel}
+            </Button>
           </AlertDialogCancel>
-          <AlertDialogAction onClick={onConfirm} className={confirmCls}>
-            {confirmLabel}
+          <AlertDialogAction asChild>
+            <Button variant="default" size="default" className="min-w-24" onClick={onConfirm}>
+              {confirmLabel}
+            </Button>
           </AlertDialogAction>
         </div>
       </AlertDialogContent>

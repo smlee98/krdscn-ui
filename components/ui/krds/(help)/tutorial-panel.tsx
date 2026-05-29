@@ -28,14 +28,8 @@ import * as React from "react";
 import { ChevronLeft, ChevronRight, MessageCircleQuestion, Phone } from "lucide-react";
 import { Sheet, SheetContent, SheetDescription, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/dynamic/button";
-import {
-  Tab,
-  TabContent,
-  TabList,
-  TabPanel as KrdsTabPanel,
-  TabTrigger
-} from "@/components/ui/krds/(layout)/tab";
-import { Disclosure, DisclosureContent, DisclosureTrigger } from "@/components/ui/krds/(layout)/disclosure";
+import { Tab, TabContent, TabList, TabPanel as KrdsTabPanel, TabTrigger } from "@/components/ui/dynamic/tab";
+import { Disclosure, DisclosureContent, DisclosureTrigger } from "@/components/ui/dynamic/disclosure";
 import { cn } from "@/lib/cn";
 
 // ─── Types ───────────────────────────────────────────────────────────────────
@@ -151,7 +145,8 @@ function TutorialLinkAnchor({ link, className }: { link: TutorialLink; className
     >
       {iconPosition === "left" && icon}
       <span>{link.label}</span>
-      {iconPosition === "right" && (icon ?? (link.external ? <ChevronRight size={16} aria-hidden={true} className="shrink-0" /> : null))}
+      {iconPosition === "right" &&
+        (icon ?? (link.external ? <ChevronRight size={16} aria-hidden={true} className="shrink-0" /> : null))}
     </a>
   );
 }
@@ -212,9 +207,7 @@ function TutorialPanelRoot({
   return (
     <TutorialPanelContext.Provider value={ctx}>
       <Sheet open={open} onOpenChange={setOpen}>
-        {triggers.length > 0 ? (
-          <SheetTrigger asChild>{triggers[0]}</SheetTrigger>
-        ) : null}
+        {triggers.length > 0 ? <SheetTrigger asChild>{triggers[0]}</SheetTrigger> : null}
         <SheetContent
           data-slot="krds-tutorial-panel"
           side="right"
@@ -239,25 +232,21 @@ function TutorialPanelRoot({
 function TutorialPanelTrigger({ children = "도움말", className, onClick, ...props }: TutorialPanelTriggerProps) {
   const ctx = React.useContext(TutorialPanelContext);
   return (
-    <button
+    <Button
       type="button"
+      variant="tertiary"
+      size="sm"
       data-slot="krds-tutorial-panel-trigger"
       onClick={(event) => {
         onClick?.(event);
         if (!event.defaultPrevented) ctx?.setOpen(!ctx.isOpen);
       }}
-      className={cn(
-        "inline-flex h-10 items-center gap-1 rounded-[6px] border border-[#58616a] bg-transparent px-3",
-        "text-[15px] font-normal text-[#1e2124]",
-        "hover:bg-[#f4f5f6]",
-        "focus-visible:outline-2 focus-visible:outline-[#256ef4] focus-visible:outline-offset-2",
-        className
-      )}
+      className={className}
       {...props}
     >
       <ChevronLeft size={16} aria-hidden={true} className="shrink-0" />
       <span>{children}</span>
-    </button>
+    </Button>
   );
 }
 
@@ -321,11 +310,7 @@ function TutorialPanelHelpContent({
   ...props
 }: TutorialPanelHelpContentProps) {
   return (
-    <div
-      data-slot="krds-tutorial-panel-help-content"
-      className={cn("flex flex-col gap-8", className)}
-      {...props}
-    >
+    <div data-slot="krds-tutorial-panel-help-content" className={cn("flex flex-col gap-8", className)} {...props}>
       <section className="flex flex-col gap-3">
         <h4 className="text-[19px] leading-[1.4] font-bold text-[#1e2124]">{helpContent.title}</h4>
         <div className="text-[15px] leading-[1.6] text-[#1e2124]">{helpContent.description}</div>
@@ -375,11 +360,7 @@ function TutorialPanelTutorialContent({
   ...props
 }: TutorialPanelTutorialContentProps) {
   return (
-    <div
-      data-slot="krds-tutorial-panel-tutorial-content"
-      className={cn("flex flex-col gap-6", className)}
-      {...props}
-    >
+    <div data-slot="krds-tutorial-panel-tutorial-content" className={cn("flex flex-col gap-6", className)} {...props}>
       <a
         href="#"
         title="이전으로 돌아가기"
@@ -441,24 +422,21 @@ function TutorialPanelTutorialContent({
 function TutorialPanelClose({ children = "접어두기", className, onClick, ...props }: TutorialPanelCloseProps) {
   const ctx = useTutorialPanel();
   return (
-    <button
+    <Button
       type="button"
+      variant="text"
+      size="lg"
       data-slot="krds-tutorial-panel-close"
       onClick={(event) => {
         onClick?.(event);
         if (!event.defaultPrevented) ctx.setOpen(false);
       }}
-      className={cn(
-        "btn-help-panel fold inline-flex h-10 items-center gap-1 self-end text-[15px] font-normal text-[#1e2124]",
-        "hover:text-[#0b50d0]",
-        "focus-visible:outline-2 focus-visible:outline-[#256ef4] focus-visible:outline-offset-2",
-        className
-      )}
+      className={cn("btn-help-panel fold self-end hover:text-[#0b50d0]", className)}
       {...props}
     >
       <span>{children}</span>
       <ChevronRight size={16} aria-hidden={true} className="shrink-0" />
-    </button>
+    </Button>
   );
 }
 

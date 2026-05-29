@@ -34,7 +34,7 @@ import { ChevronRight, ChevronLeft, HelpCircle, MessageCircleQuestion, Phone } f
 
 import { Button } from "@/components/ui/dynamic/button";
 import { Sheet, SheetClose, SheetContent, SheetDescription, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
-import { Disclosure, DisclosureContent, DisclosureTrigger } from "@/components/ui/krds/(layout)/disclosure";
+import { Disclosure, DisclosureContent, DisclosureTrigger } from "@/components/ui/dynamic/disclosure";
 import { cn } from "@/lib/cn";
 
 // ─── HelpPanel (Root) ─────────────────────────────────────────────────────────

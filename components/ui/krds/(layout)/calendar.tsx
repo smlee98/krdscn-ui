@@ -7,6 +7,7 @@ import * as React from "react";
 import { type DateRange, type DayButton, type Dropdown as RdpDropdown } from "react-day-picker";
 
 import { Calendar as ShadcnCalendar } from "@/components/ui/calendar";
+import { Button } from "@/components/ui/dynamic/button";
 import {
   Select as PrimitiveSelect,
   SelectContent as PrimitiveSelectContent,
@@ -613,31 +614,16 @@ function Calendar({
     >
       {calendarNode}
       <div className="flex w-full items-center gap-4 border-t border-[#cdd1d5] bg-white px-6 py-4">
-        <button
-          type="button"
-          onClick={handleTodayClick}
-          disabled={disabled}
-          className="inline-flex h-6 items-center rounded-[4px] px-0.5 text-[15px] leading-[1.5] text-[#1e2124] hover:underline focus-visible:ring-2 focus-visible:ring-[#256ef4] focus-visible:outline-none disabled:opacity-40"
-        >
+        <Button type="button" variant="text" size="sm" onClick={handleTodayClick} disabled={disabled}>
           {todayButtonText}
-        </button>
+        </Button>
         <div className="flex flex-1 items-center justify-end gap-2">
-          <button
-            type="button"
-            onClick={onCancel}
-            disabled={disabled}
-            className="inline-flex h-10 min-w-16 items-center justify-center rounded-[6px] border border-[#58616a] bg-transparent px-3 text-[15px] leading-[1.5] text-[#1e2124] hover:bg-black/5 focus-visible:ring-2 focus-visible:ring-[#256ef4] focus-visible:outline-none disabled:opacity-40"
-          >
+          <Button type="button" variant="tertiary" size="sm" onClick={onCancel} disabled={disabled}>
             {cancelButtonText}
-          </button>
-          <button
-            type="button"
-            onClick={onConfirm}
-            disabled={disabled}
-            className="inline-flex h-10 min-w-16 items-center justify-center rounded-[6px] bg-[#256ef4] px-3 text-[15px] leading-[1.5] text-white hover:brightness-95 focus-visible:ring-2 focus-visible:ring-[#256ef4] focus-visible:outline-none disabled:opacity-40"
-          >
+          </Button>
+          <Button type="button" variant="default" size="sm" onClick={onConfirm} disabled={disabled}>
             {confirmButtonText}
-          </button>
+          </Button>
         </div>
       </div>
     </div>

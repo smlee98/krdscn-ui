@@ -3,6 +3,7 @@
 
 import * as React from "react";
 import { ArrowLeft, ArrowRight, MoreHorizontal } from "lucide-react";
+import { Button } from "@/components/ui/dynamic/button";
 import { cn } from "@/lib/cn";
 
 // ─── Page list builder ────────────────────────────────────────────────────────
@@ -311,19 +312,9 @@ type PaginationJumpButtonProps = React.ComponentProps<"button">;
 
 function PaginationJumpButton({ children, type = "submit", className, ...props }: PaginationJumpButtonProps) {
   return (
-    <button
-      type={type}
-      className={cn(
-        "inline-flex h-10 min-w-16 items-center justify-center rounded-[6px] px-3",
-        "border border-[#256ef4] bg-[#ecf2fe] text-[15px] leading-[1.5] text-[#0b50d0]",
-        "hover:bg-[#dbe8fd] active:bg-[#cbdcfc]",
-        "focus-visible:ring-krds-primary-50 focus-visible:ring-2 focus-visible:outline-none",
-        className
-      )}
-      {...props}
-    >
+    <Button type={type} variant="secondary" size="sm" className={cn("min-w-16", className)} {...props}>
       {children ?? "이동"}
-    </button>
+    </Button>
   );
 }
 
