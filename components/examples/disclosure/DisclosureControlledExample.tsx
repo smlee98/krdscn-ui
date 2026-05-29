@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { Button } from "@/components/ui/krds/(action)/button";
-import { Disclosure, DisclosureTrigger, DisclosureContent } from "@/components/ui/krds/(layout)/disclosure";
+import { Disclosure, DisclosureTrigger, DisclosureContent } from "@/components/ui/dynamic/disclosure";
 
 export default function DisclosureControlledExample() {
   const [open, setOpen] = React.useState(false);

@@ -1,4 +1,4 @@
-import { Disclosure, DisclosureTrigger, DisclosureContent } from "@/components/ui/krds/(layout)/disclosure";
+import { Disclosure, DisclosureTrigger, DisclosureContent } from "@/components/ui/dynamic/disclosure";
 
 export default function DisclosureMultipleDisclosures() {
   return (
