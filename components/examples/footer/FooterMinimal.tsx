@@ -1,10 +1,4 @@
-import {
-  Footer,
-  FooterCopyright,
-  FooterLink,
-  FooterColumnLinks,
-  FooterOrg
-} from "@/components/ui/dynamic/footer";
+import { Footer, FooterCopyright, FooterLink, FooterColumnLinks, FooterOrg } from "@/components/ui/dynamic/footer";
 
 export default function FooterMinimal() {
   return (
