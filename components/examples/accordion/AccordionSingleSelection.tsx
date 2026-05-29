@@ -1,4 +1,4 @@
-import { Accordion, AccordionItem, AccordionHeader, AccordionPanel } from "@/components/ui/krds/(layout)/accordion";
+import { Accordion, AccordionItem, AccordionHeader, AccordionPanel } from "@/components/ui/dynamic/accordion";
 
 export default function AccordionSingleSelection() {
   return (
