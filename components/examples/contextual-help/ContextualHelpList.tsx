@@ -1,7 +1,7 @@
 "use client";
 
 import { ChevronRight } from "lucide-react";
-import { ContextualHelp, ContextualHelpLabel, ContextualHelpTitle } from "@/components/ui/krds/(help)/contextual-help";
+import { ContextualHelp, ContextualHelpLabel, ContextualHelpTitle } from "@/components/ui/dynamic/contextual-help";
 
 const positions = ["top", "bottom"] as const;
 const alignments = ["left", "center", "right"] as const;
