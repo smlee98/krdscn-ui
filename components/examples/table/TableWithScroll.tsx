@@ -1,4 +1,4 @@
-import { Table, TableHeader, TableBody, TableHead, TableRow, TableCell } from "@/components/ui/krds/(layout)/table";
+import { Table, TableHeader, TableBody, TableHead, TableRow, TableCell } from "@/components/ui/dynamic/table";
 
 const ALL_ROWS = Array.from({ length: 15 }, (_, i) => ({
   id: `2024-${String(i + 1).padStart(3, "0")}`,

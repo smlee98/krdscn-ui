@@ -6,7 +6,7 @@ import {
   TableRow,
   TableCell,
   TableCaption
-} from "@/components/ui/krds/(layout)/table";
+} from "@/components/ui/dynamic/table";
 
 export default function TableDefault() {
   return (
