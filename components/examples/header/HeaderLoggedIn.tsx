@@ -9,7 +9,7 @@ import {
   HeaderUtility,
   HeaderUtilityDivider,
   HeaderUtilityItem
-} from "@/components/ui/krds/(identity)/header";
+} from "@/components/ui/dynamic/header";
 
 export default function HeaderLoggedIn() {
   return (
