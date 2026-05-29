@@ -13,7 +13,7 @@ import {
   PaginationNext,
   PaginationPrev,
   buildPageItems
-} from "@/components/ui/krds/(navigation)/pagination";
+} from "@/components/ui/dynamic/pagination";
 
 export default function PaginationWithManyPages() {
   const total = 99;

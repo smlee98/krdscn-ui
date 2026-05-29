@@ -5,6 +5,7 @@ import { Badge as KrdsBadge, type BadgeProps as KrdsBadgeProps } from "@/compone
 import { useUISystem } from "@/lib/ui-system";
 
 export type BadgeProps = KrdsBadgeProps;
+export type { BadgeVariant } from "@/components/ui/krds/(layout)/badge";
 
 const VARIANT_FALLBACK: Record<
   NonNullable<BadgeProps["variant"]>,

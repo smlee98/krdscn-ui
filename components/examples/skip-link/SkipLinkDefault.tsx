@@ -1,4 +1,4 @@
-import { SkipLink } from "@/components/ui/krds/(navigation)/skip-link";
+import { SkipLink } from "@/components/ui/dynamic/skip-link";
 
 export default function SkipLinkDefault() {
   return (

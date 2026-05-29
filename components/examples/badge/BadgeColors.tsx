@@ -1,4 +1,4 @@
-import { Badge, type BadgeVariant } from "@/components/ui/krds/(layout)/badge";
+import { Badge, type BadgeVariant } from "@/components/ui/dynamic/badge";
 
 const VARIANTS: ReadonlyArray<BadgeVariant> = [
   "default",

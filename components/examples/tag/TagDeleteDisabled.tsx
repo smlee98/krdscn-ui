@@ -1,6 +1,6 @@
 "use client";
 
-import { Tag, TagDelete } from "@/components/ui/krds/(selection)/tag";
+import { Tag, TagDelete } from "@/components/ui/dynamic/tag";
 
 export default function TagDeleteDisabled() {
   return (

@@ -1,6 +1,6 @@
 import { SearchIcon, Trash2Icon } from "lucide-react";
 
-import { Button } from "@/components/ui/krds/(action)/button";
+import { Button } from "@/components/ui/dynamic/button";
 
 export default function ButtonIcon() {
   return (

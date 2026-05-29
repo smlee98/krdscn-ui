@@ -1,4 +1,4 @@
-import { Tag } from "@/components/ui/krds/(selection)/tag";
+import { Tag } from "@/components/ui/dynamic/tag";
 
 export default function TagDefault() {
   return (
