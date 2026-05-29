@@ -6,7 +6,7 @@ import {
   BreadcrumbList,
   BreadcrumbPage,
   BreadcrumbSeparator
-} from "@/components/ui/krds/(navigation)/breadcrumb";
+} from "@/components/ui/dynamic/breadcrumb";
 
 export default function BreadcrumbDefault() {
   return (

@@ -1,9 +1,4 @@
-import {
-  Breadcrumb,
-  BreadcrumbHome,
-  BreadcrumbItem,
-  BreadcrumbList
-} from "@/components/ui/krds/(navigation)/breadcrumb";
+import { Breadcrumb, BreadcrumbHome, BreadcrumbItem, BreadcrumbList } from "@/components/ui/dynamic/breadcrumb";
 
 export default function BreadcrumbSingleItem() {
   return (
