@@ -1,4 +1,4 @@
-import { MainMenu, MainMenuBar, MainMenuBarItem } from "@/components/ui/krds/(navigation)/main-menu";
+import { MainMenu, MainMenuBar, MainMenuBarItem } from "@/components/ui/dynamic/main-menu";
 
 export default function MainMenuDefault() {
   return (
