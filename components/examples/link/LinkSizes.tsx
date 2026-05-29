@@ -1,15 +1,15 @@
-import { Link } from "@/components/ui/krds/(action)/link";
+import { Link } from "@/components/ui/dynamic/link";
 
 export default function LinkSizes() {
   return (
     <div className="flex flex-col items-start gap-4">
-      <Link size="small" href="#">
+      <Link size="sm" href="#">
         Small 크기 (15px)
       </Link>
-      <Link size="medium" href="#">
+      <Link size="default" href="#">
         Medium 크기 (17px)
       </Link>
-      <Link size="large" href="#">
+      <Link size="lg" href="#">
         Large 크기 (19px)
       </Link>
     </div>
