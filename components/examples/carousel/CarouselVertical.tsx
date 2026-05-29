@@ -5,7 +5,7 @@ import {
   CarouselPrevious,
   CarouselNext,
   CarouselNumber
-} from "@/components/ui/krds/(layout)/carousel";
+} from "@/components/ui/dynamic/carousel";
 
 const STEPS = [
   { step: "01", label: "신청서 작성", desc: "민원 정보를 입력합니다." },

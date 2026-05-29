@@ -5,7 +5,7 @@ import {
   CarouselPrevious,
   CarouselNext,
   CarouselNumber
-} from "@/components/ui/krds/(layout)/carousel";
+} from "@/components/ui/dynamic/carousel";
 
 const SLIDES = [
   { title: "정부24 민원 서비스", desc: "각종 민원서류를 온라인으로 간편하게 발급받으세요." },
