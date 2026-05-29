@@ -1,15 +1,15 @@
 "use client";
 
 /**
- * KRDS HelpPanel — inline-expanding right drawer matching KRDS Storybook API.
+ * KRDS HelpPanel — right-side drawer composed on shadcn Sheet (Radix Dialog).
  *
  * Reference: https://www.krds.go.kr/storybook/react/?path=/docs/components-helppanel--docs
  * Figma: node 360-44743
  *
  * Structure:
  *   <HelpPanel defaultOpen={false}>
- *     <HelpPanelTrigger>도움말</HelpPanelTrigger>   (rendered OUTSIDE the panel)
- *     <HelpPanelContent srOnlyTitle="도움">         (rendered INSIDE the panel)
+ *     <HelpPanelTrigger>도움말</HelpPanelTrigger>   (rendered OUTSIDE — SheetTrigger)
+ *     <HelpPanelContent srOnlyTitle="도움">         (rendered INSIDE SheetContent)
  *       <HelpSection title="..." description="...">
  *         <HelpLinkList links={[{text, href, target?, icon?}]} />
  *       </HelpSection>
@@ -23,33 +23,19 @@
  *     <HelpPanelClose />
  *   </HelpPanel>
  *
- * Trigger is auto-extracted from children (via type comparison) and rendered
- * outside the panel container; everything else renders inside.
+ * Trigger is auto-extracted from children via React element identity and
+ * mounted as SheetTrigger; everything else renders inside SheetContent.
+ * Open/close state, focus trap, portal, overlay, ESC handling, and slide
+ * animation come from Sheet — no manual state management here.
  */
 
 import * as React from "react";
-import { ChevronLeft, ChevronRight, HelpCircle, MessageCircleQuestion, Phone } from "lucide-react";
+import { ChevronRight, ChevronLeft, HelpCircle, MessageCircleQuestion, Phone } from "lucide-react";
 
 import { Button } from "@/components/ui/dynamic/button";
+import { Sheet, SheetClose, SheetContent, SheetDescription, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { Disclosure, DisclosureContent, DisclosureTrigger } from "@/components/ui/krds/(layout)/disclosure";
 import { cn } from "@/lib/cn";
-
-// ─── Context ──────────────────────────────────────────────────────────────────
-
-type HelpPanelContextValue = {
-  isOpen: boolean;
-  setOpen: (open: boolean) => void;
-  toggle: () => void;
-  panelId: string;
-};
-
-const HelpPanelContext = React.createContext<HelpPanelContextValue | null>(null);
-
-function useHelpPanel() {
-  const ctx = React.useContext(HelpPanelContext);
-  if (!ctx) throw new Error("HelpPanel sub-components must be used within <HelpPanel>");
-  return ctx;
-}
 
 // ─── HelpPanel (Root) ─────────────────────────────────────────────────────────
 
@@ -61,90 +47,59 @@ type HelpPanelProps = {
   children?: React.ReactNode;
 };
 
-function HelpPanel({ isOpen: controlledOpen, defaultOpen = false, onOpenChange, className, children }: HelpPanelProps) {
-  const isControlled = controlledOpen !== undefined;
-  const [internalOpen, setInternalOpen] = React.useState(defaultOpen);
-  const open = isControlled ? controlledOpen : internalOpen;
-  const panelId = React.useId();
-
-  const setOpen = React.useCallback(
-    (next: boolean) => {
-      if (!isControlled) setInternalOpen(next);
-      onOpenChange?.(next);
-    },
-    [isControlled, onOpenChange]
-  );
-
-  const toggle = React.useCallback(() => setOpen(!open), [open, setOpen]);
-
-  // Split children: triggers render outside the panel, rest renders inside.
+function HelpPanel({ isOpen, defaultOpen = false, onOpenChange, className, children }: HelpPanelProps) {
+  // Split children: HelpPanelTrigger mounts as SheetTrigger asChild;
+  // everything else renders inside SheetContent.
   const childArray = React.Children.toArray(children);
-  const triggers = childArray.filter(
-    (child) => React.isValidElement(child) && child.type === HelpPanelTrigger
-  );
-  const panelChildren = childArray.filter(
-    (child) => !React.isValidElement(child) || child.type !== HelpPanelTrigger
-  );
-
-  // ESC closes the panel
-  React.useEffect(() => {
-    if (!open) return;
-    function onKey(e: KeyboardEvent) {
-      if (e.key === "Escape") setOpen(false);
+  const triggers: React.ReactNode[] = [];
+  const inner: React.ReactNode[] = [];
+  childArray.forEach((child) => {
+    if (React.isValidElement(child) && child.type === HelpPanelTrigger) {
+      triggers.push(child);
+    } else {
+      inner.push(child);
     }
-    document.addEventListener("keydown", onKey);
-    return () => document.removeEventListener("keydown", onKey);
-  }, [open, setOpen]);
+  });
 
   return (
-    <HelpPanelContext.Provider value={{ isOpen: open, setOpen, toggle, panelId }}>
-      <div data-slot="krds-help-panel-root" className={cn("relative", className)}>
-        {triggers}
-        <div
-          id={panelId}
-          role="region"
-          aria-label="도움말"
-          data-slot="krds-help-panel"
-          data-state={open ? "open" : "closed"}
-          className={cn(
-            "krds-help-panel",
-            // Fixed slide-in drawer from the right
-            "fixed top-0 right-0 bottom-0 z-40 w-[390px] max-w-full",
-            "border-l border-[#b1b8be] bg-[#f4f5f6]",
-            "transition-transform duration-300 ease-out",
-            open ? "translate-x-0" : "translate-x-full pointer-events-none"
-          )}
-        >
-          <div className="help-panel-wrap flex h-full flex-col">
-            <div className="help-conts-area flex h-full flex-col overflow-y-auto p-10">{panelChildren}</div>
-          </div>
+    <Sheet open={isOpen} defaultOpen={defaultOpen} onOpenChange={onOpenChange}>
+      {triggers.length > 0 ? <SheetTrigger asChild>{triggers[0]}</SheetTrigger> : null}
+      <SheetContent
+        data-slot="krds-help-panel"
+        side="right"
+        showCloseButton={false}
+        className={cn(
+          "krds-help-panel",
+          "w-[390px] gap-0 p-0 sm:max-w-[390px]",
+          "border-l border-[#b1b8be] bg-[#f4f5f6]",
+          className
+        )}
+      >
+        <SheetTitle className="sr-only">도움말</SheetTitle>
+        <SheetDescription className="sr-only">도움말 패널 콘텐츠</SheetDescription>
+        <div className="help-panel-wrap flex h-full flex-col">
+          <div className="help-conts-area flex h-full flex-col overflow-y-auto p-10">{inner}</div>
         </div>
-      </div>
-    </HelpPanelContext.Provider>
+      </SheetContent>
+    </Sheet>
   );
 }
 
 // ─── HelpPanelTrigger ─────────────────────────────────────────────────────────
-// Rendered OUTSIDE the panel container; opens the panel.
+// Mounted as SheetTrigger asChild by HelpPanel root — open behavior, aria-expanded,
+// and aria-controls are wired automatically by Sheet (Radix Dialog.Trigger).
 
 type HelpPanelTriggerProps = Omit<React.ComponentProps<"button">, "children"> & {
   children?: React.ReactNode;
 };
 
-function HelpPanelTrigger({ className, children, onClick, ...props }: HelpPanelTriggerProps) {
-  const { isOpen, setOpen, panelId } = useHelpPanel();
+function HelpPanelTrigger({ className, children, ...props }: HelpPanelTriggerProps) {
   return (
     <Button
       type="button"
       variant="tertiary"
       size="sm"
       data-slot="krds-help-panel-trigger"
-      aria-expanded={isOpen}
-      aria-controls={panelId}
-      onClick={(e) => {
-        onClick?.(e);
-        if (!e.defaultPrevented) setOpen(true);
-      }}
       className={cn("gap-1", className)}
       {...props}
     >
@@ -155,34 +110,31 @@ function HelpPanelTrigger({ className, children, onClick, ...props }: HelpPanelT
 }
 
 // ─── HelpPanelClose ───────────────────────────────────────────────────────────
-// "접어두기" button — closes the panel.
+// "접어두기" button — closes the panel via SheetClose.
 
 type HelpPanelCloseProps = Omit<React.ComponentProps<"button">, "children"> & {
   children?: React.ReactNode;
 };
 
-function HelpPanelClose({ className, children, onClick, ...props }: HelpPanelCloseProps) {
-  const { setOpen } = useHelpPanel();
+function HelpPanelClose({ className, children, ...props }: HelpPanelCloseProps) {
   return (
-    <button
-      type="button"
-      data-slot="krds-help-panel-close"
-      onClick={(e) => {
-        onClick?.(e);
-        if (!e.defaultPrevented) setOpen(false);
-      }}
-      className={cn(
-        "btn-help-panel fold",
-        "inline-flex items-center gap-1 self-end text-[15px] leading-[1.5] text-[#1e2124]",
-        "transition-colors hover:text-[#0b50d0]",
-        "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#256ef4]",
-        className
-      )}
-      {...props}
-    >
-      <span>{children ?? "접어두기"}</span>
-      <ChevronRight className="size-4" aria-hidden="true" />
-    </button>
+    <SheetClose asChild>
+      <button
+        type="button"
+        data-slot="krds-help-panel-close"
+        className={cn(
+          "btn-help-panel fold",
+          "inline-flex items-center gap-1 self-end text-[15px] leading-[1.5] text-[#1e2124]",
+          "transition-colors hover:text-[#0b50d0]",
+          "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#256ef4]",
+          className
+        )}
+        {...props}
+      >
+        <span>{children ?? "접어두기"}</span>
+        <ChevronRight className="size-4" aria-hidden="true" />
+      </button>
+    </SheetClose>
   );
 }
 
@@ -292,11 +244,7 @@ function HelpRelatedService({ className, children, ...props }: React.ComponentPr
   return (
     <div
       data-slot="krds-help-related-service"
-      className={cn(
-        "conts-area related-service flex flex-col gap-6",
-        "border-t border-[#cdd1d5] pt-8",
-        className
-      )}
+      className={cn("conts-area related-service flex flex-col gap-6", "border-t border-[#cdd1d5] pt-8", className)}
       {...props}
     >
       {children}
