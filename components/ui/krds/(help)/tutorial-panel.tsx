@@ -27,7 +27,7 @@
 import * as React from "react";
 import { ChevronLeft, ChevronRight, MessageCircleQuestion, Phone } from "lucide-react";
 import { Sheet, SheetContent, SheetDescription, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
-import { Button } from "@/components/ui/krds/(action)/button";
+import { Button } from "@/components/ui/dynamic/button";
 import {
   Tab,
   TabContent,

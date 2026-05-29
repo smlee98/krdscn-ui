@@ -30,7 +30,7 @@
 import * as React from "react";
 import { ChevronLeft, ChevronRight, HelpCircle, MessageCircleQuestion, Phone } from "lucide-react";
 
-import { Button } from "@/components/ui/krds/(action)/button";
+import { Button } from "@/components/ui/dynamic/button";
 import { Disclosure, DisclosureContent, DisclosureTrigger } from "@/components/ui/krds/(layout)/disclosure";
 import { cn } from "@/lib/cn";
 

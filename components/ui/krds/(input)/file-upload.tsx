@@ -3,7 +3,7 @@
 import * as React from "react";
 import { CheckCircle2, CircleAlert } from "lucide-react";
 import { cn } from "@/lib/cn";
-import { Button } from "@/components/ui/krds/(action)/button";
+import { Button } from "@/components/ui/dynamic/button";
 
 // ── Types ──────────────────────────────────────────────────────────────────
 

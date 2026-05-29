@@ -52,6 +52,24 @@ Sort import statements alphabetically by path for stable diffs.
    Breadcrumb) may be RSC-compatible — match the `"use client"` placement of the underlying
    shadcn component.
 
+8. **KRDS-internal atom imports go through the runtime dispatcher** (`@/components/ui/dynamic/*`),
+   not the direct KRDS wrapper path. When a KRDS compound (e.g. `TutorialPanel`, `HelpPanel`,
+   `CoachMark`, `FileUpload`, `Header`) renders another KRDS-owned atom (Button, SkipLink, …),
+   it MUST import that atom from `@/components/ui/dynamic/<name>` so the `<UISystemProvider>`
+   toggle reaches the atom too. Direct KRDS-to-KRDS atom imports are reserved for the dispatcher
+   layer itself.
+
+   ```tsx
+   // correct (KRDS compound → dispatcher → KRDS atom or shadcn atom)
+   import { Button } from "@/components/ui/dynamic/button";
+
+   // incorrect — bypasses the toggle, KRDS atom stays KRDS even in shadcn mode
+   import { Button } from "@/components/ui/krds/(action)/button";
+   ```
+
+   Cycle safety: `components/ui/dynamic/<atom>` imports `krds/(…)/<atom>` and `ui/<atom>` (shadcn)
+   only — atom wrappers themselves never import from `dynamic/`, so the graph remains acyclic.
+
 ## R3 Component Classification
 
 Three categories determine how a wrapper is implemented:

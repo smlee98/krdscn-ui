@@ -4,7 +4,7 @@
 import * as React from "react";
 import { ChevronDown } from "lucide-react";
 import { cn } from "@/lib/cn";
-import { SkipLink } from "@/components/ui/krds/(navigation)/skip-link";
+import { SkipLink } from "@/components/ui/dynamic/skip-link";
 import { Masthead } from "@/components/ui/krds/(identity)/masthead";
 
 // ─── HeaderUtility ────────────────────────────────────────────────────────────
