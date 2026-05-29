@@ -1,5 +1,5 @@
 import { Heart, Share2 } from "lucide-react";
-import { Button } from "@/components/ui/krds/(action)/button";
+import { Button } from "@/components/ui/dynamic/button";
 import {
   StructuredList,
   StructuredListActions,

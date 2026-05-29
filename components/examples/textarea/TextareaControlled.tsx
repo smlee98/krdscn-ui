@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { Textarea } from "@/components/ui/dynamic/textarea";
-import { Button } from "@/components/ui/krds/(action)/button";
+import { Button } from "@/components/ui/dynamic/button";
 
 export default function TextareaControlled() {
   const [value, setValue] = React.useState("제어된 컴포넌트");
