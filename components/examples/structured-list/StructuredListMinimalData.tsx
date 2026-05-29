@@ -8,7 +8,7 @@ import {
   StructuredListHeader,
   StructuredListSubActions,
   StructuredListTitle
-} from "@/components/ui/krds/(layout)/structured-list";
+} from "@/components/ui/dynamic/structured-list";
 
 export default function StructuredListMinimalData() {
   return (

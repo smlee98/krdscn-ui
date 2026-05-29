@@ -13,7 +13,7 @@ import {
   StructuredListSubAction,
   StructuredListSubActions,
   StructuredListTitle
-} from "@/components/ui/krds/(layout)/structured-list";
+} from "@/components/ui/dynamic/structured-list";
 
 export default function StructuredListDefault() {
   return (

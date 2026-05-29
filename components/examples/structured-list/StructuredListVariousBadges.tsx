@@ -12,7 +12,7 @@ import {
   StructuredListTag,
   StructuredListTagList,
   StructuredListTitle
-} from "@/components/ui/krds/(layout)/structured-list";
+} from "@/components/ui/dynamic/structured-list";
 
 export default function StructuredListVariousBadges() {
   return (
