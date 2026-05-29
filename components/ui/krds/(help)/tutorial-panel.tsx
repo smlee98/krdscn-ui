@@ -426,7 +426,7 @@ function TutorialPanelTutorialContent({
       <Button
         type="button"
         variant="secondary"
-        size="medium"
+        size="default"
         className="coach-btn-stop w-full"
         onClick={onTutorialStop}
       >

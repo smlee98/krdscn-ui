@@ -36,7 +36,7 @@ export default function CoachMarkInteractive() {
   if (!isVisible) {
     return (
       <Button
-        variant="primary"
+        variant="default"
         onClick={() => {
           setIsVisible(true);
           setCurrentStep(1);

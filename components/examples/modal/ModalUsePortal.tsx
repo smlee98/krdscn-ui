@@ -13,7 +13,7 @@ export default function ModalUsePortal() {
   return (
     <ModalRoot>
       <ModalTrigger asChild>
-        <Button variant="primary">Portal 모달</Button>
+        <Button variant="default">Portal 모달</Button>
       </ModalTrigger>
       <ModalContent>
         <ModalClose />
@@ -27,7 +27,7 @@ export default function ModalUsePortal() {
           <ModalClose asChild>
             <Button variant="secondary">닫기</Button>
           </ModalClose>
-          <Button variant="primary">확인</Button>
+          <Button variant="default">확인</Button>
         </ModalFooter>
       </ModalContent>
     </ModalRoot>

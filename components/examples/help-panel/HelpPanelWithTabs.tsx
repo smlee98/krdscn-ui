@@ -104,7 +104,7 @@ export default function HelpPanelWithTabs() {
       </HelpPanelContent>
 
       <HelpPanelAction>
-        <Button variant="secondary" size="medium">
+        <Button variant="secondary" size="default">
           그만 따라하기
         </Button>
       </HelpPanelAction>

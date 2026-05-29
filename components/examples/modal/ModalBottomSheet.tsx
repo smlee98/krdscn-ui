@@ -13,7 +13,7 @@ export default function ModalBottomSheet() {
   return (
     <ModalRoot variant="bottom-sheet">
       <ModalTrigger asChild>
-        <Button variant="primary">Bottom Sheet</Button>
+        <Button variant="default">Bottom Sheet</Button>
       </ModalTrigger>
       <ModalContent>
         <ModalClose />
@@ -23,7 +23,7 @@ export default function ModalBottomSheet() {
           <ModalClose asChild>
             <Button variant="secondary">취소</Button>
           </ModalClose>
-          <Button variant="primary">확인</Button>
+          <Button variant="default">확인</Button>
         </ModalFooter>
       </ModalContent>
     </ModalRoot>

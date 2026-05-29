@@ -43,7 +43,7 @@ export default function CarouselFullBanner() {
                 <h3 className="text-krds-gray-90 text-[28px] leading-[1.3] font-bold">{b.title}</h3>
                 <p className="text-krds-gray-70 text-base">{b.body}</p>
                 <div className="mt-4">
-                  <Button variant="primary" size="medium">
+                  <Button variant="default" size="default">
                     {b.cta}
                   </Button>
                 </div>

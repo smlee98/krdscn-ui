@@ -28,7 +28,7 @@ export default function ModalAsChildTrigger() {
           <ModalClose asChild>
             <Button variant="secondary">닫기</Button>
           </ModalClose>
-          <Button variant="primary">확인</Button>
+          <Button variant="default">확인</Button>
         </ModalFooter>
       </ModalContent>
     </ModalRoot>

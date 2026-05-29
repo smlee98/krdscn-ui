@@ -268,8 +268,8 @@ function FileUpload({
           onChange={handleInputChange}
         />
         <Button
-          variant="primary"
-          size="medium"
+          variant="default"
+          size="default"
           disabled={disabled}
           type="button"
           onClick={() => inputRef.current?.click()}
@@ -286,7 +286,7 @@ function FileUpload({
             <span className="text-[#1e2124]">/ {maxFiles}개</span>
           </div>
           {files.length > 1 && allowDelete && (
-            <Button variant="tertiary" size="xsmall" type="button" onClick={handleAllDelete} disabled={disabled}>
+            <Button variant="tertiary" size="xs" type="button" onClick={handleAllDelete} disabled={disabled}>
               전체 파일 삭제 <IconAngleRight className="size-4" />
             </Button>
           )}
@@ -328,26 +328,26 @@ function FileUpload({
                       {(file.onDownload || file.onPreview) && (
                         <>
                           {file.onDownload && (
-                            <Button variant="text" size="medium" type="button" onClick={file.onDownload} disabled={disabled}>
+                            <Button variant="text" size="default" type="button" onClick={file.onDownload} disabled={disabled}>
                               다운로드 <IconDownload className="size-5" />
                             </Button>
                           )}
                           {file.onPreview && (
-                            <Button variant="text" size="medium" type="button" onClick={file.onPreview} disabled={disabled}>
+                            <Button variant="text" size="default" type="button" onClick={file.onPreview} disabled={disabled}>
                               바로보기 <IconAngleRight className="size-5" />
                             </Button>
                           )}
                         </>
                       )}
                       {allowDelete && file.deletable !== false && (
-                        <Button variant="text" size="medium" type="button" onClick={() => handleDelete(file.id)} disabled={disabled}>
+                        <Button variant="text" size="default" type="button" onClick={() => handleDelete(file.id)} disabled={disabled}>
                           삭제 <IconDeleteFill className="size-5" />
                         </Button>
                       )}
                     </>
                   )}
                   {file.status === "error" && allowDelete && file.deletable !== false && (
-                    <Button variant="text" size="medium" type="button" onClick={() => handleDelete(file.id)} disabled={disabled}>
+                    <Button variant="text" size="default" type="button" onClick={() => handleDelete(file.id)} disabled={disabled}>
                       삭제 <IconDeleteFill className="size-5" />
                     </Button>
                   )}

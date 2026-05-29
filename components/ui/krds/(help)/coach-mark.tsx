@@ -80,15 +80,15 @@ function CoachMark({
             </div>
 
             <div className="flex flex-1 items-center justify-end gap-4">
-              <Button variant="text" size="small" onClick={() => onSkip?.()}>
+              <Button variant="text" size="sm" onClick={() => onSkip?.()}>
                 그만보기
               </Button>
               {currentStep > 1 && (
-                <Button variant="text" size="small" onClick={() => onPrevious?.()}>
+                <Button variant="text" size="sm" onClick={() => onPrevious?.()}>
                   이전으로
                 </Button>
               )}
-              <Button variant="tertiary" size="small" onClick={() => onNext?.()}>
+              <Button variant="tertiary" size="sm" onClick={() => onNext?.()}>
                 다음으로
               </Button>
             </div>

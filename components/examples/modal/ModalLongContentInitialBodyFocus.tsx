@@ -13,7 +13,7 @@ export default function ModalLongContentInitialBodyFocus() {
   return (
     <ModalRoot>
       <ModalTrigger asChild>
-        <Button variant="primary">긴 내용 모달</Button>
+        <Button variant="default">긴 내용 모달</Button>
       </ModalTrigger>
       <ModalContent>
         <ModalClose />
@@ -32,7 +32,7 @@ export default function ModalLongContentInitialBodyFocus() {
           <ModalClose asChild>
             <Button variant="secondary">취소</Button>
           </ModalClose>
-          <Button variant="primary">동의</Button>
+          <Button variant="default">동의</Button>
         </ModalFooter>
       </ModalContent>
     </ModalRoot>

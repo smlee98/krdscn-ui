@@ -3,19 +3,19 @@ import { Button } from "@/components/ui/krds/(action)/button";
 export default function ButtonSizes() {
   return (
     <div className="flex flex-wrap items-end gap-3">
-      <Button variant="primary" size="xsmall">
+      <Button variant="default" size="xs">
         XSmall
       </Button>
-      <Button variant="primary" size="small">
+      <Button variant="default" size="sm">
         Small
       </Button>
-      <Button variant="primary" size="medium">
+      <Button variant="default" size="default">
         Medium
       </Button>
-      <Button variant="primary" size="large">
+      <Button variant="default" size="lg">
         Large
       </Button>
-      <Button variant="primary" size="xlarge">
+      <Button variant="default" size="xl">
         XLarge
       </Button>
     </div>

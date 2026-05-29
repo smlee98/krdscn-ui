@@ -23,7 +23,7 @@ export default function StructuredListMinimalData() {
         </StructuredListDescription>
         <StructuredListActions>
           <StructuredListSubActions />
-          <Button variant="primary" size="medium">
+          <Button variant="default" size="default">
             결과 보기
           </Button>
         </StructuredListActions>

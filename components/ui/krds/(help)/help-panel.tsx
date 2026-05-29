@@ -137,7 +137,7 @@ function HelpPanelTrigger({ className, children, onClick, ...props }: HelpPanelT
     <Button
       type="button"
       variant="tertiary"
-      size="small"
+      size="sm"
       data-slot="krds-help-panel-trigger"
       aria-expanded={isOpen}
       aria-controls={panelId}

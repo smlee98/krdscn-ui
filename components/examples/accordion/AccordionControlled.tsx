@@ -12,10 +12,10 @@ export default function AccordionControlled() {
   return (
     <div className="flex flex-col gap-4">
       <div className="flex gap-2">
-        <Button variant="secondary" size="small" onClick={() => setOpenValues(ITEMS)}>
+        <Button variant="secondary" size="sm" onClick={() => setOpenValues(ITEMS)}>
           모두 펼치기
         </Button>
-        <Button variant="tertiary" size="small" onClick={() => setOpenValues([])}>
+        <Button variant="tertiary" size="sm" onClick={() => setOpenValues([])}>
           모두 접기
         </Button>
       </div>

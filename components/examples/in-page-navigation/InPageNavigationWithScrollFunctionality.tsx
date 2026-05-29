@@ -48,7 +48,7 @@ export default function InPageNavigationWithScrollFunctionality() {
         ))}
       </InPageNavigationList>
       <InPageNavigationFooter>
-        <Button variant="primary" size="medium" className="w-full">
+        <Button variant="default" size="default" className="w-full">
           상단으로 이동
         </Button>
         <InPageNavigationDescription>현재 보고 있는 섹션이 강조됩니다</InPageNavigationDescription>

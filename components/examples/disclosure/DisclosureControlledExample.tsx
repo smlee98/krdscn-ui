@@ -10,7 +10,7 @@ export default function DisclosureControlledExample() {
   return (
     <div className="flex flex-col gap-4">
       <div className="flex items-center gap-3">
-        <Button variant="secondary" size="small" onClick={() => setOpen((v) => !v)}>
+        <Button variant="secondary" size="sm" onClick={() => setOpen((v) => !v)}>
           {open ? "접기" : "펼치기"}
         </Button>
         <span className="text-krds-gray-50 text-sm">

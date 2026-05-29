@@ -41,7 +41,7 @@ export default function StructuredListDefault() {
               찜하기
             </StructuredListSubAction>
           </StructuredListSubActions>
-          <Button variant="primary" size="medium">
+          <Button variant="default" size="default">
             신청하기
           </Button>
         </StructuredListActions>

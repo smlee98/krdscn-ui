@@ -30,7 +30,7 @@ export default function StructuredListVariousBadges() {
           <StructuredListPeriod>2024.03.01 - 2024.11.30</StructuredListPeriod>
           <StructuredListActions>
             <StructuredListSubActions />
-            <Button variant="primary" size="medium">
+            <Button variant="default" size="default">
               자세히 보기
             </Button>
           </StructuredListActions>
@@ -51,7 +51,7 @@ export default function StructuredListVariousBadges() {
           <StructuredListPeriod>2024.01.01 - 2024.12.31</StructuredListPeriod>
           <StructuredListActions>
             <StructuredListSubActions />
-            <Button variant="primary" size="medium">
+            <Button variant="default" size="default">
               신청하기
             </Button>
           </StructuredListActions>

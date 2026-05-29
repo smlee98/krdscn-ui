@@ -49,7 +49,7 @@ export default function StructuredListLongText() {
               찜하기
             </StructuredListSubAction>
           </StructuredListSubActions>
-          <Button variant="primary" size="large">
+          <Button variant="default" size="lg">
             신청하기
           </Button>
         </StructuredListActions>
