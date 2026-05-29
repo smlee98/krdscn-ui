@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { Calendar } from "@/components/ui/krds/(layout)/calendar";
+import { Calendar } from "@/components/ui/dynamic/calendar";
 
 export default function CalendarControlledRange() {
   const [rangeStart, setRangeStart] = React.useState("");
