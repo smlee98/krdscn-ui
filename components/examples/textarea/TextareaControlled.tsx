@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { Textarea } from "@/components/ui/krds/(input)/textarea";
+import { Textarea } from "@/components/ui/dynamic/textarea";
 import { Button } from "@/components/ui/krds/(action)/button";
 
 export default function TextareaControlled() {

@@ -1,4 +1,4 @@
-import { Textarea } from "@/components/ui/krds/(input)/textarea";
+import { Textarea } from "@/components/ui/dynamic/textarea";
 
 export default function TextareaDefault() {
   return (

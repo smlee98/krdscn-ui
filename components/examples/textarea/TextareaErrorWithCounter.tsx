@@ -1,4 +1,4 @@
-import { Textarea } from "@/components/ui/krds/(input)/textarea";
+import { Textarea } from "@/components/ui/dynamic/textarea";
 import { FieldError } from "@/components/ui/krds/(input)/field-message";
 
 export default function TextareaErrorWithCounter() {
