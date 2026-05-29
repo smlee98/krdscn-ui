@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { Checkbox, CheckboxGroup } from "@/components/ui/krds/(selection)/checkbox";
+import { Checkbox, CheckboxGroup } from "@/components/ui/dynamic/checkbox";
 
 const items = ["전기 사용 동의", "가스 사용 동의", "수도 사용 동의"] as const;
 
