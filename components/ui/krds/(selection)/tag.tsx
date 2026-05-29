@@ -4,7 +4,7 @@ import { Root as Slot } from "@radix-ui/react-slot";
 
 import { cn } from "@/lib/cn";
 
-type TagSize = "small" | "medium" | "large";
+type TagSize = "xs" | "default" | "lg";
 
 const tagVariants = cva(
   [
@@ -15,9 +15,9 @@ const tagVariants = cva(
   {
     variants: {
       size: {
-        small: "h-6 px-2 gap-0.5 text-[0.8125rem]",
-        medium: "h-8 px-2.5 gap-0.5 text-[0.9375rem]",
-        large: "h-10 px-3 gap-0.5 text-[1.0625rem]"
+        xs: "h-6 px-2 gap-0.5 text-[0.8125rem]",
+        default: "h-8 px-2.5 gap-0.5 text-[0.9375rem]",
+        lg: "h-10 px-3 gap-0.5 text-[1.0625rem]"
       },
       interactive: {
         true: [
@@ -27,7 +27,7 @@ const tagVariants = cva(
         false: ""
       }
     },
-    defaultVariants: { size: "medium", interactive: false }
+    defaultVariants: { size: "default", interactive: false }
   }
 );
 
@@ -82,7 +82,7 @@ function TagDelete({ className, ...props }: React.ComponentProps<"button">) {
 }
 
 function Tag(props: TagProps) {
-  const { children, className, size = "medium" } = props;
+  const { children, className, size = "default" } = props;
 
   if (props.variant === "link") {
     const {
