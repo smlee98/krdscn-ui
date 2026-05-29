@@ -38,6 +38,13 @@
       "required": false
     },
     {
+      "name": "size",
+      "type": "enum",
+      "defaultValue": "large",
+      "description": "",
+      "required": false
+    },
+    {
       "name": "style",
       "type": "CSSProperties",
       "description": "",
@@ -154,6 +161,12 @@
       "required": false
     },
     {
+      "name": "disabled",
+      "type": "boolean | null",
+      "description": "",
+      "required": false
+    },
+    {
       "name": "id",
       "type": "string",
       "description": "",
@@ -166,16 +179,8 @@
       "required": false
     },
     {
-      "name": "rounded",
-      "type": "boolean | null",
-      "defaultValue": "false",
-      "description": "",
-      "required": false
-    },
-    {
       "name": "size",
-      "type": "\"small\" | \"medium\" | \"large\" | null",
-      "defaultValue": "medium",
+      "type": "\"lg\" | \"default\" | null",
       "description": "",
       "required": false
     },
@@ -192,9 +197,14 @@
       "required": false
     },
     {
+      "name": "type",
+      "type": "\"outline\" | \"solid\" | \"pastel\" | null",
+      "description": "",
+      "required": false
+    },
+    {
       "name": "variant",
-      "type": "\"basic\" | \"primary\" | \"secondary\" | \"success\" | \"warning\" | \"danger\" | \"information\" | \"point\" | \"gray\" | \"disabled\" | null",
-      "defaultValue": "basic",
+      "type": "\"default\" | \"outline\" | \"secondary\" | \"destructive\" | \"success\" | \"warning\" | \"info\" | \"tertiary\" | \"point\" | null",
       "description": "",
       "required": false
     }
@@ -254,8 +264,8 @@
     },
     {
       "name": "size",
-      "type": "\"xsmall\" | \"small\" | \"medium\" | \"large\" | \"xlarge\" | null",
-      "defaultValue": "medium",
+      "type": "\"default\" | \"xs\" | \"sm\" | \"lg\" | \"xl\" | \"icon\" | null",
+      "defaultValue": "default",
       "description": "",
       "required": false
     },
@@ -279,8 +289,8 @@
     },
     {
       "name": "variant",
-      "type": "\"primary\" | \"secondary\" | \"tertiary\" | \"text\" | \"link\" | \"icon\" | null",
-      "defaultValue": "primary",
+      "type": "\"default\" | \"secondary\" | \"outline\" | \"ghost\" | \"link\" | \"tertiary\" | \"text\" | null",
+      "defaultValue": "default",
       "description": "",
       "required": false
     }
@@ -593,9 +603,9 @@
   ],
   "KrdsCheckbox": [
     {
-      "name": "checked",
-      "type": "boolean",
-      "description": "",
+      "name": "aria-label",
+      "type": "string",
+      "description": "Defines a string value that labels the current element.\n@see aria-labelledby.",
       "required": false
     },
     {
@@ -629,13 +639,13 @@
       "required": false
     },
     {
-      "name": "label",
-      "type": "string",
+      "name": "indeterminate",
+      "type": "boolean",
       "description": "",
       "required": false
     },
     {
-      "name": "name",
+      "name": "label",
       "type": "string",
       "description": "",
       "required": false
@@ -647,67 +657,17 @@
       "required": false
     },
     {
+      "name": "onClick",
+      "type": "MouseEventHandler<HTMLInputElement>",
+      "description": "",
+      "required": false
+    },
+    {
       "name": "size",
       "type": "enum",
       "defaultValue": "medium",
       "description": "",
       "required": false
-    },
-    {
-      "name": "value",
-      "type": "string",
-      "description": "",
-      "required": false
-    }
-  ],
-  "KrdsCoachMark": [
-    {
-      "name": "aria-label",
-      "type": "string",
-      "description": "Defines a string value that labels the current element.\n@see aria-labelledby.",
-      "required": false
-    },
-    {
-      "name": "className",
-      "type": "string",
-      "description": "",
-      "required": false
-    },
-    {
-      "name": "id",
-      "type": "string",
-      "description": "",
-      "required": false
-    },
-    {
-      "name": "onClick",
-      "type": "MouseEventHandler<HTMLDivElement>",
-      "description": "",
-      "required": false
-    },
-    {
-      "name": "onClose",
-      "type": "(() => void)",
-      "description": "",
-      "required": false
-    },
-    {
-      "name": "onNext",
-      "type": "(() => void)",
-      "description": "",
-      "required": false
-    },
-    {
-      "name": "onPrev",
-      "type": "(() => void)",
-      "description": "",
-      "required": false
-    },
-    {
-      "name": "step",
-      "type": "number",
-      "description": "Active step index. Use -1 (or any value < 0) to hide all steps.",
-      "required": true
     },
     {
       "name": "style",
@@ -720,15 +680,15 @@
       "type": "number",
       "description": "",
       "required": false
+    },
+    {
+      "name": "value",
+      "type": "string",
+      "description": "",
+      "required": false
     }
   ],
-  "KrdsContextualHelp": [
-    {
-      "name": "aria-label",
-      "type": "string",
-      "description": "Defines a string value that labels the current element.\n@see aria-labelledby.",
-      "required": false
-    },
+  "KrdsCoachMark": [
     {
       "name": "className",
       "type": "string",
@@ -736,27 +696,83 @@
       "required": false
     },
     {
+      "name": "currentStep",
+      "type": "number",
+      "defaultValue": "1",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "description",
+      "type": "string",
+      "defaultValue": "1단계 코치 마크 내용입니다.",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "isVisible",
+      "type": "boolean",
+      "defaultValue": "true",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "onNext",
+      "type": "(() => void)",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "onPrevious",
+      "type": "(() => void)",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "onSkip",
+      "type": "(() => void)",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "title",
+      "type": "string",
+      "defaultValue": "1단계 : 코치 마크",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "totalSteps",
+      "type": "number",
+      "defaultValue": "4",
+      "description": "",
+      "required": false
+    }
+  ],
+  "KrdsContextualHelp": [
+    {
+      "name": "alignment",
+      "type": "enum",
+      "defaultValue": "left",
+      "description": "Horizontal anchor alignment of the popover.",
+      "required": false
+    },
+    {
+      "name": "children",
+      "type": "ReactNode",
+      "description": "Popover body content. Compose ContextualHelpTitle as first child for a heading.",
+      "required": true
+    },
+    {
+      "name": "className",
+      "type": "string",
+      "description": "Class applied to the outer wrapper.",
+      "required": false
+    },
+    {
       "name": "defaultOpen",
       "type": "boolean",
       "description": "Uncontrolled initial open state.",
-      "required": false
-    },
-    {
-      "name": "disabled",
-      "type": "boolean",
-      "description": "",
-      "required": false
-    },
-    {
-      "name": "id",
-      "type": "string",
-      "description": "",
-      "required": false
-    },
-    {
-      "name": "onClick",
-      "type": "MouseEventHandler<HTMLButtonElement>",
-      "description": "",
       "required": false
     },
     {
@@ -772,34 +788,10 @@
       "required": false
     },
     {
-      "name": "style",
-      "type": "CSSProperties",
-      "description": "",
-      "required": false
-    },
-    {
-      "name": "tabIndex",
-      "type": "number",
-      "description": "",
-      "required": false
-    },
-    {
-      "name": "triggerIcon",
-      "type": "ReactNode",
-      "description": "Override trigger icon (defaults to InfoIcon).",
-      "required": false
-    },
-    {
-      "name": "triggerLabel",
-      "type": "string",
-      "defaultValue": "도움말",
-      "description": "Accessible label for the trigger button (default: \"도움말\").",
-      "required": false
-    },
-    {
-      "name": "type",
+      "name": "position",
       "type": "enum",
-      "description": "",
+      "defaultValue": "top",
+      "description": "Vertical position of the popover relative to the trigger.",
       "required": false
     }
   ],
@@ -878,31 +870,13 @@
       "required": false
     },
     {
-      "name": "error",
-      "type": "string",
-      "description": "",
-      "required": false
-    },
-    {
       "name": "eventDates",
       "type": "string[]",
       "description": "",
       "required": false
     },
     {
-      "name": "hint",
-      "type": "string",
-      "description": "",
-      "required": false
-    },
-    {
       "name": "id",
-      "type": "string",
-      "description": "",
-      "required": false
-    },
-    {
-      "name": "information",
       "type": "string",
       "description": "",
       "required": false
@@ -996,21 +970,22 @@
       "required": false
     },
     {
+      "name": "readOnly",
+      "type": "boolean",
+      "defaultValue": "false",
+      "description": "",
+      "required": false
+    },
+    {
       "name": "size",
       "type": "enum",
-      "defaultValue": "medium",
+      "defaultValue": "large",
       "description": "",
       "required": false
     },
     {
       "name": "style",
       "type": "CSSProperties",
-      "description": "",
-      "required": false
-    },
-    {
-      "name": "success",
-      "type": "string",
       "description": "",
       "required": false
     },
@@ -1036,7 +1011,7 @@
     {
       "name": "yearSelectLabel",
       "type": "string",
-      "defaultValue": "년도 선택",
+      "defaultValue": "연도 선택",
       "description": "",
       "required": false
     }
@@ -1098,6 +1073,44 @@
       "required": false
     }
   ],
+  "KrdsFieldMessage": [
+    {
+      "name": "aria-label",
+      "type": "string",
+      "description": "Defines a string value that labels the current element.\n@see aria-labelledby.",
+      "required": false
+    },
+    {
+      "name": "className",
+      "type": "string",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "id",
+      "type": "string",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "onClick",
+      "type": "MouseEventHandler<HTMLParagraphElement>",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "style",
+      "type": "CSSProperties",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "tabIndex",
+      "type": "number",
+      "description": "",
+      "required": false
+    }
+  ],
   "KrdsFileUpload": [
     {
       "name": "acceptedFileTypes",
@@ -1140,7 +1153,6 @@
     {
       "name": "files",
       "type": "FileItem[]",
-      "defaultValue": "[]",
       "description": "",
       "required": false
     },
@@ -1153,12 +1165,14 @@
     {
       "name": "maxFiles",
       "type": "number",
+      "defaultValue": "10",
       "description": "",
       "required": false
     },
     {
       "name": "maxFileSize",
       "type": "number",
+      "defaultValue": "20 * 1024 * 1024",
       "description": "",
       "required": false
     },
@@ -1207,7 +1221,7 @@
     {
       "name": "uploadText",
       "type": "string",
-      "defaultValue": "파일 선택",
+      "defaultValue": "첨부할 파일을 여기에 끌어다 놓거나, 파일 선택 버튼을 눌러 파일을 직접 선택해주세요.",
       "description": "",
       "required": false
     }
@@ -1260,32 +1274,56 @@
   ],
   "KrdsHelpPanel": [
     {
+      "name": "absoluteStrokeWidth",
+      "type": "boolean",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "aria-label",
+      "type": "string",
+      "description": "Defines a string value that labels the current element.\n@see aria-labelledby.",
+      "required": false
+    },
+    {
       "name": "className",
       "type": "string",
       "description": "",
       "required": false
     },
     {
-      "name": "defaultOpen",
-      "type": "boolean",
+      "name": "id",
+      "type": "string",
       "description": "",
       "required": false
     },
     {
-      "name": "onOpenChange",
-      "type": "((open: boolean) => void)",
+      "name": "onClick",
+      "type": "MouseEventHandler<SVGSVGElement>",
       "description": "",
       "required": false
     },
     {
-      "name": "open",
-      "type": "boolean",
+      "name": "size",
+      "type": "string | number",
       "description": "",
       "required": false
     },
     {
-      "name": "trigger",
-      "type": "ReactNode",
+      "name": "style",
+      "type": "CSSProperties",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "tabIndex",
+      "type": "number",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "type",
+      "type": "string",
       "description": "",
       "required": false
     }
@@ -1334,6 +1372,12 @@
       "required": false
     },
     {
+      "name": "closeOnClickOutside",
+      "type": "boolean",
+      "description": "",
+      "required": false
+    },
+    {
       "name": "defaultOpen",
       "type": "boolean",
       "description": "",
@@ -1342,13 +1386,6 @@
     {
       "name": "defaultValue",
       "type": "string",
-      "defaultValue": "ko",
-      "description": "",
-      "required": false
-    },
-    {
-      "name": "disabled",
-      "type": "boolean",
       "description": "",
       "required": false
     },
@@ -1359,8 +1396,14 @@
       "required": false
     },
     {
+      "name": "onChange",
+      "type": "((value: string, option: LanguageOption) => void)",
+      "description": "",
+      "required": false
+    },
+    {
       "name": "onClick",
-      "type": "MouseEventHandler<HTMLButtonElement>",
+      "type": "MouseEventHandler<HTMLDivElement>",
       "description": "",
       "required": false
     },
@@ -1371,14 +1414,14 @@
       "required": false
     },
     {
-      "name": "onValueChange",
-      "type": "((value: string) => void)",
+      "name": "open",
+      "type": "boolean",
       "description": "",
       "required": false
     },
     {
-      "name": "open",
-      "type": "boolean",
+      "name": "options",
+      "type": "LanguageOption[]",
       "description": "",
       "required": false
     },
@@ -1391,12 +1434,6 @@
     {
       "name": "tabIndex",
       "type": "number",
-      "description": "",
-      "required": false
-    },
-    {
-      "name": "type",
-      "type": "enum",
       "description": "",
       "required": false
     },
@@ -1442,12 +1479,6 @@
       "required": false
     },
     {
-      "name": "icon",
-      "type": "ReactNode",
-      "description": "",
-      "required": false
-    },
-    {
       "name": "id",
       "type": "string",
       "description": "",
@@ -1468,8 +1499,8 @@
     },
     {
       "name": "size",
-      "type": "\"xsmall\" | \"small\" | \"medium\" | \"large\" | \"xlarge\" | null",
-      "defaultValue": "medium",
+      "type": "enum",
+      "defaultValue": "default",
       "description": "",
       "required": false
     },
@@ -1487,21 +1518,7 @@
     },
     {
       "name": "type",
-      "type": "string",
-      "description": "",
-      "required": false
-    },
-    {
-      "name": "underline",
-      "type": "\"always\" | \"hover\" | \"none\" | null",
-      "defaultValue": "always",
-      "description": "",
-      "required": false
-    },
-    {
-      "name": "variant",
-      "type": "\"default\" | \"basic\" | \"unstyled\" | null",
-      "defaultValue": "default",
+      "type": "enum",
       "description": "",
       "required": false
     }
@@ -1676,9 +1693,10 @@
   ],
   "KrdsResize": [
     {
-      "name": "aria-label",
+      "name": "buttonText",
       "type": "string",
-      "description": "Defines a string value that labels the current element.\n@see aria-labelledby.",
+      "defaultValue": "화면크기",
+      "description": "",
       "required": false
     },
     {
@@ -1688,53 +1706,48 @@
       "required": false
     },
     {
-      "name": "defaultScale",
+      "name": "defaultValue",
       "type": "enum",
-      "defaultValue": "M",
+      "defaultValue": "md",
       "description": "",
       "required": false
     },
     {
-      "name": "id",
+      "name": "labels",
+      "type": "Partial<Record<ResizeScale, string>>",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "onChange",
+      "type": "((scale: ResizeScale) => void)",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "resetText",
       "type": "string",
+      "defaultValue": "초기화",
       "description": "",
       "required": false
     },
     {
-      "name": "onClick",
-      "type": "MouseEventHandler<HTMLDivElement>",
-      "description": "",
-      "required": false
-    },
-    {
-      "name": "onScaleChange",
-      "type": "((scale: \"S\" | \"M\" | \"L\") => void)",
-      "description": "",
-      "required": false
-    },
-    {
-      "name": "style",
-      "type": "CSSProperties",
-      "description": "",
-      "required": false
-    },
-    {
-      "name": "tabIndex",
-      "type": "number",
+      "name": "value",
+      "type": "enum",
       "description": "",
       "required": false
     }
   ],
   "KrdsSelect": [
     {
-      "name": "autoComplete",
-      "type": "string",
+      "name": "aria-invalid",
+      "type": "boolean",
       "description": "",
       "required": false
     },
     {
-      "name": "defaultOpen",
-      "type": "boolean",
+      "name": "className",
+      "type": "string",
       "description": "",
       "required": false
     },
@@ -1745,19 +1758,19 @@
       "required": false
     },
     {
-      "name": "dir",
-      "type": "enum",
-      "description": "",
-      "required": false
-    },
-    {
       "name": "disabled",
       "type": "boolean",
       "description": "",
       "required": false
     },
     {
-      "name": "form",
+      "name": "id",
+      "type": "string",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "label",
       "type": "string",
       "description": "",
       "required": false
@@ -1769,32 +1782,46 @@
       "required": false
     },
     {
-      "name": "onOpenChange",
-      "type": "((open: boolean) => void)",
-      "description": "",
-      "required": false
-    },
-    {
-      "name": "onValueChange",
+      "name": "onChange",
       "type": "((value: string) => void)",
       "description": "",
       "required": false
     },
     {
-      "name": "open",
-      "type": "boolean",
+      "name": "options",
+      "type": "SelectOption[]",
+      "description": "",
+      "required": true
+    },
+    {
+      "name": "placeholder",
+      "type": "string",
       "description": "",
       "required": false
     },
     {
-      "name": "required",
-      "type": "boolean",
+      "name": "selectClassName",
+      "type": "string",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "size",
+      "type": "enum",
+      "defaultValue": "large",
       "description": "",
       "required": false
     },
     {
       "name": "value",
       "type": "string",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "variant",
+      "type": "enum",
+      "defaultValue": "default",
       "description": "",
       "required": false
     }
@@ -1849,14 +1876,14 @@
       "required": false
     },
     {
-      "name": "label",
-      "type": "string",
+      "name": "onClick",
+      "type": "MouseEventHandler<HTMLSpanElement>",
       "description": "",
       "required": false
     },
     {
-      "name": "onClick",
-      "type": "MouseEventHandler<HTMLDivElement>",
+      "name": "size",
+      "type": "\"small\" | \"medium\" | \"large\" | null",
       "description": "",
       "required": false
     },
@@ -1877,6 +1904,7 @@
     {
       "name": "aria-label",
       "type": "string",
+      "defaultValue": "단계 표시",
       "description": "Defines a string value that labels the current element.\n@see aria-labelledby.",
       "required": false
     },
@@ -1906,12 +1934,6 @@
       "required": false
     },
     {
-      "name": "pageTitle",
-      "type": "string",
-      "description": "",
-      "required": false
-    },
-    {
       "name": "style",
       "type": "CSSProperties",
       "description": "",
@@ -1920,6 +1942,13 @@
     {
       "name": "tabIndex",
       "type": "number",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "type",
+      "type": "enum",
+      "defaultValue": "full",
       "description": "",
       "required": false
     }
@@ -1959,9 +1988,9 @@
       "required": false
     },
     {
-      "name": "size",
+      "name": "type",
       "type": "enum",
-      "defaultValue": "normal",
+      "defaultValue": "primary",
       "description": "",
       "required": false
     },
@@ -2037,14 +2066,14 @@
       "required": false
     },
     {
-      "name": "deleteDisabled",
-      "type": "boolean",
+      "name": "id",
+      "type": "string",
       "description": "",
       "required": false
     },
     {
-      "name": "id",
-      "type": "string",
+      "name": "interactive",
+      "type": "boolean | null",
       "description": "",
       "required": false
     },
@@ -2055,14 +2084,8 @@
       "required": false
     },
     {
-      "name": "onDelete",
-      "type": "(() => void)",
-      "description": "",
-      "required": false
-    },
-    {
       "name": "size",
-      "type": "\"small\" | \"medium\" | \"large\" | null",
+      "type": "\"xs\" | \"default\" | \"lg\" | null",
       "description": "",
       "required": false
     },
@@ -2117,25 +2140,7 @@
       "required": false
     },
     {
-      "name": "error",
-      "type": "string",
-      "description": "",
-      "required": false
-    },
-    {
-      "name": "hint",
-      "type": "string",
-      "description": "",
-      "required": false
-    },
-    {
       "name": "id",
-      "type": "string",
-      "description": "",
-      "required": false
-    },
-    {
-      "name": "information",
       "type": "string",
       "description": "",
       "required": false
@@ -2161,31 +2166,27 @@
     {
       "name": "showClearButton",
       "type": "boolean",
+      "defaultValue": "false",
       "description": "",
       "required": false
     },
     {
       "name": "showPasswordToggle",
       "type": "boolean",
+      "defaultValue": "false",
       "description": "",
       "required": false
     },
     {
       "name": "size",
       "type": "enum",
-      "defaultValue": "medium",
+      "defaultValue": "large",
       "description": "",
       "required": false
     },
     {
       "name": "style",
       "type": "CSSProperties",
-      "description": "",
-      "required": false
-    },
-    {
-      "name": "success",
-      "type": "string",
       "description": "",
       "required": false
     },
@@ -2248,7 +2249,7 @@
     {
       "name": "type",
       "type": "enum",
-      "defaultValue": "dash",
+      "defaultValue": "disc",
       "description": "",
       "required": false
     }
@@ -2269,6 +2270,7 @@
     {
       "name": "countTotal",
       "type": "number",
+      "defaultValue": "100",
       "description": "",
       "required": false
     },
@@ -2311,6 +2313,7 @@
     {
       "name": "showCount",
       "type": "boolean",
+      "defaultValue": "true",
       "description": "",
       "required": false
     },
@@ -2404,26 +2407,52 @@
   ],
   "KrdsTooltip": [
     {
+      "name": "align",
+      "type": "enum",
+      "defaultValue": "center",
+      "description": "",
+      "required": false
+    },
+    {
       "name": "className",
       "type": "string",
       "description": "",
       "required": false
     },
     {
+      "name": "delayDuration",
+      "type": "number",
+      "defaultValue": "0",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "side",
+      "type": "enum",
+      "description": "",
+      "required": false
+    },
+    {
       "name": "text",
-      "type": "string",
+      "type": "ReactNode",
       "description": "",
       "required": true
     },
     {
       "name": "variant",
       "type": "enum",
-      "defaultValue": "horizontal",
+      "defaultValue": "vertical",
       "description": "",
       "required": false
     }
   ],
   "KrdsTutorialPanel": [
+    {
+      "name": "activeTab",
+      "type": "enum",
+      "description": "",
+      "required": false
+    },
     {
       "name": "className",
       "type": "string",
@@ -2431,7 +2460,13 @@
       "required": false
     },
     {
-      "name": "defaultOpen",
+      "name": "defaultActiveTab",
+      "type": "enum",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "isOpen",
       "type": "boolean",
       "description": "",
       "required": false
@@ -2443,21 +2478,8 @@
       "required": false
     },
     {
-      "name": "open",
-      "type": "boolean",
-      "description": "",
-      "required": false
-    },
-    {
-      "name": "totalSteps",
-      "type": "number",
-      "defaultValue": "1",
-      "description": "",
-      "required": false
-    },
-    {
-      "name": "trigger",
-      "type": "ReactNode",
+      "name": "onTabChange",
+      "type": "((tab: TutorialPanelTab) => void)",
       "description": "",
       "required": false
     }

@@ -18,12 +18,23 @@ function fileToComponentName(filePath: string): string {
   return `Krds${pascal}`;
 }
 
-// Glob all .tsx wrappers from krds/ (skip index files if any).
-const TARGET_FILES = fs
-  .readdirSync(KRDS_DIR)
-  .filter((f) => f.endsWith(".tsx") && f !== "index.tsx")
-  .sort()
-  .map((f) => path.join(KRDS_DIR, f));
+// Recursively glob all .tsx wrappers from krds/ and its category subdirectories.
+// Wrappers were regrouped into "(group)/" folders, so a flat readdir of KRDS_DIR
+// finds nothing — walk into subdirectories. Skip index files.
+function collectTsxFiles(dir: string): string[] {
+  const out: string[] = [];
+  for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
+    const full = path.join(dir, entry.name);
+    if (entry.isDirectory()) {
+      out.push(...collectTsxFiles(full));
+    } else if (entry.name.endsWith(".tsx") && entry.name !== "index.tsx") {
+      out.push(full);
+    }
+  }
+  return out;
+}
+
+const TARGET_FILES = collectTsxFiles(KRDS_DIR).sort();
 
 const EXPECTED_COUNT = TARGET_FILES.length;
 
