@@ -1,15 +1,15 @@
 "use client";
 
 import * as React from "react";
-import { TutorialPanel } from "@/components/ui/krds/(help)/tutorial-panel";
-import type { TutorialPanelTab } from "@/components/ui/krds/(help)/tutorial-panel";
+import { TutorialPanel } from "@/components/ui/dynamic/tutorial-panel";
+import type { TutorialPanelTab } from "@/components/ui/dynamic/tutorial-panel";
 
 const helpContent = {
   title: "전자문서지갑",
   description: (
     <p>
-      전자문서지갑에서는 전자증명서 출력기능을 제공하지 않으며, 스마트폰 화면을 캡쳐하여 사용할 수 없습니다. 다만, 발급받은
-      전자증명서를 열람용으로 다운로드할 수는 있습니다.
+      전자문서지갑에서는 전자증명서 출력기능을 제공하지 않으며, 스마트폰 화면을 캡쳐하여 사용할 수 없습니다. 다만,
+      발급받은 전자증명서를 열람용으로 다운로드할 수는 있습니다.
     </p>
   ),
   links: [
@@ -55,12 +55,7 @@ export default function TutorialPanelControlled() {
   const [activeTab, setActiveTab] = React.useState<TutorialPanelTab>("tutorial");
 
   return (
-    <TutorialPanel.Root
-      isOpen={isOpen}
-      onOpenChange={setIsOpen}
-      activeTab={activeTab}
-      onTabChange={setActiveTab}
-    >
+    <TutorialPanel.Root isOpen={isOpen} onOpenChange={setIsOpen} activeTab={activeTab} onTabChange={setActiveTab}>
       <TutorialPanel.Trigger>도움말</TutorialPanel.Trigger>
       <TutorialPanel.Container>
         <TutorialPanel.Tabs>
