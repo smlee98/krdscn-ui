@@ -1,6 +1,6 @@
 "use client";
 
-import { DateInput } from "@/components/ui/krds/(input)/date-input";
+import { DateInput } from "@/components/ui/dynamic/date-input";
 import { FieldHint } from "@/components/ui/krds/(input)/field-message";
 
 export default function DateInputWithHint() {
