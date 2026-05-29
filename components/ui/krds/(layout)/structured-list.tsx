@@ -1,6 +1,7 @@
 // rsc:safe
 import * as React from "react";
 import { ArrowRight } from "lucide-react";
+import { Button } from "@/components/ui/dynamic/button";
 import { cn } from "@/lib/cn";
 
 type StructuredListVariant = "vertical" | "horizontal";
@@ -262,18 +263,15 @@ function StructuredListSubAction({
   "aria-label": ariaLabel
 }: StructuredListSubActionProps) {
   return (
-    <button
+    <Button
+      variant="text"
+      size="sm"
       type={type}
       data-slot="krds-structured-list-sub-action"
       aria-pressed={ariaPressed}
       aria-label={ariaLabel}
       onClick={onClick}
-      className={cn(
-        "text-krds-gray-70 hover:text-krds-gray-90 inline-flex h-8 items-center gap-1 rounded",
-        "text-[17px] leading-[1.5]",
-        "focus-visible:ring-krds-primary-50 focus-visible:ring-2 focus-visible:outline-none",
-        className
-      )}
+      className={cn("h-8 gap-1", className)}
     >
       {icon ? (
         <span aria-hidden="true" className="shrink-0">
@@ -281,7 +279,7 @@ function StructuredListSubAction({
         </span>
       ) : null}
       <span>{children}</span>
-    </button>
+    </Button>
   );
 }
 

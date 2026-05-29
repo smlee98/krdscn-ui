@@ -3,6 +3,7 @@
 
 import * as React from "react";
 import { ArrowLeft, ChevronDown, ChevronUp, ExternalLink } from "lucide-react";
+import { Button } from "@/components/ui/dynamic/button";
 import { cn } from "@/lib/cn";
 
 // ─── Group context ────────────────────────────────────────────────────────────
@@ -82,15 +83,17 @@ function SideNavigationBackTitle({
     );
   }
   return (
-    <button
+    <Button
       data-slot="krds-side-navigation-back-title"
+      variant="text"
+      size="sm"
       type="button"
       onClick={onBack}
       aria-label={backLabel}
-      className={baseClass}
+      className={cn("flex h-auto w-full flex-col items-start gap-1 rounded-lg p-2 text-left", className)}
     >
       {content}
-    </button>
+    </Button>
   );
 }
 
