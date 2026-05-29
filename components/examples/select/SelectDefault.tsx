@@ -1,4 +1,4 @@
-import { Select } from "@/components/ui/krds/(selection)/select";
+import { Select } from "@/components/ui/dynamic/select";
 import { FieldHint } from "@/components/ui/krds/(input)/field-message";
 
 const options = [

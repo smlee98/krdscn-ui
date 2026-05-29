@@ -1,4 +1,4 @@
-import { Select } from "@/components/ui/krds/(selection)/select";
+import { Select } from "@/components/ui/dynamic/select";
 
 const sizeOptions = [
   { value: "small", label: "Small" },

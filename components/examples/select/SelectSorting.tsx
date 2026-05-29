@@ -1,4 +1,4 @@
-import { Select } from "@/components/ui/krds/(selection)/select";
+import { Select } from "@/components/ui/dynamic/select";
 
 const sortOptions = [
   { value: "option1", label: "항목1" },
