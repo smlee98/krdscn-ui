@@ -1,4 +1,4 @@
-import { TextInput } from "@/components/ui/krds/(input)/text-input";
+import { TextInput } from "@/components/ui/dynamic/text-input";
 
 export default function TextInputWithMultipleButtons() {
   return (

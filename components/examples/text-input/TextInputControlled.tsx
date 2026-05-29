@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { TextInput } from "@/components/ui/krds/(input)/text-input";
+import { TextInput } from "@/components/ui/dynamic/text-input";
 import { FieldHint } from "@/components/ui/krds/(input)/field-message";
 
 export default function TextInputControlled() {
