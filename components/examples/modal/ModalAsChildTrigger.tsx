@@ -7,7 +7,7 @@ import {
   ModalBody,
   ModalFooter,
   ModalClose
-} from "@/components/ui/krds/(layout)/modal";
+} from "@/components/ui/dynamic/modal";
 
 export default function ModalAsChildTrigger() {
   return (
