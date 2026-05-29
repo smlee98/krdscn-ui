@@ -1,6 +1,6 @@
 "use client";
 
-import { CoachMark } from "@/components/ui/krds/(help)/coach-mark";
+import { CoachMark } from "@/components/ui/dynamic/coach-mark";
 
 export default function CoachMarkLongDescription() {
   return (
