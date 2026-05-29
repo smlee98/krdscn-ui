@@ -17,7 +17,7 @@ import {
   HelpSection,
   HelpServiceGroup,
   HelpTutorialTitle
-} from "@/components/ui/krds/(help)/help-panel";
+} from "@/components/ui/dynamic/help-panel";
 
 export default function HelpPanelDefault() {
   return (
