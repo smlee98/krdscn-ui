@@ -7,7 +7,7 @@ import {
   FooterCopyright,
   FooterLink,
   FooterOrg
-} from "@/components/ui/krds/(identity)/footer";
+} from "@/components/ui/dynamic/footer";
 
 export default function FooterDefault() {
   return (

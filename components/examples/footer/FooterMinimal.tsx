@@ -4,7 +4,7 @@ import {
   FooterLink,
   FooterColumnLinks,
   FooterOrg
-} from "@/components/ui/krds/(identity)/footer";
+} from "@/components/ui/dynamic/footer";
 
 export default function FooterMinimal() {
   return (

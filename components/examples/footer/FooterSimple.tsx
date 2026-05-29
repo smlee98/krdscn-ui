@@ -1,4 +1,4 @@
-import { Footer, FooterCopyright, FooterOrg } from "@/components/ui/krds/(identity)/footer";
+import { Footer, FooterCopyright, FooterOrg } from "@/components/ui/dynamic/footer";
 
 export default function FooterSimple() {
   return (
