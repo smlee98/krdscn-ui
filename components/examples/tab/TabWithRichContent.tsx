@@ -1,4 +1,4 @@
-import { Tab, TabList, TabTrigger, TabContent, TabPanel } from "@/components/ui/krds/(layout)/tab";
+import { Tab, TabList, TabTrigger, TabContent, TabPanel } from "@/components/ui/dynamic/tab";
 import { FileTextIcon, HelpCircleIcon, BookOpenIcon } from "lucide-react";
 
 export default function TabWithRichContent() {

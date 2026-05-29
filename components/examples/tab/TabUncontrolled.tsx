@@ -1,4 +1,4 @@
-import { Tab, TabList, TabTrigger, TabContent, TabPanel } from "@/components/ui/krds/(layout)/tab";
+import { Tab, TabList, TabTrigger, TabContent, TabPanel } from "@/components/ui/dynamic/tab";
 
 const CATEGORIES = [
   { value: "all", label: "전체" },

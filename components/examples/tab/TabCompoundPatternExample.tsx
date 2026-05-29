@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { Tab, TabList, TabTrigger, TabContent, TabPanel } from "@/components/ui/krds/(layout)/tab";
+import { Tab, TabList, TabTrigger, TabContent, TabPanel } from "@/components/ui/dynamic/tab";
 
 const STEPS = [
   { value: "step1", label: "1단계: 신청서" },

@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 
-import { Tab, TabContent, TabList, TabPanel, TabTrigger } from "@/components/ui/krds/(layout)/tab";
+import { Tab, TabContent, TabList, TabPanel, TabTrigger } from "@/components/ui/dynamic/tab";
 
 const TABS = [
   { value: "overview", label: "개요" },

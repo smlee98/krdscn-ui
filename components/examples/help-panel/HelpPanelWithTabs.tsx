@@ -18,7 +18,7 @@ import {
   HelpServiceGroup,
   HelpTutorialTitle
 } from "@/components/ui/dynamic/help-panel";
-import { Tab, TabContent, TabList, TabPanel, TabTrigger } from "@/components/ui/krds/(layout)/tab";
+import { Tab, TabContent, TabList, TabPanel, TabTrigger } from "@/components/ui/dynamic/tab";
 
 export default function HelpPanelWithTabs() {
   return (
