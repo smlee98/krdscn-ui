@@ -1,6 +1,6 @@
 "use client";
 import { CircleHelp } from "lucide-react";
-import { Tooltip } from "@/components/ui/krds/(help)/tooltip";
+import { Tooltip } from "@/components/ui/dynamic/tooltip";
 
 export default function TooltipWithIcon() {
   return (
