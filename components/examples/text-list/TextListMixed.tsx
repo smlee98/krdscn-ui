@@ -1,4 +1,4 @@
-import { TextList, TextListItem } from "@/components/ui/krds/(layout)/text-list";
+import { TextList, TextListItem } from "@/components/ui/dynamic/text-list";
 
 export default function TextListMixed() {
   return (
