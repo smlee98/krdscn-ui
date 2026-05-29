@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Radio, RadioGroup } from "@/components/ui/krds/(selection)/radio-group";
+import { Radio, RadioGroup } from "@/components/ui/dynamic/radio-group";
 
 export default function RadioGroupColumnControlled() {
   const [value, setValue] = useState("option1");

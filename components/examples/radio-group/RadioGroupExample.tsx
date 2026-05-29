@@ -1,4 +1,4 @@
-import { Radio, RadioGroup } from "@/components/ui/krds/(selection)/radio-group";
+import { Radio, RadioGroup } from "@/components/ui/dynamic/radio-group";
 
 export default function RadioGroupExample() {
   return (

@@ -1,4 +1,4 @@
-import { RadioGroup, RadioSort } from "@/components/ui/krds/(selection)/radio-group";
+import { RadioGroup, RadioSort } from "@/components/ui/dynamic/radio-group";
 
 export default function RadioSortDefault() {
   return (

@@ -273,5 +273,13 @@ function RadioSort({ value, children, disabled, className, ...rest }: RadioSortP
   );
 }
 
-export { Radio, RadioChip, RadioGroup, RadioSort };
-export type { RadioChipProps, RadioChipSize, RadioGroupProps, RadioProps, RadioSize, RadioSortProps };
+export { Radio, RadioChip, RadioGroup, RadioGroupContext, RadioSort, useRadioGroupContext };
+export type {
+  RadioChipProps,
+  RadioChipSize,
+  RadioGroupContextType,
+  RadioGroupProps,
+  RadioProps,
+  RadioSize,
+  RadioSortProps
+};
