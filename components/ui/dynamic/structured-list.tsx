@@ -1,6 +1,7 @@
 "use client";
 
-import type * as React from "react";
+import * as React from "react";
+import { ArrowRight } from "lucide-react";
 import {
   StructuredList as KrdsStructuredList,
   StructuredListActions as KrdsStructuredListActions,
@@ -18,6 +19,27 @@ import {
   StructuredListTagList as KrdsStructuredListTagList,
   StructuredListTitle as KrdsStructuredListTitle
 } from "@/components/ui/krds/(layout)/structured-list";
+import type {
+  StructuredListProps,
+  StructuredListImageProps,
+  StructuredListBodyProps,
+  StructuredListHeaderProps,
+  StructuredListBadgeProps,
+  StructuredListTitleProps,
+  StructuredListDescriptionProps,
+  StructuredListPeriodProps,
+  StructuredListMetadataProps,
+  StructuredListMetadataItemProps,
+  StructuredListActionsProps,
+  StructuredListSubActionProps,
+  StructuredListSubActionsProps,
+  StructuredListTagListProps,
+  StructuredListTagProps
+} from "@/components/ui/krds/(layout)/structured-list";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/cn";
+import { useUISystem } from "@/lib/ui-system";
 
 export type {
   StructuredListProps,
@@ -37,63 +59,284 @@ export type {
   StructuredListTagProps
 } from "@/components/ui/krds/(layout)/structured-list";
 
-// shadcn has no StructuredList primitive — render KRDS regardless of active UI system.
-export function StructuredList(props: React.ComponentProps<typeof KrdsStructuredList>) {
-  return <KrdsStructuredList {...props} />;
+// Dual-render dispatcher (template: dynamic/accordion.tsx, dynamic/modal.tsx). The
+// public surface is the KRDS StructuredList compound API; each part renders either
+// the KRDS-chromed wrapper or a vanilla shadcn card-look reconstruction based on
+// <UISystemProvider>.
+//
+// shadcn has no card primitive, so the shadcn path rebuilds the card look from
+// shadcn tokens (rounded-xl border bg-card text-card-foreground shadow-sm) plus the
+// badge/button primitives. KRDS-only chrome (hex borders, krds-* tokens, fixed
+// 384px / 1200px widths, h-6 badge pill, h-8 tag pill) is intentionally shed — the
+// shadcn variant takes its width from the parent. children / onClick / aria are
+// preserved across both paths.
+
+// ─── shadcn-mode parts ──────────────────────────────────────────────────────────
+
+function ShadcnStructuredList({ variant = "vertical", className, children }: StructuredListProps) {
+  return (
+    <article
+      data-slot="structured-list"
+      data-variant={variant}
+      className={cn(
+        "group/structured-list bg-card text-card-foreground flex flex-col overflow-hidden rounded-xl border shadow-sm",
+        variant === "horizontal" && "sm:flex-row",
+        className
+      )}
+    >
+      {children}
+    </article>
+  );
 }
 
-export function StructuredListImage(props: React.ComponentProps<typeof KrdsStructuredListImage>) {
-  return <KrdsStructuredListImage {...props} />;
+function ShadcnStructuredListImage({ src, alt, className }: StructuredListImageProps) {
+  return (
+    <img
+      data-slot="structured-list-image"
+      src={src}
+      alt={alt}
+      className={cn(
+        "bg-muted h-48 w-full shrink-0 object-cover",
+        "group-data-[variant=horizontal]/structured-list:h-auto group-data-[variant=horizontal]/structured-list:w-64 group-data-[variant=horizontal]/structured-list:self-stretch",
+        className
+      )}
+    />
+  );
 }
 
-export function StructuredListBody(props: React.ComponentProps<typeof KrdsStructuredListBody>) {
-  return <KrdsStructuredListBody {...props} />;
+function ShadcnStructuredListBody({ className, children }: StructuredListBodyProps) {
+  return (
+    <div data-slot="structured-list-body" className={cn("flex flex-1 flex-col gap-4 p-6", className)}>
+      {children}
+    </div>
+  );
 }
 
-export function StructuredListHeader(props: React.ComponentProps<typeof KrdsStructuredListHeader>) {
-  return <KrdsStructuredListHeader {...props} />;
+function ShadcnStructuredListHeader({ className, children }: StructuredListHeaderProps) {
+  return (
+    <div data-slot="structured-list-header" className={cn("flex flex-col gap-2", className)}>
+      {children}
+    </div>
+  );
 }
 
-export function StructuredListBadge(props: React.ComponentProps<typeof KrdsStructuredListBadge>) {
-  return <KrdsStructuredListBadge {...props} />;
+function ShadcnStructuredListBadge({ className, children }: StructuredListBadgeProps) {
+  return (
+    <Badge variant="secondary" data-slot="structured-list-badge" className={cn("self-start", className)}>
+      {children}
+    </Badge>
+  );
 }
 
-export function StructuredListTitle(props: React.ComponentProps<typeof KrdsStructuredListTitle>) {
-  return <KrdsStructuredListTitle {...props} />;
+function ShadcnStructuredListTitle({ className, children, withArrow = true }: StructuredListTitleProps) {
+  return (
+    <h3
+      data-slot="structured-list-title"
+      className={cn("flex items-center gap-2 text-lg leading-tight font-semibold", className)}
+    >
+      <span className="line-clamp-1 flex-1">{children}</span>
+      {withArrow ? <ArrowRight className="size-5 shrink-0" aria-hidden="true" /> : null}
+    </h3>
+  );
 }
 
-export function StructuredListDescription(props: React.ComponentProps<typeof KrdsStructuredListDescription>) {
-  return <KrdsStructuredListDescription {...props} />;
+function ShadcnStructuredListDescription({ className, children }: StructuredListDescriptionProps) {
+  return (
+    <p data-slot="structured-list-description" className={cn("text-muted-foreground line-clamp-3 text-sm", className)}>
+      {children}
+    </p>
+  );
 }
 
-export function StructuredListPeriod(props: React.ComponentProps<typeof KrdsStructuredListPeriod>) {
-  return <KrdsStructuredListPeriod {...props} />;
+function ShadcnStructuredListPeriod({ className, label = "기간", children }: StructuredListPeriodProps) {
+  return (
+    <p data-slot="structured-list-period" className={cn("flex flex-wrap items-baseline gap-2 text-sm", className)}>
+      <span className="font-medium">{label}</span>
+      <span className="text-muted-foreground">{children}</span>
+    </p>
+  );
 }
 
-export function StructuredListMetadata(props: React.ComponentProps<typeof KrdsStructuredListMetadata>) {
-  return <KrdsStructuredListMetadata {...props} />;
+function ShadcnStructuredListMetadata({ className, children }: StructuredListMetadataProps) {
+  const items = React.Children.toArray(children).filter(React.isValidElement);
+  return (
+    <ul data-slot="structured-list-metadata" className={cn("flex flex-wrap items-center gap-3", className)}>
+      {items.map((item, idx) => (
+        <React.Fragment key={idx}>
+          {idx > 0 ? <span aria-hidden="true" className="bg-border inline-block h-3 w-px" /> : null}
+          {item}
+        </React.Fragment>
+      ))}
+    </ul>
+  );
 }
 
-export function StructuredListMetadataItem(props: React.ComponentProps<typeof KrdsStructuredListMetadataItem>) {
-  return <KrdsStructuredListMetadataItem {...props} />;
+function ShadcnStructuredListMetadataItem({ className, children }: StructuredListMetadataItemProps) {
+  return (
+    <li data-slot="structured-list-metadata-item" className={cn("text-muted-foreground text-xs", className)}>
+      {children}
+    </li>
+  );
 }
 
-export function StructuredListActions(props: React.ComponentProps<typeof KrdsStructuredListActions>) {
-  return <KrdsStructuredListActions {...props} />;
+function ShadcnStructuredListActions({ className, children }: StructuredListActionsProps) {
+  return (
+    <div
+      data-slot="structured-list-actions"
+      className={cn("flex flex-wrap items-center justify-between gap-4 border-t pt-4", className)}
+    >
+      {children}
+    </div>
+  );
 }
 
-export function StructuredListSubAction(props: React.ComponentProps<typeof KrdsStructuredListSubAction>) {
-  return <KrdsStructuredListSubAction {...props} />;
+function ShadcnStructuredListSubActions({ className, children }: StructuredListSubActionsProps) {
+  return (
+    <div data-slot="structured-list-sub-actions" className={cn("flex items-center gap-2", className)}>
+      {children}
+    </div>
+  );
 }
 
-export function StructuredListSubActions(props: React.ComponentProps<typeof KrdsStructuredListSubActions>) {
-  return <KrdsStructuredListSubActions {...props} />;
+function ShadcnStructuredListSubAction({
+  className,
+  children,
+  icon,
+  onClick,
+  type = "button",
+  "aria-pressed": ariaPressed,
+  "aria-label": ariaLabel
+}: StructuredListSubActionProps) {
+  return (
+    <Button
+      variant="ghost"
+      size="sm"
+      type={type}
+      data-slot="structured-list-sub-action"
+      aria-pressed={ariaPressed}
+      aria-label={ariaLabel}
+      onClick={onClick}
+      className={className}
+    >
+      {icon ? (
+        <span aria-hidden="true" className="shrink-0">
+          {icon}
+        </span>
+      ) : null}
+      <span>{children}</span>
+    </Button>
+  );
 }
 
-export function StructuredListTagList(props: React.ComponentProps<typeof KrdsStructuredListTagList>) {
-  return <KrdsStructuredListTagList {...props} />;
+function ShadcnStructuredListTagList({ className, children }: StructuredListTagListProps) {
+  return (
+    <ul
+      data-slot="structured-list-tag-list"
+      className={cn("flex flex-wrap items-center gap-2 border-t pt-4", className)}
+    >
+      {children}
+    </ul>
+  );
 }
 
-export function StructuredListTag(props: React.ComponentProps<typeof KrdsStructuredListTag>) {
-  return <KrdsStructuredListTag {...props} />;
+function ShadcnStructuredListTag({ className, children }: StructuredListTagProps) {
+  return (
+    <li data-slot="structured-list-tag">
+      <Badge variant="outline" className={className}>
+        {children}
+      </Badge>
+    </li>
+  );
+}
+
+// ─── Dispatched parts (public surface preserved) ────────────────────────────────
+
+export function StructuredList(props: StructuredListProps) {
+  const system = useUISystem();
+  if (system === "krds") return <KrdsStructuredList {...props} />;
+  return <ShadcnStructuredList {...props} />;
+}
+
+export function StructuredListImage(props: StructuredListImageProps) {
+  const system = useUISystem();
+  if (system === "krds") return <KrdsStructuredListImage {...props} />;
+  return <ShadcnStructuredListImage {...props} />;
+}
+
+export function StructuredListBody(props: StructuredListBodyProps) {
+  const system = useUISystem();
+  if (system === "krds") return <KrdsStructuredListBody {...props} />;
+  return <ShadcnStructuredListBody {...props} />;
+}
+
+export function StructuredListHeader(props: StructuredListHeaderProps) {
+  const system = useUISystem();
+  if (system === "krds") return <KrdsStructuredListHeader {...props} />;
+  return <ShadcnStructuredListHeader {...props} />;
+}
+
+export function StructuredListBadge(props: StructuredListBadgeProps) {
+  const system = useUISystem();
+  if (system === "krds") return <KrdsStructuredListBadge {...props} />;
+  return <ShadcnStructuredListBadge {...props} />;
+}
+
+export function StructuredListTitle(props: StructuredListTitleProps) {
+  const system = useUISystem();
+  if (system === "krds") return <KrdsStructuredListTitle {...props} />;
+  return <ShadcnStructuredListTitle {...props} />;
+}
+
+export function StructuredListDescription(props: StructuredListDescriptionProps) {
+  const system = useUISystem();
+  if (system === "krds") return <KrdsStructuredListDescription {...props} />;
+  return <ShadcnStructuredListDescription {...props} />;
+}
+
+export function StructuredListPeriod(props: StructuredListPeriodProps) {
+  const system = useUISystem();
+  if (system === "krds") return <KrdsStructuredListPeriod {...props} />;
+  return <ShadcnStructuredListPeriod {...props} />;
+}
+
+export function StructuredListMetadata(props: StructuredListMetadataProps) {
+  const system = useUISystem();
+  if (system === "krds") return <KrdsStructuredListMetadata {...props} />;
+  return <ShadcnStructuredListMetadata {...props} />;
+}
+
+export function StructuredListMetadataItem(props: StructuredListMetadataItemProps) {
+  const system = useUISystem();
+  if (system === "krds") return <KrdsStructuredListMetadataItem {...props} />;
+  return <ShadcnStructuredListMetadataItem {...props} />;
+}
+
+export function StructuredListActions(props: StructuredListActionsProps) {
+  const system = useUISystem();
+  if (system === "krds") return <KrdsStructuredListActions {...props} />;
+  return <ShadcnStructuredListActions {...props} />;
+}
+
+export function StructuredListSubAction(props: StructuredListSubActionProps) {
+  const system = useUISystem();
+  if (system === "krds") return <KrdsStructuredListSubAction {...props} />;
+  return <ShadcnStructuredListSubAction {...props} />;
+}
+
+export function StructuredListSubActions(props: StructuredListSubActionsProps) {
+  const system = useUISystem();
+  if (system === "krds") return <KrdsStructuredListSubActions {...props} />;
+  return <ShadcnStructuredListSubActions {...props} />;
+}
+
+export function StructuredListTagList(props: StructuredListTagListProps) {
+  const system = useUISystem();
+  if (system === "krds") return <KrdsStructuredListTagList {...props} />;
+  return <ShadcnStructuredListTagList {...props} />;
+}
+
+export function StructuredListTag(props: StructuredListTagProps) {
+  const system = useUISystem();
+  if (system === "krds") return <KrdsStructuredListTag {...props} />;
+  return <ShadcnStructuredListTag {...props} />;
 }
