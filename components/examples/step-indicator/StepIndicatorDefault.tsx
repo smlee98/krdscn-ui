@@ -1,4 +1,4 @@
-import { StepIndicator, StepIndicatorItem } from "@/components/ui/krds/(feedback)/step-indicator";
+import { StepIndicator, StepIndicatorItem } from "@/components/ui/dynamic/step-indicator";
 
 export default function StepIndicatorDefault() {
   return (
