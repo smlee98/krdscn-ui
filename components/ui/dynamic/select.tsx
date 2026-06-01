@@ -21,16 +21,14 @@ import { useUISystem } from "@/lib/ui-system";
 // On the shadcn branch the dispatcher constructs the compound from `options`
 // internally so the KRDS-shape examples continue to work.
 
+// shadcn mode uses shadcn's own default sizing rather than scaling up to the
+// KRDS height ladder. KRDS defaults `size` to "large", but in shadcn that should
+// land on the native `default` trigger (h-9) — only the explicit "small" maps to
+// the native `sm` (h-8). No custom height/text inflation (no h-12 / h-14).
 const SHADCN_TRIGGER_SIZE: Record<SelectSize, "sm" | "default"> = {
   small: "sm",
   medium: "default",
   large: "default"
-};
-
-const SHADCN_HEIGHT: Record<SelectSize, string> = {
-  small: "",
-  medium: "h-12",
-  large: "h-14 text-[19px]"
 };
 
 export function Select(props: SelectProps) {
@@ -72,7 +70,7 @@ export function Select(props: SelectProps) {
           id={triggerId}
           size={SHADCN_TRIGGER_SIZE[size]}
           aria-invalid={ariaInvalid}
-          className={[SHADCN_HEIGHT[size], selectClassName].filter(Boolean).join(" ")}
+          className={selectClassName}
         >
           <SelectValue placeholder={placeholder} />
         </SelectTrigger>
