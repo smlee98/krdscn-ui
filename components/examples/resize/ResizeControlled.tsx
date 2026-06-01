@@ -1,8 +1,8 @@
 "use client";
 
 import * as React from "react";
-import { Resize } from "@/components/ui/krds/(settings)/resize";
-import type { ResizeScale } from "@/components/ui/krds/(settings)/resize";
+import { Resize } from "@/components/ui/dynamic/resize";
+import type { ResizeScale } from "@/components/ui/dynamic/resize";
 
 export default function ResizeControlled() {
   const [value, setValue] = React.useState<ResizeScale>("md");
