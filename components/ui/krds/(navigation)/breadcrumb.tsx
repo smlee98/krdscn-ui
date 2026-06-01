@@ -53,9 +53,9 @@ function BreadcrumbItem({ className, children }: BreadcrumbItemProps) {
 
 const linkBaseClass = cn(
   "inline-flex h-6 items-center gap-1 rounded-[4px] px-1",
-  "text-krds-gray-90 text-krds-body-sm underline",
-  "hover:bg-krds-gray-5",
-  "focus-visible:ring-krds-primary-50 focus-visible:ring-2 focus-visible:outline-none"
+  "text-krds-foreground text-krds-body-sm underline",
+  "hover:bg-krds-surface-subtler",
+  "focus-visible:ring-krds-border-primary focus-visible:ring-2 focus-visible:outline-none"
 );
 
 type BreadcrumbLinkProps = {
@@ -103,7 +103,7 @@ function BreadcrumbPage({ className, children }: BreadcrumbPageProps) {
       aria-current="page"
       className={cn(
         "inline-flex h-6 items-center rounded-[4px] px-1",
-        "text-krds-gray-90 text-krds-body-sm underline",
+        "text-krds-foreground text-krds-body-sm underline",
         className
       )}
     >
@@ -123,7 +123,7 @@ function BreadcrumbEllipsis({ className }: BreadcrumbEllipsisProps) {
     <span
       data-slot="krds-breadcrumb-ellipsis"
       role="presentation"
-      className={cn("text-krds-gray-90 inline-flex h-6 items-center rounded-[4px] px-1", className)}
+      className={cn("text-krds-foreground inline-flex h-6 items-center rounded-[4px] px-1", className)}
     >
       <MoreHorizontal size={16} aria-hidden="true" />
       <span className="sr-only">생략된 경로</span>
@@ -144,7 +144,7 @@ function BreadcrumbSeparator({ className, children }: BreadcrumbSeparatorProps) 
       data-slot="krds-breadcrumb-separator"
       role="presentation"
       aria-hidden="true"
-      className={cn("text-krds-gray-90 inline-flex items-center", className)}
+      className={cn("text-krds-foreground inline-flex items-center", className)}
     >
       {children ?? <ChevronRight size={16} />}
     </li>

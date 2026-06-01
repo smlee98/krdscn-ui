@@ -7,7 +7,7 @@ function Footer({ className, children, ...props }: React.ComponentProps<"footer"
   return (
     <footer
       data-slot="krds-footer"
-      className={cn("bg-krds-gray-5 border-krds-gray-10 w-full border-t", className)}
+      className={cn("bg-krds-surface-subtler border-krds-border-light w-full border-t", className)}
       {...props}
     >
       <div className="mx-auto max-w-screen-xl px-6 py-10">{children}</div>
@@ -19,7 +19,7 @@ function FooterOrg({ className, ...props }: React.ComponentProps<"p">) {
   return (
     <p
       data-slot="krds-footer-org"
-      className={cn("text-krds-gray-90 mb-6 text-base font-semibold", className)}
+      className={cn("text-krds-foreground mb-6 text-base font-semibold", className)}
       {...props}
     />
   );
@@ -43,7 +43,7 @@ function FooterColumnTitle({ className, ...props }: React.ComponentProps<"p">) {
   return (
     <p
       data-slot="krds-footer-column-title"
-      className={cn("text-krds-gray-90 text-sm font-semibold", className)}
+      className={cn("text-krds-foreground text-sm font-semibold", className)}
       {...props}
     />
   );
@@ -59,9 +59,9 @@ function FooterLink({ asChild = false, className, ...props }: React.ComponentPro
     <li data-slot="krds-footer-link">
       <Comp
         className={cn(
-          "text-krds-gray-70 text-sm",
-          "hover:text-krds-gray-90 hover:underline",
-          "focus-visible:ring-krds-primary-50 rounded-sm focus-visible:ring-2 focus-visible:outline-none",
+          "text-krds-foreground-subtle text-sm",
+          "hover:text-krds-foreground hover:underline",
+          "focus-visible:ring-krds-border-primary rounded-sm focus-visible:ring-2 focus-visible:outline-none",
           className
         )}
         {...props}
@@ -71,7 +71,7 @@ function FooterLink({ asChild = false, className, ...props }: React.ComponentPro
 }
 
 function FooterCopyright({ className, ...props }: React.ComponentProps<"p">) {
-  return <p data-slot="krds-footer-copyright" className={cn("text-krds-gray-50 mt-8 text-xs", className)} {...props} />;
+  return <p data-slot="krds-footer-copyright" className={cn("text-krds-foreground-disabled mt-8 text-xs", className)} {...props} />;
 }
 
 export {

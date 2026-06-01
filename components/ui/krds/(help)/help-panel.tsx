@@ -124,8 +124,8 @@ function HelpPanelClose({ className, children, ...props }: HelpPanelCloseProps) 
         data-slot="krds-help-panel-close"
         className={cn(
           "btn-help-panel fold",
-          "inline-flex items-center gap-1 self-end text-krds-body-sm text-krds-fg",
-          "transition-colors hover:text-krds-fg-primary",
+          "inline-flex items-center gap-1 self-end text-krds-body-sm text-krds-foreground",
+          "transition-colors hover:text-krds-foreground-primary",
           "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-krds-border-primary",
           className
         )}
@@ -170,13 +170,13 @@ function HelpSection({ title, description, className, children, ...props }: Help
       {...props}
     >
       <div className="conts-wrap flex flex-col gap-3">
-        <h4 className="help-title flex items-center justify-between text-krds-heading-sm font-bold text-krds-fg">
+        <h4 className="help-title flex items-center justify-between text-krds-heading-sm font-bold text-krds-foreground">
           <span>{title}</span>
           <button
             type="button"
             className={cn(
               "krds-btn medium icon",
-              "inline-flex size-8 items-center justify-center rounded text-krds-fg",
+              "inline-flex size-8 items-center justify-center rounded text-krds-foreground",
               "hover:bg-krds-surface-subtle focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-krds-border-primary"
             )}
             aria-label="도움말"
@@ -187,7 +187,7 @@ function HelpSection({ title, description, className, children, ...props }: Help
         </h4>
         {description != null && (
           <div className="conts-desc">
-            <p className="text-krds-body-md text-krds-fg">{description}</p>
+            <p className="text-krds-body-md text-krds-foreground">{description}</p>
           </div>
         )}
         {children}
@@ -222,8 +222,8 @@ function HelpLinkList({ links, iconPosition = "right", className, ...props }: He
               target={link.target}
               rel={link.target === "_blank" ? "noopener noreferrer" : undefined}
               className={cn(
-                "inline-flex items-center gap-1 text-krds-body-sm font-bold text-krds-fg-primary",
-                "underline underline-offset-2 hover:text-krds-fg-primary",
+                "inline-flex items-center gap-1 text-krds-body-sm font-bold text-krds-foreground-primary",
+                "underline underline-offset-2 hover:text-krds-foreground-primary",
                 "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-krds-border-primary"
               )}
             >
@@ -261,7 +261,7 @@ type HelpServiceGroupProps = React.ComponentProps<"div"> & {
 function HelpServiceGroup({ title, className, children, ...props }: HelpServiceGroupProps) {
   return (
     <div data-slot="krds-help-service-group" className={cn("conts-wrap flex flex-col gap-3", className)} {...props}>
-      <h4 className="help-title text-krds-body-sm font-bold text-krds-fg">{title}</h4>
+      <h4 className="help-title text-krds-body-sm font-bold text-krds-foreground">{title}</h4>
       {children}
     </div>
   );
@@ -279,13 +279,13 @@ function HelpTutorialTitle({ title, href, className }: HelpTutorialTitleProps) {
   return (
     <h4
       data-slot="krds-help-tutorial-title"
-      className={cn("help-title text-krds-heading-sm font-bold text-krds-fg", className)}
+      className={cn("help-title text-krds-heading-sm font-bold text-krds-foreground", className)}
     >
       {href ? (
         <a
           href={href}
           className={cn(
-            "inline-flex items-center gap-1 hover:text-krds-fg-primary",
+            "inline-flex items-center gap-1 hover:text-krds-foreground-primary",
             "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-krds-border-primary"
           )}
         >
@@ -329,7 +329,7 @@ function HelpCoachTask({ title, isCurrent = false, expandText, steps, className 
       <h4
         className={cn(
           "tit text-krds-body-md font-bold",
-          isCurrent ? "current text-krds-fg-primary" : "text-krds-fg"
+          isCurrent ? "current text-krds-foreground-primary" : "text-krds-foreground"
         )}
       >
         {title}
@@ -337,7 +337,7 @@ function HelpCoachTask({ title, isCurrent = false, expandText, steps, className 
       <Disclosure className="conts-expand-area">
         <DisclosureTrigger>{expandText}</DisclosureTrigger>
         <DisclosureContent>
-          <ol className="list-decimal pl-5 text-krds-body-sm text-krds-fg">
+          <ol className="list-decimal pl-5 text-krds-body-sm text-krds-foreground">
             {steps.map((step, i) => (
               <li key={i} className="mb-1 last:mb-0">
                 {step}

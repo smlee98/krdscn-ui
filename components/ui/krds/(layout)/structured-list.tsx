@@ -20,7 +20,7 @@ function StructuredList({ variant = "vertical", className, children }: Structure
       data-slot="krds-structured-list"
       data-variant={variant}
       className={cn(
-        "group/structured-list overflow-hidden rounded-[12px] border border-krds-border bg-white",
+        "group/structured-list overflow-hidden rounded-[12px] border border-krds-border bg-krds-surface",
         "flex w-[384px] flex-col",
         "data-[variant=horizontal]:w-[1200px] data-[variant=horizontal]:max-w-full data-[variant=horizontal]:flex-row",
         className
@@ -46,7 +46,7 @@ function StructuredListImage({ src, alt, className }: StructuredListImageProps) 
       src={src}
       alt={alt}
       className={cn(
-        "bg-krds-gray-5 shrink-0 object-cover",
+        "bg-krds-surface-subtler shrink-0 object-cover",
         "h-[216px] w-full",
         "group-data-[variant=horizontal]/structured-list:h-auto group-data-[variant=horizontal]/structured-list:w-[320px] group-data-[variant=horizontal]/structured-list:self-stretch",
         className
@@ -97,8 +97,8 @@ function StructuredListBadge({ className, children }: StructuredListBadgeProps) 
     <span
       data-slot="krds-structured-list-badge"
       className={cn(
-        "bg-krds-primary-5 inline-flex h-6 items-center self-start rounded-[4px] px-2",
-        "text-krds-body-sm text-krds-fg-primary",
+        "bg-krds-surface-primary-subtle inline-flex h-6 items-center self-start rounded-[4px] px-2",
+        "text-krds-body-sm text-krds-foreground-primary",
         className
       )}
     >
@@ -121,7 +121,7 @@ function StructuredListTitle({ className, children, withArrow = true }: Structur
     <h3
       data-slot="krds-structured-list-title"
       className={cn(
-        "text-krds-gray-90 flex items-center gap-2 font-bold",
+        "text-krds-foreground flex items-center gap-2 font-bold",
         "text-krds-heading-sm group-data-[variant=horizontal]/structured-list:text-krds-heading-md",
         className
       )}
@@ -143,7 +143,7 @@ function StructuredListDescription({ className, children }: StructuredListDescri
   return (
     <p
       data-slot="krds-structured-list-description"
-      className={cn("text-krds-gray-70 line-clamp-3 text-krds-body-md", className)}
+      className={cn("text-krds-foreground-subtle line-clamp-3 text-krds-body-md", className)}
     >
       {children}
     </p>
@@ -163,7 +163,7 @@ function StructuredListPeriod({ className, label = "기간", children }: Structu
   return (
     <p
       data-slot="krds-structured-list-period"
-      className={cn("text-krds-gray-90 flex flex-wrap items-baseline gap-2 text-krds-body-md", className)}
+      className={cn("text-krds-foreground flex flex-wrap items-baseline gap-2 text-krds-body-md", className)}
     >
       <span className="font-bold">{label}</span>
       <span>{children}</span>
@@ -184,7 +184,7 @@ function StructuredListMetadata({ className, children }: StructuredListMetadataP
     <ul data-slot="krds-structured-list-metadata" className={cn("flex flex-wrap items-center gap-3", className)}>
       {items.map((item, idx) => (
         <React.Fragment key={idx}>
-          {idx > 0 ? <span aria-hidden="true" className="bg-krds-gray-20 inline-block h-4 w-px" /> : null}
+          {idx > 0 ? <span aria-hidden="true" className="bg-krds-surface-disabled inline-block h-4 w-px" /> : null}
           {item}
         </React.Fragment>
       ))}
@@ -201,7 +201,7 @@ function StructuredListMetadataItem({ className, children }: StructuredListMetad
   return (
     <li
       data-slot="krds-structured-list-metadata-item"
-      className={cn("text-krds-gray-70 text-krds-body-sm", className)}
+      className={cn("text-krds-foreground-subtle text-krds-body-sm", className)}
     >
       {children}
     </li>
@@ -219,7 +219,7 @@ function StructuredListActions({ className, children }: StructuredListActionsPro
   return (
     <div
       data-slot="krds-structured-list-actions"
-      className={cn("border-krds-gray-10 flex flex-wrap items-center justify-between gap-4 border-t pt-6", className)}
+      className={cn("border-krds-border-light flex flex-wrap items-center justify-between gap-4 border-t pt-6", className)}
     >
       {children}
     </div>
@@ -294,7 +294,7 @@ function StructuredListTagList({ className, children }: StructuredListTagListPro
   return (
     <ul
       data-slot="krds-structured-list-tag-list"
-      className={cn("border-krds-gray-10 flex flex-wrap items-center gap-2 border-t pt-4", className)}
+      className={cn("border-krds-border-light flex flex-wrap items-center gap-2 border-t pt-4", className)}
     >
       {children}
     </ul>
@@ -311,7 +311,7 @@ function StructuredListTag({ className, children }: StructuredListTagProps) {
     <li
       data-slot="krds-structured-list-tag"
       className={cn(
-        "border-krds-gray-20 text-krds-gray-70 inline-flex h-8 items-center rounded-full border bg-white px-3",
+        "border-krds-border-light text-krds-foreground-subtle inline-flex h-8 items-center rounded-full border bg-krds-surface px-3",
         "text-krds-body-sm",
         className
       )}

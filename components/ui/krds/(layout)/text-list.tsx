@@ -67,7 +67,7 @@ function TextList({ type = "disc", className, children, ...rest }: TextListProps
       <Tag
         data-slot="krds-text-list"
         data-type={type}
-        className={cn("flex list-none flex-col pl-0 text-krds-fg-subtle", gap, className)}
+        className={cn("flex list-none flex-col pl-0 text-krds-foreground-subtle", gap, className)}
         {...(rest as React.HTMLAttributes<HTMLOListElement>)}
       >
         {items}

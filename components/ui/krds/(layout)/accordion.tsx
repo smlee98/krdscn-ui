@@ -125,15 +125,15 @@ function AccordionItem({ value, children, className, ...rest }: AccordionItemPro
         isLine
           ? [
               // top divider only — bottom comes from next item's top
-              "border-krds-gray-20 border-t border-b-0",
-              "data-[state=open]:border-krds-gray-50",
+              "border-krds-border-light border-t border-b-0",
+              "data-[state=open]:border-krds-border-dark",
               // wrapper spacing: pt:4 always, pb:4 closed → pb:24/20 open
               "pt-1 pb-1",
               isLarge ? "data-[state=open]:pb-6" : "data-[state=open]:pb-5"
             ]
           : [
               "rounded-[10px] border-0 bg-transparent",
-              "data-[state=open]:bg-krds-secondary-5",
+              "data-[state=open]:bg-krds-surface-secondary-subtle",
               isLarge ? "p-6" : "px-4 py-5"
             ],
         className
@@ -161,14 +161,14 @@ function AccordionHeader({ children, onClick, className, ...rest }: AccordionHea
         "flex w-full items-center justify-between gap-4 transition-colors outline-none",
         "hover:no-underline disabled:pointer-events-none disabled:opacity-50",
         // typography
-        "text-krds-gray-90 text-left leading-[1.5] font-bold",
+        "text-krds-foreground text-left leading-[1.5] font-bold",
         isLarge ? "text-krds-body-lg" : "text-krds-body-md",
         // open-state title color → secondary darker
-        "data-[state=open]:text-krds-fg-secondary",
+        "data-[state=open]:text-krds-foreground-secondary",
         // padding — line variant supplies its own header padding; default variant has none (wrapper provides it)
         isLine ? (isLarge ? "py-5" : "py-3") : "p-0",
         // chevron icon overrides (shadcn ships size-4 muted-foreground; we want 24px #33363d)
-        "[&>svg]:size-6 [&>svg]:shrink-0 [&>svg]:translate-y-0 [&>svg]:text-krds-fg",
+        "[&>svg]:size-6 [&>svg]:shrink-0 [&>svg]:translate-y-0 [&>svg]:text-krds-foreground",
         className
       )}
       {...(rest as React.HTMLAttributes<HTMLButtonElement>)}
@@ -193,7 +193,7 @@ function AccordionPanel({ children, className, ...rest }: AccordionPanelProps) {
         // Top gap: line variant flush (0); default uses gap/7 (24) or gap/6 (20).
         "px-0 pb-0",
         isLine ? "pt-0" : isLarge ? "pt-6" : "pt-5",
-        "text-krds-gray-90 text-krds-body-md",
+        "text-krds-foreground text-krds-body-md",
         className
       )}
       {...rest}

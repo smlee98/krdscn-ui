@@ -127,7 +127,7 @@ function Resize({
             aria-expanded={open}
             className={cn(
               "inline-flex h-6 items-center gap-0.5 rounded-[4px] px-0.5 transition-colors",
-              "text-krds-fg hover:bg-krds-surface-secondary-subtle data-[state=open]:bg-krds-surface-secondary-subtle",
+              "text-krds-foreground hover:bg-krds-surface-secondary-subtle data-[state=open]:bg-krds-surface-secondary-subtle",
               "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-krds-border-primary focus-visible:ring-offset-1"
             )}
           >
@@ -145,11 +145,11 @@ function Resize({
             "drop-shadow-[0_0_1px_rgba(0,0,0,0.05)] drop-shadow-[0_4px_4px_rgba(0,0,0,0.08)]"
           )}
         >
-          <div className="relative min-w-[220px] rounded-[8px] border border-krds-border-light bg-white p-2">
+          <div className="relative min-w-[220px] rounded-[8px] border border-krds-border-light bg-krds-surface p-2">
             {/* Caret */}
             <span
               aria-hidden
-              className="pointer-events-none absolute -top-[4px] left-1/2 -translate-x-1/2 block h-2 w-2 rotate-45 border border-krds-border-light border-b-transparent border-r-transparent bg-white"
+              className="pointer-events-none absolute -top-[4px] left-1/2 -translate-x-1/2 block h-2 w-2 rotate-45 border border-krds-border-light border-b-transparent border-r-transparent bg-krds-surface"
             />
 
             {/* Options */}
@@ -178,8 +178,8 @@ function Resize({
                       className={cn(
                         "inline-flex shrink-0 items-center justify-center rounded-[4px]",
                         isSelected
-                          ? "bg-krds-secondary-70"
-                          : "border border-krds-border-light bg-white"
+                          ? "bg-krds-secondary-bold"
+                          : "border border-krds-border-light bg-krds-surface"
                       )}
                       style={{ width: containerSize, height: containerSize }}
                     >
@@ -200,8 +200,8 @@ function Resize({
                       className={cn(
                         "text-krds-body-md",
                         isSelected
-                          ? "font-bold text-krds-fg-secondary"
-                          : "font-normal text-krds-fg"
+                          ? "font-bold text-krds-foreground-secondary"
+                          : "font-normal text-krds-foreground"
                       )}
                     >
                       {resolvedLabels[scale]}
@@ -223,7 +223,7 @@ function Resize({
                 )}
               >
                 <IconReset className="size-5" />
-                <span className="text-krds-body-md text-krds-fg">{resetText}</span>
+                <span className="text-krds-body-md text-krds-foreground">{resetText}</span>
               </button>
             </div>
           </div>

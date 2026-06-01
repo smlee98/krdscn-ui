@@ -79,7 +79,7 @@ function ContextualHelp({
             )}
           >
             <span className="sr-only">도움말</span>
-            <HelpCircle className="size-5 text-krds-fg" aria-hidden="true" />
+            <HelpCircle className="size-5 text-krds-foreground" aria-hidden="true" />
           </button>
         </PopoverTrigger>
       </div>
@@ -92,18 +92,18 @@ function ContextualHelp({
         role="tooltip"
         data-alignment={alignment}
         className={cn(
-          "group/cxh relative w-[360px] rounded-[12px] border border-krds-border bg-white p-6",
+          "group/cxh relative w-[360px] rounded-[12px] border border-krds-border bg-krds-surface p-6",
           "flex flex-col gap-2 shadow-none"
         )}
       >
         <div className="flex flex-col gap-4">
           <div className="flex items-start gap-4">
-            <div className="flex flex-1 flex-col gap-4 text-krds-body-sm text-krds-fg">{children}</div>
+            <div className="flex flex-1 flex-col gap-4 text-krds-body-sm text-krds-foreground">{children}</div>
             <PopoverPrimitiveClose
               aria-label="닫기"
               className={cn(
-                "inline-flex size-4 shrink-0 items-center justify-center text-krds-fg",
-                "hover:text-krds-fg-primary",
+                "inline-flex size-4 shrink-0 items-center justify-center text-krds-foreground",
+                "hover:text-krds-foreground-primary",
                 "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-krds-border-primary"
               )}
             >
@@ -141,7 +141,7 @@ function ContextualHelp({
 
 function ContextualHelpTitle({ className, children, ...props }: React.ComponentProps<"h4">) {
   return (
-    <h4 className={cn("text-krds-body-md font-bold text-krds-fg-bolder", className)} {...props}>
+    <h4 className={cn("text-krds-body-md font-bold text-krds-foreground-bolder", className)} {...props}>
       {children}
     </h4>
   );
@@ -152,7 +152,7 @@ function ContextualHelpTitle({ className, children, ...props }: React.ComponentP
 
 function ContextualHelpLabel({ className, children, ...props }: React.ComponentProps<"p">) {
   return (
-    <p className={cn("text-krds-gray-90 text-krds-body-sm", className)} {...props}>
+    <p className={cn("text-krds-foreground text-krds-body-sm", className)} {...props}>
       {children}
     </p>
   );

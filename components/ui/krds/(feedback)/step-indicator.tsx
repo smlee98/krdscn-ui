@@ -75,15 +75,15 @@ function StepIndicatorItem({ className, step, children, ...props }: React.Compon
             <div className="bg-krds-primary-50 size-[14px] rounded-full border-[1.6px] border-white" />
           </div>
         ) : (
-          <div className="bg-krds-gray-10 border-krds-gray-30 size-5 shrink-0 rounded-full border" />
+          <div className="bg-krds-surface-subtle border-krds-border size-5 shrink-0 rounded-full border" />
         )}
         {/* connector (skip on last item) */}
-        {!isLast && <div className={cn("h-px flex-1", lineActive ? "bg-krds-primary-50" : "bg-krds-gray-20")} />}
+        {!isLast && <div className={cn("h-px flex-1", lineActive ? "bg-krds-primary-50" : "bg-krds-surface-disabled")} />}
       </div>
       {/* title block */}
       <div className="flex w-full flex-col gap-0.5 pr-6 leading-[1.5]">
-        <span className="text-krds-gray-70 text-[0.8125rem]">{`${step}단계`}</span>
-        <span className="text-krds-gray-90 text-[0.9375rem] font-bold">{children}</span>
+        <span className="text-krds-foreground-subtle text-[0.8125rem]">{`${step}단계`}</span>
+        <span className="text-krds-foreground text-[0.9375rem] font-bold">{children}</span>
       </div>
     </li>
   );

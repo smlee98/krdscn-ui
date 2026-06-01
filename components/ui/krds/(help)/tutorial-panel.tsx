@@ -138,8 +138,8 @@ function TutorialLinkAnchor({ link, className }: { link: TutorialLink; className
       target={link.external ? "_blank" : undefined}
       rel={link.external ? "noopener noreferrer" : undefined}
       className={cn(
-        "inline-flex items-center gap-1 text-krds-body-sm text-krds-fg underline underline-offset-2",
-        "hover:text-krds-fg-primary",
+        "inline-flex items-center gap-1 text-krds-body-sm text-krds-foreground underline underline-offset-2",
+        "hover:text-krds-foreground-primary",
         className
       )}
     >
@@ -312,8 +312,8 @@ function TutorialPanelHelpContent({
   return (
     <div data-slot="krds-tutorial-panel-help-content" className={cn("flex flex-col gap-8", className)} {...props}>
       <section className="flex flex-col gap-3">
-        <h4 className="text-krds-heading-sm font-bold text-krds-fg">{helpContent.title}</h4>
-        <div className="text-krds-body-sm text-krds-fg">{helpContent.description}</div>
+        <h4 className="text-krds-heading-sm font-bold text-krds-foreground">{helpContent.title}</h4>
+        <div className="text-krds-body-sm text-krds-foreground">{helpContent.description}</div>
         {helpContent.links.length > 0 ? (
           <ul className="krds-info-list flex flex-col gap-1">
             {helpContent.links.map((link, index) => (
@@ -328,9 +328,9 @@ function TutorialPanelHelpContent({
         <div className="related-service-area flex flex-col gap-6">
           {relatedServices.map((service, idx) => (
             <section key={`${service.title}-${idx}`} className="flex flex-col gap-3">
-              <h4 className="text-krds-heading-xs font-bold text-krds-fg">{service.title}</h4>
+              <h4 className="text-krds-heading-xs font-bold text-krds-foreground">{service.title}</h4>
               {service.description ? (
-                <div className="text-krds-body-sm text-krds-fg">{service.description}</div>
+                <div className="text-krds-body-sm text-krds-foreground">{service.description}</div>
               ) : null}
               {service.links.length > 0 ? (
                 <ul className="krds-info-list flex flex-col gap-1">
@@ -364,7 +364,7 @@ function TutorialPanelTutorialContent({
       <a
         href="#"
         title="이전으로 돌아가기"
-        className="inline-flex items-center gap-1 text-krds-heading-sm font-bold text-krds-fg hover:text-krds-fg-primary"
+        className="inline-flex items-center gap-1 text-krds-heading-sm font-bold text-krds-foreground hover:text-krds-foreground-primary"
       >
         <ChevronLeft size={20} aria-hidden={true} className="shrink-0" />
         <span>{title}</span>
@@ -378,7 +378,7 @@ function TutorialPanelTutorialContent({
               <h4
                 className={cn(
                   "tit text-krds-body-md font-bold",
-                  step.current ? "current text-krds-fg-primary" : "text-krds-fg"
+                  step.current ? "current text-krds-foreground-primary" : "text-krds-foreground"
                 )}
               >
                 {step.title}
@@ -389,7 +389,7 @@ function TutorialPanelTutorialContent({
                   <DisclosureContent>
                     <ul className="krds-info-list decimal flex list-decimal flex-col gap-1 pl-5">
                       {step.steps?.map((sub, subIdx) => (
-                        <li key={`${sub}-${subIdx}`} className="text-krds-body-sm text-krds-fg">
+                        <li key={`${sub}-${subIdx}`} className="text-krds-body-sm text-krds-foreground">
                           {sub}
                         </li>
                       ))}
@@ -398,7 +398,7 @@ function TutorialPanelTutorialContent({
                 </Disclosure>
               ) : null}
               {step.content ? (
-                <div className="step-content text-krds-body-sm text-krds-fg">{step.content}</div>
+                <div className="step-content text-krds-body-sm text-krds-foreground">{step.content}</div>
               ) : null}
             </li>
           );
@@ -431,7 +431,7 @@ function TutorialPanelClose({ children = "접어두기", className, onClick, ...
         onClick?.(event);
         if (!event.defaultPrevented) ctx.setOpen(false);
       }}
-      className={cn("btn-help-panel fold self-end hover:text-krds-fg-primary", className)}
+      className={cn("btn-help-panel fold self-end hover:text-krds-foreground-primary", className)}
       {...props}
     >
       <span>{children}</span>

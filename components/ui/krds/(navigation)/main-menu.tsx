@@ -12,7 +12,7 @@ type MainMenuProps = {
 
 function MainMenu({ className, children }: MainMenuProps) {
   return (
-    <div data-slot="krds-main-menu" className={cn("bg-krds-gray-0 flex w-full flex-col items-center", className)}>
+    <div data-slot="krds-main-menu" className={cn("bg-krds-surface flex w-full flex-col items-center", className)}>
       {children}
     </div>
   );
@@ -31,7 +31,7 @@ function MainMenuBar({ className, children, "aria-label": ariaLabel }: MainMenuB
     <nav
       data-slot="krds-main-menu-bar"
       aria-label={ariaLabel}
-      className={cn("border-krds-gray-20 bg-krds-gray-0 w-full border-y", className)}
+      className={cn("border-krds-border-light bg-krds-surface w-full border-y", className)}
     >
       <div className="mx-auto flex h-14 max-w-[1200px] items-center gap-4 px-4">{children}</div>
     </nav>
@@ -52,9 +52,9 @@ function MainMenuBarItem({ className, children, href, hasSubmenu }: MainMenuBarI
       href={href}
       className={cn(
         "inline-flex h-14 items-center gap-2 px-4",
-        "text-krds-gray-70 text-krds-body-lg font-bold",
-        "hover:text-krds-gray-90",
-        "focus-visible:ring-krds-primary-50 rounded-sm focus-visible:ring-2 focus-visible:outline-none",
+        "text-krds-foreground-subtle text-krds-body-lg font-bold",
+        "hover:text-krds-foreground",
+        "focus-visible:ring-krds-border-primary rounded-sm focus-visible:ring-2 focus-visible:outline-none",
         className
       )}
     >
@@ -84,7 +84,7 @@ function MainMenuPanel({ className, children }: MainMenuPanelProps) {
 function MainMenuPanelHeader({ className, children, ...props }: React.ComponentProps<"div">) {
   return (
     <div data-slot="krds-main-menu-panel-header" className={cn("flex h-14 items-center px-1", className)} {...props}>
-      <span className="text-krds-gray-90 text-krds-heading-md font-bold">{children}</span>
+      <span className="text-krds-foreground text-krds-heading-md font-bold">{children}</span>
     </div>
   );
 }
@@ -97,8 +97,8 @@ function MainMenuPanelShortcut({ className, children, ...props }: React.Componen
       data-slot="krds-main-menu-panel-shortcut"
       className={cn(
         "inline-flex items-center gap-0.5 px-0.5",
-        "text-krds-gray-90 text-krds-body-sm",
-        "focus-visible:ring-krds-primary-50 rounded-sm focus-visible:ring-2 focus-visible:outline-none",
+        "text-krds-foreground text-krds-body-sm",
+        "focus-visible:ring-krds-border-primary rounded-sm focus-visible:ring-2 focus-visible:outline-none",
         className
       )}
       {...props}
@@ -115,7 +115,7 @@ function MainMenuPanelSidebar({ className, children, ...props }: React.Component
   return (
     <aside
       data-slot="krds-main-menu-panel-sidebar"
-      className={cn("bg-krds-secondary-5 flex w-[266px] flex-col py-4", className)}
+      className={cn("bg-krds-surface-secondary-subtle flex w-[266px] flex-col py-4", className)}
       {...props}
     >
       {children}
@@ -154,14 +154,14 @@ function MainMenuLink({ className, children, href, external }: MainMenuLinkProps
       href={href}
       className={cn(
         "flex items-center gap-1 rounded-md px-2 py-2.5",
-        "text-krds-gray-90 text-krds-body-md",
-        "hover:bg-krds-gray-5",
-        "focus-visible:ring-krds-primary-50 focus-visible:ring-2 focus-visible:outline-none",
+        "text-krds-foreground text-krds-body-md",
+        "hover:bg-krds-surface-subtler",
+        "focus-visible:ring-krds-border-primary focus-visible:ring-2 focus-visible:outline-none",
         className
       )}
     >
       <span className="flex items-center pr-2">
-        <span aria-hidden="true" className="bg-krds-gray-90 inline-block size-1 rounded-full" />
+        <span aria-hidden="true" className="bg-krds-foreground inline-block size-1 rounded-full" />
       </span>
       <span className="flex-1">{children}</span>
       {external && <ExternalLink size={20} aria-hidden="true" />}
@@ -190,9 +190,9 @@ function MainMenuSidebarItem({ className, children, href, active, hasMore, exter
       className={cn(
         "flex w-full items-center px-6 py-4",
         "text-krds-body-md",
-        "focus-visible:ring-krds-primary-50 focus-visible:ring-2 focus-visible:outline-none",
+        "focus-visible:ring-krds-border-primary focus-visible:ring-2 focus-visible:outline-none",
         showArrow ? "gap-6" : "gap-2",
-        active ? "bg-krds-gray-0 font-bold text-krds-fg-secondary" : "text-krds-gray-90",
+        active ? "bg-krds-surface font-bold text-krds-foreground-secondary" : "text-krds-foreground",
         className
       )}
     >

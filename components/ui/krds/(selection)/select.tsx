@@ -119,7 +119,7 @@ function KrdsSelectContent({
           "data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95",
           "data-[side=bottom]:slide-in-from-top-2 data-[side=top]:slide-in-from-bottom-2",
           // panel look
-          "border-krds-gray-20 rounded-md border bg-white p-2 shadow-md",
+          "border-krds-border-light rounded-md border bg-krds-surface p-2 shadow-md",
           "overflow-hidden",
           // exact-match to trigger width (default) or custom min-width override
           matchTriggerWidth && "w-[var(--radix-select-trigger-width)]",
@@ -144,13 +144,13 @@ function KrdsSelectItem({ className, children, size, ...props }: KrdsSelectItemP
       className={cn(
         // base
         "cursor-pointer rounded-md px-2 py-2.5 outline-hidden select-none",
-        "text-krds-gray-90 flex items-center justify-between gap-2",
+        "text-krds-foreground flex items-center justify-between gap-2",
         // hover / focus
-        "focus:bg-krds-secondary-5",
+        "focus:bg-krds-surface-secondary-subtle",
         // active / pressed
         "active:bg-krds-surface-secondary-subtle",
         // selected
-        "data-[state=checked]:bg-krds-secondary-5 data-[state=checked]:text-krds-secondary-90",
+        "data-[state=checked]:bg-krds-surface-secondary-subtle data-[state=checked]:text-krds-foreground-secondary",
         // disabled
         "data-[disabled]:pointer-events-none data-[disabled]:opacity-50",
         itemFont[size],
@@ -160,7 +160,7 @@ function KrdsSelectItem({ className, children, size, ...props }: KrdsSelectItemP
     >
       <SelectPrimitive.ItemText>{children}</SelectPrimitive.ItemText>
       <SelectPrimitive.ItemIndicator>
-        <CheckIcon className={cn("text-krds-secondary-50 shrink-0", checkIconSize[size])} aria-hidden="true" />
+        <CheckIcon className={cn("text-krds-foreground-secondary shrink-0", checkIconSize[size])} aria-hidden="true" />
       </SelectPrimitive.ItemIndicator>
     </SelectPrimitive.Item>
   );
@@ -215,10 +215,10 @@ function Select({
             id={inputId}
             aria-label={label ?? "정렬"}
             className={cn(
-              "text-krds-gray-90 inline-flex h-auto cursor-pointer appearance-none items-center rounded-sm border border-transparent bg-transparent leading-[1.5] transition-colors outline-none",
-              "hover:bg-krds-gray-5 active:bg-krds-gray-10",
-              "focus-visible:ring-krds-primary-50 focus-visible:ring-2 focus-visible:ring-offset-1",
-              "disabled:text-krds-gray-50 disabled:cursor-not-allowed disabled:bg-transparent",
+              "text-krds-foreground inline-flex h-auto cursor-pointer appearance-none items-center rounded-sm border border-transparent bg-transparent leading-[1.5] transition-colors outline-none",
+              "hover:bg-krds-surface-subtler active:bg-krds-surface-subtle",
+              "focus-visible:ring-krds-border-primary focus-visible:ring-2 focus-visible:ring-offset-1",
+              "disabled:text-krds-foreground-disabled disabled:cursor-not-allowed disabled:bg-transparent",
               sortingFont[size],
               sortingPadX[size],
               sortingGap[size],
@@ -230,7 +230,7 @@ function Select({
               <ChevronDownIcon
                 className={cn(
                   "pointer-events-none shrink-0",
-                  disabled ? "text-krds-gray-50" : "text-krds-gray-90",
+                  disabled ? "text-krds-foreground-disabled" : "text-krds-foreground",
                   sortingIconSize[size]
                 )}
                 aria-hidden="true"
@@ -253,7 +253,7 @@ function Select({
   return (
     <div data-slot="krds-select" className={cn("flex w-full flex-col gap-2", className)}>
       {label && (
-        <label htmlFor={inputId} className="text-krds-gray-90 text-krds-body-sm">
+        <label htmlFor={inputId} className="text-krds-foreground text-krds-body-sm">
           {label}
         </label>
       )}
@@ -269,13 +269,13 @@ function Select({
           aria-invalid={ariaInvalid}
           className={cn(
             // base
-            "border-krds-gray-50 bg-krds-gray-0 text-krds-gray-90 relative flex w-full items-center border px-4 transition-colors outline-none",
+            "border-krds-border-dark bg-krds-surface text-krds-foreground relative flex w-full items-center border px-4 transition-colors outline-none",
             // placeholder colour (when no value selected)
-            "data-[placeholder]:text-krds-gray-50",
+            "data-[placeholder]:text-krds-foreground-disabled",
             // focus
-            "focus:border-krds-primary-50 focus:border-2 focus:px-[15px]",
+            "focus:border-krds-border-primary focus:border-2 focus:px-[15px]",
             // disabled
-            "disabled:bg-krds-gray-20 disabled:border-krds-gray-30 disabled:text-krds-gray-50 disabled:cursor-not-allowed",
+            "disabled:bg-krds-surface-disabled disabled:border-krds-border disabled:text-krds-foreground-disabled disabled:cursor-not-allowed",
             // error (via aria-invalid)
             "aria-invalid:border-krds-danger-50 aria-invalid:focus:border-krds-danger-50 aria-invalid:border-2 aria-invalid:px-[15px]",
             triggerHeight[size],
@@ -291,7 +291,7 @@ function Select({
             <ChevronDownIcon
               className={cn(
                 "pointer-events-none absolute top-1/2 shrink-0 -translate-y-1/2",
-                disabled ? "text-krds-gray-50" : "text-krds-gray-90",
+                disabled ? "text-krds-foreground-disabled" : "text-krds-foreground",
                 triggerIconSize[size],
                 triggerIconRight[size]
               )}

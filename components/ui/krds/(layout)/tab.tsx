@@ -147,11 +147,11 @@ function TabTrigger({ value, children, className, ...rest }: TabTriggerProps) {
 
         // Line variant
         isLine && [
-          "rounded-none bg-transparent text-krds-fg-subtle",
-          "data-[state=active]:bg-transparent data-[state=active]:text-krds-fg-secondary",
+          "rounded-none bg-transparent text-krds-foreground-subtle",
+          "data-[state=active]:bg-transparent data-[state=active]:text-krds-foreground-secondary",
           // active bottom bar (overlay; no layout shift)
           "data-[state=active]:after:absolute data-[state=active]:after:inset-x-0 data-[state=active]:after:bottom-0",
-          "data-[state=active]:after:bg-krds-secondary-70 data-[state=active]:after:content-['']",
+          "data-[state=active]:after:bg-krds-secondary-bold data-[state=active]:after:content-['']",
           isPrimary
             ? [
                 "min-w-[80px] flex-1 px-2",
@@ -163,8 +163,8 @@ function TabTrigger({ value, children, className, ...rest }: TabTriggerProps) {
 
         // Fill variant
         isFill && [
-          "bg-transparent text-krds-fg-subtle",
-          "data-[state=active]:bg-krds-secondary-70 data-[state=active]:text-white",
+          "bg-transparent text-krds-foreground-subtle",
+          "data-[state=active]:bg-krds-secondary-bold data-[state=active]:text-white",
           isPrimary
             ? [
                 "min-w-[80px] flex-1 rounded-none px-4",

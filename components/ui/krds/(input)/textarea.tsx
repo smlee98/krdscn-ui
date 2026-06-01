@@ -41,10 +41,10 @@ function Textarea({
 
   return (
     <div data-slot="krds-textarea" className={cn("flex w-full flex-col gap-2", className)}>
-      {label && <label className="block text-krds-body-sm text-krds-fg-subtle">{label}</label>}
+      {label && <label className="block text-krds-body-sm text-krds-foreground-subtle">{label}</label>}
       <div
         className={cn(
-          "h-36 rounded-[6px] border border-krds-border-dark bg-white px-4 py-2 transition-colors",
+          "h-36 rounded-[6px] border border-krds-border-dark bg-krds-surface px-4 py-2 transition-colors",
           "focus-within:border-2 focus-within:border-krds-border-primary",
           "has-[textarea[aria-invalid=true]]:border-2 has-[textarea[aria-invalid=true]]:border-krds-danger-50 has-[textarea[aria-invalid=true]]:focus-within:border-krds-danger-50",
           disabled && "border border-krds-border bg-krds-surface-disabled",
@@ -61,18 +61,18 @@ function Textarea({
           aria-invalid={invalid}
           onChange={handleChange}
           className={cn(
-            "h-full w-full resize-none bg-transparent text-krds-body-md text-krds-fg outline-none",
-            "placeholder:text-krds-fg-disabled",
-            disabled && "cursor-not-allowed text-krds-fg-disabled",
-            readOnly && !disabled && "text-krds-fg-subtle"
+            "h-full w-full resize-none bg-transparent text-krds-body-md text-krds-foreground outline-none",
+            "placeholder:text-krds-foreground-disabled",
+            disabled && "cursor-not-allowed text-krds-foreground-disabled",
+            readOnly && !disabled && "text-krds-foreground-subtle"
           )}
         />
       </div>
       {showCount && (
         <div className="flex w-full justify-end">
           <div className="flex shrink-0 items-baseline gap-[2px] text-krds-body-sm whitespace-nowrap">
-            <span className={cn(isOverLimit ? "text-krds-fg-danger" : "text-krds-fg-primary")}>{currentLength}</span>
-            <span className="text-krds-fg-subtle">/{countTotal}</span>
+            <span className={cn(isOverLimit ? "text-krds-foreground-danger" : "text-krds-foreground-primary")}>{currentLength}</span>
+            <span className="text-krds-foreground-subtle">/{countTotal}</span>
           </div>
         </div>
       )}

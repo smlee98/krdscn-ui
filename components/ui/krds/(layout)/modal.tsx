@@ -148,7 +148,7 @@ function ModalContent({ className, children, ...rest }: ModalContentProps) {
       }}
       className={cn(
         "flex flex-col items-start gap-0",
-        "bg-krds-gray-0 border-krds-gray-30 rounded-[12px] p-6",
+        "bg-krds-surface border-krds-border rounded-[12px] p-6",
         variantClass,
         className
       )}
@@ -167,7 +167,7 @@ function ModalHeader({ title, titleId, className, children, ...rest }: ModalHead
     <DialogTitle
       data-slot="krds-modal-header"
       {...idProp}
-      className={cn("text-krds-gray-90 w-full px-4 pt-8 pb-4 text-2xl leading-[1.5] font-bold", className)}
+      className={cn("text-krds-foreground w-full px-4 pt-8 pb-4 text-2xl leading-[1.5] font-bold", className)}
       {...(rest as React.ComponentProps<typeof DialogTitle>)}
     >
       {title ?? children}
@@ -183,7 +183,7 @@ function ModalBody({ descriptionId, className, children, ...rest }: ModalBodyPro
     <div
       data-slot="krds-modal-body"
       className={cn(
-        "text-krds-gray-90 flex w-full flex-col gap-4 px-4 pb-2 text-krds-body-md font-normal",
+        "text-krds-foreground flex w-full flex-col gap-4 px-4 pb-2 text-krds-body-md font-normal",
         variant === "fullscreen" && "flex-1",
         className
       )}
@@ -231,8 +231,8 @@ function ModalClose({ asChild, children, className, ...rest }: ModalCloseProps) 
         data-slot="krds-modal-close"
         className={cn(
           "absolute top-6 right-6 outline-none",
-          "text-krds-fg",
-          "focus-visible:ring-krds-primary-50 focus-visible:ring-2 focus-visible:ring-offset-2",
+          "text-krds-foreground",
+          "focus-visible:ring-krds-border-primary focus-visible:ring-2 focus-visible:ring-offset-2",
           className
         )}
         aria-label="닫기"

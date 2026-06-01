@@ -35,7 +35,7 @@ const buttonVariants = cva(
     "inline-flex items-center justify-center whitespace-nowrap",
     "font-normal leading-[1.5] tracking-normal transition-colors outline-none",
     "disabled:pointer-events-none",
-    "focus-visible:outline-2 focus-visible:outline-krds-primary-50 focus-visible:outline-offset-2"
+    "focus-visible:outline-2 focus-visible:outline-krds-border-primary focus-visible:outline-offset-2"
   ].join(" "),
   {
     variants: {
@@ -44,43 +44,43 @@ const buttonVariants = cva(
           "border border-krds-border-primary bg-krds-primary-50 text-white",
           "hover:border-krds-border-primary hover:bg-krds-primary-60",
           "active:border-krds-border-primary active:bg-krds-primary-70",
-          "disabled:border-krds-border-light disabled:bg-krds-surface-disabled disabled:text-krds-fg-disabled"
+          "disabled:border-krds-border-light disabled:bg-krds-surface-disabled disabled:text-krds-foreground-disabled"
         ].join(" "),
         secondary: [
-          "border border-krds-border-primary bg-krds-surface-primary-subtle text-krds-fg-primary",
+          "border border-krds-border-primary bg-krds-surface-primary-subtle text-krds-foreground-primary",
           "hover:bg-krds-primary-10",
           "active:bg-krds-primary-20",
-          "disabled:border-krds-border disabled:bg-transparent disabled:text-krds-fg-disabled"
+          "disabled:border-krds-border disabled:bg-transparent disabled:text-krds-foreground-disabled"
         ].join(" "),
         outline: [
-          "border border-krds-border-dark bg-transparent text-krds-fg",
+          "border border-krds-border-dark bg-transparent text-krds-foreground",
           "hover:bg-krds-surface-subtler",
           "active:bg-krds-surface-subtle",
-          "disabled:border-krds-border disabled:bg-transparent disabled:text-krds-fg-disabled"
+          "disabled:border-krds-border disabled:bg-transparent disabled:text-krds-foreground-disabled"
         ].join(" "),
         ghost: [
-          "border border-transparent bg-transparent text-krds-fg",
+          "border border-transparent bg-transparent text-krds-foreground",
           "hover:bg-krds-surface-subtler",
           "active:bg-krds-surface-subtle",
-          "disabled:bg-transparent disabled:text-krds-fg-disabled"
+          "disabled:bg-transparent disabled:text-krds-foreground-disabled"
         ].join(" "),
         link: [
-          "border border-transparent bg-transparent text-krds-fg-primary underline underline-offset-2",
-          "hover:text-krds-fg-primary",
-          "active:text-krds-fg-primary",
-          "disabled:text-krds-fg-disabled disabled:no-underline"
+          "border border-transparent bg-transparent text-krds-foreground-primary underline underline-offset-2",
+          "hover:text-krds-foreground-primary",
+          "active:text-krds-foreground-primary",
+          "disabled:text-krds-foreground-disabled disabled:no-underline"
         ].join(" "),
         tertiary: [
-          "border border-krds-border-dark bg-transparent text-krds-fg",
+          "border border-krds-border-dark bg-transparent text-krds-foreground",
           "hover:bg-krds-surface-subtler",
           "active:bg-krds-surface-subtle",
-          "disabled:border-krds-border disabled:bg-transparent disabled:text-krds-fg-disabled"
+          "disabled:border-krds-border disabled:bg-transparent disabled:text-krds-foreground-disabled"
         ].join(" "),
         text: [
-          "border border-transparent bg-transparent text-krds-fg",
+          "border border-transparent bg-transparent text-krds-foreground",
           "hover:bg-krds-surface-secondary-subtle",
           "active:bg-krds-surface-secondary-subtle",
-          "disabled:bg-transparent disabled:text-krds-fg-disabled"
+          "disabled:bg-transparent disabled:text-krds-foreground-disabled"
         ].join(" ")
       },
       size: {

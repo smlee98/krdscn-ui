@@ -68,10 +68,10 @@ function PaginationContent({ className, children }: PaginationContentProps) {
 
 const btnBase = cn(
   "inline-flex h-10 items-center justify-center rounded-[6px] bg-transparent select-none",
-  "text-krds-body-md text-krds-gray-70",
-  "hover:bg-krds-gray-5 active:bg-krds-gray-10",
-  "focus-visible:ring-krds-primary-50 focus-visible:ring-2 focus-visible:outline-none",
-  "disabled:cursor-not-allowed disabled:bg-transparent disabled:text-krds-fg-disabled disabled:pointer-events-none"
+  "text-krds-body-md text-krds-foreground-subtle",
+  "hover:bg-krds-surface-subtler active:bg-krds-surface-subtle",
+  "focus-visible:ring-krds-border-primary focus-visible:ring-2 focus-visible:outline-none",
+  "disabled:cursor-not-allowed disabled:bg-transparent disabled:text-krds-foreground-disabled disabled:pointer-events-none"
 );
 
 // ─── PaginationPrev ───────────────────────────────────────────────────────────
@@ -160,7 +160,7 @@ function PaginationItem({ className, children, active, disabled, onClick }: Pagi
       className={cn(
         btnBase,
         "w-10",
-        active && "bg-krds-secondary-70 font-bold text-white hover:bg-krds-secondary-70 active:bg-krds-secondary-70",
+        active && "bg-krds-secondary-bold font-bold text-white hover:bg-krds-secondary-bold active:bg-krds-secondary-bold",
         className
       )}
     >
@@ -180,7 +180,7 @@ function PaginationEllipsis({ className }: PaginationEllipsisProps) {
     <span
       data-slot="krds-pagination-ellipsis"
       aria-hidden="true"
-      className={cn("text-krds-gray-70 inline-flex h-10 w-10 items-center justify-center select-none", className)}
+      className={cn("text-krds-foreground-subtle inline-flex h-10 w-10 items-center justify-center select-none", className)}
     >
       <MoreHorizontal size={24} aria-hidden="true" />
     </span>
@@ -276,9 +276,9 @@ function PaginationJumpInput({
       value={inputValue}
       onChange={handleChange}
       className={cn(
-        "h-10 w-14 rounded-[6px] border border-krds-border-dark bg-white px-4",
-        "text-krds-gray-90 text-center text-krds-body-sm",
-        "focus-visible:ring-krds-primary-50 focus-visible:ring-2 focus-visible:outline-none",
+        "h-10 w-14 rounded-[6px] border border-krds-border-dark bg-krds-surface px-4",
+        "text-krds-foreground text-center text-krds-body-sm",
+        "focus-visible:ring-krds-border-primary focus-visible:ring-2 focus-visible:outline-none",
         className
       )}
       {...props}
@@ -296,7 +296,7 @@ function PaginationJumpTotal({ total, className, ...props }: PaginationJumpTotal
   return (
     <span
       className={cn(
-        "text-krds-gray-70 flex h-10 w-10 items-center justify-center px-2 text-krds-body-sm",
+        "text-krds-foreground-subtle flex h-10 w-10 items-center justify-center px-2 text-krds-body-sm",
         className
       )}
       {...props}

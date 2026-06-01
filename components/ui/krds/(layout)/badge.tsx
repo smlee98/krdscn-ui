@@ -48,18 +48,18 @@ const badgeVariants = cva(
     },
     compoundVariants: [
       // ── outline type: 1px border + saturated text, transparent fill ───────────
-      { type: "outline", variant: "default", className: "border-krds-border-primary text-krds-fg-primary" },
-      { type: "outline", variant: "secondary", className: "border-krds-secondary-70 text-krds-fg-secondary" },
-      { type: "outline", variant: "tertiary", className: "border-krds-border-dark text-krds-fg-subtle" },
-      { type: "outline", variant: "point", className: "border-krds-point-50 text-krds-fg-point" },
-      { type: "outline", variant: "destructive", className: "border-krds-danger-50 text-krds-fg-danger" },
-      { type: "outline", variant: "warning", className: "border-krds-warning-50 text-krds-fg-warning" },
-      { type: "outline", variant: "success", className: "border-krds-success-50 text-krds-fg-success" },
-      { type: "outline", variant: "info", className: "border-krds-info-50 text-krds-fg-information" },
+      { type: "outline", variant: "default", className: "border-krds-border-primary text-krds-foreground-primary" },
+      { type: "outline", variant: "secondary", className: "border-krds-secondary-bold text-krds-foreground-secondary" },
+      { type: "outline", variant: "tertiary", className: "border-krds-border-dark text-krds-foreground-subtle" },
+      { type: "outline", variant: "point", className: "border-krds-point-50 text-krds-foreground-point" },
+      { type: "outline", variant: "destructive", className: "border-krds-danger-50 text-krds-foreground-danger" },
+      { type: "outline", variant: "warning", className: "border-krds-warning-50 text-krds-foreground-warning" },
+      { type: "outline", variant: "success", className: "border-krds-success-50 text-krds-foreground-success" },
+      { type: "outline", variant: "info", className: "border-krds-info-50 text-krds-foreground-information" },
 
       // ── solid type: filled background, white/dark text ────────────────────────
       { type: "solid", variant: "default", className: "bg-krds-primary-50 text-white" },
-      { type: "solid", variant: "secondary", className: "bg-krds-secondary-70 text-white" },
+      { type: "solid", variant: "secondary", className: "bg-krds-secondary-bold text-white" },
       { type: "solid", variant: "tertiary", className: "bg-krds-gray-50 text-white" },
       { type: "solid", variant: "point", className: "bg-krds-point-50 text-white" },
       { type: "solid", variant: "destructive", className: "bg-krds-danger-50 text-white" },
@@ -68,25 +68,25 @@ const badgeVariants = cva(
       { type: "solid", variant: "info", className: "bg-krds-info-50 text-white" },
 
       // ── pastel type: tinted background, saturated text ────────────────────────
-      { type: "pastel", variant: "default", className: "bg-krds-primary-5 text-krds-fg-primary" },
-      { type: "pastel", variant: "secondary", className: "bg-krds-secondary-5 text-krds-fg-secondary" },
-      { type: "pastel", size: "lg", variant: "tertiary", className: "bg-krds-gray-10 text-krds-fg-subtle" },
-      { type: "pastel", size: "default", variant: "tertiary", className: "bg-krds-gray-5 text-krds-fg-subtle" },
-      { type: "pastel", variant: "point", className: "bg-krds-surface-point-subtle text-krds-fg-point" },
-      { type: "pastel", variant: "destructive", className: "bg-krds-danger-5 text-krds-fg-danger" },
-      { type: "pastel", variant: "warning", className: "bg-krds-warning-5 text-krds-fg-warning" },
-      { type: "pastel", variant: "success", className: "bg-krds-success-5 text-krds-fg-success" },
-      { type: "pastel", variant: "info", className: "bg-krds-info-5 text-krds-fg-information" },
+      { type: "pastel", variant: "default", className: "bg-krds-surface-primary-subtle text-krds-foreground-primary" },
+      { type: "pastel", variant: "secondary", className: "bg-krds-surface-secondary-subtle text-krds-foreground-secondary" },
+      { type: "pastel", size: "lg", variant: "tertiary", className: "bg-krds-surface-subtle text-krds-foreground-subtle" },
+      { type: "pastel", size: "default", variant: "tertiary", className: "bg-krds-surface-subtler text-krds-foreground-subtle" },
+      { type: "pastel", variant: "point", className: "bg-krds-surface-point-subtle text-krds-foreground-point" },
+      { type: "pastel", variant: "destructive", className: "bg-krds-surface-danger-subtle text-krds-foreground-danger" },
+      { type: "pastel", variant: "warning", className: "bg-krds-surface-warning-subtle text-krds-foreground-warning" },
+      { type: "pastel", variant: "success", className: "bg-krds-surface-success-subtle text-krds-foreground-success" },
+      { type: "pastel", variant: "info", className: "bg-krds-surface-information-subtle text-krds-foreground-information" },
 
       // ── disabled: overrides color/border/text per type ────────────────────────
-      { type: "outline", disabled: true, className: "border-krds-border text-krds-fg-disabled" },
-      { type: "solid", disabled: true, className: "bg-krds-gray-20 text-krds-gray-50" },
-      { type: "pastel", disabled: true, className: "bg-krds-gray-20 text-krds-gray-50" },
+      { type: "outline", disabled: true, className: "border-krds-border text-krds-foreground-disabled" },
+      { type: "solid", disabled: true, className: "bg-krds-surface-disabled text-krds-foreground-disabled" },
+      { type: "pastel", disabled: true, className: "bg-krds-surface-disabled text-krds-foreground-disabled" },
 
       // ── shadcn-compat outline variant (neutral gray tone) ─────────────────────
-      { variant: "outline", type: "solid", className: "border border-krds-gray-30 text-krds-gray-90" },
-      { variant: "outline", type: "outline", className: "border-krds-gray-30 text-krds-gray-90" },
-      { variant: "outline", type: "pastel", className: "border border-krds-gray-30 bg-krds-gray-5 text-krds-gray-90" }
+      { variant: "outline", type: "solid", className: "border border-krds-border text-krds-foreground" },
+      { variant: "outline", type: "outline", className: "border-krds-border text-krds-foreground" },
+      { variant: "outline", type: "pastel", className: "border border-krds-border bg-krds-surface-subtler text-krds-foreground" }
     ],
     defaultVariants: {
       size: "default",

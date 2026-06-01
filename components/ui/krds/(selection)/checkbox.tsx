@@ -97,7 +97,7 @@ function Checkbox({
   let bgClass: string;
   if (disabled) {
     borderClass = isOn ? "border border-transparent" : "border border-krds-border";
-    bgClass = "bg-krds-gray-20";
+    bgClass = "bg-krds-surface-disabled";
   } else if (isOn) {
     borderClass = "border border-transparent";
     bgClass = "bg-krds-primary-50";
@@ -106,9 +106,9 @@ function Checkbox({
     bgClass = "bg-white";
   }
 
-  const glyphColor = disabled ? "text-krds-fg-disabled" : "text-white";
-  const labelColor = disabled ? "text-krds-fg-disabled" : "text-krds-fg-bolder";
-  const helpColor = disabled ? "text-krds-fg-disabled" : "text-krds-gray-70";
+  const glyphColor = disabled ? "text-krds-foreground-disabled" : "text-white";
+  const labelColor = disabled ? "text-krds-foreground-disabled" : "text-krds-foreground-bolder";
+  const helpColor = disabled ? "text-krds-foreground-disabled" : "text-krds-foreground-subtle";
 
   const labelNode = label ?? children;
 
@@ -229,9 +229,9 @@ function CheckboxChip({
       <span
         className={cn(
           "inline-flex items-center border transition-colors",
-          "bg-krds-gray-0 border-krds-gray-20 text-krds-gray-90",
-          currentChecked && "bg-krds-primary-5 border-krds-primary-50 text-krds-primary-50",
-          disabled && "bg-krds-gray-5 border-krds-gray-20 text-krds-gray-30",
+          "bg-krds-surface border-krds-border-light text-krds-foreground",
+          currentChecked && "bg-krds-surface-primary-subtle border-krds-border-primary text-krds-foreground-primary",
+          disabled && "bg-krds-surface-subtler border-krds-border-light text-krds-foreground-disabled",
           sizeClass,
           className
         )}
@@ -240,8 +240,8 @@ function CheckboxChip({
           className={cn(
             iconSize,
             "shrink-0",
-            currentChecked ? "text-krds-primary-50" : "text-krds-gray-30",
-            disabled && "text-krds-gray-30"
+            currentChecked ? "text-krds-foreground-primary" : "text-krds-foreground-disabled",
+            disabled && "text-krds-foreground-disabled"
           )}
           strokeWidth={currentChecked ? 2.2 : 1.8}
           aria-hidden="true"

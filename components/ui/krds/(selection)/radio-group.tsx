@@ -133,13 +133,13 @@ function Radio({ size = "medium", description, value, children, disabled, classN
   const borderClass = disabled
     ? "border border-krds-border"
     : isChecked
-      ? cn(checkedBorder, "border-krds-primary-50")
+      ? cn(checkedBorder, "border-krds-border-primary")
       : "border border-krds-border-dark";
 
   // Background:
   //  - disabled (any check): disabled-light #cdd1d5 → bg-krds-gray-20
   //  - otherwise: white
-  const bgClass = disabled ? "bg-krds-gray-20" : "bg-white";
+  const bgClass = disabled ? "bg-krds-surface-disabled" : "bg-white";
 
   // Inner dot color:
   //  - disabled+checked: disabled-dark #8a949e (arbitrary)
@@ -150,8 +150,8 @@ function Radio({ size = "medium", description, value, children, disabled, classN
   //  - label default: text/bolder #131416 (no token — arbitrary)
   //  - help default:  text/subtle #464c53 → text-krds-gray-70
   //  - any disabled:  text/disabled #8a949e (arbitrary)
-  const labelColor = disabled ? "text-krds-fg-disabled" : "text-krds-fg-bolder";
-  const helpColor = disabled ? "text-krds-fg-disabled" : "text-krds-gray-70";
+  const labelColor = disabled ? "text-krds-foreground-disabled" : "text-krds-foreground-bolder";
+  const helpColor = disabled ? "text-krds-foreground-disabled" : "text-krds-foreground-subtle";
 
   return (
     <label
@@ -219,9 +219,9 @@ function RadioChip({ size = "medium", value, children, disabled, className, ...r
       <span
         className={cn(
           "inline-flex items-center border transition-colors",
-          "bg-krds-gray-0 border-krds-gray-20 text-krds-gray-90",
-          isChecked && "bg-krds-primary-5 border-krds-primary-50 text-krds-primary-50",
-          disabled && "bg-krds-gray-5 border-krds-gray-20 text-krds-gray-30",
+          "bg-krds-surface border-krds-border-light text-krds-foreground",
+          isChecked && "bg-krds-surface-primary-subtle border-krds-border-primary text-krds-foreground-primary",
+          disabled && "bg-krds-surface-subtler border-krds-border-light text-krds-foreground-disabled",
           sizeClass,
           className
         )}
@@ -255,9 +255,9 @@ function RadioSort({ value, children, disabled, className, ...rest }: RadioSortP
       />
       <span
         className={cn(
-          "text-krds-gray-90 inline-flex items-center rounded border border-transparent px-1 text-krds-body-md transition-colors",
-          isChecked && "bg-krds-secondary-5 underline underline-offset-2",
-          disabled && "text-krds-fg-disabled",
+          "text-krds-foreground inline-flex items-center rounded border border-transparent px-1 text-krds-body-md transition-colors",
+          isChecked && "bg-krds-surface-secondary-subtle underline underline-offset-2",
+          disabled && "text-krds-foreground-disabled",
           className
         )}
       >

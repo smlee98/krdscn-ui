@@ -142,10 +142,10 @@ function CarouselArrow({ direction, size = "small", className, "aria-label": ari
       disabled={isPrev ? !canScrollPrev : !canScrollNext}
       onClick={isPrev ? scrollPrev : scrollNext}
       className={cn(
-        "inline-flex shrink-0 items-center justify-center rounded-full bg-white text-krds-fg",
-        "border-krds-gray-20 border transition-colors",
-        "hover:border-krds-gray-30",
-        "focus-visible:ring-krds-primary-50 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none",
+        "inline-flex shrink-0 items-center justify-center rounded-full bg-krds-surface text-krds-foreground",
+        "border-krds-border-light border transition-colors",
+        "hover:border-krds-border",
+        "focus-visible:ring-krds-border-primary focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none",
         "disabled:cursor-not-allowed disabled:opacity-50",
         ARROW_SIZE_CLASS[size],
         className
@@ -180,16 +180,16 @@ function CarouselNumber({ className, ...rest }: CarouselNumberProps) {
       role="status"
       aria-live="polite"
       className={cn(
-        "inline-flex h-10 items-center gap-1 rounded-full bg-white px-4",
-        "border-krds-gray-20 border",
+        "inline-flex h-10 items-center gap-1 rounded-full bg-krds-surface px-4",
+        "border-krds-border-light border",
         "text-krds-body-md font-bold whitespace-nowrap",
         className
       )}
       {...rest}
     >
-      <span className="text-krds-fg-secondary">{selectedIndex + 1}</span>
-      <span className="text-krds-gray-90">/</span>
-      <span className="text-krds-gray-90">{slideCount}</span>
+      <span className="text-krds-foreground-secondary">{selectedIndex + 1}</span>
+      <span className="text-krds-foreground">/</span>
+      <span className="text-krds-foreground">{slideCount}</span>
     </div>
   );
 }
@@ -209,7 +209,7 @@ function CarouselDots({ className, label = "슬라이드 선택", ...rest }: Car
       data-slot="krds-carousel-dots"
       role="tablist"
       aria-label={label}
-      className={cn("inline-flex h-10 items-center gap-1 rounded-full bg-white px-4", className)}
+      className={cn("inline-flex h-10 items-center gap-1 rounded-full bg-krds-surface px-4", className)}
       {...rest}
     >
       {Array.from({ length: slideCount }, (_, i) => {
@@ -225,7 +225,7 @@ function CarouselDots({ className, label = "슬라이드 선택", ...rest }: Car
             onClick={() => scrollTo(i)}
             className={cn(
               "h-2 shrink-0 rounded-full transition-all",
-              "focus-visible:ring-krds-primary-50 focus-visible:ring-2 focus-visible:ring-offset-1 focus-visible:outline-none",
+              "focus-visible:ring-krds-border-primary focus-visible:ring-2 focus-visible:ring-offset-1 focus-visible:outline-none",
               isActive ? "bg-krds-primary-50 w-5" : "bg-krds-gray-50 w-2"
             )}
           />
@@ -264,10 +264,10 @@ function CarouselPlayPause({
       aria-pressed={!isPlaying}
       onClick={() => onToggle(!isPlaying)}
       className={cn(
-        "inline-flex shrink-0 items-center justify-center rounded-full bg-white text-krds-fg",
-        "border-krds-gray-20 border transition-colors",
-        "hover:border-krds-gray-30",
-        "focus-visible:ring-krds-primary-50 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none",
+        "inline-flex shrink-0 items-center justify-center rounded-full bg-krds-surface text-krds-foreground",
+        "border-krds-border-light border transition-colors",
+        "hover:border-krds-border",
+        "focus-visible:ring-krds-border-primary focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none",
         ARROW_SIZE_CLASS[size],
         className
       )}

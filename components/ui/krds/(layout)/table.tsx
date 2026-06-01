@@ -29,7 +29,7 @@ function TableHeader({ className, ...props }: TableHeaderProps) {
   return (
     <ShadcnTableHeader
       data-slot="krds-table-header"
-      className={cn("bg-krds-secondary-5 [&_tr:hover]:bg-krds-secondary-5 [&_tr]:border-b-krds-secondary-10", className)}
+      className={cn("bg-krds-surface-secondary-subtle [&_tr:hover]:bg-krds-surface-secondary-subtle [&_tr]:border-b-krds-secondary-10", className)}
       {...props}
     />
   );
@@ -45,7 +45,7 @@ function TableFooter({ className, ...props }: TableFooterProps) {
   return (
     <ShadcnTableFooter
       data-slot="krds-table-footer"
-      className={cn("bg-krds-secondary-5 border-t border-krds-secondary-10", className)}
+      className={cn("bg-krds-surface-secondary-subtle border-t border-krds-secondary-10", className)}
       {...props}
     />
   );
@@ -56,7 +56,7 @@ function TableHead({ className, ...props }: TableHeadProps) {
     <ShadcnTableHead
       data-slot="krds-table-head"
       className={cn(
-        "h-auto min-w-[80px] px-4 py-2 text-left align-middle text-krds-body-sm font-bold break-words whitespace-normal text-krds-fg-bolder",
+        "h-auto min-w-[80px] px-4 py-2 text-left align-middle text-krds-body-sm font-bold break-words whitespace-normal text-krds-foreground-bolder",
         className
       )}
       {...props}
@@ -68,7 +68,7 @@ function TableRow({ className, ...props }: TableRowProps) {
   return (
     <ShadcnTableRow
       data-slot="krds-table-row"
-      className={cn("border-krds-gray-20 hover:bg-krds-gray-5 border-b", className)}
+      className={cn("border-krds-border-light hover:bg-krds-surface-subtler border-b", className)}
       {...props}
     />
   );
@@ -79,7 +79,7 @@ function TableCell({ className, ...props }: TableCellProps) {
     <ShadcnTableCell
       data-slot="krds-table-cell"
       className={cn(
-        "min-w-[80px] px-4 py-3 align-middle text-krds-body-md break-words whitespace-normal text-krds-fg-subtle",
+        "min-w-[80px] px-4 py-3 align-middle text-krds-body-md break-words whitespace-normal text-krds-foreground-subtle",
         className
       )}
       {...props}
@@ -89,7 +89,7 @@ function TableCell({ className, ...props }: TableCellProps) {
 
 function TableCaption({ className, ...props }: TableCaptionProps) {
   return (
-    <ShadcnTableCaption data-slot="krds-table-caption" className={cn("text-krds-gray-50", className)} {...props} />
+    <ShadcnTableCaption data-slot="krds-table-caption" className={cn("text-krds-foreground-disabled", className)} {...props} />
   );
 }
 

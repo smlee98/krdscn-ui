@@ -52,7 +52,7 @@ function InPageNavigationEyebrow({ className, children }: InPageNavigationEyebro
   return (
     <span
       data-slot="krds-in-page-navigation-eyebrow"
-      className={cn("text-krds-gray-90 text-krds-body-xs", className)}
+      className={cn("text-krds-foreground text-krds-body-xs", className)}
     >
       {children}
     </span>
@@ -70,7 +70,7 @@ function InPageNavigationTitle({ className, children }: InPageNavigationTitlePro
   return (
     <strong
       data-slot="krds-in-page-navigation-title"
-      className={cn("text-krds-gray-90 text-krds-body-md font-bold", className)}
+      className={cn("text-krds-foreground text-krds-body-md font-bold", className)}
     >
       {children}
     </strong>
@@ -114,9 +114,9 @@ function InPageNavigationItem({ className, children, href, active, onClick }: In
         className={cn(
           "flex w-full items-center rounded-[4px] px-2 py-1",
           "text-krds-body-sm",
-          "hover:bg-krds-gray-5",
-          "focus-visible:ring-krds-primary-50 focus-visible:ring-2 focus-visible:outline-none",
-          active ? "bg-krds-secondary-5 font-bold text-krds-fg-secondary" : "text-krds-gray-70",
+          "hover:bg-krds-surface-subtler",
+          "focus-visible:ring-krds-border-primary focus-visible:ring-2 focus-visible:outline-none",
+          active ? "bg-krds-surface-secondary-subtle font-bold text-krds-foreground-secondary" : "text-krds-foreground-subtle",
           className
         )}
       >
@@ -155,7 +155,7 @@ function InPageNavigationDescription({ className, children }: InPageNavigationDe
   return (
     <p
       data-slot="krds-in-page-navigation-description"
-      className={cn("text-krds-gray-70 w-full text-center text-krds-body-sm", className)}
+      className={cn("text-krds-foreground-subtle w-full text-center text-krds-body-sm", className)}
     >
       {children}
     </p>

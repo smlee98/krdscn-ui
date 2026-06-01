@@ -40,7 +40,7 @@ function SideNavigationTitle({ className, children }: SideNavigationTitleProps) 
       data-slot="krds-side-navigation-title"
       className={cn("flex w-full items-center border-b border-krds-border px-2 pt-6 pb-4", className)}
     >
-      <span className="text-krds-gray-90 flex-1 text-krds-heading-md font-bold">{children}</span>
+      <span className="text-krds-foreground flex-1 text-krds-heading-md font-bold">{children}</span>
     </div>
   );
 }
@@ -64,9 +64,9 @@ function SideNavigationBackTitle({
 }: SideNavigationBackTitleProps) {
   const baseClass = cn(
     "flex w-full flex-col items-start gap-1 rounded-lg p-2",
-    "text-left text-krds-gray-90",
-    "hover:bg-krds-gray-5",
-    "focus-visible:ring-krds-primary-50 focus-visible:ring-2 focus-visible:outline-none",
+    "text-left text-krds-foreground",
+    "hover:bg-krds-surface-subtler",
+    "focus-visible:ring-krds-border-primary focus-visible:ring-2 focus-visible:outline-none",
     className
   );
   const content = (
@@ -128,7 +128,7 @@ function SideNavigationGroup({
       <div
         data-slot="krds-side-navigation-group"
         data-state={open ? "open" : "closed"}
-        className={cn("border-krds-gray-20 flex w-full flex-col border-b", className)}
+        className={cn("border-krds-border-light flex w-full flex-col border-b", className)}
       >
         {children}
       </div>
@@ -154,9 +154,9 @@ function SideNavigationTrigger({ className, children }: SideNavigationTriggerPro
       onClick={ctx?.toggle}
       className={cn(
         "flex w-full items-center gap-2 px-2 py-4",
-        "text-krds-gray-90 text-left text-krds-body-md font-bold",
-        "hover:bg-krds-gray-5",
-        "focus-visible:ring-krds-primary-50 focus-visible:ring-2 focus-visible:outline-none",
+        "text-krds-foreground text-left text-krds-body-md font-bold",
+        "hover:bg-krds-surface-subtler",
+        "focus-visible:ring-krds-border-primary focus-visible:ring-2 focus-visible:outline-none",
         className
       )}
     >
@@ -180,7 +180,7 @@ function SideNavigationList({ className, children, bordered }: SideNavigationLis
   return (
     <ul
       data-slot="krds-side-navigation-list"
-      className={cn("flex w-full flex-col", ctx && "py-2", bordered && "border-krds-gray-30 border-y py-4", className)}
+      className={cn("flex w-full flex-col", ctx && "py-2", bordered && "border-krds-border border-y py-4", className)}
     >
       {children}
     </ul>
@@ -206,15 +206,15 @@ function SideNavigationItem({ className, children, href, external, active }: Sid
         aria-current={active ? "page" : undefined}
         className={cn(
           "flex w-full items-center gap-1 rounded-md px-4 py-2",
-          "text-krds-gray-90 text-krds-body-md",
-          "hover:bg-krds-gray-5",
-          "focus-visible:ring-krds-primary-50 focus-visible:ring-2 focus-visible:outline-none",
+          "text-krds-foreground text-krds-body-md",
+          "hover:bg-krds-surface-subtler",
+          "focus-visible:ring-krds-border-primary focus-visible:ring-2 focus-visible:outline-none",
           active && "font-bold",
           className
         )}
       >
         <span className="flex items-center pr-2">
-          <span aria-hidden="true" className="bg-krds-gray-90 inline-block size-1 rounded-full" />
+          <span aria-hidden="true" className="bg-krds-foreground inline-block size-1 rounded-full" />
         </span>
         <span className="flex-1">{children}</span>
         {external && <ExternalLink size={20} aria-hidden="true" />}

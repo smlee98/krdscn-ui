@@ -36,7 +36,7 @@ function CriticalAlert({ type = "emergency", className, children }: CriticalAler
       role="alert"
       data-slot="krds-critical-alert"
       data-type={type}
-      className={cn("border-krds-gray-20 flex w-full items-center gap-4 rounded-[10px] border bg-white p-4", className)}
+      className={cn("border-krds-border-light flex w-full items-center gap-4 rounded-[10px] border bg-krds-surface p-4", className)}
     >
       <div
         data-slot="krds-critical-alert-badge"
@@ -65,7 +65,7 @@ function CriticalAlertMessage({ className, children }: CriticalAlertMessageProps
   return (
     <p
       data-slot="krds-critical-alert-message"
-      className={cn("flex-1 text-krds-body-md font-bold text-krds-fg-bolder", className)}
+      className={cn("flex-1 text-krds-body-md font-bold text-krds-foreground-bolder", className)}
     >
       {children}
     </p>
@@ -90,17 +90,17 @@ function CriticalAlertAction({
   "aria-label": ariaLabel
 }: CriticalAlertActionProps) {
   const sharedClassName = cn(
-    "text-krds-gray-90 inline-flex h-8 shrink-0 items-center gap-1 rounded-[4px] px-0.5",
+    "text-krds-foreground inline-flex h-8 shrink-0 items-center gap-1 rounded-[4px] px-0.5",
     "text-krds-body-md",
     "hover:underline",
-    "focus-visible:ring-krds-primary-50 focus-visible:ring-2 focus-visible:outline-none",
+    "focus-visible:ring-krds-border-primary focus-visible:ring-2 focus-visible:outline-none",
     className
   );
 
   const inner = (
     <>
       <span>{children}</span>
-      <ChevronRight size={20} aria-hidden={true} className="shrink-0 text-krds-fg" />
+      <ChevronRight size={20} aria-hidden={true} className="shrink-0 text-krds-foreground" />
     </>
   );
 

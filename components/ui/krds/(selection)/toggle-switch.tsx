@@ -101,8 +101,8 @@ function ToggleSwitch({
         className={cn(
           "group inline-flex shrink-0 cursor-pointer rounded-full p-0.5 transition-colors",
           "bg-krds-gray-50 data-[state=checked]:bg-krds-primary-50",
-          "data-[disabled]:cursor-not-allowed data-[disabled]:bg-krds-gray-20",
-          "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-krds-primary-50 focus-visible:ring-offset-2",
+          "data-[disabled]:cursor-not-allowed data-[disabled]:bg-krds-surface-disabled",
+          "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-krds-border-primary focus-visible:ring-offset-2",
           sz.track
         )}
       >
@@ -118,7 +118,7 @@ function ToggleSwitch({
           <span
             className={cn(
               "group-data-[state=unchecked]:block group-data-[state=checked]:hidden",
-              "text-krds-gray-50 group-data-[disabled]:text-white"
+              "text-krds-foreground-disabled group-data-[disabled]:text-white"
             )}
           >
             <XIcon className={sz.iconSize} />
@@ -127,7 +127,7 @@ function ToggleSwitch({
           <span
             className={cn(
               "group-data-[state=unchecked]:hidden group-data-[state=checked]:block",
-              "text-krds-primary-50 group-data-[disabled]:text-white"
+              "text-krds-foreground-primary group-data-[disabled]:text-white"
             )}
           >
             <CheckIcon className={sz.iconSize} />
@@ -138,9 +138,9 @@ function ToggleSwitch({
         <label
           htmlFor={id}
           className={cn(
-            "cursor-pointer select-none leading-[1.5] text-krds-gray-90",
+            "cursor-pointer select-none leading-[1.5] text-krds-foreground",
             sz.label,
-            disabled && "cursor-not-allowed text-krds-fg-disabled"
+            disabled && "cursor-not-allowed text-krds-foreground-disabled"
           )}
         >
           {label}

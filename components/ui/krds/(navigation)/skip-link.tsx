@@ -15,9 +15,9 @@ function SkipLink({ className, href = "#main-content", children = "본문 바로
       href={href}
       className={cn(
         "flex h-8 w-full items-center justify-center",
-        "bg-krds-gray-90 text-krds-gray-0 text-krds-body-sm",
+        "bg-krds-surface-inverse text-krds-foreground-inverse text-krds-body-sm",
         "no-underline",
-        "focus-visible:outline-krds-primary-50 focus-visible:outline focus-visible:-outline-offset-2",
+        "focus-visible:outline-krds-border-primary focus-visible:outline focus-visible:-outline-offset-2",
         className
       )}
     >
