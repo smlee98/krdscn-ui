@@ -24,7 +24,7 @@ function KrdsSidebar() {
   const isHomeActive = pathname === "/";
 
   return (
-    <Sidebar collapsible="none" className="sticky top-0 h-svh w-56 shrink-0">
+    <Sidebar collapsible="offcanvas">
       <SidebarContent aria-label="컴포넌트 네비게이션">
         <SidebarGroup>
           <SidebarGroupContent>
