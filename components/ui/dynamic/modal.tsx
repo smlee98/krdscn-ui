@@ -21,7 +21,9 @@ import type {
   ModalHeaderProps,
   ModalOverlayProps,
   ModalRootProps,
-  ModalTriggerProps
+  ModalSize,
+  ModalTriggerProps,
+  ModalVariant
 } from "@/components/ui/krds/(layout)/modal";
 import {
   Dialog,
@@ -33,6 +35,16 @@ import {
   DialogTitle,
   DialogTrigger
 } from "@/components/ui/dialog";
+import {
+  Drawer,
+  DrawerClose,
+  DrawerContent,
+  DrawerDescription,
+  DrawerFooter,
+  DrawerHeader,
+  DrawerTitle,
+  DrawerTrigger
+} from "@/components/ui/drawer";
 import { cn } from "@/lib/cn";
 import { useUISystem } from "@/lib/ui-system";
 
@@ -51,22 +63,34 @@ export type {
 
 // Dual-render dispatcher (template: dynamic/accordion.tsx). The public surface is
 // the KRDS Modal compound API; each part renders either the KRDS-chromed wrapper
-// or the vanilla shadcn Dialog primitive based on <UISystemProvider>.
+// or a vanilla shadcn primitive based on <UISystemProvider>.
 //
-// In shadcn mode the KRDS-only props (size / variant / usePortal / portalContainer)
-// are intentionally dropped — Radix Dialog has no such axes. closeOnOverlayClick /
-// closeOnEsc are honored on the shadcn path via DialogContent interaction guards.
+// shadcn-mode mapping by variant:
+//   default / fullscreen → shadcn Dialog; `size` maps to sm:max-w-[400|560|760px].
+//   bottom-sheet         → shadcn Drawer (vaul; direction="bottom", drag handle +
+//                          drag-to-dismiss). Because vaul's Title/Description live in
+//                          vaul's own Radix-dialog context (distinct from the umbrella
+//                          `radix-ui` Dialog this file imports), the bottom-sheet path
+//                          uses Drawer* parts for Root/Trigger/Content/Close/Header/
+//                          Body/Footer — not a mix of Dialog* and Drawer*.
+// closeOnOverlayClick / closeOnEsc are honored via the Content interaction guards
+// (vaul Content is a Radix Dialog Content, so the same guards apply). usePortal /
+// portalContainer are dropped — neither primitive exposes such axes.
 
 // ─── Dispatcher-internal context: thread Root-level options to shadcn parts ─────
 
 type ShadcnModalContextValue = {
   closeOnOverlayClick: boolean;
   closeOnEsc: boolean;
+  size: ModalSize;
+  variant: ModalVariant;
 };
 
 const ShadcnModalContext = React.createContext<ShadcnModalContextValue>({
   closeOnOverlayClick: true,
-  closeOnEsc: true
+  closeOnEsc: true,
+  size: "md",
+  variant: "default"
 });
 
 // ─── shadcn-mode parts ──────────────────────────────────────────────────────────
@@ -75,25 +99,63 @@ function ShadcnModalRoot({
   open,
   defaultOpen,
   onOpenChange,
-  size: _size,
-  variant: _variant,
+  size = "md",
+  variant = "default",
   closeOnEsc = true,
   closeOnOverlayClick = true,
   usePortal: _usePortal,
   portalContainer: _portalContainer,
   children
 }: ModalRootProps) {
+  const isBottomSheet = variant === "bottom-sheet";
   return (
-    <ShadcnModalContext.Provider value={{ closeOnOverlayClick, closeOnEsc }}>
-      <Dialog open={open} defaultOpen={defaultOpen} onOpenChange={onOpenChange}>
-        {children}
-      </Dialog>
+    <ShadcnModalContext.Provider value={{ closeOnOverlayClick, closeOnEsc, size, variant }}>
+      {isBottomSheet ? (
+        <Drawer open={open} defaultOpen={defaultOpen} onOpenChange={onOpenChange}>
+          {children}
+        </Drawer>
+      ) : (
+        <Dialog open={open} defaultOpen={defaultOpen} onOpenChange={onOpenChange}>
+          {children}
+        </Dialog>
+      )}
     </ShadcnModalContext.Provider>
   );
 }
 
+function ShadcnModalTrigger({ asChild, children, className, ...rest }: ModalTriggerProps) {
+  const { variant } = React.useContext(ShadcnModalContext);
+  const Trigger = variant === "bottom-sheet" ? DrawerTrigger : DialogTrigger;
+  return (
+    <Trigger asChild={asChild} className={className} {...rest}>
+      {children}
+    </Trigger>
+  );
+}
+
 function ShadcnModalContent({ children, className, ...rest }: ModalContentProps) {
-  const { closeOnOverlayClick, closeOnEsc } = React.useContext(ShadcnModalContext);
+  const { closeOnOverlayClick, closeOnEsc, size, variant } = React.useContext(ShadcnModalContext);
+  if (variant === "bottom-sheet") {
+    return (
+      <DrawerContent
+        onInteractOutside={(e) => {
+          if (!closeOnOverlayClick) e.preventDefault();
+        }}
+        onEscapeKeyDown={(e) => {
+          if (!closeOnEsc) e.preventDefault();
+        }}
+        className={className}
+        {...(rest as React.ComponentProps<typeof DrawerContent>)}
+      >
+        {children}
+      </DrawerContent>
+    );
+  }
+  const sizeClass = {
+    sm: "sm:max-w-[400px]",
+    md: "sm:max-w-[560px]",
+    lg: "sm:max-w-[760px]"
+  }[size];
   return (
     <DialogContent
       showCloseButton={false}
@@ -103,7 +165,7 @@ function ShadcnModalContent({ children, className, ...rest }: ModalContentProps)
       onEscapeKeyDown={(e) => {
         if (!closeOnEsc) e.preventDefault();
       }}
-      className={className}
+      className={cn(sizeClass, className)}
       {...(rest as React.ComponentProps<typeof DialogContent>)}
     >
       {children}
@@ -112,7 +174,15 @@ function ShadcnModalContent({ children, className, ...rest }: ModalContentProps)
 }
 
 function ShadcnModalHeader({ title, titleId, className, children, ...rest }: ModalHeaderProps) {
+  const { variant } = React.useContext(ShadcnModalContext);
   const idProp = titleId ? { id: titleId } : {};
+  if (variant === "bottom-sheet") {
+    return (
+      <DrawerHeader className={className} {...rest}>
+        <DrawerTitle {...idProp}>{title ?? children}</DrawerTitle>
+      </DrawerHeader>
+    );
+  }
   return (
     <DialogHeader className={className} {...rest}>
       <DialogTitle {...idProp}>{title ?? children}</DialogTitle>
@@ -121,7 +191,19 @@ function ShadcnModalHeader({ title, titleId, className, children, ...rest }: Mod
 }
 
 function ShadcnModalBody({ descriptionId, className, children, ...rest }: ModalBodyProps) {
+  const { variant } = React.useContext(ShadcnModalContext);
   if (descriptionId) {
+    if (variant === "bottom-sheet") {
+      return (
+        <DrawerDescription
+          id={descriptionId}
+          className={cn("px-4 pb-4", className)}
+          {...(rest as React.ComponentProps<typeof DrawerDescription>)}
+        >
+          {children}
+        </DrawerDescription>
+      );
+    }
     return (
       <DialogDescription
         id={descriptionId}
@@ -132,14 +214,24 @@ function ShadcnModalBody({ descriptionId, className, children, ...rest }: ModalB
       </DialogDescription>
     );
   }
+  // bottom-sheet (Drawer) has no content padding of its own — DrawerHeader/Footer
+  // self-pad, but the body div does not, so pad it to match. Dialog keeps p-6.
   return (
-    <div className={className} {...rest}>
+    <div className={cn(variant === "bottom-sheet" && "px-4 pb-4", className)} {...rest}>
       {children}
     </div>
   );
 }
 
 function ShadcnModalFooter({ children, className, ...rest }: ModalFooterProps) {
+  const { variant } = React.useContext(ShadcnModalContext);
+  if (variant === "bottom-sheet") {
+    return (
+      <DrawerFooter className={className} {...rest}>
+        {children}
+      </DrawerFooter>
+    );
+  }
   return (
     <DialogFooter className={className} {...rest}>
       {children}
@@ -148,15 +240,17 @@ function ShadcnModalFooter({ children, className, ...rest }: ModalFooterProps) {
 }
 
 function ShadcnModalClose({ asChild, children, className, ...rest }: ModalCloseProps) {
+  const { variant } = React.useContext(ShadcnModalContext);
+  const Close = variant === "bottom-sheet" ? DrawerClose : DialogClose;
   if (children) {
     return (
-      <DialogClose asChild={asChild} className={className} {...rest}>
+      <Close asChild={asChild} className={className} {...rest}>
         {children}
-      </DialogClose>
+      </Close>
     );
   }
   return (
-    <DialogClose asChild>
+    <Close asChild>
       <button
         type="button"
         className={cn(
@@ -169,7 +263,7 @@ function ShadcnModalClose({ asChild, children, className, ...rest }: ModalCloseP
         <XIcon className="size-4" />
         <span className="sr-only">Close</span>
       </button>
-    </DialogClose>
+    </Close>
   );
 }
 
@@ -184,12 +278,7 @@ export function ModalRoot(props: ModalRootProps) {
 export function ModalTrigger(props: ModalTriggerProps) {
   const system = useUISystem();
   if (system === "krds") return <KrdsModalTrigger {...props} />;
-  const { asChild, children, className, ...rest } = props;
-  return (
-    <DialogTrigger asChild={asChild} className={className} {...rest}>
-      {children}
-    </DialogTrigger>
-  );
+  return <ShadcnModalTrigger {...props} />;
 }
 
 export function ModalOverlay(props: ModalOverlayProps) {
