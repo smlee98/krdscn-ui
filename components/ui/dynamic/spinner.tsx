@@ -30,7 +30,10 @@ function Spinner({ size = "large", className, "aria-label": ariaLabel }: Spinner
         role={ariaLabel ? "status" : undefined}
         aria-label={ariaLabel}
         aria-hidden={ariaLabel ? undefined : true}
-        className={cn("text-muted-foreground animate-spin", SHADCN_SIZE[size], className)}
+        // No color override: inherit currentColor like the vanilla shadcn Spinner
+        // primitive (`@/components/ui/spinner` sets no text color), so it renders
+        // foreground (near-black) instead of the muted gray it had before.
+        className={cn("animate-spin", SHADCN_SIZE[size], className)}
       />
     );
   }
