@@ -19,11 +19,11 @@ import { SIDEBAR_GROUPS } from "@/lib/sidebar-nav";
 import { KrdsLogo } from "../logo/krds";
 import { ShadcnLogo } from "../logo/shadcn";
 import { UISystemContext, useUISystem, type UISystem } from "@/lib/ui-system";
+import { ModeToggle } from "@/components/krds-app/mode-toggle";
 
 export { KrdsPageHeader };
 
-// Controls component dispatch (KRDS ↔ shadcn) only.
-// next-themes and data-theme are fully removed (T-10) — no color remapping on toggle.
+// Controls component dispatch (KRDS ↔ shadcn) only. Light/dark theme is handled separately by ModeToggle (next-themes).
 function UISystemToggle() {
   const system = useUISystem();
   const { setSystem } = useContext(UISystemContext);
@@ -102,6 +102,8 @@ function KrdsPageHeader() {
       </div>
       <Separator orientation="vertical" className="h-4!" />
       <UISystemToggle />
+      <Separator orientation="vertical" className="h-4!" />
+      <ModeToggle />
     </header>
   );
 }
