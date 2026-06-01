@@ -23,7 +23,7 @@ function FieldError({ children, className, ...props }: FieldMessageProps) {
   return (
     <div data-slot="krds-field-error" role="alert" className={cn(BASE, "text-[#bd2c0f]", className)} {...props}>
       <CircleAlert className="size-4 shrink-0" />
-      <span className="translate-y-px">{children}</span>
+      <span>{children}</span>
     </div>
   );
 }
@@ -33,7 +33,7 @@ function FieldSuccess({ children, className, ...props }: FieldMessageProps) {
   return (
     <div data-slot="krds-field-success" className={cn(BASE, "text-[#267337]", className)} {...props}>
       <CheckCircle2 className="size-4 shrink-0" />
-      <span className="translate-y-px">{children}</span>
+      <span>{children}</span>
     </div>
   );
 }
@@ -43,7 +43,7 @@ function FieldInformation({ children, className, ...props }: FieldMessageProps) 
   return (
     <div data-slot="krds-field-information" className={cn(BASE, "text-[#096ab3]", className)} {...props}>
       <Info className="size-4 shrink-0" />
-      <span className="translate-y-px">{children}</span>
+      <span>{children}</span>
     </div>
   );
 }

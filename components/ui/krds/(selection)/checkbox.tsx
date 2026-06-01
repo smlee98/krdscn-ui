@@ -6,9 +6,8 @@
  *  - checkbox (composition):    node 309:25967
  *  - checkbox__list:            node 309:26481
  *
- * Structure mirrors Radio (same KRDS family): icon box mounted directly
- * with the +1px Pretendard GOV visual shift, label container is
- * `flex min-w-0 flex-1 flex-col items-start justify-center gap-1 leading-[1.5]`.
+ * Structure mirrors Radio (same KRDS family): icon box mounted directly,
+ * label container is `flex min-w-0 flex-1 flex-col items-start justify-center gap-1 leading-[1.5]`.
  */
 
 "use client";
@@ -88,9 +87,6 @@ function Checkbox({
   // Label/help typography mirrors Radio (Figma node 313:27198).
   const labelSize = size === "large" ? "text-[19px] leading-[1.5]" : "text-[17px] leading-[1.5]";
   const helpSize = size === "large" ? "text-[17px] leading-[1.5]" : "text-[15px] leading-[1.5]";
-  // Pretendard GOV ink-center shift — verified via Playwright/Canvas TextMetrics.
-  const iconVisualShift = "top-[1px]";
-
   // Border + background per state (matches Radio's color decisions for consistency).
   //  - default off:        border #58616a (gray-dark), bg white
   //  - default on/indet:   bg primary-50, no visible border
@@ -139,7 +135,6 @@ function Checkbox({
         aria-hidden="true"
         className={cn(
           "relative inline-flex shrink-0 items-center justify-center rounded-[4px] transition-colors",
-          iconVisualShift,
           outerSize,
           borderClass,
           bgClass

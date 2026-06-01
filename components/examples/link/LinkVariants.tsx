@@ -6,14 +6,14 @@ export default function LinkVariants() {
   return (
     <div className="flex flex-col items-start gap-4">
       <Link size="sm" href="#">
-        <span className="translate-y-px">기본 링크</span>
+        기본 링크
         <ArrowRightIcon className="size-4" aria-hidden />
       </Link>
       <Link size="default" href="#" preserveColorOnHover>
         가상클래스 상태 시 컬러 유지
       </Link>
       <Link size="lg" type="subtle" href="#">
-        <span className="translate-y-px">본문 텍스트 컬러 링크</span>
+        본문 텍스트 컬러 링크
         <ArrowRightIcon className="size-6" aria-hidden />
       </Link>
       <Link size="lg" type="subtle" href="#">

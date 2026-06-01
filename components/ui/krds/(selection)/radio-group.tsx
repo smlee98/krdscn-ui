@@ -121,10 +121,6 @@ function Radio({ size = "medium", description, value, children, disabled, classN
   const innerSize = size === "large" ? "size-3" : "size-2.5";
   const labelSize = size === "large" ? "text-[19px] leading-[1.5]" : "text-[17px] leading-[1.5]";
   const helpSize = size === "large" ? "text-[17px] leading-[1.5]" : "text-[15px] leading-[1.5]";
-  // Pretendard GOV glyph ink-center is offset from the icon's natural layout position.
-  // Playwright/Canvas TextMetrics found that +1px shift aligns icon center to glyph
-  // ink-center within ~0.2px for both sizes (large=+0.13, medium=+0.21).
-  const iconVisualShift = "top-[1px]";
   // Checked border thickness differs by size (large 1.6px, medium 1.4px)
   const checkedBorder = size === "large" ? "border-[1.6px]" : "border-[1.4px]";
 
@@ -170,15 +166,10 @@ function Radio({ size = "medium", description, value, children, disabled, classN
         className="sr-only"
         onChange={() => ctx.onChange(value)}
       />
-      {/*
-        Icon box mounted directly (no extra wrapper). `relative top-[-3px]` lifts it to
-        match Pretendard GOV's glyph ink-center, measured via Playwright/Canvas TextMetrics.
-      */}
       <span
         aria-hidden="true"
         className={cn(
           "relative inline-flex shrink-0 items-center justify-center rounded-full transition-colors",
-          iconVisualShift,
           outerSize,
           borderClass,
           bgClass

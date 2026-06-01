@@ -25,7 +25,7 @@ function ShadcnMasthead({ className, notice = "이 누리집은 대한민국 공
       )}
     >
       <KoreanFlagIcon className="h-4 w-6 shrink-0" />
-      <p className="translate-y-px whitespace-nowrap">{notice}</p>
+      <p className="whitespace-nowrap">{notice}</p>
     </div>
   );
 }

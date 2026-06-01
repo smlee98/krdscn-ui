@@ -23,8 +23,8 @@ export type { FieldMessageProps } from "@/components/ui/krds/(input)/field-messa
 // destructive for errors. The shadcn branch retokenizes each part: error →
 // `destructive`, hint → `muted-foreground`. success/info have no shadcn semantic
 // token, so they use tailwind palette colors with a dark-mode pair (the canonical
-// shadcn-ecosystem fallback for non-semantic states). Icons + the Korean-text
-// `translate-y-px` baseline nudge are preserved. Public surface is unchanged.
+// shadcn-ecosystem fallback for non-semantic states). Icons are preserved.
+// Public surface is unchanged.
 
 const SHADCN_BASE = "flex items-center gap-1.5 text-sm leading-none";
 
@@ -46,7 +46,7 @@ function ShadcnFieldError({ children, className, ...props }: FieldMessageProps) 
   return (
     <div data-slot="shadcn-field-error" role="alert" className={cn(SHADCN_BASE, "text-destructive", className)} {...props}>
       <CircleAlert className="size-4 shrink-0" />
-      <span className="translate-y-px">{children}</span>
+      <span>{children}</span>
     </div>
   );
 }
@@ -59,7 +59,7 @@ function ShadcnFieldSuccess({ children, className, ...props }: FieldMessageProps
       {...props}
     >
       <CheckCircle2 className="size-4 shrink-0" />
-      <span className="translate-y-px">{children}</span>
+      <span>{children}</span>
     </div>
   );
 }
@@ -72,7 +72,7 @@ function ShadcnFieldInformation({ children, className, ...props }: FieldMessageP
       {...props}
     >
       <Info className="size-4 shrink-0" />
-      <span className="translate-y-px">{children}</span>
+      <span>{children}</span>
     </div>
   );
 }

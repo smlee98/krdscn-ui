@@ -103,7 +103,7 @@ function MainMenuPanelShortcut({ className, children, ...props }: React.Componen
       )}
       {...props}
     >
-      <span className="translate-y-px underline">{children ?? "바로가기"}</span>
+      <span className="underline">{children ?? "바로가기"}</span>
       <ChevronRight size={16} aria-hidden="true" />
     </a>
   );
