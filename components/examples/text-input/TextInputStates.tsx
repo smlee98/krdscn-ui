@@ -1,5 +1,5 @@
 import { TextInput } from "@/components/ui/dynamic/text-input";
-import { FieldHint, FieldError, FieldSuccess, FieldInformation } from "@/components/ui/krds/(input)/field-message";
+import { FieldHint, FieldError, FieldSuccess, FieldInformation } from "@/components/ui/dynamic/field-message";
 
 export default function TextInputStates() {
   return (

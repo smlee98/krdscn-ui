@@ -1,5 +1,5 @@
 import { Select } from "@/components/ui/dynamic/select";
-import { FieldHint } from "@/components/ui/krds/(input)/field-message";
+import { FieldHint } from "@/components/ui/dynamic/field-message";
 
 const options = [
   { value: "option1", label: "항목1" },

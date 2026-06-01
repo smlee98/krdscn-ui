@@ -1,7 +1,7 @@
 "use client";
 
 import { DateInput } from "@/components/ui/dynamic/date-input";
-import { FieldHint, FieldError, FieldSuccess, FieldInformation } from "@/components/ui/krds/(input)/field-message";
+import { FieldHint, FieldError, FieldSuccess, FieldInformation } from "@/components/ui/dynamic/field-message";
 
 export default function DateInputAllStates() {
   return (
