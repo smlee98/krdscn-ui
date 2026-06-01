@@ -4,8 +4,7 @@ import {
   TableBody,
   TableHead,
   TableRow,
-  TableCell,
-  TableCaption
+  TableCell
 } from "@/components/ui/dynamic/table";
 
 const ROWS = [
@@ -25,7 +24,6 @@ export default function TableMobileScroll() {
   return (
     <div className="overflow-x-auto">
       <Table className="min-w-[600px]">
-        <TableCaption>민원 신청 내역 (모바일 가로 스크롤)</TableCaption>
         <TableHeader>
           <TableRow>
             <TableHead>접수번호</TableHead>

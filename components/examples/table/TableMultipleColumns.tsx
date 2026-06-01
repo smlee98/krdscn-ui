@@ -4,14 +4,12 @@ import {
   TableBody,
   TableHead,
   TableRow,
-  TableCell,
-  TableCaption
+  TableCell
 } from "@/components/ui/dynamic/table";
 
 export default function TableMultipleColumns() {
   return (
     <Table>
-      <TableCaption>다중 컬럼 테이블 예제</TableCaption>
       <TableHeader>
         <TableRow>
           <TableHead>항목</TableHead>

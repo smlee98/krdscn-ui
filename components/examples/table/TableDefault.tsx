@@ -4,16 +4,12 @@ import {
   TableBody,
   TableHead,
   TableRow,
-  TableCell,
-  TableCaption
+  TableCell
 } from "@/components/ui/dynamic/table";
 
 export default function TableDefault() {
   return (
     <Table>
-      <TableCaption>
-        000에 대한 표로 제목1,제목2에 대한 내용으로 구성되어 있으며 제목1은 제목1-1,제목1-2,제목1-3으로 구성되어있다.
-      </TableCaption>
       <TableHeader>
         <TableRow>
           <TableHead>제목1</TableHead>
