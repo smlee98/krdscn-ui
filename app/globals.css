@@ -65,6 +65,38 @@
   --color-krds-warning-5: var(--krds-color-warning-5);
   --color-krds-warning-50: var(--krds-color-warning-50);
   --color-krds-warning-90: var(--krds-color-warning-90);
+  /* KRDS typography tokens */
+  --text-krds-display-lg: var(--krds-fs-display-lg);
+  --text-krds-display-lg--line-height: 1.5;
+  --text-krds-display-lg--letter-spacing: 1px;
+  --text-krds-display-md: var(--krds-fs-display-md);
+  --text-krds-display-md--line-height: 1.5;
+  --text-krds-display-md--letter-spacing: 1px;
+  --text-krds-display-sm: var(--krds-fs-display-sm);
+  --text-krds-display-sm--line-height: 1.5;
+  --text-krds-display-sm--letter-spacing: 1px;
+  --text-krds-heading-xl: var(--krds-fs-heading-xl);
+  --text-krds-heading-xl--line-height: 1.5;
+  --text-krds-heading-xl--letter-spacing: 1px;
+  --text-krds-heading-lg: var(--krds-fs-heading-lg);
+  --text-krds-heading-lg--line-height: 1.5;
+  --text-krds-heading-lg--letter-spacing: 1px;
+  --text-krds-heading-md: var(--krds-fs-heading-md);
+  --text-krds-heading-md--line-height: 1.5;
+  --text-krds-heading-sm: 19px;
+  --text-krds-heading-sm--line-height: 1.5;
+  --text-krds-heading-xs: 17px;
+  --text-krds-heading-xs--line-height: 1.5;
+  --text-krds-heading-xxs: 15px;
+  --text-krds-heading-xxs--line-height: 1.5;
+  --text-krds-body-lg: 19px;
+  --text-krds-body-lg--line-height: 1.5;
+  --text-krds-body-md: 17px;
+  --text-krds-body-md--line-height: 1.5;
+  --text-krds-body-sm: 15px;
+  --text-krds-body-sm--line-height: 1.5;
+  --text-krds-body-xs: 13px;
+  --text-krds-body-xs--line-height: 1.5;
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
@@ -147,6 +179,25 @@
   --krds-color-warning-5: #fff3db;
   --krds-color-warning-50: #9e6a00;
   --krds-color-warning-90: #2e1f00;
+  /* KRDS typography — mobile base sizes */
+  --krds-fs-display-lg: 44px;
+  --krds-fs-display-md: 32px;
+  --krds-fs-display-sm: 28px;
+  --krds-fs-heading-xl: 28px;
+  --krds-fs-heading-lg: 24px;
+  --krds-fs-heading-md: 22px;
+}
+
+@media (min-width: 1024px) {
+  :root {
+    /* KRDS typography — PC sizes */
+    --krds-fs-display-lg: 60px;
+    --krds-fs-display-md: 44px;
+    --krds-fs-display-sm: 36px;
+    --krds-fs-heading-xl: 40px;
+    --krds-fs-heading-lg: 32px;
+    --krds-fs-heading-md: 24px;
+  }
 }
 
 @layer base {
