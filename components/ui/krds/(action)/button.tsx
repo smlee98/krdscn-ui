@@ -41,46 +41,46 @@ const buttonVariants = cva(
     variants: {
       variant: {
         default: [
-          "border border-[#256ef4] bg-[#256ef4] text-white",
-          "hover:border-[#0b50d0] hover:bg-[#0b50d0]",
-          "active:border-[#083891] active:bg-[#083891]",
-          "disabled:border-[#cdd1d5] disabled:bg-[#cdd1d5] disabled:text-[#6d7882]"
+          "border border-krds-border-primary bg-krds-primary-50 text-white",
+          "hover:border-krds-border-primary hover:bg-krds-primary-60",
+          "active:border-krds-border-primary active:bg-krds-primary-70",
+          "disabled:border-krds-border-light disabled:bg-krds-surface-disabled disabled:text-krds-fg-disabled"
         ].join(" "),
         secondary: [
-          "border border-[#256ef4] bg-[#ecf2fe] text-[#0b50d0]",
-          "hover:bg-[#d8e5fd]",
-          "active:bg-[#b1cefb]",
-          "disabled:border-[#b1b8be] disabled:bg-transparent disabled:text-[#6d7882]"
+          "border border-krds-border-primary bg-krds-surface-primary-subtle text-krds-fg-primary",
+          "hover:bg-krds-primary-10",
+          "active:bg-krds-primary-20",
+          "disabled:border-krds-border disabled:bg-transparent disabled:text-krds-fg-disabled"
         ].join(" "),
         outline: [
-          "border border-[#58616a] bg-transparent text-[#1e2124]",
-          "hover:bg-[#f4f5f6]",
-          "active:bg-[#e6e8ea]",
-          "disabled:border-[#b1b8be] disabled:bg-transparent disabled:text-[#6d7882]"
+          "border border-krds-border-dark bg-transparent text-krds-fg",
+          "hover:bg-krds-surface-subtler",
+          "active:bg-krds-surface-subtle",
+          "disabled:border-krds-border disabled:bg-transparent disabled:text-krds-fg-disabled"
         ].join(" "),
         ghost: [
-          "border border-transparent bg-transparent text-[#1e2124]",
-          "hover:bg-[#f4f5f6]",
-          "active:bg-[#e6e8ea]",
-          "disabled:bg-transparent disabled:text-[#8a949e]"
+          "border border-transparent bg-transparent text-krds-fg",
+          "hover:bg-krds-surface-subtler",
+          "active:bg-krds-surface-subtle",
+          "disabled:bg-transparent disabled:text-krds-fg-disabled"
         ].join(" "),
         link: [
-          "border border-transparent bg-transparent text-[#256ef4] underline underline-offset-2",
-          "hover:text-[#0b50d0]",
-          "active:text-[#083891]",
-          "disabled:text-[#8a949e] disabled:no-underline"
+          "border border-transparent bg-transparent text-krds-fg-primary underline underline-offset-2",
+          "hover:text-krds-fg-primary",
+          "active:text-krds-fg-primary",
+          "disabled:text-krds-fg-disabled disabled:no-underline"
         ].join(" "),
         tertiary: [
-          "border border-[#58616a] bg-transparent text-[#1e2124]",
-          "hover:bg-[#f4f5f6]",
-          "active:bg-[#e6e8ea]",
-          "disabled:border-[#b1b8be] disabled:bg-transparent disabled:text-[#6d7882]"
+          "border border-krds-border-dark bg-transparent text-krds-fg",
+          "hover:bg-krds-surface-subtler",
+          "active:bg-krds-surface-subtle",
+          "disabled:border-krds-border disabled:bg-transparent disabled:text-krds-fg-disabled"
         ].join(" "),
         text: [
-          "border border-transparent bg-transparent text-[#1e2124]",
-          "hover:bg-[#eef2f7]",
-          "active:bg-[#d6e0eb]",
-          "disabled:bg-transparent disabled:text-[#8a949e]"
+          "border border-transparent bg-transparent text-krds-fg",
+          "hover:bg-krds-surface-secondary-subtle",
+          "active:bg-krds-surface-secondary-subtle",
+          "disabled:bg-transparent disabled:text-krds-fg-disabled"
         ].join(" ")
       },
       size: {

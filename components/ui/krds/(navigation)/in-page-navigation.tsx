@@ -116,7 +116,7 @@ function InPageNavigationItem({ className, children, href, active, onClick }: In
           "text-krds-body-sm",
           "hover:bg-krds-gray-5",
           "focus-visible:ring-krds-primary-50 focus-visible:ring-2 focus-visible:outline-none",
-          active ? "bg-krds-secondary-5 font-bold text-[#052b57]" : "text-krds-gray-70",
+          active ? "bg-krds-secondary-5 font-bold text-krds-fg-secondary" : "text-krds-gray-70",
           className
         )}
       >

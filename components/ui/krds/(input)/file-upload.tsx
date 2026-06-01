@@ -240,8 +240,8 @@ function FileUpload({
       {/* Header block */}
       {hasHeader && (
         <div className="flex w-full flex-col gap-4">
-          {title && <h3 className="text-krds-heading-md font-bold text-[#131416]">{title}</h3>}
-          {description && <p className="text-krds-body-md text-[#464c53]">{description}</p>}
+          {title && <h3 className="text-krds-heading-md font-bold text-krds-fg-bolder">{title}</h3>}
+          {description && <p className="text-krds-body-md text-krds-fg-subtle">{description}</p>}
           {children}
         </div>
       )}
@@ -249,15 +249,15 @@ function FileUpload({
       {/* Drop area */}
       <div
         className={cn(
-          "flex w-full flex-col items-center justify-center gap-6 rounded-[12px] bg-[#e6e8ea] p-10 transition-colors",
-          isDragActive && !disabled && "outline outline-2 outline-[#256ef4]",
+          "flex w-full flex-col items-center justify-center gap-6 rounded-[12px] bg-krds-surface-subtle p-10 transition-colors",
+          isDragActive && !disabled && "outline outline-2 outline-krds-border-primary",
           disabled && "opacity-60"
         )}
         onDragOver={handleDragOver}
         onDragLeave={handleDragLeave}
         onDrop={handleDrop}
       >
-        <p className="text-center text-krds-body-lg text-[#1e2124]">{uploadText}</p>
+        <p className="text-center text-krds-body-lg text-krds-fg">{uploadText}</p>
         <input
           type="file"
           multiple
@@ -282,8 +282,8 @@ function FileUpload({
       {files.length > 0 && (
         <div className="flex w-full items-center justify-between">
           <div className="flex items-baseline gap-1 text-krds-body-md font-bold">
-            <span className="text-[#0b50d0]">{files.length}개</span>
-            <span className="text-[#1e2124]">/ {maxFiles}개</span>
+            <span className="text-krds-fg-primary">{files.length}개</span>
+            <span className="text-krds-fg">/ {maxFiles}개</span>
           </div>
           {files.length > 1 && allowDelete && (
             <Button variant="tertiary" size="xs" type="button" onClick={handleAllDelete} disabled={disabled}>
@@ -301,13 +301,13 @@ function FileUpload({
               key={file.id}
               className={cn(
                 file.status === "error"
-                  ? "flex flex-col items-start justify-center gap-3 rounded-[8px] border-2 border-[#de3412] bg-[#fdefec] p-4"
-                  : "flex items-center gap-4 rounded-[8px] border border-[#cdd1d5] bg-white p-4"
+                  ? "flex flex-col items-start justify-center gap-3 rounded-[8px] border-2 border-krds-danger-50 bg-krds-surface-danger-subtle p-4"
+                  : "flex items-center gap-4 rounded-[8px] border border-krds-border-light bg-white p-4"
               )}
             >
               {/* Top row */}
               <div className="flex w-full items-center gap-4">
-                <div className="min-w-0 flex-1 text-krds-body-md text-[#131416]">
+                <div className="min-w-0 flex-1 text-krds-body-md text-krds-fg-bolder">
                   <span className="break-words">
                     {file.name} [{file.type}, {formatBytes(file.size)}]
                   </span>
@@ -317,11 +317,11 @@ function FileUpload({
                     <span
                       role="status"
                       aria-label="업로드 중"
-                      className="inline-block size-5 animate-spin rounded-full border-2 border-[#cdd1d5] border-t-[#256ef4]"
+                      className="inline-block size-5 animate-spin rounded-full border-2 border-krds-border-light border-t-krds-border-primary"
                     />
                   )}
                   {file.status === "completed" && (
-                    <CheckCircle2 className="size-5 text-[#267337]" />
+                    <CheckCircle2 className="size-5 text-krds-fg-success" />
                   )}
                   {file.status === "ready" && (
                     <>
@@ -357,12 +357,12 @@ function FileUpload({
               {/* Error row */}
               {file.status === "error" && (
                 <>
-                  <div className="h-px w-full bg-[#de3412]/30" />
+                  <div className="h-px w-full bg-krds-danger-50/30" />
                   <div className="flex w-full items-start gap-1">
                     <div className="flex shrink-0 items-start pt-[2px]">
-                      <CircleAlert className="size-5 text-[#bd2c0f]" />
+                      <CircleAlert className="size-5 text-krds-fg-danger" />
                     </div>
-                    <div className="flex min-w-0 flex-1 flex-col text-krds-body-md text-[#bd2c0f]">
+                    <div className="flex min-w-0 flex-1 flex-col text-krds-body-md text-krds-fg-danger">
                       {(file.errorMessage ?? "").split("\n").map((line, i) => (
                         <span key={i}>{line}</span>
                       ))}

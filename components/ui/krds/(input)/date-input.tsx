@@ -103,7 +103,7 @@ function DateInput({
   // interaction, differing only in chrome.
   return (
     <div data-slot="krds-date-input" className={cn("flex flex-col", className)}>
-      {label && <label className="mb-2 block text-krds-body-sm text-[#464c53]">{label}</label>}
+      {label && <label className="mb-2 block text-krds-body-sm text-krds-fg-subtle">{label}</label>}
 
       <Popover open={open} onOpenChange={handleOpenChange}>
         <PopoverTrigger asChild>
@@ -115,10 +115,10 @@ function DateInput({
             aria-readonly={readOnly || undefined}
             disabled={disabled || readOnly}
             className={cn(
-              "relative flex w-full items-center border border-[#58616a] bg-white text-left outline-none transition-colors",
-              "focus-visible:border-2 focus-visible:border-[#256ef4]",
-              "aria-[invalid=true]:border-2 aria-[invalid=true]:border-[#de3412]",
-              disabled && "cursor-not-allowed border-[#b1b8be] bg-[#cdd1d5]",
+              "relative flex w-full items-center border border-krds-border-dark bg-white text-left outline-none transition-colors",
+              "focus-visible:border-2 focus-visible:border-krds-border-primary",
+              "aria-[invalid=true]:border-2 aria-[invalid=true]:border-krds-danger-50",
+              disabled && "cursor-not-allowed border-krds-border bg-krds-surface-disabled",
               readOnly && !disabled && "cursor-default",
               !disabled && !readOnly && "cursor-pointer",
               sizeBox[size],
@@ -128,13 +128,13 @@ function DateInput({
             <span
               className={cn(
                 "flex-1 truncate",
-                displayValue ? "text-[#1e2124]" : "text-[#8a949e]",
-                disabled && "text-[#8a949e]"
+                displayValue ? "text-krds-fg" : "text-krds-fg-disabled",
+                disabled && "text-krds-fg-disabled"
               )}
             >
               {displayValue || placeholder}
             </span>
-            <span className="absolute right-4 flex items-center justify-center text-[#58616a]">
+            <span className="absolute right-4 flex items-center justify-center text-krds-fg-subtle">
               <CalendarIcon className={sizeIcon[size]} />
             </span>
           </button>
@@ -208,16 +208,16 @@ function DateInputUnit({
   className
 }: DateInputUnitProps) {
   const inputCls = cn(
-    "border border-[#58616a] bg-white transition-colors",
-    "focus-within:border-2 focus-within:border-[#256ef4]",
-    "has-[input[aria-invalid=true]]:border-2 has-[input[aria-invalid=true]]:border-[#de3412] has-[input[aria-invalid=true]]:focus-within:border-[#de3412]",
-    disabled && "border border-[#b1b8be] bg-[#cdd1d5]",
+    "border border-krds-border-dark bg-white transition-colors",
+    "focus-within:border-2 focus-within:border-krds-border-primary",
+    "has-[input[aria-invalid=true]]:border-2 has-[input[aria-invalid=true]]:border-krds-danger-50 has-[input[aria-invalid=true]]:focus-within:border-krds-danger-50",
+    disabled && "border border-krds-border bg-krds-surface-disabled",
     sizeBox[size]
   );
 
   return (
     <div data-slot="krds-date-input-unit" className={cn("flex flex-col", className)}>
-      {label && <label className="mb-2 block text-krds-body-sm text-[#464c53]">{label}</label>}
+      {label && <label className="mb-2 block text-krds-body-sm text-krds-fg-subtle">{label}</label>}
       <div className={cn("flex flex-row", size === "small" ? "gap-1" : "gap-4")}>
         <div className="flex flex-1 items-center gap-1">
           <div className={cn(inputCls, "flex-1")}>
@@ -230,12 +230,12 @@ function DateInputUnit({
               onChange={(e) => onYearChange?.(e.target.value)}
               aria-invalid={ariaInvalid || undefined}
               className={cn(
-                "w-full bg-transparent text-[#1e2124] outline-none placeholder:text-[#8a949e]",
-                disabled && "cursor-not-allowed text-[#8a949e]"
+                "w-full bg-transparent text-krds-fg outline-none placeholder:text-krds-fg-disabled",
+                disabled && "cursor-not-allowed text-krds-fg-disabled"
               )}
             />
           </div>
-          <span className="shrink-0 text-[#1e2124]">{yearLabel}</span>
+          <span className="shrink-0 text-krds-fg">{yearLabel}</span>
         </div>
 
         <div className="flex flex-1 items-center gap-1">
@@ -249,12 +249,12 @@ function DateInputUnit({
               onChange={(e) => onMonthChange?.(e.target.value)}
               aria-invalid={ariaInvalid || undefined}
               className={cn(
-                "w-full bg-transparent text-[#1e2124] outline-none placeholder:text-[#8a949e]",
-                disabled && "cursor-not-allowed text-[#8a949e]"
+                "w-full bg-transparent text-krds-fg outline-none placeholder:text-krds-fg-disabled",
+                disabled && "cursor-not-allowed text-krds-fg-disabled"
               )}
             />
           </div>
-          <span className="shrink-0 text-[#1e2124]">{monthLabel}</span>
+          <span className="shrink-0 text-krds-fg">{monthLabel}</span>
         </div>
 
         <div className="flex flex-1 items-center gap-1">
@@ -268,12 +268,12 @@ function DateInputUnit({
               onChange={(e) => onDayChange?.(e.target.value)}
               aria-invalid={ariaInvalid || undefined}
               className={cn(
-                "w-full bg-transparent text-[#1e2124] outline-none placeholder:text-[#8a949e]",
-                disabled && "cursor-not-allowed text-[#8a949e]"
+                "w-full bg-transparent text-krds-fg outline-none placeholder:text-krds-fg-disabled",
+                disabled && "cursor-not-allowed text-krds-fg-disabled"
               )}
             />
           </div>
-          <span className="shrink-0 text-[#1e2124]">{dayLabel}</span>
+          <span className="shrink-0 text-krds-fg">{dayLabel}</span>
         </div>
       </div>
     </div>
@@ -321,7 +321,7 @@ function DateInputPeriodUnit({
 }: DateInputPeriodUnitProps) {
   return (
     <div data-slot="krds-date-input-period-unit" className={cn("flex flex-col", className)}>
-      {label && <label className="mb-2 block text-krds-body-sm text-[#464c53]">{label}</label>}
+      {label && <label className="mb-2 block text-krds-body-sm text-krds-fg-subtle">{label}</label>}
       <div className="flex w-full flex-row items-center gap-4">
         <div className="flex-1">
           <DateInput
@@ -334,7 +334,7 @@ function DateInputPeriodUnit({
             placeholder={startPlaceholder}
           />
         </div>
-        <span className={cn("shrink-0 text-[#1e2124]", separatorSize[size])}>{separator}</span>
+        <span className={cn("shrink-0 text-krds-fg", separatorSize[size])}>{separator}</span>
         <div className="flex-1">
           <DateInput
             size={size}

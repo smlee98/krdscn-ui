@@ -192,7 +192,7 @@ function MainMenuSidebarItem({ className, children, href, active, hasMore, exter
         "text-krds-body-md",
         "focus-visible:ring-krds-primary-50 focus-visible:ring-2 focus-visible:outline-none",
         showArrow ? "gap-6" : "gap-2",
-        active ? "bg-krds-gray-0 font-bold text-[#052b57]" : "text-krds-gray-90",
+        active ? "bg-krds-gray-0 font-bold text-krds-fg-secondary" : "text-krds-gray-90",
         className
       )}
     >

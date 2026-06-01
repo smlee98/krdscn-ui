@@ -63,7 +63,7 @@ function DisclosureTrigger({ className, children, ...props }: DisclosureTriggerP
         type="button"
         data-slot="krds-disclosure-trigger"
         className={cn(
-          "inline-flex cursor-pointer items-center gap-1 text-krds-body-md font-normal text-[#131416] select-none",
+          "inline-flex cursor-pointer items-center gap-1 text-krds-body-md font-normal text-krds-fg-bolder select-none",
           className
         )}
         {...props}
@@ -71,7 +71,7 @@ function DisclosureTrigger({ className, children, ...props }: DisclosureTriggerP
         <CircleChevronDown
           size={20}
           aria-hidden={true}
-          className={cn("shrink-0 text-[#33363d] transition-transform duration-200", open && "rotate-180")}
+          className={cn("shrink-0 text-krds-fg transition-transform duration-200", open && "rotate-180")}
         />
         <span>{children}</span>
       </button>
@@ -90,7 +90,7 @@ function DisclosureContent({ className, children, ...props }: DisclosureContentP
         "data-[state=closed]:animate-out data-[state=closed]:fade-out-0"
       )}
     >
-      <div data-slot="krds-disclosure-content" className={cn("rounded-[12px] bg-[#e6e8ea] p-6", className)} {...props}>
+      <div data-slot="krds-disclosure-content" className={cn("rounded-[12px] bg-krds-surface-subtle p-6", className)} {...props}>
         {children}
       </div>
     </CollapsibleContent>

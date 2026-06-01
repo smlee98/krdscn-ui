@@ -94,7 +94,7 @@ function TextInput({
   return (
     <div data-slot="krds-text-input" className={cn("flex w-full flex-col gap-2", className)}>
       {label && (
-        <label htmlFor={id} className="block text-krds-body-sm text-[#464c53]">
+        <label htmlFor={id} className="block text-krds-body-sm text-krds-fg-subtle">
           {label}
         </label>
       )}
@@ -103,11 +103,11 @@ function TextInput({
         className={cn(
           "flex items-center gap-2 transition-colors",
           sizeBox[size],
-          "border border-[#58616a] bg-white",
-          "focus-within:border-2 focus-within:border-[#256ef4]",
-          "has-[input[aria-invalid=true]]:border-2 has-[input[aria-invalid=true]]:border-[#de3412] has-[input[aria-invalid=true]]:focus-within:border-[#de3412]",
-          disabled && "border border-[#b1b8be] bg-[#cdd1d5]",
-          readOnly && !disabled && "border border-[#b1b8be] bg-[#cdd1d5]"
+          "border border-krds-border-dark bg-white",
+          "focus-within:border-2 focus-within:border-krds-border-primary",
+          "has-[input[aria-invalid=true]]:border-2 has-[input[aria-invalid=true]]:border-krds-danger-50 has-[input[aria-invalid=true]]:focus-within:border-krds-danger-50",
+          disabled && "border border-krds-border bg-krds-surface-disabled",
+          readOnly && !disabled && "border border-krds-border bg-krds-surface-disabled"
         )}
       >
         <input
@@ -120,11 +120,11 @@ function TextInput({
           onChange={handleChange}
           className={cn(
             "h-full flex-1 bg-transparent leading-[1.5] outline-none",
-            "placeholder:text-[#8a949e]",
-            "text-[#1e2124]",
+            "placeholder:text-krds-fg-disabled",
+            "text-krds-fg",
             sizeText[size],
-            disabled && "cursor-not-allowed text-[#8a949e]",
-            readOnly && !disabled && "text-[#464c53]"
+            disabled && "cursor-not-allowed text-krds-fg-disabled",
+            readOnly && !disabled && "text-krds-fg-subtle"
           )}
         />
 
@@ -133,7 +133,7 @@ function TextInput({
             type="button"
             aria-label="내용 삭제"
             onClick={handleClear}
-            className="inline-flex shrink-0 items-center justify-center text-[#1e2124]"
+            className="inline-flex shrink-0 items-center justify-center text-krds-fg"
           >
             <IconDelete className={sizeIcon[size]} />
           </button>
@@ -144,7 +144,7 @@ function TextInput({
             type="button"
             aria-label={visible ? "비밀번호 가리기" : "비밀번호 보기"}
             onClick={() => setVisible((v) => !v)}
-            className="inline-flex shrink-0 items-center justify-center text-[#1e2124]"
+            className="inline-flex shrink-0 items-center justify-center text-krds-fg"
           >
             {visible ? <EyeOff className={sizeIcon[size]} /> : <Eye className={sizeIcon[size]} />}
           </button>

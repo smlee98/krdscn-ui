@@ -74,12 +74,12 @@ function ContextualHelp({
             className={cn(
               "inline-flex size-6 items-center justify-center rounded-[4px]",
               "bg-transparent transition-colors",
-              "hover:bg-[#eef2f7] active:bg-[#d6e0eb]",
-              "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#256ef4]"
+              "hover:bg-krds-surface-secondary-subtle active:bg-krds-surface-secondary-subtle",
+              "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-krds-border-primary"
             )}
           >
             <span className="sr-only">도움말</span>
-            <HelpCircle className="size-5 text-[#1e2124]" aria-hidden="true" />
+            <HelpCircle className="size-5 text-krds-fg" aria-hidden="true" />
           </button>
         </PopoverTrigger>
       </div>
@@ -92,19 +92,19 @@ function ContextualHelp({
         role="tooltip"
         data-alignment={alignment}
         className={cn(
-          "group/cxh relative w-[360px] rounded-[12px] border border-[#b1b8be] bg-white p-6",
+          "group/cxh relative w-[360px] rounded-[12px] border border-krds-border bg-white p-6",
           "flex flex-col gap-2 shadow-none"
         )}
       >
         <div className="flex flex-col gap-4">
           <div className="flex items-start gap-4">
-            <div className="flex flex-1 flex-col gap-4 text-krds-body-sm text-[#1e2124]">{children}</div>
+            <div className="flex flex-1 flex-col gap-4 text-krds-body-sm text-krds-fg">{children}</div>
             <PopoverPrimitiveClose
               aria-label="닫기"
               className={cn(
-                "inline-flex size-4 shrink-0 items-center justify-center text-[#1e2124]",
-                "hover:text-[#0b50d0]",
-                "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#256ef4]"
+                "inline-flex size-4 shrink-0 items-center justify-center text-krds-fg",
+                "hover:text-krds-fg-primary",
+                "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-krds-border-primary"
               )}
             >
               <X className="size-4" aria-hidden="true" />
@@ -141,7 +141,7 @@ function ContextualHelp({
 
 function ContextualHelpTitle({ className, children, ...props }: React.ComponentProps<"h4">) {
   return (
-    <h4 className={cn("text-krds-body-md font-bold text-[#131416]", className)} {...props}>
+    <h4 className={cn("text-krds-body-md font-bold text-krds-fg-bolder", className)} {...props}>
       {children}
     </h4>
   );

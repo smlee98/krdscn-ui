@@ -22,7 +22,7 @@ const tagVariants = cva(
       interactive: {
         true: [
           "hover:bg-krds-secondary-5 hover:border-transparent",
-          "active:bg-[#d6e0eb] active:border-transparent"
+          "active:bg-krds-surface-secondary-subtle active:border-transparent"
         ].join(" "),
         false: ""
       }

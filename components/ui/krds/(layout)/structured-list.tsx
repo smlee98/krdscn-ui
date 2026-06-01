@@ -20,7 +20,7 @@ function StructuredList({ variant = "vertical", className, children }: Structure
       data-slot="krds-structured-list"
       data-variant={variant}
       className={cn(
-        "group/structured-list overflow-hidden rounded-[12px] border border-[#b1b8be] bg-white",
+        "group/structured-list overflow-hidden rounded-[12px] border border-krds-border bg-white",
         "flex w-[384px] flex-col",
         "data-[variant=horizontal]:w-[1200px] data-[variant=horizontal]:max-w-full data-[variant=horizontal]:flex-row",
         className
@@ -98,7 +98,7 @@ function StructuredListBadge({ className, children }: StructuredListBadgeProps) 
       data-slot="krds-structured-list-badge"
       className={cn(
         "bg-krds-primary-5 inline-flex h-6 items-center self-start rounded-[4px] px-2",
-        "text-krds-body-sm text-[#0b50d0]",
+        "text-krds-body-sm text-krds-fg-primary",
         className
       )}
     >

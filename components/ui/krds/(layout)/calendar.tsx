@@ -157,12 +157,12 @@ function KrdsDayButton({ className, day, modifiers, children, ...rest }: React.C
       data-outside={isOutside || undefined}
       className={cn(
         "relative z-10 mx-auto flex size-11 flex-col items-center justify-center rounded-full text-krds-body-md font-normal transition-colors",
-        "focus-visible:ring-2 focus-visible:ring-[#256ef4] focus-visible:outline-none",
+        "focus-visible:ring-2 focus-visible:ring-krds-border-primary focus-visible:outline-none",
         "disabled:pointer-events-none disabled:opacity-40",
-        isOutside && !isHighlighted && "text-[#8a949e]",
-        !isOutside && !isHighlighted && "text-[#1e2124]/80",
+        isOutside && !isHighlighted && "text-krds-fg-disabled",
+        !isOutside && !isHighlighted && "text-krds-fg/80",
         !isHighlighted && !isRangeMiddle && "hover:bg-white",
-        isHighlighted && "bg-[#063a74] text-white",
+        isHighlighted && "bg-krds-secondary-70 text-white",
         isRangeStart && "rounded-r-none",
         isRangeEnd && !isRangeStart && "rounded-l-none",
         className
@@ -171,14 +171,14 @@ function KrdsDayButton({ className, day, modifiers, children, ...rest }: React.C
     >
       <span>{children}</span>
       {isToday && !isHighlighted && (
-        <span aria-hidden className="absolute bottom-1.5 left-1/2 size-1 -translate-x-1/2 rounded-full bg-[#d63d4a]" />
+        <span aria-hidden className="absolute bottom-1.5 left-1/2 size-1 -translate-x-1/2 rounded-full bg-krds-point-50" />
       )}
       {hasEvent && !isToday && (
         <span
           aria-hidden
           className={cn(
             "absolute bottom-1.5 left-1/2 size-1 -translate-x-1/2 rounded-full",
-            isHighlighted ? "bg-white" : "bg-[#063a74]"
+            isHighlighted ? "bg-white" : "bg-krds-secondary-70"
           )}
         />
       )}
@@ -214,10 +214,10 @@ function KrdsCalendarDropdown({
         data-slot="krds-calendar-dropdown"
         className={cn(
           "h-10 gap-1 rounded-[6px] border-0 bg-transparent px-2 shadow-none",
-          "text-krds-body-lg font-bold text-[#1e2124]",
-          "hover:bg-black/5 data-[state=open]:bg-[#d6e0eb]",
-          "focus-visible:ring-2 focus-visible:ring-[#256ef4]/40 focus-visible:outline-none",
-          "[&_svg]:opacity-100 [&_svg:not([class*='size-'])]:size-4 [&_svg:not([class*='text-'])]:text-[#1e2124]"
+          "text-krds-body-lg font-bold text-krds-fg",
+          "hover:bg-black/5 data-[state=open]:bg-krds-surface-secondary-subtle",
+          "focus-visible:ring-2 focus-visible:ring-krds-border-primary/40 focus-visible:outline-none",
+          "[&_svg]:opacity-100 [&_svg:not([class*='size-'])]:size-4 [&_svg:not([class*='text-'])]:text-krds-fg"
         )}
       >
         <PrimitiveSelectValue />
@@ -270,9 +270,9 @@ function CalendarInput({ mode: _mode, onChange, className, ...rest }: CalendarIn
       data-slot="krds-calendar-input"
       type="text"
       className={cn(
-        "rounded-[6px] border border-[#58616a] bg-white px-4 py-2 text-krds-body-sm",
-        "text-[#1e2124] placeholder:text-[#8a949e]",
-        "focus:border-[#256ef4] focus:outline-none",
+        "rounded-[6px] border border-krds-border-dark bg-white px-4 py-2 text-krds-body-sm",
+        "text-krds-fg placeholder:text-krds-fg-disabled",
+        "focus:border-krds-border-primary focus:outline-none",
         className
       )}
       {...rest}
@@ -290,17 +290,17 @@ function CalendarButton({ variant = "date", isActive, isSelected, className, chi
       data-selected={isSelected || undefined}
       className={cn(
         "inline-flex items-center justify-center transition-colors outline-none",
-        variant === "move" && "size-8 rounded-full border-[0.8px] border-[#cdd1d5] bg-transparent hover:bg-black/5",
+        variant === "move" && "size-8 rounded-full border-[0.8px] border-krds-border-light bg-transparent hover:bg-black/5",
         variant === "switch" &&
-          "rounded-[6px] px-2 py-1 text-krds-body-lg font-bold text-[#1e2124] hover:bg-black/5",
+          "rounded-[6px] px-2 py-1 text-krds-body-lg font-bold text-krds-fg hover:bg-black/5",
         variant === "icon" && "size-8 rounded-full hover:bg-black/5",
         variant === "date" && [
           "size-11 rounded-full text-krds-body-md",
-          !isSelected && !isActive && "text-[#1e2124]/80 hover:bg-[#063a74]/10",
-          (isSelected || isActive) && "bg-[#063a74] text-white"
+          !isSelected && !isActive && "text-krds-fg/80 hover:bg-krds-secondary-70/10",
+          (isSelected || isActive) && "bg-krds-secondary-70 text-white"
         ],
         variant === "action" &&
-          "h-10 min-w-16 rounded-[6px] border border-[#58616a] bg-white px-3 text-krds-body-sm text-[#1e2124] hover:bg-black/5",
+          "h-10 min-w-16 rounded-[6px] border border-krds-border-dark bg-white px-3 text-krds-body-sm text-krds-fg hover:bg-black/5",
         className
       )}
       {...rest}
@@ -316,13 +316,13 @@ function CalendarDropdown({ isOpen, items = [], onItemSelect, onToggle, classNam
       <button
         type="button"
         onClick={onToggle}
-        className="inline-flex h-10 items-center gap-1 rounded-[6px] px-2 text-krds-body-lg font-bold text-[#1e2124] hover:bg-black/5"
+        className="inline-flex h-10 items-center gap-1 rounded-[6px] px-2 text-krds-body-lg font-bold text-krds-fg hover:bg-black/5"
       >
         {items.find((i) => i.isActive)?.label ?? ""}
         <ChevronDown size={16} aria-hidden className="shrink-0" />
       </button>
       {isOpen && (
-        <div className="absolute left-0 z-10 mt-1 max-h-48 min-w-[3.125rem] overflow-y-auto rounded-[6px] border border-[#cdd1d5] bg-white shadow-md">
+        <div className="absolute left-0 z-10 mt-1 max-h-48 min-w-[3.125rem] overflow-y-auto rounded-[6px] border border-krds-border-light bg-white shadow-md">
           {items.map((item) => (
             <button
               key={item.value}
@@ -331,7 +331,7 @@ function CalendarDropdown({ isOpen, items = [], onItemSelect, onToggle, classNam
               onClick={() => onItemSelect?.(item)}
               className={cn(
                 "w-full px-3 py-1 text-left text-krds-body-sm hover:bg-black/5",
-                item.isActive && "font-bold text-[#063a74]",
+                item.isActive && "font-bold text-krds-fg-secondary",
                 item.isDisabled && "cursor-not-allowed opacity-40"
               )}
             >
@@ -370,7 +370,7 @@ function CalendarTable({
             <th
               key={day}
               scope="col"
-              className="h-6 w-11 text-center text-krds-body-sm font-normal text-[#1e2124]"
+              className="h-6 w-11 text-center text-krds-body-sm font-normal text-krds-fg"
             >
               {day}
             </th>
@@ -399,12 +399,12 @@ function CalendarTable({
                     onClick={() => onDateClick?.(date)}
                     className={cn(
                       "relative z-10 inline-flex size-11 items-center justify-center rounded-full text-krds-body-md transition-colors outline-none",
-                      isDimmed && "text-[#8a949e]",
-                      !isDimmed && !isHighlighted && "text-[#1e2124]/80",
+                      isDimmed && "text-krds-fg-disabled",
+                      !isDimmed && !isHighlighted && "text-krds-fg/80",
                       date.isDisabled && "cursor-not-allowed opacity-40",
-                      date.isDayOff && !isHighlighted && !isDimmed && "text-[#d63d4a]",
-                      isHighlighted && "bg-[#063a74] text-white",
-                      !isHighlighted && !date.isDisabled && "hover:bg-[#063a74]/10"
+                      date.isDayOff && !isHighlighted && !isDimmed && "text-krds-fg-point",
+                      isHighlighted && "bg-krds-secondary-70 text-white",
+                      !isHighlighted && !date.isDisabled && "hover:bg-krds-secondary-70/10"
                     )}
                     aria-pressed={isHighlighted}
                     aria-label={`${date.year}년 ${date.month}월 ${date.day}일`}
@@ -413,7 +413,7 @@ function CalendarTable({
                     {date.isToday && !isHighlighted && (
                       <span
                         aria-hidden
-                        className="absolute bottom-1.5 left-1/2 size-1 -translate-x-1/2 rounded-full bg-[#d63d4a]"
+                        className="absolute bottom-1.5 left-1/2 size-1 -translate-x-1/2 rounded-full bg-krds-point-50"
                       />
                     )}
                   </button>
@@ -434,16 +434,16 @@ const SHADCN_CLASSNAMES = {
   months: "flex flex-col w-full",
   month: "",
   button_previous:
-    "size-8 shrink-0 rounded-full border-[0.8px] border-[#cdd1d5] bg-transparent p-0 inline-flex items-center justify-center text-[#33363d] hover:bg-black/5 disabled:opacity-40",
+    "size-8 shrink-0 rounded-full border-[0.8px] border-krds-border-light bg-transparent p-0 inline-flex items-center justify-center text-krds-fg hover:bg-black/5 disabled:opacity-40",
   button_next:
-    "size-8 shrink-0 rounded-full border-[0.8px] border-[#cdd1d5] bg-transparent p-0 inline-flex items-center justify-center text-[#33363d] hover:bg-black/5 disabled:opacity-40",
+    "size-8 shrink-0 rounded-full border-[0.8px] border-krds-border-light bg-transparent p-0 inline-flex items-center justify-center text-krds-fg hover:bg-black/5 disabled:opacity-40",
   month_caption: "flex flex-1 items-center justify-center",
   month_grid: "w-full border-collapse",
   dropdowns: "flex items-center justify-center gap-4",
   dropdown_root: "inline-flex items-center",
   caption_label: "sr-only",
   weekdays: "grid grid-cols-7 h-6 items-center",
-  weekday: "h-6 text-center text-krds-body-sm font-normal text-[#1e2124] select-none !bg-transparent",
+  weekday: "h-6 text-center text-krds-body-sm font-normal text-krds-fg select-none !bg-transparent",
   week: "grid grid-cols-7 w-full mt-0.5 first:mt-2",
   day: "relative h-11 p-0 text-center select-none",
   range_start:
@@ -561,9 +561,9 @@ function Calendar({
         orientation?: "left" | "right" | "up" | "down";
         className?: string;
       }) => {
-        if (orientation === "left") return <ChevronLeft className={cn("size-4 text-[#33363d]", chevronClassName)} />;
-        if (orientation === "right") return <ChevronRight className={cn("size-4 text-[#33363d]", chevronClassName)} />;
-        return <ChevronDown className={cn("size-4 text-[#1e2124]", chevronClassName)} />;
+        if (orientation === "left") return <ChevronLeft className={cn("size-4 text-krds-fg", chevronClassName)} />;
+        if (orientation === "right") return <ChevronRight className={cn("size-4 text-krds-fg", chevronClassName)} />;
+        return <ChevronDown className={cn("size-4 text-krds-fg", chevronClassName)} />;
       }
     },
     onMonthChange: (m: Date) => {
@@ -606,14 +606,14 @@ function Calendar({
       data-slot="krds-calendar"
       data-mode={mode}
       className={cn(
-        "inline-flex w-[384px] flex-col items-stretch overflow-hidden rounded-[12px] border border-[#d6e0eb] bg-[#eef2f7]",
+        "inline-flex w-[384px] flex-col items-stretch overflow-hidden rounded-[12px] border border-krds-secondary-10 bg-krds-surface-secondary-subtle",
         disabled && "pointer-events-none opacity-50",
         className
       )}
       {...rest}
     >
       {calendarNode}
-      <div className="flex w-full items-center gap-4 border-t border-[#cdd1d5] bg-white px-6 py-4">
+      <div className="flex w-full items-center gap-4 border-t border-krds-border-light bg-white px-6 py-4">
         <Button type="button" variant="text" size="sm" onClick={handleTodayClick} disabled={disabled}>
           {todayButtonText}
         </Button>

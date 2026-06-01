@@ -111,7 +111,7 @@ function TabList({ children, className, ...rest }: TabListProps) {
         // Fill variant
         isFill &&
           (isPrimary
-            ? "w-full items-stretch overflow-hidden rounded-lg border border-[#b1b8be]"
+            ? "w-full items-stretch overflow-hidden rounded-lg border border-krds-border"
             : "items-stretch gap-2"),
         className
       )}
@@ -147,15 +147,15 @@ function TabTrigger({ value, children, className, ...rest }: TabTriggerProps) {
 
         // Line variant
         isLine && [
-          "rounded-none bg-transparent text-[#464c53]",
-          "data-[state=active]:bg-transparent data-[state=active]:text-[#052b57]",
+          "rounded-none bg-transparent text-krds-fg-subtle",
+          "data-[state=active]:bg-transparent data-[state=active]:text-krds-fg-secondary",
           // active bottom bar (overlay; no layout shift)
           "data-[state=active]:after:absolute data-[state=active]:after:inset-x-0 data-[state=active]:after:bottom-0",
-          "data-[state=active]:after:bg-[#063a74] data-[state=active]:after:content-['']",
+          "data-[state=active]:after:bg-krds-secondary-70 data-[state=active]:after:content-['']",
           isPrimary
             ? [
                 "min-w-[80px] flex-1 px-2",
-                "border-b-2 border-[#b1b8be]",
+                "border-b-2 border-krds-border",
                 "data-[state=active]:after:h-1" // 4px
               ]
             : ["min-w-[56px] px-1", "data-[state=active]:after:h-[3px]"]
@@ -163,12 +163,12 @@ function TabTrigger({ value, children, className, ...rest }: TabTriggerProps) {
 
         // Fill variant
         isFill && [
-          "bg-transparent text-[#464c53]",
-          "data-[state=active]:bg-[#063a74] data-[state=active]:text-white",
+          "bg-transparent text-krds-fg-subtle",
+          "data-[state=active]:bg-krds-secondary-70 data-[state=active]:text-white",
           isPrimary
             ? [
                 "min-w-[80px] flex-1 rounded-none px-4",
-                "[&:not(:last-child)]:border-r [&:not(:last-child)]:border-[#b1b8be]"
+                "[&:not(:last-child)]:border-r [&:not(:last-child)]:border-krds-border"
               ]
             : "min-w-[56px] rounded-md px-3"
         ],

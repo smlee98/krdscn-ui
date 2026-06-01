@@ -67,7 +67,7 @@ function TextList({ type = "disc", className, children, ...rest }: TextListProps
       <Tag
         data-slot="krds-text-list"
         data-type={type}
-        className={cn("flex list-none flex-col pl-0 text-[#464c53]", gap, className)}
+        className={cn("flex list-none flex-col pl-0 text-krds-fg-subtle", gap, className)}
         {...(rest as React.HTMLAttributes<HTMLOListElement>)}
       >
         {items}
@@ -88,12 +88,12 @@ function Bullet({ type, idx, explicit }: { type: TextListType; idx: number | nul
   }
   switch (type) {
     case "disc":
-      return <span aria-hidden="true" className="mt-[10px] inline-block size-1.5 shrink-0 rounded-sm bg-[#464c53]" />;
+      return <span aria-hidden="true" className="mt-[10px] inline-block size-1.5 shrink-0 rounded-sm bg-krds-gray-70" />;
     case "dash":
-      return <span aria-hidden="true" className="mt-[12px] inline-block h-px w-1.5 shrink-0 bg-[#464c53]" />;
+      return <span aria-hidden="true" className="mt-[12px] inline-block h-px w-1.5 shrink-0 bg-krds-gray-70" />;
     case "hollow":
       return (
-        <span aria-hidden="true" className="mt-[9px] inline-block size-1 shrink-0 rounded-sm border border-[#58616a]" />
+        <span aria-hidden="true" className="mt-[9px] inline-block size-1 shrink-0 rounded-sm border border-krds-border-dark" />
       );
     case "decimal":
     case "ordered":

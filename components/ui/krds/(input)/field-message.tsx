@@ -12,7 +12,7 @@ const BASE = "flex items-center gap-1 text-krds-body-xs";
 // FieldHint — gray helper text, no icon, no role; uses <p>
 function FieldHint({ children, className, ...props }: React.HTMLAttributes<HTMLParagraphElement>) {
   return (
-    <p data-slot="krds-field-hint" className={cn("text-krds-body-xs text-[#464c53]", className)} {...props}>
+    <p data-slot="krds-field-hint" className={cn("text-krds-body-xs text-krds-fg-subtle", className)} {...props}>
       {children}
     </p>
   );
@@ -21,7 +21,7 @@ function FieldHint({ children, className, ...props }: React.HTMLAttributes<HTMLP
 // FieldError — red text + CircleAlert icon + role="alert"
 function FieldError({ children, className, ...props }: FieldMessageProps) {
   return (
-    <div data-slot="krds-field-error" role="alert" className={cn(BASE, "text-[#bd2c0f]", className)} {...props}>
+    <div data-slot="krds-field-error" role="alert" className={cn(BASE, "text-krds-fg-danger", className)} {...props}>
       <CircleAlert className="size-4 shrink-0" />
       <span>{children}</span>
     </div>
@@ -31,7 +31,7 @@ function FieldError({ children, className, ...props }: FieldMessageProps) {
 // FieldSuccess — green text + CheckCircle2 icon
 function FieldSuccess({ children, className, ...props }: FieldMessageProps) {
   return (
-    <div data-slot="krds-field-success" className={cn(BASE, "text-[#267337]", className)} {...props}>
+    <div data-slot="krds-field-success" className={cn(BASE, "text-krds-fg-success", className)} {...props}>
       <CheckCircle2 className="size-4 shrink-0" />
       <span>{children}</span>
     </div>
@@ -41,7 +41,7 @@ function FieldSuccess({ children, className, ...props }: FieldMessageProps) {
 // FieldInformation — info-blue text + Info icon
 function FieldInformation({ children, className, ...props }: FieldMessageProps) {
   return (
-    <div data-slot="krds-field-information" className={cn(BASE, "text-[#096ab3]", className)} {...props}>
+    <div data-slot="krds-field-information" className={cn(BASE, "text-krds-fg-information", className)} {...props}>
       <Info className="size-4 shrink-0" />
       <span>{children}</span>
     </div>

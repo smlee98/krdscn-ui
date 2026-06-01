@@ -138,8 +138,8 @@ function TutorialLinkAnchor({ link, className }: { link: TutorialLink; className
       target={link.external ? "_blank" : undefined}
       rel={link.external ? "noopener noreferrer" : undefined}
       className={cn(
-        "inline-flex items-center gap-1 text-krds-body-sm text-[#1e2124] underline underline-offset-2",
-        "hover:text-[#0b50d0]",
+        "inline-flex items-center gap-1 text-krds-body-sm text-krds-fg underline underline-offset-2",
+        "hover:text-krds-fg-primary",
         className
       )}
     >
@@ -214,7 +214,7 @@ function TutorialPanelRoot({
           showCloseButton={false}
           className={cn(
             "flex w-[390px] flex-col gap-8 overflow-y-auto p-10",
-            "border-l border-[#b1b8be] bg-[#f4f5f6]",
+            "border-l border-krds-border bg-krds-surface-subtler",
             className
           )}
         >
@@ -280,7 +280,7 @@ function TutorialPanelTabs({ children, className, id }: TutorialPanelTabsProps) 
       onValueChange={(value) => ctx.setActiveTab(value as TutorialPanelTab)}
       className={cn("layer", className)}
     >
-      <TabList id={id} className="border-b border-[#b1b8be]">
+      <TabList id={id} className="border-b border-krds-border">
         <TabTrigger value="help">도움</TabTrigger>
         <TabTrigger value="tutorial">따라하기</TabTrigger>
       </TabList>
@@ -312,8 +312,8 @@ function TutorialPanelHelpContent({
   return (
     <div data-slot="krds-tutorial-panel-help-content" className={cn("flex flex-col gap-8", className)} {...props}>
       <section className="flex flex-col gap-3">
-        <h4 className="text-krds-heading-sm font-bold text-[#1e2124]">{helpContent.title}</h4>
-        <div className="text-krds-body-sm text-[#1e2124]">{helpContent.description}</div>
+        <h4 className="text-krds-heading-sm font-bold text-krds-fg">{helpContent.title}</h4>
+        <div className="text-krds-body-sm text-krds-fg">{helpContent.description}</div>
         {helpContent.links.length > 0 ? (
           <ul className="krds-info-list flex flex-col gap-1">
             {helpContent.links.map((link, index) => (
@@ -328,9 +328,9 @@ function TutorialPanelHelpContent({
         <div className="related-service-area flex flex-col gap-6">
           {relatedServices.map((service, idx) => (
             <section key={`${service.title}-${idx}`} className="flex flex-col gap-3">
-              <h4 className="text-krds-heading-xs font-bold text-[#1e2124]">{service.title}</h4>
+              <h4 className="text-krds-heading-xs font-bold text-krds-fg">{service.title}</h4>
               {service.description ? (
-                <div className="text-krds-body-sm text-[#1e2124]">{service.description}</div>
+                <div className="text-krds-body-sm text-krds-fg">{service.description}</div>
               ) : null}
               {service.links.length > 0 ? (
                 <ul className="krds-info-list flex flex-col gap-1">
@@ -364,7 +364,7 @@ function TutorialPanelTutorialContent({
       <a
         href="#"
         title="이전으로 돌아가기"
-        className="inline-flex items-center gap-1 text-krds-heading-sm font-bold text-[#1e2124] hover:text-[#0b50d0]"
+        className="inline-flex items-center gap-1 text-krds-heading-sm font-bold text-krds-fg hover:text-krds-fg-primary"
       >
         <ChevronLeft size={20} aria-hidden={true} className="shrink-0" />
         <span>{title}</span>
@@ -378,7 +378,7 @@ function TutorialPanelTutorialContent({
               <h4
                 className={cn(
                   "tit text-krds-body-md font-bold",
-                  step.current ? "current text-[#0b50d0]" : "text-[#1e2124]"
+                  step.current ? "current text-krds-fg-primary" : "text-krds-fg"
                 )}
               >
                 {step.title}
@@ -389,7 +389,7 @@ function TutorialPanelTutorialContent({
                   <DisclosureContent>
                     <ul className="krds-info-list decimal flex list-decimal flex-col gap-1 pl-5">
                       {step.steps?.map((sub, subIdx) => (
-                        <li key={`${sub}-${subIdx}`} className="text-krds-body-sm text-[#1e2124]">
+                        <li key={`${sub}-${subIdx}`} className="text-krds-body-sm text-krds-fg">
                           {sub}
                         </li>
                       ))}
@@ -398,7 +398,7 @@ function TutorialPanelTutorialContent({
                 </Disclosure>
               ) : null}
               {step.content ? (
-                <div className="step-content text-krds-body-sm text-[#1e2124]">{step.content}</div>
+                <div className="step-content text-krds-body-sm text-krds-fg">{step.content}</div>
               ) : null}
             </li>
           );
@@ -431,7 +431,7 @@ function TutorialPanelClose({ children = "접어두기", className, onClick, ...
         onClick?.(event);
         if (!event.defaultPrevented) ctx.setOpen(false);
       }}
-      className={cn("btn-help-panel fold self-end hover:text-[#0b50d0]", className)}
+      className={cn("btn-help-panel fold self-end hover:text-krds-fg-primary", className)}
       {...props}
     >
       <span>{children}</span>

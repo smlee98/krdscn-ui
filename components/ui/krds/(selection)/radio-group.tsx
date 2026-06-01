@@ -131,10 +131,10 @@ function Radio({ size = "medium", description, value, children, disabled, classN
   //  - default checked:   1.4–1.6px primary-50
   //  - disabled (any):    1px disabled-dark #8a949e (no token alias — arbitrary)
   const borderClass = disabled
-    ? "border border-[#8a949e]"
+    ? "border border-krds-border"
     : isChecked
       ? cn(checkedBorder, "border-krds-primary-50")
-      : "border border-[#58616a]";
+      : "border border-krds-border-dark";
 
   // Background:
   //  - disabled (any check): disabled-light #cdd1d5 → bg-krds-gray-20
@@ -144,14 +144,14 @@ function Radio({ size = "medium", description, value, children, disabled, classN
   // Inner dot color:
   //  - disabled+checked: disabled-dark #8a949e (arbitrary)
   //  - default+checked:  primary-50
-  const dotClass = isChecked ? (disabled ? "bg-[#8a949e]" : "bg-krds-primary-50") : "bg-transparent";
+  const dotClass = isChecked ? (disabled ? "bg-krds-gray-40" : "bg-krds-primary-50") : "bg-transparent";
 
   // Text colors:
   //  - label default: text/bolder #131416 (no token — arbitrary)
   //  - help default:  text/subtle #464c53 → text-krds-gray-70
   //  - any disabled:  text/disabled #8a949e (arbitrary)
-  const labelColor = disabled ? "text-[#8a949e]" : "text-[#131416]";
-  const helpColor = disabled ? "text-[#8a949e]" : "text-krds-gray-70";
+  const labelColor = disabled ? "text-krds-fg-disabled" : "text-krds-fg-bolder";
+  const helpColor = disabled ? "text-krds-fg-disabled" : "text-krds-gray-70";
 
   return (
     <label
@@ -257,7 +257,7 @@ function RadioSort({ value, children, disabled, className, ...rest }: RadioSortP
         className={cn(
           "text-krds-gray-90 inline-flex items-center rounded border border-transparent px-1 text-krds-body-md transition-colors",
           isChecked && "bg-krds-secondary-5 underline underline-offset-2",
-          disabled && "text-[#8a949e]",
+          disabled && "text-krds-fg-disabled",
           className
         )}
       >

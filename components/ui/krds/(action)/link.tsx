@@ -27,10 +27,10 @@ type LinkSize = "sm" | "default" | "lg";
 const linkVariants = cva("inline-flex items-center px-0.5 leading-[1.5] tracking-normal", {
   variants: {
     type: {
-      default: "text-[#256ef4] underline hover:text-[#0b50d0] active:text-[#083891] visited:text-[#5917b8]",
+      default: "text-krds-fg-primary underline hover:text-krds-fg-primary active:text-krds-fg-primary visited:text-krds-fg-visited",
       subtle:
-        "text-[#1e2124] no-underline hover:text-[#0b50d0] hover:underline active:text-[#083891] active:underline visited:text-[#5917b8] visited:underline",
-      subtle_none: "text-[#1e2124] no-underline hover:text-[#0b50d0] active:text-[#083891] visited:text-[#5917b8]"
+        "text-krds-fg no-underline hover:text-krds-fg-primary hover:underline active:text-krds-fg-primary active:underline visited:text-krds-fg-visited visited:underline",
+      subtle_none: "text-krds-fg no-underline hover:text-krds-fg-primary active:text-krds-fg-primary visited:text-krds-fg-visited"
     },
     size: {
       sm: "gap-0.5 text-krds-body-sm",
@@ -64,8 +64,8 @@ function Link({
 
   const classes = cn(
     linkVariants({ type: effectiveType, size, className }),
-    disabled && "pointer-events-none text-[#8a949e] no-underline hover:text-[#8a949e] hover:no-underline",
-    preserveColorOnHover && effectiveType === "default" && "hover:text-[#256ef4]"
+    disabled && "pointer-events-none text-krds-fg-disabled no-underline hover:text-krds-fg-disabled hover:no-underline",
+    preserveColorOnHover && effectiveType === "default" && "hover:text-krds-fg-primary"
   );
 
   const externalProps = external ? { target: "_blank" as const, rel: "noopener noreferrer" } : {};

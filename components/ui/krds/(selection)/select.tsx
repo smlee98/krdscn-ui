@@ -148,7 +148,7 @@ function KrdsSelectItem({ className, children, size, ...props }: KrdsSelectItemP
         // hover / focus
         "focus:bg-krds-secondary-5",
         // active / pressed
-        "active:bg-[#d6e0eb]",
+        "active:bg-krds-surface-secondary-subtle",
         // selected
         "data-[state=checked]:bg-krds-secondary-5 data-[state=checked]:text-krds-secondary-90",
         // disabled

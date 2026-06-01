@@ -65,7 +65,7 @@ function CriticalAlertMessage({ className, children }: CriticalAlertMessageProps
   return (
     <p
       data-slot="krds-critical-alert-message"
-      className={cn("flex-1 text-krds-body-md font-bold text-[#131416]", className)}
+      className={cn("flex-1 text-krds-body-md font-bold text-krds-fg-bolder", className)}
     >
       {children}
     </p>
@@ -100,7 +100,7 @@ function CriticalAlertAction({
   const inner = (
     <>
       <span>{children}</span>
-      <ChevronRight size={20} aria-hidden={true} className="shrink-0 text-[#33363d]" />
+      <ChevronRight size={20} aria-hidden={true} className="shrink-0 text-krds-fg" />
     </>
   );
 

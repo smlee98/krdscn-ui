@@ -41,14 +41,14 @@ function Textarea({
 
   return (
     <div data-slot="krds-textarea" className={cn("flex w-full flex-col gap-2", className)}>
-      {label && <label className="block text-krds-body-sm text-[#464c53]">{label}</label>}
+      {label && <label className="block text-krds-body-sm text-krds-fg-subtle">{label}</label>}
       <div
         className={cn(
-          "h-36 rounded-[6px] border border-[#58616a] bg-white px-4 py-2 transition-colors",
-          "focus-within:border-2 focus-within:border-[#256ef4]",
-          "has-[textarea[aria-invalid=true]]:border-2 has-[textarea[aria-invalid=true]]:border-[#de3412] has-[textarea[aria-invalid=true]]:focus-within:border-[#de3412]",
-          disabled && "border border-[#b1b8be] bg-[#cdd1d5]",
-          readOnly && !disabled && "border border-[#b1b8be] bg-[#cdd1d5]"
+          "h-36 rounded-[6px] border border-krds-border-dark bg-white px-4 py-2 transition-colors",
+          "focus-within:border-2 focus-within:border-krds-border-primary",
+          "has-[textarea[aria-invalid=true]]:border-2 has-[textarea[aria-invalid=true]]:border-krds-danger-50 has-[textarea[aria-invalid=true]]:focus-within:border-krds-danger-50",
+          disabled && "border border-krds-border bg-krds-surface-disabled",
+          readOnly && !disabled && "border border-krds-border bg-krds-surface-disabled"
         )}
       >
         <textarea
@@ -61,18 +61,18 @@ function Textarea({
           aria-invalid={invalid}
           onChange={handleChange}
           className={cn(
-            "h-full w-full resize-none bg-transparent text-krds-body-md text-[#1e2124] outline-none",
-            "placeholder:text-[#8a949e]",
-            disabled && "cursor-not-allowed text-[#8a949e]",
-            readOnly && !disabled && "text-[#464c53]"
+            "h-full w-full resize-none bg-transparent text-krds-body-md text-krds-fg outline-none",
+            "placeholder:text-krds-fg-disabled",
+            disabled && "cursor-not-allowed text-krds-fg-disabled",
+            readOnly && !disabled && "text-krds-fg-subtle"
           )}
         />
       </div>
       {showCount && (
         <div className="flex w-full justify-end">
           <div className="flex shrink-0 items-baseline gap-[2px] text-krds-body-sm whitespace-nowrap">
-            <span className={cn(isOverLimit ? "text-[#bd2c0f]" : "text-[#0b50d0]")}>{currentLength}</span>
-            <span className="text-[#464c53]">/{countTotal}</span>
+            <span className={cn(isOverLimit ? "text-krds-fg-danger" : "text-krds-fg-primary")}>{currentLength}</span>
+            <span className="text-krds-fg-subtle">/{countTotal}</span>
           </div>
         </div>
       )}

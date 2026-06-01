@@ -142,7 +142,7 @@ function CarouselArrow({ direction, size = "small", className, "aria-label": ari
       disabled={isPrev ? !canScrollPrev : !canScrollNext}
       onClick={isPrev ? scrollPrev : scrollNext}
       className={cn(
-        "inline-flex shrink-0 items-center justify-center rounded-full bg-white text-[#33363d]",
+        "inline-flex shrink-0 items-center justify-center rounded-full bg-white text-krds-fg",
         "border-krds-gray-20 border transition-colors",
         "hover:border-krds-gray-30",
         "focus-visible:ring-krds-primary-50 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none",
@@ -187,7 +187,7 @@ function CarouselNumber({ className, ...rest }: CarouselNumberProps) {
       )}
       {...rest}
     >
-      <span className="text-[#052b57]">{selectedIndex + 1}</span>
+      <span className="text-krds-fg-secondary">{selectedIndex + 1}</span>
       <span className="text-krds-gray-90">/</span>
       <span className="text-krds-gray-90">{slideCount}</span>
     </div>
@@ -264,7 +264,7 @@ function CarouselPlayPause({
       aria-pressed={!isPlaying}
       onClick={() => onToggle(!isPlaying)}
       className={cn(
-        "inline-flex shrink-0 items-center justify-center rounded-full bg-white text-[#33363d]",
+        "inline-flex shrink-0 items-center justify-center rounded-full bg-white text-krds-fg",
         "border-krds-gray-20 border transition-colors",
         "hover:border-krds-gray-30",
         "focus-visible:ring-krds-primary-50 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none",

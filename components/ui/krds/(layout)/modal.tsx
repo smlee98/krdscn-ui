@@ -231,7 +231,7 @@ function ModalClose({ asChild, children, className, ...rest }: ModalCloseProps) 
         data-slot="krds-modal-close"
         className={cn(
           "absolute top-6 right-6 outline-none",
-          "text-[#33363d]",
+          "text-krds-fg",
           "focus-visible:ring-krds-primary-50 focus-visible:ring-2 focus-visible:ring-offset-2",
           className
         )}

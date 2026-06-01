@@ -164,11 +164,11 @@ function AccordionHeader({ children, onClick, className, ...rest }: AccordionHea
         "text-krds-gray-90 text-left leading-[1.5] font-bold",
         isLarge ? "text-krds-body-lg" : "text-krds-body-md",
         // open-state title color → secondary darker
-        "data-[state=open]:text-[#052b57]",
+        "data-[state=open]:text-krds-fg-secondary",
         // padding — line variant supplies its own header padding; default variant has none (wrapper provides it)
         isLine ? (isLarge ? "py-5" : "py-3") : "p-0",
         // chevron icon overrides (shadcn ships size-4 muted-foreground; we want 24px #33363d)
-        "[&>svg]:size-6 [&>svg]:shrink-0 [&>svg]:translate-y-0 [&>svg]:text-[#33363d]",
+        "[&>svg]:size-6 [&>svg]:shrink-0 [&>svg]:translate-y-0 [&>svg]:text-krds-fg",
         className
       )}
       {...(rest as React.HTMLAttributes<HTMLButtonElement>)}

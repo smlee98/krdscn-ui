@@ -96,19 +96,19 @@ function Checkbox({
   let borderClass: string;
   let bgClass: string;
   if (disabled) {
-    borderClass = isOn ? "border border-transparent" : "border border-[#8a949e]";
+    borderClass = isOn ? "border border-transparent" : "border border-krds-border";
     bgClass = "bg-krds-gray-20";
   } else if (isOn) {
     borderClass = "border border-transparent";
     bgClass = "bg-krds-primary-50";
   } else {
-    borderClass = "border border-[#58616a]";
+    borderClass = "border border-krds-border-dark";
     bgClass = "bg-white";
   }
 
-  const glyphColor = disabled ? "text-[#8a949e]" : "text-white";
-  const labelColor = disabled ? "text-[#8a949e]" : "text-[#131416]";
-  const helpColor = disabled ? "text-[#8a949e]" : "text-krds-gray-70";
+  const glyphColor = disabled ? "text-krds-fg-disabled" : "text-white";
+  const labelColor = disabled ? "text-krds-fg-disabled" : "text-krds-fg-bolder";
+  const helpColor = disabled ? "text-krds-fg-disabled" : "text-krds-gray-70";
 
   const labelNode = label ?? children;
 

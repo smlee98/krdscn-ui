@@ -38,7 +38,7 @@ function SideNavigationTitle({ className, children }: SideNavigationTitleProps) 
   return (
     <div
       data-slot="krds-side-navigation-title"
-      className={cn("flex w-full items-center border-b border-[#8a949e] px-2 pt-6 pb-4", className)}
+      className={cn("flex w-full items-center border-b border-krds-border px-2 pt-6 pb-4", className)}
     >
       <span className="text-krds-gray-90 flex-1 text-krds-heading-md font-bold">{children}</span>
     </div>

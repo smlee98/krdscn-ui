@@ -109,7 +109,7 @@ function ToggleSwitch({
         <SwitchPrimitive.Thumb
           className={cn(
             "flex items-center justify-center rounded-full bg-white shadow-sm transition-transform",
-            "group-data-[disabled]:bg-[#8a949e]",
+            "group-data-[disabled]:bg-krds-gray-40",
             sz.thumb,
             sz.translate
           )}
@@ -140,7 +140,7 @@ function ToggleSwitch({
           className={cn(
             "cursor-pointer select-none leading-[1.5] text-krds-gray-90",
             sz.label,
-            disabled && "cursor-not-allowed text-[#8a949e]"
+            disabled && "cursor-not-allowed text-krds-fg-disabled"
           )}
         >
           {label}

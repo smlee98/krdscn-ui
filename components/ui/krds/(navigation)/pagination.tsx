@@ -71,7 +71,7 @@ const btnBase = cn(
   "text-krds-body-md text-krds-gray-70",
   "hover:bg-krds-gray-5 active:bg-krds-gray-10",
   "focus-visible:ring-krds-primary-50 focus-visible:ring-2 focus-visible:outline-none",
-  "disabled:cursor-not-allowed disabled:bg-transparent disabled:text-[#8a949e] disabled:pointer-events-none"
+  "disabled:cursor-not-allowed disabled:bg-transparent disabled:text-krds-fg-disabled disabled:pointer-events-none"
 );
 
 // ─── PaginationPrev ───────────────────────────────────────────────────────────
@@ -160,7 +160,7 @@ function PaginationItem({ className, children, active, disabled, onClick }: Pagi
       className={cn(
         btnBase,
         "w-10",
-        active && "bg-[#063a74] font-bold text-white hover:bg-[#063a74] active:bg-[#063a74]",
+        active && "bg-krds-secondary-70 font-bold text-white hover:bg-krds-secondary-70 active:bg-krds-secondary-70",
         className
       )}
     >
@@ -276,7 +276,7 @@ function PaginationJumpInput({
       value={inputValue}
       onChange={handleChange}
       className={cn(
-        "h-10 w-14 rounded-[6px] border border-[#58616a] bg-white px-4",
+        "h-10 w-14 rounded-[6px] border border-krds-border-dark bg-white px-4",
         "text-krds-gray-90 text-center text-krds-body-sm",
         "focus-visible:ring-krds-primary-50 focus-visible:ring-2 focus-visible:outline-none",
         className

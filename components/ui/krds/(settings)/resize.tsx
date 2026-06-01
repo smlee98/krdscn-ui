@@ -127,8 +127,8 @@ function Resize({
             aria-expanded={open}
             className={cn(
               "inline-flex h-6 items-center gap-0.5 rounded-[4px] px-0.5 transition-colors",
-              "text-[#1e2124] hover:bg-[#d6e0eb] data-[state=open]:bg-[#d6e0eb]",
-              "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#2563eb] focus-visible:ring-offset-1"
+              "text-krds-fg hover:bg-krds-surface-secondary-subtle data-[state=open]:bg-krds-surface-secondary-subtle",
+              "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-krds-border-primary focus-visible:ring-offset-1"
             )}
           >
             <IconViewMode className="size-4" />
@@ -145,11 +145,11 @@ function Resize({
             "drop-shadow-[0_0_1px_rgba(0,0,0,0.05)] drop-shadow-[0_4px_4px_rgba(0,0,0,0.08)]"
           )}
         >
-          <div className="relative min-w-[220px] rounded-[8px] border border-[#cdd1d5] bg-white p-2">
+          <div className="relative min-w-[220px] rounded-[8px] border border-krds-border-light bg-white p-2">
             {/* Caret */}
             <span
               aria-hidden
-              className="pointer-events-none absolute -top-[4px] left-1/2 -translate-x-1/2 block h-2 w-2 rotate-45 border border-[#cdd1d5] border-b-transparent border-r-transparent bg-white"
+              className="pointer-events-none absolute -top-[4px] left-1/2 -translate-x-1/2 block h-2 w-2 rotate-45 border border-krds-border-light border-b-transparent border-r-transparent bg-white"
             />
 
             {/* Options */}
@@ -169,8 +169,8 @@ function Resize({
                     className={cn(
                       "flex h-12 w-full items-center gap-2 rounded-[6px] px-4 transition-colors",
                       isSelected
-                        ? "bg-[#eef2f7]"
-                        : "bg-transparent hover:bg-[#eef2f7]"
+                        ? "bg-krds-surface-secondary-subtle"
+                        : "bg-transparent hover:bg-krds-surface-secondary-subtle"
                     )}
                   >
                     {/* "가" preview icon */}
@@ -178,8 +178,8 @@ function Resize({
                       className={cn(
                         "inline-flex shrink-0 items-center justify-center rounded-[4px]",
                         isSelected
-                          ? "bg-[#063a74]"
-                          : "border border-[#cdd1d5] bg-white"
+                          ? "bg-krds-secondary-70"
+                          : "border border-krds-border-light bg-white"
                       )}
                       style={{ width: containerSize, height: containerSize }}
                     >
@@ -200,8 +200,8 @@ function Resize({
                       className={cn(
                         "text-krds-body-md",
                         isSelected
-                          ? "font-bold text-[#052b57]"
-                          : "font-normal text-[#1e2124]"
+                          ? "font-bold text-krds-fg-secondary"
+                          : "font-normal text-krds-fg"
                       )}
                     >
                       {resolvedLabels[scale]}
@@ -212,18 +212,18 @@ function Resize({
             </div>
 
             {/* Divider + Reset */}
-            <div className="flex h-12 items-center justify-center border-t border-[#cdd1d5]">
+            <div className="flex h-12 items-center justify-center border-t border-krds-border-light">
               <button
                 type="button"
                 onClick={handleReset}
                 className={cn(
                   "inline-flex h-8 items-center gap-1 rounded-[4px] px-0.5",
-                  "hover:bg-[#eef2f7] transition-colors",
-                  "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#2563eb] focus-visible:ring-offset-1"
+                  "hover:bg-krds-surface-secondary-subtle transition-colors",
+                  "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-krds-border-primary focus-visible:ring-offset-1"
                 )}
               >
                 <IconReset className="size-5" />
-                <span className="text-krds-body-md text-[#1e2124]">{resetText}</span>
+                <span className="text-krds-body-md text-krds-fg">{resetText}</span>
               </button>
             </div>
           </div>

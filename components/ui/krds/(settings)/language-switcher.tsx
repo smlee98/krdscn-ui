@@ -173,8 +173,8 @@ function LanguageSwitcherTrigger({ label = "Language", className }: LanguageSwit
         aria-expanded={open}
         className={cn(
           "inline-flex h-6 items-center gap-0.5 rounded-[4px] px-0.5 transition-colors",
-          "text-[#1e2124] hover:bg-[#d6e0eb] data-[state=open]:bg-[#d6e0eb]",
-          "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#2563eb] focus-visible:ring-offset-1",
+          "text-krds-fg hover:bg-krds-surface-secondary-subtle data-[state=open]:bg-krds-surface-secondary-subtle",
+          "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-krds-border-primary focus-visible:ring-offset-1",
           className
         )}
       >
@@ -202,10 +202,10 @@ function LanguageSwitcherMenu({ className, children }: LanguageSwitcherMenuProps
         className
       )}
     >
-      <div className="relative min-w-[200px] rounded-[8px] border border-[#cdd1d5] bg-white p-2">
+      <div className="relative min-w-[200px] rounded-[8px] border border-krds-border-light bg-white p-2">
         <span
           aria-hidden
-          className="pointer-events-none absolute -top-[4px] left-1/2 -translate-x-1/2 block h-2 w-2 rotate-45 border border-[#cdd1d5] border-b-transparent border-r-transparent bg-white"
+          className="pointer-events-none absolute -top-[4px] left-1/2 -translate-x-1/2 block h-2 w-2 rotate-45 border border-krds-border-light border-b-transparent border-r-transparent bg-white"
         />
         <ul role="listbox" aria-label="언어 선택" className="m-0 flex list-none flex-col gap-2 p-0">
           {children}
@@ -222,9 +222,9 @@ function LanguageSwitcherCurrent({ label, className }: LanguageSwitcherCurrentPr
   const resolvedLabel = options.find((o) => o.value === value)?.label ?? value;
 
   return (
-    <div className={cn("flex flex-col gap-0.5 border-b border-[#cdd1d5] px-4 py-2", className)}>
-      <span className="text-krds-body-sm text-[#464c53]">{label}</span>
-      <strong className="text-krds-body-md font-bold text-[#052b57]">{resolvedLabel}</strong>
+    <div className={cn("flex flex-col gap-0.5 border-b border-krds-border-light px-4 py-2", className)}>
+      <span className="text-krds-body-sm text-krds-fg-subtle">{label}</span>
+      <strong className="text-krds-body-md font-bold text-krds-fg-secondary">{resolvedLabel}</strong>
     </div>
   );
 }
@@ -266,8 +266,8 @@ function LanguageSwitcherOptionItem({
     "flex h-12 w-full min-w-[160px] items-center gap-1 rounded-[6px] px-4",
     "text-krds-body-md no-underline outline-none transition-colors",
     isSelected
-      ? "bg-[#eef2f7] text-[#052b57] font-bold"
-      : "text-[#1e2124] font-normal hover:bg-[#eef2f7]",
+      ? "bg-krds-surface-secondary-subtle text-krds-fg-secondary font-bold"
+      : "text-krds-fg font-normal hover:bg-krds-surface-secondary-subtle",
     className
   );
 

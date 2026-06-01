@@ -48,38 +48,38 @@ const badgeVariants = cva(
     },
     compoundVariants: [
       // ── outline type: 1px border + saturated text, transparent fill ───────────
-      { type: "outline", variant: "default", className: "border-[#256ef4] text-[#0b50d0]" },
-      { type: "outline", variant: "secondary", className: "border-[#063a74] text-[#052b57]" },
-      { type: "outline", variant: "tertiary", className: "border-[#58616a] text-[#464c53]" },
-      { type: "outline", variant: "point", className: "border-[#d63d4a] text-[#ab2b36]" },
-      { type: "outline", variant: "destructive", className: "border-krds-danger-50 text-[#bd2c0f]" },
-      { type: "outline", variant: "warning", className: "border-krds-warning-50 text-[#8a5c00]" },
-      { type: "outline", variant: "success", className: "border-krds-success-50 text-[#267337]" },
-      { type: "outline", variant: "info", className: "border-krds-info-50 text-[#096ab3]" },
+      { type: "outline", variant: "default", className: "border-krds-border-primary text-krds-fg-primary" },
+      { type: "outline", variant: "secondary", className: "border-krds-secondary-70 text-krds-fg-secondary" },
+      { type: "outline", variant: "tertiary", className: "border-krds-border-dark text-krds-fg-subtle" },
+      { type: "outline", variant: "point", className: "border-krds-point-50 text-krds-fg-point" },
+      { type: "outline", variant: "destructive", className: "border-krds-danger-50 text-krds-fg-danger" },
+      { type: "outline", variant: "warning", className: "border-krds-warning-50 text-krds-fg-warning" },
+      { type: "outline", variant: "success", className: "border-krds-success-50 text-krds-fg-success" },
+      { type: "outline", variant: "info", className: "border-krds-info-50 text-krds-fg-information" },
 
       // ── solid type: filled background, white/dark text ────────────────────────
       { type: "solid", variant: "default", className: "bg-krds-primary-50 text-white" },
-      { type: "solid", variant: "secondary", className: "bg-[#063a74] text-white" },
+      { type: "solid", variant: "secondary", className: "bg-krds-secondary-70 text-white" },
       { type: "solid", variant: "tertiary", className: "bg-krds-gray-50 text-white" },
-      { type: "solid", variant: "point", className: "bg-[#d63d4a] text-white" },
+      { type: "solid", variant: "point", className: "bg-krds-point-50 text-white" },
       { type: "solid", variant: "destructive", className: "bg-krds-danger-50 text-white" },
-      { type: "solid", variant: "warning", className: "bg-[#ffb114] text-krds-gray-90" },
+      { type: "solid", variant: "warning", className: "bg-krds-warning-30 text-krds-gray-90" },
       { type: "solid", variant: "success", className: "bg-krds-success-50 text-white" },
       { type: "solid", variant: "info", className: "bg-krds-info-50 text-white" },
 
       // ── pastel type: tinted background, saturated text ────────────────────────
-      { type: "pastel", variant: "default", className: "bg-krds-primary-5 text-[#0b50d0]" },
-      { type: "pastel", variant: "secondary", className: "bg-krds-secondary-5 text-[#052b57]" },
-      { type: "pastel", size: "lg", variant: "tertiary", className: "bg-krds-gray-10 text-[#464c53]" },
-      { type: "pastel", size: "default", variant: "tertiary", className: "bg-krds-gray-5 text-[#464c53]" },
-      { type: "pastel", variant: "point", className: "bg-[#fbeff0] text-[#ab2b36]" },
-      { type: "pastel", variant: "destructive", className: "bg-krds-danger-5 text-[#bd2c0f]" },
-      { type: "pastel", variant: "warning", className: "bg-krds-warning-5 text-[#8a5c00]" },
-      { type: "pastel", variant: "success", className: "bg-krds-success-5 text-[#267337]" },
-      { type: "pastel", variant: "info", className: "bg-krds-info-5 text-[#096ab3]" },
+      { type: "pastel", variant: "default", className: "bg-krds-primary-5 text-krds-fg-primary" },
+      { type: "pastel", variant: "secondary", className: "bg-krds-secondary-5 text-krds-fg-secondary" },
+      { type: "pastel", size: "lg", variant: "tertiary", className: "bg-krds-gray-10 text-krds-fg-subtle" },
+      { type: "pastel", size: "default", variant: "tertiary", className: "bg-krds-gray-5 text-krds-fg-subtle" },
+      { type: "pastel", variant: "point", className: "bg-krds-surface-point-subtle text-krds-fg-point" },
+      { type: "pastel", variant: "destructive", className: "bg-krds-danger-5 text-krds-fg-danger" },
+      { type: "pastel", variant: "warning", className: "bg-krds-warning-5 text-krds-fg-warning" },
+      { type: "pastel", variant: "success", className: "bg-krds-success-5 text-krds-fg-success" },
+      { type: "pastel", variant: "info", className: "bg-krds-info-5 text-krds-fg-information" },
 
       // ── disabled: overrides color/border/text per type ────────────────────────
-      { type: "outline", disabled: true, className: "border-[#8a949e] text-[#8a949e]" },
+      { type: "outline", disabled: true, className: "border-krds-border text-krds-fg-disabled" },
       { type: "solid", disabled: true, className: "bg-krds-gray-20 text-krds-gray-50" },
       { type: "pastel", disabled: true, className: "bg-krds-gray-20 text-krds-gray-50" },
 
@@ -133,7 +133,7 @@ function BadgeDot({ tone = "primary", className, ...props }: BadgeDotProps) {
       aria-hidden={props["aria-label"] ? undefined : true}
       className={cn(
         "inline-block size-[6px] shrink-0 rounded-full",
-        tone === "primary" ? "bg-krds-primary-50" : "bg-[#d63d4a]",
+        tone === "primary" ? "bg-krds-primary-50" : "bg-krds-point-50",
         className
       )}
       {...props}
@@ -160,7 +160,7 @@ function BadgeNumber({ tone = "primary", max, className, children, ...props }: B
       className={cn(
         "inline-flex h-5 min-w-[26px] shrink-0 items-center justify-center rounded-full px-2",
         "text-krds-body-sm font-normal whitespace-nowrap text-white",
-        tone === "primary" ? "bg-krds-primary-50" : "bg-[#d63d4a]",
+        tone === "primary" ? "bg-krds-primary-50" : "bg-krds-point-50",
         className
       )}
       {...props}

@@ -54,8 +54,8 @@ function Tooltip({
               "animate-in fade-in-0 zoom-in-95",
               "data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95",
               isBox
-                ? "max-w-[360px] rounded-[12px] border border-[#b1b8be] bg-white p-6 text-[#1e2124]"
-                : "whitespace-nowrap rounded-[4px] bg-[#1e2124] px-3 py-1 text-white",
+                ? "max-w-[360px] rounded-[12px] border border-krds-border bg-white p-6 text-krds-fg"
+                : "whitespace-nowrap rounded-[4px] bg-krds-surface-inverse px-3 py-1 text-white",
               className
             )}
           >
@@ -95,13 +95,13 @@ function TooltipArrowMark({
 
   const colorCls = isBox
     ? cn(
-        "bg-white border border-[#b1b8be]",
+        "bg-white border border-krds-border",
         side === "top" && "border-t-transparent border-l-transparent",
         side === "bottom" && "border-b-transparent border-r-transparent",
         side === "left" && "border-l-transparent border-b-transparent",
         side === "right" && "border-r-transparent border-t-transparent"
       )
-    : "bg-[#1e2124]";
+    : "bg-krds-surface-inverse";
 
   let alignCls = "";
   if (side === "top" || side === "bottom") {

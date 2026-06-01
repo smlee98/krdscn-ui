@@ -143,6 +143,7 @@
   --color-krds-fg-warning: var(--krds-fg-warning);
   --color-krds-fg-success: var(--krds-fg-success);
   --color-krds-fg-information: var(--krds-fg-information);
+  --color-krds-fg-visited: var(--krds-fg-visited);
   --color-krds-surface: var(--krds-surface);
   --color-krds-surface-subtle: var(--krds-surface-subtle);
   --color-krds-surface-subtler: var(--krds-surface-subtler);
@@ -352,6 +353,7 @@
   --krds-fg-warning: var(--krds-color-warning-60);
   --krds-fg-success: var(--krds-color-success-60);
   --krds-fg-information: var(--krds-color-info-60);
+  --krds-fg-visited: #5917b8;
   --krds-surface: var(--krds-color-gray-0);
   --krds-surface-subtle: var(--krds-color-gray-10);
   --krds-surface-subtler: var(--krds-color-gray-5);
@@ -506,6 +508,7 @@
   --krds-fg-warning: var(--krds-color-warning-20);
   --krds-fg-success: var(--krds-color-success-20);
   --krds-fg-information: var(--krds-color-info-20);
+  --krds-fg-visited: #c49ff9;
   --krds-surface: var(--krds-color-gray-100);
   --krds-surface-subtle: var(--krds-color-gray-90);
   --krds-surface-subtler: var(--krds-color-gray-95);
