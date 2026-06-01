@@ -1,4 +1,5 @@
 import "@/app/globals.css";
+import { Providers } from "@/app/providers";
 import { cn } from "@/lib/cn";
 import type { Metadata } from "next";
 import localFont from "next/font/local";
@@ -44,7 +45,9 @@ const monoplexKr = localFont({
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="ko" suppressHydrationWarning className={cn(pretendardGov.variable, monoplexKr.variable)}>
-      <body>{children}</body>
+      <body>
+        <Providers>{children}</Providers>
+      </body>
     </html>
   );
 }
