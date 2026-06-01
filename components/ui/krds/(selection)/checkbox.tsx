@@ -109,12 +109,13 @@ function Checkbox({
   const helpColor = disabled ? "text-[#8a949e]" : "text-krds-gray-70";
 
   const labelNode = label ?? children;
+  const hasDescription = Boolean(description);
 
   return (
     <label
       htmlFor={inputId}
       data-slot="krds-checkbox"
-      className={cn("flex cursor-pointer items-start gap-2", disabled && "cursor-not-allowed", className)}
+      className={cn("flex cursor-pointer gap-2", hasDescription ? "items-start" : "items-center", disabled && "cursor-not-allowed", className)}
     >
       <input
         {...rest}

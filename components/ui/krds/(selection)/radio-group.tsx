@@ -115,6 +115,7 @@ function RadioGroup({
 function Radio({ size = "medium", description, value, children, disabled, className, ...rest }: RadioProps) {
   const ctx = useRadioGroupContext();
   const isChecked = ctx.value === value;
+  const hasDescription = Boolean(description);
 
   // Figma node 313:27198
   const outerSize = size === "large" ? "size-6" : "size-5";
@@ -154,7 +155,7 @@ function Radio({ size = "medium", description, value, children, disabled, classN
   return (
     <label
       data-slot="krds-radio"
-      className={cn("flex cursor-pointer items-start gap-2", disabled && "cursor-not-allowed", className)}
+      className={cn("flex cursor-pointer gap-2", hasDescription ? "items-start" : "items-center", disabled && "cursor-not-allowed", className)}
     >
       <input
         {...rest}
