@@ -83,7 +83,7 @@ export default async function ComponentPage({ params }: PageProps) {
               <ExamplePreview>
                 <ExampleHost slug={slug} name={name} />
               </ExamplePreview>
-              <CodeBlock code={source} lang="tsx" collapsible />
+              <CodeBlock code={source} lang="tsx" />
             </div>
           ))}
         </div>
