@@ -81,6 +81,7 @@ function DateInput({
   placeholder = "YYYY.MM.DD",
   className,
   disabled,
+  "aria-invalid": ariaInvalid,
   ...rest
 }: DateInputProps) {
   const [internalOpen, setInternalOpen] = React.useState(defaultIsCalendarOpen);
@@ -95,88 +96,80 @@ function DateInput({
     onCalendarOpenChange?.(next);
   }
 
-  function handleInputChange(e: React.ChangeEvent<HTMLInputElement>) {
-    const v = e.target.value;
-    if (value === undefined) setInternalValue(v);
-    onChange?.(v);
-  }
-
+  // The field is a read-only trigger button: clicking anywhere on it opens the
+  // calendar (better UX than only the small icon being clickable). Direct typing
+  // is intentionally removed — the value is set via the calendar. This mirrors the
+  // shadcn branch's "button trigger" date-picker so both systems share the same
+  // interaction, differing only in chrome.
   return (
     <div data-slot="krds-date-input" className={cn("flex flex-col", className)}>
       {label && <label className="mb-2 block text-[15px] text-[#464c53]">{label}</label>}
 
-      <div
-        className={cn(
-          "relative flex items-center border border-[#58616a] bg-white transition-colors",
-          "focus-within:border-2 focus-within:border-[#256ef4]",
-          "has-[input[aria-invalid=true]]:border-2 has-[input[aria-invalid=true]]:border-[#de3412] has-[input[aria-invalid=true]]:focus-within:border-[#de3412]",
-          disabled && "border border-[#b1b8be] bg-[#cdd1d5]",
-          sizeBox[size],
-          "pr-10"
-        )}
-      >
-        <input
-          {...rest}
-          type="text"
-          disabled={disabled}
-          readOnly={readOnly}
-          value={displayValue}
-          placeholder={placeholder}
-          onChange={handleInputChange}
-          className={cn(
-            "w-full bg-transparent text-[#1e2124] outline-none",
-            "placeholder:text-[#8a949e]",
-            disabled && "cursor-not-allowed text-[#8a949e]",
-            readOnly && "caret-transparent"
-          )}
-        />
-
-        <Popover open={open} onOpenChange={handleOpenChange}>
-          <PopoverTrigger asChild>
-            <button
-              type="button"
-              aria-label={openButtonLabel}
-              disabled={disabled || readOnly}
-              onClick={() => {
-                if (!disabled && !readOnly) handleOpenChange(!open);
-              }}
-              className="absolute right-4 flex items-center justify-center text-[#58616a] disabled:opacity-40"
-            >
-              <CalendarIcon className={sizeIcon[size]} />
-            </button>
-          </PopoverTrigger>
-          <PopoverContent
-            align="start"
-            side={calendarPosition}
-            className="w-auto border-0 bg-transparent p-0 shadow-none"
+      <Popover open={open} onOpenChange={handleOpenChange}>
+        <PopoverTrigger asChild>
+          <button
+            {...(rest as React.ButtonHTMLAttributes<HTMLButtonElement>)}
+            type="button"
+            aria-label={openButtonLabel}
+            aria-invalid={ariaInvalid}
+            aria-readonly={readOnly || undefined}
+            disabled={disabled || readOnly}
+            className={cn(
+              "relative flex w-full items-center border border-[#58616a] bg-white text-left outline-none transition-colors",
+              "focus-visible:border-2 focus-visible:border-[#256ef4]",
+              "aria-[invalid=true]:border-2 aria-[invalid=true]:border-[#de3412]",
+              disabled && "cursor-not-allowed border-[#b1b8be] bg-[#cdd1d5]",
+              readOnly && !disabled && "cursor-default",
+              !disabled && !readOnly && "cursor-pointer",
+              sizeBox[size],
+              "pr-10"
+            )}
           >
-            <Calendar
-              mode="single"
-              position={calendarPosition}
-              disabledDates={disabledDates}
-              eventDates={eventDates}
-              onYearChange={onYearChange}
-              onMonthChange={onMonthChange}
-              onTodayClick={onTodayClick}
-              onConfirm={onConfirm}
-              onCancel={onCancel}
-              prevButtonLabel={prevButtonLabel}
-              nextButtonLabel={nextButtonLabel}
-              yearSelectLabel={yearSelectLabel}
-              monthSelectLabel={monthSelectLabel}
-              todayButtonText={todayButtonText}
-              cancelButtonText={cancelButtonText}
-              confirmButtonText={confirmButtonText}
-              value={displayValue || undefined}
-              onChange={(v) => {
-                if (value === undefined) setInternalValue(v);
-                onChange?.(v);
-                handleOpenChange(false);
-              }}
-            />
-          </PopoverContent>
-        </Popover>
-      </div>
+            <span
+              className={cn(
+                "flex-1 truncate",
+                displayValue ? "text-[#1e2124]" : "text-[#8a949e]",
+                disabled && "text-[#8a949e]"
+              )}
+            >
+              {displayValue || placeholder}
+            </span>
+            <span className="absolute right-4 flex items-center justify-center text-[#58616a]">
+              <CalendarIcon className={sizeIcon[size]} />
+            </span>
+          </button>
+        </PopoverTrigger>
+        <PopoverContent
+          align="start"
+          side={calendarPosition}
+          className="w-auto border-0 bg-transparent p-0 shadow-none"
+        >
+          <Calendar
+            mode="single"
+            position={calendarPosition}
+            disabledDates={disabledDates}
+            eventDates={eventDates}
+            onYearChange={onYearChange}
+            onMonthChange={onMonthChange}
+            onTodayClick={onTodayClick}
+            onConfirm={onConfirm}
+            onCancel={onCancel}
+            prevButtonLabel={prevButtonLabel}
+            nextButtonLabel={nextButtonLabel}
+            yearSelectLabel={yearSelectLabel}
+            monthSelectLabel={monthSelectLabel}
+            todayButtonText={todayButtonText}
+            cancelButtonText={cancelButtonText}
+            confirmButtonText={confirmButtonText}
+            value={displayValue || undefined}
+            onChange={(v) => {
+              if (value === undefined) setInternalValue(v);
+              onChange?.(v);
+              handleOpenChange(false);
+            }}
+          />
+        </PopoverContent>
+      </Popover>
     </div>
   );
 }
