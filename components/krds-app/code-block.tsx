@@ -60,7 +60,7 @@ function CodeBlock({
   }, [code]);
 
   return (
-    <div className={cn("rounded-md border bg-[#f6f8fa] font-mono text-sm", className)}>
+    <div className={cn("rounded-md border bg-[#f6f8fa] text-sm", className)}>
       {collapsible && (
         <button
           type="button"
@@ -93,10 +93,10 @@ function CodeBlock({
           {html ? (
             <div
               dangerouslySetInnerHTML={{ __html: html }}
-              className="[&_pre]:overflow-x-auto [&_pre]:rounded-md [&_pre]:p-4 [&_pre]:leading-relaxed"
+              className="font-mono [&_pre]:overflow-x-auto [&_pre]:rounded-md [&_pre]:p-4 [&_pre]:leading-relaxed"
             />
           ) : (
-            <pre className="overflow-x-auto rounded-md p-4 leading-relaxed">
+            <pre className="overflow-x-auto rounded-md p-4 font-mono leading-relaxed">
               <code>{code}</code>
             </pre>
           )}
