@@ -34,7 +34,7 @@ const BANNERS = [
 
 export default function CarouselFullBanner() {
   return (
-    <Carousel opts={{ loop: true }} className="relative w-full max-w-4xl">
+    <Carousel opts={{ loop: true }} className="relative mx-auto w-full max-w-3xl">
       <CarouselContent>
         {BANNERS.map((b, idx) => (
           <CarouselItem key={idx}>

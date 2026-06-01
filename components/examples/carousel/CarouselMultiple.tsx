@@ -18,7 +18,7 @@ const SERVICES = [
 
 export default function CarouselMultiple() {
   return (
-    <Carousel opts={{ align: "start" }} className="w-full max-w-xl">
+    <Carousel opts={{ align: "start" }} className="mx-auto w-full max-w-xl">
       <CarouselContent className="-ml-2">
         {SERVICES.map((service, idx) => (
           <CarouselItem key={idx} className="basis-1/3 pl-2">

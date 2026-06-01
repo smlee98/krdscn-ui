@@ -15,7 +15,7 @@ const SLIDES = [
 
 export default function CarouselDefault() {
   return (
-    <Carousel className="w-full max-w-xl">
+    <Carousel className="mx-auto w-full max-w-xl">
       <CarouselContent>
         {SLIDES.map((slide, idx) => (
           <CarouselItem key={idx}>

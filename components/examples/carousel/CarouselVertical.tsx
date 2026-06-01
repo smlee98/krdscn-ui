@@ -16,7 +16,7 @@ const STEPS = [
 
 export default function CarouselVertical() {
   return (
-    <div className="flex w-full max-w-xs items-center gap-3">
+    <div className="mx-auto flex w-full max-w-xs items-center gap-3 py-16">
       <Carousel orientation="vertical" className="flex-1" opts={{ align: "start" }}>
         <CarouselContent className="-mt-2 h-48">
           {STEPS.map((step, idx) => (

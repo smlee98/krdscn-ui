@@ -33,7 +33,7 @@ export default function CarouselAutoplay() {
   }, [api, isPlaying]);
 
   return (
-    <Carousel setApi={setApi} opts={{ loop: true }} className="w-full max-w-xl">
+    <Carousel setApi={setApi} opts={{ loop: true }} className="mx-auto w-full max-w-xl">
       <CarouselContent>
         {NOTICES.map((notice, idx) => (
           <CarouselItem key={idx}>

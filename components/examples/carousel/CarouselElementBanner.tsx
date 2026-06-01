@@ -34,7 +34,7 @@ export default function CarouselElementBanner() {
   }, [api, isPlaying]);
 
   return (
-    <div className="flex w-full max-w-2xl flex-col gap-4">
+    <div className="mx-auto flex w-full max-w-2xl flex-col gap-4">
       <h4 className="text-krds-gray-90 text-xl font-bold">배너영역 타이틀</h4>
       <Carousel setApi={setApi} opts={{ loop: true }} className="bg-krds-secondary-5 rounded-2xl p-8">
         <CarouselContent>
