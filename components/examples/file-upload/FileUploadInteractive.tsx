@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { FileUpload, type FileItem } from "@/components/ui/krds/(input)/file-upload";
+import { FileUpload, type FileItem } from "@/components/ui/dynamic/file-upload";
 
 export default function FileUploadInteractive() {
   const [files, setFiles] = React.useState<FileItem[]>([]);

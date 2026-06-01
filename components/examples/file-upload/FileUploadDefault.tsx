@@ -1,4 +1,4 @@
-import { FileUpload } from "@/components/ui/krds/(input)/file-upload";
+import { FileUpload } from "@/components/ui/dynamic/file-upload";
 
 export default function FileUploadDefault() {
   return (
