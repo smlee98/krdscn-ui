@@ -98,10 +98,23 @@ export function Radio({ size = "medium", description, value, children, disabled,
 
   if (!ctx) throw new Error("Radio must be used inside <RadioGroup>");
   const id = `${ctx.name}-${autoId}`;
+  const hasDescription = Boolean(description);
 
+  // Alignment: a single-line label centers against the size-4 control
+  // (items-center, no top-margin hack). With a description the block is
+  // multi-line, so top-align the control to the first label line (items-start).
+  // The previous `mt-1` pushed the control ~4px below the text center.
   return (
-    <div className={["flex items-start gap-2", className].filter(Boolean).join(" ")}>
-      <RadioGroupItem id={id} value={value} disabled={disabled} className="mt-1" />
+    <div
+      className={[
+        "flex gap-2",
+        hasDescription ? "items-start" : "items-center",
+        className
+      ]
+        .filter(Boolean)
+        .join(" ")}
+    >
+      <RadioGroupItem id={id} value={value} disabled={disabled} />
       <label
         htmlFor={id}
         className={["flex flex-col gap-1", disabled ? "cursor-not-allowed opacity-70" : "cursor-pointer"].join(" ")}
