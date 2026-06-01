@@ -5,7 +5,7 @@ import {
   SideNavigationList,
   SideNavigationTitle,
   SideNavigationTrigger
-} from "@/components/ui/krds/(navigation)/side-navigation";
+} from "@/components/ui/dynamic/side-navigation";
 
 export default function SideNavigationDefault() {
   return (
