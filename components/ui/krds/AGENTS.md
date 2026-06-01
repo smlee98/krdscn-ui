@@ -39,9 +39,16 @@ Sort import statements alphabetically by path for stable diffs.
    `@theme inline --color-krds-*` mappings. Never use `var(--krds-*)` directly inside wrapper
    component bodies.
 
-4. **No `dark:` Tailwind utility classes inside `components/ui/krds/`.** The project is
-   light-only (`forcedTheme="light"` in `UIProvider`; see `app/globals.css`), so `dark:`
-   variants are never active and must not be written.
+4. **Color via mode-aware semantic tokens; dark mode IS supported.** The project supports
+   light and dark themes (next-themes `class` strategy via `app/providers.tsx`; dark = KRDS
+   high-contrast mode). Express color through KRDS semantic utilities — `text-krds-foreground*`,
+   `bg-krds-surface*`, `border-krds-border*`, `bg-krds-secondary-bold`, etc. — which auto-switch
+   between light (`:root`) and `.dark` (high-contrast) values defined in `app/globals.css`.
+   Never hardcode hex, and avoid raw numeric `krds-*` primitives for text/surface/border roles
+   (primitives are mode-fixed and won't switch in dark). Saturated solid fills/badges that should
+   stay branded in both modes (e.g. `bg-krds-primary-50`, status `-50` fills) may remain numeric.
+   `dark:` Tailwind variants are permitted only where no semantic token fits — e.g. translucent
+   hover overlays: `hover:bg-black/5 dark:hover:bg-white/10`.
 
 5. **Named exports only** (`export { X }`). No `export default`.
 

@@ -8,7 +8,7 @@ export default function TooltipWithIcon() {
       <button
         type="button"
         aria-label="도움말"
-        className="inline-flex h-8 w-8 items-center justify-center rounded-full text-[#33363d] hover:bg-[#f4f5f6] focus-visible:outline-2 focus-visible:outline-[#256ef4] focus-visible:outline-offset-2"
+        className="inline-flex h-8 w-8 items-center justify-center rounded-full text-krds-foreground hover:bg-krds-surface-subtler focus-visible:outline-2 focus-visible:outline-krds-border-primary focus-visible:outline-offset-2"
       >
         <CircleHelp className="h-5 w-5" aria-hidden />
       </button>

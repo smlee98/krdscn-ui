@@ -56,7 +56,7 @@ export default function CarouselElementBanner() {
           <button
             type="button"
             aria-label="모든 슬라이드 보기"
-            className="border-krds-gray-20 hover:border-krds-gray-30 focus-visible:ring-krds-primary-50 inline-flex size-10 shrink-0 items-center justify-center rounded-full border bg-white text-[#33363d] transition-colors focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none"
+            className="border-krds-gray-20 hover:border-krds-gray-30 focus-visible:ring-krds-primary-50 inline-flex size-10 shrink-0 items-center justify-center rounded-full border bg-krds-surface text-krds-foreground transition-colors focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none"
           >
             <Plus className="size-5" aria-hidden="true" />
           </button>

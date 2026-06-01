@@ -9,7 +9,7 @@ export default function TextareaControlled() {
   return (
     <div className="flex w-[360px] flex-col gap-4">
       <Textarea label="제어된 Textarea" value={value} onChange={setValue} maxLength={100} />
-      <p className="text-krds-body-sm text-[#1e2124]">{value.length}자 입력됨</p>
+      <p className="text-krds-body-sm text-krds-foreground">{value.length}자 입력됨</p>
       <Button variant="default" onClick={() => setValue("")}>
         텍스트 초기화
       </Button>

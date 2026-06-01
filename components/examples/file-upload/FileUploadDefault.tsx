@@ -2,7 +2,7 @@ import { FileUpload } from "@/components/ui/dynamic/file-upload";
 
 export default function FileUploadDefault() {
   return (
-    <div className="w-full max-w-[760px] rounded-[12px] border border-[#b1b8be] bg-white p-10">
+    <div className="w-full max-w-[760px] rounded-[12px] border border-krds-border bg-krds-surface p-10">
       <FileUpload
         title="타이틀영역"
         description="컨텐츠 영역"

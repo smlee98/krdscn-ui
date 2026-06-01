@@ -121,7 +121,7 @@ function HelpPanelRoot({ isOpen, defaultOpen = false, onOpenChange, className, c
           className={cn(
             "krds-help-panel",
             "w-[390px] gap-0 p-0 sm:max-w-[390px]",
-            "border-l border-[#b1b8be] bg-[#f4f5f6]",
+            "border-l border-krds-border bg-krds-surface-subtler",
             className
           )}
         >

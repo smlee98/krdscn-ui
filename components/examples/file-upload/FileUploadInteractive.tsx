@@ -19,7 +19,7 @@ export default function FileUploadInteractive() {
   }
 
   return (
-    <div className="w-full max-w-[760px] rounded-[12px] border border-[#b1b8be] bg-white p-10">
+    <div className="w-full max-w-[760px] rounded-[12px] border border-krds-border bg-krds-surface p-10">
       <FileUpload
         title="인터랙티브 파일 업로드"
         description="실제로 파일을 업로드하고 삭제할 수 있습니다."

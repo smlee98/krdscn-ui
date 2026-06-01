@@ -23,7 +23,7 @@ export default function ContextualHelpList() {
                 <div className="mt-2">
                   <a
                     href="#"
-                    className="inline-flex items-center gap-0.5 text-krds-body-sm text-[#1e2124] hover:text-[#0b50d0]"
+                    className="inline-flex items-center gap-0.5 text-krds-body-sm text-krds-foreground hover:text-krds-foreground-primary"
                   >
                     <span>바로가기</span>
                     <ChevronRight className="size-4" aria-hidden="true" />

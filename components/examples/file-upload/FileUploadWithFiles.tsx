@@ -55,7 +55,7 @@ export default function FileUploadWithFiles() {
   const [files, setFiles] = React.useState<FileItem[]>(INITIAL_FILES);
 
   return (
-    <div className="w-full max-w-[760px] rounded-[12px] border border-[#b1b8be] bg-white p-10">
+    <div className="w-full max-w-[760px] rounded-[12px] border border-krds-border bg-krds-surface p-10">
       <FileUpload
         title="파일 목록 예시"
         description="다양한 상태의 파일 목록을 보여줍니다."
