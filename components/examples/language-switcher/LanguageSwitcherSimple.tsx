@@ -1,6 +1,6 @@
 "use client";
 
-import { LanguageSwitcher } from "@/components/ui/krds/(settings)/language-switcher";
+import { LanguageSwitcher } from "@/components/ui/dynamic/language-switcher";
 
 const defaultLanguages = [
   { value: "ko", label: "한국어" },
