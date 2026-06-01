@@ -11,7 +11,7 @@ import {
   InPageNavigationItem,
   InPageNavigationList,
   InPageNavigationTitle
-} from "@/components/ui/krds/(navigation)/in-page-navigation";
+} from "@/components/ui/dynamic/in-page-navigation";
 
 const sections = [
   { id: "section_01", label: "서비스 개요" },

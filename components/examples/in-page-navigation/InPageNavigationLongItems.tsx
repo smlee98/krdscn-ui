@@ -5,7 +5,7 @@ import {
   InPageNavigationItem,
   InPageNavigationList,
   InPageNavigationTitle
-} from "@/components/ui/krds/(navigation)/in-page-navigation";
+} from "@/components/ui/dynamic/in-page-navigation";
 
 export default function InPageNavigationLongItems() {
   return (
