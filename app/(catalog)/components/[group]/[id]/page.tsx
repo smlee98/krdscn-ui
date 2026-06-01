@@ -56,7 +56,7 @@ export default async function ComponentPage({ params }: PageProps) {
   }));
 
   return (
-    <article className="container space-y-12 py-10">
+    <article className="space-y-12 py-10">
       <header className="space-y-2">
         <h1 className="text-3xl font-bold tracking-tight">{item.labelKo}</h1>
         <p className="text-muted-foreground text-base">{item.labelEn}</p>
