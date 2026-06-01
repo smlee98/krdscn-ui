@@ -30,7 +30,10 @@ function ShadcnLink({
   ...rest
 }: LinkProps) {
   const classes = cn(
-    "text-primary underline-offset-4 hover:underline outline-none focus-visible:ring-[3px] focus-visible:ring-ring/50 rounded-sm",
+    // inline-flex items-center mirrors the KRDS Link (cva base) so an icon child
+    // sits inline with the text. A plain inline <a> lets Preflight's `svg{display:block}`
+    // push the icon onto its own line (same bug fixed for breadcrumb home).
+    "inline-flex items-center gap-1 text-primary underline-offset-4 hover:underline outline-none focus-visible:ring-[3px] focus-visible:ring-ring/50 rounded-sm",
     disabled && "pointer-events-none opacity-50",
     className
   );
