@@ -1,18 +1,18 @@
 "use client";
 
 import type * as React from "react";
-import { Landmark } from "lucide-react";
-import { Masthead as KrdsMasthead } from "@/components/ui/krds/(identity)/masthead";
+import { Masthead as KrdsMasthead, KoreanFlagIcon } from "@/components/ui/krds/(identity)/masthead";
 import { cn } from "@/lib/cn";
 import { useUISystem } from "@/lib/ui-system";
 
 type MastheadProps = React.ComponentProps<typeof KrdsMasthead>;
 
 // Dual-render dispatcher. shadcn has no Masthead equivalent (Korean government
-// identity bar), so the shadcn branch degrades to a minimal neutral banner built
-// from shadcn tokens (bg-muted / text-muted-foreground). The KRDS-only chrome —
-// the colored Korean-flag SVG and krds-* color/size tokens — is intentionally
-// dropped; the government notice text is preserved with a neutral lucide icon.
+// identity bar). The shadcn branch degrades the bar to a minimal neutral banner
+// built from shadcn tokens (bg-muted / text-muted-foreground), but — per the user's
+// request — the colored Korean-flag (태극기) SVG is KEPT in both modes (reused from
+// the KRDS file as a single source). Only the krds-* color/size chrome around it is
+// retokenized.
 
 function ShadcnMasthead({ className, notice = "이 누리집은 대한민국 공식 전자정부 누리집입니다." }: MastheadProps) {
   return (
@@ -24,7 +24,7 @@ function ShadcnMasthead({ className, notice = "이 누리집은 대한민국 공
         className
       )}
     >
-      <Landmark className="size-3.5 shrink-0" aria-hidden="true" />
+      <KoreanFlagIcon className="h-4 w-6 shrink-0" />
       <p className="translate-y-px whitespace-nowrap">{notice}</p>
     </div>
   );

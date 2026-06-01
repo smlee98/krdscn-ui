@@ -46,4 +46,5 @@ function KoreanFlagIcon({ className }: { className?: string }) {
   );
 }
 
-export { Masthead };
+export { Masthead, KoreanFlagIcon };
+export type { MastheadProps };
