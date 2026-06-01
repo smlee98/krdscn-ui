@@ -14,73 +14,59 @@ import {
   MainMenuPanelSidebar as KrdsMainMenuPanelSidebar,
   MainMenuSidebarItem as KrdsMainMenuSidebarItem
 } from "@/components/ui/krds/(navigation)/main-menu";
-import {
-  NavigationMenu,
-  NavigationMenuContent,
-  NavigationMenuItem,
-  NavigationMenuLink,
-  NavigationMenuList,
-  NavigationMenuTrigger,
-  navigationMenuTriggerStyle
-} from "@/components/ui/navigation-menu";
+import { navigationMenuTriggerStyle } from "@/components/ui/navigation-menu";
 import { cn } from "@/lib/cn";
 import { useUISystem } from "@/lib/ui-system";
 
 // Dual-render dispatcher (template: dynamic/accordion.tsx, dynamic/modal.tsx). The
 // public surface is the KRDS MainMenu compound API; each part renders either the
-// KRDS-chromed wrapper or the vanilla shadcn NavigationMenu primitive based on
-// <UISystemProvider>.
+// KRDS-chromed wrapper or the vanilla shadcn rendering based on <UISystemProvider>.
 //
-// Structural note: the KRDS compound lays the open panel out as a SIBLING of the
-// bar (always-visible mega-menu), while Radix NavigationMenu nests Content inside
-// an Item next to its Trigger and gates it on open-state. Because each exported
-// part dispatches independently (matching accordion/modal), the shadcn path maps
-// the closest standalone primitive per part rather than reproducing Radix's strict
-// Trigger↔Content nesting. KRDS chevrons are dropped where the shadcn primitive
-// supplies its own (Trigger). KRDS-only layout props with no NavigationMenu axis
-// (active / hasMore on the sidebar item) are mapped to data-active or dropped.
+// Structural note: the KRDS compound lays the panel out as a SIBLING of the bar
+// (always-visible mega-menu). The shadcn path mirrors that exact sibling layout —
+// it renders an ALWAYS-VISIBLE mega panel with shadcn tokens and does NOT use the
+// Radix NavigationMenu Content/Trigger open-state mechanism (NavigationMenuContent
+// crashes outside a NavigationMenuItem, which is precisely the sibling-panel case).
+// Only navigationMenuTriggerStyle() is borrowed for the bar-item look. KRDS-only
+// layout props with no shadcn axis (active / hasMore on the sidebar item) are
+// mapped to aria-current/trailing-arrow parity or dropped.
 
 // ─── shadcn-mode parts ──────────────────────────────────────────────────────────
 
 function ShadcnMainMenu({ className, children }: React.ComponentProps<typeof KrdsMainMenu>) {
-  return (
-    <NavigationMenu viewport={false} className={cn("max-w-full", className)}>
-      {children}
-    </NavigationMenu>
-  );
+  // Always-visible sibling layout: a plain styled wrapper, no Radix open-state.
+  return <nav className={cn("w-full max-w-full", className)}>{children}</nav>;
 }
 
 function ShadcnMainMenuBar({ className, children, ...rest }: React.ComponentProps<typeof KrdsMainMenuBar>) {
   const { "aria-label": ariaLabel } = rest;
   return (
-    <NavigationMenuList aria-label={ariaLabel} className={className}>
+    <ul role="list" aria-label={ariaLabel} className={cn("flex items-center", className)}>
       {children}
-    </NavigationMenuList>
+    </ul>
   );
 }
 
 function ShadcnMainMenuBarItem({
   className,
   children,
-  href,
-  hasSubmenu
+  href
 }: React.ComponentProps<typeof KrdsMainMenuBarItem>) {
-  // hasSubmenu selects Trigger (own chevron) vs Link; KRDS ChevronDown is dropped.
+  // Panel is always visible, so both submenu and plain items render as styled links
+  // (no Radix Trigger↔Content toggle). navigationMenuTriggerStyle() supplies the look.
   return (
-    <NavigationMenuItem>
-      {hasSubmenu ? (
-        <NavigationMenuTrigger className={className}>{children}</NavigationMenuTrigger>
-      ) : (
-        <NavigationMenuLink asChild className={cn(navigationMenuTriggerStyle(), className)}>
-          <a href={href}>{children}</a>
-        </NavigationMenuLink>
-      )}
-    </NavigationMenuItem>
+    <li>
+      <a href={href} className={cn(navigationMenuTriggerStyle(), className)}>
+        {children}
+      </a>
+    </li>
   );
 }
 
 function ShadcnMainMenuPanel({ className, children }: React.ComponentProps<typeof KrdsMainMenuPanel>) {
-  return <NavigationMenuContent className={className}>{children}</NavigationMenuContent>;
+  // THE FIX: always-visible styled container instead of NavigationMenuContent,
+  // which Radix requires to live inside a NavigationMenuItem and crashes as a sibling.
+  return <section className={cn("flex w-full", className)}>{children}</section>;
 }
 
 function ShadcnMainMenuPanelHeader({
@@ -101,12 +87,10 @@ function ShadcnMainMenuPanelShortcut({
   ...rest
 }: React.ComponentProps<typeof KrdsMainMenuPanelShortcut>) {
   return (
-    <NavigationMenuLink asChild>
-      <a className={cn("inline-flex items-center gap-0.5 px-0.5 text-sm", className)} {...rest}>
-        <span className="underline">{children ?? "바로가기"}</span>
-        <ChevronRight size={16} aria-hidden="true" />
-      </a>
-    </NavigationMenuLink>
+    <a className={cn("inline-flex items-center gap-0.5 px-0.5 text-sm", className)} {...rest}>
+      <span className="underline">{children ?? "바로가기"}</span>
+      <ChevronRight size={16} aria-hidden="true" />
+    </a>
   );
 }
 
@@ -128,12 +112,10 @@ function ShadcnMainMenuColumn({ className, children }: React.ComponentProps<type
 
 function ShadcnMainMenuLink({ className, children, href, external }: React.ComponentProps<typeof KrdsMainMenuLink>) {
   return (
-    <NavigationMenuLink asChild>
-      <a href={href} className={cn("flex items-center gap-1 px-2 py-2.5 text-sm", className)}>
-        <span className="flex-1">{children}</span>
-        {external && <ExternalLink size={20} aria-hidden="true" />}
-      </a>
-    </NavigationMenuLink>
+    <a href={href} className={cn("flex items-center gap-1 px-2 py-2.5 text-sm", className)}>
+      <span className="flex-1">{children}</span>
+      {external && <ExternalLink size={20} aria-hidden="true" />}
+    </a>
   );
 }
 
@@ -149,18 +131,17 @@ function ShadcnMainMenuSidebarItem({
   // trailing arrow parity. The KRDS chevron-vs-arrow split collapses here.
   const showArrow = hasMore || active;
   return (
-    <NavigationMenuLink asChild active={active}>
-      <a
-        href={href}
-        aria-current={active ? "page" : undefined}
-        className={cn("flex w-full items-center gap-2 px-6 py-4 text-sm", showArrow && "gap-6", className)}
-      >
-        <span className={cn(showArrow && "min-w-0 flex-1")}>{children}</span>
-        {external && <ExternalLink size={20} aria-hidden="true" />}
-        {showArrow && !external && <ArrowRight size={20} aria-hidden="true" />}
-        {!showArrow && !external && <ChevronRight size={20} aria-hidden="true" />}
-      </a>
-    </NavigationMenuLink>
+    <a
+      href={href}
+      data-active={active || undefined}
+      aria-current={active ? "page" : undefined}
+      className={cn("flex w-full items-center gap-2 px-6 py-4 text-sm", showArrow && "gap-6", className)}
+    >
+      <span className={cn(showArrow && "min-w-0 flex-1")}>{children}</span>
+      {external && <ExternalLink size={20} aria-hidden="true" />}
+      {showArrow && !external && <ArrowRight size={20} aria-hidden="true" />}
+      {!showArrow && !external && <ChevronRight size={20} aria-hidden="true" />}
+    </a>
   );
 }
 
