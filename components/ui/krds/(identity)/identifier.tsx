@@ -74,4 +74,5 @@ function KrdsIdentifierLogo({ className, ...props }: React.ComponentProps<"svg">
   );
 }
 
-export { Identifier };
+export { Identifier, KrdsIdentifierLogo };
+export type { IdentifierProps };
