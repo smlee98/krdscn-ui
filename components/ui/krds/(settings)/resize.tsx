@@ -132,7 +132,7 @@ function Resize({
             )}
           >
             <IconViewMode className="size-4" />
-            <span className="text-[15px] leading-[1.5]">{buttonText}</span>
+            <span className="text-krds-body-sm">{buttonText}</span>
             <IconChevronDown className="size-4" />
           </button>
         </PopoverTrigger>
@@ -198,7 +198,7 @@ function Resize({
                     {/* Label */}
                     <span
                       className={cn(
-                        "text-[17px] leading-[1.5]",
+                        "text-krds-body-md",
                         isSelected
                           ? "font-bold text-[#052b57]"
                           : "font-normal text-[#1e2124]"
@@ -223,7 +223,7 @@ function Resize({
                 )}
               >
                 <IconReset className="size-5" />
-                <span className="text-[17px] leading-[1.5] text-[#1e2124]">{resetText}</span>
+                <span className="text-krds-body-md text-[#1e2124]">{resetText}</span>
               </button>
             </div>
           </div>

@@ -182,7 +182,7 @@ function CarouselNumber({ className, ...rest }: CarouselNumberProps) {
       className={cn(
         "inline-flex h-10 items-center gap-1 rounded-full bg-white px-4",
         "border-krds-gray-20 border",
-        "text-[17px] leading-[1.5] font-bold whitespace-nowrap",
+        "text-krds-body-md font-bold whitespace-nowrap",
         className
       )}
       {...rest}

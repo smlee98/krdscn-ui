@@ -35,7 +35,7 @@ type HeaderUtilityItemProps = {
 function HeaderUtilityItem({ className, children, href, asSelect }: HeaderUtilityItemProps) {
   const baseClass = cn(
     "inline-flex items-center gap-1",
-    "text-krds-gray-90 text-[15px] leading-[1.5]",
+    "text-krds-gray-90 text-krds-body-sm",
     "hover:underline",
     "focus-visible:ring-2 focus-visible:ring-krds-primary-50 focus-visible:outline-none rounded-sm",
     className
@@ -115,7 +115,7 @@ type HeaderActionItemProps = {
 function HeaderActionItem({ className, children, href, icon }: HeaderActionItemProps) {
   const baseClass = cn(
     "inline-flex h-10 items-center gap-2 rounded-md px-3",
-    "text-[17px] leading-[1.5] font-bold text-krds-gray-90",
+    "text-krds-body-md font-bold text-krds-gray-90",
     "hover:bg-krds-gray-5",
     "focus-visible:ring-2 focus-visible:ring-krds-primary-50 focus-visible:outline-none",
     className
@@ -178,7 +178,7 @@ function HeaderNavItem({ className, children, href, hasSubmenu }: HeaderNavItemP
       href={href}
       className={cn(
         "inline-flex h-14 items-center gap-2 px-4",
-        "text-krds-gray-70 text-[19px] leading-[1.5] font-bold",
+        "text-krds-gray-70 text-krds-body-lg font-bold",
         "hover:text-krds-gray-90",
         "focus-visible:ring-krds-primary-50 rounded-sm focus-visible:ring-2 focus-visible:outline-none",
         className

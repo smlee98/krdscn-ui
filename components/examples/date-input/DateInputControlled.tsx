@@ -16,7 +16,7 @@ export default function DateInputControlled() {
         onChange={setValue}
         onCalendarOpenChange={setIsCalendarOpen}
       />
-      <div className="mt-4 rounded-[4px] bg-[#f5f5f5] p-4 text-[15px] text-[#1e2124]">
+      <div className="mt-4 rounded-[4px] bg-[#f5f5f5] p-4 text-krds-body-sm text-[#1e2124]">
         입력된 날짜: {value || "없음"}
       </div>
     </div>

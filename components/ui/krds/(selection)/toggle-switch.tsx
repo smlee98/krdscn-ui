@@ -51,14 +51,14 @@ const sizeConfig: Record<
     track: "w-8 h-5",
     thumb: "size-4",
     iconSize: "size-2",
-    label: "text-[17px]",
+    label: "text-krds-body-md",
     translate: "data-[state=unchecked]:translate-x-0 data-[state=checked]:translate-x-3"
   },
   large: {
     track: "w-10 h-6",
     thumb: "size-5",
     iconSize: "size-2.5",
-    label: "text-[19px]",
+    label: "text-krds-body-lg",
     translate: "data-[state=unchecked]:translate-x-0 data-[state=checked]:translate-x-4"
   }
 };

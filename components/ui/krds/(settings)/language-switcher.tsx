@@ -179,7 +179,7 @@ function LanguageSwitcherTrigger({ label = "Language", className }: LanguageSwit
         )}
       >
         <IconGlobe className="size-4" />
-        <span className="text-[15px] leading-[1.5]">{resolvedLabel}</span>
+        <span className="text-krds-body-sm">{resolvedLabel}</span>
         <IconChevronDown className="size-4" />
       </button>
     </PopoverTrigger>
@@ -223,8 +223,8 @@ function LanguageSwitcherCurrent({ label, className }: LanguageSwitcherCurrentPr
 
   return (
     <div className={cn("flex flex-col gap-0.5 border-b border-[#cdd1d5] px-4 py-2", className)}>
-      <span className="text-[15px] leading-[1.5] text-[#464c53]">{label}</span>
-      <strong className="text-[17px] leading-[1.5] font-bold text-[#052b57]">{resolvedLabel}</strong>
+      <span className="text-krds-body-sm text-[#464c53]">{label}</span>
+      <strong className="text-krds-body-md font-bold text-[#052b57]">{resolvedLabel}</strong>
     </div>
   );
 }
@@ -264,7 +264,7 @@ function LanguageSwitcherOptionItem({
 
   const baseClasses = cn(
     "flex h-12 w-full min-w-[160px] items-center gap-1 rounded-[6px] px-4",
-    "text-[17px] leading-[1.5] no-underline outline-none transition-colors",
+    "text-krds-body-md no-underline outline-none transition-colors",
     isSelected
       ? "bg-[#eef2f7] text-[#052b57] font-bold"
       : "text-[#1e2124] font-normal hover:bg-[#eef2f7]",

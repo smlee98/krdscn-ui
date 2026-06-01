@@ -162,7 +162,7 @@ function AccordionHeader({ children, onClick, className, ...rest }: AccordionHea
         "hover:no-underline disabled:pointer-events-none disabled:opacity-50",
         // typography
         "text-krds-gray-90 text-left leading-[1.5] font-bold",
-        isLarge ? "text-[19px]" : "text-[17px]",
+        isLarge ? "text-krds-body-lg" : "text-krds-body-md",
         // open-state title color → secondary darker
         "data-[state=open]:text-[#052b57]",
         // padding — line variant supplies its own header padding; default variant has none (wrapper provides it)
@@ -193,7 +193,7 @@ function AccordionPanel({ children, className, ...rest }: AccordionPanelProps) {
         // Top gap: line variant flush (0); default uses gap/7 (24) or gap/6 (20).
         "px-0 pb-0",
         isLine ? "pt-0" : isLarge ? "pt-6" : "pt-5",
-        "text-krds-gray-90 text-[17px] leading-[1.5]",
+        "text-krds-gray-90 text-krds-body-md",
         className
       )}
       {...rest}

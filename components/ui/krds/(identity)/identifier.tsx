@@ -14,7 +14,7 @@ function Identifier({ className, notice = "이 누리집은 정부 산하기관 
       role="contentinfo"
       className={cn(
         "bg-krds-gray-0 flex h-10 w-full items-center gap-2 px-4",
-        "text-krds-gray-90 text-[15px] leading-[1.5]",
+        "text-krds-gray-90 text-krds-body-sm",
         className
       )}
     >

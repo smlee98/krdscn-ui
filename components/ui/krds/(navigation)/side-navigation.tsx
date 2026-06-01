@@ -40,7 +40,7 @@ function SideNavigationTitle({ className, children }: SideNavigationTitleProps) 
       data-slot="krds-side-navigation-title"
       className={cn("flex w-full items-center border-b border-[#8a949e] px-2 pt-6 pb-4", className)}
     >
-      <span className="text-krds-gray-90 flex-1 text-[24px] leading-[1.5] font-bold">{children}</span>
+      <span className="text-krds-gray-90 flex-1 text-krds-heading-md font-bold">{children}</span>
     </div>
   );
 }
@@ -72,7 +72,7 @@ function SideNavigationBackTitle({
   const content = (
     <>
       <ArrowLeft size={24} aria-hidden="true" />
-      <span className="text-[19px] leading-[1.5] font-bold">{children}</span>
+      <span className="text-krds-body-lg font-bold">{children}</span>
     </>
   );
   if (href) {
@@ -154,7 +154,7 @@ function SideNavigationTrigger({ className, children }: SideNavigationTriggerPro
       onClick={ctx?.toggle}
       className={cn(
         "flex w-full items-center gap-2 px-2 py-4",
-        "text-krds-gray-90 text-left text-[17px] leading-[1.5] font-bold",
+        "text-krds-gray-90 text-left text-krds-body-md font-bold",
         "hover:bg-krds-gray-5",
         "focus-visible:ring-krds-primary-50 focus-visible:ring-2 focus-visible:outline-none",
         className
@@ -206,7 +206,7 @@ function SideNavigationItem({ className, children, href, external, active }: Sid
         aria-current={active ? "page" : undefined}
         className={cn(
           "flex w-full items-center gap-1 rounded-md px-4 py-2",
-          "text-krds-gray-90 text-[17px] leading-[1.5]",
+          "text-krds-gray-90 text-krds-body-md",
           "hover:bg-krds-gray-5",
           "focus-visible:ring-krds-primary-50 focus-visible:ring-2 focus-visible:outline-none",
           active && "font-bold",

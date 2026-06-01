@@ -58,7 +58,7 @@ export function Textarea(props: TextareaProps) {
       />
       {showCount && (
         <div className="flex w-full justify-end">
-          <div className="flex shrink-0 items-baseline gap-[2px] text-[15px] leading-[1.5] whitespace-nowrap">
+          <div className="flex shrink-0 items-baseline gap-[2px] text-krds-body-sm whitespace-nowrap">
             <span className={isOverLimit ? "text-destructive" : "text-primary"}>{currentLength}</span>
             <span className="text-muted-foreground">/{countTotal}</span>
           </div>

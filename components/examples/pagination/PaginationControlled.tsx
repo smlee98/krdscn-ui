@@ -11,7 +11,7 @@ export default function PaginationControlled() {
     <Pagination>
       <PaginationContent>
         <PaginationPrev disabled={current === 1} onClick={() => setCurrent((p) => Math.max(1, p - 1))} />
-        <span className="text-krds-gray-90 px-2 text-[17px] leading-[1.5]">
+        <span className="text-krds-gray-90 px-2 text-krds-body-md">
           {current} / {total}
         </span>
         <PaginationNext disabled={current === total} onClick={() => setCurrent((p) => Math.min(total, p + 1))} />

@@ -50,7 +50,7 @@ function Tooltip({
             sideOffset={isBox ? 10 : 8}
             collisionPadding={8}
             className={cn(
-              "relative z-50 text-[15px] leading-[1.5]",
+              "relative z-50 text-krds-body-sm",
               "animate-in fade-in-0 zoom-in-95",
               "data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95",
               isBox

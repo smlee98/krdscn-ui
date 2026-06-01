@@ -98,7 +98,7 @@ function ContextualHelp({
       >
         <div className="flex flex-col gap-4">
           <div className="flex items-start gap-4">
-            <div className="flex flex-1 flex-col gap-4 text-[15px] leading-[1.5] text-[#1e2124]">{children}</div>
+            <div className="flex flex-1 flex-col gap-4 text-krds-body-sm text-[#1e2124]">{children}</div>
             <PopoverPrimitiveClose
               aria-label="닫기"
               className={cn(
@@ -141,7 +141,7 @@ function ContextualHelp({
 
 function ContextualHelpTitle({ className, children, ...props }: React.ComponentProps<"h4">) {
   return (
-    <h4 className={cn("text-[17px] leading-[1.5] font-bold text-[#131416]", className)} {...props}>
+    <h4 className={cn("text-krds-body-md font-bold text-[#131416]", className)} {...props}>
       {children}
     </h4>
   );
@@ -152,7 +152,7 @@ function ContextualHelpTitle({ className, children, ...props }: React.ComponentP
 
 function ContextualHelpLabel({ className, children, ...props }: React.ComponentProps<"p">) {
   return (
-    <p className={cn("text-krds-gray-90 text-[15px] leading-[1.5]", className)} {...props}>
+    <p className={cn("text-krds-gray-90 text-krds-body-sm", className)} {...props}>
       {children}
     </p>
   );

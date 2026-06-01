@@ -81,7 +81,7 @@ const CIRCLED_NUMS = ["①", "②", "③", "④", "⑤", "⑥", "⑦", "⑧", "�
 function Bullet({ type, idx, explicit }: { type: TextListType; idx: number | null; explicit?: string }) {
   if (explicit !== undefined) {
     return (
-      <span aria-hidden="true" className="shrink-0 text-[17px] leading-[1.5]">
+      <span aria-hidden="true" className="shrink-0 text-krds-body-md">
         {explicit}.
       </span>
     );
@@ -98,19 +98,19 @@ function Bullet({ type, idx, explicit }: { type: TextListType; idx: number | nul
     case "decimal":
     case "ordered":
       return (
-        <span aria-hidden="true" className="shrink-0 text-[17px] leading-[1.5]">
+        <span aria-hidden="true" className="shrink-0 text-krds-body-md">
           {idx ?? 1}.
         </span>
       );
     case "alpha":
       return (
-        <span aria-hidden="true" className="shrink-0 text-[15px] leading-[1.5]">
+        <span aria-hidden="true" className="shrink-0 text-krds-body-sm">
           {String.fromCharCode(96 + (idx ?? 1))}.
         </span>
       );
     case "circle-num":
       return (
-        <span aria-hidden="true" className="shrink-0 text-[13px] leading-[1.5]">
+        <span aria-hidden="true" className="shrink-0 text-krds-body-xs">
           {CIRCLED_NUMS[(idx ?? 1) - 1] ?? `${idx ?? 1}.`}
         </span>
       );
@@ -122,7 +122,7 @@ function TextListItem({ className, number, children, ...props }: TextListItemPro
   const idx = React.useContext(TextListIndexContext);
   const level = TYPE_TO_LEVEL[type];
   const itemGap = level === 1 ? "gap-2" : "gap-1";
-  const textSize = level === 3 ? "text-[15px]" : "text-[17px]";
+  const textSize = level === 3 ? "text-krds-body-sm" : "text-krds-body-md";
 
   return (
     <li

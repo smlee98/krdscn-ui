@@ -20,8 +20,8 @@ const badgeVariants = cva(
   {
     variants: {
       size: {
-        lg: "h-8 text-[17px]",
-        default: "h-6 text-[15px]"
+        lg: "h-8 text-krds-body-md",
+        default: "h-6 text-krds-body-sm"
       },
       type: {
         outline: "border",
@@ -159,7 +159,7 @@ function BadgeNumber({ tone = "primary", max, className, children, ...props }: B
       data-slot="krds-badge-number"
       className={cn(
         "inline-flex h-5 min-w-[26px] shrink-0 items-center justify-center rounded-full px-2",
-        "text-[15px] leading-[1.5] font-normal whitespace-nowrap text-white",
+        "text-krds-body-sm font-normal whitespace-nowrap text-white",
         tone === "primary" ? "bg-krds-primary-50" : "bg-[#d63d4a]",
         className
       )}

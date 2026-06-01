@@ -240,8 +240,8 @@ function FileUpload({
       {/* Header block */}
       {hasHeader && (
         <div className="flex w-full flex-col gap-4">
-          {title && <h3 className="text-[24px] leading-[1.5] font-bold text-[#131416]">{title}</h3>}
-          {description && <p className="text-[17px] leading-[1.5] text-[#464c53]">{description}</p>}
+          {title && <h3 className="text-krds-heading-md font-bold text-[#131416]">{title}</h3>}
+          {description && <p className="text-krds-body-md text-[#464c53]">{description}</p>}
           {children}
         </div>
       )}
@@ -257,7 +257,7 @@ function FileUpload({
         onDragLeave={handleDragLeave}
         onDrop={handleDrop}
       >
-        <p className="text-center text-[19px] leading-[1.5] text-[#1e2124]">{uploadText}</p>
+        <p className="text-center text-krds-body-lg text-[#1e2124]">{uploadText}</p>
         <input
           type="file"
           multiple
@@ -281,7 +281,7 @@ function FileUpload({
       {/* Count + bulk-delete row */}
       {files.length > 0 && (
         <div className="flex w-full items-center justify-between">
-          <div className="flex items-baseline gap-1 text-[17px] leading-[1.5] font-bold">
+          <div className="flex items-baseline gap-1 text-krds-body-md font-bold">
             <span className="text-[#0b50d0]">{files.length}개</span>
             <span className="text-[#1e2124]">/ {maxFiles}개</span>
           </div>
@@ -307,7 +307,7 @@ function FileUpload({
             >
               {/* Top row */}
               <div className="flex w-full items-center gap-4">
-                <div className="min-w-0 flex-1 text-[17px] leading-[1.5] text-[#131416]">
+                <div className="min-w-0 flex-1 text-krds-body-md text-[#131416]">
                   <span className="break-words">
                     {file.name} [{file.type}, {formatBytes(file.size)}]
                   </span>
@@ -362,7 +362,7 @@ function FileUpload({
                     <div className="flex shrink-0 items-start pt-[2px]">
                       <CircleAlert className="size-5 text-[#bd2c0f]" />
                     </div>
-                    <div className="flex min-w-0 flex-1 flex-col text-[17px] leading-[1.5] text-[#bd2c0f]">
+                    <div className="flex min-w-0 flex-1 flex-col text-krds-body-md text-[#bd2c0f]">
                       {(file.errorMessage ?? "").split("\n").map((line, i) => (
                         <span key={i}>{line}</span>
                       ))}

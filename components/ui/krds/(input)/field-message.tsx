@@ -7,12 +7,12 @@ export type FieldMessageProps = React.HTMLAttributes<HTMLDivElement> & {
   children?: React.ReactNode;
 };
 
-const BASE = "flex items-center gap-1 text-[13px] leading-[1.5]";
+const BASE = "flex items-center gap-1 text-krds-body-xs";
 
 // FieldHint — gray helper text, no icon, no role; uses <p>
 function FieldHint({ children, className, ...props }: React.HTMLAttributes<HTMLParagraphElement>) {
   return (
-    <p data-slot="krds-field-hint" className={cn("text-[13px] leading-[1.5] text-[#464c53]", className)} {...props}>
+    <p data-slot="krds-field-hint" className={cn("text-krds-body-xs text-[#464c53]", className)} {...props}>
       {children}
     </p>
   );

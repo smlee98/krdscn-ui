@@ -56,7 +56,7 @@ function TableHead({ className, ...props }: TableHeadProps) {
     <ShadcnTableHead
       data-slot="krds-table-head"
       className={cn(
-        "h-auto min-w-[80px] px-4 py-2 text-left align-middle text-[15px] leading-[1.5] font-bold break-words whitespace-normal text-[#131416]",
+        "h-auto min-w-[80px] px-4 py-2 text-left align-middle text-krds-body-sm font-bold break-words whitespace-normal text-[#131416]",
         className
       )}
       {...props}
@@ -79,7 +79,7 @@ function TableCell({ className, ...props }: TableCellProps) {
     <ShadcnTableCell
       data-slot="krds-table-cell"
       className={cn(
-        "min-w-[80px] px-4 py-3 align-middle text-[17px] leading-[1.5] break-words whitespace-normal text-[#464c53]",
+        "min-w-[80px] px-4 py-3 align-middle text-krds-body-md break-words whitespace-normal text-[#464c53]",
         className
       )}
       {...props}

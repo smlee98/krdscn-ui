@@ -84,12 +84,12 @@ const buttonVariants = cva(
         ].join(" ")
       },
       size: {
-        xs: "h-8 gap-0.5 rounded-[4px] text-[15px]",
-        sm: "h-10 gap-1 rounded-[6px] text-[15px]",
-        default: "h-12 gap-1 rounded-[6px] text-[17px]",
-        lg: "h-14 gap-1 rounded-[8px] text-[17px]",
-        xl: "h-16 gap-1 rounded-[8px] text-[19px]",
-        icon: "size-12 gap-1 rounded-[6px] text-[17px] p-0"
+        xs: "h-8 gap-0.5 rounded-[4px] text-krds-body-sm",
+        sm: "h-10 gap-1 rounded-[6px] text-krds-body-sm",
+        default: "h-12 gap-1 rounded-[6px] text-krds-body-md",
+        lg: "h-14 gap-1 rounded-[8px] text-krds-body-md",
+        xl: "h-16 gap-1 rounded-[8px] text-krds-body-lg",
+        icon: "size-12 gap-1 rounded-[6px] text-krds-body-md p-0"
       }
     },
     compoundVariants: [

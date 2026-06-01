@@ -68,7 +68,7 @@ function PaginationContent({ className, children }: PaginationContentProps) {
 
 const btnBase = cn(
   "inline-flex h-10 items-center justify-center rounded-[6px] bg-transparent select-none",
-  "text-[17px] leading-[1.5] text-krds-gray-70",
+  "text-krds-body-md text-krds-gray-70",
   "hover:bg-krds-gray-5 active:bg-krds-gray-10",
   "focus-visible:ring-krds-primary-50 focus-visible:ring-2 focus-visible:outline-none",
   "disabled:cursor-not-allowed disabled:bg-transparent disabled:text-[#8a949e] disabled:pointer-events-none"
@@ -277,7 +277,7 @@ function PaginationJumpInput({
       onChange={handleChange}
       className={cn(
         "h-10 w-14 rounded-[6px] border border-[#58616a] bg-white px-4",
-        "text-krds-gray-90 text-center text-[15px] leading-[1.5]",
+        "text-krds-gray-90 text-center text-krds-body-sm",
         "focus-visible:ring-krds-primary-50 focus-visible:ring-2 focus-visible:outline-none",
         className
       )}
@@ -296,7 +296,7 @@ function PaginationJumpTotal({ total, className, ...props }: PaginationJumpTotal
   return (
     <span
       className={cn(
-        "text-krds-gray-70 flex h-10 w-10 items-center justify-center px-2 text-[15px] leading-[1.5]",
+        "text-krds-gray-70 flex h-10 w-10 items-center justify-center px-2 text-krds-body-sm",
         className
       )}
       {...props}

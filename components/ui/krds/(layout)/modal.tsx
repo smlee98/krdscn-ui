@@ -183,7 +183,7 @@ function ModalBody({ descriptionId, className, children, ...rest }: ModalBodyPro
     <div
       data-slot="krds-modal-body"
       className={cn(
-        "text-krds-gray-90 flex w-full flex-col gap-4 px-4 pb-2 text-[17px] leading-[1.5] font-normal",
+        "text-krds-gray-90 flex w-full flex-col gap-4 px-4 pb-2 text-krds-body-md font-normal",
         variant === "fullscreen" && "flex-1",
         className
       )}

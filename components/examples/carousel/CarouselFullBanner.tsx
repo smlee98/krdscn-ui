@@ -40,7 +40,7 @@ export default function CarouselFullBanner() {
           <CarouselItem key={idx}>
             <div className="bg-krds-secondary-5 flex h-80 items-center justify-between gap-10 rounded-lg px-24 pb-16">
               <div className="flex flex-1 flex-col gap-4">
-                <h3 className="text-krds-gray-90 text-[28px] leading-[1.3] font-bold">{b.title}</h3>
+                <h3 className="text-krds-gray-90 text-krds-display-sm font-bold">{b.title}</h3>
                 <p className="text-krds-gray-70 text-base">{b.body}</p>
                 <div className="mt-4">
                   <Button variant="default" size="default">

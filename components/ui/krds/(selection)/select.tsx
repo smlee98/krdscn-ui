@@ -34,9 +34,9 @@ const triggerHeight: Record<SelectSize, string> = {
 };
 
 const triggerFont: Record<SelectSize, string> = {
-  small: "text-[15px]",
-  medium: "text-[17px]",
-  large: "text-[19px]"
+  small: "text-krds-body-sm",
+  medium: "text-krds-body-md",
+  large: "text-krds-body-lg"
 };
 
 const triggerRadius: Record<SelectSize, string> = {
@@ -58,9 +58,9 @@ const triggerIconRight: Record<SelectSize, string> = {
 };
 
 const sortingFont: Record<SelectSize, string> = {
-  small: "text-[15px]",
-  medium: "text-[17px]",
-  large: "text-[24px] font-bold"
+  small: "text-krds-body-sm",
+  medium: "text-krds-body-md",
+  large: "text-krds-heading-md font-bold"
 };
 
 const sortingIconSize: Record<SelectSize, string> = {
@@ -82,9 +82,9 @@ const sortingGap: Record<SelectSize, string> = {
 };
 
 const itemFont: Record<SelectSize, string> = {
-  small: "text-[15px]",
-  medium: "text-[17px]",
-  large: "text-[19px]"
+  small: "text-krds-body-sm",
+  medium: "text-krds-body-md",
+  large: "text-krds-body-lg"
 };
 
 const checkIconSize: Record<SelectSize, string> = {
@@ -253,7 +253,7 @@ function Select({
   return (
     <div data-slot="krds-select" className={cn("flex w-full flex-col gap-2", className)}>
       {label && (
-        <label htmlFor={inputId} className="text-krds-gray-90 text-[15px] leading-[1.5]">
+        <label htmlFor={inputId} className="text-krds-gray-90 text-krds-body-sm">
           {label}
         </label>
       )}

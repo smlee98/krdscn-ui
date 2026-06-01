@@ -41,9 +41,9 @@ export type DateInputProps = Omit<
 };
 
 const sizeBox: Record<DateInputSize, string> = {
-  small: "h-10 px-4 rounded-[6px] text-[15px]",
-  medium: "h-12 px-4 rounded-[6px] text-[17px]",
-  large: "h-14 px-4 rounded-[8px] text-[19px]"
+  small: "h-10 px-4 rounded-[6px] text-krds-body-sm",
+  medium: "h-12 px-4 rounded-[6px] text-krds-body-md",
+  large: "h-14 px-4 rounded-[8px] text-krds-body-lg"
 };
 
 const sizeIcon: Record<DateInputSize, string> = {
@@ -103,7 +103,7 @@ function DateInput({
   // interaction, differing only in chrome.
   return (
     <div data-slot="krds-date-input" className={cn("flex flex-col", className)}>
-      {label && <label className="mb-2 block text-[15px] text-[#464c53]">{label}</label>}
+      {label && <label className="mb-2 block text-krds-body-sm text-[#464c53]">{label}</label>}
 
       <Popover open={open} onOpenChange={handleOpenChange}>
         <PopoverTrigger asChild>
@@ -217,7 +217,7 @@ function DateInputUnit({
 
   return (
     <div data-slot="krds-date-input-unit" className={cn("flex flex-col", className)}>
-      {label && <label className="mb-2 block text-[15px] text-[#464c53]">{label}</label>}
+      {label && <label className="mb-2 block text-krds-body-sm text-[#464c53]">{label}</label>}
       <div className={cn("flex flex-row", size === "small" ? "gap-1" : "gap-4")}>
         <div className="flex flex-1 items-center gap-1">
           <div className={cn(inputCls, "flex-1")}>
@@ -298,9 +298,9 @@ export type DateInputPeriodUnitProps = {
 };
 
 const separatorSize: Record<DateInputSize, string> = {
-  small: "text-[15px]",
-  medium: "text-[17px]",
-  large: "text-[19px]"
+  small: "text-krds-body-sm",
+  medium: "text-krds-body-md",
+  large: "text-krds-body-lg"
 };
 
 function DateInputPeriodUnit({
@@ -321,7 +321,7 @@ function DateInputPeriodUnit({
 }: DateInputPeriodUnitProps) {
   return (
     <div data-slot="krds-date-input-period-unit" className={cn("flex flex-col", className)}>
-      {label && <label className="mb-2 block text-[15px] text-[#464c53]">{label}</label>}
+      {label && <label className="mb-2 block text-krds-body-sm text-[#464c53]">{label}</label>}
       <div className="flex w-full flex-row items-center gap-4">
         <div className="flex-1">
           <DateInput

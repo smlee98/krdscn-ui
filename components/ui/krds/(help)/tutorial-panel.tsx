@@ -138,7 +138,7 @@ function TutorialLinkAnchor({ link, className }: { link: TutorialLink; className
       target={link.external ? "_blank" : undefined}
       rel={link.external ? "noopener noreferrer" : undefined}
       className={cn(
-        "inline-flex items-center gap-1 text-[15px] leading-[1.5] text-[#1e2124] underline underline-offset-2",
+        "inline-flex items-center gap-1 text-krds-body-sm text-[#1e2124] underline underline-offset-2",
         "hover:text-[#0b50d0]",
         className
       )}
@@ -312,8 +312,8 @@ function TutorialPanelHelpContent({
   return (
     <div data-slot="krds-tutorial-panel-help-content" className={cn("flex flex-col gap-8", className)} {...props}>
       <section className="flex flex-col gap-3">
-        <h4 className="text-[19px] leading-[1.4] font-bold text-[#1e2124]">{helpContent.title}</h4>
-        <div className="text-[15px] leading-[1.6] text-[#1e2124]">{helpContent.description}</div>
+        <h4 className="text-krds-heading-sm font-bold text-[#1e2124]">{helpContent.title}</h4>
+        <div className="text-krds-body-sm text-[#1e2124]">{helpContent.description}</div>
         {helpContent.links.length > 0 ? (
           <ul className="krds-info-list flex flex-col gap-1">
             {helpContent.links.map((link, index) => (
@@ -328,9 +328,9 @@ function TutorialPanelHelpContent({
         <div className="related-service-area flex flex-col gap-6">
           {relatedServices.map((service, idx) => (
             <section key={`${service.title}-${idx}`} className="flex flex-col gap-3">
-              <h4 className="text-[17px] leading-[1.4] font-bold text-[#1e2124]">{service.title}</h4>
+              <h4 className="text-krds-heading-xs font-bold text-[#1e2124]">{service.title}</h4>
               {service.description ? (
-                <div className="text-[15px] leading-[1.6] text-[#1e2124]">{service.description}</div>
+                <div className="text-krds-body-sm text-[#1e2124]">{service.description}</div>
               ) : null}
               {service.links.length > 0 ? (
                 <ul className="krds-info-list flex flex-col gap-1">
@@ -364,7 +364,7 @@ function TutorialPanelTutorialContent({
       <a
         href="#"
         title="이전으로 돌아가기"
-        className="inline-flex items-center gap-1 text-[19px] leading-[1.4] font-bold text-[#1e2124] hover:text-[#0b50d0]"
+        className="inline-flex items-center gap-1 text-krds-heading-sm font-bold text-[#1e2124] hover:text-[#0b50d0]"
       >
         <ChevronLeft size={20} aria-hidden={true} className="shrink-0" />
         <span>{title}</span>
@@ -377,7 +377,7 @@ function TutorialPanelTutorialContent({
             <li key={`${step.title}-${index}`} className="flex flex-col gap-2">
               <h4
                 className={cn(
-                  "tit text-[17px] leading-[1.5] font-bold",
+                  "tit text-krds-body-md font-bold",
                   step.current ? "current text-[#0b50d0]" : "text-[#1e2124]"
                 )}
               >
@@ -389,7 +389,7 @@ function TutorialPanelTutorialContent({
                   <DisclosureContent>
                     <ul className="krds-info-list decimal flex list-decimal flex-col gap-1 pl-5">
                       {step.steps?.map((sub, subIdx) => (
-                        <li key={`${sub}-${subIdx}`} className="text-[15px] leading-[1.6] text-[#1e2124]">
+                        <li key={`${sub}-${subIdx}`} className="text-krds-body-sm text-[#1e2124]">
                           {sub}
                         </li>
                       ))}
@@ -398,7 +398,7 @@ function TutorialPanelTutorialContent({
                 </Disclosure>
               ) : null}
               {step.content ? (
-                <div className="step-content text-[15px] leading-[1.6] text-[#1e2124]">{step.content}</div>
+                <div className="step-content text-krds-body-sm text-[#1e2124]">{step.content}</div>
               ) : null}
             </li>
           );

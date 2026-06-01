@@ -124,7 +124,7 @@ function HelpPanelClose({ className, children, ...props }: HelpPanelCloseProps) 
         data-slot="krds-help-panel-close"
         className={cn(
           "btn-help-panel fold",
-          "inline-flex items-center gap-1 self-end text-[15px] leading-[1.5] text-[#1e2124]",
+          "inline-flex items-center gap-1 self-end text-krds-body-sm text-[#1e2124]",
           "transition-colors hover:text-[#0b50d0]",
           "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#256ef4]",
           className
@@ -170,7 +170,7 @@ function HelpSection({ title, description, className, children, ...props }: Help
       {...props}
     >
       <div className="conts-wrap flex flex-col gap-3">
-        <h4 className="help-title flex items-center justify-between text-[19px] leading-[1.4] font-bold text-[#1e2124]">
+        <h4 className="help-title flex items-center justify-between text-krds-heading-sm font-bold text-[#1e2124]">
           <span>{title}</span>
           <button
             type="button"
@@ -187,7 +187,7 @@ function HelpSection({ title, description, className, children, ...props }: Help
         </h4>
         {description != null && (
           <div className="conts-desc">
-            <p className="text-[17px] leading-[1.5] text-[#33363d]">{description}</p>
+            <p className="text-krds-body-md text-[#33363d]">{description}</p>
           </div>
         )}
         {children}
@@ -222,7 +222,7 @@ function HelpLinkList({ links, iconPosition = "right", className, ...props }: He
               target={link.target}
               rel={link.target === "_blank" ? "noopener noreferrer" : undefined}
               className={cn(
-                "inline-flex items-center gap-1 text-[15px] leading-[1.5] font-bold text-[#0b50d0]",
+                "inline-flex items-center gap-1 text-krds-body-sm font-bold text-[#0b50d0]",
                 "underline underline-offset-2 hover:text-[#083891]",
                 "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#256ef4]"
               )}
@@ -261,7 +261,7 @@ type HelpServiceGroupProps = React.ComponentProps<"div"> & {
 function HelpServiceGroup({ title, className, children, ...props }: HelpServiceGroupProps) {
   return (
     <div data-slot="krds-help-service-group" className={cn("conts-wrap flex flex-col gap-3", className)} {...props}>
-      <h4 className="help-title text-[15px] leading-[1.5] font-bold text-[#1e2124]">{title}</h4>
+      <h4 className="help-title text-krds-body-sm font-bold text-[#1e2124]">{title}</h4>
       {children}
     </div>
   );
@@ -279,7 +279,7 @@ function HelpTutorialTitle({ title, href, className }: HelpTutorialTitleProps) {
   return (
     <h4
       data-slot="krds-help-tutorial-title"
-      className={cn("help-title text-[19px] leading-[1.4] font-bold text-[#1e2124]", className)}
+      className={cn("help-title text-krds-heading-sm font-bold text-[#1e2124]", className)}
     >
       {href ? (
         <a
@@ -328,7 +328,7 @@ function HelpCoachTask({ title, isCurrent = false, expandText, steps, className 
     <li data-slot="krds-help-coach-task" className={cn("flex flex-col gap-2", className)}>
       <h4
         className={cn(
-          "tit text-[17px] leading-[1.5] font-bold",
+          "tit text-krds-body-md font-bold",
           isCurrent ? "current text-[#0b50d0]" : "text-[#1e2124]"
         )}
       >
@@ -337,7 +337,7 @@ function HelpCoachTask({ title, isCurrent = false, expandText, steps, className 
       <Disclosure className="conts-expand-area">
         <DisclosureTrigger>{expandText}</DisclosureTrigger>
         <DisclosureContent>
-          <ol className="list-decimal pl-5 text-[15px] leading-[1.5] text-[#1e2124]">
+          <ol className="list-decimal pl-5 text-krds-body-sm text-[#1e2124]">
             {steps.map((step, i) => (
               <li key={i} className="mb-1 last:mb-0">
                 {step}

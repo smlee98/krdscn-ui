@@ -63,7 +63,7 @@ function DisclosureTrigger({ className, children, ...props }: DisclosureTriggerP
         type="button"
         data-slot="krds-disclosure-trigger"
         className={cn(
-          "inline-flex cursor-pointer items-center gap-1 text-[17px] leading-[1.5] font-normal text-[#131416] select-none",
+          "inline-flex cursor-pointer items-center gap-1 text-krds-body-md font-normal text-[#131416] select-none",
           className
         )}
         {...props}

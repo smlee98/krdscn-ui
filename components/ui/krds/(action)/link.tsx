@@ -33,9 +33,9 @@ const linkVariants = cva("inline-flex items-center px-0.5 leading-[1.5] tracking
       subtle_none: "text-[#1e2124] no-underline hover:text-[#0b50d0] active:text-[#083891] visited:text-[#5917b8]"
     },
     size: {
-      sm: "gap-0.5 text-[15px]",
-      default: "gap-1 text-[17px]",
-      lg: "gap-1 text-[19px]"
+      sm: "gap-0.5 text-krds-body-sm",
+      default: "gap-1 text-krds-body-md",
+      lg: "gap-1 text-krds-body-lg"
     }
   },
   defaultVariants: { type: "default", size: "default" }

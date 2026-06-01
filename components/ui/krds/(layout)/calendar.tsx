@@ -156,7 +156,7 @@ function KrdsDayButton({ className, day, modifiers, children, ...rest }: React.C
       data-today={isToday || undefined}
       data-outside={isOutside || undefined}
       className={cn(
-        "relative z-10 mx-auto flex size-11 flex-col items-center justify-center rounded-full text-[17px] leading-[1.5] font-normal transition-colors",
+        "relative z-10 mx-auto flex size-11 flex-col items-center justify-center rounded-full text-krds-body-md font-normal transition-colors",
         "focus-visible:ring-2 focus-visible:ring-[#256ef4] focus-visible:outline-none",
         "disabled:pointer-events-none disabled:opacity-40",
         isOutside && !isHighlighted && "text-[#8a949e]",
@@ -214,7 +214,7 @@ function KrdsCalendarDropdown({
         data-slot="krds-calendar-dropdown"
         className={cn(
           "h-10 gap-1 rounded-[6px] border-0 bg-transparent px-2 shadow-none",
-          "text-[19px] leading-[1.5] font-bold text-[#1e2124]",
+          "text-krds-body-lg font-bold text-[#1e2124]",
           "hover:bg-black/5 data-[state=open]:bg-[#d6e0eb]",
           "focus-visible:ring-2 focus-visible:ring-[#256ef4]/40 focus-visible:outline-none",
           "[&_svg]:opacity-100 [&_svg:not([class*='size-'])]:size-4 [&_svg:not([class*='text-'])]:text-[#1e2124]"
@@ -270,7 +270,7 @@ function CalendarInput({ mode: _mode, onChange, className, ...rest }: CalendarIn
       data-slot="krds-calendar-input"
       type="text"
       className={cn(
-        "rounded-[6px] border border-[#58616a] bg-white px-4 py-2 text-[15px] leading-[1.5]",
+        "rounded-[6px] border border-[#58616a] bg-white px-4 py-2 text-krds-body-sm",
         "text-[#1e2124] placeholder:text-[#8a949e]",
         "focus:border-[#256ef4] focus:outline-none",
         className
@@ -292,15 +292,15 @@ function CalendarButton({ variant = "date", isActive, isSelected, className, chi
         "inline-flex items-center justify-center transition-colors outline-none",
         variant === "move" && "size-8 rounded-full border-[0.8px] border-[#cdd1d5] bg-transparent hover:bg-black/5",
         variant === "switch" &&
-          "rounded-[6px] px-2 py-1 text-[19px] leading-[1.5] font-bold text-[#1e2124] hover:bg-black/5",
+          "rounded-[6px] px-2 py-1 text-krds-body-lg font-bold text-[#1e2124] hover:bg-black/5",
         variant === "icon" && "size-8 rounded-full hover:bg-black/5",
         variant === "date" && [
-          "size-11 rounded-full text-[17px] leading-[1.5]",
+          "size-11 rounded-full text-krds-body-md",
           !isSelected && !isActive && "text-[#1e2124]/80 hover:bg-[#063a74]/10",
           (isSelected || isActive) && "bg-[#063a74] text-white"
         ],
         variant === "action" &&
-          "h-10 min-w-16 rounded-[6px] border border-[#58616a] bg-white px-3 text-[15px] leading-[1.5] text-[#1e2124] hover:bg-black/5",
+          "h-10 min-w-16 rounded-[6px] border border-[#58616a] bg-white px-3 text-krds-body-sm text-[#1e2124] hover:bg-black/5",
         className
       )}
       {...rest}
@@ -316,7 +316,7 @@ function CalendarDropdown({ isOpen, items = [], onItemSelect, onToggle, classNam
       <button
         type="button"
         onClick={onToggle}
-        className="inline-flex h-10 items-center gap-1 rounded-[6px] px-2 text-[19px] leading-[1.5] font-bold text-[#1e2124] hover:bg-black/5"
+        className="inline-flex h-10 items-center gap-1 rounded-[6px] px-2 text-krds-body-lg font-bold text-[#1e2124] hover:bg-black/5"
       >
         {items.find((i) => i.isActive)?.label ?? ""}
         <ChevronDown size={16} aria-hidden className="shrink-0" />
@@ -330,7 +330,7 @@ function CalendarDropdown({ isOpen, items = [], onItemSelect, onToggle, classNam
               disabled={item.isDisabled}
               onClick={() => onItemSelect?.(item)}
               className={cn(
-                "w-full px-3 py-1 text-left text-[15px] leading-[1.5] hover:bg-black/5",
+                "w-full px-3 py-1 text-left text-krds-body-sm hover:bg-black/5",
                 item.isActive && "font-bold text-[#063a74]",
                 item.isDisabled && "cursor-not-allowed opacity-40"
               )}
@@ -370,7 +370,7 @@ function CalendarTable({
             <th
               key={day}
               scope="col"
-              className="h-6 w-11 text-center text-[15px] leading-[1.5] font-normal text-[#1e2124]"
+              className="h-6 w-11 text-center text-krds-body-sm font-normal text-[#1e2124]"
             >
               {day}
             </th>
@@ -398,7 +398,7 @@ function CalendarTable({
                     disabled={date.isDisabled}
                     onClick={() => onDateClick?.(date)}
                     className={cn(
-                      "relative z-10 inline-flex size-11 items-center justify-center rounded-full text-[17px] leading-[1.5] transition-colors outline-none",
+                      "relative z-10 inline-flex size-11 items-center justify-center rounded-full text-krds-body-md transition-colors outline-none",
                       isDimmed && "text-[#8a949e]",
                       !isDimmed && !isHighlighted && "text-[#1e2124]/80",
                       date.isDisabled && "cursor-not-allowed opacity-40",
@@ -443,7 +443,7 @@ const SHADCN_CLASSNAMES = {
   dropdown_root: "inline-flex items-center",
   caption_label: "sr-only",
   weekdays: "grid grid-cols-7 h-6 items-center",
-  weekday: "h-6 text-center text-[15px] leading-[1.5] font-normal text-[#1e2124] select-none !bg-transparent",
+  weekday: "h-6 text-center text-krds-body-sm font-normal text-[#1e2124] select-none !bg-transparent",
   week: "grid grid-cols-7 w-full mt-0.5 first:mt-2",
   day: "relative h-11 p-0 text-center select-none",
   range_start:

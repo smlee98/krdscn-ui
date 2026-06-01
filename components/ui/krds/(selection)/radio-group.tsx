@@ -121,8 +121,8 @@ function Radio({ size = "medium", description, value, children, disabled, classN
   const innerSize = size === "large" ? "size-3" : "size-2.5";
   // Description indent: control size (size-6=24px / size-5=20px) + gap-2 (8px).
   const descIndent = size === "large" ? "pl-8" : "pl-7";
-  const labelSize = size === "large" ? "text-[19px] leading-[1.5]" : "text-[17px] leading-[1.5]";
-  const helpSize = size === "large" ? "text-[17px] leading-[1.5]" : "text-[15px] leading-[1.5]";
+  const labelSize = size === "large" ? "text-krds-body-lg" : "text-krds-body-md";
+  const helpSize = size === "large" ? "text-krds-body-md" : "text-krds-body-sm";
   // Checked border thickness differs by size (large 1.6px, medium 1.4px)
   const checkedBorder = size === "large" ? "border-[1.6px]" : "border-[1.4px]";
 
@@ -255,7 +255,7 @@ function RadioSort({ value, children, disabled, className, ...rest }: RadioSortP
       />
       <span
         className={cn(
-          "text-krds-gray-90 inline-flex items-center rounded border border-transparent px-1 text-[17px] leading-[1.5] transition-colors",
+          "text-krds-gray-90 inline-flex items-center rounded border border-transparent px-1 text-krds-body-md transition-colors",
           isChecked && "bg-krds-secondary-5 underline underline-offset-2",
           disabled && "text-[#8a949e]",
           className

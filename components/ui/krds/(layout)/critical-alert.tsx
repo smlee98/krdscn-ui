@@ -42,7 +42,7 @@ function CriticalAlert({ type = "emergency", className, children }: CriticalAler
         data-slot="krds-critical-alert-badge"
         className={cn(
           "inline-flex h-12 shrink-0 items-center gap-1 rounded-[6px] py-2 pr-2.5 pl-2",
-          "text-[17px] leading-[1.5] font-bold whitespace-nowrap text-white",
+          "text-krds-body-md font-bold whitespace-nowrap text-white",
           bgClass
         )}
       >
@@ -65,7 +65,7 @@ function CriticalAlertMessage({ className, children }: CriticalAlertMessageProps
   return (
     <p
       data-slot="krds-critical-alert-message"
-      className={cn("flex-1 text-[17px] leading-[1.5] font-bold text-[#131416]", className)}
+      className={cn("flex-1 text-krds-body-md font-bold text-[#131416]", className)}
     >
       {children}
     </p>
@@ -91,7 +91,7 @@ function CriticalAlertAction({
 }: CriticalAlertActionProps) {
   const sharedClassName = cn(
     "text-krds-gray-90 inline-flex h-8 shrink-0 items-center gap-1 rounded-[4px] px-0.5",
-    "text-[17px] leading-[1.5]",
+    "text-krds-body-md",
     "hover:underline",
     "focus-visible:ring-krds-primary-50 focus-visible:ring-2 focus-visible:outline-none",
     className

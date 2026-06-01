@@ -53,7 +53,7 @@ function BreadcrumbItem({ className, children }: BreadcrumbItemProps) {
 
 const linkBaseClass = cn(
   "inline-flex h-6 items-center gap-1 rounded-[4px] px-1",
-  "text-krds-gray-90 text-[15px] leading-[1.5] underline",
+  "text-krds-gray-90 text-krds-body-sm underline",
   "hover:bg-krds-gray-5",
   "focus-visible:ring-krds-primary-50 focus-visible:ring-2 focus-visible:outline-none"
 );
@@ -103,7 +103,7 @@ function BreadcrumbPage({ className, children }: BreadcrumbPageProps) {
       aria-current="page"
       className={cn(
         "inline-flex h-6 items-center rounded-[4px] px-1",
-        "text-krds-gray-90 text-[15px] leading-[1.5] underline",
+        "text-krds-gray-90 text-krds-body-sm underline",
         className
       )}
     >

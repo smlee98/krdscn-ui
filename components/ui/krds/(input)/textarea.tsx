@@ -41,7 +41,7 @@ function Textarea({
 
   return (
     <div data-slot="krds-textarea" className={cn("flex w-full flex-col gap-2", className)}>
-      {label && <label className="block text-[15px] leading-[1.5] text-[#464c53]">{label}</label>}
+      {label && <label className="block text-krds-body-sm text-[#464c53]">{label}</label>}
       <div
         className={cn(
           "h-36 rounded-[6px] border border-[#58616a] bg-white px-4 py-2 transition-colors",
@@ -61,7 +61,7 @@ function Textarea({
           aria-invalid={invalid}
           onChange={handleChange}
           className={cn(
-            "h-full w-full resize-none bg-transparent text-[17px] leading-[1.5] text-[#1e2124] outline-none",
+            "h-full w-full resize-none bg-transparent text-krds-body-md text-[#1e2124] outline-none",
             "placeholder:text-[#8a949e]",
             disabled && "cursor-not-allowed text-[#8a949e]",
             readOnly && !disabled && "text-[#464c53]"
@@ -70,7 +70,7 @@ function Textarea({
       </div>
       {showCount && (
         <div className="flex w-full justify-end">
-          <div className="flex shrink-0 items-baseline gap-[2px] text-[15px] leading-[1.5] whitespace-nowrap">
+          <div className="flex shrink-0 items-baseline gap-[2px] text-krds-body-sm whitespace-nowrap">
             <span className={cn(isOverLimit ? "text-[#bd2c0f]" : "text-[#0b50d0]")}>{currentLength}</span>
             <span className="text-[#464c53]">/{countTotal}</span>
           </div>

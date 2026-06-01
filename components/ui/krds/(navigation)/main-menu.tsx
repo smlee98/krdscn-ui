@@ -52,7 +52,7 @@ function MainMenuBarItem({ className, children, href, hasSubmenu }: MainMenuBarI
       href={href}
       className={cn(
         "inline-flex h-14 items-center gap-2 px-4",
-        "text-krds-gray-70 text-[19px] leading-[1.5] font-bold",
+        "text-krds-gray-70 text-krds-body-lg font-bold",
         "hover:text-krds-gray-90",
         "focus-visible:ring-krds-primary-50 rounded-sm focus-visible:ring-2 focus-visible:outline-none",
         className
@@ -84,7 +84,7 @@ function MainMenuPanel({ className, children }: MainMenuPanelProps) {
 function MainMenuPanelHeader({ className, children, ...props }: React.ComponentProps<"div">) {
   return (
     <div data-slot="krds-main-menu-panel-header" className={cn("flex h-14 items-center px-1", className)} {...props}>
-      <span className="text-krds-gray-90 text-[24px] leading-[1.5] font-bold">{children}</span>
+      <span className="text-krds-gray-90 text-krds-heading-md font-bold">{children}</span>
     </div>
   );
 }
@@ -97,7 +97,7 @@ function MainMenuPanelShortcut({ className, children, ...props }: React.Componen
       data-slot="krds-main-menu-panel-shortcut"
       className={cn(
         "inline-flex items-center gap-0.5 px-0.5",
-        "text-krds-gray-90 text-[15px] leading-[1.5]",
+        "text-krds-gray-90 text-krds-body-sm",
         "focus-visible:ring-krds-primary-50 rounded-sm focus-visible:ring-2 focus-visible:outline-none",
         className
       )}
@@ -154,7 +154,7 @@ function MainMenuLink({ className, children, href, external }: MainMenuLinkProps
       href={href}
       className={cn(
         "flex items-center gap-1 rounded-md px-2 py-2.5",
-        "text-krds-gray-90 text-[17px] leading-[1.5]",
+        "text-krds-gray-90 text-krds-body-md",
         "hover:bg-krds-gray-5",
         "focus-visible:ring-krds-primary-50 focus-visible:ring-2 focus-visible:outline-none",
         className
@@ -189,7 +189,7 @@ function MainMenuSidebarItem({ className, children, href, active, hasMore, exter
       aria-current={active ? "page" : undefined}
       className={cn(
         "flex w-full items-center px-6 py-4",
-        "text-[17px] leading-[1.5]",
+        "text-krds-body-md",
         "focus-visible:ring-krds-primary-50 focus-visible:ring-2 focus-visible:outline-none",
         showArrow ? "gap-6" : "gap-2",
         active ? "bg-krds-gray-0 font-bold text-[#052b57]" : "text-krds-gray-90",

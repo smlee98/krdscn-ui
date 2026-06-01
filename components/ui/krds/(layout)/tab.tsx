@@ -143,7 +143,7 @@ function TabTrigger({ value, children, className, ...rest }: TabTriggerProps) {
         "focus-visible:ring-0 focus-visible:outline-none",
 
         // Size by type
-        isPrimary ? "h-14 text-[19px]" : "h-10 text-[17px]",
+        isPrimary ? "h-14 text-krds-body-lg" : "h-10 text-krds-body-md",
 
         // Line variant
         isLine && [

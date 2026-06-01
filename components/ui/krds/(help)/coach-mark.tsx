@@ -66,12 +66,12 @@ function CoachMark({
           <h5 className="sr-only">따라하기 가이드</h5>
 
           <div className="flex flex-col gap-3">
-            <h6 className="text-[15px] font-bold leading-[1.5] text-[#1e2124]">{title}</h6>
-            <p className="text-[17px] font-normal leading-[1.5] text-[#1e2124]">{description}</p>
+            <h6 className="text-krds-body-sm font-bold text-[#1e2124]">{title}</h6>
+            <p className="text-krds-body-md font-normal text-[#1e2124]">{description}</p>
           </div>
 
           <div className="mt-8 flex items-center gap-2">
-            <div className="flex items-center gap-1 text-[17px] leading-[1.5] font-bold">
+            <div className="flex items-center gap-1 text-krds-body-md font-bold">
               <span className="sr-only">현재 단계</span>
               <strong className="text-[#0b50d0]">{currentStep}</strong>
               <span aria-hidden="true" className="text-[#1e2124]">/</span>

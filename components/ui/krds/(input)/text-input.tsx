@@ -40,9 +40,9 @@ const sizeBox: Record<TextInputSize, string> = {
 };
 
 const sizeText: Record<TextInputSize, string> = {
-  small: "text-[15px]",
-  medium: "text-[17px]",
-  large: "text-[19px]"
+  small: "text-krds-body-sm",
+  medium: "text-krds-body-md",
+  large: "text-krds-body-lg"
 };
 
 const sizeIcon: Record<TextInputSize, string> = {
@@ -94,7 +94,7 @@ function TextInput({
   return (
     <div data-slot="krds-text-input" className={cn("flex w-full flex-col gap-2", className)}>
       {label && (
-        <label htmlFor={id} className="block text-[15px] leading-[1.5] text-[#464c53]">
+        <label htmlFor={id} className="block text-krds-body-sm text-[#464c53]">
           {label}
         </label>
       )}

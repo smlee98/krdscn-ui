@@ -87,8 +87,8 @@ function Checkbox({
   // Description indent: control size (size-6=24px / size-5=20px) + gap-2 (8px).
   const descIndent = size === "large" ? "pl-8" : "pl-7";
   // Label/help typography mirrors Radio (Figma node 313:27198).
-  const labelSize = size === "large" ? "text-[19px] leading-[1.5]" : "text-[17px] leading-[1.5]";
-  const helpSize = size === "large" ? "text-[17px] leading-[1.5]" : "text-[15px] leading-[1.5]";
+  const labelSize = size === "large" ? "text-krds-body-lg" : "text-krds-body-md";
+  const helpSize = size === "large" ? "text-krds-body-md" : "text-krds-body-sm";
   // Border + background per state (matches Radio's color decisions for consistency).
   //  - default off:        border #58616a (gray-dark), bg white
   //  - default on/indet:   bg primary-50, no visible border
