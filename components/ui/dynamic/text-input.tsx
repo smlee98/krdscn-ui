@@ -9,15 +9,11 @@ import {
 } from "@/components/ui/krds/(input)/text-input";
 import { useUISystem } from "@/lib/ui-system";
 
-// shadcn fallback: label is rendered above the Input.
-// showClearButton and showPasswordToggle are not implemented on the shadcn side (v1).
-// size maps to a wrapper className: small=h-10, medium=h-12, large=h-14.
-
-const SIZE_HEIGHT: Record<TextInputSize, string> = {
-  small: "h-10",
-  medium: "h-12",
-  large: "h-14"
-};
+// shadcn fallback: label rendered above the Input using shadcn tokens.
+// showClearButton/showPasswordToggle have no shadcn-side implementation (v1).
+// `size` is dropped on the shadcn branch — the vanilla Input has a single native
+// height (h-9); we do not scale it up to the KRDS height ladder (see
+// feedback-shadcn-uses-native-size).
 
 function TextInput(props: TextInputProps) {
   const system = useUISystem();
@@ -27,7 +23,7 @@ function TextInput(props: TextInputProps) {
 
   const {
     label,
-    size = "large",
+    size: _size,
     value,
     defaultValue,
     onChange,
@@ -37,6 +33,7 @@ function TextInput(props: TextInputProps) {
     id: propId,
     ...rest
   } = props;
+  void _size;
 
   const id = propId ?? generatedId;
 
@@ -47,7 +44,7 @@ function TextInput(props: TextInputProps) {
   return (
     <div className="flex w-full flex-col gap-2">
       {label && (
-        <label htmlFor={id} className="block text-[15px] leading-[1.5] text-[#464c53]">
+        <label htmlFor={id} className="text-foreground text-sm leading-none font-medium">
           {label}
         </label>
       )}
@@ -56,7 +53,7 @@ function TextInput(props: TextInputProps) {
         value={value}
         defaultValue={defaultValue}
         onChange={handleChange}
-        className={`${SIZE_HEIGHT[size]} ${className ?? ""}`.trim()}
+        className={className}
         {...rest}
       />
     </div>
