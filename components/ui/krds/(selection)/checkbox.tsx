@@ -6,8 +6,8 @@
  *  - checkbox (composition):    node 309:25967
  *  - checkbox__list:            node 309:26481
  *
- * Structure mirrors Radio (same KRDS family): icon box mounted directly,
- * label container is `flex min-w-0 flex-1 flex-col items-start justify-center gap-1 leading-[1.5]`.
+ * Structure: outer label is flex-col gap-1. Inner row (control+label text) is
+ * items-center gap-2. Description is a sibling block indented by pl-7/pl-8.
  */
 
 "use client";
@@ -84,6 +84,8 @@ function Checkbox({
   // Figma node 306:26713 — 24px (large), 20px (medium); check glyph 16px / 12px.
   const outerSize = size === "large" ? "size-6" : "size-5";
   const iconGlyphSize = size === "large" ? "size-4" : "size-3";
+  // Description indent: control size (size-6=24px / size-5=20px) + gap-2 (8px).
+  const descIndent = size === "large" ? "pl-8" : "pl-7";
   // Label/help typography mirrors Radio (Figma node 313:27198).
   const labelSize = size === "large" ? "text-[19px] leading-[1.5]" : "text-[17px] leading-[1.5]";
   const helpSize = size === "large" ? "text-[17px] leading-[1.5]" : "text-[15px] leading-[1.5]";
@@ -109,13 +111,12 @@ function Checkbox({
   const helpColor = disabled ? "text-[#8a949e]" : "text-krds-gray-70";
 
   const labelNode = label ?? children;
-  const hasDescription = Boolean(description);
 
   return (
     <label
       htmlFor={inputId}
       data-slot="krds-checkbox"
-      className={cn("flex cursor-pointer gap-2", hasDescription ? "items-start" : "items-center", disabled && "cursor-not-allowed", className)}
+      className={cn("flex cursor-pointer flex-col gap-1", disabled && "cursor-not-allowed", className)}
     >
       <input
         {...rest}
@@ -132,26 +133,26 @@ function Checkbox({
           onChange?.(e.target.checked);
         }}
       />
-      <span
-        aria-hidden="true"
-        className={cn(
-          "relative inline-flex shrink-0 items-center justify-center rounded-[4px] transition-colors",
-          outerSize,
-          borderClass,
-          bgClass
-        )}
-      >
-        {indeterminate ? (
-          <MinusIcon className={cn(iconGlyphSize, glyphColor)} strokeWidth={3} aria-hidden="true" />
-        ) : currentChecked ? (
-          <CheckIcon className={cn(iconGlyphSize, glyphColor)} strokeWidth={3} aria-hidden="true" />
-        ) : null}
-      </span>
-      {(labelNode || description) && (
-        <span className="flex min-w-0 flex-1 flex-col items-start justify-center gap-1 leading-[1.5]">
-          {labelNode && <span className={cn("w-full", labelSize, labelColor)}>{labelNode}</span>}
-          {description && <span className={cn("w-full", helpSize, helpColor)}>{description}</span>}
+      <span className="flex items-center gap-2">
+        <span
+          aria-hidden="true"
+          className={cn(
+            "relative inline-flex shrink-0 items-center justify-center rounded-[4px] transition-colors",
+            outerSize,
+            borderClass,
+            bgClass
+          )}
+        >
+          {indeterminate ? (
+            <MinusIcon className={cn(iconGlyphSize, glyphColor)} strokeWidth={3} aria-hidden="true" />
+          ) : currentChecked ? (
+            <CheckIcon className={cn(iconGlyphSize, glyphColor)} strokeWidth={3} aria-hidden="true" />
+          ) : null}
         </span>
+        {labelNode && <span className={cn(labelSize, labelColor)}>{labelNode}</span>}
+      </span>
+      {description && (
+        <span className={cn(descIndent, helpSize, helpColor)}>{description}</span>
       )}
     </label>
   );

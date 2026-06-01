@@ -115,11 +115,12 @@ function RadioGroup({
 function Radio({ size = "medium", description, value, children, disabled, className, ...rest }: RadioProps) {
   const ctx = useRadioGroupContext();
   const isChecked = ctx.value === value;
-  const hasDescription = Boolean(description);
 
   // Figma node 313:27198
   const outerSize = size === "large" ? "size-6" : "size-5";
   const innerSize = size === "large" ? "size-3" : "size-2.5";
+  // Description indent: control size (size-6=24px / size-5=20px) + gap-2 (8px).
+  const descIndent = size === "large" ? "pl-8" : "pl-7";
   const labelSize = size === "large" ? "text-[19px] leading-[1.5]" : "text-[17px] leading-[1.5]";
   const helpSize = size === "large" ? "text-[17px] leading-[1.5]" : "text-[15px] leading-[1.5]";
   // Checked border thickness differs by size (large 1.6px, medium 1.4px)
@@ -155,7 +156,7 @@ function Radio({ size = "medium", description, value, children, disabled, classN
   return (
     <label
       data-slot="krds-radio"
-      className={cn("flex cursor-pointer gap-2", hasDescription ? "items-start" : "items-center", disabled && "cursor-not-allowed", className)}
+      className={cn("flex cursor-pointer flex-col gap-1", disabled && "cursor-not-allowed", className)}
     >
       <input
         {...rest}
@@ -167,22 +168,23 @@ function Radio({ size = "medium", description, value, children, disabled, classN
         className="sr-only"
         onChange={() => ctx.onChange(value)}
       />
-      <span
-        aria-hidden="true"
-        className={cn(
-          "relative inline-flex shrink-0 items-center justify-center rounded-full transition-colors",
-          outerSize,
-          borderClass,
-          bgClass
-        )}
-      >
-        <span className={cn("rounded-full transition-colors", innerSize, dotClass)} />
+      <span className="flex items-center gap-2">
+        <span
+          aria-hidden="true"
+          className={cn(
+            "relative inline-flex shrink-0 items-center justify-center rounded-full transition-colors",
+            outerSize,
+            borderClass,
+            bgClass
+          )}
+        >
+          <span className={cn("rounded-full transition-colors", innerSize, dotClass)} />
+        </span>
+        {children && <span className={cn(labelSize, labelColor)}>{children}</span>}
       </span>
-      {/* label container: Figma 313:27238 — flex-1 min-w-0 + leading-[1.5] at container level */}
-      <span className="flex min-w-0 flex-1 flex-col items-start justify-center gap-1 leading-[1.5]">
-        {children && <span className={cn("w-full", labelSize, labelColor)}>{children}</span>}
-        {description && <span className={cn("w-full", helpSize, helpColor)}>{description}</span>}
-      </span>
+      {description && (
+        <span className={cn(descIndent, helpSize, helpColor)}>{description}</span>
+      )}
     </label>
   );
 }
