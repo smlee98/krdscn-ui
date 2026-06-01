@@ -1,6 +1,6 @@
 "use client";
 
-import type * as React from "react";
+import * as React from "react";
 import {
   Tabs as ShadcnTabs,
   TabsContent as ShadcnTabsContent,
@@ -44,19 +44,25 @@ export type {
 //   TabContent → <div>           (structural padding wrapper; no shadcn analog)
 //   TabPanel   → TabsContent     (value preserved)
 //
-// In shadcn mode the KRDS-only style props (variant/type) are intentionally
-// dropped — shadcn's Tabs has no line/fill or primary/secondary axis.
+// In shadcn mode the KRDS `variant` maps to shadcn's TabsList variant: KRDS line
+// (also the default) → shadcn "line" (underline tabs); KRDS fill → shadcn "default"
+// (boxed tabs). The KRDS `type` (primary/secondary axis) has no shadcn analog and
+// is still dropped.
+
+const ShadcnTabContext = React.createContext<{ variant: "line" | "fill" }>({ variant: "line" });
 
 // ─── Tab (Root) ────────────────────────────────────────────────────────────────
 
 export function Tab(props: TabProps) {
   const system = useUISystem();
   if (system === "krds") return <KrdsTab {...props} />;
-  const { variant: _variant, type: _type, value, defaultValue, onValueChange, children, className, ...rest } = props;
+  const { variant, type: _type, value, defaultValue, onValueChange, children, className, ...rest } = props;
   return (
-    <ShadcnTabs value={value} defaultValue={defaultValue} onValueChange={onValueChange} className={className} {...rest}>
-      {children}
-    </ShadcnTabs>
+    <ShadcnTabContext.Provider value={{ variant: variant ?? "line" }}>
+      <ShadcnTabs value={value} defaultValue={defaultValue} onValueChange={onValueChange} className={className} {...rest}>
+        {children}
+      </ShadcnTabs>
+    </ShadcnTabContext.Provider>
   );
 }
 
@@ -66,8 +72,9 @@ export function TabList(props: TabListProps) {
   const system = useUISystem();
   if (system === "krds") return <KrdsTabList {...props} />;
   const { children, className, ...rest } = props;
+  const ctx = React.useContext(ShadcnTabContext);
   return (
-    <ShadcnTabsList className={className} {...rest}>
+    <ShadcnTabsList variant={ctx.variant === "fill" ? "default" : "line"} className={className} {...rest}>
       {children}
     </ShadcnTabsList>
   );
