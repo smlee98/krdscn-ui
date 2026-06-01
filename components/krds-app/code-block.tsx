@@ -2,10 +2,10 @@
 "use client";
 
 // Syntax highlighting: shiki v4 bundle/web (JS regex engine, no WASM); highlighter cached at module scope.
-// Dual-theme (github-light + github-dark): shiki emits inline light colors + `--shiki-dark` CSS vars;
-// the `.dark .shiki` rule in globals.css activates the dark vars under the next-themes class strategy.
+// Theme is chosen in JS from next-themes (resolvedTheme) and re-highlighted on change — no global CSS.
 import { useState, useEffect, useCallback } from "react";
 import { getSingletonHighlighter } from "shiki/bundle/web";
+import { useTheme } from "next-themes";
 import { Check, Clipboard } from "lucide-react";
 import { cn } from "@/lib/cn";
 
@@ -34,8 +34,11 @@ function CodeBlock({
   lang?: string;
   className?: string;
 }) {
+  const { resolvedTheme } = useTheme();
   const [html, setHtml] = useState<string>("");
   const [copied, setCopied] = useState(false);
+
+  const theme = resolvedTheme === "dark" ? "github-dark" : "github-light";
 
   useEffect(() => {
     const promise = getHighlighter();
@@ -45,12 +48,12 @@ function CodeBlock({
       if (cancelled) return;
       const loaded = h.getLoadedLanguages();
       const resolvedLang = loaded.includes(lang as never) ? lang : "text";
-      setHtml(h.codeToHtml(code, { lang: resolvedLang, themes: { light: "github-light", dark: "github-dark" } }));
+      setHtml(h.codeToHtml(code, { lang: resolvedLang, theme }));
     });
     return () => {
       cancelled = true;
     };
-  }, [code, lang]);
+  }, [code, lang, theme]);
 
   const handleCopy = useCallback(() => {
     navigator.clipboard.writeText(code);
