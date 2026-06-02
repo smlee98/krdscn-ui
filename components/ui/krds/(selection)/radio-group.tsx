@@ -165,7 +165,10 @@ function Radio({ size = "medium", description, value, children, disabled, classN
         value={value}
         disabled={disabled}
         className={cn(
-          "flex cursor-pointer items-center gap-2 rounded-[4px] focus:krds-focus-ring hover:bg-krds-surface-subtler",
+          // w-fit keeps the focus ring (and hover bg) content-width — wrapping only
+          // the radio + label, matching KRDS where the ring sits on the inline-flex
+          // <label>. Without it, the Item stretches to the full column width.
+          "flex w-fit cursor-pointer items-center gap-2 rounded-[4px] focus:krds-focus-ring hover:bg-krds-surface-subtler",
           disabled && "cursor-not-allowed"
         )}
       >
