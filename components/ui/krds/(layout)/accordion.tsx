@@ -117,9 +117,9 @@ function AccordionItem({ value, children, className, ...rest }: AccordionItemPro
       data-slot="krds-accordion-item"
       value={value}
       className={cn(
-        "overflow-hidden",
         isLine
           ? [
+              "overflow-hidden",
               // top divider only — bottom comes from next item's top
               "border-krds-border-light border-t border-b-0",
               "data-[state=open]:border-krds-border-dark",
@@ -128,9 +128,11 @@ function AccordionItem({ value, children, className, ...rest }: AccordionItemPro
               isLarge ? "data-[state=open]:pb-6" : "data-[state=open]:pb-5"
             ]
           : [
+              // default: 패딩을 trigger/panel로 이관해 focus ring 이 헤더 전체를 감싸도록 한다.
+              // overflow-hidden 제거 — trigger 가 item 을 가득 채우므로 ring(box-shadow 4px)이 잘리지 않게.
+              // (rounded 배경은 border-radius 로 클립되어 overflow-hidden 없이도 모서리가 둥글다.)
               "rounded-[10px] border-0 bg-transparent",
-              "data-[state=open]:bg-krds-surface-secondary-subtle",
-              isLarge ? "p-6" : "px-4 py-5"
+              "data-[state=open]:bg-krds-surface-secondary-subtle"
             ],
         className
       )}
@@ -162,8 +164,11 @@ function AccordionHeader({ children, onClick, className, ...rest }: AccordionHea
           isLarge ? "text-krds-body-lg" : "text-krds-body-md",
           // open-state title color → secondary darker
           "data-[state=open]:text-krds-foreground-secondary",
-          // padding — line variant supplies its own header padding; default variant has none (wrapper provides it)
-          isLine ? (isLarge ? "py-5" : "py-3") : "p-0",
+          // padding — line variant supplies its own header padding; default variant now carries the
+          // full header padding(이전엔 item p-6) so the trigger fills the visual header → focus ring 가 헤더 전체를 감쌈.
+          isLine ? (isLarge ? "py-5" : "py-3") : isLarge ? "p-6" : "px-4 py-5",
+          // default: KRDS .btn-accordion radius(10px) 로 focus ring 모서리 정렬.
+          !isLine && "rounded-[10px]",
           // chevron rotation on open
           "[&[data-state=open]>svg]:rotate-180",
           className
@@ -195,10 +200,9 @@ function AccordionPanel({ children, className, ...rest }: AccordionPanelProps) {
     >
       <div
         className={cn(
-          // Bottom inset owned by item wrapper (line: pb-on-open) or by `pb` of wrapper (default).
-          // Top gap: line variant flush (0); default uses gap/7 (24) or gap/6 (20).
-          "px-0 pb-0",
-          isLine ? "pt-0" : isLarge ? "pt-6" : "pt-5",
+          // line: 패딩 없음(item/trigger 가 처리). default: item 에서 옮겨온 좌우/하단 inset + pt-0
+          // (trigger 하단 패딩이 헤더-내용 간격을 제공 → 총 여백 보존).
+          isLine ? "px-0 pt-0 pb-0" : isLarge ? "px-6 pt-0 pb-6" : "px-4 pt-0 pb-5",
           "text-krds-foreground text-krds-body-md",
           className
         )}
