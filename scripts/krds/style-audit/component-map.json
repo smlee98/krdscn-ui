@@ -1,0 +1,483 @@
+{
+  "meta": {
+    "description": "KRDS 원본(reference) ↔ 우리 구현(impl) 스타일 감사 대응표. capture-reference.mjs / capture-impl.mjs / diff-and-report.mjs 의 단일 진실원.",
+    "schemaVersion": 1,
+    "componentCount": 41,
+    "referenceBase": "/Users/gridone/Documents/work/krds-uiux/html/code",
+    "referenceCss": [
+      "/Users/gridone/Documents/work/krds-uiux/resources/css/token/krds_tokens.css",
+      "/Users/gridone/Documents/work/krds-uiux/resources/css/common/common.css",
+      "/Users/gridone/Documents/work/krds-uiux/resources/css/component/component.css"
+    ],
+    "implBase": "https://localhost:8080",
+    "implRoutePattern": "/components/<group>/<id>",
+    "notes": [
+      "reference.htmlFile 은 referenceBase 기준 상대 경로(파일명).",
+      "reference.selector 는 해당 fragment 안에서 캡처 대상 루트를 가리키는 CSS 셀렉터. 동일 셀렉터가 여러 개면 nth 사용은 capture-reference.mjs 가 첫 매치 사용.",
+      "impl.exampleName 은 components/examples/<group-id>/<Name>.tsx 의 PascalCase 이름. 카탈로그 라우트에서 해당 예제 블록 안의 impl.selector 로 캡처.",
+      "impl.selector 는 [data-slot='krds-<component>'] 루트. 변형은 data-variant/data-size 또는 예제별 분리로 구분.",
+      "attribute 셀렉터는 JSON 이스케이프 회피를 위해 작은따옴표 사용( [data-slot='krds-button'] ). querySelector 에 그대로 전달 가능.",
+      "원본에 1:1 대응이 없는 서브파트(modal sub-parts, file-upload 등)는 캐노니컬 루트만 매핑하고 row.note 에 표기. 한쪽만 캡처되면 diff 엔진이 '캡처 누락'으로 분류."
+    ]
+  },
+  "components": [
+    {
+      "componentKey": "masthead",
+      "group": "identity",
+      "reference": { "htmlFile": "masthead.html", "rootSelector": "#krds-masthead" },
+      "impl": { "route": "/components/identity/masthead", "rootSelector": "[data-slot='krds-masthead']" },
+      "variants": [
+        { "key": "default", "reference": { "selector": "#krds-masthead" }, "impl": { "exampleName": "MastheadDefault", "selector": "[data-slot='krds-masthead']" } }
+      ],
+      "note": "정부 공식 배너. SVG 태극기 등 고정 브랜드 자산 포함(색 비교 시 주의)."
+    },
+    {
+      "componentKey": "identifier",
+      "group": "identity",
+      "reference": { "htmlFile": "identifier.html", "rootSelector": ".krds-identifier" },
+      "impl": { "route": "/components/identity/identifier", "rootSelector": "[data-slot='krds-identifier']" },
+      "variants": [
+        { "key": "default", "reference": { "selector": ".krds-identifier" }, "impl": { "exampleName": "IdentifierDefault", "selector": "[data-slot='krds-identifier']" } }
+      ]
+    },
+    {
+      "componentKey": "header",
+      "group": "identity",
+      "reference": { "htmlFile": "header.html", "rootSelector": "#krds-header" },
+      "impl": { "route": "/components/identity/header", "rootSelector": "[data-slot='krds-header']" },
+      "variants": [
+        { "key": "default", "reference": { "selector": "#krds-header" }, "impl": { "exampleName": "HeaderDefault", "selector": "[data-slot='krds-header']" } },
+        { "key": "logged-in", "reference": { "selector": "#krds-header" }, "impl": { "exampleName": "HeaderLoggedIn", "selector": "[data-slot='krds-header']" }, "note": "원본에 로그인 변형 fragment 없음 → 캐노니컬 루트로 best-effort." }
+      ]
+    },
+    {
+      "componentKey": "footer",
+      "group": "identity",
+      "reference": { "htmlFile": "footer.html", "rootSelector": "#krds-footer" },
+      "impl": { "route": "/components/identity/footer", "rootSelector": "[data-slot='krds-footer']" },
+      "variants": [
+        { "key": "default", "reference": { "selector": "#krds-footer" }, "impl": { "exampleName": "FooterDefault", "selector": "[data-slot='krds-footer']" } },
+        { "key": "minimal", "reference": { "selector": "#krds-footer" }, "impl": { "exampleName": "FooterMinimal", "selector": "[data-slot='krds-footer']" }, "note": "원본 단일 fragment → 변형은 impl 만 비교." },
+        { "key": "simple", "reference": { "selector": "#krds-footer" }, "impl": { "exampleName": "FooterSimple", "selector": "[data-slot='krds-footer']" }, "note": "원본 단일 fragment → 변형은 impl 만 비교." }
+      ]
+    },
+    {
+      "componentKey": "skip-link",
+      "group": "navigation",
+      "reference": { "htmlFile": "skip_link.html", "rootSelector": "#krds-skip-link a" },
+      "impl": { "route": "/components/navigation/skip-link", "rootSelector": "[data-slot='krds-skip-link']" },
+      "variants": [
+        { "key": "default", "reference": { "selector": "#krds-skip-link a" }, "impl": { "exampleName": "SkipLinkDefault", "selector": "[data-slot='krds-skip-link']" }, "note": "시각적으로 숨김(sr-only) → focus 상태가 핵심. focus/focus-visible 비교 중요." },
+        { "key": "custom-target", "reference": { "selector": "#krds-skip-link a" }, "impl": { "exampleName": "SkipLinkCustomTarget", "selector": "[data-slot='krds-skip-link']" } }
+      ]
+    },
+    {
+      "componentKey": "main-menu",
+      "group": "navigation",
+      "reference": { "htmlFile": "main_menu_pc.html", "rootSelector": ".krds-main-menu" },
+      "impl": { "route": "/components/navigation/main-menu", "rootSelector": "[data-slot='krds-main-menu']" },
+      "variants": [
+        { "key": "default", "reference": { "selector": ".krds-main-menu" }, "impl": { "exampleName": "MainMenuDefault", "selector": "[data-slot='krds-main-menu']" } },
+        { "key": "with-panel", "reference": { "selector": ".krds-main-menu" }, "impl": { "exampleName": "MainMenuWithPanel", "selector": "[data-slot='krds-main-menu']" }, "note": "패널 펼침 상태는 인터랙션 필요(capture-impl 에서 trigger 클릭 후 캡처 고려)." }
+      ]
+    },
+    {
+      "componentKey": "breadcrumb",
+      "group": "navigation",
+      "reference": { "htmlFile": "breadcrumb.html", "rootSelector": ".krds-breadcrumb-wrap" },
+      "impl": { "route": "/components/navigation/breadcrumb", "rootSelector": "[data-slot='krds-breadcrumb']" },
+      "variants": [
+        { "key": "default", "reference": { "selector": ".krds-breadcrumb-wrap" }, "impl": { "exampleName": "BreadcrumbDefault", "selector": "[data-slot='krds-breadcrumb']" } },
+        { "key": "link", "reference": { "selector": ".krds-breadcrumb-wrap .breadcrumb a" }, "impl": { "exampleName": "BreadcrumbDefault", "selector": "[data-slot='krds-breadcrumb-link']" } },
+        { "key": "single-item", "reference": { "selector": ".krds-breadcrumb-wrap" }, "impl": { "exampleName": "BreadcrumbSingleItem", "selector": "[data-slot='krds-breadcrumb']" } },
+        { "key": "disabled-item", "reference": { "selector": ".krds-breadcrumb-wrap" }, "impl": { "exampleName": "BreadcrumbWithDisabledItem", "selector": "[data-slot='krds-breadcrumb-page']" } }
+      ]
+    },
+    {
+      "componentKey": "side-navigation",
+      "group": "navigation",
+      "reference": { "htmlFile": "side_navigation.html", "rootSelector": ".krds-side-navigation" },
+      "impl": { "route": "/components/navigation/side-navigation", "rootSelector": "[data-slot='krds-side-navigation']" },
+      "variants": [
+        { "key": "default", "reference": { "selector": ".krds-side-navigation" }, "impl": { "exampleName": "SideNavigationDefault", "selector": "[data-slot='krds-side-navigation']" } },
+        { "key": "item", "reference": { "selector": ".krds-side-navigation .lnb-list a" }, "impl": { "exampleName": "SideNavigationDefault", "selector": "[data-slot='krds-side-navigation-item']" } },
+        { "key": "simple-menu", "reference": { "selector": ".krds-side-navigation" }, "impl": { "exampleName": "SideNavigationSimpleMenu", "selector": "[data-slot='krds-side-navigation']" } }
+      ]
+    },
+    {
+      "componentKey": "in-page-navigation",
+      "group": "navigation",
+      "reference": { "htmlFile": "in_page_navigation.html", "rootSelector": ".krds-in-page-navigation-area" },
+      "impl": { "route": "/components/navigation/in-page-navigation", "rootSelector": "[data-slot='krds-in-page-navigation']" },
+      "variants": [
+        { "key": "default", "reference": { "selector": ".krds-in-page-navigation-area" }, "impl": { "exampleName": "InPageNavigationDefault", "selector": "[data-slot='krds-in-page-navigation']" } },
+        { "key": "item", "reference": { "selector": ".krds-in-page-navigation-area a" }, "impl": { "exampleName": "InPageNavigationDefault", "selector": "[data-slot='krds-in-page-navigation-item']" } },
+        { "key": "long-items", "reference": { "selector": ".krds-in-page-navigation-area" }, "impl": { "exampleName": "InPageNavigationLongItems", "selector": "[data-slot='krds-in-page-navigation']" } }
+      ]
+    },
+    {
+      "componentKey": "pagination",
+      "group": "navigation",
+      "reference": { "htmlFile": "pagination.html", "rootSelector": ".krds-pagination" },
+      "impl": { "route": "/components/navigation/pagination", "rootSelector": "[data-slot='krds-pagination']" },
+      "variants": [
+        { "key": "default", "reference": { "selector": ".krds-pagination" }, "impl": { "exampleName": "PaginationDefault", "selector": "[data-slot='krds-pagination']" } },
+        { "key": "page-link", "reference": { "selector": ".krds-pagination .page-link" }, "impl": { "exampleName": "PaginationDefault", "selector": "[data-slot='krds-pagination-item']" } },
+        { "key": "prev-disabled", "reference": { "selector": ".krds-pagination .page-navi.prev" }, "impl": { "exampleName": "PaginationDefault", "selector": "[data-slot='krds-pagination-prev']" } },
+        { "key": "many-pages", "reference": { "selector": ".krds-pagination" }, "impl": { "exampleName": "PaginationWithManyPages", "selector": "[data-slot='krds-pagination']" } }
+      ]
+    },
+    {
+      "componentKey": "structured-list",
+      "group": "layout",
+      "reference": { "htmlFile": "structured_list.html", "rootSelector": ".krds-structured-list" },
+      "impl": { "route": "/components/layout/structured-list", "rootSelector": "[data-slot='krds-structured-list']" },
+      "variants": [
+        { "key": "default", "reference": { "selector": ".krds-structured-list" }, "impl": { "exampleName": "StructuredListDefault", "selector": "[data-slot='krds-structured-list']" } },
+        { "key": "long-text", "reference": { "selector": ".krds-structured-list" }, "impl": { "exampleName": "StructuredListLongText", "selector": "[data-slot='krds-structured-list']" } },
+        { "key": "various-badges", "reference": { "selector": ".krds-structured-list" }, "impl": { "exampleName": "StructuredListVariousBadges", "selector": "[data-slot='krds-structured-list']" } }
+      ]
+    },
+    {
+      "componentKey": "critical-alert",
+      "group": "layout",
+      "reference": { "htmlFile": "critical_alerts.html", "rootSelector": ".krds-critical-alerts" },
+      "impl": { "route": "/components/layout/critical-alert", "rootSelector": "[data-slot='krds-critical-alert']" },
+      "variants": [
+        { "key": "default", "reference": { "selector": ".krds-critical-alerts" }, "impl": { "exampleName": "CriticalAlertDefault", "selector": "[data-slot='krds-critical-alert']" } },
+        { "key": "custom-link-text", "reference": { "selector": ".krds-critical-alerts" }, "impl": { "exampleName": "CriticalAlertCustomLinkText", "selector": "[data-slot='krds-critical-alert']" } },
+        { "key": "without-link", "reference": { "selector": ".krds-critical-alerts" }, "impl": { "exampleName": "CriticalAlertWithoutLink", "selector": "[data-slot='krds-critical-alert']" } }
+      ]
+    },
+    {
+      "componentKey": "calendar",
+      "group": "layout",
+      "reference": { "htmlFile": "calendar.html", "rootSelector": ".calendar-body" },
+      "impl": { "route": "/components/layout/calendar", "rootSelector": "[data-slot='krds-calendar']" },
+      "variants": [
+        { "key": "default", "reference": { "selector": ".calendar-body" }, "impl": { "exampleName": "CalendarDefault", "selector": "[data-slot='krds-calendar']" }, "note": "원본 calendar.html 은 date-input 내장형. 표면/표 셀 위주 비교." },
+        { "key": "range", "reference": { "selector": ".calendar-body" }, "impl": { "exampleName": "CalendarRange", "selector": "[data-slot='krds-calendar']" } },
+        { "key": "open-state", "reference": { "selector": ".calendar-body" }, "impl": { "exampleName": "CalendarOpenState", "selector": "[data-slot='krds-calendar']" } }
+      ]
+    },
+    {
+      "componentKey": "disclosure",
+      "group": "layout",
+      "reference": { "htmlFile": "disclosure.html", "rootSelector": ".krds-disclosure" },
+      "impl": { "route": "/components/layout/disclosure", "rootSelector": "[data-slot='krds-disclosure']" },
+      "variants": [
+        { "key": "default", "reference": { "selector": ".krds-disclosure" }, "impl": { "exampleName": "DisclosureDefault", "selector": "[data-slot='krds-disclosure']" } },
+        { "key": "trigger", "reference": { "selector": ".krds-disclosure .btn-conts-expand" }, "impl": { "exampleName": "DisclosureDefault", "selector": "[data-slot='krds-disclosure-trigger']" } },
+        { "key": "default-expanded", "reference": { "selector": ".krds-disclosure" }, "impl": { "exampleName": "DisclosureDefaultExpanded", "selector": "[data-slot='krds-disclosure']" } }
+      ]
+    },
+    {
+      "componentKey": "modal",
+      "group": "layout",
+      "reference": { "htmlFile": "modal.html", "rootSelector": ".krds-modal .modal-content" },
+      "impl": { "route": "/components/layout/modal", "rootSelector": "[data-slot='krds-modal-content']" },
+      "variants": [
+        { "key": "default", "reference": { "selector": ".krds-modal .modal-content" }, "impl": { "exampleName": "ModalDefault", "selector": "[data-slot='krds-modal-content']" }, "note": "모달은 열림 상태 필요(capture-impl 에서 trigger 클릭 후 캡처). 원본은 .modal-dialog 정적 마크업." },
+        { "key": "header", "reference": { "selector": ".krds-modal .modal-header" }, "impl": { "exampleName": "ModalDefault", "selector": "[data-slot='krds-modal-header']" } },
+        { "key": "footer", "reference": { "selector": ".krds-modal .modal-btn" }, "impl": { "exampleName": "ModalDefault", "selector": "[data-slot='krds-modal-footer']" } },
+        { "key": "size-sm", "reference": { "selector": ".krds-modal .modal-content" }, "impl": { "exampleName": "ModalSizeSm", "selector": "[data-slot='krds-modal-content']" } }
+      ]
+    },
+    {
+      "componentKey": "badge",
+      "group": "layout",
+      "reference": { "htmlFile": "badge.html", "rootSelector": ".krds-badge" },
+      "impl": { "route": "/components/layout/badge", "rootSelector": "[data-slot='krds-badge']" },
+      "variants": [
+        { "key": "bg-primary", "reference": { "htmlFile": "badge.html", "selector": ".krds-badge.bg-primary" }, "impl": { "exampleName": "BadgeColors", "selector": "[data-slot='krds-badge']" } },
+        { "key": "outline-primary", "reference": { "htmlFile": "badge.html", "selector": ".krds-badge.outline-primary" }, "impl": { "exampleName": "BadgeVariants", "selector": "[data-slot='krds-badge']" } },
+        { "key": "bg-light-primary", "reference": { "htmlFile": "badge.html", "selector": ".krds-badge.bg-light-primary" }, "impl": { "exampleName": "BadgeVariants", "selector": "[data-slot='krds-badge']" } },
+        { "key": "large", "reference": { "htmlFile": "badge_size.html", "selector": ".krds-badge.large" }, "impl": { "exampleName": "BadgeSizes", "selector": "[data-slot='krds-badge']" } },
+        { "key": "number", "reference": { "htmlFile": "badge_number.html", "selector": ".krds-badge.number" }, "impl": { "exampleName": "BadgeDefault", "selector": "[data-slot='krds-badge-number']" }, "skipReason": "no-example-coverage: 카탈로그 5개 badge 예제 중 krds-badge-number 렌더 예제 없음(실측 0). number 배지 노출 예제 추가 시 대조 가능. 결함 아님.", "note": "구현 카탈로그에 number 배지 예제 없음 → impl 무노출." }
+      ]
+    },
+    {
+      "componentKey": "accordion",
+      "group": "layout",
+      "reference": { "htmlFile": "accordion.html", "rootSelector": ".krds-accordion" },
+      "impl": { "route": "/components/layout/accordion", "rootSelector": "[data-slot='krds-accordion-item']" },
+      "variants": [
+        { "key": "default", "reference": { "selector": ".krds-accordion" }, "impl": { "exampleName": "AccordionDefault", "selector": "[data-slot='krds-accordion-item']" } },
+        { "key": "header", "reference": { "selector": ".krds-accordion .accordion-header" }, "impl": { "exampleName": "AccordionDefault", "selector": "[data-slot='krds-accordion-header']" } },
+        { "key": "panel", "reference": { "selector": ".krds-accordion .accordion-collapse" }, "impl": { "exampleName": "AccordionDefault", "selector": "[data-slot='krds-accordion-panel']" } }
+      ]
+    },
+    {
+      "componentKey": "carousel",
+      "group": "layout",
+      "reference": { "htmlFile": "carousel.html", "rootSelector": ".vb-swiper" },
+      "impl": { "route": "/components/layout/carousel", "rootSelector": "[data-slot='krds-carousel']" },
+      "variants": [
+        { "key": "default", "reference": { "selector": ".vb-swiper" }, "impl": { "exampleName": "CarouselDefault", "selector": "[data-slot='krds-carousel']" }, "note": "원본은 swiper 기반. dots/play-pause 컨트롤 위주 비교." },
+        { "key": "full-banner", "reference": { "htmlFile": "carousel_banner.html", "selector": ".main-d-ban-swiper" }, "impl": { "exampleName": "CarouselFullBanner", "selector": "[data-slot='krds-carousel']" }, "note": "원본 배너는 swiper 플러그인 CSS/JS 의존(우리 3종 CSS 미포함) → 박스모델 위주, 색/레이아웃 비교 신뢰도 낮음(저신뢰)." }
+      ]
+    },
+    {
+      "componentKey": "tab",
+      "group": "layout",
+      "reference": { "htmlFile": "tab.html", "rootSelector": ".krds-tab-area" },
+      "impl": { "route": "/components/layout/tab", "rootSelector": "[data-slot='krds-tab']" },
+      "variants": [
+        { "key": "default", "reference": { "selector": ".krds-tab-area" }, "impl": { "exampleName": "TabDefault", "selector": "[data-slot='krds-tab']" } },
+        { "key": "trigger-active", "reference": { "selector": ".tab li.active button.btn-tab" }, "impl": { "exampleName": "TabDefault", "selector": "[data-slot='krds-tab-trigger'][data-state='active']" }, "note": "활성 탭 트리거. 원본 마크업은 li.active > button.btn-tab. focus/active 상태 핵심." },
+        { "key": "trigger", "reference": { "selector": ".tab li button.btn-tab" }, "impl": { "exampleName": "TabDefault", "selector": "[data-slot='krds-tab-trigger']" }, "note": "원본 트리거는 button.btn-tab (li > button)." },
+        { "key": "line-type", "reference": { "selector": ".krds-tab-area .tab.line" }, "impl": { "exampleName": "TabLineType", "selector": "[data-slot='krds-tab-list']" } }
+      ]
+    },
+    {
+      "componentKey": "table",
+      "group": "layout",
+      "reference": { "htmlFile": "table.html", "rootSelector": ".krds-table-wrap .tbl" },
+      "impl": { "route": "/components/layout/table", "rootSelector": "[data-slot='krds-table']" },
+      "variants": [
+        { "key": "default", "reference": { "selector": ".krds-table-wrap .tbl" }, "impl": { "exampleName": "TableDefault", "selector": "[data-slot='krds-table']" } },
+        { "key": "header-cell", "reference": { "selector": ".krds-table-wrap .tbl th" }, "impl": { "exampleName": "TableDefault", "selector": "[data-slot='krds-table-head']" } },
+        { "key": "body-cell", "reference": { "selector": ".krds-table-wrap .tbl td" }, "impl": { "exampleName": "TableDefault", "selector": "[data-slot='krds-table-cell']" } }
+      ]
+    },
+    {
+      "componentKey": "text-list",
+      "group": "layout",
+      "reference": { "htmlFile": "text_list.html", "rootSelector": ".krds-info-list" },
+      "impl": { "route": "/components/layout/text-list", "rootSelector": "[data-slot='krds-text-list']" },
+      "variants": [
+        { "key": "default", "reference": { "selector": ".krds-info-list.dash" }, "impl": { "exampleName": "TextListDefault", "selector": "[data-slot='krds-text-list']" } },
+        { "key": "ordered", "reference": { "htmlFile": "text_list_ordered.html", "selector": ".krds-info-list.ordered" }, "impl": { "exampleName": "TextListOrdered", "selector": "[data-slot='krds-text-list']" } },
+        { "key": "item", "reference": { "selector": ".krds-info-list li" }, "impl": { "exampleName": "TextListDefault", "selector": "[data-slot='krds-text-list-item']" } }
+      ]
+    },
+    {
+      "componentKey": "link",
+      "group": "action",
+      "reference": { "htmlFile": "link.html", "rootSelector": ".krds-btn.link" },
+      "impl": { "route": "/components/action/link", "rootSelector": "[data-slot='krds-link']" },
+      "variants": [
+        { "key": "default", "reference": { "selector": ".krds-btn.link" }, "impl": { "exampleName": "LinkDefault", "selector": "[data-slot='krds-link']" }, "note": "link 은 visited 상태 비교 best-effort(프라이버시 제약). underline/hover 핵심." },
+        { "key": "underline", "reference": { "selector": ".krds-btn.link span.underline" }, "impl": { "exampleName": "LinkUnderlines", "selector": "[data-slot='krds-link']" }, "note": "원본 밑줄은 링크 내부 span.underline 에 적용." },
+        { "key": "with-icon", "reference": { "selector": ".krds-btn.link .svg-icon" }, "impl": { "exampleName": "LinkWithIcons", "selector": "[data-slot='krds-link']" } }
+      ]
+    },
+    {
+      "componentKey": "button",
+      "group": "action",
+      "reference": { "htmlFile": "button.html", "rootSelector": ".krds-btn" },
+      "impl": { "route": "/components/action/button", "rootSelector": "[data-slot='krds-button']" },
+      "variants": [
+        { "key": "primary", "reference": { "htmlFile": "button_hierarchy.html", "selector": ".krds-btn.primary" }, "impl": { "exampleName": "ButtonPrimary", "selector": "[data-slot='krds-button']" } },
+        { "key": "secondary", "reference": { "htmlFile": "button_hierarchy.html", "selector": ".krds-btn.secondary" }, "impl": { "exampleName": "ButtonSecondary", "selector": "[data-slot='krds-button']" } },
+        { "key": "tertiary", "reference": { "htmlFile": "button_hierarchy.html", "selector": ".krds-btn.tertiary" }, "impl": { "exampleName": "ButtonTertiary", "selector": "[data-slot='krds-button']" } },
+        { "key": "text", "reference": { "htmlFile": "button_text.html", "selector": ".krds-btn.text" }, "impl": { "exampleName": "ButtonText", "selector": "[data-slot='krds-button']" } },
+        { "key": "disabled", "reference": { "htmlFile": "button.html", "note": "원본 code-kit 에 disabled 버튼 정적 마크업 없음. 속성 prep 으로 disabled 부여해도 disabled-fill 토큰(#cdd1d5)이 동일특이도 .krds-btn(.primary) 배경 규칙에 소스순서로 밀려 적용되지 않음(우리 하니스의 재현 한계, 원본 의도는 회색). 거짓양성 방지 위해 reference 캡처 누락 허용." }, "impl": { "exampleName": "ButtonDisabled", "selector": "[data-slot='krds-button']" } },
+        { "key": "icon", "reference": { "htmlFile": "button_icon.html", "selector": ".krds-btn.icon" }, "impl": { "exampleName": "ButtonIcon", "selector": "[data-slot='krds-button']" } },
+        { "key": "large", "reference": { "htmlFile": "button_size.html", "selector": ".krds-btn.large" }, "impl": { "exampleName": "ButtonSizes", "selector": "[data-slot='krds-button'][data-size='lg']" }, "note": "구현 data-size 값은 'lg'(shadcn 네이티브 스케일). 실제 DOM 확인됨(default/lg/icon/xs/sm/xl)." }
+      ]
+    },
+    {
+      "componentKey": "radio-group",
+      "group": "selection",
+      "reference": { "htmlFile": "radio_button.html", "rootSelector": ".krds-form-check" },
+      "impl": { "route": "/components/selection/radio-group", "rootSelector": "[data-slot='krds-radio']" },
+      "variants": [
+        { "key": "default", "reference": { "selector": ".krds-form-check" }, "impl": { "exampleName": "RadioDefault", "selector": "[data-slot='krds-radio']" }, "note": "unchecked bg-white 는 high-contrast 가시성 위해 의도적 유지(다크 비교 시 결함 아님)." },
+        { "key": "with-description", "reference": { "selector": ".krds-form-check" }, "impl": { "exampleName": "RadioWithDescription", "selector": "[data-slot='krds-radio']" } },
+        { "key": "size", "reference": { "htmlFile": "radio_size.html", "selector": ".krds-form-check" }, "impl": { "exampleName": "RadioSize", "selector": "[data-slot='krds-radio']" } },
+        { "key": "disabled", "reference": { "selector": ".krds-form-check input[disabled] + label" }, "impl": { "exampleName": "RadioDisabled", "selector": "[data-slot='krds-radio']" } },
+        { "key": "chip", "reference": { "htmlFile": "radio_chip.html", "selector": ".krds-form-chip" }, "impl": { "exampleName": "RadioSortDefault", "selector": "[data-slot='krds-radio-sort']" }, "note": "원본 라디오 칩(.krds-form-chip) ↔ 구현 정렬 칩(krds-radio-sort, RadioSortDefault 6개 렌더). 구현 카탈로그에 범용 krds-radio-chip 렌더 예제 없음(실측 0)이라 가장 근접한 칩형 라디오로 대조." }
+      ]
+    },
+    {
+      "componentKey": "checkbox",
+      "group": "selection",
+      "reference": { "htmlFile": "checkbox.html", "rootSelector": ".krds-form-check" },
+      "impl": { "route": "/components/selection/checkbox", "rootSelector": "[data-slot='krds-checkbox']" },
+      "variants": [
+        { "key": "default", "reference": { "selector": ".krds-form-check" }, "impl": { "exampleName": "CheckboxDefault", "selector": "[data-slot='krds-checkbox']" }, "note": "unchecked bg-white 의도적 유지." },
+        { "key": "checked", "reference": { "htmlFile": "checkbox.html", "note": "원본 체크 상태 채움은 label::before 의사요소로 표현 → getComputedStyle(el) 로 비교 불가. 거짓양성 방지 위해 reference 캡처 누락 허용." }, "impl": { "exampleName": "CheckboxChecked", "selector": "[data-slot='krds-checkbox']" } },
+        { "key": "with-description", "reference": { "selector": ".krds-form-check" }, "impl": { "exampleName": "CheckboxWithDescription", "selector": "[data-slot='krds-checkbox']" } },
+        { "key": "size", "reference": { "htmlFile": "checkbox_size.html", "selector": ".krds-form-check" }, "impl": { "exampleName": "CheckboxSize", "selector": "[data-slot='krds-checkbox']" } },
+        { "key": "disabled", "reference": { "selector": ".krds-form-check input[disabled] + label" }, "impl": { "exampleName": "CheckboxDisabled", "selector": "[data-slot='krds-checkbox']" } },
+        { "key": "chip", "reference": { "htmlFile": "checkbox_chip.html", "selector": ".krds-form-chip" }, "impl": { "exampleName": "CheckboxChip", "selector": "[data-slot='krds-checkbox-chip']" }, "note": "칩은 .krds-form-chip (체크박스 .krds-form-check 와 다른 위젯)." }
+      ]
+    },
+    {
+      "componentKey": "select",
+      "group": "selection",
+      "reference": { "htmlFile": "select.html", "rootSelector": ".krds-form-select" },
+      "impl": { "route": "/components/selection/select", "rootSelector": "[data-slot='krds-select']" },
+      "variants": [
+        { "key": "default", "reference": { "selector": ".krds-form-select" }, "impl": { "exampleName": "SelectDefault", "selector": "[data-slot='krds-select']" } },
+        { "key": "error", "reference": { "htmlFile": "select_state.html", "selector": ".krds-form-select.is-error" }, "impl": { "exampleName": "SelectStates", "selector": "[data-slot='krds-select']:has([aria-invalid='true'])" }, "note": "aria-invalid 는 krds-select 루트가 아니라 내부 트리거에 있음 → :has() 로 에러 select 루트를 스코프." },
+        { "key": "completed", "reference": { "htmlFile": "select.html", "selector": ".krds-form-select.completed" }, "impl": { "exampleName": "SelectStates", "selector": "[data-slot='krds-select']" }, "note": "completed 변형은 select.html 에 존재(select_state.html 은 is-error 만 포함)." },
+        { "key": "size", "reference": { "htmlFile": "select_size.html", "selector": ".krds-form-select" }, "impl": { "exampleName": "SelectSizes", "selector": "[data-slot='krds-select']" } }
+      ]
+    },
+    {
+      "componentKey": "tag",
+      "group": "selection",
+      "reference": { "htmlFile": "tag.html", "rootSelector": ".krds-btn-tag" },
+      "impl": { "route": "/components/selection/tag", "rootSelector": "[data-slot='krds-tag']" },
+      "variants": [
+        { "key": "default", "reference": { "selector": ".krds-tag-wrap.medium .krds-btn-tag" }, "impl": { "exampleName": "TagDefault", "selector": "[data-slot='krds-tag']" } },
+        { "key": "large", "reference": { "selector": ".krds-tag-wrap.large .krds-btn-tag" }, "impl": { "exampleName": "TagDefault", "selector": "[data-slot='krds-tag']" } },
+        { "key": "deletable", "reference": { "selector": ".krds-tag-wrap .btn-delete" }, "impl": { "exampleName": "TagDeletable", "selector": "[data-slot='krds-tag']" } },
+        { "key": "link", "reference": { "htmlFile": "tag_link.html", "selector": ".krds-btn-tag.link" }, "impl": { "exampleName": "TagLink", "selector": "[data-slot='krds-tag']" } }
+      ]
+    },
+    {
+      "componentKey": "toggle-switch",
+      "group": "selection",
+      "reference": { "htmlFile": "toggle_switch.html", "rootSelector": ".krds-form-toggle-switch" },
+      "impl": { "route": "/components/selection/toggle-switch", "rootSelector": "[data-slot='krds-toggle-switch']" },
+      "variants": [
+        { "key": "default", "reference": { "selector": ".krds-form-toggle-switch" }, "impl": { "exampleName": "ToggleSwitchDefault", "selector": "[data-slot='krds-toggle-switch']" } },
+        { "key": "checked", "reference": { "selector": ".krds-form-toggle-switch input:checked + label .switch-toggle" }, "impl": { "exampleName": "ToggleSwitchChecked", "selector": "[data-slot='krds-toggle-switch']" }, "note": "토글 트랙 .switch-toggle 은 label 내부(input 인접 아님). checked 배경색이 여기에 적용." },
+        { "key": "disabled", "reference": { "selector": ".krds-form-toggle-switch input:disabled + label .switch-toggle" }, "impl": { "exampleName": "ToggleSwitchDisabled", "selector": "[data-slot='krds-toggle-switch']" }, "note": "disabled 토글 트랙 .switch-toggle (input:disabled + label 내부)." },
+        { "key": "large", "reference": { "htmlFile": "toggle_switch_size.html", "selector": ".krds-form-toggle-switch" }, "impl": { "exampleName": "ToggleSwitchLarge", "selector": "[data-slot='krds-toggle-switch']" } }
+      ]
+    },
+    {
+      "componentKey": "step-indicator",
+      "group": "feedback",
+      "reference": { "htmlFile": "step_indicator.html", "rootSelector": ".krds-step-wrap" },
+      "impl": { "route": "/components/feedback/step-indicator", "rootSelector": "[data-slot='krds-step-indicator']" },
+      "variants": [
+        { "key": "default", "reference": { "selector": ".krds-step-wrap" }, "impl": { "exampleName": "StepIndicatorDefault", "selector": "[data-slot='krds-step-indicator']" } },
+        { "key": "step-done", "reference": { "selector": ".krds-step-wrap li.done .step" }, "impl": { "exampleName": "StepIndicatorAllCompleted", "selector": "[data-slot='krds-step-indicator-item']" }, "note": "원본 상태 클래스는 li.done(.step=내부 원형 마커). 구현 아이템엔 data-state 없음(현재=aria-current='step'만). 전부 완료 예제(StepIndicatorAllCompleted)의 첫 아이템=done 으로 대조(요소 대응 근사)." },
+        { "key": "step-item", "reference": { "selector": ".krds-step-wrap .step" }, "impl": { "exampleName": "StepIndicatorDefault", "selector": "[data-slot='krds-step-indicator-item']" } }
+      ]
+    },
+    {
+      "componentKey": "spinner",
+      "group": "feedback",
+      "reference": { "htmlFile": "spinner.html", "rootSelector": ".krds-spinner" },
+      "impl": { "route": "/components/feedback/spinner", "rootSelector": "[data-slot='krds-spinner']" },
+      "variants": [
+        { "key": "default", "reference": { "selector": ".krds-spinner" }, "impl": { "exampleName": "SpinnerDefault", "selector": "[data-slot='krds-spinner']" }, "note": "RESOLVED(#8): dynamic/spinner.tsx KRDS 분기에 data-slot='krds-spinner' 추가됨(실측 슬롯 6개 렌더). krds-spinner 슬롯으로 캡처·대조." },
+        { "key": "without-label", "reference": { "selector": ".krds-spinner" }, "impl": { "exampleName": "SpinnerWithoutLabel", "selector": "[data-slot='krds-spinner']" }, "note": "RESOLVED(#8): dynamic spinner 에 krds-spinner 슬롯 추가됨(default 와 동일). krds-spinner 슬롯으로 캡처·대조." }
+      ]
+    },
+    {
+      "componentKey": "help-panel",
+      "group": "help",
+      "reference": { "htmlFile": "help_panel.html", "rootSelector": ".krds-help-panel" },
+      "impl": { "route": "/components/help/help-panel", "rootSelector": "[data-slot='krds-help-panel']" },
+      "variants": [
+        { "key": "default", "reference": { "selector": ".krds-help-panel" }, "impl": { "exampleName": "HelpPanelDefault", "selector": "[data-slot='krds-help-panel']" }, "note": "패널 펼침 상태 필요할 수 있음(trigger 클릭 후 캡처)." },
+        { "key": "trigger", "reference": { "selector": ".btn-help-panel" }, "impl": { "exampleName": "HelpPanelDefault", "selector": "[data-slot='krds-help-panel-trigger']" }, "note": "RESOLVED(D-1): help-panel.tsx HelpPanelTrigger 에서 data-slot 을 {...props} 뒤로 이동해 dispatcher 의 SheetTrigger 가 주입하던 sheet-trigger 를 덮음 → 이제 krds-help-panel-trigger 노출(modal/tutorial-panel 과 일관). Sheet 기반, 로드 시점 존재." },
+        { "key": "with-tabs", "reference": { "selector": ".krds-help-panel" }, "impl": { "exampleName": "HelpPanelWithTabs", "selector": "[data-slot='krds-help-panel']" } }
+      ]
+    },
+    {
+      "componentKey": "tutorial-panel",
+      "group": "help",
+      "reference": { "htmlFile": "tutorial_panel.html", "rootSelector": ".krds-help-panel" },
+      "impl": { "route": "/components/help/tutorial-panel", "rootSelector": "[data-slot='krds-tutorial-panel']" },
+      "variants": [
+        { "key": "default", "reference": { "selector": ".krds-help-panel" }, "impl": { "exampleName": "TutorialPanelDefault", "selector": "[data-slot='krds-tutorial-panel']" }, "note": "원본은 help_panel 과 동일 마크업 공유(tutorial-content 차이). probe-helppanel-vs-tutorialpanel.mjs 참고." },
+        { "key": "trigger", "reference": { "selector": ".btn-help-panel" }, "impl": { "exampleName": "TutorialPanelDefault", "selector": "[data-slot='krds-tutorial-panel-trigger']" } }
+      ]
+    },
+    {
+      "componentKey": "contextual-help",
+      "group": "help",
+      "reference": { "htmlFile": "contextual_help.html", "rootSelector": ".krds-contextual-help" },
+      "impl": { "route": "/components/help/contextual-help", "rootSelector": "[data-slot='krds-contextual-help']" },
+      "variants": [
+        { "key": "default", "reference": { "selector": ".krds-contextual-help" }, "impl": { "exampleName": "ContextualHelpDefault", "selector": "[data-slot='krds-contextual-help']" }, "note": "말풍선 꼬리는 패널 표면 토큰 사용(다크 수정 완료). 표면색 비교 시 주의." },
+        { "key": "list", "reference": { "selector": ".krds-contextual-help" }, "impl": { "exampleName": "ContextualHelpList", "selector": "[data-slot='krds-contextual-help']" } }
+      ]
+    },
+    {
+      "componentKey": "coach-mark",
+      "group": "help",
+      "reference": { "htmlFile": "coach_mark.html", "rootSelector": ".krds-coach-mark" },
+      "impl": { "route": "/components/help/coach-mark", "rootSelector": "[data-slot='krds-coach-mark']" },
+      "variants": [
+        { "key": "default", "reference": { "selector": ".krds-coach-mark" }, "impl": { "exampleName": "CoachMarkDefault", "selector": "[data-slot='krds-coach-mark']" } },
+        { "key": "balloon", "reference": { "selector": ".coach-balloon" }, "impl": { "exampleName": "CoachMarkDefault", "selector": "[data-slot='krds-coach-balloon']" } },
+        { "key": "long-description", "reference": { "selector": ".krds-coach-mark" }, "impl": { "exampleName": "CoachMarkLongDescription", "selector": "[data-slot='krds-coach-mark']" } }
+      ]
+    },
+    {
+      "componentKey": "tooltip",
+      "group": "help",
+      "reference": { "htmlFile": "tooltip.html", "rootSelector": ".krds-tooltip" },
+      "impl": { "route": "/components/help/tooltip", "rootSelector": "[data-slot='krds-tooltip']" },
+      "variants": [
+        { "key": "trigger", "reference": { "selector": ".krds-btn.krds-tooltip" }, "impl": { "exampleName": "TooltipVertical", "selector": "[data-slot='krds-button']" }, "note": "구현 툴팁 트리거는 krds-button 으로 렌더(krds-tooltip 슬롯은 콘텐츠용, 실측 트리거=button)." },
+        { "key": "box", "reference": { "htmlFile": "tooltip_box.html", "selector": ".krds-btn.tooltip-box" }, "impl": { "exampleName": "TooltipBox", "selector": "[data-slot='krds-tooltip']" }, "skipReason": "no-example-coverage: 구현 툴팁 콘텐츠는 Radix 포털로 hover/focus 시에만 마운트 → 평상시 DOM 부재(실측 0). 정적 캡처 불가, 결함 아님.", "note": "원본은 트리거 버튼 캡처." }
+      ]
+    },
+    {
+      "componentKey": "date-input",
+      "group": "input",
+      "reference": { "htmlFile": "date_input.html", "rootSelector": ".calendar-input" },
+      "impl": { "route": "/components/input/date-input", "rootSelector": "[data-slot='krds-date-input']" },
+      "variants": [
+        { "key": "default", "reference": { "selector": ".calendar-input" }, "impl": { "exampleName": "DateInputDefault", "selector": "[data-slot='krds-date-input']" } },
+        { "key": "unit", "reference": { "selector": ".calendar-input .krds-input" }, "impl": { "exampleName": "DateInputDefault", "selector": "[data-slot='krds-date-input-unit']" }, "skipReason": "no-example-coverage: 구현 date-input 예제는 합성 krds-date-input 만 렌더, 단독 krds-date-input-unit 미노출(실측 0). 결함 아님.", "note": "합성 date-input 만 노출." },
+        { "key": "with-hint", "reference": { "selector": ".calendar-input" }, "impl": { "exampleName": "DateInputWithHint", "selector": "[data-slot='krds-date-input']" } },
+        { "key": "all-states", "reference": { "selector": ".calendar-input" }, "impl": { "exampleName": "DateInputAllStates", "selector": "[data-slot='krds-date-input']" } }
+      ]
+    },
+    {
+      "componentKey": "textarea",
+      "group": "input",
+      "reference": { "htmlFile": "textarea.html", "rootSelector": ".krds-input" },
+      "impl": { "route": "/components/input/textarea", "rootSelector": "[data-slot='krds-textarea']" },
+      "variants": [
+        { "key": "default", "reference": { "selector": "textarea.krds-input" }, "impl": { "exampleName": "TextareaDefault", "selector": "[data-slot='krds-textarea']" } },
+        { "key": "with-counter", "reference": { "selector": ".textarea-wrap" }, "impl": { "exampleName": "TextareaWithCounter", "selector": "[data-slot='krds-textarea']" } },
+        { "key": "states", "reference": { "selector": "textarea.krds-input" }, "impl": { "exampleName": "TextareaStates", "selector": "[data-slot='krds-textarea']" } }
+      ]
+    },
+    {
+      "componentKey": "text-input",
+      "group": "input",
+      "reference": { "htmlFile": "text_input.html", "rootSelector": ".krds-input" },
+      "impl": { "route": "/components/input/text-input", "rootSelector": "[data-slot='krds-text-input']" },
+      "variants": [
+        { "key": "default", "reference": { "selector": "input.krds-input" }, "impl": { "exampleName": "TextInputDefault", "selector": "[data-slot='krds-text-input']" } },
+        { "key": "size", "reference": { "htmlFile": "text_input_size.html", "selector": "input.krds-input" }, "impl": { "exampleName": "TextInputSizes", "selector": "[data-slot='krds-text-input']" } },
+        { "key": "states", "reference": { "htmlFile": "text_input_state.html", "selector": "input.krds-input" }, "impl": { "exampleName": "TextInputStates", "selector": "[data-slot='krds-text-input']" }, "note": "error/disabled 상태 비교. focus 상태 핵심(focus-visible krds-focus-ring vs 원본 :focus)." },
+        { "key": "icon", "reference": { "htmlFile": "text_input_icon.html", "selector": "input.krds-input" }, "impl": { "exampleName": "TextInputWithClearButton", "selector": "[data-slot='krds-text-input']" } }
+      ]
+    },
+    {
+      "componentKey": "file-upload",
+      "group": "input",
+      "reference": { "htmlFile": "file_upload.html", "rootSelector": ".krds-file-upload" },
+      "impl": { "route": "/components/input/file-upload", "rootSelector": "[data-slot='krds-file-upload']" },
+      "variants": [
+        { "key": "default", "reference": { "selector": ".krds-file-upload" }, "impl": { "exampleName": "FileUploadDefault", "selector": "[data-slot='krds-file-upload']" } },
+        { "key": "with-files", "reference": { "selector": ".krds-file-upload" }, "impl": { "exampleName": "FileUploadWithFiles", "selector": "[data-slot='krds-file-upload']" } },
+        { "key": "disabled", "reference": { "selector": ".krds-file-upload" }, "impl": { "exampleName": "FileUploadDisabled", "selector": "[data-slot='krds-file-upload']" } }
+      ]
+    },
+    {
+      "componentKey": "language-switcher",
+      "group": "settings",
+      "reference": { "htmlFile": "language_switcher.html", "rootSelector": ".krds-language .drop-btn" },
+      "impl": { "route": "/components/settings/language-switcher", "rootSelector": "[data-slot='krds-language-switcher']" },
+      "variants": [
+        { "key": "default", "reference": { "selector": ".krds-language .drop-btn" }, "impl": { "exampleName": "LanguageSwitcherDefault", "selector": "[data-slot='krds-language-switcher']" } },
+        { "key": "simple", "reference": { "selector": ".krds-language .drop-btn" }, "impl": { "exampleName": "LanguageSwitcherSimple", "selector": "[data-slot='krds-language-switcher']" } }
+      ]
+    },
+    {
+      "componentKey": "resize",
+      "group": "settings",
+      "reference": { "htmlFile": "resize.html", "rootSelector": ".krds-resize .drop-btn" },
+      "impl": { "route": "/components/settings/resize", "rootSelector": "[data-slot='krds-resize']" },
+      "variants": [
+        { "key": "default", "reference": { "selector": ".krds-resize .drop-btn" }, "impl": { "exampleName": "ResizeDefault", "selector": "[data-slot='krds-resize']" } },
+        { "key": "custom-labels", "reference": { "selector": ".krds-resize .drop-btn" }, "impl": { "exampleName": "ResizeCustomLabels", "selector": "[data-slot='krds-resize']" } }
+      ]
+    }
+  ]
+}
