@@ -40,9 +40,10 @@ function Spinner({ size = "large", className, "aria-label": ariaLabel }: Spinner
 
   return (
     <span
-      role={ariaLabel ? "status" : undefined}
+      data-slot="krds-spinner"
+      role="status"
       aria-label={ariaLabel}
-      aria-hidden={ariaLabel ? undefined : true}
+      aria-hidden="true"
       className={cn(spinnerVariants({ size }), className)}
     />
   );
