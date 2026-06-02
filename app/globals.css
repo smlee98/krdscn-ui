@@ -15,6 +15,16 @@
   box-shadow: 0 0 0 4px var(--krds-border-primary);
 }
 
+/* KRDS 공식 focus 표시의 inset 변형 = 좁은 레이아웃의 네비 항목용 이중 링.
+   바깥으로 그리는 krds-focus-ring과 달리 박스 안쪽으로 그려 이웃 항목과 겹치지 않는다.
+   KRDS *:focus 원본 = outline 2px inverse + offset -0.4rem + box-shadow inset 0.2rem primary.
+   앱 루트가 16px이므로 px 환산: offset -4px, inset 2px. 소스 변수를 직접 참조(krds-focus-ring과 동일). */
+@utility krds-focus-ring-inset {
+  outline: 2px solid var(--krds-surface);
+  outline-offset: -4px;
+  box-shadow: inset 0 0 0 2px var(--krds-border-primary);
+}
+
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);

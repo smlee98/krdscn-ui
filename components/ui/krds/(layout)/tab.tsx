@@ -143,8 +143,8 @@ function TabTrigger({ value, children, className, ...rest }: TabTriggerProps) {
         "relative shrink-0 border-0 shadow-none transition-colors outline-none select-none",
         "font-bold whitespace-nowrap",
         "disabled:pointer-events-none disabled:opacity-50",
-        "data-[state=active]:border-0 data-[state=active]:shadow-none",
-        "focus:krds-focus-ring",
+        "data-[state=active]:border-0",
+        "focus:krds-focus-ring-inset",
 
         // Size by type
         isPrimary ? "h-14 text-krds-body-lg" : "h-10 text-krds-body-md",
