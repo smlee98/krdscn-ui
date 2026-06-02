@@ -364,6 +364,9 @@ function TutorialPanelTrigger(props: TutorialPanelTriggerProps) {
   if (system === "krds") return <KrdsTutorialPanel.Trigger {...props} />;
   return <ShadcnTutorialPanelTrigger {...props} />;
 }
+// 트리거 식별 마커: dispatcher 경유 시 KRDS Root(및 shadcn Root)에 이 함수가 child.type 으로
+// 넘어가므로, displayName 으로 트리거를 분류해 포털 밖(가시 영역)에 렌더되게 한다.
+TutorialPanelTrigger.displayName = "TutorialPanelTrigger";
 
 function TutorialPanelContainer(props: TutorialPanelContainerProps) {
   const system = useUISystem();

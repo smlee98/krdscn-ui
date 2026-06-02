@@ -32,8 +32,9 @@
 import * as React from "react";
 import { ChevronRight, ChevronLeft, HelpCircle, MessageCircleQuestion, Phone } from "lucide-react";
 
+import { Dialog as DialogPrimitive } from "radix-ui";
+
 import { Button } from "@/components/ui/dynamic/button";
-import { Sheet, SheetClose, SheetContent, SheetDescription, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { Disclosure, DisclosureContent, DisclosureTrigger } from "@/components/ui/dynamic/disclosure";
 import { cn } from "@/lib/cn";
 
@@ -62,26 +63,31 @@ function HelpPanel({ isOpen, defaultOpen = false, onOpenChange, className, child
   });
 
   return (
-    <Sheet open={isOpen} defaultOpen={defaultOpen} onOpenChange={onOpenChange}>
-      {triggers.length > 0 ? <SheetTrigger asChild>{triggers[0]}</SheetTrigger> : null}
-      <SheetContent
-        data-slot="krds-help-panel"
-        side="right"
-        showCloseButton={false}
-        className={cn(
-          "krds-help-panel",
-          "w-[390px] gap-0 p-0 sm:max-w-[390px]",
-          "border-l border-krds-border bg-krds-surface-subtler",
-          className
-        )}
-      >
-        <SheetTitle className="sr-only">도움말</SheetTitle>
-        <SheetDescription className="sr-only">도움말 패널 콘텐츠</SheetDescription>
-        <div className="help-panel-wrap flex h-full flex-col">
-          <div className="help-conts-area flex h-full flex-col overflow-y-auto p-10">{inner}</div>
-        </div>
-      </SheetContent>
-    </Sheet>
+    <DialogPrimitive.Root open={isOpen} defaultOpen={defaultOpen} onOpenChange={onOpenChange}>
+      {triggers.length > 0 ? <DialogPrimitive.Trigger asChild>{triggers[0]}</DialogPrimitive.Trigger> : null}
+      <DialogPrimitive.Portal>
+        <DialogPrimitive.Overlay className="fixed inset-0 z-50 bg-black/50 data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:animate-in data-[state=open]:fade-in-0" />
+        <DialogPrimitive.Content
+          data-slot="krds-help-panel"
+          className={cn(
+            "fixed z-50 flex flex-col transition ease-in-out",
+            "data-[state=closed]:animate-out data-[state=closed]:duration-300 data-[state=closed]:slide-out-to-right",
+            "data-[state=open]:animate-in data-[state=open]:duration-500 data-[state=open]:slide-in-from-right",
+            "inset-y-0 right-0 h-full",
+            "krds-help-panel",
+            "w-[390px] gap-0 p-0 sm:max-w-[390px]",
+            "border-l border-krds-border bg-krds-surface-subtler",
+            className
+          )}
+        >
+          <DialogPrimitive.Title className="sr-only">도움말</DialogPrimitive.Title>
+          <DialogPrimitive.Description className="sr-only">도움말 패널 콘텐츠</DialogPrimitive.Description>
+          <div className="help-panel-wrap flex h-full flex-col">
+            <div className="help-conts-area flex h-full flex-col overflow-y-auto p-10">{inner}</div>
+          </div>
+        </DialogPrimitive.Content>
+      </DialogPrimitive.Portal>
+    </DialogPrimitive.Root>
   );
 }
 
@@ -118,7 +124,7 @@ type HelpPanelCloseProps = Omit<React.ComponentProps<"button">, "children"> & {
 
 function HelpPanelClose({ className, children, ...props }: HelpPanelCloseProps) {
   return (
-    <SheetClose asChild>
+    <DialogPrimitive.Close asChild>
       <button
         type="button"
         data-slot="krds-help-panel-close"
@@ -134,7 +140,7 @@ function HelpPanelClose({ className, children, ...props }: HelpPanelCloseProps) 
         <span>{children ?? "접어두기"}</span>
         <ChevronRight className="size-4" aria-hidden="true" />
       </button>
-    </SheetClose>
+    </DialogPrimitive.Close>
   );
 }
 

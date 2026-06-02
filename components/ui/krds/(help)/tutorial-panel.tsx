@@ -3,7 +3,7 @@
 
 /**
  * KRDS TutorialPanel — slide-in help+tutorial drawer from the right.
- * Base: @/components/ui/sheet (shadcn Sheet → Radix Dialog).
+ * Base: radix-ui Dialog (직접 합성, 측면 슬라이드 시트 스타일).
  *
  * Dot-notation API (mirrors KRDS storybook contract):
  *   <TutorialPanel.Root defaultActiveTab="tutorial">
@@ -26,7 +26,7 @@
 
 import * as React from "react";
 import { ChevronLeft, ChevronRight, MessageCircleQuestion, Phone } from "lucide-react";
-import { Sheet, SheetContent, SheetDescription, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
+import { Dialog as DialogPrimitive } from "radix-ui";
 import { Button } from "@/components/ui/dynamic/button";
 import { Tab, TabContent, TabList, TabPanel as KrdsTabPanel, TabTrigger } from "@/components/ui/dynamic/tab";
 import { Disclosure, DisclosureContent, DisclosureTrigger } from "@/components/ui/dynamic/disclosure";
@@ -198,7 +198,13 @@ function TutorialPanelRoot({
   const triggers: React.ReactNode[] = [];
   const inner: React.ReactNode[] = [];
   childArray.forEach((child) => {
-    if (React.isValidElement(child) && child.type === TutorialPanelTrigger) {
+    // dispatcher(dynamic/tutorial-panel) 경유 시 child.type 은 dispatcher 의 Trigger 함수라
+    // KRDS 내부 함수 identity 비교가 빗나간다. displayName 마커로 양쪽을 모두 식별한다.
+    const isTrigger =
+      React.isValidElement(child) &&
+      (child.type === TutorialPanelTrigger ||
+        (child.type as { displayName?: string }).displayName === "TutorialPanelTrigger");
+    if (isTrigger) {
       triggers.push(child);
     } else {
       inner.push(child);
@@ -207,23 +213,28 @@ function TutorialPanelRoot({
 
   return (
     <TutorialPanelContext.Provider value={ctx}>
-      <Sheet open={open} onOpenChange={setOpen}>
-        {triggers.length > 0 ? <SheetTrigger asChild>{triggers[0]}</SheetTrigger> : null}
-        <SheetContent
-          data-slot="krds-tutorial-panel"
-          side="right"
-          showCloseButton={false}
-          className={cn(
-            "flex w-[390px] flex-col gap-8 overflow-y-auto p-10",
-            "border-l border-krds-border bg-krds-surface-subtler",
-            className
-          )}
-        >
-          <SheetTitle className="sr-only">도움말 및 따라하기 패널</SheetTitle>
-          <SheetDescription className="sr-only">도움말 및 따라하기 정보</SheetDescription>
-          {inner}
-        </SheetContent>
-      </Sheet>
+      <DialogPrimitive.Root open={open} onOpenChange={setOpen}>
+        {triggers.length > 0 ? <DialogPrimitive.Trigger asChild>{triggers[0]}</DialogPrimitive.Trigger> : null}
+        <DialogPrimitive.Portal>
+          <DialogPrimitive.Overlay className="fixed inset-0 z-50 bg-black/50 data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:animate-in data-[state=open]:fade-in-0" />
+          <DialogPrimitive.Content
+            data-slot="krds-tutorial-panel"
+            className={cn(
+              "fixed z-50 flex flex-col transition ease-in-out",
+              "data-[state=closed]:animate-out data-[state=closed]:duration-300 data-[state=closed]:slide-out-to-right",
+              "data-[state=open]:animate-in data-[state=open]:duration-500 data-[state=open]:slide-in-from-right",
+              "inset-y-0 right-0 h-full",
+              "flex w-[390px] flex-col gap-8 overflow-y-auto p-10",
+              "border-l border-krds-border bg-krds-surface-subtler",
+              className
+            )}
+          >
+            <DialogPrimitive.Title className="sr-only">도움말 및 따라하기 패널</DialogPrimitive.Title>
+            <DialogPrimitive.Description className="sr-only">도움말 및 따라하기 정보</DialogPrimitive.Description>
+            {inner}
+          </DialogPrimitive.Content>
+        </DialogPrimitive.Portal>
+      </DialogPrimitive.Root>
     </TutorialPanelContext.Provider>
   );
 }
@@ -250,6 +261,8 @@ function TutorialPanelTrigger({ children = "도움말", className, onClick, ...p
     </Button>
   );
 }
+
+TutorialPanelTrigger.displayName = "TutorialPanelTrigger";
 
 // ─── TutorialPanel.Container ─────────────────────────────────────────────────
 

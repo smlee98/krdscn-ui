@@ -1,24 +1,17 @@
 /**
- * KRDS Modal — compound wrapper over @/components/ui/dialog (shadcn).
+ * KRDS Modal — radix Dialog 직접 합성.
  * Sub-parts (locked): ModalRoot, ModalTrigger, ModalOverlay, ModalContent,
  *   ModalHeader, ModalBody, ModalFooter, ModalClose
  * NOTE: ModalOverlay is a no-op stub kept for API compatibility — the overlay
- *   is managed internally by DialogContent (which portals to document.body).
+ *   is managed internally by ModalContent (which portals to document.body).
  */
 
 "use client";
 
 import * as React from "react";
 import { XIcon } from "lucide-react";
+import { Dialog as DialogPrimitive } from "radix-ui";
 
-import {
-  Dialog,
-  DialogClose,
-  DialogContent,
-  DialogDescription,
-  DialogTitle,
-  DialogTrigger
-} from "@/components/ui/dialog";
 import { cn } from "@/lib/cn";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
@@ -35,7 +28,7 @@ export type ModalRootProps = {
   /** Pressing Escape closes the dialog (default: true). Implemented via Radix default. */
   closeOnEsc?: boolean;
   closeOnOverlayClick?: boolean;
-  /** @deprecated Portal is now managed by the shadcn Dialog layer. Ignored. */
+  /** @deprecated Portal is now managed by the radix Dialog layer. Ignored. */
   usePortal?: boolean;
   /** @deprecated Portal container is now document.body. Ignored. */
   portalContainer?: string | HTMLElement;
@@ -95,9 +88,9 @@ function ModalRoot({
 }: ModalRootProps) {
   return (
     <ModalContext.Provider value={{ size, variant, closeOnOverlayClick }}>
-      <Dialog open={open} defaultOpen={defaultOpen} onOpenChange={onOpenChange}>
+      <DialogPrimitive.Root data-slot="krds-modal" open={open} defaultOpen={defaultOpen} onOpenChange={onOpenChange}>
         {children}
-      </Dialog>
+      </DialogPrimitive.Root>
     </ModalContext.Provider>
   );
 }
@@ -106,14 +99,19 @@ function ModalRoot({
 
 function ModalTrigger({ asChild, children, className, ...rest }: ModalTriggerProps) {
   return (
-    <DialogTrigger data-slot="krds-modal-trigger" asChild={asChild} className={className} {...rest}>
+    <DialogPrimitive.Trigger
+      data-slot="krds-modal-trigger"
+      asChild={asChild}
+      className={className}
+      {...(rest as object)}
+    >
       {children}
-    </DialogTrigger>
+    </DialogPrimitive.Trigger>
   );
 }
 
 // ─── ModalOverlay ─────────────────────────────────────────────────────────────
-// No-op stub: shadcn's DialogContent renders its own overlay via portal internally.
+// No-op stub: overlay is managed internally by ModalContent via portal.
 
 function ModalOverlay(_props: ModalOverlayProps) {
   return null;
@@ -140,22 +138,30 @@ function ModalContent({ className, children, ...rest }: ModalContentProps) {
       : sizeClass;
 
   return (
-    <DialogContent
-      data-slot="krds-modal-content"
-      showCloseButton={false}
-      onInteractOutside={(e) => {
-        if (!closeOnOverlayClick) e.preventDefault();
-      }}
-      className={cn(
-        "flex flex-col items-start gap-0",
-        "bg-krds-surface border-krds-border rounded-[12px] p-6",
-        variantClass,
-        className
-      )}
-      {...(rest as object)}
-    >
-      {children}
-    </DialogContent>
+    <DialogPrimitive.Portal>
+      <DialogPrimitive.Overlay
+        data-slot="krds-modal-overlay"
+        className="fixed inset-0 z-50 bg-black/50 data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:animate-in data-[state=open]:fade-in-0"
+      />
+      <DialogPrimitive.Content
+        data-slot="krds-modal-content"
+        onInteractOutside={(e) => {
+          if (!closeOnOverlayClick) e.preventDefault();
+        }}
+        className={cn(
+          "fixed top-[50%] left-[50%] z-50 w-full max-w-[calc(100%-2rem)] translate-x-[-50%] translate-y-[-50%] duration-200 outline-none",
+          "data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95",
+          "data-[state=open]:animate-in data-[state=open]:fade-in-0 data-[state=open]:zoom-in-95",
+          "flex flex-col items-start gap-0",
+          "bg-krds-surface border-krds-border rounded-[12px] p-6",
+          variantClass,
+          className
+        )}
+        {...(rest as object)}
+      >
+        {children}
+      </DialogPrimitive.Content>
+    </DialogPrimitive.Portal>
   );
 }
 
@@ -164,14 +170,14 @@ function ModalContent({ className, children, ...rest }: ModalContentProps) {
 function ModalHeader({ title, titleId, className, children, ...rest }: ModalHeaderProps) {
   const idProp = titleId ? { id: titleId } : {};
   return (
-    <DialogTitle
+    <DialogPrimitive.Title
       data-slot="krds-modal-header"
       {...idProp}
       className={cn("text-krds-foreground w-full px-4 pt-8 pb-4 text-2xl leading-[1.5] font-bold", className)}
-      {...(rest as React.ComponentProps<typeof DialogTitle>)}
+      {...(rest as React.ComponentProps<typeof DialogPrimitive.Title>)}
     >
       {title ?? children}
-    </DialogTitle>
+    </DialogPrimitive.Title>
   );
 }
 
@@ -190,9 +196,9 @@ function ModalBody({ descriptionId, className, children, ...rest }: ModalBodyPro
       {...rest}
     >
       {descriptionId ? (
-        <DialogDescription id={descriptionId} className="contents">
+        <DialogPrimitive.Description id={descriptionId} className="contents">
           {children}
-        </DialogDescription>
+        </DialogPrimitive.Description>
       ) : (
         children
       )}
@@ -219,13 +225,18 @@ function ModalFooter({ className, children, ...rest }: ModalFooterProps) {
 function ModalClose({ asChild, children, className, ...rest }: ModalCloseProps) {
   if (children) {
     return (
-      <DialogClose data-slot="krds-modal-close" asChild={asChild} className={className} {...rest}>
+      <DialogPrimitive.Close
+        data-slot="krds-modal-close"
+        asChild={asChild}
+        className={className}
+        {...(rest as object)}
+      >
         {children}
-      </DialogClose>
+      </DialogPrimitive.Close>
     );
   }
   return (
-    <DialogClose asChild>
+    <DialogPrimitive.Close asChild>
       <button
         type="button"
         data-slot="krds-modal-close"
@@ -240,7 +251,7 @@ function ModalClose({ asChild, children, className, ...rest }: ModalCloseProps) 
       >
         <XIcon className="size-6" />
       </button>
-    </DialogClose>
+    </DialogPrimitive.Close>
   );
 }
 
