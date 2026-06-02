@@ -1,9 +1,10 @@
 // rsc:client
 "use client";
 
-import { useContext } from "react";
 import { usePathname } from "next/navigation";
+import { useContext } from "react";
 
+import { ModeToggle } from "@/components/krds-app/mode-toggle";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -16,10 +17,9 @@ import { Separator } from "@/components/ui/separator";
 import { SidebarTrigger } from "@/components/ui/sidebar";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 import { SIDEBAR_GROUPS } from "@/lib/sidebar-nav";
+import { UISystemContext, useUISystem, type UISystem } from "@/lib/ui-system";
 import { KrdsLogo } from "../logo/krds";
 import { ShadcnLogo } from "../logo/shadcn";
-import { UISystemContext, useUISystem, type UISystem } from "@/lib/ui-system";
-import { ModeToggle } from "@/components/krds-app/mode-toggle";
 
 export { KrdsPageHeader };
 
@@ -100,9 +100,7 @@ function KrdsPageHeader() {
           </BreadcrumbList>
         </Breadcrumb>
       </div>
-      <Separator orientation="vertical" className="h-4!" />
       <UISystemToggle />
-      <Separator orientation="vertical" className="h-4!" />
       <ModeToggle />
     </header>
   );
