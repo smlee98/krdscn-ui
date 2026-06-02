@@ -105,9 +105,13 @@ function HelpPanelTrigger({ className, children, ...props }: HelpPanelTriggerPro
       type="button"
       variant="tertiary"
       size="sm"
-      data-slot="krds-help-panel-trigger"
       className={cn("gap-1", className)}
       {...props}
+      // data-slot 은 {...props} 뒤에 둬야 한다: dispatcher(dynamic/help-panel)가
+      // SheetTrigger asChild 로 감싸면 Radix Slot 이 data-slot="sheet-trigger" 를
+      // props 로 주입한다. 앞에 두면 그 값에 덮여 krds-help-panel-trigger 가 사라진다.
+      // (modal/tutorial-panel 등 다른 KRDS 트리거와의 슬롯 네이밍 일관성 유지)
+      data-slot="krds-help-panel-trigger"
     >
       <ChevronLeft className="size-4" aria-hidden="true" />
       <span>{children ?? "도움말"}</span>
