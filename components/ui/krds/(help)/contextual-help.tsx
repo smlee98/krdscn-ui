@@ -132,8 +132,8 @@ function ContextualHelp({
               {/* Erase the popover border under the arrow base so the popover and
                   arrow appear as one shape. Drawn first so the slant strokes sit
                   on top of it at (0,0) and (22,0), keeping their tips visible. */}
-              <line x1="0" y1="0" x2="22" y2="0" stroke="white" strokeWidth="2" />
-              <path d="M0 0 L11 11 L22 0" stroke="#b1b8be" strokeWidth="1" fill="white" strokeLinejoin="miter" />
+              <line className="stroke-krds-surface" x1="0" y1="0" x2="22" y2="0" strokeWidth="2" />
+              <path className="fill-krds-surface stroke-krds-border" d="M0 0 L11 11 L22 0" strokeWidth="1" strokeLinejoin="miter" />
             </svg>
           </span>
         </PopoverPrimitive.Content>

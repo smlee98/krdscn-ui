@@ -106,6 +106,8 @@ function Checkbox({
     bgClass = "bg-krds-primary-50";
   } else {
     borderClass = "border border-krds-border-dark";
+    // Kept white (not surface) on purpose: in high-contrast/dark the unchecked
+    // box must stay a visible white affordance, not blend into the dark surface.
     bgClass = "bg-white";
   }
 

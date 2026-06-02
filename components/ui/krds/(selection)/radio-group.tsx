@@ -139,8 +139,9 @@ function Radio({ size = "medium", description, value, children, disabled, classN
       : "border border-krds-border-dark";
 
   // Background:
-  //  - disabled (any check): disabled-light → bg-krds-surface-disabled
-  //  - otherwise: white
+  //  - disabled (any check): bg-krds-surface-disabled
+  //  - otherwise: white — kept on purpose. In high-contrast/dark the unchecked
+  //    circle must stay a visible white affordance, not blend into the dark surface.
   const bgClass = disabled ? "bg-krds-surface-disabled" : "bg-white";
 
   // Inner dot color:
