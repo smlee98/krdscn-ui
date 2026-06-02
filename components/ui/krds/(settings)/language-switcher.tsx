@@ -2,7 +2,7 @@
 "use client";
 
 import * as React from "react";
-import { Popover, PopoverTrigger, PopoverContent } from "@/components/ui/popover";
+import { Popover as PopoverPrimitive } from "radix-ui";
 import { cn } from "@/lib/cn";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
@@ -146,7 +146,7 @@ function LanguageSwitcherRoot({
         closeOnClickOutside,
       }}
     >
-      <Popover open={isOpen} onOpenChange={handleSetOpen}>
+      <PopoverPrimitive.Root open={isOpen} onOpenChange={handleSetOpen}>
         <div
           data-slot="krds-language-switcher"
           className={cn("relative inline-flex flex-col items-center", className)}
@@ -154,7 +154,7 @@ function LanguageSwitcherRoot({
         >
           {children}
         </div>
-      </Popover>
+      </PopoverPrimitive.Root>
     </LangContext.Provider>
   );
 }
@@ -166,7 +166,7 @@ function LanguageSwitcherTrigger({ label = "Language", className }: LanguageSwit
   const resolvedLabel = options.find((o) => o.value === value)?.label ?? label;
 
   return (
-    <PopoverTrigger asChild>
+    <PopoverPrimitive.Trigger asChild>
       <button
         type="button"
         aria-label={label}
@@ -182,7 +182,7 @@ function LanguageSwitcherTrigger({ label = "Language", className }: LanguageSwit
         <span className="text-krds-body-sm">{resolvedLabel}</span>
         <IconChevronDown className="size-4" />
       </button>
-    </PopoverTrigger>
+    </PopoverPrimitive.Trigger>
   );
 }
 
@@ -192,26 +192,31 @@ function LanguageSwitcherMenu({ className, children }: LanguageSwitcherMenuProps
   const { closeOnClickOutside } = useLangCtx();
 
   return (
-    <PopoverContent
-      align="center"
-      sideOffset={8}
-      onPointerDownOutside={closeOnClickOutside ? undefined : (e) => e.preventDefault()}
-      className={cn(
-        "border-none bg-transparent p-0 shadow-none",
-        "drop-shadow-[0_0_1px_rgba(0,0,0,0.05)] drop-shadow-[0_4px_4px_rgba(0,0,0,0.08)]",
-        className
-      )}
-    >
-      <div className="relative min-w-[200px] rounded-[8px] border border-krds-border-light bg-krds-surface p-2">
-        <span
-          aria-hidden
-          className="pointer-events-none absolute -top-[4px] left-1/2 -translate-x-1/2 block h-2 w-2 rotate-45 border border-krds-border-light border-b-transparent border-r-transparent bg-krds-surface"
-        />
-        <ul role="listbox" aria-label="언어 선택" className="m-0 flex list-none flex-col gap-2 p-0">
-          {children}
-        </ul>
-      </div>
-    </PopoverContent>
+    <PopoverPrimitive.Portal>
+      <PopoverPrimitive.Content
+        align="center"
+        sideOffset={8}
+        onPointerDownOutside={closeOnClickOutside ? undefined : (e) => e.preventDefault()}
+        className={cn(
+          "border-none bg-transparent p-0 shadow-none outline-hidden",
+          "drop-shadow-[0_0_1px_rgba(0,0,0,0.05)] drop-shadow-[0_4px_4px_rgba(0,0,0,0.08)]",
+          "data-[state=open]:animate-in data-[state=open]:fade-in-0 data-[state=open]:zoom-in-95",
+          "data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95",
+          "data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2",
+          className
+        )}
+      >
+        <div className="relative min-w-[200px] rounded-[8px] border border-krds-border-light bg-krds-surface p-2">
+          <span
+            aria-hidden
+            className="pointer-events-none absolute -top-[4px] left-1/2 -translate-x-1/2 block h-2 w-2 rotate-45 border border-krds-border-light border-b-transparent border-r-transparent bg-krds-surface"
+          />
+          <ul role="listbox" aria-label="언어 선택" className="m-0 flex list-none flex-col gap-2 p-0">
+            {children}
+          </ul>
+        </div>
+      </PopoverPrimitive.Content>
+    </PopoverPrimitive.Portal>
   );
 }
 

@@ -2,7 +2,7 @@
 "use client";
 
 import * as React from "react";
-import { Popover, PopoverTrigger, PopoverContent } from "@/components/ui/popover";
+import { Popover as PopoverPrimitive } from "radix-ui";
 import { cn } from "@/lib/cn";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
@@ -119,8 +119,8 @@ function Resize({
       data-slot="krds-resize"
       className={cn("relative inline-flex flex-col items-center", className)}
     >
-      <Popover open={open} onOpenChange={setOpen}>
-        <PopoverTrigger asChild>
+      <PopoverPrimitive.Root open={open} onOpenChange={setOpen}>
+        <PopoverPrimitive.Trigger asChild>
           <button
             type="button"
             aria-label={buttonText}
@@ -135,14 +135,18 @@ function Resize({
             <span className="text-krds-body-sm">{buttonText}</span>
             <IconChevronDown className="size-4" />
           </button>
-        </PopoverTrigger>
+        </PopoverPrimitive.Trigger>
 
-        <PopoverContent
+        <PopoverPrimitive.Portal>
+        <PopoverPrimitive.Content
           align="center"
           sideOffset={8}
           className={cn(
-            "border-none bg-transparent p-0 shadow-none",
-            "drop-shadow-[0_0_1px_rgba(0,0,0,0.05)] drop-shadow-[0_4px_4px_rgba(0,0,0,0.08)]"
+            "border-none bg-transparent p-0 shadow-none outline-hidden",
+            "drop-shadow-[0_0_1px_rgba(0,0,0,0.05)] drop-shadow-[0_4px_4px_rgba(0,0,0,0.08)]",
+            "data-[state=open]:animate-in data-[state=open]:fade-in-0 data-[state=open]:zoom-in-95",
+            "data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95",
+            "data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2"
           )}
         >
           <div className="relative min-w-[220px] rounded-[8px] border border-krds-border-light bg-krds-surface p-2">
@@ -227,8 +231,9 @@ function Resize({
               </button>
             </div>
           </div>
-        </PopoverContent>
-      </Popover>
+        </PopoverPrimitive.Content>
+        </PopoverPrimitive.Portal>
+      </PopoverPrimitive.Root>
     </div>
   );
 }

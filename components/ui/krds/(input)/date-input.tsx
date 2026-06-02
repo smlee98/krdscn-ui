@@ -3,7 +3,7 @@
 import * as React from "react";
 import { Calendar as CalendarIcon } from "lucide-react";
 
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { Popover as PopoverPrimitive } from "radix-ui";
 import { Calendar } from "@/components/ui/dynamic/calendar";
 import { cn } from "@/lib/cn";
 
@@ -105,8 +105,8 @@ function DateInput({
     <div data-slot="krds-date-input" className={cn("flex flex-col", className)}>
       {label && <label className="mb-2 block text-krds-body-sm text-krds-foreground-subtle">{label}</label>}
 
-      <Popover open={open} onOpenChange={handleOpenChange}>
-        <PopoverTrigger asChild>
+      <PopoverPrimitive.Root open={open} onOpenChange={handleOpenChange}>
+        <PopoverPrimitive.Trigger asChild>
           <button
             {...(rest as React.ButtonHTMLAttributes<HTMLButtonElement>)}
             type="button"
@@ -138,38 +138,47 @@ function DateInput({
               <CalendarIcon className={sizeIcon[size]} />
             </span>
           </button>
-        </PopoverTrigger>
-        <PopoverContent
-          align="start"
-          side={calendarPosition}
-          className="w-auto border-0 bg-transparent p-0 shadow-none"
-        >
-          <Calendar
-            mode="single"
-            position={calendarPosition}
-            disabledDates={disabledDates}
-            eventDates={eventDates}
-            onYearChange={onYearChange}
-            onMonthChange={onMonthChange}
-            onTodayClick={onTodayClick}
-            onConfirm={onConfirm}
-            onCancel={onCancel}
-            prevButtonLabel={prevButtonLabel}
-            nextButtonLabel={nextButtonLabel}
-            yearSelectLabel={yearSelectLabel}
-            monthSelectLabel={monthSelectLabel}
-            todayButtonText={todayButtonText}
-            cancelButtonText={cancelButtonText}
-            confirmButtonText={confirmButtonText}
-            value={displayValue || undefined}
-            onChange={(v) => {
-              if (value === undefined) setInternalValue(v);
-              onChange?.(v);
-              handleOpenChange(false);
-            }}
-          />
-        </PopoverContent>
-      </Popover>
+        </PopoverPrimitive.Trigger>
+        <PopoverPrimitive.Portal>
+          <PopoverPrimitive.Content
+            align="start"
+            side={calendarPosition}
+            className={cn(
+              "w-auto border-0 bg-transparent p-0 shadow-none",
+              "z-50 origin-(--radix-popover-content-transform-origin) outline-hidden",
+              "data-[state=open]:animate-in data-[state=open]:fade-in-0 data-[state=open]:zoom-in-95",
+              "data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95",
+              "data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2",
+              "data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2"
+            )}
+          >
+            <Calendar
+              mode="single"
+              position={calendarPosition}
+              disabledDates={disabledDates}
+              eventDates={eventDates}
+              onYearChange={onYearChange}
+              onMonthChange={onMonthChange}
+              onTodayClick={onTodayClick}
+              onConfirm={onConfirm}
+              onCancel={onCancel}
+              prevButtonLabel={prevButtonLabel}
+              nextButtonLabel={nextButtonLabel}
+              yearSelectLabel={yearSelectLabel}
+              monthSelectLabel={monthSelectLabel}
+              todayButtonText={todayButtonText}
+              cancelButtonText={cancelButtonText}
+              confirmButtonText={confirmButtonText}
+              value={displayValue || undefined}
+              onChange={(v) => {
+                if (value === undefined) setInternalValue(v);
+                onChange?.(v);
+                handleOpenChange(false);
+              }}
+            />
+          </PopoverPrimitive.Content>
+        </PopoverPrimitive.Portal>
+      </PopoverPrimitive.Root>
     </div>
   );
 }

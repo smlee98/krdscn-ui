@@ -3,8 +3,7 @@
 
 import * as React from "react";
 import { HelpCircle, X } from "lucide-react";
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
-import { PopoverClose as PopoverPrimitiveClose } from "@radix-ui/react-popover";
+import { Popover as PopoverPrimitive } from "radix-ui";
 import { cn } from "@/lib/cn";
 
 // ─── ContextualHelp ───────────────────────────────────────────────────────────
@@ -60,14 +59,14 @@ function ContextualHelp({
   const alignOffset = alignment === "center" ? 0 : ALIGN_OFFSET;
 
   return (
-    <Popover open={open} defaultOpen={defaultOpen} onOpenChange={onOpenChange}>
+    <PopoverPrimitive.Root open={open} defaultOpen={defaultOpen} onOpenChange={onOpenChange}>
       <div
         data-slot="krds-contextual-help"
         data-position={position}
         data-alignment={alignment}
         className={cn("inline-flex items-center gap-2", className)}
       >
-        <PopoverTrigger asChild>
+        <PopoverPrimitive.Trigger asChild>
           <button
             type="button"
             aria-label="도움말"
@@ -81,58 +80,65 @@ function ContextualHelp({
             <span className="sr-only">도움말</span>
             <HelpCircle className="size-5 text-krds-foreground" aria-hidden="true" />
           </button>
-        </PopoverTrigger>
+        </PopoverPrimitive.Trigger>
       </div>
-      <PopoverContent
-        side={position}
-        align={align}
-        sideOffset={8}
-        alignOffset={alignOffset}
-        collisionPadding={8}
-        role="tooltip"
-        data-alignment={alignment}
-        className={cn(
-          "group/cxh relative w-[360px] rounded-[12px] border border-krds-border bg-krds-surface p-6",
-          "flex flex-col gap-2 shadow-none"
-        )}
-      >
-        <div className="flex flex-col gap-4">
-          <div className="flex items-start gap-4">
-            <div className="flex flex-1 flex-col gap-4 text-krds-body-sm text-krds-foreground">{children}</div>
-            <PopoverPrimitiveClose
-              aria-label="닫기"
-              className={cn(
-                "inline-flex size-4 shrink-0 items-center justify-center text-krds-foreground",
-                "hover:text-krds-foreground-primary",
-                "focus:krds-focus-ring"
-              )}
-            >
-              <X className="size-4" aria-hidden="true" />
-            </PopoverPrimitiveClose>
-          </div>
-        </div>
-
-        {/* Arrow follows the actually rendered side via Radix's data-side attribute,
-            so it stays correct when collision detection flips the popover on scroll. */}
-        <span
-          aria-hidden="true"
+      <PopoverPrimitive.Portal>
+        <PopoverPrimitive.Content
+          side={position}
+          align={align}
+          sideOffset={8}
+          alignOffset={alignOffset}
+          collisionPadding={8}
+          role="tooltip"
+          data-alignment={alignment}
           className={cn(
-            "pointer-events-none absolute block h-3 w-[22px]",
-            "group-data-[side=top]/cxh:-bottom-3",
-            "group-data-[side=bottom]/cxh:-top-3 group-data-[side=bottom]/cxh:rotate-180",
-            alignment === "left" ? "left-6" : alignment === "right" ? "right-6" : "left-1/2 -translate-x-[11px]"
+            "group/cxh relative w-[360px] rounded-[12px] border border-krds-border bg-krds-surface p-6",
+            "flex flex-col gap-2 shadow-none",
+            "z-50 origin-(--radix-popover-content-transform-origin) outline-hidden",
+            "data-[state=open]:animate-in data-[state=open]:fade-in-0 data-[state=open]:zoom-in-95",
+            "data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95",
+            "data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2",
+            "data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2"
           )}
         >
-          <svg viewBox="0 0 22 12" xmlns="http://www.w3.org/2000/svg" className="block size-full overflow-visible">
-            {/* Erase the popover border under the arrow base so the popover and
-                arrow appear as one shape. Drawn first so the slant strokes sit
-                on top of it at (0,0) and (22,0), keeping their tips visible. */}
-            <line x1="0" y1="0" x2="22" y2="0" stroke="white" strokeWidth="2" />
-            <path d="M0 0 L11 11 L22 0" stroke="#b1b8be" strokeWidth="1" fill="white" strokeLinejoin="miter" />
-          </svg>
-        </span>
-      </PopoverContent>
-    </Popover>
+          <div className="flex flex-col gap-4">
+            <div className="flex items-start gap-4">
+              <div className="flex flex-1 flex-col gap-4 text-krds-body-sm text-krds-foreground">{children}</div>
+              <PopoverPrimitive.Close
+                aria-label="닫기"
+                className={cn(
+                  "inline-flex size-4 shrink-0 items-center justify-center text-krds-foreground",
+                  "hover:text-krds-foreground-primary",
+                  "focus:krds-focus-ring"
+                )}
+              >
+                <X className="size-4" aria-hidden="true" />
+              </PopoverPrimitive.Close>
+            </div>
+          </div>
+
+          {/* Arrow follows the actually rendered side via Radix's data-side attribute,
+              so it stays correct when collision detection flips the popover on scroll. */}
+          <span
+            aria-hidden="true"
+            className={cn(
+              "pointer-events-none absolute block h-3 w-[22px]",
+              "group-data-[side=top]/cxh:-bottom-3",
+              "group-data-[side=bottom]/cxh:-top-3 group-data-[side=bottom]/cxh:rotate-180",
+              alignment === "left" ? "left-6" : alignment === "right" ? "right-6" : "left-1/2 -translate-x-[11px]"
+            )}
+          >
+            <svg viewBox="0 0 22 12" xmlns="http://www.w3.org/2000/svg" className="block size-full overflow-visible">
+              {/* Erase the popover border under the arrow base so the popover and
+                  arrow appear as one shape. Drawn first so the slant strokes sit
+                  on top of it at (0,0) and (22,0), keeping their tips visible. */}
+              <line x1="0" y1="0" x2="22" y2="0" stroke="white" strokeWidth="2" />
+              <path d="M0 0 L11 11 L22 0" stroke="#b1b8be" strokeWidth="1" fill="white" strokeLinejoin="miter" />
+            </svg>
+          </span>
+        </PopoverPrimitive.Content>
+      </PopoverPrimitive.Portal>
+    </PopoverPrimitive.Root>
   );
 }
 
