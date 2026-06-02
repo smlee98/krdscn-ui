@@ -1,5 +1,5 @@
 /**
- * KRDS Tab compound wrapper — composes @/components/ui/tabs
+ * KRDS Tab compound wrapper — composes radix-ui Tabs primitives directly
  *
  * Figma source: KRDS_v1.0.0 — node 340:31866
  *  - variant: "line" | "fill"   (style axis)
@@ -19,8 +19,12 @@
 "use client";
 
 import * as React from "react";
-import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
+import { Tabs as TabsPrimitive } from "radix-ui";
 import { cn } from "@/lib/cn";
+
+// KRDS 탭은 shadcn 스타일 탭(@/components/ui/tabs)이 아니라 radix 프리미티브를 직접 합성한다.
+// shadcn 탭의 group-data 베이스 스타일(예: TabsList의 horizontal h-9, active pill bg/shadow)이
+// KRDS 오버라이드를 specificity로 덮어 디자인이 깨지므로, 간섭 없는 unstyled 프리미티브 위에 KRDS만 입힌다.
 
 // ─── Types ───────────────────────────────────────────────────────────────────
 
@@ -78,7 +82,7 @@ function Tab({
 }: TabProps) {
   return (
     <TabContext.Provider value={{ variant, type }}>
-      <Tabs
+      <TabsPrimitive.Root
         value={value}
         defaultValue={defaultValue}
         onValueChange={onValueChange}
@@ -89,7 +93,7 @@ function Tab({
         {...rest}
       >
         {children}
-      </Tabs>
+      </TabsPrimitive.Root>
     </TabContext.Provider>
   );
 }
@@ -102,7 +106,7 @@ function TabList({ children, className, ...rest }: TabListProps) {
   const isPrimary = type === "primary";
 
   return (
-    <TabsList
+    <TabsPrimitive.List
       data-slot="krds-tab-list"
       className={cn(
         "flex h-auto rounded-none bg-transparent p-0",
@@ -118,7 +122,7 @@ function TabList({ children, className, ...rest }: TabListProps) {
       {...rest}
     >
       {children}
-    </TabsList>
+    </TabsPrimitive.List>
   );
 }
 
@@ -131,7 +135,7 @@ function TabTrigger({ value, children, className, ...rest }: TabTriggerProps) {
   const isPrimary = type === "primary";
 
   return (
-    <TabsTrigger
+    <TabsPrimitive.Trigger
       data-slot="krds-tab-trigger"
       value={value}
       className={cn(
@@ -178,7 +182,7 @@ function TabTrigger({ value, children, className, ...rest }: TabTriggerProps) {
       {...rest}
     >
       {children}
-    </TabsTrigger>
+    </TabsPrimitive.Trigger>
   );
 }
 
@@ -194,13 +198,13 @@ function TabContent({ children, className, ...rest }: TabContentProps) {
 }
 
 // ─── TabPanel ─────────────────────────────────────────────────────────────────
-// Has value prop — maps to shadcn TabsContent
+// Has value prop — maps to radix Tabs.Content
 
 function TabPanel({ value, children, className, ...rest }: TabPanelProps) {
   return (
-    <TabsContent data-slot="krds-tab-panel" value={value} className={cn("outline-none", className)} {...rest}>
+    <TabsPrimitive.Content data-slot="krds-tab-panel" value={value} className={cn("outline-none", className)} {...rest}>
       {children}
-    </TabsContent>
+    </TabsPrimitive.Content>
   );
 }
 
