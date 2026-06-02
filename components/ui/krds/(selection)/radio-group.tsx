@@ -1,7 +1,8 @@
 /**
- * KRDS Radio, RadioGroup, RadioChip, RadioSort wrappers — composes @/components/ui/radio-group
- * RadioGroup provides name/value context for coordination.
- * onChange adapter: (value: string) => void (no synthetic event)
+ * KRDS Radio, RadioGroup, RadioChip, RadioSort — radix RadioGroup 직접 합성
+ * RadioGroup: RadioGroupPrimitive.Root (value/onValueChange/name 위임)
+ * Radio: RadioGroupPrimitive.Item + RadioGroupPrimitive.Indicator (checked dot)
+ * RadioChip / RadioSort: RadioGroupPrimitive.Item (chip/sort 시각)
  *
  * Figma references:
  *  - Radio atom: node 313:27198
@@ -10,7 +11,7 @@
  */
 "use client";
 
-import { RadioGroup as ShadcnRadioGroup } from "@/components/ui/radio-group";
+import { RadioGroup as RadioGroupPrimitive } from "radix-ui";
 import { cn } from "@/lib/cn";
 import * as React from "react";
 
@@ -98,21 +99,22 @@ function RadioGroup({
 
   return (
     <RadioGroupContext.Provider value={{ value: currentValue, onChange: handleChange, name }}>
-      <ShadcnRadioGroup
+      <RadioGroupPrimitive.Root
         data-slot="krds-radio-group"
         value={currentValue}
         onValueChange={handleChange}
+        name={name}
         className={cn("flex", column ? cn("flex-col", columnGap) : "flex-row flex-wrap gap-2", className)}
       >
         {children}
-      </ShadcnRadioGroup>
+      </RadioGroupPrimitive.Root>
     </RadioGroupContext.Provider>
   );
 }
 
 // ─── Radio ────────────────────────────────────────────────────────────────────
 
-function Radio({ size = "medium", description, value, children, disabled, className, ...rest }: RadioProps) {
+function Radio({ size = "medium", description, value, children, disabled, className }: RadioProps) {
   const ctx = useRadioGroupContext();
   const isChecked = ctx.value === value;
 
@@ -127,9 +129,9 @@ function Radio({ size = "medium", description, value, children, disabled, classN
   const checkedBorder = size === "large" ? "border-[1.6px]" : "border-[1.4px]";
 
   // Border classes per state.
-  //  - default unchecked: 1px gray-dark #58616a (no token alias — arbitrary)
+  //  - default unchecked: 1px gray-dark #58616a
   //  - default checked:   1.4–1.6px primary-50
-  //  - disabled (any):    1px disabled-dark #8a949e (no token alias — arbitrary)
+  //  - disabled (any):    1px disabled-dark #8a949e
   const borderClass = disabled
     ? "border border-krds-border"
     : isChecked
@@ -137,38 +139,35 @@ function Radio({ size = "medium", description, value, children, disabled, classN
       : "border border-krds-border-dark";
 
   // Background:
-  //  - disabled (any check): disabled-light #cdd1d5 → bg-krds-gray-20
+  //  - disabled (any check): disabled-light → bg-krds-surface-disabled
   //  - otherwise: white
   const bgClass = disabled ? "bg-krds-surface-disabled" : "bg-white";
 
   // Inner dot color:
-  //  - disabled+checked: disabled-dark #8a949e (arbitrary)
+  //  - disabled+checked: disabled-dark → bg-krds-gray-40
   //  - default+checked:  primary-50
   const dotClass = isChecked ? (disabled ? "bg-krds-gray-40" : "bg-krds-primary-50") : "bg-transparent";
 
   // Text colors:
-  //  - label default: text/bolder #131416 (no token — arbitrary)
-  //  - help default:  text/subtle #464c53 → text-krds-gray-70
-  //  - any disabled:  text/disabled #8a949e (arbitrary)
+  //  - any disabled: text/disabled
+  //  - label default: text/bolder
+  //  - help default:  text/subtle
   const labelColor = disabled ? "text-krds-foreground-disabled" : "text-krds-foreground-bolder";
   const helpColor = disabled ? "text-krds-foreground-disabled" : "text-krds-foreground-subtle";
 
   return (
-    <label
+    <div
       data-slot="krds-radio"
       className={cn("flex cursor-pointer flex-col gap-1", disabled && "cursor-not-allowed", className)}
     >
-      <input
-        {...rest}
-        type="radio"
-        name={ctx.name}
+      <RadioGroupPrimitive.Item
         value={value}
-        checked={isChecked}
         disabled={disabled}
-        className="peer sr-only"
-        onChange={() => ctx.onChange(value)}
-      />
-      <span className="flex items-center gap-2 rounded-[4px] peer-focus:krds-focus-ring hover:bg-krds-surface-subtler">
+        className={cn(
+          "flex cursor-pointer items-center gap-2 rounded-[4px] focus:krds-focus-ring hover:bg-krds-surface-subtler",
+          disabled && "cursor-not-allowed"
+        )}
+      >
         <span
           aria-hidden="true"
           className={cn(
@@ -178,20 +177,22 @@ function Radio({ size = "medium", description, value, children, disabled, classN
             bgClass
           )}
         >
-          <span className={cn("rounded-full transition-colors", innerSize, dotClass)} />
+          <RadioGroupPrimitive.Indicator className="flex items-center justify-center">
+            <span className={cn("rounded-full", innerSize, dotClass)} />
+          </RadioGroupPrimitive.Indicator>
         </span>
         {children && <span className={cn(labelSize, labelColor)}>{children}</span>}
-      </span>
+      </RadioGroupPrimitive.Item>
       {description && (
         <span className={cn(descIndent, helpSize, helpColor)}>{description}</span>
       )}
-    </label>
+    </div>
   );
 }
 
 // ─── RadioChip ────────────────────────────────────────────────────────────────
 
-function RadioChip({ size = "medium", value, children, disabled, className, ...rest }: RadioChipProps) {
+function RadioChip({ size = "medium", value, children, disabled, className }: RadioChipProps) {
   const ctx = useRadioGroupContext();
   const isChecked = ctx.value === value;
 
@@ -202,68 +203,44 @@ function RadioChip({ size = "medium", value, children, disabled, className, ...r
   }[size];
 
   return (
-    <label
+    <RadioGroupPrimitive.Item
       data-slot="krds-radio-chip"
-      className={cn("inline-flex cursor-pointer items-center", disabled && "cursor-not-allowed")}
+      value={value}
+      disabled={disabled}
+      className={cn(
+        "inline-flex cursor-pointer items-center border transition-colors focus:krds-focus-ring",
+        "bg-krds-surface border-krds-border-light text-krds-foreground",
+        isChecked && "bg-krds-surface-primary-subtle border-krds-border-primary text-krds-foreground-primary",
+        disabled && "cursor-not-allowed bg-krds-surface-subtler border-krds-border-light text-krds-foreground-disabled",
+        sizeClass,
+        className
+      )}
     >
-      <input
-        {...rest}
-        type="radio"
-        name={ctx.name}
-        value={value}
-        checked={isChecked}
-        disabled={disabled}
-        className="peer sr-only"
-        onChange={() => ctx.onChange(value)}
-      />
-      <span
-        className={cn(
-          "inline-flex items-center border transition-colors peer-focus:krds-focus-ring",
-          "bg-krds-surface border-krds-border-light text-krds-foreground",
-          isChecked && "bg-krds-surface-primary-subtle border-krds-border-primary text-krds-foreground-primary",
-          disabled && "bg-krds-surface-subtler border-krds-border-light text-krds-foreground-disabled",
-          sizeClass,
-          className
-        )}
-      >
-        {children}
-      </span>
-    </label>
+      {children}
+    </RadioGroupPrimitive.Item>
   );
 }
 
 // ─── RadioSort ────────────────────────────────────────────────────────────────
 
-function RadioSort({ value, children, disabled, className, ...rest }: RadioSortProps) {
+function RadioSort({ value, children, disabled, className }: RadioSortProps) {
   const ctx = useRadioGroupContext();
   const isChecked = ctx.value === value;
 
   return (
-    <label
+    <RadioGroupPrimitive.Item
       data-slot="krds-radio-sort"
-      className={cn("inline-flex cursor-pointer items-center", disabled && "cursor-not-allowed")}
+      value={value}
+      disabled={disabled}
+      className={cn(
+        "text-krds-foreground inline-flex cursor-pointer items-center rounded border border-transparent px-1 text-krds-body-md transition-colors focus:krds-focus-ring hover:bg-krds-surface-subtler",
+        isChecked && "bg-krds-surface-secondary-subtle underline underline-offset-2",
+        disabled && "cursor-not-allowed text-krds-foreground-disabled",
+        className
+      )}
     >
-      <input
-        {...rest}
-        type="radio"
-        name={ctx.name}
-        value={value}
-        checked={isChecked}
-        disabled={disabled}
-        className="peer sr-only"
-        onChange={() => ctx.onChange(value)}
-      />
-      <span
-        className={cn(
-          "text-krds-foreground inline-flex items-center rounded border border-transparent px-1 text-krds-body-md transition-colors peer-focus:krds-focus-ring hover:bg-krds-surface-subtler",
-          isChecked && "bg-krds-surface-secondary-subtle underline underline-offset-2",
-          disabled && "text-krds-foreground-disabled",
-          className
-        )}
-      >
-        {children}
-      </span>
-    </label>
+      {children}
+    </RadioGroupPrimitive.Item>
   );
 }
 

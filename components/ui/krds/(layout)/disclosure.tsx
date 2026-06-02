@@ -1,6 +1,6 @@
 "use client";
 
-import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
+import { Collapsible as CollapsiblePrimitive } from "radix-ui";
 import { cn } from "@/lib/cn";
 import { CircleChevronDown } from "lucide-react";
 import * as React from "react";
@@ -44,11 +44,11 @@ function Disclosure({
 
   return (
     <DisclosureContext.Provider value={{ open }}>
-      <Collapsible open={open} onOpenChange={handleOpenChange} asChild>
+      <CollapsiblePrimitive.Root open={open} onOpenChange={handleOpenChange} asChild>
         <div data-slot="krds-disclosure" className={cn("flex flex-col gap-1", className)} {...props}>
           {children}
         </div>
-      </Collapsible>
+      </CollapsiblePrimitive.Root>
     </DisclosureContext.Provider>
   );
 }
@@ -58,7 +58,7 @@ function Disclosure({
 function DisclosureTrigger({ className, children, ...props }: DisclosureTriggerProps) {
   const { open } = React.useContext(DisclosureContext);
   return (
-    <CollapsibleTrigger asChild>
+    <CollapsiblePrimitive.CollapsibleTrigger asChild>
       <button
         type="button"
         data-slot="krds-disclosure-trigger"
@@ -75,7 +75,7 @@ function DisclosureTrigger({ className, children, ...props }: DisclosureTriggerP
         />
         <span>{children}</span>
       </button>
-    </CollapsibleTrigger>
+    </CollapsiblePrimitive.CollapsibleTrigger>
   );
 }
 
@@ -83,7 +83,7 @@ function DisclosureTrigger({ className, children, ...props }: DisclosureTriggerP
 
 function DisclosureContent({ className, children, ...props }: DisclosureContentProps) {
   return (
-    <CollapsibleContent
+    <CollapsiblePrimitive.CollapsibleContent
       className={cn(
         "overflow-hidden",
         "data-[state=open]:animate-in data-[state=open]:fade-in-0",
@@ -93,7 +93,7 @@ function DisclosureContent({ className, children, ...props }: DisclosureContentP
       <div data-slot="krds-disclosure-content" className={cn("rounded-[12px] bg-krds-surface-subtle p-6", className)} {...props}>
         {children}
       </div>
-    </CollapsibleContent>
+    </CollapsiblePrimitive.CollapsibleContent>
   );
 }
 

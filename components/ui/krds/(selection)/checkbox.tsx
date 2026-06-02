@@ -6,14 +6,18 @@
  *  - checkbox (composition):    node 309:25967
  *  - checkbox__list:            node 309:26481
  *
- * Structure: outer label is flex-col gap-1. Inner row (control+label text) is
+ * Structure: outer wrapper is flex-col gap-1. Inner row (control+label text) is
  * items-center gap-2. Description is a sibling block indented by pl-7/pl-8.
+ *
+ * Radix: CheckboxPrimitive.Root renders as <button>; form integration is handled
+ * via Radix's internal hidden input (name/value props on Root).
  */
 
 "use client";
 
 import * as React from "react";
 import { CheckIcon, MinusIcon } from "lucide-react";
+import { Checkbox as CheckboxPrimitive } from "radix-ui";
 import { cn } from "@/lib/cn";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
@@ -71,7 +75,6 @@ function Checkbox({
   name,
   value,
   children,
-  ...rest
 }: CheckboxProps) {
   const autoId = React.useId();
   const inputId = id ?? autoId;
@@ -113,48 +116,55 @@ function Checkbox({
   const labelNode = label ?? children;
 
   return (
-    <label
-      htmlFor={inputId}
+    <div
       data-slot="krds-checkbox"
-      className={cn("flex cursor-pointer flex-col gap-1", disabled && "cursor-not-allowed", className)}
+      className={cn("flex flex-col gap-1", disabled && "cursor-not-allowed", className)}
     >
-      <input
-        {...rest}
-        id={inputId}
-        name={name}
-        value={value}
-        type="checkbox"
-        checked={currentChecked}
-        disabled={disabled}
-        className="peer sr-only"
-        aria-checked={indeterminate ? "mixed" : currentChecked}
-        onChange={(e) => {
-          if (!isControlled) setInternalChecked(e.target.checked);
-          onChange?.(e.target.checked);
-        }}
-      />
-      <span className="flex w-fit items-center gap-2 rounded-[4px] peer-focus:krds-focus-ring">
-        <span
-          aria-hidden="true"
+      <div className="flex w-fit items-center gap-2">
+        <CheckboxPrimitive.Root
+          id={inputId}
+          name={name}
+          value={value}
+          disabled={disabled}
+          checked={indeterminate ? "indeterminate" : currentChecked}
+          onCheckedChange={(checkedState) => {
+            const val = checkedState === "indeterminate" ? false : (checkedState as boolean);
+            if (!isControlled) setInternalChecked(val);
+            onChange?.(val);
+          }}
           className={cn(
-            "relative inline-flex shrink-0 items-center justify-center rounded-[4px] transition-colors",
+            "relative inline-flex shrink-0 items-center justify-center rounded-[4px] transition-colors focus:krds-focus-ring",
             outerSize,
             borderClass,
             bgClass
           )}
         >
-          {indeterminate ? (
-            <MinusIcon className={cn(iconGlyphSize, glyphColor)} strokeWidth={3} aria-hidden="true" />
-          ) : currentChecked ? (
-            <CheckIcon className={cn(iconGlyphSize, glyphColor)} strokeWidth={3} aria-hidden="true" />
-          ) : null}
-        </span>
-        {labelNode && <span className={cn(labelSize, labelColor)}>{labelNode}</span>}
-      </span>
+          <CheckboxPrimitive.Indicator className="flex items-center justify-center">
+            {indeterminate ? (
+              <MinusIcon className={cn(iconGlyphSize, glyphColor)} strokeWidth={3} aria-hidden="true" />
+            ) : (
+              <CheckIcon className={cn(iconGlyphSize, glyphColor)} strokeWidth={3} aria-hidden="true" />
+            )}
+          </CheckboxPrimitive.Indicator>
+        </CheckboxPrimitive.Root>
+        {labelNode && (
+          <label
+            htmlFor={inputId}
+            className={cn(
+              "cursor-pointer select-none",
+              disabled && "cursor-not-allowed",
+              labelSize,
+              labelColor
+            )}
+          >
+            {labelNode}
+          </label>
+        )}
+      </div>
       {description && (
         <span className={cn(descIndent, helpSize, helpColor)}>{description}</span>
       )}
-    </label>
+    </div>
   );
 }
 
@@ -189,7 +199,6 @@ function CheckboxChip({
   id,
   name,
   value,
-  ...rest
 }: CheckboxChipProps) {
   const autoId = React.useId();
   const inputId = id ?? autoId;
@@ -207,48 +216,39 @@ function CheckboxChip({
   const iconSize = size === "large" ? "size-4" : size === "small" ? "size-3" : "size-3.5";
 
   return (
-    <label
-      htmlFor={inputId}
+    <CheckboxPrimitive.Root
+      id={inputId}
+      name={name}
+      value={value}
+      disabled={disabled}
+      checked={currentChecked}
+      onCheckedChange={(checkedState) => {
+        const val = checkedState === "indeterminate" ? false : (checkedState as boolean);
+        if (!isControlled) setInternalChecked(val);
+        onChange?.(val);
+      }}
       data-slot="krds-checkbox-chip"
-      className={cn("inline-flex cursor-pointer items-center", disabled && "cursor-not-allowed")}
+      className={cn(
+        "inline-flex cursor-pointer items-center border transition-colors focus:krds-focus-ring",
+        "bg-krds-surface border-krds-border-light text-krds-foreground",
+        currentChecked && "bg-krds-surface-primary-subtle border-krds-border-primary text-krds-foreground-primary",
+        disabled && "cursor-not-allowed bg-krds-surface-subtler border-krds-border-light text-krds-foreground-disabled",
+        sizeClass,
+        className
+      )}
     >
-      <input
-        {...rest}
-        id={inputId}
-        name={name}
-        value={value}
-        type="checkbox"
-        checked={currentChecked}
-        disabled={disabled}
-        className="peer sr-only"
-        onChange={(e) => {
-          if (!isControlled) setInternalChecked(e.target.checked);
-          onChange?.(e.target.checked);
-        }}
-      />
-      <span
+      <CheckIcon
         className={cn(
-          "inline-flex items-center border transition-colors peer-focus:krds-focus-ring",
-          "bg-krds-surface border-krds-border-light text-krds-foreground",
-          currentChecked && "bg-krds-surface-primary-subtle border-krds-border-primary text-krds-foreground-primary",
-          disabled && "bg-krds-surface-subtler border-krds-border-light text-krds-foreground-disabled",
-          sizeClass,
-          className
+          iconSize,
+          "shrink-0",
+          currentChecked ? "text-krds-foreground-primary" : "text-krds-foreground-disabled",
+          disabled && "text-krds-foreground-disabled"
         )}
-      >
-        <CheckIcon
-          className={cn(
-            iconSize,
-            "shrink-0",
-            currentChecked ? "text-krds-foreground-primary" : "text-krds-foreground-disabled",
-            disabled && "text-krds-foreground-disabled"
-          )}
-          strokeWidth={currentChecked ? 2.2 : 1.8}
-          aria-hidden="true"
-        />
-        {children}
-      </span>
-    </label>
+        strokeWidth={currentChecked ? 2.2 : 1.8}
+        aria-hidden="true"
+      />
+      {children}
+    </CheckboxPrimitive.Root>
   );
 }
 
