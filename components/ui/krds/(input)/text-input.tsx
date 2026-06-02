@@ -51,6 +51,14 @@ const sizeIcon: Record<TextInputSize, string> = {
   large: "size-6"
 };
 
+// KRDS .krds-input radius (small/medium = radius medium1/2 = 6px, large = medium3 = 8px).
+// Mirrors the wrapper radius onto the focusable control so the focus ring corner matches KRDS.
+const sizeInputRadius: Record<TextInputSize, string> = {
+  small: "rounded-[6px]",
+  medium: "rounded-[6px]",
+  large: "rounded-[8px]"
+};
+
 function TextInput({
   label,
   size = "large",
@@ -122,6 +130,7 @@ function TextInput({
             "h-full flex-1 bg-transparent leading-[1.5] outline-none",
             "placeholder:text-krds-foreground-disabled",
             "text-krds-foreground",
+            sizeInputRadius[size],
             sizeText[size],
             disabled && "cursor-not-allowed text-krds-foreground-disabled",
             readOnly && !disabled && "text-krds-foreground-subtle"

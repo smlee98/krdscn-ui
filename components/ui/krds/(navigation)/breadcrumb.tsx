@@ -52,7 +52,7 @@ function BreadcrumbItem({ className, children }: BreadcrumbItemProps) {
 // ─── BreadcrumbLink ───────────────────────────────────────────────────────────
 
 const linkBaseClass = cn(
-  "inline-flex h-6 items-center gap-1 rounded-[4px] px-1",
+  "inline-flex h-6 items-center gap-1 rounded-[6px] px-1",
   "text-krds-foreground text-krds-body-sm underline",
   "hover:bg-krds-surface-subtler",
   "active:bg-krds-surface-subtle",
@@ -103,7 +103,7 @@ function BreadcrumbPage({ className, children }: BreadcrumbPageProps) {
       data-slot="krds-breadcrumb-page"
       aria-current="page"
       className={cn(
-        "inline-flex h-6 items-center rounded-[4px] px-1",
+        "inline-flex h-6 items-center rounded-[6px] px-1",
         "text-krds-foreground text-krds-body-sm underline",
         className
       )}
@@ -124,7 +124,7 @@ function BreadcrumbEllipsis({ className }: BreadcrumbEllipsisProps) {
     <span
       data-slot="krds-breadcrumb-ellipsis"
       role="presentation"
-      className={cn("text-krds-foreground inline-flex h-6 items-center rounded-[4px] px-1", className)}
+      className={cn("text-krds-foreground inline-flex h-6 items-center rounded-[6px] px-1", className)}
     >
       <MoreHorizontal size={16} aria-hidden="true" />
       <span className="sr-only">생략된 경로</span>

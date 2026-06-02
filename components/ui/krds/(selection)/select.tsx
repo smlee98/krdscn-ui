@@ -39,10 +39,11 @@ const triggerFont: Record<SelectSize, string> = {
   large: "text-krds-body-lg"
 };
 
+// KRDS .krds-form-select radius (small = medium3 = 8px, medium/large = medium2/1 = 6px).
 const triggerRadius: Record<SelectSize, string> = {
-  small: "rounded-md",
-  medium: "rounded-md",
-  large: "rounded-lg"
+  small: "rounded-[8px]",
+  medium: "rounded-[6px]",
+  large: "rounded-[6px]"
 };
 
 const triggerIconSize: Record<SelectSize, string> = {

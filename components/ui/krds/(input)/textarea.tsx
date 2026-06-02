@@ -44,7 +44,7 @@ function Textarea({
       {label && <label className="block text-krds-body-sm text-krds-foreground-subtle">{label}</label>}
       <div
         className={cn(
-          "h-36 rounded-[6px] border border-krds-border-dark bg-krds-surface px-4 py-2 transition-colors",
+          "h-36 rounded-[8px] border border-krds-border-dark bg-krds-surface px-4 py-2 transition-colors",
           "focus-within:border-krds-border-primary focus-within:krds-focus-ring",
           "has-[textarea[aria-invalid=true]]:border-krds-danger-50 has-[textarea[aria-invalid=true]]:focus-within:border-krds-danger-50",
           disabled && "border border-krds-border bg-krds-surface-disabled",
@@ -61,7 +61,7 @@ function Textarea({
           aria-invalid={invalid}
           onChange={handleChange}
           className={cn(
-            "h-full w-full resize-none bg-transparent text-krds-body-md text-krds-foreground outline-none",
+            "h-full w-full resize-none rounded-[8px] bg-transparent text-krds-body-md text-krds-foreground outline-none",
             "placeholder:text-krds-foreground-disabled",
             disabled && "cursor-not-allowed text-krds-foreground-disabled",
             readOnly && !disabled && "text-krds-foreground-subtle"

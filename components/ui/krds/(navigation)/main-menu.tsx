@@ -55,7 +55,7 @@ function MainMenuBarItem({ className, children, href, hasSubmenu }: MainMenuBarI
         "text-krds-foreground-subtle text-krds-body-lg font-bold",
         "hover:text-krds-foreground",
         "active:text-krds-foreground",
-        "rounded-sm focus:krds-focus-ring",
+        "rounded-none focus:krds-focus-ring",
         className
       )}
     >
