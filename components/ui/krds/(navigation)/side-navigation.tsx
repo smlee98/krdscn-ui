@@ -66,7 +66,8 @@ function SideNavigationBackTitle({
     "flex w-full flex-col items-start gap-1 rounded-lg p-2",
     "text-left text-krds-foreground",
     "hover:bg-krds-surface-subtler",
-    "focus-visible:ring-krds-border-primary focus-visible:ring-2 focus-visible:outline-none",
+    "active:bg-krds-surface-subtle",
+    "focus:krds-focus-ring",
     className
   );
   const content = (
@@ -156,7 +157,8 @@ function SideNavigationTrigger({ className, children }: SideNavigationTriggerPro
         "flex w-full items-center gap-2 px-2 py-4",
         "text-krds-foreground text-left text-krds-body-md font-bold",
         "hover:bg-krds-surface-subtler",
-        "focus-visible:ring-krds-border-primary focus-visible:ring-2 focus-visible:outline-none",
+        "active:bg-krds-surface-subtle",
+        "focus:krds-focus-ring",
         className
       )}
     >
@@ -208,7 +210,8 @@ function SideNavigationItem({ className, children, href, external, active }: Sid
           "flex w-full items-center gap-1 rounded-md px-4 py-2",
           "text-krds-foreground text-krds-body-md",
           "hover:bg-krds-surface-subtler",
-          "focus-visible:ring-krds-border-primary focus-visible:ring-2 focus-visible:outline-none",
+          "active:bg-krds-surface-subtle",
+          "focus:krds-focus-ring",
           active && "font-bold",
           className
         )}

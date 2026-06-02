@@ -217,7 +217,7 @@ function Select({
             className={cn(
               "text-krds-foreground inline-flex h-auto cursor-pointer appearance-none items-center rounded-sm border border-transparent bg-transparent leading-[1.5] transition-colors outline-none",
               "hover:bg-krds-surface-subtler active:bg-krds-surface-subtle",
-              "focus-visible:ring-krds-border-primary focus-visible:ring-2 focus-visible:ring-offset-1",
+              "focus:krds-focus-ring",
               "disabled:text-krds-foreground-disabled disabled:cursor-not-allowed disabled:bg-transparent",
               sortingFont[size],
               sortingPadX[size],
@@ -273,11 +273,11 @@ function Select({
             // placeholder colour (when no value selected)
             "data-[placeholder]:text-krds-foreground-disabled",
             // focus
-            "focus:border-krds-border-primary focus:border-2 focus:px-[15px]",
+            "focus:border-krds-border-primary focus:krds-focus-ring",
             // disabled
             "disabled:bg-krds-surface-disabled disabled:border-krds-border disabled:text-krds-foreground-disabled disabled:cursor-not-allowed",
             // error (via aria-invalid)
-            "aria-invalid:border-krds-danger-50 aria-invalid:focus:border-krds-danger-50 aria-invalid:border-2 aria-invalid:px-[15px]",
+            "aria-invalid:border-krds-danger-50 aria-invalid:focus:border-krds-danger-50",
             triggerHeight[size],
             triggerFont[size],
             triggerRadius[size],

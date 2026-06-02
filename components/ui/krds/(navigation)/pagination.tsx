@@ -70,7 +70,7 @@ const btnBase = cn(
   "inline-flex h-10 items-center justify-center rounded-[6px] bg-transparent select-none",
   "text-krds-body-md text-krds-foreground-subtle",
   "hover:bg-krds-surface-subtler active:bg-krds-surface-subtle",
-  "focus-visible:ring-krds-border-primary focus-visible:ring-2 focus-visible:outline-none",
+  "focus:krds-focus-ring",
   "disabled:cursor-not-allowed disabled:bg-transparent disabled:text-krds-foreground-disabled disabled:pointer-events-none"
 );
 
@@ -278,7 +278,7 @@ function PaginationJumpInput({
       className={cn(
         "h-10 w-14 rounded-[6px] border border-krds-border-dark bg-krds-surface px-4",
         "text-krds-foreground text-center text-krds-body-sm",
-        "focus-visible:ring-krds-border-primary focus-visible:ring-2 focus-visible:outline-none",
+        "focus:krds-focus-ring",
         className
       )}
       {...props}

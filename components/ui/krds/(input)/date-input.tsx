@@ -116,8 +116,8 @@ function DateInput({
             disabled={disabled || readOnly}
             className={cn(
               "relative flex w-full items-center border border-krds-border-dark bg-krds-surface text-left outline-none transition-colors",
-              "focus-visible:border-2 focus-visible:border-krds-border-primary",
-              "aria-[invalid=true]:border-2 aria-[invalid=true]:border-krds-danger-50",
+              "focus:border-krds-border-primary focus:krds-focus-ring",
+              "aria-[invalid=true]:border-krds-danger-50 aria-[invalid=true]:focus:border-krds-danger-50",
               disabled && "cursor-not-allowed border-krds-border bg-krds-surface-disabled",
               readOnly && !disabled && "cursor-default",
               !disabled && !readOnly && "cursor-pointer",
@@ -209,8 +209,8 @@ function DateInputUnit({
 }: DateInputUnitProps) {
   const inputCls = cn(
     "border border-krds-border-dark bg-krds-surface transition-colors",
-    "focus-within:border-2 focus-within:border-krds-border-primary",
-    "has-[input[aria-invalid=true]]:border-2 has-[input[aria-invalid=true]]:border-krds-danger-50 has-[input[aria-invalid=true]]:focus-within:border-krds-danger-50",
+    "focus-within:border-krds-border-primary focus-within:krds-focus-ring",
+    "has-[input[aria-invalid=true]]:border-krds-danger-50 has-[input[aria-invalid=true]]:focus-within:border-krds-danger-50",
     disabled && "border border-krds-border bg-krds-surface-disabled",
     sizeBox[size]
   );

@@ -165,10 +165,10 @@ function Radio({ size = "medium", description, value, children, disabled, classN
         value={value}
         checked={isChecked}
         disabled={disabled}
-        className="sr-only"
+        className="peer sr-only"
         onChange={() => ctx.onChange(value)}
       />
-      <span className="flex items-center gap-2">
+      <span className="flex items-center gap-2 rounded-[4px] peer-focus:krds-focus-ring hover:bg-krds-surface-subtler">
         <span
           aria-hidden="true"
           className={cn(
@@ -213,12 +213,12 @@ function RadioChip({ size = "medium", value, children, disabled, className, ...r
         value={value}
         checked={isChecked}
         disabled={disabled}
-        className="sr-only"
+        className="peer sr-only"
         onChange={() => ctx.onChange(value)}
       />
       <span
         className={cn(
-          "inline-flex items-center border transition-colors",
+          "inline-flex items-center border transition-colors peer-focus:krds-focus-ring",
           "bg-krds-surface border-krds-border-light text-krds-foreground",
           isChecked && "bg-krds-surface-primary-subtle border-krds-border-primary text-krds-foreground-primary",
           disabled && "bg-krds-surface-subtler border-krds-border-light text-krds-foreground-disabled",
@@ -250,12 +250,12 @@ function RadioSort({ value, children, disabled, className, ...rest }: RadioSortP
         value={value}
         checked={isChecked}
         disabled={disabled}
-        className="sr-only"
+        className="peer sr-only"
         onChange={() => ctx.onChange(value)}
       />
       <span
         className={cn(
-          "text-krds-foreground inline-flex items-center rounded border border-transparent px-1 text-krds-body-md transition-colors",
+          "text-krds-foreground inline-flex items-center rounded border border-transparent px-1 text-krds-body-md transition-colors peer-focus:krds-focus-ring hover:bg-krds-surface-subtler",
           isChecked && "bg-krds-surface-secondary-subtle underline underline-offset-2",
           disabled && "text-krds-foreground-disabled",
           className

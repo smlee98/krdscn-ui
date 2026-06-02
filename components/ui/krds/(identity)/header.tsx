@@ -37,7 +37,7 @@ function HeaderUtilityItem({ className, children, href, asSelect }: HeaderUtilit
     "inline-flex items-center gap-1",
     "text-krds-foreground text-krds-body-sm",
     "hover:underline",
-    "focus-visible:ring-2 focus-visible:ring-krds-border-primary focus-visible:outline-none rounded-sm",
+    "focus:krds-focus-ring rounded-sm",
     className
   );
   const content = (
@@ -81,7 +81,7 @@ function HeaderBrand({ className, children, href }: HeaderBrandProps) {
       className={cn(
         "inline-flex h-12 items-center",
         "text-krds-foreground text-lg font-bold",
-        "focus-visible:ring-krds-border-primary rounded-sm focus-visible:ring-2 focus-visible:outline-none",
+        "focus:krds-focus-ring rounded-sm",
         className
       )}
     >
@@ -117,7 +117,7 @@ function HeaderActionItem({ className, children, href, icon }: HeaderActionItemP
     "inline-flex h-10 items-center gap-2 rounded-md px-3",
     "text-krds-body-md font-bold text-krds-foreground",
     "hover:bg-krds-surface-subtler",
-    "focus-visible:ring-2 focus-visible:ring-krds-border-primary focus-visible:outline-none",
+    "focus:krds-focus-ring",
     className
   );
   const content = (
@@ -180,7 +180,7 @@ function HeaderNavItem({ className, children, href, hasSubmenu }: HeaderNavItemP
         "inline-flex h-14 items-center gap-2 px-4",
         "text-krds-foreground-subtle text-krds-body-lg font-bold",
         "hover:text-krds-foreground",
-        "focus-visible:ring-krds-border-primary rounded-sm focus-visible:ring-2 focus-visible:outline-none",
+        "focus:krds-focus-ring rounded-sm",
         className
       )}
     >

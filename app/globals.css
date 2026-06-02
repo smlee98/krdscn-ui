@@ -3,6 +3,18 @@
 
 @custom-variant dark (&:is(.dark *));
 
+/* KRDS 공식 focus 표시 = 이중 링 (레이아웃 시프트 0).
+   안쪽 2px outline = surface(라이트 흰/다크 어둠) 분리선, 바깥 4px box-shadow = primary 파랑.
+   outline+box-shadow라 박스 크기에 영향 없음. forced-colors 모드에선 outline이 표시됨.
+   사용: focus-visible:krds-focus-ring (버튼/링크/네비), focus-within:krds-focus-ring (입력 래퍼),
+        peer-focus-visible:krds-focus-ring (sr-only input의 형제 시각 컨트롤). */
+@utility krds-focus-ring {
+  /* @theme inline은 --color-krds-* 별칭을 :root에 발행하지 않으므로 소스 변수를 직접 참조한다. */
+  outline: 2px solid var(--krds-surface);
+  outline-offset: 0;
+  box-shadow: 0 0 0 4px var(--krds-border-primary);
+}
+
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);

@@ -145,7 +145,7 @@ function CarouselArrow({ direction, size = "small", className, "aria-label": ari
         "inline-flex shrink-0 items-center justify-center rounded-full bg-krds-surface text-krds-foreground",
         "border-krds-border-light border transition-colors",
         "hover:border-krds-border",
-        "focus-visible:ring-krds-border-primary focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none",
+        "focus:krds-focus-ring",
         "disabled:cursor-not-allowed disabled:opacity-50",
         ARROW_SIZE_CLASS[size],
         className
@@ -225,7 +225,7 @@ function CarouselDots({ className, label = "슬라이드 선택", ...rest }: Car
             onClick={() => scrollTo(i)}
             className={cn(
               "h-2 shrink-0 rounded-full transition-all",
-              "focus-visible:ring-krds-border-primary focus-visible:ring-2 focus-visible:ring-offset-1 focus-visible:outline-none",
+              "focus:krds-focus-ring",
               isActive ? "bg-krds-primary-50 w-5" : "bg-krds-gray-50 w-2"
             )}
           />
@@ -267,7 +267,7 @@ function CarouselPlayPause({
         "inline-flex shrink-0 items-center justify-center rounded-full bg-krds-surface text-krds-foreground",
         "border-krds-border-light border transition-colors",
         "hover:border-krds-border",
-        "focus-visible:ring-krds-border-primary focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none",
+        "focus:krds-focus-ring",
         ARROW_SIZE_CLASS[size],
         className
       )}

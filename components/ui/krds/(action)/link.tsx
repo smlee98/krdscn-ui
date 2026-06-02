@@ -24,7 +24,7 @@ import { cn } from "@/lib/cn";
 type LinkType = "default" | "subtle" | "subtle_none";
 type LinkSize = "sm" | "default" | "lg";
 
-const linkVariants = cva("inline-flex items-center px-0.5 leading-[1.5] tracking-normal", {
+const linkVariants = cva("inline-flex items-center rounded-[2px] px-0.5 leading-[1.5] tracking-normal outline-none focus:krds-focus-ring", {
   variants: {
     type: {
       default: "text-krds-foreground-primary underline hover:text-krds-foreground-primary active:text-krds-foreground-primary visited:text-krds-foreground-visited",

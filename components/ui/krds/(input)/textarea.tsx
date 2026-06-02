@@ -45,8 +45,8 @@ function Textarea({
       <div
         className={cn(
           "h-36 rounded-[6px] border border-krds-border-dark bg-krds-surface px-4 py-2 transition-colors",
-          "focus-within:border-2 focus-within:border-krds-border-primary",
-          "has-[textarea[aria-invalid=true]]:border-2 has-[textarea[aria-invalid=true]]:border-krds-danger-50 has-[textarea[aria-invalid=true]]:focus-within:border-krds-danger-50",
+          "focus-within:border-krds-border-primary focus-within:krds-focus-ring",
+          "has-[textarea[aria-invalid=true]]:border-krds-danger-50 has-[textarea[aria-invalid=true]]:focus-within:border-krds-danger-50",
           disabled && "border border-krds-border bg-krds-surface-disabled",
           readOnly && !disabled && "border border-krds-border bg-krds-surface-disabled"
         )}

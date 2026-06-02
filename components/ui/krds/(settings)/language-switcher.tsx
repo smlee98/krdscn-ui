@@ -174,7 +174,7 @@ function LanguageSwitcherTrigger({ label = "Language", className }: LanguageSwit
         className={cn(
           "inline-flex h-6 items-center gap-0.5 rounded-[4px] px-0.5 transition-colors",
           "text-krds-foreground hover:bg-krds-surface-secondary-subtle data-[state=open]:bg-krds-surface-secondary-subtle",
-          "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-krds-border-primary focus-visible:ring-offset-1",
+          "focus:krds-focus-ring",
           className
         )}
       >
@@ -264,7 +264,7 @@ function LanguageSwitcherOptionItem({
 
   const baseClasses = cn(
     "flex h-12 w-full min-w-[160px] items-center gap-1 rounded-[6px] px-4",
-    "text-krds-body-md no-underline outline-none transition-colors",
+    "text-krds-body-md no-underline outline-none transition-colors focus:krds-focus-ring",
     isSelected
       ? "bg-krds-surface-secondary-subtle text-krds-foreground-secondary font-bold"
       : "text-krds-foreground font-normal hover:bg-krds-surface-secondary-subtle",

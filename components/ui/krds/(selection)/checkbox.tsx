@@ -126,14 +126,14 @@ function Checkbox({
         type="checkbox"
         checked={currentChecked}
         disabled={disabled}
-        className="sr-only"
+        className="peer sr-only"
         aria-checked={indeterminate ? "mixed" : currentChecked}
         onChange={(e) => {
           if (!isControlled) setInternalChecked(e.target.checked);
           onChange?.(e.target.checked);
         }}
       />
-      <span className="flex items-center gap-2">
+      <span className="flex w-fit items-center gap-2 rounded-[4px] peer-focus:krds-focus-ring">
         <span
           aria-hidden="true"
           className={cn(
@@ -220,7 +220,7 @@ function CheckboxChip({
         type="checkbox"
         checked={currentChecked}
         disabled={disabled}
-        className="sr-only"
+        className="peer sr-only"
         onChange={(e) => {
           if (!isControlled) setInternalChecked(e.target.checked);
           onChange?.(e.target.checked);
@@ -228,7 +228,7 @@ function CheckboxChip({
       />
       <span
         className={cn(
-          "inline-flex items-center border transition-colors",
+          "inline-flex items-center border transition-colors peer-focus:krds-focus-ring",
           "bg-krds-surface border-krds-border-light text-krds-foreground",
           currentChecked && "bg-krds-surface-primary-subtle border-krds-border-primary text-krds-foreground-primary",
           disabled && "bg-krds-surface-subtler border-krds-border-light text-krds-foreground-disabled",

@@ -100,7 +100,7 @@ function Tag(props: TagProps) {
         data-slot="krds-tag"
         className={cn(
           tagVariants({ size, interactive: true, className }),
-          "cursor-pointer hover:underline focus-visible:underline active:underline"
+          "cursor-pointer hover:underline focus:underline focus:krds-focus-ring active:underline"
         )}
         {...rest}
       >

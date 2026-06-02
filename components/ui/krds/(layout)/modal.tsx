@@ -232,7 +232,7 @@ function ModalClose({ asChild, children, className, ...rest }: ModalCloseProps) 
         className={cn(
           "absolute top-6 right-6 outline-none",
           "text-krds-foreground",
-          "focus-visible:ring-krds-border-primary focus-visible:ring-2 focus-visible:ring-offset-2",
+          "focus:krds-focus-ring",
           className
         )}
         aria-label="닫기"

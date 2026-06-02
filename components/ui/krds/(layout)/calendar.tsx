@@ -157,7 +157,7 @@ function KrdsDayButton({ className, day, modifiers, children, ...rest }: React.C
       data-outside={isOutside || undefined}
       className={cn(
         "relative z-10 mx-auto flex size-11 flex-col items-center justify-center rounded-full text-krds-body-md font-normal transition-colors",
-        "focus-visible:ring-2 focus-visible:ring-krds-border-primary focus-visible:outline-none",
+        "focus:krds-focus-ring",
         "disabled:pointer-events-none disabled:opacity-40",
         isOutside && !isHighlighted && "text-krds-foreground-disabled",
         !isOutside && !isHighlighted && "text-krds-foreground/80",
@@ -216,7 +216,7 @@ function KrdsCalendarDropdown({
           "h-10 gap-1 rounded-[6px] border-0 bg-transparent px-2 shadow-none",
           "text-krds-body-lg font-bold text-krds-foreground",
           "hover:bg-black/5 dark:hover:bg-white/10 data-[state=open]:bg-krds-surface-secondary-subtle",
-          "focus-visible:ring-2 focus-visible:ring-krds-border-primary/40 focus-visible:outline-none",
+          "focus:krds-focus-ring",
           "[&_svg]:opacity-100 [&_svg:not([class*='size-'])]:size-4 [&_svg:not([class*='text-'])]:text-krds-foreground"
         )}
       >
@@ -272,7 +272,7 @@ function CalendarInput({ mode: _mode, onChange, className, ...rest }: CalendarIn
       className={cn(
         "rounded-[6px] border border-krds-border-dark bg-krds-surface px-4 py-2 text-krds-body-sm",
         "text-krds-foreground placeholder:text-krds-foreground-disabled",
-        "focus:border-krds-border-primary focus:outline-none",
+        "focus:border-krds-border-primary focus:krds-focus-ring",
         className
       )}
       {...rest}
@@ -289,7 +289,7 @@ function CalendarButton({ variant = "date", isActive, isSelected, className, chi
       data-active={isActive || undefined}
       data-selected={isSelected || undefined}
       className={cn(
-        "inline-flex items-center justify-center transition-colors outline-none",
+        "inline-flex items-center justify-center transition-colors outline-none focus:krds-focus-ring",
         variant === "move" && "size-8 rounded-full border-[0.8px] border-krds-border-light bg-transparent hover:bg-black/5 dark:hover:bg-white/10",
         variant === "switch" &&
           "rounded-[6px] px-2 py-1 text-krds-body-lg font-bold text-krds-foreground hover:bg-black/5 dark:hover:bg-white/10",
@@ -316,7 +316,7 @@ function CalendarDropdown({ isOpen, items = [], onItemSelect, onToggle, classNam
       <button
         type="button"
         onClick={onToggle}
-        className="inline-flex h-10 items-center gap-1 rounded-[6px] px-2 text-krds-body-lg font-bold text-krds-foreground hover:bg-black/5 dark:hover:bg-white/10"
+        className="inline-flex h-10 items-center gap-1 rounded-[6px] px-2 text-krds-body-lg font-bold text-krds-foreground hover:bg-black/5 dark:hover:bg-white/10 focus:krds-focus-ring"
       >
         {items.find((i) => i.isActive)?.label ?? ""}
         <ChevronDown size={16} aria-hidden className="shrink-0" />
@@ -330,7 +330,7 @@ function CalendarDropdown({ isOpen, items = [], onItemSelect, onToggle, classNam
               disabled={item.isDisabled}
               onClick={() => onItemSelect?.(item)}
               className={cn(
-                "w-full px-3 py-1 text-left text-krds-body-sm hover:bg-black/5 dark:hover:bg-white/10",
+                "w-full px-3 py-1 text-left text-krds-body-sm hover:bg-black/5 dark:hover:bg-white/10 focus:krds-focus-ring",
                 item.isActive && "font-bold text-krds-foreground-secondary",
                 item.isDisabled && "cursor-not-allowed opacity-40"
               )}

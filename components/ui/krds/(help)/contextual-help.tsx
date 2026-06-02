@@ -75,7 +75,7 @@ function ContextualHelp({
               "inline-flex size-6 items-center justify-center rounded-[4px]",
               "bg-transparent transition-colors",
               "hover:bg-krds-surface-secondary-subtle active:bg-krds-surface-secondary-subtle",
-              "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-krds-border-primary"
+              "focus:krds-focus-ring"
             )}
           >
             <span className="sr-only">도움말</span>
@@ -104,7 +104,7 @@ function ContextualHelp({
               className={cn(
                 "inline-flex size-4 shrink-0 items-center justify-center text-krds-foreground",
                 "hover:text-krds-foreground-primary",
-                "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-krds-border-primary"
+                "focus:krds-focus-ring"
               )}
             >
               <X className="size-4" aria-hidden="true" />

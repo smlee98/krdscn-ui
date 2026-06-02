@@ -35,7 +35,7 @@ const buttonVariants = cva(
     "inline-flex items-center justify-center whitespace-nowrap",
     "font-normal leading-[1.5] tracking-normal transition-colors outline-none",
     "disabled:pointer-events-none",
-    "focus-visible:outline-2 focus-visible:outline-krds-border-primary focus-visible:outline-offset-2"
+    "focus:krds-focus-ring"
   ].join(" "),
   {
     variants: {

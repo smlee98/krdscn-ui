@@ -140,6 +140,7 @@ function TutorialLinkAnchor({ link, className }: { link: TutorialLink; className
       className={cn(
         "inline-flex items-center gap-1 text-krds-body-sm text-krds-foreground underline underline-offset-2",
         "hover:text-krds-foreground-primary",
+        "focus:krds-focus-ring rounded-[2px]",
         className
       )}
     >
@@ -364,7 +365,7 @@ function TutorialPanelTutorialContent({
       <a
         href="#"
         title="이전으로 돌아가기"
-        className="inline-flex items-center gap-1 text-krds-heading-sm font-bold text-krds-foreground hover:text-krds-foreground-primary"
+        className="inline-flex items-center gap-1 text-krds-heading-sm font-bold text-krds-foreground hover:text-krds-foreground-primary focus:krds-focus-ring rounded-[2px]"
       >
         <ChevronLeft size={20} aria-hidden={true} className="shrink-0" />
         <span>{title}</span>

@@ -128,7 +128,7 @@ function Resize({
             className={cn(
               "inline-flex h-6 items-center gap-0.5 rounded-[4px] px-0.5 transition-colors",
               "text-krds-foreground hover:bg-krds-surface-secondary-subtle data-[state=open]:bg-krds-surface-secondary-subtle",
-              "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-krds-border-primary focus-visible:ring-offset-1"
+              "focus:krds-focus-ring"
             )}
           >
             <IconViewMode className="size-4" />
@@ -167,7 +167,7 @@ function Resize({
                     aria-selected={isSelected}
                     onClick={() => handleSelect(scale)}
                     className={cn(
-                      "flex h-12 w-full items-center gap-2 rounded-[6px] px-4 transition-colors",
+                      "flex h-12 w-full items-center gap-2 rounded-[6px] px-4 transition-colors focus:krds-focus-ring",
                       isSelected
                         ? "bg-krds-surface-secondary-subtle"
                         : "bg-transparent hover:bg-krds-surface-secondary-subtle"
@@ -219,7 +219,7 @@ function Resize({
                 className={cn(
                   "inline-flex h-8 items-center gap-1 rounded-[4px] px-0.5",
                   "hover:bg-krds-surface-secondary-subtle transition-colors",
-                  "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-krds-border-primary focus-visible:ring-offset-1"
+                  "focus:krds-focus-ring"
                 )}
               >
                 <IconReset className="size-5" />

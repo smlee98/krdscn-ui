@@ -158,7 +158,7 @@ function AccordionHeader({ children, onClick, className, ...rest }: AccordionHea
       onClick={onClick}
       className={cn(
         // base layout
-        "flex w-full items-center justify-between gap-4 transition-colors outline-none",
+        "flex w-full items-center justify-between gap-4 transition-colors outline-none focus:krds-focus-ring",
         "hover:no-underline disabled:pointer-events-none disabled:opacity-50",
         // typography
         "text-krds-foreground text-left leading-[1.5] font-bold",

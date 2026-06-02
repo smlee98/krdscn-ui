@@ -102,7 +102,7 @@ function ToggleSwitch({
           "group inline-flex shrink-0 cursor-pointer rounded-full p-0.5 transition-colors",
           "bg-krds-gray-50 data-[state=checked]:bg-krds-primary-50",
           "data-[disabled]:cursor-not-allowed data-[disabled]:bg-krds-surface-disabled",
-          "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-krds-border-primary focus-visible:ring-offset-2",
+          "focus:krds-focus-ring",
           sz.track
         )}
       >

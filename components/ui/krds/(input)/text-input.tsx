@@ -104,8 +104,8 @@ function TextInput({
           "flex items-center gap-2 transition-colors",
           sizeBox[size],
           "border border-krds-border-dark bg-krds-surface",
-          "focus-within:border-2 focus-within:border-krds-border-primary",
-          "has-[input[aria-invalid=true]]:border-2 has-[input[aria-invalid=true]]:border-krds-danger-50 has-[input[aria-invalid=true]]:focus-within:border-krds-danger-50",
+          "focus-within:border-krds-border-primary focus-within:krds-focus-ring",
+          "has-[input[aria-invalid=true]]:border-krds-danger-50 has-[input[aria-invalid=true]]:focus-within:border-krds-danger-50",
           disabled && "border border-krds-border bg-krds-surface-disabled",
           readOnly && !disabled && "border border-krds-border bg-krds-surface-disabled"
         )}
@@ -133,7 +133,7 @@ function TextInput({
             type="button"
             aria-label="내용 삭제"
             onClick={handleClear}
-            className="inline-flex shrink-0 items-center justify-center text-krds-foreground"
+            className="inline-flex shrink-0 items-center justify-center rounded-full text-krds-foreground focus:krds-focus-ring"
           >
             <IconDelete className={sizeIcon[size]} />
           </button>
@@ -144,7 +144,7 @@ function TextInput({
             type="button"
             aria-label={visible ? "비밀번호 가리기" : "비밀번호 보기"}
             onClick={() => setVisible((v) => !v)}
-            className="inline-flex shrink-0 items-center justify-center text-krds-foreground"
+            className="inline-flex shrink-0 items-center justify-center rounded-md text-krds-foreground focus:krds-focus-ring"
           >
             {visible ? <EyeOff className={sizeIcon[size]} /> : <Eye className={sizeIcon[size]} />}
           </button>

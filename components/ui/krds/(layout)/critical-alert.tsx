@@ -93,7 +93,7 @@ function CriticalAlertAction({
     "text-krds-foreground inline-flex h-8 shrink-0 items-center gap-1 rounded-[4px] px-0.5",
     "text-krds-body-md",
     "hover:underline",
-    "focus-visible:ring-krds-border-primary focus-visible:ring-2 focus-visible:outline-none",
+    "focus:krds-focus-ring",
     className
   );
 

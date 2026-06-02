@@ -54,7 +54,8 @@ function MainMenuBarItem({ className, children, href, hasSubmenu }: MainMenuBarI
         "inline-flex h-14 items-center gap-2 px-4",
         "text-krds-foreground-subtle text-krds-body-lg font-bold",
         "hover:text-krds-foreground",
-        "focus-visible:ring-krds-border-primary rounded-sm focus-visible:ring-2 focus-visible:outline-none",
+        "active:text-krds-foreground",
+        "rounded-sm focus:krds-focus-ring",
         className
       )}
     >
@@ -98,7 +99,7 @@ function MainMenuPanelShortcut({ className, children, ...props }: React.Componen
       className={cn(
         "inline-flex items-center gap-0.5 px-0.5",
         "text-krds-foreground text-krds-body-sm",
-        "focus-visible:ring-krds-border-primary rounded-sm focus-visible:ring-2 focus-visible:outline-none",
+        "rounded-sm focus:krds-focus-ring",
         className
       )}
       {...props}
@@ -156,7 +157,8 @@ function MainMenuLink({ className, children, href, external }: MainMenuLinkProps
         "flex items-center gap-1 rounded-md px-2 py-2.5",
         "text-krds-foreground text-krds-body-md",
         "hover:bg-krds-surface-subtler",
-        "focus-visible:ring-krds-border-primary focus-visible:ring-2 focus-visible:outline-none",
+        "active:bg-krds-surface-subtle",
+        "focus:krds-focus-ring",
         className
       )}
     >
@@ -190,7 +192,7 @@ function MainMenuSidebarItem({ className, children, href, active, hasMore, exter
       className={cn(
         "flex w-full items-center px-6 py-4",
         "text-krds-body-md",
-        "focus-visible:ring-krds-border-primary focus-visible:ring-2 focus-visible:outline-none",
+        "focus:krds-focus-ring",
         showArrow ? "gap-6" : "gap-2",
         active ? "bg-krds-surface font-bold text-krds-foreground-secondary" : "text-krds-foreground",
         className

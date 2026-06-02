@@ -126,7 +126,7 @@ function HelpPanelClose({ className, children, ...props }: HelpPanelCloseProps) 
           "btn-help-panel fold",
           "inline-flex items-center gap-1 self-end text-krds-body-sm text-krds-foreground",
           "transition-colors hover:text-krds-foreground-primary",
-          "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-krds-border-primary",
+          "focus:krds-focus-ring",
           className
         )}
         {...props}
@@ -177,7 +177,7 @@ function HelpSection({ title, description, className, children, ...props }: Help
             className={cn(
               "krds-btn medium icon",
               "inline-flex size-8 items-center justify-center rounded text-krds-foreground",
-              "hover:bg-krds-surface-subtle focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-krds-border-primary"
+              "hover:bg-krds-surface-subtle focus:krds-focus-ring"
             )}
             aria-label="도움말"
           >
@@ -224,7 +224,7 @@ function HelpLinkList({ links, iconPosition = "right", className, ...props }: He
               className={cn(
                 "inline-flex items-center gap-1 text-krds-body-sm font-bold text-krds-foreground-primary",
                 "underline underline-offset-2 hover:text-krds-foreground-primary",
-                "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-krds-border-primary"
+                "focus:krds-focus-ring"
               )}
             >
               {iconPosition === "left" && icon}
@@ -286,7 +286,7 @@ function HelpTutorialTitle({ title, href, className }: HelpTutorialTitleProps) {
           href={href}
           className={cn(
             "inline-flex items-center gap-1 hover:text-krds-foreground-primary",
-            "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-krds-border-primary"
+            "focus:krds-focus-ring"
           )}
         >
           <span>{title}</span>

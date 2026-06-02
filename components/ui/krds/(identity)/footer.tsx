@@ -61,7 +61,7 @@ function FooterLink({ asChild = false, className, ...props }: React.ComponentPro
         className={cn(
           "text-krds-foreground-subtle text-sm",
           "hover:text-krds-foreground hover:underline",
-          "focus-visible:ring-krds-border-primary rounded-sm focus-visible:ring-2 focus-visible:outline-none",
+          "focus:krds-focus-ring rounded-sm",
           className
         )}
         {...props}

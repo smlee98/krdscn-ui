@@ -55,7 +55,8 @@ const linkBaseClass = cn(
   "inline-flex h-6 items-center gap-1 rounded-[4px] px-1",
   "text-krds-foreground text-krds-body-sm underline",
   "hover:bg-krds-surface-subtler",
-  "focus-visible:ring-krds-border-primary focus-visible:ring-2 focus-visible:outline-none"
+  "active:bg-krds-surface-subtle",
+  "focus:krds-focus-ring"
 );
 
 type BreadcrumbLinkProps = {
