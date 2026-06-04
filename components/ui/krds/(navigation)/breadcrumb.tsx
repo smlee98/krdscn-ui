@@ -28,7 +28,21 @@ type BreadcrumbListProps = {
 
 function BreadcrumbList({ className, children }: BreadcrumbListProps) {
   return (
-    <ol data-slot="krds-breadcrumb-list" className={cn("flex flex-wrap items-center gap-1", className)}>
+    <ol
+      data-slot="krds-breadcrumb-list"
+      className={cn(
+        "flex flex-wrap items-center gap-1",
+        // KRDS mobile: collapse intermediate crumbs, keep home (first) + current (last),
+        // and surface an ellipsis indicator before the last item. The ellipsis is only
+        // rendered when something is actually collapsed (last item is past nth-child(2)),
+        // so single-item / home+page breadcrumbs render unchanged.
+        "max-md:[&>*:not(:first-child):not(:last-child)]:sr-only",
+        "max-md:[&>*:last-child:not(:first-child):not(:nth-child(2))]:before:content-['…']",
+        "max-md:[&>*:last-child:not(:first-child):not(:nth-child(2))]:before:mr-1",
+        "max-md:[&>*:last-child:not(:first-child):not(:nth-child(2))]:before:text-krds-foreground",
+        className
+      )}
+    >
       {children}
     </ol>
   );

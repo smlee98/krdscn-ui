@@ -58,7 +58,10 @@ type PaginationContentProps = {
 
 function PaginationContent({ className, children }: PaginationContentProps) {
   return (
-    <div data-slot="krds-pagination-content" className={cn("flex items-center gap-2", className)}>
+    <div
+      data-slot="krds-pagination-content"
+      className={cn("flex items-center gap-2", "max-md:w-full max-md:flex-wrap max-md:justify-center", className)}
+    >
       {children}
     </div>
   );
@@ -130,7 +133,7 @@ function PaginationNext({
       aria-label={ariaLabel}
       disabled={disabled}
       onClick={onClick}
-      className={cn(btnBase, "gap-1 pr-1 pl-2", className)}
+      className={cn(btnBase, "gap-1 pr-1 pl-2", "max-md:order-1", className)}
     >
       <span>{children ?? "다음"}</span>
       <ArrowRight size={20} aria-hidden="true" />

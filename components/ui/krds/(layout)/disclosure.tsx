@@ -45,7 +45,12 @@ function Disclosure({
   return (
     <DisclosureContext.Provider value={{ open }}>
       <CollapsiblePrimitive.Root open={open} onOpenChange={handleOpenChange} asChild>
-        <div data-slot="krds-disclosure" className={cn("flex flex-col gap-1", className)} {...props}>
+        <div
+          data-slot="krds-disclosure"
+          // KRDS: 형제 disclosure 끼리 상단 간격(1.4rem) — 단일 사용에는 영향 없음([&~&] 인접 형제 한정).
+          className={cn("flex flex-col gap-1 [&~&]:mt-[1.4rem]", className)}
+          {...props}
+        >
           {children}
         </div>
       </CollapsiblePrimitive.Root>

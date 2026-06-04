@@ -154,6 +154,9 @@ function ModalContent({ className, children, ...rest }: ModalContentProps) {
           "data-[state=open]:animate-in data-[state=open]:fade-in-0 data-[state=open]:zoom-in-95",
           "flex flex-col items-start gap-0",
           "bg-krds-surface border-krds-border rounded-[12px] p-6",
+          // KRDS: 콘텐츠 최대 높이를 뷰포트로 제한 → 긴 본문은 ModalBody 내부에서 스크롤.
+          // (bottom-sheet/fullscreen 은 variantClass 가 위치·높이를 직접 제어하므로 default 에만 적용.)
+          !isBottomSheet && !isFullscreen && "max-h-[calc(100dvh-2rem)]",
           variantClass,
           className
         )}
@@ -190,7 +193,8 @@ function ModalBody({ descriptionId, className, children, ...rest }: ModalBodyPro
       data-slot="krds-modal-body"
       className={cn(
         "text-krds-foreground flex w-full flex-col gap-4 px-4 pb-2 text-krds-body-md font-normal",
-        variant === "fullscreen" && "flex-1",
+        // KRDS: 긴 본문은 다이얼로그 밖으로 넘치지 않고 본문 영역 내부에서 스크롤.
+        "min-h-0 flex-1 overflow-y-auto",
         className
       )}
       {...rest}

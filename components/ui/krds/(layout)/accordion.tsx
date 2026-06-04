@@ -131,8 +131,9 @@ function AccordionItem({ value, children, className, ...rest }: AccordionItemPro
               // default: 패딩을 trigger/panel로 이관해 focus ring 이 헤더 전체를 감싸도록 한다.
               // overflow-hidden 제거 — trigger 가 item 을 가득 채우므로 ring(box-shadow 4px)이 잘리지 않게.
               // (rounded 배경은 border-radius 로 클립되어 overflow-hidden 없이도 모서리가 둥글다.)
-              "rounded-[10px] border-0 bg-transparent",
-              "data-[state=open]:bg-krds-surface-secondary-subtle"
+              // KRDS: accordion 아이템은 항상 secondary fill(닫힘=subtle), 열림 시 더 진한 hover fill.
+              "rounded-[10px] border-0 bg-krds-surface-secondary-subtle",
+              "data-[state=open]:bg-krds-secondary-10"
             ],
         className
       )}
@@ -169,6 +170,13 @@ function AccordionHeader({ children, onClick, className, ...rest }: AccordionHea
           isLine ? (isLarge ? "py-5" : "py-3") : isLarge ? "p-6" : "px-4 py-5",
           // default: KRDS .btn-accordion radius(10px) 로 focus ring 모서리 정렬.
           !isLine && "rounded-[10px]",
+          // default: KRDS .btn-accordion — secondary fill always, hover/open 시 더 진한 fill.
+          // 열림 시 하단 모서리를 펴 panel 과 맞닿게 한다(focus 시엔 다시 radius 복원).
+          !isLine && [
+            "bg-krds-surface-secondary-subtle hover:bg-krds-secondary-10",
+            "data-[state=open]:bg-krds-secondary-10",
+            "data-[state=open]:rounded-b-none focus:data-[state=open]:rounded-[10px]"
+          ],
           // chevron rotation on open
           "[&[data-state=open]>svg]:rotate-180",
           className
@@ -203,6 +211,8 @@ function AccordionPanel({ children, className, ...rest }: AccordionPanelProps) {
           // line: 패딩 없음(item/trigger 가 처리). default: item 에서 옮겨온 좌우/하단 inset + pt-0
           // (trigger 하단 패딩이 헤더-내용 간격을 제공 → 총 여백 보존).
           isLine ? "px-0 pt-0 pb-0" : isLarge ? "px-6 pt-0 pb-6" : "px-4 pt-0 pb-5",
+          // default: KRDS panel — secondary-subtle 배경 + 하단 모서리 radius(헤더와 이어진 카드).
+          !isLine && "bg-krds-surface-secondary-subtle rounded-b-[10px]",
           "text-krds-foreground text-krds-body-md",
           className
         )}

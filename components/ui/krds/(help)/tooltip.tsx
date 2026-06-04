@@ -54,8 +54,8 @@ function Tooltip({
               "animate-in fade-in-0 zoom-in-95",
               "data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95",
               isBox
-                ? "max-w-[360px] rounded-[12px] border border-krds-border bg-krds-surface p-6 text-krds-foreground"
-                : "whitespace-nowrap rounded-[4px] bg-krds-surface-inverse px-3 py-1 text-white",
+                ? "max-w-[360px] rounded-[12px] border border-krds-border bg-krds-surface p-6 text-krds-foreground max-[420px]:max-w-[calc(100vw-2rem)]"
+                : "whitespace-nowrap rounded-[4px] bg-krds-surface-inverse px-3 py-1 text-white max-[420px]:max-w-[calc(100vw-2rem)] max-[420px]:whitespace-normal",
               className
             )}
           >
@@ -125,6 +125,7 @@ function TooltipArrowMark({
       aria-hidden
       className={cn(
         "pointer-events-none absolute block rotate-45",
+        "max-[420px]:hidden",
         sizeCls,
         offsetCls[side],
         colorCls,

@@ -15,11 +15,12 @@ function Identifier({ className, notice = "이 누리집은 정부 산하기관 
       className={cn(
         "bg-krds-surface flex h-10 w-full items-center gap-2 px-4",
         "text-krds-foreground text-krds-body-sm",
+        "max-md:h-auto max-md:flex-col max-md:items-start max-md:gap-1 max-md:py-2",
         className
       )}
     >
-      <KrdsIdentifierLogo className="h-6 w-[77px] shrink-0" aria-label="KRDS" />
-      <p className="whitespace-nowrap">{notice}</p>
+      <KrdsIdentifierLogo className="h-6 w-[77px] shrink-0 max-md:h-5 max-md:w-[64px]" aria-label="KRDS" />
+      <p className="whitespace-nowrap max-md:text-krds-body-xs max-md:break-all max-md:whitespace-normal">{notice}</p>
     </div>
   );
 }

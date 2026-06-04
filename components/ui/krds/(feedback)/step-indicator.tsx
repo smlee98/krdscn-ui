@@ -49,6 +49,7 @@ function StepIndicatorItem({ className, step, children, ...props }: React.Compon
       className={cn(
         "flex flex-col items-start gap-2",
         type === "full" ? "min-w-0 flex-1" : "w-[120px] shrink-0",
+        isLast && "max-md:flex-[0_0_1.25rem]",
         className
       )}
       aria-current={isActive ? "step" : undefined}
@@ -81,9 +82,9 @@ function StepIndicatorItem({ className, step, children, ...props }: React.Compon
         {!isLast && <div className={cn("h-px flex-1", lineActive ? "bg-krds-primary-50" : "bg-krds-surface-disabled")} />}
       </div>
       {/* title block */}
-      <div className="flex w-full flex-col gap-0.5 pr-6 leading-[1.5]">
-        <span className="text-krds-foreground-subtle text-[0.8125rem]">{`${step}단계`}</span>
-        <span className="text-krds-foreground text-[0.9375rem] font-bold">{children}</span>
+      <div className="flex w-full flex-col gap-0.5 pr-6 leading-[1.5] max-md:pr-0">
+        <span className="text-krds-foreground-subtle text-[0.8125rem] max-md:sr-only">{`${step}단계`}</span>
+        <span className="text-krds-foreground text-[0.9375rem] font-bold max-md:sr-only">{children}</span>
       </div>
     </li>
   );

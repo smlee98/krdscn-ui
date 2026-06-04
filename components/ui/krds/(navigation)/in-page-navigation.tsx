@@ -19,7 +19,7 @@ function InPageNavigation({
     <nav
       data-slot="krds-in-page-navigation"
       aria-label={ariaLabel}
-      className={cn("flex w-[160px] flex-col gap-4", className)}
+      className={cn("flex w-[160px] flex-col gap-4", "max-md:w-full", className)}
     >
       {children}
     </nav>
@@ -138,7 +138,7 @@ function InPageNavigationFooter({ className, children }: InPageNavigationFooterP
   return (
     <div
       data-slot="krds-in-page-navigation-footer"
-      className={cn("flex w-full flex-col items-center gap-2", className)}
+      className={cn("flex w-full flex-col items-center gap-2", "max-md:hidden", className)}
     >
       {children}
     </div>

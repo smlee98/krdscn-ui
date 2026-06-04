@@ -66,7 +66,7 @@ function CoachMark({
           <h5 className="sr-only">따라하기 가이드</h5>
 
           <div className="flex flex-col gap-3">
-            <h6 className="text-krds-body-sm font-bold text-krds-foreground">{title}</h6>
+            <h6 className="text-krds-body-sm font-normal text-krds-foreground">{title}</h6>
             <p className="text-krds-body-md font-normal text-krds-foreground">{description}</p>
           </div>
 
