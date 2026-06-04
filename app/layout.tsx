@@ -1,22 +1,32 @@
 import "@/app/globals.css";
-import { Providers } from "@/app/providers";
-import { cn } from "@/lib/cn";
+
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import type { ReactNode } from "react";
+import { RootProvider } from "fumadocs-ui/provider/next";
+
+import { SiteHeader } from "@/components/site-header";
+import { UISystemProvider } from "@/lib/ui-system";
+import { cn } from "@/lib/cn";
+
+function normalizeBasePath(value?: string) {
+  if (!value) return "";
+  const withLeadingSlash = value.startsWith("/") ? value : `/${value}`;
+  return withLeadingSlash.replace(/\/$/, "");
+}
+
+const basePath = normalizeBasePath(process.env.GITHUB_PAGES_BASE_PATH);
 
 export const metadata: Metadata = {
-  title: "KRDS shadcn"
+  title: {
+    default: "krdscn/ui",
+    template: "%s - krdscn/ui"
+  },
+  description: "KRDS 스타일을 적용한 Radix 기반 오픈 코드 레지스트리입니다."
 };
 
 const pretendardGov = localFont({
-  src: [
-    {
-      path: "../assets/PretendardGOVVariable.woff2",
-      weight: "45 920",
-      style: "normal"
-    }
-  ],
+  src: [{ path: "../assets/PretendardGOVVariable.woff2", weight: "45 920", style: "normal" }],
   variable: "--font-pretendard-gov"
 });
 
@@ -45,8 +55,34 @@ const monoplexKr = localFont({
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="ko" suppressHydrationWarning className={cn(pretendardGov.variable, monoplexKr.variable)}>
-      <body>
-        <Providers>{children}</Providers>
+      <body className="group/body min-h-svh overscroll-none bg-background font-sans antialiased [--header-height:calc(var(--spacing)*14)]">
+        <RootProvider
+          i18n={{
+            locale: "",
+            translations: {
+              search: "Docs 검색",
+              searchNoResult: "검색 결과가 없습니다",
+              toc: "이 페이지에서",
+              tocNoHeadings: "표시할 제목이 없습니다",
+              nextPage: "다음 페이지",
+              previousPage: "이전 페이지",
+              chooseTheme: "테마"
+            }
+          }}
+          search={{
+            options: {
+              type: "static",
+              api: `${basePath}/search.json`
+            }
+          }}
+        >
+          <UISystemProvider>
+            <div className="relative z-10 flex min-h-svh flex-col bg-background">
+              <SiteHeader />
+              <main className="flex min-h-0 flex-1 flex-col">{children}</main>
+            </div>
+          </UISystemProvider>
+        </RootProvider>
       </body>
     </html>
   );

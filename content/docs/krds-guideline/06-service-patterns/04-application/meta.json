@@ -1,0 +1,13 @@
+{
+  "title": "신청",
+  "pages": [
+    "01-overview",
+    "02-find-application-target",
+    "03-review-service-information",
+    "04-check-notices-and-eligibility",
+    "05-fill-application-form",
+    "06-review-and-confirm",
+    "07-complete",
+    "08-check-application-result"
+  ]
+}

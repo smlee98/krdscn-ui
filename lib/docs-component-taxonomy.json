@@ -1,0 +1,383 @@
+{
+  "schemaVersion": 1,
+  "components": {
+    "accordion": {
+      "kind": "native",
+      "label": "shadcn native",
+      "description": "shadcn-compatible component styled for the KRDS registry."
+    },
+    "alert": {
+      "kind": "native",
+      "label": "shadcn native",
+      "description": "shadcn-compatible component styled for the KRDS registry."
+    },
+    "alert-dialog": {
+      "kind": "native",
+      "label": "shadcn native",
+      "description": "shadcn-compatible component styled for the KRDS registry."
+    },
+    "aspect-ratio": {
+      "kind": "native",
+      "label": "shadcn native",
+      "description": "shadcn-compatible component styled for the KRDS registry."
+    },
+    "avatar": {
+      "kind": "native",
+      "label": "shadcn native",
+      "description": "shadcn-compatible component styled for the KRDS registry."
+    },
+    "badge": {
+      "kind": "native",
+      "label": "shadcn native",
+      "description": "shadcn-compatible component styled for the KRDS registry."
+    },
+    "breadcrumb": {
+      "kind": "native",
+      "label": "shadcn native",
+      "description": "shadcn-compatible component styled for the KRDS registry."
+    },
+    "button": {
+      "kind": "native",
+      "label": "shadcn native",
+      "description": "shadcn-compatible component styled for the KRDS registry."
+    },
+    "button-group": {
+      "kind": "native",
+      "label": "shadcn native",
+      "description": "shadcn-compatible component styled for the KRDS registry."
+    },
+    "calendar": {
+      "kind": "native",
+      "label": "shadcn native",
+      "description": "shadcn-compatible component styled for the KRDS registry."
+    },
+    "card": {
+      "kind": "native",
+      "label": "shadcn native",
+      "description": "shadcn-compatible component styled for the KRDS registry."
+    },
+    "carousel": {
+      "kind": "native",
+      "label": "shadcn native",
+      "description": "shadcn-compatible component styled for the KRDS registry."
+    },
+    "chart": {
+      "kind": "native",
+      "label": "shadcn native",
+      "description": "shadcn-compatible component styled for the KRDS registry."
+    },
+    "checkbox": {
+      "kind": "native",
+      "label": "shadcn native",
+      "description": "shadcn-compatible component styled for the KRDS registry."
+    },
+    "collapsible": {
+      "kind": "native",
+      "label": "shadcn native",
+      "description": "shadcn-compatible component styled for the KRDS registry."
+    },
+    "combobox": {
+      "kind": "native",
+      "label": "shadcn native",
+      "description": "shadcn-compatible component styled for the KRDS registry."
+    },
+    "command": {
+      "kind": "native",
+      "label": "shadcn native",
+      "description": "shadcn-compatible component styled for the KRDS registry."
+    },
+    "context-menu": {
+      "kind": "native",
+      "label": "shadcn native",
+      "description": "shadcn-compatible component styled for the KRDS registry."
+    },
+    "contextual-help": {
+      "kind": "extended",
+      "label": "KRDS extended",
+      "description": "KRDS-specific or KRDS-extended component documented alongside shadcn-compatible primitives."
+    },
+    "critical-alert": {
+      "kind": "extended",
+      "label": "KRDS extended",
+      "description": "KRDS-specific or KRDS-extended component documented alongside shadcn-compatible primitives."
+    },
+    "date-input": {
+      "kind": "extended",
+      "label": "KRDS extended",
+      "description": "KRDS-specific or KRDS-extended component documented alongside shadcn-compatible primitives."
+    },
+    "dialog": {
+      "kind": "native",
+      "label": "shadcn native",
+      "description": "shadcn-compatible component styled for the KRDS registry."
+    },
+    "direction": {
+      "kind": "native",
+      "label": "shadcn native",
+      "description": "shadcn-compatible component styled for the KRDS registry."
+    },
+    "disclosure": {
+      "kind": "extended",
+      "label": "KRDS extended",
+      "description": "KRDS-specific or KRDS-extended component documented alongside shadcn-compatible primitives."
+    },
+    "drawer": {
+      "kind": "native",
+      "label": "shadcn native",
+      "description": "shadcn-compatible component styled for the KRDS registry."
+    },
+    "dropdown": {
+      "kind": "extended",
+      "label": "KRDS extended",
+      "description": "KRDS-specific or KRDS-extended component documented alongside shadcn-compatible primitives."
+    },
+    "dropdown-menu": {
+      "kind": "native",
+      "label": "shadcn native",
+      "description": "shadcn-compatible component styled for the KRDS registry."
+    },
+    "empty": {
+      "kind": "native",
+      "label": "shadcn native",
+      "description": "shadcn-compatible component styled for the KRDS registry."
+    },
+    "field": {
+      "kind": "native",
+      "label": "shadcn native",
+      "description": "shadcn-compatible component styled for the KRDS registry."
+    },
+    "file-upload": {
+      "kind": "extended",
+      "label": "KRDS extended",
+      "description": "KRDS-specific or KRDS-extended component documented alongside shadcn-compatible primitives."
+    },
+    "hover-card": {
+      "kind": "native",
+      "label": "shadcn native",
+      "description": "shadcn-compatible component styled for the KRDS registry."
+    },
+    "input": {
+      "kind": "native",
+      "label": "shadcn native",
+      "description": "shadcn-compatible component styled for the KRDS registry."
+    },
+    "input-group": {
+      "kind": "native",
+      "label": "shadcn native",
+      "description": "shadcn-compatible component styled for the KRDS registry."
+    },
+    "input-otp": {
+      "kind": "native",
+      "label": "shadcn native",
+      "description": "shadcn-compatible component styled for the KRDS registry."
+    },
+    "item": {
+      "kind": "native",
+      "label": "shadcn native",
+      "description": "shadcn-compatible component styled for the KRDS registry."
+    },
+    "kbd": {
+      "kind": "native",
+      "label": "shadcn native",
+      "description": "shadcn-compatible component styled for the KRDS registry."
+    },
+    "label": {
+      "kind": "native",
+      "label": "shadcn native",
+      "description": "shadcn-compatible component styled for the KRDS registry."
+    },
+    "language-switcher": {
+      "kind": "extended",
+      "label": "KRDS extended",
+      "description": "KRDS-specific or KRDS-extended component documented alongside shadcn-compatible primitives."
+    },
+    "link": {
+      "kind": "extended",
+      "label": "KRDS extended",
+      "description": "KRDS-specific or KRDS-extended component documented alongside shadcn-compatible primitives."
+    },
+    "menubar": {
+      "kind": "native",
+      "label": "shadcn native",
+      "description": "shadcn-compatible component styled for the KRDS registry."
+    },
+    "native-select": {
+      "kind": "native",
+      "label": "shadcn native",
+      "description": "shadcn-compatible component styled for the KRDS registry."
+    },
+    "navigation-menu": {
+      "kind": "native",
+      "label": "shadcn native",
+      "description": "shadcn-compatible component styled for the KRDS registry."
+    },
+    "pagination": {
+      "kind": "native",
+      "label": "shadcn native",
+      "description": "shadcn-compatible component styled for the KRDS registry."
+    },
+    "popover": {
+      "kind": "native",
+      "label": "shadcn native",
+      "description": "shadcn-compatible component styled for the KRDS registry."
+    },
+    "progress": {
+      "kind": "native",
+      "label": "shadcn native",
+      "description": "shadcn-compatible component styled for the KRDS registry."
+    },
+    "radio-group": {
+      "kind": "native",
+      "label": "shadcn native",
+      "description": "shadcn-compatible component styled for the KRDS registry."
+    },
+    "resizable": {
+      "kind": "native",
+      "label": "shadcn native",
+      "description": "shadcn-compatible component styled for the KRDS registry."
+    },
+    "scroll-area": {
+      "kind": "native",
+      "label": "shadcn native",
+      "description": "shadcn-compatible component styled for the KRDS registry."
+    },
+    "select": {
+      "kind": "native",
+      "label": "shadcn native",
+      "description": "shadcn-compatible component styled for the KRDS registry."
+    },
+    "separator": {
+      "kind": "native",
+      "label": "shadcn native",
+      "description": "shadcn-compatible component styled for the KRDS registry."
+    },
+    "sheet": {
+      "kind": "native",
+      "label": "shadcn native",
+      "description": "shadcn-compatible component styled for the KRDS registry."
+    },
+    "sidebar": {
+      "kind": "native",
+      "label": "shadcn native",
+      "description": "shadcn-compatible component styled for the KRDS registry."
+    },
+    "skeleton": {
+      "kind": "native",
+      "label": "shadcn native",
+      "description": "shadcn-compatible component styled for the KRDS registry."
+    },
+    "skip-link": {
+      "kind": "extended",
+      "label": "KRDS extended",
+      "description": "KRDS-specific or KRDS-extended component documented alongside shadcn-compatible primitives."
+    },
+    "slider": {
+      "kind": "native",
+      "label": "shadcn native",
+      "description": "shadcn-compatible component styled for the KRDS registry."
+    },
+    "sonner": {
+      "kind": "native",
+      "label": "shadcn native",
+      "description": "shadcn-compatible component styled for the KRDS registry."
+    },
+    "spinner": {
+      "kind": "native",
+      "label": "shadcn native",
+      "description": "shadcn-compatible component styled for the KRDS registry."
+    },
+    "step-indicator": {
+      "kind": "extended",
+      "label": "KRDS extended",
+      "description": "KRDS-specific or KRDS-extended component documented alongside shadcn-compatible primitives."
+    },
+    "structured-list": {
+      "kind": "extended",
+      "label": "KRDS extended",
+      "description": "KRDS-specific or KRDS-extended component documented alongside shadcn-compatible primitives."
+    },
+    "switch": {
+      "kind": "native",
+      "label": "shadcn native",
+      "description": "shadcn-compatible component styled for the KRDS registry."
+    },
+    "table": {
+      "kind": "native",
+      "label": "shadcn native",
+      "description": "shadcn-compatible component styled for the KRDS registry."
+    },
+    "tabs": {
+      "kind": "native",
+      "label": "shadcn native",
+      "description": "shadcn-compatible component styled for the KRDS registry."
+    },
+    "text-list": {
+      "kind": "extended",
+      "label": "KRDS extended",
+      "description": "KRDS-specific or KRDS-extended component documented alongside shadcn-compatible primitives."
+    },
+    "textarea": {
+      "kind": "native",
+      "label": "shadcn native",
+      "description": "shadcn-compatible component styled for the KRDS registry."
+    },
+    "toggle": {
+      "kind": "native",
+      "label": "shadcn native",
+      "description": "shadcn-compatible component styled for the KRDS registry."
+    },
+    "toggle-group": {
+      "kind": "native",
+      "label": "shadcn native",
+      "description": "shadcn-compatible component styled for the KRDS registry."
+    },
+    "tooltip": {
+      "kind": "native",
+      "label": "shadcn native",
+      "description": "shadcn-compatible component styled for the KRDS registry."
+    },
+    "data-table": {
+      "kind": "docs-only",
+      "label": "Docs-only composite",
+      "description": "Composite documentation page, not a top-level registry:ui item."
+    }
+  },
+  "blocks": {
+    "coach-mark": {
+      "kind": "block",
+      "label": "KRDS block",
+      "description": "Composed KRDS page or service pattern documented under /docs/blocks."
+    },
+    "footer": {
+      "kind": "block",
+      "label": "KRDS block",
+      "description": "Composed KRDS page or service pattern documented under /docs/blocks."
+    },
+    "header": {
+      "kind": "block",
+      "label": "KRDS block",
+      "description": "Composed KRDS page or service pattern documented under /docs/blocks."
+    },
+    "help-panel": {
+      "kind": "block",
+      "label": "KRDS block",
+      "description": "Composed KRDS page or service pattern documented under /docs/blocks."
+    },
+    "in-page-navigation": {
+      "kind": "block",
+      "label": "KRDS block",
+      "description": "Composed KRDS page or service pattern documented under /docs/blocks."
+    },
+    "side-navigation": {
+      "kind": "block",
+      "label": "KRDS block",
+      "description": "Composed KRDS page or service pattern documented under /docs/blocks."
+    },
+    "tutorial-panel": {
+      "kind": "block",
+      "label": "KRDS block",
+      "description": "Composed KRDS page or service pattern documented under /docs/blocks."
+    }
+  },
+  "conditional": {}
+}

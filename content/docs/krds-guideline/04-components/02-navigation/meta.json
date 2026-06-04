@@ -1,0 +1,12 @@
+{
+  "title": "탐색",
+  "pages": [
+    "01-skip-link",
+    "02-main-menu",
+    "03-breadcrumb",
+    "04-side-navigation",
+    "05-in-page-navigation",
+    "06-pagination",
+    "07-tab-bars"
+  ]
+}

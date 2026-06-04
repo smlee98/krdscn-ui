@@ -1,0 +1,18 @@
+---
+title: RTL
+description: 오른쪽에서 왼쪽으로 읽는 언어를 위한 방향 설정 안내입니다.
+---
+
+## RTL 설정
+
+krdscn/ui 컴포넌트는 Radix 기반 구조를 유지하므로, 애플리케이션의 방향 설정에 따라 RTL 레이아웃을 적용할 수 있습니다.
+
+```tsx
+import { DirectionProvider } from "@/components/ui/direction"
+
+export function App({ children }: { children: React.ReactNode }) {
+  return <DirectionProvider dir="rtl">{children}</DirectionProvider>
+}
+```
+
+컴포넌트별 RTL 예제는 각 컴포넌트 Docs의 **RTL** 섹션에서 확인할 수 있습니다.

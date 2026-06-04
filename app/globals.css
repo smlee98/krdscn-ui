@@ -1,5 +1,7 @@
 @import "tailwindcss";
 @import "tw-animate-css";
+@import "fumadocs-ui/css/neutral.css";
+@import "fumadocs-ui/css/preset.css";
 
 @custom-variant dark (&:is(.dark *));
 
@@ -551,4 +553,146 @@
   --krds-border-dark: var(--krds-color-gray-40);
   --krds-border-primary: var(--krds-color-primary-50);
   --krds-border-disabled: var(--krds-color-gray-70);
+}
+
+/* ───────────────────────────────────────────────────────────────────────────
+   fumadocs 문서 사이트 chrome (legacy 이관). code 토큰 + 레이아웃 유틸 +
+   docs-content / steps / shiki 코드블록 스타일.
+   ─────────────────────────────────────────────────────────────────────────── */
+:root {
+  --code: oklch(0.97 0 0);
+  --code-foreground: oklch(0.45 0 0);
+  --code-highlight: oklch(0.97 0 0);
+  --code-number: oklch(0.556 0 0);
+}
+
+.dark {
+  --code: oklch(0.205 0 0);
+  --code-foreground: oklch(0.708 0 0);
+  --code-highlight: oklch(0.269 0 0);
+  --code-number: oklch(0.708 0 0);
+}
+
+@theme inline {
+  --color-code: var(--code);
+  --color-code-foreground: var(--code-foreground);
+  --color-code-highlight: var(--code-highlight);
+  --color-code-number: var(--code-number);
+}
+
+@utility container-wrapper {
+  width: 100%;
+  max-width: 1400px;
+  margin-inline: auto;
+}
+
+@utility no-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+@layer components {
+  .docs-content {
+    @apply text-foreground;
+  }
+
+  .docs-content > *:first-child {
+    @apply mt-0;
+  }
+
+  /* 직접 자식(>)으로만 스코프 — 라이브 프리뷰 안의 컴포넌트 내부(h3/p/ul/li 등)로
+     프로즈 스타일이 새어들지 않도록. 문서 프로즈 요소는 .docs-content의 직접 자식이다. */
+  .docs-content > h2 {
+    @apply mt-10 scroll-m-24 border-b pb-2 text-2xl font-semibold tracking-tight;
+  }
+
+  .docs-content > h3 {
+    @apply mt-8 scroll-m-24 text-xl font-semibold tracking-tight;
+  }
+
+  .docs-content > p {
+    @apply my-4 leading-7 text-muted-foreground;
+  }
+
+  .docs-content > ul {
+    @apply my-4 ml-6 list-disc text-muted-foreground;
+  }
+
+  .docs-content > ul li,
+  .docs-content > ol li {
+    @apply mt-2;
+  }
+
+  .steps {
+    counter-reset: step;
+  }
+
+  .step {
+    counter-increment: step;
+    position: relative;
+  }
+
+  .step::before {
+    content: counter(step);
+    position: absolute;
+    left: -2.55rem;
+    top: 0.125rem;
+    display: flex;
+    width: 1.5rem;
+    height: 1.5rem;
+    align-items: center;
+    justify-content: center;
+    border-radius: 9999px;
+    border: 1px solid var(--border);
+    background: var(--background);
+    color: var(--muted-foreground);
+    font-size: 0.75rem;
+    line-height: 1rem;
+  }
+
+  [data-rehype-pretty-code-figure] {
+    background-color: var(--color-code);
+    color: var(--color-code-foreground);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-xl);
+    margin-top: calc(var(--spacing) * 6);
+    overflow: hidden;
+    outline: none;
+    position: relative;
+    box-shadow: none;
+  }
+
+  .docs-content figure.shiki {
+    background-color: var(--color-code) !important;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-xl);
+    box-shadow: none !important;
+  }
+
+  [data-rehype-pretty-code-title] {
+    border-bottom: 1px solid color-mix(in oklab, var(--border) 30%, transparent);
+  }
+
+  .docs-content figure pre {
+    margin: 0;
+    border: 0;
+    border-radius: 0;
+    background: transparent !important;
+    padding: 0;
+  }
+
+  .docs-content figure code {
+    background: transparent;
+  }
+
+  .docs-content > pre {
+    @apply my-6 overflow-x-auto rounded-xl border bg-code p-4 text-sm text-code-foreground shadow-none;
+  }
+
+  .docs-content code:not(pre code) {
+    @apply rounded bg-muted px-1.5 py-0.5 text-sm font-medium;
+  }
 }

@@ -1,0 +1,991 @@
+{
+  "generatedAt": "2026-05-14T19:13:02.799Z",
+  "docsRoot": "content/docs/krds-guideline",
+  "totals": {
+    "mdxFiles": 109,
+    "imageFiles": 598
+  },
+  "routes": [
+    {
+      "path": "content/docs/krds-guideline/01-introduction/01-introduction.mdx",
+      "route": "/docs/krds-guideline/01-introduction/01-introduction",
+      "title": "가이드라인 소개",
+      "description": "'디지털 정부서비스 UI/UX 가이드라인'은 디지털 서비스를 구성하는 여러 사용자 인터페이스(User Interface; UI) 요소 중 사용 빈도가 높고 사용자 경험(User Experience; UX) 품질에 큰 영향을 주는 공통 구성 요소, 핵심 과업에 대한 설계·구현 가…",
+      "imageCount": 7,
+      "sha256": "0a18bf6c35a4077b5674844a6db1cec547422e211ededfd9ce1e8dd1a40b6dfe",
+      "visibleTextSha256": "69038ecd099169851746ca7661e31041251042f9ed824dabcdf473872e4656f3"
+    },
+    {
+      "path": "content/docs/krds-guideline/01-introduction/02-guideline-structure.mdx",
+      "route": "/docs/krds-guideline/01-introduction/02-guideline-structure",
+      "title": "가이드라인 구성",
+      "description": "본 가이드라인은 5개의 수준으로 구성되어 있다. 이 중 '원칙'은 나머지 수준의 가이드라인을 포괄하며 디지털 정부서비스 UI/UX 설계에 대한 전체적인 방향성을 안내한다. 나머지 수준의 가이드라인은 UI/UX를 구성하는 세부 구성 요소이다.",
+      "imageCount": 6,
+      "sha256": "9ff6f87ec23fcf019909ecc5e8cb402886e95fb3f64bda53c7c0f5fd51a89455",
+      "visibleTextSha256": "cf4063695c96f2036891080e8d045af594a8567fda2f4a0d2d54c9e84a4bff48"
+    },
+    {
+      "path": "content/docs/krds-guideline/01-introduction/03-how-to-use.mdx",
+      "route": "/docs/krds-guideline/01-introduction/03-how-to-use",
+      "title": "가이드라인의 활용방법",
+      "description": "디지털 정부서비스의 목표를 수립하고 발주하는 기획 과정에서 사용자 관점의 UI/UX 과업 범위를 정의하는 것은 매우 중요하다.",
+      "imageCount": 0,
+      "sha256": "fb1b581d997f75c3c818700cec9a7c8c4726f06812a68bdd9541ae4fd2d7c81a",
+      "visibleTextSha256": "e99d5b814ab2ae9df240d93baf1034facd48e58b0bf000c029345f33e6e55a5c"
+    },
+    {
+      "path": "content/docs/krds-guideline/01-introduction/04-government-ui-ux-design-system.mdx",
+      "route": "/docs/krds-guideline/01-introduction/04-government-ui-ux-design-system",
+      "title": "범정부 UI/UX 디자인시스템",
+      "description": "대한민국 디지털 정부서비스의 편의성, 일관성, 접근성, 사용성을 보장하기 위해 설계된 디자인 시스템이며, KRDS는 공공 서비스 웹사이트 및 애플리케이션에서 일관된 사용자 경험(UX)과 사용자 인터페이스(UI)를 제공하며, 다양한 디지털 정부서비스의 표준화를 목적으로 한다.",
+      "imageCount": 2,
+      "sha256": "0f39dee84efb57434ca904847a11d3c1c55e923a88b4322d4c536c6c6bb6f753",
+      "visibleTextSha256": "376042fb6bd1a7ff389e5081f312de9c53a7cae9badfa65225d07789b5a897f5"
+    },
+    {
+      "path": "content/docs/krds-guideline/02-design-principles/01-user-centered-service.mdx",
+      "route": "/docs/krds-guideline/02-design-principles/01-user-centered-service",
+      "title": "사용자 중심의 서비스",
+      "description": "디지털 정부서비스에 대한 모든 의사 결정은 사용자를 중심으로 이루어져야 한다. 즉, 사용자 요구 사항을 기반으로 설계하고, 사용자가 원하는 정보와 기능을 제공하며, 사용자가 목적을 달성하는 과정을 적극적으로 도와야 한다.",
+      "imageCount": 0,
+      "sha256": "5a52d8bf7daeb073ee0490fa6c1e2f3c5a5fe90ac86ffbf1469d0db3a5a92e29",
+      "visibleTextSha256": "b97086190a9f57fce274981811c4b22073f5f3b8d39843d8930485da240739bc"
+    },
+    {
+      "path": "content/docs/krds-guideline/02-design-principles/02-inclusive-service.mdx",
+      "route": "/docs/krds-guideline/02-design-principles/02-inclusive-service",
+      "title": "모든 사용자를 포용하는 서비스",
+      "description": "디지털 정부서비스의 사용자는 장애인, 고령자, 어린이, 외국인을 포함하여 서로 다른 능력, 환경, 상황을 가진 모든 사람으로 정의해야 한다. 모든 사람이 동등한 수준의 노력을 통해 서비스 이용 목적을 달성하도록 만드는 것이 포용적인 디지털 정부서비스의 핵심이다.",
+      "imageCount": 0,
+      "sha256": "5050a8257691090987a6fba716317c1b976733d8fae6c82d841a6126dec131ee",
+      "visibleTextSha256": "add28c4e107588582c24d779d3e62ed2d1bb4940c31a269b7ee2d36e99a170b3"
+    },
+    {
+      "path": "content/docs/krds-guideline/02-design-principles/03-consistent-and-adaptive-service.mdx",
+      "route": "/docs/krds-guideline/02-design-principles/03-consistent-and-adaptive-service",
+      "title": "공통된 경험 안에서 개별 특성을 고려한 서비스",
+      "description": "디지털 정부의 모든 서비스는 기관과 서비스 유형에 상관없이 일관성 있는 표현과 설계 방식으로 구현하여 하나의 대한민국 정부 서비스로 느껴지도록 제공해야 한다.",
+      "imageCount": 0,
+      "sha256": "df6f07d47ba7f24f5c09f7f5b1af5cdcb0e223c72667f438dbf952c379eb91e6",
+      "visibleTextSha256": "f1aed96c1e3cbf04bb3e33042c47cec6efe0408a0471b6f496207afcbb92723f"
+    },
+    {
+      "path": "content/docs/krds-guideline/02-design-principles/04-fast-and-simple-service.mdx",
+      "route": "/docs/krds-guideline/02-design-principles/04-fast-and-simple-service",
+      "title": "빠르고 간단한 서비스",
+      "description": "디지털 정부서비스에서 빠르고 간단한 서비스를 제공한다는 것은 이용 과정에서 필요한 의사 결정을 최소화하는 방식으로 사용자의 경험을 설계해야 함을 의미한다. 빠르고 간단한 서비스 디자인 원칙",
+      "imageCount": 0,
+      "sha256": "f3185982ace1487f2b36483641b1765adc69652b4806aff995490e701feeae12",
+      "visibleTextSha256": "8f000ac31176e972b8a2cad403db00e991bfe6cad6b792d7da9bd022ea395e31"
+    },
+    {
+      "path": "content/docs/krds-guideline/02-design-principles/05-easy-to-understand-service.mdx",
+      "route": "/docs/krds-guideline/02-design-principles/05-easy-to-understand-service",
+      "title": "쉽게 이해하고 사용할 수 있는 서비스",
+      "description": "쉽게 이해하고 사용할 수 있는 디지털 정부서비스는 콘텐츠와 사용자 인터페이스가 친숙하면서도 간결하고 직관적인 방식으로 설계되어 있어 사용자가 도움 없이도 이용할 수 있는 상태를 의미한다. 만약 사용자가 실수하더라도 실수하기 이전 상태로 돌아갈 방안을 적절한 시기에 적절한 방식으…",
+      "imageCount": 0,
+      "sha256": "10e926aec15741cf8ce629430d2877a2bdad4415380400c75c7ae677c57a63ba",
+      "visibleTextSha256": "5d31886293fdd939f92d1fdd091135847c14524b605f44b97747e1f3d5d65b7b"
+    },
+    {
+      "path": "content/docs/krds-guideline/02-design-principles/06-context-aware-service.mdx",
+      "route": "/docs/krds-guideline/02-design-principles/06-context-aware-service",
+      "title": "사용자의 다양한 상황을 고려하는 서비스",
+      "description": "디지털 정부서비스에서 사용자의 다양한 상황을 고려한다는 것은 사용자마다 다른 이용 상황과 목적, 숙련도와 이용 빈도 등을 고려하여 사용자가 원하는 방식으로 이용할 수 있게 구현하는 것을 의미한다. 사용자의 다양한 상황을 고려하는 서비스 디자인 원칙",
+      "imageCount": 0,
+      "sha256": "8ad271771be8ec5c32e997fcb8eaec95bdf584da41d85f36eb46a910bd26afb0",
+      "visibleTextSha256": "2399b1cd5c20fb0e4b88e567e40ce3f1bed8022ea7296b83204291404ad51ac7"
+    },
+    {
+      "path": "content/docs/krds-guideline/02-design-principles/07-trusted-service.mdx",
+      "route": "/docs/krds-guideline/02-design-principles/07-trusted-service",
+      "title": "신뢰할 수 있는 서비스",
+      "description": "신뢰할 수 있는 디지털 정부서비스 경험을 제공한다는 것은 사용자가 서비스에 방문하여 이용을 종료하기까지, 매 순간 정부의 공식 서비스임을 분명하게 인지할 수 있으며, 최신의 정확한 정보에 접근할 수 있도록 만드는 것이다. 신뢰할 수 있는 서비스 디자인 원칙",
+      "imageCount": 0,
+      "sha256": "60213716df8eac88743304ee8b88c035f3c4bb06991b4a09559567e5e2f5acfa",
+      "visibleTextSha256": "9ae48a00ea420dd47920c8709a0061e46120305c5b104ebd394a214b2bb74fda"
+    },
+    {
+      "path": "content/docs/krds-guideline/03-design-style/01-design-style-overview.mdx",
+      "route": "/docs/krds-guideline/03-design-style/01-design-style-overview",
+      "title": "디자인 스타일 소개",
+      "description": "디자인 스타일은 디자인 시스템의 핵심 요소로, 정부 사이트에서 사용자 경험의 일관성과 정부 기관의 신뢰성을 보장하고 사용자 접근성을 강화하기 위해 설계되었다. KRDS의 스타일 가이드는 색상, 타이포그래피, 형태, 레이아웃, 아이콘, 엘리베이션, 디자인 토큰을 체계적으로 정의하…",
+      "imageCount": 11,
+      "sha256": "79d46e6e6baba640a50dd1dc22198d71e493519c134504b7c8d437654d980f49",
+      "visibleTextSha256": "7efdcadbeaf28115c72de383ac6ce887a4d12f70240a2e65cc8392116e5613c6"
+    },
+    {
+      "path": "content/docs/krds-guideline/03-design-style/02-color.mdx",
+      "route": "/docs/krds-guideline/03-design-style/02-color",
+      "title": "색상(Color)",
+      "description": "색상은 정보 전달과 시각적 경험을 결정하는 중요한 요소다. 색상은 사용자의 주의를 유도하고, 기능이나 메시지를 명확히 하여 직관적인 사용자 경험을 제공한다. 색상 체계는 기관 이미지와 일관된 시각적 경험을 유지하기 위해 체계적으로 구성되며, 정보의 계층과 우선순위를 시각적으로 …",
+      "imageCount": 65,
+      "sha256": "dd24feb9ac51cee4749e6294e103fe31c4290c1c72172c1d5ced0a332b15028e",
+      "visibleTextSha256": "0384ce7273ba75b81d46782e6466779313ccfa48a7af0a7ad0e08736dfcea523"
+    },
+    {
+      "path": "content/docs/krds-guideline/03-design-style/03-typography.mdx",
+      "route": "/docs/krds-guideline/03-design-style/03-typography",
+      "title": "타이포그래피(Typography)",
+      "description": "타이포그래피는 정보를 효과적으로 전달하고 일관된 사용자 경험을 제공하는 데 필수적인 요소이다. 글꼴, 크기, 두께, 간격, 계층 구조를 정의하여 가독성을 높이고, 내용을 중요도에 따라 시각적으로 표현한다. 가이드에 맞춘 타이포그래피는 명확한 정보 전달을 가능하게 하며, 다양한 …",
+      "imageCount": 27,
+      "sha256": "cba557b2842372cf5cb6a8e7a6223555ac6bb228f02948f7af209d1f55ac250f",
+      "visibleTextSha256": "04ff85000e03beebdf8893b97e323e3d2f2e6d793526d0826ce519595f0aa376"
+    },
+    {
+      "path": "content/docs/krds-guideline/03-design-style/04-shape.mdx",
+      "route": "/docs/krds-guideline/03-design-style/04-shape",
+      "title": "형태(Shape)",
+      "description": "형태는 브랜드의 시각적 아이덴티티를 표현하는 중요한 요소로, UI 요소에 적용되는 둥글기 값인 래디어스(radius)를 통해 버튼, 카드, 컨테이너, 이미지 등에 고유한 느낌과 분위기를 만들어낸다.",
+      "imageCount": 17,
+      "sha256": "a544590ea1c00a355653aba42b8e4b430c271dc5b3283764a91a79b62313e3db",
+      "visibleTextSha256": "9bee07e1623ee56551ed4b3d000d577b5ff21f53f8aca59f1ce659754b61bdb9"
+    },
+    {
+      "path": "content/docs/krds-guideline/03-design-style/05-layout.mdx",
+      "route": "/docs/krds-guideline/03-design-style/05-layout",
+      "title": "레이아웃(Layout)",
+      "description": "레이아웃(Layout)은 정보 구조와 시각적 흐름을 체계적으로 구성하여 사용자가 콘텐츠를 쉽게 이해할 수 있도록 한다. 레이아웃 가이드는 그리드, 브레이크포인트, 간격 설정을 통해 일관된 사용자 경험을 제공하며, 시각적 일관성과 정보 전달 효과를 높인다. Grid",
+      "imageCount": 36,
+      "sha256": "b7687e4526e2121c698e8a7c7a2ae621f4408d64563295d36dcc7f4447ac243a",
+      "visibleTextSha256": "47fdd7b02879e4a0c1f8c21180a79ff94d5b6cc3b52045cf513e07ac2c7ffaca"
+    },
+    {
+      "path": "content/docs/krds-guideline/03-design-style/06-icon.mdx",
+      "route": "/docs/krds-guideline/03-design-style/06-icon",
+      "title": "아이콘(Icon)",
+      "description": "아이콘 가이드는 시스템 아이콘을 중심으로 하며 모든 기관이 동일한 시각 언어와 일관된 사용자 경험을 제공하는 것을 목표로 한다.",
+      "imageCount": 35,
+      "sha256": "40ac96605b71ea7a4ab4d7fc476610e42bbcf3ef289c54a942b273c0ff35228c",
+      "visibleTextSha256": "3259a5c0078e308483234035eb73f81c19658a81f3bbdb09b368dbab125472dc"
+    },
+    {
+      "path": "content/docs/krds-guideline/03-design-style/07-elevation.mdx",
+      "route": "/docs/krds-guideline/03-design-style/07-elevation",
+      "title": "엘리베이션(Elevation)",
+      "description": "엘리베이션(Elevation)은 사용자 인터페이스(UI)에서 요소들이 서로 다른 시각적 레벨에 위치하도록 하여 깊이감과 계층 구조를 부여하는 중요한 개념이다. Corner radius",
+      "imageCount": 24,
+      "sha256": "4b45e8208ac8d47930e6446df444956565fbf14c9f3cbdf2d0c3af5c6db04f55",
+      "visibleTextSha256": "012ef17aaceb2ab6c38990d114ed33618aa255ae876b3e23fed0dfc5d86fc6ac"
+    },
+    {
+      "path": "content/docs/krds-guideline/03-design-style/08-high-contrast-mode.mdx",
+      "route": "/docs/krds-guideline/03-design-style/08-high-contrast-mode",
+      "title": "선명한 화면 모드(High contrast mode)",
+      "description": "다크 모드와 유사한 선명한 화면 모드는 시각 기능에 제약이 있는 사용자, 저조도 환경의 사용자를 위해 콘텐츠의 가독성과 가시성을 높인 화면 스타일이다. 어두운 배경과 밝은 전경의 색상 팔레트 사용을 기본으로 하여 중요 정보에 보조적인 시각 단서를 제공함으로써 쉽고 편안한 읽기 …",
+      "imageCount": 12,
+      "sha256": "3cd6589c59c6469de9be5af5a18dab3039b8140b75539f8fb344124de393086c",
+      "visibleTextSha256": "3dd1d61608e2ec79c7e5cf1040745dd943bc8a21a81ba79216aa248da4fe2d20"
+    },
+    {
+      "path": "content/docs/krds-guideline/03-design-style/09-design-token.mdx",
+      "route": "/docs/krds-guideline/03-design-style/09-design-token",
+      "title": "디자인 토큰(Design token)",
+      "description": "디자인 시스템의 스타일 가이드 요소인 색상, 글자, 간격의 스타일 속성을 변수로 정의하여 코드화한 것이다.",
+      "imageCount": 12,
+      "sha256": "6afa166a859dd8fc463da2e67fecca38e060e355cf7cdd7a153b8278fa4f9326",
+      "visibleTextSha256": "52e6f16f31386ed47e174f2a4c2d4582063346a2e5bd5668777cd37571a9674b"
+    },
+    {
+      "path": "content/docs/krds-guideline/04-components/01-identity/01-masthead.mdx",
+      "route": "/docs/krds-guideline/04-components/01-identity/01-masthead",
+      "title": "공식 배너(Masthead)",
+      "description": "공식 배너는 사용자가 대한민국 정부 조직 및 관련 기관에서 운영·관리하는 디지털 정부서비스임을 식별할 수 있도록 제공하는 정보 배너이다.",
+      "imageCount": 5,
+      "sha256": "ccaf986af244f959a454d7aca1c755561e4537ac9276e29dd48f9ad1b72953df",
+      "visibleTextSha256": "db440ae45970481daa6fa630f763e3d260fd5c6522c379fbcfc11e594295c4b6"
+    },
+    {
+      "path": "content/docs/krds-guideline/04-components/01-identity/02-identifier.mdx",
+      "route": "/docs/krds-guideline/04-components/01-identity/02-identifier",
+      "title": "운영기관 식별자(Identifier)",
+      "description": "운영기관 식별자는 디지털 정부서비스에 대한 신뢰성을 위해 서비스 운영 기관을 안내하는 요소로 공식 배너, 푸터와 함께 서비스의 일관성, 브랜드를 확인할 수 있는 핵심 요소이다.",
+      "imageCount": 3,
+      "sha256": "d5bf4ed28e6b5f866c0090d5195bc14fb7b59b4f720ef59c97276b8b2bfc5827",
+      "visibleTextSha256": "f550e71eda3db17996059c7da0d85a5a05a5d2b565e78069ad1b16fe4fee8ed3"
+    },
+    {
+      "path": "content/docs/krds-guideline/04-components/01-identity/03-header.mdx",
+      "route": "/docs/krds-guideline/04-components/01-identity/03-header",
+      "title": "헤더(Header)",
+      "description": "헤더는 사용자가 웹사이트에 접속하자마자 마주하게 되는 화면의 최상단 영역으로 디지털 정부서비스의 브랜드 이미지를 전달하는 핵심 영역이다. 모든 화면에 일관성 있게 배치되며 통합검색, 메인 메뉴 등 서비스 정보를 탐색하고 이동할 수 있는 핵심 탐색 수단을 제공한다.",
+      "imageCount": 8,
+      "sha256": "8d85f365170d5c6e270927815ba682464188a2a9123fdaa1b225ab314aab7e32",
+      "visibleTextSha256": "e6d3f6de6cb12384f43f64ad8573456535610e894dbe015258fc35f25228d5c9"
+    },
+    {
+      "path": "content/docs/krds-guideline/04-components/01-identity/04-footer.mdx",
+      "route": "/docs/krds-guideline/04-components/01-identity/04-footer",
+      "title": "푸터(Footer)",
+      "description": "푸터는 화면을 구성하는 가장 마지막 요소로 헤더와 본문에서 원하는 정보를 찾지 못하였거나 사이트 구조 탐색 중에 길을 잃은 사용자들이 대면하게 되는 정보이다. 따라서 푸터에는 사용자가 서비스를 탐색할 수 있는 추가적인 수단, 문제를 해결하는 데 참고할 수 있는 유용한 링크가 제…",
+      "imageCount": 2,
+      "sha256": "5a3579698a91357ac4008c3f26b54953c68dd337cfcc94e96190d366a758ec77",
+      "visibleTextSha256": "ac8e430cbf171e22042044edc54b825d0bd9a8d7fad76184d2e729d9bf242cab"
+    },
+    {
+      "path": "content/docs/krds-guideline/04-components/02-navigation/01-skip-link.mdx",
+      "route": "/docs/krds-guideline/04-components/02-navigation/01-skip-link",
+      "title": "건너뛰기 링크(Skip link)",
+      "description": "건너뛰기 링크는 웹사이트에서 웹 페이지의 주요 콘텐츠 섹션의 탐색을 도와주는 페이지 내부 링크이다. 키보드나 가상 초점을 이용하여 콘텐츠를 탐색하는 사용자는 건너뛰기 링크를 이용하여 대부분의 페이지에서 반복되는 콘텐츠 영역을 건너뛰고 주요 콘텐츠로 빠르게 이동할 수 있다.",
+      "imageCount": 1,
+      "sha256": "2d9db9fa320c543e4eb965759f49bcd8b33bc7e2353fa6d70b1c34cc952db3e7",
+      "visibleTextSha256": "692c2221d2d878e81412b21030d62b5245fbb07273f7ed09bf5d1565bebee5b4"
+    },
+    {
+      "path": "content/docs/krds-guideline/04-components/02-navigation/02-main-menu.mdx",
+      "route": "/docs/krds-guideline/04-components/02-navigation/02-main-menu",
+      "title": "메인 메뉴(Main menu)",
+      "description": "메인 메뉴는 사용자가 서비스의 정보 구조를 탐색할 때, 가장 많이 사용하는 유형의 메뉴이다. 일반적으로 헤더와 함께 거의 모든 화면에 제공되며, 사용자가 자주 방문하거나 중요도가 높은 화면으로 이동할 수 있는 링크가 포함되어 있다. 빈번하게 활용되는 사용자의 일차적인 이동 수단…",
+      "imageCount": 14,
+      "sha256": "502cba44b28131725511f486a0b09ecccc4de26a8de56652d28fa00488455e09",
+      "visibleTextSha256": "bb01dee1602b7b7ca7018e871ac327efa1b3716d968f948dcbd9bd4d25eec7df"
+    },
+    {
+      "path": "content/docs/krds-guideline/04-components/02-navigation/03-breadcrumb.mdx",
+      "route": "/docs/krds-guideline/04-components/02-navigation/03-breadcrumb",
+      "title": "브레드크럼(Breadcrumb)",
+      "description": "브레드크럼은 탐색 계층 구조를 표시하여 사용자가 현재 위치를 파악하고 계층 구조의 수준을 이동할 수 있게 해준다. 브레드크럼을 통해 사용자는 탐색 중인 화면의 상위 수준 화면으로 이동할 수 있다.",
+      "imageCount": 7,
+      "sha256": "cdf5793c37d233653b87d2bdfaa2f3cdce958c706b3d77f834b7a904e8467d2f",
+      "visibleTextSha256": "e7f2bfab6aea40841ae024f5e88cc0bf5c5cd8b87f1ea5dc83b8c72c2e21e157"
+    },
+    {
+      "path": "content/docs/krds-guideline/04-components/02-navigation/04-side-navigation.mdx",
+      "route": "/docs/krds-guideline/04-components/02-navigation/04-side-navigation",
+      "title": "사이드 메뉴(Side navigation)",
+      "description": "사이드 메뉴는 서브 화면 내에서의 이동을 위해 사용하는 메뉴이다. 일반적으로 본문 영역의 좌측에 사이드바 형태로 제공된다. 메인 메뉴보다 훨씬 좁고 깊은 페이지 구조 탐색에 사용되기 때문에 링크의 개수가 많고 복잡하게 표현되기 쉽다. 사이트 규모가 클수록 사이드 메뉴를 단순하고…",
+      "imageCount": 7,
+      "sha256": "c87853f1c737c1add623a805a53034ca224edb36b44eea73c4a892a183d3c5d8",
+      "visibleTextSha256": "dc91abcecce92b5ebad45275b3d0c93e5dc37a930d056295be036a28282debc0"
+    },
+    {
+      "path": "content/docs/krds-guideline/04-components/02-navigation/05-in-page-navigation.mdx",
+      "route": "/docs/krds-guideline/04-components/02-navigation/05-in-page-navigation",
+      "title": "콘텐츠 내 탐색(In-page navigation)",
+      "description": "콘텐츠 내 탐색은 사용자가 본문의 구조를 훑어보고 원하는 콘텐츠로 빠르게 이동할 수 있도록 하는 탐색 수단이다. 화면을 스크롤 할 때 특정 위치에 고정되어 콘텐츠의 목차 역할을 하는 동시에 사용자가 콘텐츠 내 탐색에서 특정 항목을 클릭하면 연결된 섹션으로 스크롤 된다.",
+      "imageCount": 1,
+      "sha256": "4cb14000b60a7f188d60f2f5a3a8469f137e2245e3c51f9603aa8b348e5547ee",
+      "visibleTextSha256": "28f8668d6654576bb03ebf6eb768d5d8b51fcf63ecb74104354b419d59446458"
+    },
+    {
+      "path": "content/docs/krds-guideline/04-components/02-navigation/06-pagination.mdx",
+      "route": "/docs/krds-guideline/04-components/02-navigation/06-pagination",
+      "title": "페이지네이션(Pagination)",
+      "description": "페이지네이션은 많은 양의 콘텐츠를 탐색하기 쉽도록 여러 화면에 나누고, 분할된 화면을 탐색하는 데 사용되는 요소이다.",
+      "imageCount": 13,
+      "sha256": "6d54df63f2abdfa96497d509d3d5e7c32d6bb5bb3142c9f2e8084b3fc2580a79",
+      "visibleTextSha256": "f6d278ba5ce53878a30a89f61553eb241604d7ad8e9c787bf625ee2963b736c3"
+    },
+    {
+      "path": "content/docs/krds-guideline/04-components/02-navigation/07-tab-bars.mdx",
+      "route": "/docs/krds-guideline/04-components/02-navigation/07-tab-bars",
+      "title": "탭바(Tab bars)",
+      "description": "탭바는 화면 하단에 고정하여 제공하는 탐색 수단으로 작은 디바이스나 좁은 화면에서 서비스의 핵심 화면으로 빠르게 접근할 수 있도록 도와준다.",
+      "imageCount": 15,
+      "sha256": "5c678ca7fbada4f5fe0dc46a5258566b26e03a0b403ac274a1c16581eb836d7c",
+      "visibleTextSha256": "d5840fb492a4494283ca649b1c9f82c92a96711909c90b3cae1f54bcf296691c"
+    },
+    {
+      "path": "content/docs/krds-guideline/04-components/03-layout-display/01-structured-list.mdx",
+      "route": "/docs/krds-guideline/04-components/03-layout-display/01-structured-list",
+      "title": "구조화 목록(Structured list)",
+      "description": "구조화 목록은 유사하거나 관련된 콘텐츠 집합을 표현하기 위한 형식으로 목록에 제공된 데이터에 대한 상세 정보 탐색 수단 또는 관련 기능 실행 수단으로 활용된다. 사용자가 콘텐츠를 효율적으로 탐색하고 다음 행동을 빠르게 결정할 수 있도록 목록 내 정보는 상세 페이지에서 제공되는 …",
+      "imageCount": 1,
+      "sha256": "0dff3237a286108211a7100f34c90dc2eb137dece45e7ec0e0c686beab68572f",
+      "visibleTextSha256": "18645434616f09123fc996b6b66f573bd168fe4891985d55072b29ca9140f0ed"
+    },
+    {
+      "path": "content/docs/krds-guideline/04-components/03-layout-display/02-critical-alerts.mdx",
+      "route": "/docs/krds-guideline/04-components/03-layout-display/02-critical-alerts",
+      "title": "긴급 공지(Critical alerts)",
+      "description": "긴급 공지는 본문 상단에 강조되어 표시되는 배너로 사용자에게 긴급하거나 중요한 정보를 전달하는 데 사용된다. 모든 공공 디지털 서비스에서 동일한 긴급 공지 컴포넌트를 사용함으로써 사용자는 긴급한 정보를 일관되고 예측 가능한 방식으로 찾고 이해할 수 있다.",
+      "imageCount": 1,
+      "sha256": "0e46e20c11f29ec4085fd086d5c63ff01b39e0b7935a52007cd8bd5c4e7fccf8",
+      "visibleTextSha256": "a549178b40da99b69e1ff069096b85626ac073f61e58a7301f9db65bfe92b84d"
+    },
+    {
+      "path": "content/docs/krds-guideline/04-components/03-layout-display/03-calendar.mdx",
+      "route": "/docs/krds-guideline/04-components/03-layout-display/03-calendar",
+      "title": "달력(Calendar)",
+      "description": "달력은 날짜와 관련된 정보와 기능을 제공하는 데 사용한다.",
+      "imageCount": 4,
+      "sha256": "821093907cd438b21c0046f96f8c941f0dd04f64e6686365734cf8417624a1cb",
+      "visibleTextSha256": "9b0295ed5659c5d7d31c57e2613cdf3cb90d37512142d2b96a734f7dad4abcb0"
+    },
+    {
+      "path": "content/docs/krds-guideline/04-components/03-layout-display/04-disclosure.mdx",
+      "route": "/docs/krds-guideline/04-components/03-layout-display/04-disclosure",
+      "title": "디스클로저(Disclosure)",
+      "description": "디스클로저는 특정한 정보/컨트롤/섹션에 관련된 부가적인 정보를 표시하거나 숨기는 데 사용되는 요소이다. 디스클로저 하위 콘텐츠 섹션은 기본으로 축소된 상태로 제공되며 사용자가 요청하는 경우에 확장되어 자세한 정보가 표시된다. 이는 사용자의 인지적 부담을 감소시키고 정보를 빠르게…",
+      "imageCount": 3,
+      "sha256": "7b285ff7d8b1ffb8dffa097ad9ae9da86e451a553ee84c6f31836cc918bede13",
+      "visibleTextSha256": "1a708b5d49744c0dcb05eef82c335d73777283fef1841ebf76b19b28f67e5eb8"
+    },
+    {
+      "path": "content/docs/krds-guideline/04-components/03-layout-display/05-modal.mdx",
+      "route": "/docs/krds-guideline/04-components/03-layout-display/05-modal",
+      "title": "모달(Modal)",
+      "description": "모달은 대화창의 한 종류로 기본 창에 종속된 요소이다. 기본 창과 겹쳐져 가장 상단에 표시되며, 이때 기본 창은 비활성 상태로 전환되어 상호작용이 불가능하므로 사용자는 모달에서의 단일한 과업 또는 메시지에 집중할 수 있다.",
+      "imageCount": 3,
+      "sha256": "12a0d87d333589fe14fb3e9e3edda8090af22adea9f3a2bc62c82285a9fc4b59",
+      "visibleTextSha256": "dc61b2b177d913f0b0fff161ba1b3ed20b372b80c15b861913e69572ae7c84a0"
+    },
+    {
+      "path": "content/docs/krds-guideline/04-components/03-layout-display/06-badge.mdx",
+      "route": "/docs/krds-guideline/04-components/03-layout-display/06-badge",
+      "title": "배지(Badge)",
+      "description": "컴포넌트에 대한 빠른 인지와 탐색을 돕기 위해 컴포넌트 근처에 표시되는 작은 문자 또는 숫자 데이터이다. 컴포넌트의 분류 체계, 구조화된 정보, 상태 정보, 기타 메타 데이터를 표시할 수 있으며 사용자의 주의를 끌기 위해 색상을 활용할 수 있다.",
+      "imageCount": 1,
+      "sha256": "075a5b70dba706fc695f3faf7e8ee4206a621f7a1efa6876bcee86e7ec6f7829",
+      "visibleTextSha256": "d31236442ad3cfad2845c5cd10645a755f9630e2547683b496a5201429a9726a"
+    },
+    {
+      "path": "content/docs/krds-guideline/04-components/03-layout-display/07-accordion.mdx",
+      "route": "/docs/krds-guideline/04-components/03-layout-display/07-accordion",
+      "title": "아코디언(Accordion)",
+      "description": "아코디언은 한 페이지에서 관련 있는 여러 콘텐츠 섹션을 확인할 수 있도록 하는 컴포넌트로 콘텐츠 섹션의 헤더 목록이 수직으로 쌓여 있는 형태로 표현된다. 일반적으로 헤더 목록은 컨트롤 요소로 활용되며 사용자는 필요에 따라 헤더를 선택하여 하위 콘텐츠 섹션을 표시하거나 숨길 수 …",
+      "imageCount": 7,
+      "sha256": "d2c7c388d7f25ff98716541561677675ffc84a18e6d50c26c7bb4ab6ead2aa4f",
+      "visibleTextSha256": "43d39aa086896d744181f94e26204e52d5c9d9dd70b6e2e957a32aa970357cef"
+    },
+    {
+      "path": "content/docs/krds-guideline/04-components/03-layout-display/08-image.mdx",
+      "route": "/docs/krds-guideline/04-components/03-layout-display/08-image",
+      "title": "이미지(Image)",
+      "description": "이미지는 콘텐츠 양식 중 하나로 단일 이미지 또는 이미지 시퀀스로 표현될 수 있다. 이미지를 적절하게 사용하게 되면 사용자는 텍스트보다 효과적으로 정보를 인지할 수 있으며, 텍스트로 표현하기 어려운 정보를 전달할 수 있다.",
+      "imageCount": 0,
+      "sha256": "6c747e83af2c699d59d99699ade0d171b095160606791d742427b0ec02d60c6f",
+      "visibleTextSha256": "a905f49209dfa6045e150a6c2124783c400748ce8544a93a20d124c54ee5c410"
+    },
+    {
+      "path": "content/docs/krds-guideline/04-components/03-layout-display/09-carousel.mdx",
+      "route": "/docs/krds-guideline/04-components/03-layout-display/09-carousel",
+      "title": "캐러셀(Carousel)",
+      "description": "캐러셀은 하나의 콘텐츠 영역 내에 여러 개의 서로 다른 콘텐츠를 표시할 수 있는 컴포넌트이다. 캐러셀에 포함된 콘텐츠는 가로로 배치되어 있으며, 사용자가 좌/우로 콘텐츠를 회전시켜 콘텐츠를 탐색하도록 하거나 자동으로 회전하도록 설정할 수 있다.",
+      "imageCount": 14,
+      "sha256": "3d1fe388fee56c339a32961b910d1dde39988ef8c5e28a30f2fdb53db0561b48",
+      "visibleTextSha256": "99c160b723df465fb0bd74f179120f306dac27c74db6ff26deacbbf199076edb"
+    },
+    {
+      "path": "content/docs/krds-guideline/04-components/03-layout-display/10-tab.mdx",
+      "route": "/docs/krds-guideline/04-components/03-layout-display/10-tab",
+      "title": "탭(Tab)",
+      "description": "탭은 버튼을 눌러 상호배타적인 여러 개의 콘텐츠 섹션을 전환할 수 있는 컴포넌트이다. 콘텐츠 섹션은 동일한 영역 내에서 전환되기 때문에 정보를 탐색하는 맥락을 유지할 수 있고 작은 공간에 많은 양의 콘텐츠를 효과적으로 표현할 수 있다.",
+      "imageCount": 10,
+      "sha256": "2736a80d5942943753ff460315dae450984d69c3628c20ad636a2ecdb7dc9144",
+      "visibleTextSha256": "b4b0d284458d8cc089b062503bfbb2d660bef06ec1b75fbd1e336bf2121812b1"
+    },
+    {
+      "path": "content/docs/krds-guideline/04-components/03-layout-display/11-table.mdx",
+      "route": "/docs/krds-guideline/04-components/03-layout-display/11-table",
+      "title": "표(Table)",
+      "description": "표는 데이터를 하나 이상의 행과 열로 조직화하여 표현하는 형식으로 사용자가 빠르게 많은 양의 정보를 확인하고 비교할 수 있도록 도와준다. 기본적으로 대화형 요소가 아니기 때문에 열 제목에 데이터를 정렬하기 위한 컨트롤 요소가 포함된 상황 외에 행 전체나 데이터 셀이 대화형으로 …",
+      "imageCount": 5,
+      "sha256": "ac4ca13c5479d37f3113a56f45567a432f99cd48d8b3816f4037a39b1018dab3",
+      "visibleTextSha256": "9a896b825f2906d908d698a42f84d0186a26ae12de998199d1f60826d751ddbc"
+    },
+    {
+      "path": "content/docs/krds-guideline/04-components/03-layout-display/12-splash-screen.mdx",
+      "route": "/docs/krds-guideline/04-components/03-layout-display/12-splash-screen",
+      "title": "스플래시 스크린(Splash screen)",
+      "description": "스플래시 스크린은 응용 프로그램이 실행되기 전에 사용자에게 짧은 시간 동안 제공되는 화면으로 모바일 애플리케이션 전용 컴포넌트이다.",
+      "imageCount": 8,
+      "sha256": "2456ac503da552c628107fe7ab517291463f12556d2f5b3cf2939901808b5227",
+      "visibleTextSha256": "13ef665ab4645d20787eca16e8a206276ea6f2dc1f994bdf40c31d732770622d"
+    },
+    {
+      "path": "content/docs/krds-guideline/04-components/03-layout-display/13-text-list.mdx",
+      "route": "/docs/krds-guideline/04-components/03-layout-display/13-text-list",
+      "title": "텍스트 목록(Text list)",
+      "description": "텍스트 목록은 계층 구조가 있는 텍스트 블록을 읽기 쉽게 구성한 것이다.",
+      "imageCount": 11,
+      "sha256": "867125f2796129680588d315cce96fe15eb97650e04137fe64ac850208e4735f",
+      "visibleTextSha256": "4a9231dfb3a3dc9133a3a82b571819e961cec44e2fee4ff299c00a64ecaac972"
+    },
+    {
+      "path": "content/docs/krds-guideline/04-components/04-actions/01-link.mdx",
+      "route": "/docs/krds-guideline/04-components/04-actions/01-link",
+      "title": "링크(Link)",
+      "description": "링크는 다른 서비스/애플리케이션, 한 서비스 내의 다른 화면, 한 화면 내의 다른 섹션 등으로 이동하는 데 사용되는 탐색 요소이다.",
+      "imageCount": 8,
+      "sha256": "6e5443b09ce8c0e786b3ce68ff93724cb98e06b652d4cbf08494a20ab8457d2d",
+      "visibleTextSha256": "b2061d78c65fd24a5332a5c1bc87355faa3aafc0a016b8845f89f7d3ff3c5123"
+    },
+    {
+      "path": "content/docs/krds-guideline/04-components/04-actions/02-button.mdx",
+      "route": "/docs/krds-guideline/04-components/04-actions/02-button",
+      "title": "버튼(Button)",
+      "description": "버튼은 어떤 기능이나 동작을 실행하거나 기능을 사용하기 위한 상태로 변경하는 요소이다. 사용자가 서비스를 이용하는 과정에서 어떤 행동이 중요한지에 따라 관련된 버튼이 다양한 스타일로 표현된다.",
+      "imageCount": 2,
+      "sha256": "a2d7c28a3a3fd9093adfdafab217e56875a4e7bc4f852aa84bd6b0c1efbd4250",
+      "visibleTextSha256": "bc978ea579067db69d35513f4cf4bd79c5f6db6245f1287f2b78531949c9f208"
+    },
+    {
+      "path": "content/docs/krds-guideline/04-components/05-selection/01-radio-button.mdx",
+      "route": "/docs/krds-guideline/04-components/05-selection/01-radio-button",
+      "title": "라디오 버튼(Radio button)",
+      "description": "라디오 버튼은 사용자가 여러 개의 옵션 중 한 개의 값을 선택할 수 있도록 하는 경우에 사용한다. 사용자가 옵션 목록에서 새로운 옵션을 선택했을 때, 기존에 선택되었던 옵션은 자동으로 선택이 해제되어야 한다.",
+      "imageCount": 13,
+      "sha256": "19d160c1853f7dfae82cade74f91aaa3572a75af7a142a1fc7246ce90ea490af",
+      "visibleTextSha256": "558f712ebb26d80efb1d2b126f3381021c821b53755e096952be198ae2023d7c"
+    },
+    {
+      "path": "content/docs/krds-guideline/04-components/05-selection/02-checkbox.mdx",
+      "route": "/docs/krds-guideline/04-components/05-selection/02-checkbox",
+      "title": "체크박스(Checkbox)",
+      "description": "체크박스는 사용자가 여러 개의 옵션 중 한 개 이상의 값을 선택할 수 있도록 하는 경우에 사용한다. 즉, 체크박스 옵션의 선택은 상호배타적이므로 한 개의 옵션을 선택하는 것은 다른 옵션의 선택에 영향을 미치지 않는다.",
+      "imageCount": 7,
+      "sha256": "7c31bd7fe9ee536ab29513fda461fd9095f85e3f96cefc36178d02f8a43541a8",
+      "visibleTextSha256": "8d2eca48cbf067cbb2188fe9f523f857a1eb042a2b0d8e513addcd0ff7b5be43"
+    },
+    {
+      "path": "content/docs/krds-guideline/04-components/05-selection/03-select.mdx",
+      "route": "/docs/krds-guideline/04-components/05-selection/03-select",
+      "title": "셀렉트(Select)",
+      "description": "셀렉트는 사용자에게 여러 개의 옵션 목록을 팝업으로 제공하여 그 중 한 개의 값을 선택할 수 있도록 하는 경우에 사용한다.",
+      "imageCount": 1,
+      "sha256": "fb3f17178c5138ee6ca1397a9cebf7c619c9a5d6b80656a03a5da8f83fb4afa6",
+      "visibleTextSha256": "5e9e312efc69da8a668ea9b1fafe9e8b1b078ad43729263d6d48d7927a1d1b51"
+    },
+    {
+      "path": "content/docs/krds-guideline/04-components/05-selection/04-tag.mdx",
+      "route": "/docs/krds-guideline/04-components/05-selection/04-tag",
+      "title": "태그(Tag)",
+      "description": "태그는 키워드 또는 레이블을 사용하여 콘텐츠를 분류하는 수단이다. 콘텐츠 항목에 직접 관련 분류 체계, 데이터 속성을 표시하거나, 목록에서 특정 분류 체계, 데이터 속성을 가진 항목이 선택되었음을 보여주기 위한 태그 그룹으로 사용된다.",
+      "imageCount": 3,
+      "sha256": "dd6e5534b81219d404578b4042466cc8f4a75f7dc589eb5fefef0683ccd126b5",
+      "visibleTextSha256": "43fb3fc019773698b26f97405e2ea3674625a103bf0a046307fe84e0096a5acf"
+    },
+    {
+      "path": "content/docs/krds-guideline/04-components/05-selection/05-toggle-switch.mdx",
+      "route": "/docs/krds-guideline/04-components/05-selection/05-toggle-switch",
+      "title": "토글 스위치(Toggle switch)",
+      "description": "토글은 상호 배타적인 두 가지 상태를 전환하는 데 사용되는 요소이다.",
+      "imageCount": 9,
+      "sha256": "37a624648dd93baeaf97fd6965b56f3844f92ef8ac5eb9c12f0eaff34f212a63",
+      "visibleTextSha256": "f0ca971c25bb7eadd35bfea36f2f9cf02edca8fdf39a315933b7c88e72619ce4"
+    },
+    {
+      "path": "content/docs/krds-guideline/04-components/06-feedback/01-step-indicator.mdx",
+      "route": "/docs/krds-guideline/04-components/06-feedback/01-step-indicator",
+      "title": "단계 표시기(Step indicator)",
+      "description": "단계 표시기는 서비스 이용을 위해 사용자가 거쳐야 하는 일련의 단계를 시각화하여 표현한 것으로 진행 상태에 대한 피드백을 사용자에게 전달한다.",
+      "imageCount": 4,
+      "sha256": "9e8deda4907aa7dd6d132d9dc8915633b7f5e483ca07e3c9635411e89a693fed",
+      "visibleTextSha256": "c10af28b8e568ff22048cc3324b16f0d65637bc94e92c8a43796fbd0dc87dd23"
+    },
+    {
+      "path": "content/docs/krds-guideline/04-components/06-feedback/02-spinner.mdx",
+      "route": "/docs/krds-guideline/04-components/06-feedback/02-spinner",
+      "title": "스피너(Spinner)",
+      "description": "스피너는 화면나 요소의 다양한 처리 상태를 시각적으로 표시한 것으로 화면 전체나 일부 요소에 접근하기 위해 일정 시간 동안 대기해야 함을 사용자에게 안내한다.",
+      "imageCount": 0,
+      "sha256": "18fcc9ef427ee1b092546efdcd0f6f0c70b3cb18157ba9eb13e75aeda2b1765a",
+      "visibleTextSha256": "6bd44876d72899ab2b3319eaac6aabc08d5559c655e0e989deed98c7375bca83"
+    },
+    {
+      "path": "content/docs/krds-guideline/04-components/07-help/01-help-panel.mdx",
+      "route": "/docs/krds-guideline/04-components/07-help/01-help-panel",
+      "title": "도움 패널(Help panel)",
+      "description": "도움 패널은 본문 콘텐츠의 섹션이나 일부 요소에 대한 개념/용어 설명, 옵션의 구성, 이용 방법 등과 관련된 정보나 도움말 콘텐츠를 제공하는 사이드 패널이다.",
+      "imageCount": 4,
+      "sha256": "49913f876f22a71d0604f5aa7177541cb0fca40bff1d93d061d4dddce642dc93",
+      "visibleTextSha256": "d5450465bd46603c9ae287d3e8c8dd1308026b4d757bd9ce955f7f555c210457"
+    },
+    {
+      "path": "content/docs/krds-guideline/04-components/07-help/02-tutorial-panel.mdx",
+      "route": "/docs/krds-guideline/04-components/07-help/02-tutorial-panel",
+      "title": "따라하기 패널(Tutorial panel)",
+      "description": "따라하기 패널은 본문 콘텐츠와 관련된 이용 방법을 실제 이용 절차에 따라 단계적으로 수행할 수 있도록 도와주며 코치마크를 실행하는 데 사용되는 사이드 패널이다.",
+      "imageCount": 1,
+      "sha256": "798c1b756f6e19643e4dc81940e4d73c0f040ec38579c534037e15946f244aaf",
+      "visibleTextSha256": "7678363c1edbb969e2ab7169875458535ad1f1652c6ad1238332be8754eb4df3"
+    },
+    {
+      "path": "content/docs/krds-guideline/04-components/07-help/03-contextual-help.mdx",
+      "route": "/docs/krds-guideline/04-components/07-help/03-contextual-help",
+      "title": "맥락적 도움말(Contextual help)",
+      "description": "컴포넌트 주변에 배치되어 해당 컴포넌트의 상태나 관련된 상세 정보를 제공하는 컴포넌트이다. 맥락적 도움말은 정보 아이콘이나 도움 아이콘 버튼을 통해 사용자가 요청하는 경우에만 화면에 표시된다.",
+      "imageCount": 2,
+      "sha256": "63fe793473130627824edbd0bd20e12f276f52cfdad7dbbc6143e8c90918a205",
+      "visibleTextSha256": "555632e7ab072ce4d9ed40d367022a59e2b5126fce53054fef01244b2bdc385a"
+    },
+    {
+      "path": "content/docs/krds-guideline/04-components/07-help/04-coach-mark.mdx",
+      "route": "/docs/krds-guideline/04-components/07-help/04-coach-mark",
+      "title": "코치마크(Coach mark)",
+      "description": "코치마크는 사용자에게 새로 도입된 기능을 안내하거나, 여러 단계를 거쳐 수행해야 하는 복잡한 과업을 사용자가 보다 쉽게 완료할 수 있도록 세부 수행 단계별로 고맥락적 도움말을 제공하는 컴포넌트이다.",
+      "imageCount": 3,
+      "sha256": "2857a7db54fce79a7aa64e8d3a616b024a678ee5143e9eeb61b04fb0c90a00d7",
+      "visibleTextSha256": "d71e0670836a03db5bb2beb0a5217fed6bee52b5630101bf096572ab677f8aae"
+    },
+    {
+      "path": "content/docs/krds-guideline/04-components/07-help/05-tooltip.mdx",
+      "route": "/docs/krds-guideline/04-components/07-help/05-tooltip",
+      "title": "툴팁(Tooltip)",
+      "description": "툴팁은 요소나 본문 텍스트에 제공되는 짧은 부가 설명이다. 설명이 필요한 대상 또는 별도의 활성화 버튼에 마우스를 올리거나 초점을 이동했을 때 설명 텍스트가 표시된다.",
+      "imageCount": 9,
+      "sha256": "f4112cc78c22ba743694f17b9daa20f280142a1df3f3f8069be10d693d9f8109",
+      "visibleTextSha256": "cde6ff7213d313146c5e5a0e49c661baa92803875bbec59ba33e9d1d24b9f9e5"
+    },
+    {
+      "path": "content/docs/krds-guideline/04-components/08-input/01-date-input.mdx",
+      "route": "/docs/krds-guideline/04-components/08-input/01-date-input",
+      "title": "날짜 입력 필드(Date input)",
+      "description": "날짜 입력 필드는 사용자가 특정 날짜 또는 기간을 입력하거나 선택하는 데 사용되는 요소이다.",
+      "imageCount": 7,
+      "sha256": "5d13ca458a2948b9133dc1060946c30c7e059e0e8e94bd695204731a1025f25a",
+      "visibleTextSha256": "c5135bd0b2f4f1dacbfeac95ca0ec5c2221a7a9eecf7919864d3b9c7703dbb40"
+    },
+    {
+      "path": "content/docs/krds-guideline/04-components/08-input/02-textarea.mdx",
+      "route": "/docs/krds-guideline/04-components/08-input/02-textarea",
+      "title": "텍스트 영역(Textarea)",
+      "description": "텍스트 영역은 사용자가 키보드로 글자, 숫자, 기호 등이 조합된 여러 줄의 텍스트를 입력하는 경우에 사용하는 요소이다.",
+      "imageCount": 4,
+      "sha256": "ef802761d300f4e747799387081b5e6d245ade1df107d7019b9f01459db46a65",
+      "visibleTextSha256": "54055fbf237354c49abd09d5df7593fc3e41303bd9ab509b1a39a1578517774d"
+    },
+    {
+      "path": "content/docs/krds-guideline/04-components/08-input/03-text-input.mdx",
+      "route": "/docs/krds-guideline/04-components/08-input/03-text-input",
+      "title": "텍스트 입력 필드(Text input)",
+      "description": "텍스트 입력 필드는 사용자가 키보드로 글자, 숫자, 기호 등이 조합된 한 줄의 짧은 텍스트를 입력하는 경우에 사용하는 요소이다.",
+      "imageCount": 4,
+      "sha256": "3c56479099c163c3a0bd18f4a2b1327d1906b4dc1c36c09d9d842c203f8c8495",
+      "visibleTextSha256": "9d04c416f7636c31398338e7b356ddeb7045e18fa04eb20c74294739d7a5542f"
+    },
+    {
+      "path": "content/docs/krds-guideline/04-components/08-input/04-file-upload.mdx",
+      "route": "/docs/krds-guideline/04-components/08-input/04-file-upload",
+      "title": "파일 업로드(File upload)",
+      "description": "파일 업로드는 하나 이상의 디바이스의 로컬 파일을 선택하고 첨부하는 데 사용하는 입력 컴포넌트이다.",
+      "imageCount": 7,
+      "sha256": "fee94ce85ada0cc956eb4ccfe3a8baad8a2eeebff592cc88ec1d699a218ac90c",
+      "visibleTextSha256": "3641dc49954069145ecc85f19a5f018845adb7ab8d5fdff44eee54ffd98baa00"
+    },
+    {
+      "path": "content/docs/krds-guideline/04-components/09-settings/01-language-switcher.mdx",
+      "route": "/docs/krds-guideline/04-components/09-settings/01-language-switcher",
+      "title": "언어 변경(Language switcher)",
+      "description": "언어 변경은 서비스의 콘텐츠를 표시할 언어를 변경하거나 별도의 외국어 서비스로 이동하는 데 사용되는 요소이다. 한국어가 익숙하지 않은 사용자가 콘텐츠 표시 언어를 변경할 수 있는 수단을 발견하지 못한다면 서비스를 이용할 수 없게 되므로, 디지털 정부서비스로 직관적이고 일관된 방…",
+      "imageCount": 7,
+      "sha256": "a64a7e8ec4fbf95ec54fdb9e1e06186299af43952f834fdbc3c4a2188e713ffc",
+      "visibleTextSha256": "d5370aedd400e8794740bc5af3ab99e066fde26c7d757a93b4754427d8a8518a"
+    },
+    {
+      "path": "content/docs/krds-guideline/04-components/09-settings/02-resize.mdx",
+      "route": "/docs/krds-guideline/04-components/09-settings/02-resize",
+      "title": "화면 크기 조정(Resize)",
+      "description": "화면 크기 조정은 텍스트를 포함하여 화면에 표시되는 정보를 확대하거나 축소하는 데 사용되는 요소이다.",
+      "imageCount": 6,
+      "sha256": "bbdb1dc204a6516aa36c688c023a9a40a90d43a1e0facacf01d3d4d6e0998737",
+      "visibleTextSha256": "69177b1323cece753406b5e4787a14df64d84ec54c7bcf271344b7de655c2673"
+    },
+    {
+      "path": "content/docs/krds-guideline/04-components/10-content/01-accessible-multimedia.mdx",
+      "route": "/docs/krds-guideline/04-components/10-content/01-accessible-multimedia",
+      "title": "접근 가능한 미디어(Accessible multimedia)",
+      "description": "미디어 콘텐츠에 설명이 필요한 경우에 사용하는 컴포넌트이다. 정지된 이미지에 설명을 제공할 때에는 숨김 콘텐츠를, 오디오/비디오/멀티미디어 콘텐츠에 설명을 제공할 때는 접근 가능한 미디어 컴포넌트를 사용한다.",
+      "imageCount": 5,
+      "sha256": "89f2935c7cd01bf502d8b83c1b39d3a9f9a3be0f837c008b43f8c77814443eed",
+      "visibleTextSha256": "dfea45ddac2efb01345845a05a5c156e442a28b53605b5688e3c80d7b343d626"
+    },
+    {
+      "path": "content/docs/krds-guideline/04-components/10-content/02-visually-hidden.mdx",
+      "route": "/docs/krds-guideline/04-components/10-content/02-visually-hidden",
+      "title": "숨긴 콘텐츠(Visually hidden)",
+      "description": "숨긴 콘텐츠는 화면에는 보이지 않지만, 스크린 리더 사용자는 읽을 수 있도록 설계된 컴포넌트이다. 정안 사용자에게는 불필요한 설명을 제공하지 않으면서 스크린 리더 사용자에게는 시각적 콘텐츠, 상호작용 상태 등에 대한 추가적인 정보를 전달할 수 있다.",
+      "imageCount": 0,
+      "sha256": "4734b6732a20155869c5e03c83bf969aa1087821b342f25b310d99d0b521f0de",
+      "visibleTextSha256": "6e191a209d1ad6041e669e74f5cf27e713f872908d5b583d14404402728e2c82"
+    },
+    {
+      "path": "content/docs/krds-guideline/05-basic-patterns/01-personal-identification-input.mdx",
+      "route": "/docs/krds-guideline/05-basic-patterns/01-personal-identification-input",
+      "title": "개인 식별 정보 입력",
+      "description": "개인 식별 정보는 사용자 본인을 포함하여 특정한 개인의 신원을 밝히거나 개인/단체에 대한 기본 정보 확인에 사용되는 모든 정보를 의미한다. 사용자에게 개인 식별 정보의 입력을 요청하기 전에 해당 정보를 반드시 수집해야 하는지 다시 한 번 점검하고 사용자에게 입력이 필요한 이유를…",
+      "imageCount": 11,
+      "sha256": "bed38aa6f738e2f9b677f815a2d08013a8c83f53a3d757690d8b2fb32d0d5cbd",
+      "visibleTextSha256": "5d524619152888d678b947df541c79925755ff0cdae35c274b997ed3f1170f6e"
+    },
+    {
+      "path": "content/docs/krds-guideline/05-basic-patterns/02-help.mdx",
+      "route": "/docs/krds-guideline/05-basic-patterns/02-help",
+      "title": "도움",
+      "description": "도움 패턴은 사용자에게 서비스를 이용하는 동안 사용자 인터페이스의 작동 방식과 사용 방법, 진행 중인 과업 플로(Flow) 등과 관련된 도움 정보를 제공하는 데 사용되는 다양한 유형의 컴포넌트 조합이다. 사용자의 능숙도와 이용 맥락에 적합한 도움 컴포넌트를 설계하여 제공함으로써…",
+      "imageCount": 9,
+      "sha256": "e65d943654ec9630627ceb7a2f75bb2cd86cb724c3a29b63e9a1d7b7338dcabb",
+      "visibleTextSha256": "9ca46b591e42e01daabb600539c98870b4c355f8c43fd52e427b27b67b2c6134"
+    },
+    {
+      "path": "content/docs/krds-guideline/05-basic-patterns/03-consent.mdx",
+      "route": "/docs/krds-guideline/05-basic-patterns/03-consent",
+      "title": "동의",
+      "description": "동의는 웹사이트의 이용 조건 및 절차 등을 명시한 내용을 읽고 동의 여부나 안내 사항의 확인 여부를 확인하는 데 사용되는 패턴이다. 대개 동의가 필요한 약관은 일반적으로 잘 사용되지 않는 용어로 작성되며 양이 매우 방대하므로 사용자의 이해를 도울 수 있도록 요소들을 알기 쉽게 …",
+      "imageCount": 1,
+      "sha256": "cf358b84d1f4e3eb52957ad123d8c3f64e1043b1dc22f6bcf80917aec7994f8f",
+      "visibleTextSha256": "58282ba04ebd71253728caa92930039ad967013d1504848817ce6edd8ff60fd8"
+    },
+    {
+      "path": "content/docs/krds-guideline/05-basic-patterns/04-list-navigation.mdx",
+      "route": "/docs/krds-guideline/05-basic-patterns/04-list-navigation",
+      "title": "목록 탐색",
+      "description": "목록은 의미적으로 관련 있는 다수의 데이터를 연속적으로 배열한 색인이다. 사용자는 목록에서 특정한 항목을 찾고 항목과 관련된 기능을 수행한다. 사용자가 목록에서 원하는 정보를 효과적으로 탐색할 수 있도록 목록의 항목은 일관성 있는 형식과 배치를 유지하고 논리적 순서에 따라 배열…",
+      "imageCount": 0,
+      "sha256": "f7df4cc1c490972c56a99c7f3c89ce2fef7bbaef138d00a1a0ead7d8741e3f9f",
+      "visibleTextSha256": "3be6f5ac0cd82abfa9c5636954bd7f5b84d03afec845f5b496dfd71b741afdd2"
+    },
+    {
+      "path": "content/docs/krds-guideline/05-basic-patterns/05-user-feedback.mdx",
+      "route": "/docs/krds-guideline/05-basic-patterns/05-user-feedback",
+      "title": "사용자 피드백",
+      "description": "사용자 피드백은 사용자로부터 특정 화면/기능 이용 경험에 대한 평가 의견, 불편 사항, 제안 사항을 수집하는 데 사용되는 패턴이다. 서비스 이용 맥락에서 직접적으로 사용자의 의견을 수집할 수 있는 수단이므로 서비스 운영에 매우 중요한 요소이나, 사용자가 의견을 남기는 것이 의무…",
+      "imageCount": 1,
+      "sha256": "cbad9980770d4eb213a8278af706be76e6ccbd542aa48e342b608fd3080fdbea",
+      "visibleTextSha256": "1796dbb50586e320e6b8400d910452f164d3db36115b35a5d2e6fd8776d8989d"
+    },
+    {
+      "path": "content/docs/krds-guideline/05-basic-patterns/06-detail-review.mdx",
+      "route": "/docs/krds-guideline/05-basic-patterns/06-detail-review",
+      "title": "상세 정보 확인",
+      "description": "상세 정보는 특정한 주제에 관한 정보를 제공하는 패턴으로, 효과적인 정보 전달을 위해 텍스트 이외에 다양한 시각적 요소들이 활용된다. 사용자들은 콘텐츠 목록에서 콘텐츠 제목이나 요약 정보를 포함한 링크를 통해 상세 정보에 접근하기 때문에, 사용자가 예상하는 정보를 명확하고 간결…",
+      "imageCount": 7,
+      "sha256": "aa6d6f45b621e7584cf2837129345ee2ef19b08d8acc3d3776815fcca1ab7a6d",
+      "visibleTextSha256": "d457bef1d8d79b0b0facc49835eb126fbd3502a918e9545d231f852789785be3"
+    },
+    {
+      "path": "content/docs/krds-guideline/05-basic-patterns/07-errors.mdx",
+      "route": "/docs/krds-guideline/05-basic-patterns/07-errors",
+      "title": "오류",
+      "description": "오류는 사용자가 요청한 작업을 시스템이 완료하지 못하는 문제가 발생했을 때 제공된다. 발생 가능한 문제를 사전에 안내하는 경고와는 달리, 오류는 이미 발생한 문제에 관한 정보를 사용자에게 알려준다. 오류정보는 단순히 사용자에게 문제가 발생했음을 알려주는 데 그치지 않고 본래 수…",
+      "imageCount": 2,
+      "sha256": "d0e6d498999848bea1c3f70065debb660bfd024c34c2ed63f232107ebb8f59b0",
+      "visibleTextSha256": "405e1a8c20aadf9a84ffb1b18e142017f6efa10be6e207b66f222bc766ce16c0"
+    },
+    {
+      "path": "content/docs/krds-guideline/05-basic-patterns/08-input-form.mdx",
+      "route": "/docs/krds-guideline/05-basic-patterns/08-input-form",
+      "title": "입력폼",
+      "description": "입력폼은 사용자가 데이터를 입력하여 서버로 전송하는 데 사용하는 콘텐츠 섹션으로 하나 이상의 입력 컨트롤로 구성된다.",
+      "imageCount": 11,
+      "sha256": "002a50d08dcdae2f342cd64087ac2dc2e782998b2c2ebde17257216ede7ba8e3",
+      "visibleTextSha256": "6af54b0ede9760d4f5509f9b097d5da71951d0deeb21b06ac296e930f28005b3"
+    },
+    {
+      "path": "content/docs/krds-guideline/05-basic-patterns/09-file-attachment.mdx",
+      "route": "/docs/krds-guideline/05-basic-patterns/09-file-attachment",
+      "title": "첨부파일",
+      "description": "첨부파일은 게시물, 본문 등에 제공되는 다운로드 가능한 콘텐츠를 의미한다.",
+      "imageCount": 0,
+      "sha256": "e144c37ee14b66a41d554f78a94e9071c5866ddafd0f07d3634b0aa5796e85fd",
+      "visibleTextSha256": "6a8bddaab677623a50ca553a228bb0aa49203285575beb23641072d8238f6eef"
+    },
+    {
+      "path": "content/docs/krds-guideline/05-basic-patterns/10-filtering-sorting.mdx",
+      "route": "/docs/krds-guideline/05-basic-patterns/10-filtering-sorting",
+      "title": "필터링·정렬",
+      "description": "필터링·정렬은 데이터 집합에서 사용자가 원하는 속성과 범주에 속하는 데이터 항목을 선별적으로 표시하거나 특정 속성/범주를 기준으로 조직화하는 방법이다. 필터링·정렬을 이용하면 데이터 목록에서 탐색할 범위를 좁힐 수 있기 때문에 검색 결과 등 목록을 탐색하여 원하는 정보를 찾는 …",
+      "imageCount": 16,
+      "sha256": "01009448d2412669e43817043d20317b1b4ce1780519a8f0ec766d1e8ddf39f0",
+      "visibleTextSha256": "0b3132834ef1ec29952bfeea32350882aded0fb1a09530db243ad6d958c1b244"
+    },
+    {
+      "path": "content/docs/krds-guideline/05-basic-patterns/11-confirmation.mdx",
+      "route": "/docs/krds-guideline/05-basic-patterns/11-confirmation",
+      "title": "확인",
+      "description": "확인은 사용자가 요청한 행위가 쉽게 취소할 수 없는 결과로 이어지거나, 행동의 효과 또는 부작용을 사용자가 인지해야 하는 경우에 사용한다. 사용자가 작업 내용을 확인하거나 수행을 승인하도록 함으로써, 어떤 작업이 수행될 것인지에 관한 불확실성을 감소시키고 내용을 한 번 더 점검…",
+      "imageCount": 1,
+      "sha256": "e5972175627cf43f2425ce0a175595a6d829912a80bc0516bd599f011933d2e2",
+      "visibleTextSha256": "7d225b58932a3dd210c2ee5b8f767380cd069c4e2abe215f0c851a7505b9666b"
+    },
+    {
+      "path": "content/docs/krds-guideline/06-service-patterns/01-visit/01-overview.mdx",
+      "route": "/docs/krds-guideline/06-service-patterns/01-visit/01-overview",
+      "title": "개요",
+      "description": "방문은 사용자가 디지털 서비스에 접속하여 원하는 상세 정보로 연결되는 과정으로 대개 정보 구조의 가장 상위 수준인 서비스의 메인 화면에서 시작된다. 사용자와 서비스가 만나게 되는 첫 지점이므로 서비스에 대한 첫인상을 결정하는 중요한 화면이다. 대부분의 사용자는 구체적인 맥락 없…",
+      "imageCount": 2,
+      "sha256": "84165350a6a1e2123bad3edbd5d43de6aa01d5831a5dcfc2187489f812702141",
+      "visibleTextSha256": "9f3e464b78cf7675c14af2ab09f323f73ef2f065dc577917f4540f616bad4b02"
+    },
+    {
+      "path": "content/docs/krds-guideline/06-service-patterns/01-visit/02-visit.mdx",
+      "route": "/docs/krds-guideline/06-service-patterns/01-visit/02-visit",
+      "title": "방문",
+      "description": "메인 화면에는 사용자가 원하는 다양한 콘텐츠와 서비스가 배치된다. 이를 구성하는 요소별로 표현과 작동 방식을 일관성 있게 구성하여 사용자가 원하는 정보를 탐색하고 이동하는 과정에서 불필요한 시간이 소요되지 않도록 해야 한다.",
+      "imageCount": 3,
+      "sha256": "92694a5bcb6273d403f6634f4a320bec22f7a8305e54fd3f2e65dc61e3899a98",
+      "visibleTextSha256": "998a107210cbea2b40e4c9ff1c8536d66b52ba3255bcee2afb0f6dc51343242f"
+    },
+    {
+      "path": "content/docs/krds-guideline/06-service-patterns/02-search/01-overview.mdx",
+      "route": "/docs/krds-guideline/06-service-patterns/02-search/01-overview",
+      "title": "개요",
+      "description": "검색은 사용자가 큰 데이터 집합에서 원하는 정보를 찾을 수 있도록 도와주는 기능이다. 사용자가 무엇을 찾고 싶은지 알고 있는 경우에는 일차적인 정보 탐색 수단으로 사용될 수 있으며, 탐색 수단을 통해 원하는 콘텐츠를 찾지 못하는 상황에는 특정 정보와 관련된 단서를 제공함으로써 …",
+      "imageCount": 2,
+      "sha256": "e8f7a6b8257b142940ba558909e40e2906d731efb41f98b088fb2a999c6b2c70",
+      "visibleTextSha256": "b05211d30e8036543a88a7eca11a47552d535ad011576bd56fd104cca7ad2a52"
+    },
+    {
+      "path": "content/docs/krds-guideline/06-service-patterns/02-search/02-find-search-feature.mdx",
+      "route": "/docs/krds-guideline/06-service-patterns/02-search/02-find-search-feature",
+      "title": "검색 기능 찾기",
+      "description": "통합 검색 기능을 실행할 수 있는 버튼이나 링크가 메인 화면 또는 일부 화면에서만 제공될 경우, 사용자는 통합 검색 기능이 제공되지 않는 것으로 오인하여 필요한 정보를 발견하지 못할 수 있다. 만일 사용자가 어떤 화면에서 통합 검색 기능을 사용할 수 있는지를 기억하고 있는 상황이라…",
+      "imageCount": 4,
+      "sha256": "5039a4d50d9689663970ec40a97061dd218cb75c84f0b976f3090f8de643160e",
+      "visibleTextSha256": "86c1befded8d0835bd5b583c7a586fed22fc855fa996e7f0c31fc142408fb50f"
+    },
+    {
+      "path": "content/docs/krds-guideline/06-service-patterns/02-search/03-enter-search-query.mdx",
+      "route": "/docs/krds-guideline/06-service-patterns/02-search/03-enter-search-query",
+      "title": "검색어 입력",
+      "description": "헤더에서 확장된 검색어 입력 필드를 사용하는 경우, 검색어 입력 필드와 실시간 검색어 제안 레이어를 제외한 나머지 영역의 명도나 불투명도를 낮추어 사용자가 검색어를 입력하는 행동에 집중할 수 있도록 도와야 한다.",
+      "imageCount": 6,
+      "sha256": "d6ed31556651c826432717c1f414b40c92a5839a8b4dd636484bdcbc50049d64",
+      "visibleTextSha256": "1be47d4bd09731363eaaa526feec27283fb4109bed4b1cc4570ac3f38b64fe6f"
+    },
+    {
+      "path": "content/docs/krds-guideline/06-service-patterns/02-search/04-review-search-results.mdx",
+      "route": "/docs/krds-guideline/06-service-patterns/02-search/04-review-search-results",
+      "title": "검색 결과 확인",
+      "description": "검색 결과가 표시되기 전까지 스피너와 스켈레톤(Skeleton)을 표시하여 검색이 진행되고 있음을 사용자가 인지할 수 있도록 해야 한다. 검색 엔진이 느리거나 고급 검색으로 인해 결과 표시에 더 많은 시간이 소요되는 경우 스피너 대신 진행률 표시 막대를 제공함으로써 대략적으로 …",
+      "imageCount": 5,
+      "sha256": "b0d484487873a620eaf467a8893b1e50d569776cb96196960d0e4cc21ce1726d",
+      "visibleTextSha256": "29b9a172918211e3b1c622cd37d258bb30bf27db1177c2d9e462d3470d5a4d0e"
+    },
+    {
+      "path": "content/docs/krds-guideline/06-service-patterns/02-search/05-advanced-search.mdx",
+      "route": "/docs/krds-guideline/06-service-patterns/02-search/05-advanced-search",
+      "title": "상세 검색",
+      "description": "기본 정렬, 필터 컨트롤만을 사용한 검색으로, 필터/정렬 컨트롤은 화면 너비가 허용하는 한 목록 상단에 막대 형태로 제공하여 모든 컨트롤이 시각적으로 드러나 있어야 한다.",
+      "imageCount": 5,
+      "sha256": "3b447ecf6097f411cea634743887862ea26f54aea36dec8f3de6442e024a7ec6",
+      "visibleTextSha256": "419f39b8597949287964a740197afbe354dcb8a5e4fda7893e5bfbfc48265dde"
+    },
+    {
+      "path": "content/docs/krds-guideline/06-service-patterns/02-search/06-use-search-results.mdx",
+      "route": "/docs/krds-guideline/06-service-patterns/02-search/06-use-search-results",
+      "title": "검색 결과 이용",
+      "description": "사용자가 빈번하게 검색하는 주제별로 검색 결과를 구조화하여 제공하게 되면 사용자는 원하는 정보에 더 빠르고 정확하게 접근할 수 있다.",
+      "imageCount": 3,
+      "sha256": "d7ae9a1cd7b421ffe9f7c3b6d3459346d09a13cc31520117e7ae9ce9f3d30544",
+      "visibleTextSha256": "83782d2b60ef46df8460b1cf5b6a9581061d16827d5fd3657e4a7d37018843b0"
+    },
+    {
+      "path": "content/docs/krds-guideline/06-service-patterns/02-search/07-search-again.mdx",
+      "route": "/docs/krds-guideline/06-service-patterns/02-search/07-search-again",
+      "title": "재검색",
+      "description": "화면 너비로 인해 상세 검색 컨트롤이 모달에서 제공되지 않는 한 상세 검색 컨트롤은 사용자가 검색 과정을 반복하는 동안 항상 표시되어야 한다. 상세 검색 컨트롤을 숨기면 재검색 과정에서 상세 검색 수단을 발견하지 못하거나, 설정한 조건을 기억하지 못해 실수할 가능성이 높아진다.",
+      "imageCount": 2,
+      "sha256": "60a16de96fc6e1c829bc7e66cc2bdf392083f598820a2dfb94429ec637ae24be",
+      "visibleTextSha256": "21313c774aa351d2d03f381e8bbba4e592caec3274558718adf3230fbfca51a3"
+    },
+    {
+      "path": "content/docs/krds-guideline/06-service-patterns/02-search/08-end-search.mdx",
+      "route": "/docs/krds-guideline/06-service-patterns/02-search/08-end-search",
+      "title": "검색 종료",
+      "description": "01 검색 과업 맥락에서 벗어나 다른 화면 또는 다른 탐색 수단에 빠르게 접근할 수 있도록 해야 한다.",
+      "imageCount": 2,
+      "sha256": "54c9785b60729ad2f8c785722cce539e09ac0f05085cdd58eeb752f5e13b3c6b",
+      "visibleTextSha256": "ef34d1973472dfb04e3b008b6939785911b83a51cdb69ddbd86bce152b3fdcd0"
+    },
+    {
+      "path": "content/docs/krds-guideline/06-service-patterns/03-login/01-overview.mdx",
+      "route": "/docs/krds-guideline/06-service-patterns/03-login/01-overview",
+      "title": "개요",
+      "description": "로그인은 사용자의 신원을 확인하는 과정으로 사용자가 서비스에 접근할 수 있도록 하는 수단이다. 사용자에게 개인화된 경험을 제공하거나 사용자의 신분/신원을 인증하고자 하는 경우에 사용하기 적합하다.",
+      "imageCount": 1,
+      "sha256": "2d49d5d381ca2226308d7b15ff9f251e00decdc69863b955cb4d3641fdc9ec82",
+      "visibleTextSha256": "cff3d6220a58142f028f764fc96ba4cb45bc9e182b557757c55b57b3cd25cacd"
+    },
+    {
+      "path": "content/docs/krds-guideline/06-service-patterns/03-login/02-find-login-feature.mdx",
+      "route": "/docs/krds-guideline/06-service-patterns/03-login/02-find-login-feature",
+      "title": "로그인 기능 찾기",
+      "description": "로그인으로 이동할 수 있는 링크가 메인 화면 또는 일부 화면에만 제공될 경우, 로그인이 필요한 사용자는 특정 화면으로 이동하는 경우에만 기능을 이용할 수 있어 이용에 어려움을 겪게 된다. 주요 정보 및 서비스를 확인하는 데 로그인이 필요한 경우, 서비스 첫 화면에 로그인을 유도하는…",
+      "imageCount": 2,
+      "sha256": "4a0c51e3f8535258d12734e8e6421cbac9689a39d5a378fcf9422c38ee1559ed",
+      "visibleTextSha256": "92879c235f6e57b13806fd1e4dd521b9597cd9f364c09cfa2141db1af6a3aa80"
+    },
+    {
+      "path": "content/docs/krds-guideline/06-service-patterns/03-login/03-login-guidance.mdx",
+      "route": "/docs/krds-guideline/06-service-patterns/03-login/03-login-guidance",
+      "title": "로그인 안내",
+      "description": "로그인이 필수적인 화면/기능에 접근을 시도하는 경우에 사용한다.",
+      "imageCount": 7,
+      "sha256": "15abed2d8691904eab3ba26834b8a3c1c0992add177993c3ffb03fa12bb5dd06",
+      "visibleTextSha256": "3b1164343f615765f51065d5433c3f0cfb2983eb3b724d9e5b54b4defc0ec904"
+    },
+    {
+      "path": "content/docs/krds-guideline/06-service-patterns/03-login/04-choose-login-method.mdx",
+      "route": "/docs/krds-guideline/06-service-patterns/03-login/04-choose-login-method",
+      "title": "로그인 방식 확인·선택",
+      "description": "한 화면에서 로그인 방식에 대한 비교와 선택을 수행할 수 있게 함",
+      "imageCount": 4,
+      "sha256": "6046c2f56ce7a6b42452cb130e9be0d84c83db3ea8b00c81078720633444c42b",
+      "visibleTextSha256": "27b298518768b435253fc0379f75e9df65624ab51567559ecc06c47eaecd3b13"
+    },
+    {
+      "path": "content/docs/krds-guideline/06-service-patterns/03-login/05-enter-login-information.mdx",
+      "route": "/docs/krds-guideline/06-service-patterns/03-login/05-enter-login-information",
+      "title": "로그인 정보 입력",
+      "description": "이메일 주소를 아이디로 사용하는 경우, 아이디를 이메일 형식으로 입력해야 한다는 것을 안내하지 않으면 기억에 의존해야 하므로 많은 시간이 걸린다. 사용자가 입력해야 하는 정보를 추측하지 않도록 레이블 및 도움말을 플레이스홀더가 아닌 레이블로 제공한다.",
+      "imageCount": 4,
+      "sha256": "b8a3b6a97e4044d87bbc9bb9906e7194638517d91e691267b812d18bebf71c5a",
+      "visibleTextSha256": "847525733acc46279be534e2357809de51ce7ed3ded52a8bedad0671f05e69e0"
+    },
+    {
+      "path": "content/docs/krds-guideline/06-service-patterns/03-login/06-login-complete.mdx",
+      "route": "/docs/krds-guideline/06-service-patterns/03-login/06-login-complete",
+      "title": "로그인 완료",
+      "description": "로그인 플로(Flow)에 진입하기 전의 사용자 여정이 단절되지 않도록 로그인을 시도한 상황에 적합한 화면으로 연결해야 한다.",
+      "imageCount": 2,
+      "sha256": "bf5da3a97ec32f0d2fe2a10cbb914a204f4773798dd66d476d6d2e4d9c1c00cd",
+      "visibleTextSha256": "bd5a2bd978e6cf63207cd9608146f77791cebb520ccb2719b09f16bf0e26c199"
+    },
+    {
+      "path": "content/docs/krds-guideline/06-service-patterns/03-login/07-use-service.mdx",
+      "route": "/docs/krds-guideline/06-service-patterns/03-login/07-use-service",
+      "title": "서비스 이용",
+      "description": "사용자가 서비스를 이용하는 중에 전역적으로 제공되는 로그인 만료 안내로 모달 양식으로 제공된다.",
+      "imageCount": 5,
+      "sha256": "6b721886675c26f98607977d088cce911717f7aad80c5602772b21c4ed0b9d27",
+      "visibleTextSha256": "0d3074d3eb016ed4e8b3d7cf03bfb27be7e312a4f563fc90b1cb941ee7831399"
+    },
+    {
+      "path": "content/docs/krds-guideline/06-service-patterns/03-login/08-logout.mdx",
+      "route": "/docs/krds-guideline/06-service-patterns/03-login/08-logout",
+      "title": "로그아웃",
+      "description": "서비스의 이용을 완전하게 종료하기로 결정한 사용자 또는 로그인 상태를 해제하고자 하는 사용자가 로그아웃을 시도한 상황",
+      "imageCount": 4,
+      "sha256": "f2ec464bde3f79a84a41d2c6e910569700a5526f284a99d9f157f3ce3c36b68b",
+      "visibleTextSha256": "ec23df8805cac8622d8f11662c5524fdce64d3c9f1b8db58d321429d68b5ab02"
+    },
+    {
+      "path": "content/docs/krds-guideline/06-service-patterns/04-application/01-overview.mdx",
+      "route": "/docs/krds-guideline/06-service-patterns/04-application/01-overview",
+      "title": "개요",
+      "description": "신청은 사용자가 서비스 제공 기관에 요구 사항을 알리기 위해 서식을 작성하는 과업으로 관련 법률에 명시된 종류의 민원 외에 사용자가 특정한 내용을 요청하는 모든 행동을 포함한다.",
+      "imageCount": 2,
+      "sha256": "d312298b5205b390a77d1fd0deab60005cef36a1fb38141958f9c3acf86d1f39",
+      "visibleTextSha256": "9416517a52ccd7b08bd39cd9b17fd9087db4866d5b5f1e42d13dae736fc3b6b3"
+    },
+    {
+      "path": "content/docs/krds-guideline/06-service-patterns/04-application/02-find-application-target.mdx",
+      "route": "/docs/krds-guideline/06-service-patterns/04-application/02-find-application-target",
+      "title": "신청 대상 탐색",
+      "description": "사용자가 목록에서 원하는 서비스를 빠르게 탐색할 수 있도록 서비스의 특성과 사용자의 요구에 따라 메타 데이터를 설계하고 부여해야 한다.",
+      "imageCount": 4,
+      "sha256": "3f626f1e070fbe8cae9f40ef39203b36eb1f6a95a02a2069a5f71428c058ac44",
+      "visibleTextSha256": "3f701e6e6040cf5391d13a930e6b772385e36849701a74b7ae6e0b5568f222d1"
+    },
+    {
+      "path": "content/docs/krds-guideline/06-service-patterns/04-application/03-review-service-information.mdx",
+      "route": "/docs/krds-guideline/06-service-patterns/04-application/03-review-service-information",
+      "title": "서비스 정보 확인",
+      "description": "정확히 어떤 항목에 대한 상세 정보인지 사용자가 명확하게 파악할 수 있도록 신청 서비스명을 본문 콘텐츠의 제목으로 제공하고 본문에서 가장 강조된 형태로 표현해야 한다.",
+      "imageCount": 5,
+      "sha256": "630b836524f40bb07d88558716cd5c2ba763be840374516aa5a6ac4163d40355",
+      "visibleTextSha256": "4b7a80af2fbc1af36d8640fe6ff89efa452860f5779540e0c7b89bb07e24e4ec"
+    },
+    {
+      "path": "content/docs/krds-guideline/06-service-patterns/04-application/04-check-notices-and-eligibility.mdx",
+      "route": "/docs/krds-guideline/06-service-patterns/04-application/04-check-notices-and-eligibility",
+      "title": "유의 사항·자격 확인",
+      "description": "신청서 입력폼 상단에 직접 제공되는 형태로 안내하고자 하는 정보의 중요도에 따라 디스클로저 컴포넌트와 함께 사용할 수 있다.",
+      "imageCount": 2,
+      "sha256": "9aeb9a6deef269d7217371377f47e20b15bca5e76a1695cbb7f0d5c40ddd5e20",
+      "visibleTextSha256": "86c032b9c9426d2a4e7d60c1a6e6c8f0fd42170d751e3e144989d798a38e3dd7"
+    },
+    {
+      "path": "content/docs/krds-guideline/06-service-patterns/04-application/05-fill-application-form.mdx",
+      "route": "/docs/krds-guideline/06-service-patterns/04-application/05-fill-application-form",
+      "title": "신청서 작성",
+      "description": "민원 신청 시 필요한 구비서류를 사용자가 직접 제출하지 않고 전산망에서 조회하여 처리할 수 있도록 행정정보 공동이용을 활용하여 사용자가 서비스 신청 시 첨부해야 하는 구비서류를 최소화한다. 이 경우 제출하지 않는 구비서류는 행정정보 공동이용을 통해 처리됨을 안내한다. 이를 통해…",
+      "imageCount": 5,
+      "sha256": "3cc01ecdd1e6a6a236f6a82a2d418adb86165f889a6616bdb861de2098afb8c7",
+      "visibleTextSha256": "4612575a8ae60956f8977987699dc79a099bb5c2b7ebdf64e5bb2f0a50a17c1f"
+    },
+    {
+      "path": "content/docs/krds-guideline/06-service-patterns/04-application/06-review-and-confirm.mdx",
+      "route": "/docs/krds-guideline/06-service-patterns/04-application/06-review-and-confirm",
+      "title": "확인·확정",
+      "description": "확인 절차를 모달에서 진행하는 형태로 사용자에게 안내해야 할 핵심 정보의 양이 적어 모달에서 스크롤 없이 표현할 수 있는 경우에 사용하기 적합하다.",
+      "imageCount": 1,
+      "sha256": "12ca069fdc3537b23ee074c6120d07f9fab253b84e0befe2eaf858a8d071f70a",
+      "visibleTextSha256": "21917ef08fd164d8e503b4489cb174416e94e59f5a2182568cc5f8f81c9d815b"
+    },
+    {
+      "path": "content/docs/krds-guideline/06-service-patterns/04-application/07-complete.mdx",
+      "route": "/docs/krds-guideline/06-service-patterns/04-application/07-complete",
+      "title": "완료",
+      "description": "신청서 제출이 완료된 이후에는 반드시 완료 화면으로 이동하여 사용자가 신청서가 정상적으로 제출되었음을 확인하고 신뢰할 수 있도록 해야 한다. 제출 후 '완료'에 대한 피드백 없이 메인 화면이나 신청 내역 화면으로 이동하게 되면 사용자는 당황할 수 있다.",
+      "imageCount": 4,
+      "sha256": "c011dfed77ea018c544fe2a63cbf15ce844eb1fa5cbb4b2c7b5157f6b6b26cba",
+      "visibleTextSha256": "6340fd5e5cd83aeaf48bb55b8ebbb1549a6ca5dc686740d4ff7f9b39e9f50963"
+    },
+    {
+      "path": "content/docs/krds-guideline/06-service-patterns/04-application/08-check-application-result.mdx",
+      "route": "/docs/krds-guideline/06-service-patterns/04-application/08-check-application-result",
+      "title": "신청 결과 확인",
+      "description": "a. 신청일/취소일 b. 신청 처리 절차/현재 진행 상태",
+      "imageCount": 4,
+      "sha256": "b90c90b1e1a99faa6343d84b4f23d99880761f0bbb93cbdd1aba688d2de59900",
+      "visibleTextSha256": "5f2d0d237b575ced139bc33517e778705440e18766ff80fd2cd1282d19d96629"
+    },
+    {
+      "path": "content/docs/krds-guideline/06-service-patterns/05-policy-information-review/01-overview.mdx",
+      "route": "/docs/krds-guideline/06-service-patterns/05-policy-information-review/01-overview",
+      "title": "개요",
+      "description": "정책 정보 확인은 디지털 서비스에 개제된 정부/기관의 행동 방침, 계획, 법률에 관한 정보를 사용자가 확인하는 과업이다.",
+      "imageCount": 1,
+      "sha256": "3f6bd9d70da90bb32061ed9831d92010861a7836ebafe2fdbcbab781642fe0ab",
+      "visibleTextSha256": "23174aba3d7510ea35a75be6c81d7953563b7d512efcb87c3a2672611ff3e056"
+    },
+    {
+      "path": "content/docs/krds-guideline/06-service-patterns/05-policy-information-review/02-explore-policy.mdx",
+      "route": "/docs/krds-guideline/06-service-patterns/05-policy-information-review/02-explore-policy",
+      "title": "정책 탐색",
+      "description": "분류별 정책을 개별 목록으로만 제공하게 되면 사용자는 다양한 조건에 따라 정책을 탐색할 수 없어 필요한 정책 정보를 발견하는 데 어려움을 겪게 된다.",
+      "imageCount": 3,
+      "sha256": "7c8fe0e7e2537155baac6503f6bdeda492367ed9184f493318dcf4c82667f4fe",
+      "visibleTextSha256": "59fa58356bad70a5e79410da9ec8434a211f29e02235fbac897b2cd46fdac520"
+    },
+    {
+      "path": "content/docs/krds-guideline/06-service-patterns/05-policy-information-review/03-review-information.mdx",
+      "route": "/docs/krds-guideline/06-service-patterns/05-policy-information-review/03-review-information",
+      "title": "정보 확인",
+      "description": "정확히 어떤 항목에 대한 상세 정보인지 사용자가 명확하게 파악할 수 있도록 정책명을 제목으로 제공하고 본문에서 가장 강조된 형태로 표현해야 한다.",
+      "imageCount": 3,
+      "sha256": "9c43b15c582c69478550d1c0fb0f2052caace6dc80754479ec55f16e89cbd6e0",
+      "visibleTextSha256": "86efd9835e5b973b284497e5d492cd6053ec8a063aed1c51d21866ec3916d7cd"
+    },
+    {
+      "path": "content/docs/krds-guideline/06-service-patterns/05-policy-information-review/04-explore-policy-resources.mdx",
+      "route": "/docs/krds-guideline/06-service-patterns/05-policy-information-review/04-explore-policy-resources",
+      "title": "정책 자료 탐색",
+      "description": "사용자가 주로 찾는 자료의 특성을 고려하여 목록에 필터링, 정렬 방식, 상세 검색(기간, 자료 유형 등) 기능을 제공하여 사용자가 여러 분류 체계에 해당하는 정보를 효과적으로 조회할 수 있도록 만든다.",
+      "imageCount": 3,
+      "sha256": "5d584e2739865a5bef69b42979b913898400680f1860b5c3ec69fa3598a209e5",
+      "visibleTextSha256": "57dcec36283462ce1b6e4f7533ed0650436e0c0d52a54e0ed7def3433dec1f35"
+    },
+    {
+      "path": "content/docs/krds-guideline/07-appendix/01-glossary.mdx",
+      "route": "/docs/krds-guideline/07-appendix/01-glossary",
+      "title": "용어집",
+      "description": "WAI-ARIA(Web Accessibility Initiative - Accessible Rich Internet Applications) 웹 콘텐츠 및 응용 프로그램의 접근성 및 상호운용성을 향상시키는 프레임워크를 제공하는 W3C의 기술 사양",
+      "imageCount": 0,
+      "sha256": "883c5e4af79404bb765083bc9ab739b005d7810ef34718a4d65c5723213ec992",
+      "visibleTextSha256": "a933026d867e5671bf7ee5848f65d9aa913a0270e9ac0e683c902e6e65773253"
+    },
+    {
+      "path": "content/docs/krds-guideline/index.mdx",
+      "route": "/docs/krds-guideline",
+      "title": "KRDS 가이드라인",
+      "description": "디지털 정부서비스 UI/UX 가이드라인(2025.08)을 탐색하기 쉽게 정리한 문서입니다.",
+      "imageCount": 0,
+      "sha256": "53c8964b8374014b41acd8931daa40602ec19f63dba56d523091d9f0d9c80ddc",
+      "visibleTextSha256": "ba7faa56be5395d3f1420506c53035f3d7241e3f55251ba40be38bc3498ef4c6"
+    }
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "title": "입력",
+  "pages": [
+    "01-date-input",
+    "02-textarea",
+    "03-text-input",
+    "04-file-upload"
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "title": "기본 패턴",
+  "pages": [
+    "01-personal-identification-input",
+    "02-help",
+    "03-consent",
+    "04-list-navigation",
+    "05-user-feedback",
+    "06-detail-review",
+    "07-errors",
+    "08-input-form",
+    "09-file-attachment",
+    "10-filtering-sorting",
+    "11-confirmation"
+  ]
+}

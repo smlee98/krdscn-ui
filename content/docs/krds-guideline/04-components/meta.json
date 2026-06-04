@@ -1,0 +1,15 @@
+{
+  "title": "컴포넌트",
+  "pages": [
+    "01-identity",
+    "02-navigation",
+    "03-layout-display",
+    "04-actions",
+    "05-selection",
+    "06-feedback",
+    "07-help",
+    "08-input",
+    "09-settings",
+    "10-content"
+  ]
+}

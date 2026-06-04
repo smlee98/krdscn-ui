@@ -1,0 +1,13 @@
+{
+  "title": "검색",
+  "pages": [
+    "01-overview",
+    "02-find-search-feature",
+    "03-enter-search-query",
+    "04-review-search-results",
+    "05-advanced-search",
+    "06-use-search-results",
+    "07-search-again",
+    "08-end-search"
+  ]
+}

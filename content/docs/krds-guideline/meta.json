@@ -1,0 +1,13 @@
+{
+  "title": "KRDS 가이드라인",
+  "pages": [
+    "index",
+    "01-introduction",
+    "02-design-principles",
+    "03-design-style",
+    "04-components",
+    "05-basic-patterns",
+    "06-service-patterns",
+    "07-appendix"
+  ]
+}

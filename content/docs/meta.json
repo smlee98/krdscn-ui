@@ -1,0 +1,13 @@
+{
+  "title": "Docs",
+  "pages": [
+    "index",
+    "installation",
+    "registry",
+    "krds-guideline",
+    "components",
+    "theming",
+    "rtl",
+    "forms"
+  ]
+}
