@@ -18,6 +18,12 @@ node_modules
 out
 .eslintcache
 
+# fumadocs generated source
+.source
+
+# shadcn registry build output
+public/r
+
 # Debug & logs
 debug.log
 yarn-debug.log*
