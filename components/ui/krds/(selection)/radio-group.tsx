@@ -200,10 +200,11 @@ function RadioChip({ size = "medium", value, children, disabled, className }: Ra
   const ctx = useRadioGroupContext();
   const isChecked = ctx.value === value;
 
+  // KRDS form-chip heights (ref _form_chip.scss): small 40px / medium 48px / large 56px.
   const sizeClass = {
-    small: "h-7 px-2.5 rounded-full text-xs",
-    medium: "h-8 px-3 rounded-full text-sm",
-    large: "h-10 px-4 rounded-full text-base"
+    small: "h-10 px-2.5 rounded-full text-sm",
+    medium: "h-12 px-3 rounded-full text-base",
+    large: "h-14 px-4 rounded-full text-base"
   }[size];
 
   return (

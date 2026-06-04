@@ -9,6 +9,7 @@ import {
   CarouselDots as KrdsCarouselDots,
   CarouselItem as KrdsCarouselItem,
   CarouselNext as KrdsCarouselNext,
+  CarouselMore as KrdsCarouselMore,
   CarouselNumber as KrdsCarouselNumber,
   CarouselPlayPause as KrdsCarouselPlayPause,
   CarouselPrevious as KrdsCarouselPrevious,
@@ -17,6 +18,7 @@ import {
 import type {
   CarouselArrowProps,
   CarouselDotsProps,
+  CarouselMoreProps,
   CarouselNumberProps,
   CarouselPlayPauseProps,
   CarouselProps
@@ -37,6 +39,7 @@ export type {
   CarouselNumberProps,
   CarouselDotsProps,
   CarouselPlayPauseProps,
+  CarouselMoreProps,
   CarouselApi
 } from "@/components/ui/krds/(layout)/carousel";
 
@@ -125,5 +128,12 @@ export function CarouselPlayPause(props: CarouselPlayPauseProps) {
   const system = useUISystem();
   if (system === "krds") return <KrdsCarouselPlayPause {...props} />;
   // shadcn has no autoplay control — KRDS-only chrome, dropped.
+  return null;
+}
+
+export function CarouselMore(props: CarouselMoreProps) {
+  const system = useUISystem();
+  if (system === "krds") return <KrdsCarouselMore {...props} />;
+  // shadcn has no carousel "more" affordance — KRDS-only chrome, dropped.
   return null;
 }

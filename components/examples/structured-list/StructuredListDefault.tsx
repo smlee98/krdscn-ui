@@ -6,6 +6,7 @@ import {
   StructuredListBadge,
   StructuredListBody,
   StructuredListDescription,
+  StructuredListGroup,
   StructuredListHeader,
   StructuredListMetadata,
   StructuredListMetadataItem,
@@ -17,8 +18,9 @@ import {
 
 export default function StructuredListDefault() {
   return (
-    <StructuredList className="w-full" variant="vertical">
-      <StructuredListBody>
+    <StructuredListGroup className="w-full">
+      <StructuredList variant="vertical">
+        <StructuredListBody>
         <StructuredListHeader>
           <StructuredListBadge>복지</StructuredListBadge>
           <StructuredListTitle>아동수당 신청 안내</StructuredListTitle>
@@ -45,7 +47,8 @@ export default function StructuredListDefault() {
             신청하기
           </Button>
         </StructuredListActions>
-      </StructuredListBody>
-    </StructuredList>
+        </StructuredListBody>
+      </StructuredList>
+    </StructuredListGroup>
   );
 }

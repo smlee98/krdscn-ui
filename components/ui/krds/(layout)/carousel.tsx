@@ -15,7 +15,7 @@
 "use client";
 
 import * as React from "react";
-import { ChevronLeft, ChevronRight, Pause, Play } from "lucide-react";
+import { ChevronLeft, ChevronRight, Pause, Play, Plus } from "lucide-react";
 
 import {
   Carousel as ShadcnCarousel,
@@ -278,6 +278,55 @@ function CarouselPlayPause({
   );
 }
 
+// ─── CarouselMore ─────────────────────────────────────────────────────────────
+// Reference visual banner (carousel_banner.html) `a.swiper-button-more` — a "더 보기"
+// (more) affordance with a plus icon. Renders as a link when `href` is given, else a
+// button. Shares the circular KRDS arrow-button chrome.
+
+type CarouselMoreProps = Omit<React.ComponentProps<"a">, "href"> & {
+  href?: string;
+  size?: CarouselArrowSize;
+  /** Accessible label. Defaults to "모든 슬라이드 보기". */
+  label?: string;
+};
+
+function CarouselMore({ href, size = "small", label = "모든 슬라이드 보기", className, ...rest }: CarouselMoreProps) {
+  const classes = cn(
+    "inline-flex shrink-0 items-center justify-center rounded-full bg-krds-surface text-krds-foreground",
+    "border-krds-border-light border transition-colors",
+    "hover:border-krds-border",
+    "focus:krds-focus-ring",
+    ARROW_SIZE_CLASS[size],
+    className
+  );
+  const inner = (
+    <>
+      <Plus className={cn("shrink-0", ARROW_ICON_CLASS[size])} aria-hidden="true" />
+      <span className="sr-only">{label}</span>
+    </>
+  );
+  if (href) {
+    return (
+      <a data-slot="krds-carousel-more" href={href} aria-label={label} className={classes} {...rest}>
+        {inner}
+      </a>
+    );
+  }
+  const { onClick, ...anchorRest } = rest;
+  return (
+    <button
+      type="button"
+      data-slot="krds-carousel-more"
+      aria-label={label}
+      onClick={onClick as unknown as React.MouseEventHandler<HTMLButtonElement>}
+      className={classes}
+      {...(anchorRest as React.ComponentProps<"button">)}
+    >
+      {inner}
+    </button>
+  );
+}
+
 export {
   Carousel,
   CarouselContent,
@@ -288,6 +337,7 @@ export {
   CarouselNumber,
   CarouselDots,
   CarouselPlayPause,
+  CarouselMore,
   useKrdsCarousel
 };
 export type {
@@ -297,5 +347,6 @@ export type {
   CarouselNumberProps,
   CarouselDotsProps,
   CarouselPlayPauseProps,
+  CarouselMoreProps,
   CarouselApi
 };

@@ -110,7 +110,7 @@
     },
     {
       "name": "size",
-      "type": "\"lg\" | \"default\" | null",
+      "type": "\"lg\" | \"default\" | \"small\" | null",
       "description": "",
       "required": false
     },
@@ -190,6 +190,13 @@
       "name": "onClick",
       "type": "MouseEventHandler<HTMLButtonElement>",
       "description": "",
+      "required": false
+    },
+    {
+      "name": "shape",
+      "type": "enum",
+      "defaultValue": "default",
+      "description": "KRDS `.krds-btn.icon.border` — when \"circle\", renders a circular\n(rounded-full) bordered icon-only button. Additive; the default keeps the\nexisting per-size rounding. Pair with `size=\"icon\"` for the canonical\ncircular icon button.",
       "required": false
     },
     {
@@ -301,6 +308,13 @@
       "type": "string[]",
       "defaultValue": "[]",
       "description": "",
+      "required": false
+    },
+    {
+      "name": "holidays",
+      "type": "string[]",
+      "defaultValue": "[]",
+      "description": "Explicit holiday dates rendered in the KRDS \"day-off\" red color (weekends are auto-colored).",
       "required": false
     },
     {
@@ -1946,9 +1960,30 @@
   ],
   "KrdsStructuredList": [
     {
+      "name": "checked",
+      "type": "boolean",
+      "defaultValue": "false",
+      "description": "Selected/checked highlight border (KRDS `.is-check`). Only meaningful when `selectable`.",
+      "required": false
+    },
+    {
       "name": "className",
       "type": "string",
       "description": "",
+      "required": false
+    },
+    {
+      "name": "selectable",
+      "type": "boolean",
+      "defaultValue": "false",
+      "description": "Render as a selectable (checkbox-bearing) card.",
+      "required": false
+    },
+    {
+      "name": "size",
+      "type": "enum",
+      "defaultValue": "md",
+      "description": "Card padding scale (KRDS `.sm/.md/.lg`). Default `md` matches the current look.",
       "required": false
     },
     {
@@ -2076,7 +2111,7 @@
     },
     {
       "name": "size",
-      "type": "\"xs\" | \"default\" | \"lg\" | null",
+      "type": "\"xs\" | \"default\" | \"lg\" | \"small\" | \"medium\" | \"large\" | null",
       "description": "",
       "required": false
     },

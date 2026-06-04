@@ -209,10 +209,11 @@ function CheckboxChip({
   const isControlled = checked !== undefined;
   const currentChecked = isControlled ? checked : internalChecked;
 
+  // KRDS form-chip heights (ref _form_chip.scss): small 40px / medium 48px / large 56px.
   const sizeClass = {
-    small: "h-7 gap-1.5 px-3 rounded-md text-xs",
-    medium: "h-8 gap-1.5 px-4 rounded-md text-sm",
-    large: "h-10 gap-2 px-5 rounded-lg text-base"
+    small: "h-10 gap-1.5 px-3 rounded-md text-sm",
+    medium: "h-12 gap-1.5 px-4 rounded-md text-base",
+    large: "h-14 gap-2 px-5 rounded-lg text-base"
   }[size];
 
   const iconSize = size === "large" ? "size-4" : size === "small" ? "size-3" : "size-3.5";

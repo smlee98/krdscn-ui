@@ -1,5 +1,6 @@
 import {
   Table,
+  TableScroll,
   TableHeader,
   TableBody,
   TableHead,
@@ -22,7 +23,7 @@ const ROWS = [
 
 export default function TableMobileScroll() {
   return (
-    <div className="w-full overflow-x-auto">
+    <TableScroll>
       <Table className="min-w-[600px]">
         <TableHeader>
           <TableRow>
@@ -47,6 +48,6 @@ export default function TableMobileScroll() {
           ))}
         </TableBody>
       </Table>
-    </div>
+    </TableScroll>
   );
 }

@@ -6,6 +6,7 @@ import {
   StructuredListBadge,
   StructuredListBody,
   StructuredListDescription,
+  StructuredListGroup,
   StructuredListHeader,
   StructuredListImage,
   StructuredListMetadata,
@@ -20,8 +21,9 @@ import {
 
 export default function StructuredListLongText() {
   return (
-    <StructuredList className="w-full" variant="horizontal">
-      <StructuredListImage src="/placeholder.svg" alt="청년 주거 지원 사업 안내 이미지" />
+    <StructuredListGroup className="w-full">
+      <StructuredList variant="horizontal">
+        <StructuredListImage src="/placeholder.svg" alt="청년 주거 지원 사업 안내 이미지" />
       <StructuredListBody>
         <StructuredListHeader>
           <StructuredListBadge>청년</StructuredListBadge>
@@ -58,7 +60,8 @@ export default function StructuredListLongText() {
           <StructuredListTag>#월세지원</StructuredListTag>
           <StructuredListTag>#복지로</StructuredListTag>
         </StructuredListTagList>
-      </StructuredListBody>
-    </StructuredList>
+        </StructuredListBody>
+      </StructuredList>
+    </StructuredListGroup>
   );
 }

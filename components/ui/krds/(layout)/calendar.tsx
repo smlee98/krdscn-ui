@@ -56,6 +56,8 @@ export type CalendarProps = Omit<React.HTMLAttributes<HTMLDivElement>, "onChange
   defaultEndDate?: string;
   disabledDates?: string[];
   eventDates?: string[];
+  /** Explicit holiday dates rendered in the KRDS "day-off" red color (weekends are auto-colored). */
+  holidays?: string[];
   onChange?: (value: string) => void;
   onRangeChange?: (startDate: string, endDate: string) => void;
   onYearChange?: (year: number) => void;
@@ -142,6 +144,10 @@ function KrdsDayButton({ className, day, modifiers, children, ...rest }: React.C
   const isToday = Boolean(modifiers.today);
   const isOutside = Boolean(modifiers.outside);
   const hasEvent = Boolean((modifiers as Record<string, boolean>).hasEvent);
+  // day-off: weekend (Sun/Sat) or explicitly provided holiday → KRDS danger (red) text
+  const weekday = day.date.getDay();
+  const isDayOff =
+    Boolean((modifiers as Record<string, boolean>).dayOff) || weekday === 0 || weekday === 6;
   const isHighlighted = isSelectedSingle || isRangeStart || isRangeEnd;
 
   return (
@@ -155,12 +161,14 @@ function KrdsDayButton({ className, day, modifiers, children, ...rest }: React.C
       data-range-middle={isRangeMiddle || undefined}
       data-today={isToday || undefined}
       data-outside={isOutside || undefined}
+      data-day-off={isDayOff || undefined}
       className={cn(
         "relative z-10 mx-auto flex size-11 flex-col items-center justify-center rounded-full text-krds-body-md font-normal transition-colors",
         "focus:krds-focus-ring",
         "disabled:pointer-events-none disabled:opacity-40",
         isOutside && !isHighlighted && "text-krds-foreground-disabled",
-        !isOutside && !isHighlighted && "text-krds-foreground/80",
+        !isOutside && !isHighlighted && !isDayOff && "text-krds-foreground/80",
+        !isOutside && !isHighlighted && isDayOff && "text-krds-foreground-danger",
         !isHighlighted && !isRangeMiddle && "hover:bg-krds-surface",
         isHighlighted && "bg-krds-secondary-bold text-white",
         isRangeStart && "rounded-r-none",
@@ -469,6 +477,7 @@ function Calendar({
   defaultEndDate,
   disabledDates = [],
   eventDates = [],
+  holidays = [],
   onChange,
   onRangeChange,
   onYearChange,
@@ -515,6 +524,8 @@ function Calendar({
 
   const eventDateObjects = eventDates.map(parseKrdsDate).filter((d): d is Date => d !== undefined);
 
+  const holidayDateObjects = holidays.map(parseKrdsDate).filter((d): d is Date => d !== undefined);
+
   const initialMonth = selectedDate ?? rangeStartDate ?? today;
   const [viewMonth, setViewMonth] = React.useState<Date>(initialMonth);
 
@@ -532,6 +543,7 @@ function Calendar({
 
   const extraModifiers: Record<string, Date[]> = {};
   if (eventDateObjects.length > 0) extraModifiers.hasEvent = eventDateObjects;
+  if (holidayDateObjects.length > 0) extraModifiers.dayOff = holidayDateObjects;
   if (rangeStartOnlyDate) extraModifiers.rangeStartOnly = [rangeStartOnlyDate];
 
   const sharedProps = {

@@ -5,6 +5,7 @@ import {
   StructuredListBadge,
   StructuredListBody,
   StructuredListDescription,
+  StructuredListGroup,
   StructuredListHeader,
   StructuredListSubActions,
   StructuredListTitle
@@ -12,8 +13,9 @@ import {
 
 export default function StructuredListMinimalData() {
   return (
-    <StructuredList className="w-full" variant="horizontal">
-      <StructuredListBody>
+    <StructuredListGroup className="w-full">
+      <StructuredList variant="horizontal">
+        <StructuredListBody>
         <StructuredListHeader>
           <StructuredListBadge>공지</StructuredListBadge>
           <StructuredListTitle>2024년 전자정부 서비스 만족도 조사 결과 발표</StructuredListTitle>
@@ -27,7 +29,8 @@ export default function StructuredListMinimalData() {
             결과 보기
           </Button>
         </StructuredListActions>
-      </StructuredListBody>
-    </StructuredList>
+        </StructuredListBody>
+      </StructuredList>
+    </StructuredListGroup>
   );
 }

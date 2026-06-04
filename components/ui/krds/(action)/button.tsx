@@ -136,23 +136,40 @@ const buttonVariants = cva(
   }
 );
 
+type ButtonShape = "default" | "circle";
+
 type ButtonProps = React.ComponentProps<"button"> &
   VariantProps<typeof buttonVariants> & {
     asChild?: boolean;
+    /**
+     * KRDS `.krds-btn.icon.border` — when "circle", renders a circular
+     * (rounded-full) bordered icon-only button. Additive; the default keeps the
+     * existing per-size rounding. Pair with `size="icon"` for the canonical
+     * circular icon button.
+     */
+    shape?: ButtonShape;
   };
 
-function Button({ className, variant = "default", size = "default", asChild = false, ...props }: ButtonProps) {
+function Button({
+  className,
+  variant = "default",
+  size = "default",
+  shape = "default",
+  asChild = false,
+  ...props
+}: ButtonProps) {
   const Comp = asChild ? Slot : "button";
   return (
     <Comp
       data-slot="krds-button"
       data-variant={variant}
       data-size={size}
-      className={cn(buttonVariants({ variant, size, className }))}
+      data-shape={shape}
+      className={cn(buttonVariants({ variant, size }), shape === "circle" && "rounded-full border", className)}
       {...props}
     />
   );
 }
 
 export { Button, buttonVariants };
-export type { ButtonProps, ButtonVariant, ButtonSize };
+export type { ButtonProps, ButtonVariant, ButtonSize, ButtonShape };

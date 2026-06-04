@@ -20,6 +20,26 @@ export type TableHeadProps = React.ComponentProps<"th">;
 export type TableRowProps = React.ComponentProps<"tr">;
 export type TableCellProps = React.ComponentProps<"td">;
 export type TableCaptionProps = React.ComponentProps<"caption">;
+export type TableScrollProps = React.ComponentProps<"div"> & {
+  /** Bleed full-width on small screens (negative margin + padding). Default false. */
+  mobileFullBleed?: boolean;
+};
+
+// Horizontal-scroll wrapper. Reference table.html wraps the table in a scroll
+// container so wide tables scroll horizontally (notably on mobile).
+function TableScroll({ className, mobileFullBleed = false, ...props }: TableScrollProps) {
+  return (
+    <div
+      data-slot="krds-table-scroll"
+      className={cn(
+        "w-full overflow-x-auto",
+        mobileFullBleed && "-mx-4 px-4 md:mx-0 md:px-0",
+        className
+      )}
+      {...props}
+    />
+  );
+}
 
 function Table({ className, ...props }: TableProps) {
   return <ShadcnTable data-slot="krds-table" className={cn("w-full", className)} {...props} />;
@@ -88,9 +108,14 @@ function TableCell({ className, ...props }: TableCellProps) {
 }
 
 function TableCaption({ className, ...props }: TableCaptionProps) {
+  // KRDS/a11y: caption at top (shadcn primitive defaults to caption-bottom).
   return (
-    <ShadcnTableCaption data-slot="krds-table-caption" className={cn("text-krds-foreground-disabled", className)} {...props} />
+    <ShadcnTableCaption
+      data-slot="krds-table-caption"
+      className={cn("caption-top text-krds-foreground-disabled", className)}
+      {...props}
+    />
   );
 }
 
-export { Table, TableHeader, TableBody, TableFooter, TableHead, TableRow, TableCell, TableCaption };
+export { Table, TableScroll, TableHeader, TableBody, TableFooter, TableHead, TableRow, TableCell, TableCaption };

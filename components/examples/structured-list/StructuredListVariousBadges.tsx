@@ -5,6 +5,7 @@ import {
   StructuredListBadge,
   StructuredListBody,
   StructuredListDescription,
+  StructuredListGroup,
   StructuredListHeader,
   StructuredListImage,
   StructuredListPeriod,
@@ -16,7 +17,7 @@ import {
 
 export default function StructuredListVariousBadges() {
   return (
-    <div className="w-full flex flex-col gap-4">
+    <StructuredListGroup className="w-full">
       <StructuredList variant="vertical">
         <StructuredListImage src="/placeholder.svg" alt="디지털 배움터 운영 안내 이미지" />
         <StructuredListBody>
@@ -61,6 +62,6 @@ export default function StructuredListVariousBadges() {
           </StructuredListTagList>
         </StructuredListBody>
       </StructuredList>
-    </div>
+    </StructuredListGroup>
   );
 }

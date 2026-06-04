@@ -4,7 +4,14 @@ import { Root as Slot } from "@radix-ui/react-slot";
 
 import { cn } from "@/lib/cn";
 
-type TagSize = "xs" | "default" | "lg";
+// KRDS tag size scale (ref _tag.scss btn-tag): the canonical KRDS heights are
+// small 32px / medium 40px / large 48px. The original krdscn keys
+// (xs 24 / default 32 / lg 40) sat one step small; they are preserved verbatim
+// for backward compatibility. New KRDS-aligned keys are added on top:
+//   small  → 32px (== old default)
+//   medium → 40px (== old lg)
+//   large  → 48px (new top step)
+type TagSize = "xs" | "default" | "lg" | "small" | "medium" | "large";
 
 const tagVariants = cva(
   [
@@ -15,9 +22,14 @@ const tagVariants = cva(
   {
     variants: {
       size: {
+        // legacy keys (unchanged)
         xs: "h-6 px-2 gap-0.5 text-[0.8125rem]",
         default: "h-8 px-2.5 gap-0.5 text-[0.9375rem]",
-        lg: "h-10 px-3 gap-0.5 text-[1.0625rem]"
+        lg: "h-10 px-3 gap-0.5 text-[1.0625rem]",
+        // KRDS-aligned keys
+        small: "h-8 px-2.5 gap-0.5 text-[0.9375rem]",
+        medium: "h-10 px-3 gap-0.5 text-[1.0625rem]",
+        large: "h-12 px-4 gap-1 text-[1.0625rem]"
       },
       interactive: {
         true: [
@@ -127,5 +139,27 @@ function Tag(props: TagProps) {
   );
 }
 
-export { Tag, TagDelete, tagVariants };
-export type { TagProps, TagSize, DeletableTagProps, LinkTagProps };
+// ─── TagWrap ──────────────────────────────────────────────────────────────────
+// Flex-wrap container for a group of tags. Gap follows KRDS tag wrapper spacing
+// (ref _tag.scss wrapper-gap-*): small 4px/8px, medium 8px, large 8px/12px.
+
+type TagWrapSize = "small" | "medium" | "large";
+
+type TagWrapProps = React.ComponentProps<"div"> & {
+  size?: TagWrapSize;
+};
+
+const tagWrapGap: Record<TagWrapSize, string> = {
+  small: "gap-x-1 gap-y-2",
+  medium: "gap-2",
+  large: "gap-x-2 gap-y-3"
+};
+
+function TagWrap({ size = "medium", className, ...props }: TagWrapProps) {
+  return (
+    <div data-slot="krds-tag-wrap" className={cn("flex flex-wrap items-center", tagWrapGap[size], className)} {...props} />
+  );
+}
+
+export { Tag, TagDelete, TagWrap, tagVariants };
+export type { TagProps, TagSize, DeletableTagProps, LinkTagProps, TagWrapProps, TagWrapSize };

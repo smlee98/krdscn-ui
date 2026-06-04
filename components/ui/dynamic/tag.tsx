@@ -7,9 +7,11 @@ import { Badge as ShadcnBadge } from "@/components/ui/badge";
 import {
   Tag as KrdsTag,
   TagDelete as KrdsTagDelete,
+  TagWrap,
   tagVariants,
   type TagProps as KrdsTagProps,
-  type LinkTagProps
+  type LinkTagProps,
+  type TagWrapProps
 } from "@/components/ui/krds/(selection)/tag";
 import { cn } from "@/lib/cn";
 import { useUISystem } from "@/lib/ui-system";
@@ -69,4 +71,7 @@ export function TagDelete(props: React.ComponentProps<"button">) {
   );
 }
 
-export { tagVariants };
+// TagWrap is a system-agnostic flex-wrap layout container (no KRDS/shadcn token
+// divergence), so it is re-exported directly without a dispatcher branch.
+export { TagWrap, tagVariants };
+export type { TagWrapProps };

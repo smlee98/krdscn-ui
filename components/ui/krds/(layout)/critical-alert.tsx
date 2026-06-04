@@ -29,6 +29,11 @@ export type CriticalAlertProps = {
   children?: React.ReactNode;
 };
 
+// KRDS `--krds-critical-alerts--banner-shadow` (resources/scss/component/_critical_alerts.scss):
+//   0 0 0.2rem 0 alpha-shadow1, 0 0.4rem 0.8rem 0 alpha-shadow2
+const CRITICAL_ALERT_SHADOW =
+  "shadow-[0_0_2px_0_rgba(0,0,0,0.08),0_4px_8px_0_rgba(0,0,0,0.08)]";
+
 function CriticalAlert({ type = "emergency", className, children }: CriticalAlertProps) {
   const { bgClass, icon: Icon, label } = TYPE_CONFIG[type];
   return (
@@ -36,7 +41,11 @@ function CriticalAlert({ type = "emergency", className, children }: CriticalAler
       role="alert"
       data-slot="krds-critical-alert"
       data-type={type}
-      className={cn("border-krds-border-light flex w-full items-center gap-4 rounded-[10px] border bg-krds-surface p-4", className)}
+      className={cn(
+        "border-krds-border-light flex w-full items-center gap-4 rounded-[10px] border bg-krds-surface p-4",
+        CRITICAL_ALERT_SHADOW,
+        className
+      )}
     >
       <div
         data-slot="krds-critical-alert-badge"
@@ -133,4 +142,37 @@ function CriticalAlertAction({
   );
 }
 
-export { CriticalAlert, CriticalAlertMessage, CriticalAlertAction };
+// ─── List wrapper (multiple alerts) ────────────────────────────────────────────
+// Reference (critical_alerts.html) wraps alerts in <ul class="krds-critical-alerts">
+// with each <CriticalAlert> as an <li>. Single <CriticalAlert> remains usable
+// standalone. When `children` are CriticalAlerts, pass `wrapItems` to auto-wrap each
+// in an <li>; otherwise author the <li>s directly.
+
+export type CriticalAlertListProps = {
+  className?: string;
+  children?: React.ReactNode;
+  /** Wrap each child in an `<li>` automatically. Default false (author `<li>`s yourself). */
+  wrapItems?: boolean;
+  "aria-label"?: string;
+};
+
+function CriticalAlertList({
+  className,
+  children,
+  wrapItems = false,
+  "aria-label": ariaLabel
+}: CriticalAlertListProps) {
+  return (
+    <ul
+      data-slot="krds-critical-alert-list"
+      aria-label={ariaLabel}
+      className={cn("flex w-full flex-col gap-6", className)}
+    >
+      {wrapItems
+        ? React.Children.map(children, (child, i) => <li key={i}>{child}</li>)
+        : children}
+    </ul>
+  );
+}
+
+export { CriticalAlert, CriticalAlertList, CriticalAlertMessage, CriticalAlertAction };

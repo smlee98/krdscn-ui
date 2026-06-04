@@ -50,15 +50,39 @@ function ShadcnMainMenuBar({ className, children, ...rest }: React.ComponentProp
 function ShadcnMainMenuBarItem({
   className,
   children,
-  href
+  href,
+  active,
+  asButton,
+  expanded,
+  onClick
 }: React.ComponentProps<typeof KrdsMainMenuBarItem>) {
   // Panel is always visible, so both submenu and plain items render as styled links
   // (no Radix Trigger↔Content toggle). navigationMenuTriggerStyle() supplies the look.
+  // active → data-active (NavigationMenu styles data-[active=true]); asButton → <button>.
+  const itemClassName = cn(navigationMenuTriggerStyle(), className);
   return (
     <li>
-      <a href={href} className={cn(navigationMenuTriggerStyle(), className)}>
-        {children}
-      </a>
+      {asButton ? (
+        <button
+          type="button"
+          data-active={active || undefined}
+          aria-expanded={expanded}
+          onClick={onClick as React.MouseEventHandler<HTMLButtonElement>}
+          className={itemClassName}
+        >
+          {children}
+        </button>
+      ) : (
+        <a
+          href={href}
+          data-active={active || undefined}
+          aria-current={active ? "page" : undefined}
+          onClick={onClick as React.MouseEventHandler<HTMLAnchorElement>}
+          className={itemClassName}
+        >
+          {children}
+        </a>
+      )}
     </li>
   );
 }

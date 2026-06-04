@@ -9,6 +9,9 @@ export default function BadgeSizes() {
       <Badge type="solid" size="lg">
         대형 (large)
       </Badge>
+      <Badge type="solid" size="small">
+        소형 (small)
+      </Badge>
     </div>
   );
 }

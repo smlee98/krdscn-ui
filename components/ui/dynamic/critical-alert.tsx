@@ -5,10 +5,12 @@ import { ChevronRight, Info, Siren, TriangleAlert } from "lucide-react";
 import {
   CriticalAlert as KrdsCriticalAlert,
   CriticalAlertAction as KrdsCriticalAlertAction,
+  CriticalAlertList as KrdsCriticalAlertList,
   CriticalAlertMessage as KrdsCriticalAlertMessage
 } from "@/components/ui/krds/(layout)/critical-alert";
 import type {
   CriticalAlertActionProps,
+  CriticalAlertListProps,
   CriticalAlertMessageProps,
   CriticalAlertProps,
   CriticalAlertType
@@ -19,6 +21,7 @@ import { useUISystem } from "@/lib/ui-system";
 
 export type {
   CriticalAlertProps,
+  CriticalAlertListProps,
   CriticalAlertMessageProps,
   CriticalAlertActionProps,
   CriticalAlertType
@@ -75,6 +78,19 @@ function ShadcnCriticalAlert({ type = "emergency", className, children }: Critic
       <Icon className={cn("size-6 shrink-0", iconClass)} aria-hidden={true} />
       {children}
     </div>
+  );
+}
+
+function ShadcnCriticalAlertList({
+  className,
+  children,
+  wrapItems = false,
+  "aria-label": ariaLabel
+}: CriticalAlertListProps) {
+  return (
+    <ul data-slot="critical-alert-list" aria-label={ariaLabel} className={cn("flex w-full flex-col gap-4", className)}>
+      {wrapItems ? React.Children.map(children, (child, i) => <li key={i}>{child}</li>) : children}
+    </ul>
   );
 }
 
@@ -138,6 +154,12 @@ export function CriticalAlert(props: CriticalAlertProps) {
   const system = useUISystem();
   if (system === "krds") return <KrdsCriticalAlert {...props} />;
   return <ShadcnCriticalAlert {...props} />;
+}
+
+export function CriticalAlertList(props: CriticalAlertListProps) {
+  const system = useUISystem();
+  if (system === "krds") return <KrdsCriticalAlertList {...props} />;
+  return <ShadcnCriticalAlertList {...props} />;
 }
 
 export function CriticalAlertMessage(props: CriticalAlertMessageProps) {

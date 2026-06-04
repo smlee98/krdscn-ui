@@ -43,24 +43,69 @@ type MainMenuBarItemProps = {
   children?: React.ReactNode;
   href?: string;
   hasSubmenu?: boolean;
+  /** Active 1Depth item — renders the KRDS active bottom-border indicator. */
+  active?: boolean;
+  /** Render a `<button>` instead of an `<a>` (for panel triggers). */
+  asButton?: boolean;
+  /** Panel expanded state. Sets `aria-expanded` when defined (use with `hasSubmenu`/`asButton`). */
+  expanded?: boolean;
+  onClick?: React.MouseEventHandler<HTMLElement>;
 };
 
-function MainMenuBarItem({ className, children, href, hasSubmenu }: MainMenuBarItemProps) {
+// KRDS `gnb-main-trigger` active indicator (_main_menu.scss): a `::before` bottom
+// border that animates width 0→100%. Static rendering: a full-width 4px bottom bar
+// in the selected (primary) color, shown only when `active`.
+function MainMenuBarItem({
+  className,
+  children,
+  href,
+  hasSubmenu,
+  active,
+  asButton,
+  expanded,
+  onClick
+}: MainMenuBarItemProps) {
+  const sharedClassName = cn(
+    "relative inline-flex h-14 items-center gap-2 px-4",
+    "text-krds-foreground-subtle text-krds-body-lg font-bold",
+    "hover:text-krds-foreground",
+    "active:text-krds-foreground",
+    "rounded-none focus:krds-focus-ring-inset",
+    active && "text-krds-foreground",
+    active &&
+      "before:bg-krds-primary-50 before:absolute before:inset-x-0 before:bottom-0 before:h-1 before:content-['']",
+    className
+  );
+  const inner = (
+    <>
+      {children}
+      {hasSubmenu && <ChevronDown size={20} aria-hidden="true" />}
+    </>
+  );
+
+  if (asButton) {
+    return (
+      <button
+        type="button"
+        data-slot="krds-main-menu-bar-item"
+        aria-expanded={expanded}
+        onClick={onClick as React.MouseEventHandler<HTMLButtonElement>}
+        className={sharedClassName}
+      >
+        {inner}
+      </button>
+    );
+  }
+
   return (
     <a
       data-slot="krds-main-menu-bar-item"
       href={href}
-      className={cn(
-        "inline-flex h-14 items-center gap-2 px-4",
-        "text-krds-foreground-subtle text-krds-body-lg font-bold",
-        "hover:text-krds-foreground",
-        "active:text-krds-foreground",
-        "rounded-none focus:krds-focus-ring-inset",
-        className
-      )}
+      aria-expanded={hasSubmenu ? expanded : undefined}
+      onClick={onClick as React.MouseEventHandler<HTMLAnchorElement>}
+      className={sharedClassName}
     >
-      {children}
-      {hasSubmenu && <ChevronDown size={20} aria-hidden="true" />}
+      {inner}
     </a>
   );
 }

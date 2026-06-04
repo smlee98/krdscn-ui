@@ -1,7 +1,6 @@
 "use client";
 
 import * as React from "react";
-import { Plus } from "lucide-react";
 import {
   Carousel,
   CarouselContent,
@@ -10,6 +9,7 @@ import {
   CarouselNext,
   CarouselNumber,
   CarouselPlayPause,
+  CarouselMore,
   type CarouselApi
 } from "@/components/ui/dynamic/carousel";
 
@@ -53,13 +53,7 @@ export default function CarouselElementBanner() {
           <CarouselPlayPause isPlaying={isPlaying} onToggle={setIsPlaying} />
           <CarouselPrevious />
           <CarouselNext />
-          <button
-            type="button"
-            aria-label="모든 슬라이드 보기"
-            className="border-krds-gray-20 hover:border-krds-gray-30 focus-visible:ring-krds-primary-50 inline-flex size-10 shrink-0 items-center justify-center rounded-full border bg-krds-surface text-krds-foreground transition-colors focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none"
-          >
-            <Plus className="size-5" aria-hidden="true" />
-          </button>
+          <CarouselMore href="#" />
         </div>
       </Carousel>
     </div>

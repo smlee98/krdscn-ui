@@ -4,6 +4,8 @@ import * as React from "react";
 import { ArrowRight } from "lucide-react";
 import {
   StructuredList as KrdsStructuredList,
+  StructuredListGroup as KrdsStructuredListGroup,
+  StructuredListCheck as KrdsStructuredListCheck,
   StructuredListActions as KrdsStructuredListActions,
   StructuredListBadge as KrdsStructuredListBadge,
   StructuredListBody as KrdsStructuredListBody,
@@ -21,6 +23,8 @@ import {
 } from "@/components/ui/krds/(layout)/structured-list";
 import type {
   StructuredListProps,
+  StructuredListGroupProps,
+  StructuredListCheckProps,
   StructuredListImageProps,
   StructuredListBodyProps,
   StructuredListHeaderProps,
@@ -43,6 +47,8 @@ import { useUISystem } from "@/lib/ui-system";
 
 export type {
   StructuredListProps,
+  StructuredListGroupProps,
+  StructuredListCheckProps,
   StructuredListImageProps,
   StructuredListBodyProps,
   StructuredListHeaderProps,
@@ -73,19 +79,46 @@ export type {
 
 // ─── shadcn-mode parts ──────────────────────────────────────────────────────────
 
-function ShadcnStructuredList({ variant = "vertical", className, children }: StructuredListProps) {
+function ShadcnStructuredListGroup({ className, children }: StructuredListGroupProps) {
   return (
-    <article
+    <ul data-slot="structured-list-group" role="list" className={cn("flex w-full list-none flex-col gap-4 p-0", className)}>
+      {children}
+    </ul>
+  );
+}
+
+function ShadcnStructuredList({
+  variant = "vertical",
+  size: _size = "md",
+  selectable = false,
+  checked = false,
+  className,
+  children
+}: StructuredListProps) {
+  return (
+    <li
       data-slot="structured-list"
       data-variant={variant}
+      data-selectable={selectable || undefined}
+      data-checked={checked || undefined}
+      aria-checked={selectable ? checked : undefined}
       className={cn(
-        "group/structured-list bg-card text-card-foreground flex flex-col overflow-hidden rounded-xl border shadow-sm",
+        "group/structured-list bg-card text-card-foreground flex list-none flex-col overflow-hidden rounded-xl border shadow-sm",
         variant === "horizontal" && "sm:flex-row",
+        checked && "border-ring ring-2 ring-ring",
         className
       )}
     >
       {children}
-    </article>
+    </li>
+  );
+}
+
+function ShadcnStructuredListCheck({ className, children }: StructuredListCheckProps) {
+  return (
+    <div data-slot="structured-list-check" className={cn("flex shrink-0 items-start p-6 pb-0", className)}>
+      {children}
+    </div>
   );
 }
 
@@ -251,10 +284,22 @@ function ShadcnStructuredListTag({ className, children }: StructuredListTagProps
 
 // ─── Dispatched parts (public surface preserved) ────────────────────────────────
 
+export function StructuredListGroup(props: StructuredListGroupProps) {
+  const system = useUISystem();
+  if (system === "krds") return <KrdsStructuredListGroup {...props} />;
+  return <ShadcnStructuredListGroup {...props} />;
+}
+
 export function StructuredList(props: StructuredListProps) {
   const system = useUISystem();
   if (system === "krds") return <KrdsStructuredList {...props} />;
   return <ShadcnStructuredList {...props} />;
+}
+
+export function StructuredListCheck(props: StructuredListCheckProps) {
+  const system = useUISystem();
+  if (system === "krds") return <KrdsStructuredListCheck {...props} />;
+  return <ShadcnStructuredListCheck {...props} />;
 }
 
 export function StructuredListImage(props: StructuredListImageProps) {

@@ -18,7 +18,8 @@ import {
   TableFooter as KrdsTableFooter,
   TableHead as KrdsTableHead,
   TableHeader as KrdsTableHeader,
-  TableRow as KrdsTableRow
+  TableRow as KrdsTableRow,
+  TableScroll as KrdsTableScroll
 } from "@/components/ui/krds/(layout)/table";
 import type {
   TableBodyProps,
@@ -28,8 +29,10 @@ import type {
   TableHeadProps,
   TableHeaderProps,
   TableProps,
-  TableRowProps
+  TableRowProps,
+  TableScrollProps
 } from "@/components/ui/krds/(layout)/table";
+import { cn } from "@/lib/cn";
 import { useUISystem } from "@/lib/ui-system";
 
 export type {
@@ -40,7 +43,8 @@ export type {
   TableHeadProps,
   TableRowProps,
   TableCellProps,
-  TableCaptionProps
+  TableCaptionProps,
+  TableScrollProps
 } from "@/components/ui/krds/(layout)/table";
 
 // Real branching dispatcher (cf. accordion.tsx). The public surface is the KRDS
@@ -54,6 +58,20 @@ export function Table(props: TableProps) {
   const system = useUISystem();
   if (system === "krds") return <KrdsTable {...props} />;
   return <ShadcnTable {...props} />;
+}
+
+export function TableScroll(props: TableScrollProps) {
+  const system = useUISystem();
+  if (system === "krds") return <KrdsTableScroll {...props} />;
+  // shadcn has no scroll wrapper; render an equivalent token-based overflow container.
+  const { className, mobileFullBleed = false, ...rest } = props;
+  return (
+    <div
+      data-slot="table-scroll"
+      className={cn("w-full overflow-x-auto", mobileFullBleed && "-mx-4 px-4 md:mx-0 md:px-0", className)}
+      {...rest}
+    />
+  );
 }
 
 export function TableHeader(props: TableHeaderProps) {

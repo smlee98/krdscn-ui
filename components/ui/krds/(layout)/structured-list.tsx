@@ -5,29 +5,91 @@ import { Button } from "@/components/ui/dynamic/button";
 import { cn } from "@/lib/cn";
 
 type StructuredListVariant = "vertical" | "horizontal";
+type StructuredListSize = "sm" | "md" | "lg";
 
-// ─── Root ─────────────────────────────────────────────────────────────────────
+// ─── Group (list container) ─────────────────────────────────────────────────────
 
-export type StructuredListProps = {
-  variant?: StructuredListVariant;
+export type StructuredListGroupProps = {
   className?: string;
   children?: React.ReactNode;
 };
 
-function StructuredList({ variant = "vertical", className, children }: StructuredListProps) {
+/**
+ * KRDS list container (`<ul class="krds-structured-list">`). Wraps one or more
+ * `<StructuredList>` cards, each of which renders as an `<li>`.
+ */
+function StructuredListGroup({ className, children }: StructuredListGroupProps) {
   return (
-    <article
+    <ul
+      data-slot="krds-structured-list-group"
+      role="list"
+      className={cn("flex w-full list-none flex-col gap-6 p-0", className)}
+    >
+      {children}
+    </ul>
+  );
+}
+
+// ─── Root (card item) ─────────────────────────────────────────────────────────
+
+export type StructuredListProps = {
+  variant?: StructuredListVariant;
+  /** Card padding scale (KRDS `.sm/.md/.lg`). Default `md` matches the current look. */
+  size?: StructuredListSize;
+  /** Render as a selectable (checkbox-bearing) card. */
+  selectable?: boolean;
+  /** Selected/checked highlight border (KRDS `.is-check`). Only meaningful when `selectable`. */
+  checked?: boolean;
+  className?: string;
+  children?: React.ReactNode;
+};
+
+function StructuredList({
+  variant = "vertical",
+  size = "md",
+  selectable = false,
+  checked = false,
+  className,
+  children
+}: StructuredListProps) {
+  return (
+    <li
       data-slot="krds-structured-list"
       data-variant={variant}
+      data-size={size}
+      data-selectable={selectable || undefined}
+      data-checked={checked || undefined}
+      aria-checked={selectable ? checked : undefined}
       className={cn(
-        "group/structured-list overflow-hidden rounded-[12px] border border-krds-border bg-krds-surface",
+        "group/structured-list list-none overflow-hidden rounded-[12px] border border-krds-border bg-krds-surface",
         "flex w-[384px] flex-col",
         "data-[variant=horizontal]:w-[1200px] data-[variant=horizontal]:max-w-full data-[variant=horizontal]:flex-row",
+        // KRDS .is-check: transparent border + primary outline ring on selected card
+        "data-[checked]:border-transparent data-[checked]:outline-2 data-[checked]:outline-krds-border-primary",
         className
       )}
     >
       {children}
-    </article>
+    </li>
+  );
+}
+
+// ─── Check area (selectable wrapper) ────────────────────────────────────────────
+
+export type StructuredListCheckProps = {
+  className?: string;
+  children?: React.ReactNode;
+};
+
+/**
+ * KRDS `.krds-check-area` — wraps the checkbox control for a selectable card.
+ * Pass your checkbox (or any control) as children.
+ */
+function StructuredListCheck({ className, children }: StructuredListCheckProps) {
+  return (
+    <div data-slot="krds-structured-list-check" className={cn("flex shrink-0 items-start p-8 pb-0", className)}>
+      {children}
+    </div>
   );
 }
 
@@ -64,7 +126,17 @@ export type StructuredListBodyProps = {
 
 function StructuredListBody({ className, children }: StructuredListBodyProps) {
   return (
-    <div data-slot="krds-structured-list-body" className={cn("flex flex-1 flex-col gap-6 p-8", className)}>
+    <div
+      data-slot="krds-structured-list-body"
+      className={cn(
+        "flex flex-1 flex-col gap-6",
+        // KRDS card padding scale, driven by the card's data-size (default md = p-8)
+        "p-8",
+        "group-data-[size=sm]/structured-list:p-6",
+        "group-data-[size=lg]/structured-list:p-10",
+        className
+      )}
+    >
       {children}
     </div>
   );
@@ -323,6 +395,8 @@ function StructuredListTag({ className, children }: StructuredListTagProps) {
 
 export {
   StructuredList,
+  StructuredListGroup,
+  StructuredListCheck,
   StructuredListImage,
   StructuredListBody,
   StructuredListHeader,

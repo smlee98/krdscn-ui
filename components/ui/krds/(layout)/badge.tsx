@@ -20,8 +20,12 @@ const badgeVariants = cva(
   {
     variants: {
       size: {
+        // KRDS badge sizes (ref _badge.scss): large 32px / medium 24px / small 20px.
+        //   lg/default kept as existing keys (large/medium); `small` added for the
+        //   KRDS small height (size-height-3 = 20px, label-small font).
         lg: "h-8 text-krds-body-md",
-        default: "h-6 text-krds-body-sm"
+        default: "h-6 text-krds-body-sm",
+        small: "h-5 px-1.5 text-krds-body-xs"
       },
       type: {
         outline: "border",
@@ -72,6 +76,7 @@ const badgeVariants = cva(
       { type: "pastel", variant: "secondary", className: "bg-krds-surface-secondary-subtle text-krds-foreground-secondary" },
       { type: "pastel", size: "lg", variant: "tertiary", className: "bg-krds-surface-subtle text-krds-foreground-subtle" },
       { type: "pastel", size: "default", variant: "tertiary", className: "bg-krds-surface-subtler text-krds-foreground-subtle" },
+      { type: "pastel", size: "small", variant: "tertiary", className: "bg-krds-surface-subtler text-krds-foreground-subtle" },
       { type: "pastel", variant: "point", className: "bg-krds-surface-point-subtle text-krds-foreground-point" },
       { type: "pastel", variant: "destructive", className: "bg-krds-surface-danger-subtle text-krds-foreground-danger" },
       { type: "pastel", variant: "warning", className: "bg-krds-surface-warning-subtle text-krds-foreground-warning" },
@@ -147,13 +152,13 @@ type BadgeNumberTone = "primary" | "new";
 
 type BadgeNumberProps = React.ComponentProps<"span"> & {
   tone?: BadgeNumberTone;
-  /** Cap displayed value (e.g. 99 → "+99"). Applied only when children is a number. */
+  /** Cap displayed value (e.g. 999 → "999+"). Applied only when children is a number. */
   max?: number;
   children: React.ReactNode;
 };
 
 function BadgeNumber({ tone = "primary", max, className, children, ...props }: BadgeNumberProps) {
-  const display = typeof children === "number" && typeof max === "number" && children > max ? `+${max}` : children;
+  const display = typeof children === "number" && typeof max === "number" && children > max ? `${max}+` : children;
   return (
     <span
       data-slot="krds-badge-number"
