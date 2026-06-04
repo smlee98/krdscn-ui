@@ -7,7 +7,7 @@ import {
 
 export default function SideNavigationSimpleMenu() {
   return (
-    <SideNavigation>
+    <SideNavigation className="w-full">
       <SideNavigationBackTitle href="#">메뉴 제목</SideNavigationBackTitle>
       <SideNavigationList bordered>
         <SideNavigationItem href="#" active>

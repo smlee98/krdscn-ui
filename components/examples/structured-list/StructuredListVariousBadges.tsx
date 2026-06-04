@@ -16,7 +16,7 @@ import {
 
 export default function StructuredListVariousBadges() {
   return (
-    <div className="flex flex-col gap-4">
+    <div className="w-full flex flex-col gap-4">
       <StructuredList variant="vertical">
         <StructuredListImage src="/placeholder.svg" alt="디지털 배움터 운영 안내 이미지" />
         <StructuredListBody>

@@ -13,7 +13,7 @@ import {
 
 export default function HeaderLoggedIn() {
   return (
-    <Header>
+    <Header className="w-full">
       <HeaderUtility>
         <HeaderUtilityItem href="#">KRDS 소개</HeaderUtilityItem>
         <HeaderUtilityDivider />

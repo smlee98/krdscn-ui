@@ -2,7 +2,7 @@ import { Disclosure, DisclosureTrigger, DisclosureContent } from "@/components/u
 
 export default function DisclosureWithRichContent() {
   return (
-    <Disclosure defaultOpen>
+    <Disclosure className="w-full" defaultOpen>
       <DisclosureTrigger>상세 정보 보기</DisclosureTrigger>
       <DisclosureContent>
         <div>

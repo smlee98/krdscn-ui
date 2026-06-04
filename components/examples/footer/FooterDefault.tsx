@@ -11,7 +11,7 @@ import {
 
 export default function FooterDefault() {
   return (
-    <Footer>
+    <Footer className="w-full">
       <FooterOrg>국민건강보험공단</FooterOrg>
       <FooterColumns>
         <FooterColumn>

@@ -9,7 +9,7 @@ import {
 
 export default function SideNavigationWithPopupOnly() {
   return (
-    <SideNavigation>
+    <SideNavigation className="w-full">
       <SideNavigationTitle>팝업 메뉴 예시</SideNavigationTitle>
       <SideNavigationGroup defaultOpen>
         <SideNavigationTrigger>상위 메뉴</SideNavigationTrigger>

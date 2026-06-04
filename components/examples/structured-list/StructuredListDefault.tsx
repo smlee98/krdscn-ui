@@ -17,7 +17,7 @@ import {
 
 export default function StructuredListDefault() {
   return (
-    <StructuredList variant="vertical">
+    <StructuredList className="w-full" variant="vertical">
       <StructuredListBody>
         <StructuredListHeader>
           <StructuredListBadge>복지</StructuredListBadge>

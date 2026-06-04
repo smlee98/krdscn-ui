@@ -1,5 +1,5 @@
 import { Identifier } from "@/components/ui/dynamic/identifier";
 
 export default function IdentifierDefault() {
-  return <Identifier />;
+  return <Identifier className="w-full" />;
 }

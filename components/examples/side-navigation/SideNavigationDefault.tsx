@@ -9,7 +9,7 @@ import {
 
 export default function SideNavigationDefault() {
   return (
-    <SideNavigation>
+    <SideNavigation className="w-full">
       <SideNavigationTitle>1Depth-title</SideNavigationTitle>
       <SideNavigationGroup defaultOpen>
         <SideNavigationTrigger>2Depth-menu</SideNavigationTrigger>

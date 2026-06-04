@@ -10,7 +10,7 @@ const ALL_ROWS = Array.from({ length: 15 }, (_, i) => ({
 
 export default function TableWithScroll() {
   return (
-    <div className="max-h-64 overflow-y-auto">
+    <div className="w-full max-h-64 overflow-y-auto">
       <Table>
         <TableHeader>
           <TableRow>

@@ -20,7 +20,7 @@ import {
 
 export default function StructuredListLongText() {
   return (
-    <StructuredList variant="horizontal">
+    <StructuredList className="w-full" variant="horizontal">
       <StructuredListImage src="/placeholder.svg" alt="청년 주거 지원 사업 안내 이미지" />
       <StructuredListBody>
         <StructuredListHeader>

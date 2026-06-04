@@ -9,7 +9,7 @@ import {
 
 export default function TableDefault() {
   return (
-    <Table>
+    <Table className="w-full">
       <TableHeader>
         <TableRow>
           <TableHead>제목1</TableHead>

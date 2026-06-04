@@ -12,7 +12,7 @@ import {
 
 export default function StructuredListMinimalData() {
   return (
-    <StructuredList variant="horizontal">
+    <StructuredList className="w-full" variant="horizontal">
       <StructuredListBody>
         <StructuredListHeader>
           <StructuredListBadge>공지</StructuredListBadge>

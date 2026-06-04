@@ -2,7 +2,7 @@ import { TextList, TextListItem } from "@/components/ui/dynamic/text-list";
 
 export default function TextListDefault() {
   return (
-    <div className="flex flex-col gap-6">
+    <div className="w-full flex flex-col gap-6">
       <div>
         <p className="text-krds-gray-70 mb-2 text-sm font-medium">레벨 1 — disc</p>
         <TextList type="disc">

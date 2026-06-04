@@ -2,7 +2,7 @@ import { Disclosure, DisclosureTrigger, DisclosureContent } from "@/components/u
 
 export default function DisclosureDefaultExpanded() {
   return (
-    <Disclosure defaultOpen>
+    <Disclosure className="w-full" defaultOpen>
       <DisclosureTrigger>서비스 상세 정보</DisclosureTrigger>
       <DisclosureContent>
         <div>

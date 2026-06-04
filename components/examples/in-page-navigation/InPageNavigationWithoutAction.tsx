@@ -9,7 +9,7 @@ import {
 
 export default function InPageNavigationWithoutAction() {
   return (
-    <InPageNavigation>
+    <InPageNavigation className="w-full">
       <InPageNavigationHeader>
         <InPageNavigationEyebrow>이 페이지의 구성</InPageNavigationEyebrow>
         <InPageNavigationTitle>서비스 안내</InPageNavigationTitle>

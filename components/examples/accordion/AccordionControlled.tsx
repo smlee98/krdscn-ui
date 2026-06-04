@@ -10,7 +10,7 @@ export default function AccordionControlled() {
   const [openValues, setOpenValues] = React.useState<string[]>(["faq-1"]);
 
   return (
-    <div className="flex flex-col gap-4">
+    <div className="w-full flex flex-col gap-4">
       <div className="flex gap-2">
         <Button variant="secondary" size="sm" onClick={() => setOpenValues(ITEMS)}>
           모두 펼치기

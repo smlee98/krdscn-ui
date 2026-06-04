@@ -2,7 +2,7 @@ import { Disclosure, DisclosureTrigger, DisclosureContent } from "@/components/u
 
 export default function DisclosureDefault() {
   return (
-    <Disclosure>
+    <Disclosure className="w-full">
       <DisclosureTrigger>신청 서비스안내</DisclosureTrigger>
       <DisclosureContent>
         <ul className="text-krds-gray-70 list-disc space-y-1 pl-4 text-sm">

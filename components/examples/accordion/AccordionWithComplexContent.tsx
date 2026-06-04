@@ -2,7 +2,7 @@ import { Accordion, AccordionItem, AccordionHeader, AccordionPanel } from "@/com
 
 export default function AccordionWithComplexContent() {
   return (
-    <Accordion defaultValue={["complex1"]}>
+    <Accordion className="w-full" defaultValue={["complex1"]}>
       <AccordionItem value="complex1">
         <AccordionHeader>아코디언 타이틀 영역</AccordionHeader>
         <AccordionPanel>

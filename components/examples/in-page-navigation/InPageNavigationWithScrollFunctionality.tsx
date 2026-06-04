@@ -27,7 +27,7 @@ export default function InPageNavigationWithScrollFunctionality() {
   const [active, setActive] = React.useState("intro");
 
   return (
-    <InPageNavigation>
+    <InPageNavigation className="w-full">
       <InPageNavigationHeader>
         <InPageNavigationEyebrow>이 페이지의 구성</InPageNavigationEyebrow>
         <InPageNavigationTitle>스크롤 기능 테스트</InPageNavigationTitle>

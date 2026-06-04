@@ -2,7 +2,7 @@ import { Footer, FooterCopyright, FooterLink, FooterColumnLinks, FooterOrg } fro
 
 export default function FooterMinimal() {
   return (
-    <Footer>
+    <Footer className="w-full">
       <FooterOrg>국민건강보험공단</FooterOrg>
       <FooterColumnLinks>
         <FooterLink href="#">개인정보처리방침</FooterLink>

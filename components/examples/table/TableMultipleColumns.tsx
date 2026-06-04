@@ -9,7 +9,7 @@ import {
 
 export default function TableMultipleColumns() {
   return (
-    <Table>
+    <Table className="w-full">
       <TableHeader>
         <TableRow>
           <TableHead>항목</TableHead>

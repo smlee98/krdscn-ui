@@ -8,7 +8,7 @@ const ROWS = [
 
 export default function TableWithoutCaption() {
   return (
-    <Table>
+    <Table className="w-full">
       <TableHeader>
         <TableRow>
           <TableHead>접수번호</TableHead>

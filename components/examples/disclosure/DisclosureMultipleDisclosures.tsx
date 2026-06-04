@@ -2,7 +2,7 @@ import { Disclosure, DisclosureTrigger, DisclosureContent } from "@/components/u
 
 export default function DisclosureMultipleDisclosures() {
   return (
-    <div className="flex flex-col gap-3">
+    <div className="w-full flex flex-col gap-3">
       <Disclosure>
         <DisclosureTrigger>첫 번째 디스클로저</DisclosureTrigger>
         <DisclosureContent>

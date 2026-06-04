@@ -2,7 +2,7 @@ import { MainMenu, MainMenuBar, MainMenuBarItem } from "@/components/ui/dynamic/
 
 export default function MainMenuDefault() {
   return (
-    <MainMenu>
+    <MainMenu className="w-full">
       <MainMenuBar aria-label="주요 메뉴">
         <MainMenuBarItem href="#" hasSubmenu>
           정책정보

@@ -9,7 +9,7 @@ import {
 
 export default function InPageNavigationLongItems() {
   return (
-    <InPageNavigation>
+    <InPageNavigation className="w-full">
       <InPageNavigationHeader>
         <InPageNavigationEyebrow>이 페이지의 구성</InPageNavigationEyebrow>
         <InPageNavigationTitle>긴 텍스트 네비게이션</InPageNavigationTitle>
