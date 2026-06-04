@@ -8,8 +8,11 @@ import {
   HeaderUtility as KrdsHeaderUtility,
   HeaderUtilityItem as KrdsHeaderUtilityItem,
   HeaderUtilityDivider as KrdsHeaderUtilityDivider,
+  HeaderUtilityDropdown,
+  HeaderUtilityDropdownItem,
   HeaderActions as KrdsHeaderActions,
   HeaderActionItem as KrdsHeaderActionItem,
+  HeaderActionDropdown,
   HeaderNav as KrdsHeaderNav,
   HeaderNavItem as KrdsHeaderNavItem
 } from "@/components/ui/krds/(identity)/header";
@@ -68,6 +71,7 @@ type HeaderActionItemProps = {
   children?: React.ReactNode;
   href?: string;
   icon?: React.ReactNode;
+  "aria-controls"?: string;
 };
 
 type HeaderNavProps = {
@@ -150,7 +154,7 @@ function ShadcnHeaderActions({ className, children }: HeaderActionsProps) {
   );
 }
 
-function ShadcnHeaderActionItem({ className, children, href, icon }: HeaderActionItemProps) {
+function ShadcnHeaderActionItem({ className, children, href, icon, "aria-controls": ariaControls }: HeaderActionItemProps) {
   const content = (
     <>
       {icon}
@@ -160,14 +164,14 @@ function ShadcnHeaderActionItem({ className, children, href, icon }: HeaderActio
   if (href) {
     return (
       <Button asChild variant="ghost" className={className}>
-        <a data-slot="header-action-item" href={href}>
+        <a data-slot="header-action-item" href={href} aria-controls={ariaControls}>
           {content}
         </a>
       </Button>
     );
   }
   return (
-    <Button data-slot="header-action-item" type="button" variant="ghost" className={className}>
+    <Button data-slot="header-action-item" type="button" variant="ghost" aria-controls={ariaControls} className={className}>
       {content}
     </Button>
   );
@@ -239,6 +243,11 @@ export function HeaderActionItem(props: HeaderActionItemProps) {
   if (system === "krds") return <KrdsHeaderActionItem {...props} />;
   return <ShadcnHeaderActionItem {...props} />;
 }
+
+// HeaderUtilityDropdown / HeaderUtilityDropdownItem / HeaderActionDropdown are KRDS
+// identity pieces with light client interactivity and no shadcn primitive equivalent,
+// so they are re-exported directly (KRDS-only, no dual-render branch).
+export { HeaderUtilityDropdown, HeaderUtilityDropdownItem, HeaderActionDropdown };
 
 export function HeaderNav(props: HeaderNavProps) {
   const system = useUISystem();

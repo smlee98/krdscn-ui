@@ -65,6 +65,106 @@ function HeaderUtilityDivider() {
   return <span aria-hidden="true" className="bg-krds-surface-disabled inline-block h-4 w-px" />;
 }
 
+// ─── useDropdown (shared open/close + outside-click + ESC) ──────────────────────
+
+function useDropdown() {
+  const [open, setOpen] = React.useState(false);
+  const rootRef = React.useRef<HTMLDivElement>(null);
+
+  React.useEffect(() => {
+    if (!open) return;
+    function onPointerDown(event: PointerEvent) {
+      if (rootRef.current && !rootRef.current.contains(event.target as Node)) {
+        setOpen(false);
+      }
+    }
+    function onKeyDown(event: KeyboardEvent) {
+      if (event.key === "Escape") setOpen(false);
+    }
+    document.addEventListener("pointerdown", onPointerDown);
+    document.addEventListener("keydown", onKeyDown);
+    return () => {
+      document.removeEventListener("pointerdown", onPointerDown);
+      document.removeEventListener("keydown", onKeyDown);
+    };
+  }, [open]);
+
+  return { open, setOpen, rootRef };
+}
+
+// ─── HeaderUtilityDropdown (utility-list dropdown) ──────────────────────────────
+
+type HeaderUtilityDropdownProps = {
+  className?: string;
+  children?: React.ReactNode;
+  label: React.ReactNode;
+};
+
+function HeaderUtilityDropdown({ className, children, label }: HeaderUtilityDropdownProps) {
+  const { open, setOpen, rootRef } = useDropdown();
+  const menuId = React.useId();
+
+  return (
+    <div ref={rootRef} data-slot="krds-header-utility-dropdown" className={cn("relative", className)}>
+      <button
+        type="button"
+        aria-expanded={open}
+        aria-controls={menuId}
+        onClick={() => setOpen((v) => !v)}
+        className={cn(
+          "inline-flex items-center gap-1",
+          "text-krds-foreground text-krds-body-sm",
+          "hover:underline",
+          "rounded-sm focus:krds-focus-ring"
+        )}
+      >
+        {label}
+        <ChevronDown size={16} aria-hidden="true" className={cn("transition-transform", open && "rotate-180")} />
+      </button>
+      {open && (
+        <ul
+          id={menuId}
+          data-slot="krds-header-utility-dropdown-menu"
+          className={cn(
+            "border-krds-border bg-krds-surface absolute right-0 top-full z-50 mt-1 min-w-[160px] rounded-md border py-1 shadow-md"
+          )}
+        >
+          {children}
+        </ul>
+      )}
+    </div>
+  );
+}
+
+type HeaderUtilityDropdownItemProps = {
+  className?: string;
+  children?: React.ReactNode;
+  href?: string;
+};
+
+function HeaderUtilityDropdownItem({ className, children, href }: HeaderUtilityDropdownItemProps) {
+  const baseClass = cn(
+    "flex w-full items-center px-4 py-2 text-left",
+    "text-krds-foreground text-krds-body-sm",
+    "hover:bg-krds-surface-subtler",
+    "focus:krds-focus-ring-inset",
+    className
+  );
+  return (
+    <li>
+      {href ? (
+        <a data-slot="krds-header-utility-dropdown-item" href={href} className={baseClass}>
+          {children}
+        </a>
+      ) : (
+        <button data-slot="krds-header-utility-dropdown-item" type="button" className={baseClass}>
+          {children}
+        </button>
+      )}
+    </li>
+  );
+}
+
 // ─── HeaderBrand ──────────────────────────────────────────────────────────────
 
 type HeaderBrandProps = {
@@ -110,9 +210,10 @@ type HeaderActionItemProps = {
   children?: React.ReactNode;
   href?: string;
   icon?: React.ReactNode;
+  "aria-controls"?: string;
 };
 
-function HeaderActionItem({ className, children, href, icon }: HeaderActionItemProps) {
+function HeaderActionItem({ className, children, href, icon, "aria-controls": ariaControls }: HeaderActionItemProps) {
   const baseClass = cn(
     "inline-flex h-10 items-center gap-2 rounded-md px-3",
     "text-krds-body-md font-bold text-krds-foreground",
@@ -132,15 +233,65 @@ function HeaderActionItem({ className, children, href, icon }: HeaderActionItemP
   );
   if (href) {
     return (
-      <a data-slot="krds-header-action-item" href={href} className={baseClass}>
+      <a data-slot="krds-header-action-item" href={href} aria-controls={ariaControls} className={baseClass}>
         {content}
       </a>
     );
   }
   return (
-    <button data-slot="krds-header-action-item" type="button" className={baseClass}>
+    <button data-slot="krds-header-action-item" type="button" aria-controls={ariaControls} className={baseClass}>
       {content}
     </button>
+  );
+}
+
+// ─── HeaderActionDropdown (나의GOV action shell) ────────────────────────────────
+
+type HeaderActionDropdownProps = {
+  className?: string;
+  children?: React.ReactNode;
+  label?: React.ReactNode;
+  icon?: React.ReactNode;
+};
+
+function HeaderActionDropdown({ className, children, label = "나의GOV", icon }: HeaderActionDropdownProps) {
+  const { open, setOpen, rootRef } = useDropdown();
+  const panelId = React.useId();
+
+  return (
+    <div ref={rootRef} data-slot="krds-header-action-dropdown" className={cn("relative", className)}>
+      <button
+        type="button"
+        aria-expanded={open}
+        aria-controls={panelId}
+        onClick={() => setOpen((v) => !v)}
+        className={cn(
+          "inline-flex h-10 items-center gap-2 rounded-md px-3",
+          "text-krds-body-md text-krds-foreground font-bold",
+          "hover:bg-krds-surface-subtler",
+          "focus:krds-focus-ring"
+        )}
+      >
+        {icon && (
+          <span className="size-5 shrink-0 [&>svg]:size-5" aria-hidden="true">
+            {icon}
+          </span>
+        )}
+        {label}
+        <ChevronDown size={16} aria-hidden="true" className={cn("transition-transform", open && "rotate-180")} />
+      </button>
+      {open && (
+        <div
+          id={panelId}
+          data-slot="krds-header-action-dropdown-panel"
+          className={cn(
+            "border-krds-border bg-krds-surface absolute right-0 top-full z-50 mt-1 min-w-[260px] rounded-md border p-4 shadow-md"
+          )}
+        >
+          {children}
+        </div>
+      )}
+    </div>
   );
 }
 
@@ -225,8 +376,11 @@ export {
   HeaderUtility,
   HeaderUtilityItem,
   HeaderUtilityDivider,
+  HeaderUtilityDropdown,
+  HeaderUtilityDropdownItem,
   HeaderActions,
   HeaderActionItem,
+  HeaderActionDropdown,
   HeaderNav,
   HeaderNavItem
 };

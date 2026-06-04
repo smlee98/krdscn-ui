@@ -70,76 +70,6 @@
       "required": false
     }
   ],
-  "KrdsAlertModal": [
-    {
-      "name": "cancelLabel",
-      "type": "string",
-      "defaultValue": "취소",
-      "description": "Cancel button label (default: \"취소\")",
-      "required": false
-    },
-    {
-      "name": "className",
-      "type": "string",
-      "description": "Additional class on the content panel",
-      "required": false
-    },
-    {
-      "name": "confirmLabel",
-      "type": "string",
-      "defaultValue": "확인",
-      "description": "Confirm button label (default: \"확인\")",
-      "required": false
-    },
-    {
-      "name": "defaultOpen",
-      "type": "boolean",
-      "description": "",
-      "required": false
-    },
-    {
-      "name": "description",
-      "type": "ReactNode",
-      "description": "Modal body / description",
-      "required": false
-    },
-    {
-      "name": "onCancel",
-      "type": "(() => void)",
-      "description": "",
-      "required": false
-    },
-    {
-      "name": "onConfirm",
-      "type": "(() => void)",
-      "description": "",
-      "required": false
-    },
-    {
-      "name": "onOpenChange",
-      "type": "((open: boolean) => void)",
-      "description": "",
-      "required": false
-    },
-    {
-      "name": "open",
-      "type": "boolean",
-      "description": "",
-      "required": false
-    },
-    {
-      "name": "title",
-      "type": "ReactNode",
-      "description": "Modal title",
-      "required": true
-    },
-    {
-      "name": "trigger",
-      "type": "ReactNode",
-      "description": "Trigger element",
-      "required": false
-    }
-  ],
   "KrdsBadge": [
     {
       "name": "aria-label",
@@ -1596,7 +1526,7 @@
       "name": "usePortal",
       "type": "boolean",
       "defaultValue": "true",
-      "description": "@deprecated Portal is now managed by the shadcn Dialog layer. Ignored.",
+      "description": "@deprecated Portal is now managed by the radix Dialog layer. Ignored.",
       "required": false
     },
     {
