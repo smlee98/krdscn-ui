@@ -6,6 +6,7 @@ import { Calendar as CalendarIcon } from "lucide-react";
 import { Popover as PopoverPrimitive } from "radix-ui";
 import { Calendar } from "@/components/ui/dynamic/calendar";
 import { cn } from "@/lib/cn";
+import { renderFieldMessage } from "@/components/ui/krds/(input)/field-message";
 
 export type DateInputSize = "small" | "medium" | "large";
 
@@ -19,6 +20,10 @@ export type DateInputProps = Omit<
   value?: string;
   defaultValue?: string;
   readOnly?: boolean;
+  hint?: React.ReactNode;
+  error?: React.ReactNode;
+  success?: React.ReactNode;
+  information?: React.ReactNode;
   isCalendarOpen?: boolean;
   defaultIsCalendarOpen?: boolean;
   onCalendarOpenChange?: (isOpen: boolean) => void;
@@ -81,15 +86,33 @@ function DateInput({
   placeholder = "YYYY.MM.DD",
   className,
   disabled,
+  id: propId,
+  hint,
+  error,
+  success,
+  information,
   "aria-invalid": ariaInvalid,
+  "aria-describedby": ariaDescribedby,
+  "aria-labelledby": ariaLabelledby,
   ...rest
 }: DateInputProps) {
+  const generatedId = React.useId();
+  const id = propId ?? generatedId;
+  const labelId = `${id}-label`;
+
   const [internalOpen, setInternalOpen] = React.useState(defaultIsCalendarOpen);
   const [internalValue, setInternalValue] = React.useState(defaultValue ?? "");
 
   const isControlled = isCalendarOpen !== undefined;
   const open = isControlled ? isCalendarOpen : internalOpen;
   const displayValue = value !== undefined ? value : internalValue;
+
+  const message = renderFieldMessage(id, { error, success, information, hint });
+  const describedBy = message
+    ? [ariaDescribedby, `${id}-message`].filter(Boolean).join(" ")
+    : ariaDescribedby;
+  const labelledBy = label ? [ariaLabelledby, labelId].filter(Boolean).join(" ") : ariaLabelledby;
+  const resolvedInvalid = ariaInvalid ?? (error != null && error !== false ? true : undefined);
 
   function handleOpenChange(next: boolean) {
     if (!isControlled) setInternalOpen(next);
@@ -103,15 +126,22 @@ function DateInput({
   // interaction, differing only in chrome.
   return (
     <div data-slot="krds-date-input" className={cn("flex flex-col", className)}>
-      {label && <label className="mb-2 block text-krds-body-sm text-krds-foreground-subtle">{label}</label>}
+      {label && (
+        <label id={labelId} className="mb-2 block text-krds-body-sm text-krds-foreground-subtle">
+          {label}
+        </label>
+      )}
 
       <PopoverPrimitive.Root open={open} onOpenChange={handleOpenChange}>
         <PopoverPrimitive.Trigger asChild>
           <button
             {...(rest as React.ButtonHTMLAttributes<HTMLButtonElement>)}
             type="button"
-            aria-label={openButtonLabel}
-            aria-invalid={ariaInvalid}
+            id={id}
+            aria-label={label ? undefined : openButtonLabel}
+            aria-labelledby={labelledBy}
+            aria-invalid={resolvedInvalid}
+            aria-describedby={describedBy}
             aria-readonly={readOnly || undefined}
             disabled={disabled || readOnly}
             className={cn(
@@ -179,6 +209,8 @@ function DateInput({
           </PopoverPrimitive.Content>
         </PopoverPrimitive.Portal>
       </PopoverPrimitive.Root>
+
+      {message && <div className="mt-2">{message}</div>}
     </div>
   );
 }

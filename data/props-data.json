@@ -143,7 +143,7 @@
     {
       "name": "aria-label",
       "type": "string",
-      "defaultValue": "이동 경로",
+      "defaultValue": "현재 경로",
       "description": "",
       "required": false
     },
@@ -800,14 +800,32 @@
       "required": false
     },
     {
+      "name": "error",
+      "type": "ReactNode",
+      "description": "",
+      "required": false
+    },
+    {
       "name": "eventDates",
       "type": "string[]",
       "description": "",
       "required": false
     },
     {
+      "name": "hint",
+      "type": "ReactNode",
+      "description": "",
+      "required": false
+    },
+    {
       "name": "id",
       "type": "string",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "information",
+      "type": "ReactNode",
       "description": "",
       "required": false
     },
@@ -916,6 +934,12 @@
     {
       "name": "style",
       "type": "CSSProperties",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "success",
+      "type": "ReactNode",
       "description": "",
       "required": false
     },
@@ -1670,6 +1694,12 @@
   ],
   "KrdsSelect": [
     {
+      "name": "aria-describedby",
+      "type": "string",
+      "description": "",
+      "required": false
+    },
+    {
       "name": "aria-invalid",
       "type": "boolean",
       "description": "",
@@ -1694,8 +1724,26 @@
       "required": false
     },
     {
+      "name": "error",
+      "type": "ReactNode",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "hint",
+      "type": "ReactNode",
+      "description": "",
+      "required": false
+    },
+    {
       "name": "id",
       "type": "string",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "information",
+      "type": "ReactNode",
       "description": "",
       "required": false
     },
@@ -1739,6 +1787,12 @@
       "name": "size",
       "type": "enum",
       "defaultValue": "large",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "success",
+      "type": "ReactNode",
       "description": "",
       "required": false
     },
@@ -1802,6 +1856,13 @@
     {
       "name": "id",
       "type": "string",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "label",
+      "type": "string",
+      "defaultValue": "로딩 중",
       "description": "",
       "required": false
     },
@@ -2070,8 +2131,26 @@
       "required": false
     },
     {
+      "name": "error",
+      "type": "ReactNode",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "hint",
+      "type": "ReactNode",
+      "description": "",
+      "required": false
+    },
+    {
       "name": "id",
       "type": "string",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "information",
+      "type": "ReactNode",
       "description": "",
       "required": false
     },
@@ -2117,6 +2196,12 @@
     {
       "name": "style",
       "type": "CSSProperties",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "success",
+      "type": "ReactNode",
       "description": "",
       "required": false
     },
@@ -2217,8 +2302,26 @@
       "required": false
     },
     {
+      "name": "error",
+      "type": "ReactNode",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "hint",
+      "type": "ReactNode",
+      "description": "",
+      "required": false
+    },
+    {
       "name": "id",
       "type": "string",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "information",
+      "type": "ReactNode",
       "description": "",
       "required": false
     },
@@ -2250,6 +2353,12 @@
     {
       "name": "style",
       "type": "CSSProperties",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "success",
+      "type": "ReactNode",
       "description": "",
       "required": false
     },

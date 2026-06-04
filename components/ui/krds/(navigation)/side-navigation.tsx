@@ -150,6 +150,8 @@ function SideNavigationTrigger({ className, children }: SideNavigationTriggerPro
   return (
     <button
       type="button"
+      role="menuitem"
+      aria-haspopup="true"
       data-slot="krds-side-navigation-trigger"
       aria-expanded={ctx?.open ?? false}
       onClick={ctx?.toggle}
@@ -179,9 +181,13 @@ type SideNavigationListProps = {
 function SideNavigationList({ className, children, bordered }: SideNavigationListProps) {
   const ctx = React.useContext(SideNavigationGroupContext);
   if (ctx && !ctx.open) return null;
+  // Inside a group: this is a submenu. At the root level (no ctx): this is the menubar.
+  const isSubmenu = ctx !== null;
   return (
     <ul
       data-slot="krds-side-navigation-list"
+      role={isSubmenu ? "menu" : "menubar"}
+      aria-orientation={isSubmenu ? undefined : "vertical"}
       className={cn("flex w-full flex-col", ctx && "py-2", bordered && "border-krds-border border-y py-4", className)}
     >
       {children}
@@ -201,9 +207,10 @@ type SideNavigationItemProps = {
 
 function SideNavigationItem({ className, children, href, external, active }: SideNavigationItemProps) {
   return (
-    <li className="w-full">
+    <li role="none" className="w-full">
       <a
         data-slot="krds-side-navigation-item"
+        role="menuitem"
         href={href}
         aria-current={active ? "page" : undefined}
         className={cn(

@@ -3,6 +3,7 @@
 import * as React from "react";
 import { Eye, EyeOff } from "lucide-react";
 import { cn } from "@/lib/cn";
+import { renderFieldMessage } from "@/components/ui/krds/(input)/field-message";
 
 function IconDelete({ className }: { className?: string }) {
   return (
@@ -31,6 +32,10 @@ type TextInputProps = Omit<
   defaultValue?: string;
   showPasswordToggle?: boolean;
   showClearButton?: boolean;
+  hint?: React.ReactNode;
+  error?: React.ReactNode;
+  success?: React.ReactNode;
+  information?: React.ReactNode;
 };
 
 const sizeBox: Record<TextInputSize, string> = {
@@ -72,10 +77,22 @@ function TextInput({
   disabled,
   readOnly,
   id: propId,
+  hint,
+  error,
+  success,
+  information,
+  "aria-invalid": ariaInvalid,
+  "aria-describedby": ariaDescribedby,
   ...rest
 }: TextInputProps) {
   const generatedId = React.useId();
   const id = propId ?? generatedId;
+
+  const message = renderFieldMessage(id, { error, success, information, hint });
+  const describedBy = message
+    ? [ariaDescribedby, `${id}-message`].filter(Boolean).join(" ")
+    : ariaDescribedby;
+  const resolvedInvalid = ariaInvalid ?? (error != null && error !== false ? true : undefined);
 
   const [internal, setInternal] = React.useState(defaultValue ?? "");
   const [visible, setVisible] = React.useState(false);
@@ -125,6 +142,8 @@ function TextInput({
           value={currentValue}
           disabled={disabled}
           readOnly={readOnly}
+          aria-invalid={resolvedInvalid}
+          aria-describedby={describedBy}
           onChange={handleChange}
           className={cn(
             "h-full flex-1 bg-transparent leading-[1.5] outline-none",
@@ -159,6 +178,8 @@ function TextInput({
           </button>
         )}
       </div>
+
+      {message}
     </div>
   );
 }

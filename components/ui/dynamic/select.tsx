@@ -15,6 +15,7 @@ import {
   type SelectSize,
   type SelectVariant
 } from "@/components/ui/krds/(selection)/select";
+import { renderFieldMessage } from "@/components/ui/krds/(input)/field-message";
 import { useUISystem } from "@/lib/ui-system";
 
 // KRDS is data-driven (options array). shadcn is a compound (Trigger/Content/Item).
@@ -51,12 +52,23 @@ export function Select(props: SelectProps) {
     name: _name,
     className,
     selectClassName,
-    "aria-invalid": ariaInvalid
+    "aria-invalid": ariaInvalid,
+    "aria-describedby": ariaDescribedby,
+    hint,
+    error,
+    success,
+    information
   } = props;
   void _variant;
   void _name;
 
   const triggerId = id ?? autoId;
+
+  const message = renderFieldMessage(triggerId, { error, success, information, hint });
+  const describedBy = message
+    ? [ariaDescribedby, `${triggerId}-message`].filter(Boolean).join(" ")
+    : ariaDescribedby;
+  const resolvedInvalid = ariaInvalid ?? (error != null && error !== false ? true : undefined);
 
   return (
     <div className={["flex w-full flex-col gap-2", className].filter(Boolean).join(" ")}>
@@ -69,7 +81,8 @@ export function Select(props: SelectProps) {
         <SelectTrigger
           id={triggerId}
           size={SHADCN_TRIGGER_SIZE[size]}
-          aria-invalid={ariaInvalid}
+          aria-invalid={resolvedInvalid}
+          aria-describedby={describedBy}
           className={selectClassName}
         >
           <SelectValue placeholder={placeholder} />
@@ -82,6 +95,7 @@ export function Select(props: SelectProps) {
           ))}
         </SelectContent>
       </ShadcnSelectRoot>
+      {message}
     </div>
   );
 }

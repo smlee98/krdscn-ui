@@ -7,6 +7,7 @@ import {
   type TextInputProps,
   type TextInputSize
 } from "@/components/ui/krds/(input)/text-input";
+import { renderFieldMessage } from "@/components/ui/krds/(input)/field-message";
 import { useUISystem } from "@/lib/ui-system";
 
 // shadcn fallback: label rendered above the Input using shadcn tokens.
@@ -31,11 +32,21 @@ function TextInput(props: TextInputProps) {
     showPasswordToggle: _showPasswordToggle,
     className,
     id: propId,
+    hint,
+    error,
+    success,
+    information,
+    "aria-invalid": ariaInvalid,
+    "aria-describedby": ariaDescribedby,
     ...rest
   } = props;
   void _size;
 
   const id = propId ?? generatedId;
+
+  const message = renderFieldMessage(id, { error, success, information, hint });
+  const describedBy = message ? [ariaDescribedby, `${id}-message`].filter(Boolean).join(" ") : ariaDescribedby;
+  const resolvedInvalid = ariaInvalid ?? (error != null && error !== false ? true : undefined);
 
   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
     onChange?.(e.target.value);
@@ -54,8 +65,11 @@ function TextInput(props: TextInputProps) {
         defaultValue={defaultValue}
         onChange={handleChange}
         className={className}
+        aria-invalid={resolvedInvalid}
+        aria-describedby={describedBy}
         {...rest}
       />
+      {message}
     </div>
   );
 }

@@ -4,6 +4,7 @@ import * as React from "react";
 import * as SelectPrimitive from "@radix-ui/react-select";
 import { ChevronDownIcon, CheckIcon } from "lucide-react";
 import { cn } from "@/lib/cn";
+import { renderFieldMessage } from "@/components/ui/krds/(input)/field-message";
 
 type SelectSize = "small" | "medium" | "large";
 type SelectVariant = "default" | "sorting";
@@ -14,6 +15,7 @@ interface SelectProps {
   options: SelectOption[];
   label?: string;
   "aria-invalid"?: boolean;
+  "aria-describedby"?: string;
   size?: SelectSize;
   variant?: SelectVariant;
   disabled?: boolean;
@@ -25,6 +27,10 @@ interface SelectProps {
   name?: string;
   className?: string;
   selectClassName?: string;
+  hint?: React.ReactNode;
+  error?: React.ReactNode;
+  success?: React.ReactNode;
+  information?: React.ReactNode;
 }
 
 const triggerHeight: Record<SelectSize, string> = {
@@ -173,6 +179,7 @@ function Select({
   options,
   label,
   "aria-invalid": ariaInvalid,
+  "aria-describedby": ariaDescribedby,
   size = "large",
   variant = "default",
   disabled,
@@ -183,10 +190,20 @@ function Select({
   id,
   name,
   className,
-  selectClassName
+  selectClassName,
+  hint,
+  error,
+  success,
+  information
 }: SelectProps) {
   const autoId = React.useId();
   const inputId = id ?? autoId;
+
+  const message = renderFieldMessage(inputId, { error, success, information, hint });
+  const describedBy = message
+    ? [ariaDescribedby, `${inputId}-message`].filter(Boolean).join(" ")
+    : ariaDescribedby;
+  const resolvedInvalid = ariaInvalid ?? (error != null && error !== false ? true : undefined);
 
   const [internal, setInternal] = React.useState<string | undefined>(defaultValue);
   const isControlled = value !== undefined;
@@ -267,7 +284,8 @@ function Select({
       >
         <SelectPrimitive.Trigger
           id={inputId}
-          aria-invalid={ariaInvalid}
+          aria-invalid={resolvedInvalid}
+          aria-describedby={describedBy}
           className={cn(
             // base
             "border-krds-border-dark bg-krds-surface text-krds-foreground relative flex w-full items-center border px-4 transition-colors outline-none",
@@ -308,6 +326,8 @@ function Select({
           ))}
         </KrdsSelectContent>
       </SelectPrimitive.Root>
+
+      {message}
     </div>
   );
 }

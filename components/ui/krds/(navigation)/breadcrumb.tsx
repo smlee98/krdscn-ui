@@ -11,7 +11,7 @@ type BreadcrumbProps = {
   "aria-label"?: string;
 };
 
-function Breadcrumb({ className, children, "aria-label": ariaLabel = "이동 경로" }: BreadcrumbProps) {
+function Breadcrumb({ className, children, "aria-label": ariaLabel = "현재 경로" }: BreadcrumbProps) {
   return (
     <nav data-slot="krds-breadcrumb" aria-label={ariaLabel} className={cn("inline-flex items-center", className)}>
       {children}

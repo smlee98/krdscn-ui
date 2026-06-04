@@ -17,18 +17,23 @@ const spinnerVariants = cva(
   }
 );
 
-type SpinnerProps = Omit<React.ComponentProps<"span">, "children"> & VariantProps<typeof spinnerVariants>;
+type SpinnerProps = Omit<React.ComponentProps<"span">, "children"> &
+  VariantProps<typeof spinnerVariants> & {
+    label?: string;
+  };
 type KrdsSpinnerProps = SpinnerProps;
 
-function Spinner({ size, className, ...props }: SpinnerProps) {
+function Spinner({ size, className, label = "로딩 중", ...props }: SpinnerProps) {
   return (
-    <span
-      data-slot="krds-spinner"
-      role="status"
-      aria-hidden="true"
-      className={cn(spinnerVariants({ size }), className)}
-      {...props}
-    />
+    <span role="status" data-slot="krds-spinner-wrapper">
+      <span
+        data-slot="krds-spinner"
+        aria-hidden="true"
+        className={cn(spinnerVariants({ size }), className)}
+        {...props}
+      />
+      <span className="sr-only">{label}</span>
+    </span>
   );
 }
 

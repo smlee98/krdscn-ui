@@ -19,6 +19,7 @@ import type {
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Calendar } from "@/components/ui/calendar";
 import { Button } from "@/components/ui/button";
+import { renderFieldMessage } from "@/components/ui/krds/(input)/field-message";
 import { cn } from "@/lib/cn";
 import { useUISystem } from "@/lib/ui-system";
 
@@ -79,6 +80,13 @@ function ShadcnDateInput({
   placeholder = "YYYY.MM.DD",
   className,
   disabled,
+  id: propId,
+  hint,
+  error,
+  success,
+  information,
+  "aria-invalid": ariaInvalid,
+  "aria-describedby": ariaDescribedby,
   // KRDS-only props — intentionally dropped on the shadcn branch.
   readOnly: _readOnly,
   calendarPosition: _calendarPosition,
@@ -101,10 +109,18 @@ function ShadcnDateInput({
   const [internalOpen, setInternalOpen] = React.useState(defaultIsCalendarOpen);
   const [internalValue, setInternalValue] = React.useState(defaultValue ?? "");
 
+  const generatedId = React.useId();
+  const id = propId ?? generatedId;
+  const labelId = `${id}-label`;
+
   const isOpenControlled = isCalendarOpen !== undefined;
   const open = isOpenControlled ? isCalendarOpen : internalOpen;
   const displayValue = value !== undefined ? value : internalValue;
   const selectedDate = parseKrdsDate(displayValue);
+
+  const message = renderFieldMessage(id, { error, success, information, hint });
+  const describedBy = message ? [ariaDescribedby, `${id}-message`].filter(Boolean).join(" ") : ariaDescribedby;
+  const resolvedInvalid = ariaInvalid ?? (error != null && error !== false ? true : undefined);
 
   function handleOpenChange(next: boolean) {
     if (!isOpenControlled) setInternalOpen(next);
@@ -120,14 +136,22 @@ function ShadcnDateInput({
 
   return (
     <div data-slot="date-input" className={cn("flex flex-col", className)}>
-      {label && <label className="text-foreground mb-2 block text-sm">{label}</label>}
+      {label && (
+        <label id={labelId} className="text-foreground mb-2 block text-sm">
+          {label}
+        </label>
+      )}
       <Popover open={open} onOpenChange={handleOpenChange}>
         <PopoverTrigger asChild>
           <Button
             type="button"
+            id={id}
             variant="outline"
             size={SIZE_TO_BUTTON[size]}
             disabled={disabled}
+            aria-labelledby={label ? labelId : undefined}
+            aria-invalid={resolvedInvalid}
+            aria-describedby={describedBy}
             className={cn("w-full justify-start text-left font-normal", !displayValue && "text-muted-foreground")}
           >
             <CalendarIcon />
@@ -138,6 +162,7 @@ function ShadcnDateInput({
           <Calendar mode="single" selected={selectedDate} onSelect={handleSelect} autoFocus locale={ko} />
         </PopoverContent>
       </Popover>
+      {message && <div className="mt-2">{message}</div>}
     </div>
   );
 }

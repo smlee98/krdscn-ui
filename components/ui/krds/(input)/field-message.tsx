@@ -48,4 +48,24 @@ function FieldInformation({ children, className, ...props }: FieldMessageProps) 
   );
 }
 
-export { FieldHint, FieldError, FieldSuccess, FieldInformation };
+// Shared message props for form-field components.
+export type FieldMessages = {
+  hint?: React.ReactNode;
+  error?: React.ReactNode;
+  success?: React.ReactNode;
+  information?: React.ReactNode;
+};
+
+// Renders a single field message below a control with precedence:
+// error > success > information > hint. The element is given id `${id}-message`
+// so it can be referenced via aria-describedby. Returns null when no message.
+function renderFieldMessage(id: string, { error, success, information, hint }: FieldMessages): React.ReactNode {
+  const messageId = `${id}-message`;
+  if (error != null && error !== false) return <FieldError id={messageId}>{error}</FieldError>;
+  if (success != null && success !== false) return <FieldSuccess id={messageId}>{success}</FieldSuccess>;
+  if (information != null && information !== false) return <FieldInformation id={messageId}>{information}</FieldInformation>;
+  if (hint != null && hint !== false) return <FieldHint id={messageId}>{hint}</FieldHint>;
+  return null;
+}
+
+export { FieldHint, FieldError, FieldSuccess, FieldInformation, renderFieldMessage };
