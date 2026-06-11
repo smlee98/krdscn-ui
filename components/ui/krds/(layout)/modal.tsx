@@ -153,7 +153,7 @@ function ModalContent({ className, children, ...rest }: ModalContentProps) {
           "data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95",
           "data-[state=open]:animate-in data-[state=open]:fade-in-0 data-[state=open]:zoom-in-95",
           "flex flex-col items-start gap-0",
-          "bg-krds-surface border-krds-border rounded-[12px] p-6",
+          "bg-krds-surface border border-krds-border rounded-[12px] p-6",
           // KRDS: 콘텐츠 최대 높이를 뷰포트로 제한 → 긴 본문은 ModalBody 내부에서 스크롤.
           // (bottom-sheet/fullscreen 은 variantClass 가 위치·높이를 직접 제어하므로 default 에만 적용.)
           !isBottomSheet && !isFullscreen && "max-h-[calc(100dvh-2rem)]",

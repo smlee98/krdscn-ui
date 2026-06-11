@@ -32,7 +32,7 @@ function CoachMark({
   if (!isVisible) return null;
 
   return (
-    <div data-slot="krds-coach-mark-root" className="relative pt-[300px]">
+    <div data-slot="krds-coach-mark-root" className="relative">
       <div
         data-slot="krds-coach-mark"
         className={cn(

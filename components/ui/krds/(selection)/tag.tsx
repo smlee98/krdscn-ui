@@ -4,13 +4,11 @@ import { Root as Slot } from "@radix-ui/react-slot";
 
 import { cn } from "@/lib/cn";
 
-// KRDS tag size scale (ref _tag.scss btn-tag): the canonical KRDS heights are
-// small 32px / medium 40px / large 48px. The original krdscn keys
-// (xs 24 / default 32 / lg 40) sat one step small; they are preserved verbatim
-// for backward compatibility. New KRDS-aligned keys are added on top:
-//   small  → 32px (== old default)
-//   medium → 40px (== old lg)
-//   large  → 48px (new top step)
+// KRDS tag size scale (ref _tag.scss btn-tag): heights are
+// small 24px / medium 32px / large 40px (size-height-4/5/6),
+// fonts 13/15/17px, padding-x 8/10/12px. The original krdscn keys
+// (xs/default/lg) already match this scale and are preserved verbatim;
+// the KRDS-named keys are 1:1 aliases of them.
 type TagSize = "xs" | "default" | "lg" | "small" | "medium" | "large";
 
 const tagVariants = cva(
@@ -26,10 +24,10 @@ const tagVariants = cva(
         xs: "h-6 px-2 gap-0.5 text-[0.8125rem]",
         default: "h-8 px-2.5 gap-0.5 text-[0.9375rem]",
         lg: "h-10 px-3 gap-0.5 text-[1.0625rem]",
-        // KRDS-aligned keys
-        small: "h-8 px-2.5 gap-0.5 text-[0.9375rem]",
-        medium: "h-10 px-3 gap-0.5 text-[1.0625rem]",
-        large: "h-12 px-4 gap-1 text-[1.0625rem]"
+        // KRDS-named keys (1:1 aliases of the scale above)
+        small: "h-6 px-2 gap-0.5 text-[0.8125rem]",
+        medium: "h-8 px-2.5 gap-0.5 text-[0.9375rem]",
+        large: "h-10 px-3 gap-0.5 text-[1.0625rem]"
       },
       interactive: {
         true: [

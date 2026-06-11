@@ -14,7 +14,11 @@ function SkipLink({ className, href = "#main-content", children = "본문 바로
       data-slot="krds-skip-link"
       href={href}
       className={cn(
-        "flex h-8 w-full items-center justify-center",
+        // KRDS(_skip_link.scss): 포커스 전에는 sr-only로 숨기고, 포커스 시에만
+        // 뷰포트 최상단에 고정(fixed) 풀폭 바로 노출한다.
+        "sr-only focus:not-sr-only",
+        "focus:fixed focus:inset-x-0 focus:top-0 focus:z-50",
+        "focus:flex focus:h-8 focus:w-full focus:items-center focus:justify-center",
         "bg-krds-surface-inverse text-krds-foreground-inverse text-krds-body-sm",
         "no-underline",
         // KRDS 원본(#krds-skip-link a:focus)은 outward 링 대신 inset 2px primary 링을 쓴다.
