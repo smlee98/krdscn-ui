@@ -79,7 +79,7 @@ const buttonVariants = cva(
         text: [
           "border border-transparent bg-transparent text-krds-foreground",
           "hover:bg-krds-surface-secondary-subtle",
-          "active:bg-krds-surface-secondary-subtle",
+          "active:bg-krds-surface-secondary-pressed",
           "disabled:bg-transparent disabled:text-krds-foreground-disabled"
         ].join(" ")
       },
