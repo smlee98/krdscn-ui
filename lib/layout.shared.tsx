@@ -19,13 +19,13 @@ export function baseOptions(): BaseLayoutProps {
       },
       {
         text: "GitHub",
-        url: "https://github.com/gwlee-dev/krdscn-ui",
+        url: "https://github.com/smlee98/krdscn-ui",
         external: true,
       },
     ],
     searchToggle: {
       enabled: false,
     },
-    githubUrl: "https://github.com/gwlee-dev/krdscn-ui",
+    githubUrl: "https://github.com/smlee98/krdscn-ui",
   }
 }

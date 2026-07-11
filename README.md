@@ -1,4 +1,4 @@
-# krds-shadcn
+# krdscn-ui
 
 KRDS(Korea Government Design System) 컴포넌트를 shadcn/ui + Radix Primitives + Tailwind CSS v4 위에 구현한 래퍼 라이브러리.
 
@@ -25,17 +25,17 @@ yarn dev
 
 ## Scripts
 
-| Script | Description |
-|--------|-------------|
-| `yarn dev` | HTTPS 개발 서버 (포트 8080) |
-| `yarn build` | 프로덕션 빌드 |
-| `yarn start` | 프로덕션 서버 |
-| `yarn lint` | ESLint |
-| `yarn typecheck` | TypeScript 타입 검사 |
-| `yarn format` | Prettier 포맷 |
-| `yarn visual-diff:storybook` | 공식 KRDS Storybook과 시각 비교 (Playwright) |
-| `yarn visual-diff:per-component` | 컴포넌트별 light/dark 시각 비교 |
-| `yarn ui:add <name>` | shadcn 컴포넌트 추가 |
+| Script                           | Description                                  |
+| -------------------------------- | -------------------------------------------- |
+| `yarn dev`                       | HTTPS 개발 서버 (포트 8080)                  |
+| `yarn build`                     | 프로덕션 빌드                                |
+| `yarn start`                     | 프로덕션 서버                                |
+| `yarn lint`                      | ESLint                                       |
+| `yarn typecheck`                 | TypeScript 타입 검사                         |
+| `yarn format`                    | Prettier 포맷                                |
+| `yarn visual-diff:storybook`     | 공식 KRDS Storybook과 시각 비교 (Playwright) |
+| `yarn visual-diff:per-component` | 컴포넌트별 light/dark 시각 비교              |
+| `yarn ui:add <name>`             | shadcn 컴포넌트 추가                         |
 
 ## Directory layout
 
@@ -97,4 +97,4 @@ Modal·AlertModal·Tooltip·DateInput popover와 같은 오픈 상태도 자동 
 
 ## License
 
-Internal — GridOne Cloud Frontend.
+[MIT](./LICENSE)
