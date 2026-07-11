@@ -1,0 +1,180 @@
+---
+title: 내비게이션 구성하기
+description: 메인 메뉴·브레드크럼·사이드 메뉴·페이지네이션으로 사이트의 길 안내를 완성합니다.
+---
+
+공공 사이트는 콘텐츠가 깊습니다. 1Depth 메뉴 아래 2·3Depth가 이어지고, 사용자는 지금 어디에 있는지 항상 알 수 있어야 합니다. 이 가이드에서는 길 안내 컴포넌트 네 가지를 배치합니다.
+
+## 설치
+
+```bash
+pnpm dlx shadcn@latest add \
+  https://krdscn-ui.smlee.info/r/main-menu.json \
+  https://krdscn-ui.smlee.info/r/breadcrumb.json \
+  https://krdscn-ui.smlee.info/r/side-navigation.json \
+  https://krdscn-ui.smlee.info/r/pagination.json
+```
+
+<Steps>
+
+<Step>
+
+### MainMenu — 1Depth 메뉴 바
+
+```tsx
+import { MainMenu, MainMenuBar, MainMenuBarItem } from "@/components/ui/krds/(navigation)/main-menu"
+
+;<MainMenu>
+  <MainMenuBar aria-label="주요 메뉴">
+    <MainMenuBarItem href="/policy" hasSubmenu>
+      정책정보
+    </MainMenuBarItem>
+    <MainMenuBarItem href="/services" hasSubmenu>
+      민원 서비스
+    </MainMenuBarItem>
+    <MainMenuBarItem href="/notice" active>
+      공지사항
+    </MainMenuBarItem>
+  </MainMenuBar>
+</MainMenu>
+```
+
+`active`는 현재 섹션에 하단 강조 바를 그립니다. 대형 드롭다운 패널이 필요하면 `MainMenuPanel` 계열 컴포넌트로 확장할 수 있습니다 — [MainMenu 문서](/docs/components/main-menu)의 패널 예제를 참고하세요.
+
+</Step>
+
+<Step>
+
+### Breadcrumb — 현재 위치
+
+```tsx
+import {
+  Breadcrumb,
+  BreadcrumbHome,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "@/components/ui/krds/(navigation)/breadcrumb"
+
+;<Breadcrumb>
+  <BreadcrumbList>
+    <BreadcrumbItem>
+      <BreadcrumbHome />
+    </BreadcrumbItem>
+    <BreadcrumbSeparator />
+    <BreadcrumbItem>
+      <BreadcrumbLink href="/services">민원 서비스</BreadcrumbLink>
+    </BreadcrumbItem>
+    <BreadcrumbSeparator />
+    <BreadcrumbItem>
+      <BreadcrumbPage>신청 내역</BreadcrumbPage>
+    </BreadcrumbItem>
+  </BreadcrumbList>
+</Breadcrumb>
+```
+
+`BreadcrumbHome`은 홈 아이콘과 링크(`/`)가 기본 내장이고, 마지막 항목은 `BreadcrumbPage`를 씁니다 — 링크가 아니라 `aria-current="page"`가 달린 현재 위치 표시입니다. 모바일에서는 중간 항목이 자동으로 축약됩니다.
+
+</Step>
+
+<Step>
+
+### SideNavigation — 접이식 2·3Depth
+
+```tsx
+import {
+  SideNavigation,
+  SideNavigationGroup,
+  SideNavigationItem,
+  SideNavigationList,
+  SideNavigationTitle,
+  SideNavigationTrigger,
+} from "@/components/ui/krds/(navigation)/side-navigation"
+
+;<SideNavigation>
+  <SideNavigationTitle>민원 서비스</SideNavigationTitle>
+
+  <SideNavigationGroup defaultOpen>
+    <SideNavigationTrigger>신청·접수</SideNavigationTrigger>
+    <SideNavigationList>
+      <SideNavigationItem href="/services/apply" active>
+        온라인 신청
+      </SideNavigationItem>
+      <SideNavigationItem href="/services/status">신청 내역 조회</SideNavigationItem>
+    </SideNavigationList>
+  </SideNavigationGroup>
+
+  <SideNavigationGroup>
+    <SideNavigationTrigger>증명서 발급</SideNavigationTrigger>
+  </SideNavigationGroup>
+</SideNavigation>
+```
+
+그룹 열림은 `defaultOpen`(uncontrolled) 또는 `open`/`onOpenChange`(controlled)로 다룹니다. 본문과 나란히 놓으려면:
+
+```tsx
+<div className="flex gap-8">
+  <SideNavigation>{/* ... */}</SideNavigation>
+  <main id="main-content" tabIndex={-1} className="flex-1">
+    {/* 본문 */}
+  </main>
+</div>
+```
+
+</Step>
+
+<Step>
+
+### Pagination — 상태는 여러분이, 번호 계산은 헬퍼가
+
+Pagination은 controlled 컴포넌트입니다. 현재 페이지 상태는 소비자가 관리하고, 번호·줄임표 배열 계산은 `buildPageItems` 헬퍼가 해줍니다.
+
+```tsx
+"use client"
+
+import * as React from "react"
+import {
+  buildPageItems,
+  Pagination,
+  PaginationContent,
+  PaginationEllipsis,
+  PaginationItem,
+  PaginationNext,
+  PaginationPrev,
+} from "@/components/ui/krds/(navigation)/pagination"
+
+export function NoticePagination({ total = 10 }: { total?: number }) {
+  const [current, setCurrent] = React.useState(1)
+  const items = buildPageItems(current, total, 1, 3)
+
+  return (
+    <Pagination>
+      <PaginationContent>
+        <PaginationPrev disabled={current === 1} onClick={() => setCurrent((p) => Math.max(1, p - 1))} />
+        {items.map((item, index) =>
+          item === "dots" ? (
+            <PaginationEllipsis key={`dots-${index}`} />
+          ) : (
+            <PaginationItem key={item} active={item === current} onClick={() => setCurrent(item)}>
+              {item}
+            </PaginationItem>
+          )
+        )}
+        <PaginationNext disabled={current === total} onClick={() => setCurrent((p) => Math.min(total, p + 1))} />
+      </PaginationContent>
+    </Pagination>
+  )
+}
+```
+
+`buildPageItems(current, total, boundary, sibling)`은 양끝 고정 개수(boundary)와 현재 페이지 주변 개수(sibling)를 받아 숫자와 `"dots"`가 섞인 배열을 돌려줍니다.
+
+</Step>
+
+</Steps>
+
+## 다음
+
+길 안내가 갖춰졌으니 데이터를 보여줄 차례입니다. [목록과 표 페이지](/docs/guides/data-pages)로 이어집니다.
