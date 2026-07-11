@@ -1,0 +1,5 @@
+# Run lint-staged
+if ! yarn precommit; then
+  echo "Pre-commit checks failed. Commit aborted."
+  exit 1
+fi

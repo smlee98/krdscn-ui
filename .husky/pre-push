@@ -1,0 +1,4 @@
+if ! yarn prepush; then
+  echo "Pre-push checks failed. Push aborted."
+  exit 1
+fi
