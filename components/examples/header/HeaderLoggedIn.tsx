@@ -35,7 +35,7 @@ export default function HeaderLoggedIn() {
               <li>
                 <a
                   href="#"
-                  className="text-krds-foreground text-krds-body-md hover:bg-krds-surface-subtler focus:krds-focus-ring flex items-center rounded-md px-3 py-2"
+                  className="text-krds-foreground text-krds-body-md hover:bg-krds-surface-secondary-subtle focus:krds-focus-ring flex items-center rounded-md px-3 py-2"
                 >
                   나의 GOV 홈
                 </a>
@@ -43,7 +43,7 @@ export default function HeaderLoggedIn() {
               <li>
                 <a
                   href="#"
-                  className="text-krds-foreground text-krds-body-md hover:bg-krds-surface-subtler focus:krds-focus-ring flex items-center rounded-md px-3 py-2"
+                  className="text-krds-foreground text-krds-body-md hover:bg-krds-surface-secondary-subtle focus:krds-focus-ring flex items-center rounded-md px-3 py-2"
                 >
                   나의 신청내역
                 </a>
@@ -51,7 +51,7 @@ export default function HeaderLoggedIn() {
               <li>
                 <a
                   href="#"
-                  className="text-krds-foreground text-krds-body-md hover:bg-krds-surface-subtler focus:krds-focus-ring flex items-center rounded-md px-3 py-2"
+                  className="text-krds-foreground text-krds-body-md hover:bg-krds-surface-secondary-subtle focus:krds-focus-ring flex items-center rounded-md px-3 py-2"
                 >
                   나의 정보관리
                 </a>
@@ -60,7 +60,7 @@ export default function HeaderLoggedIn() {
             <div className="border-krds-border-light border-t pt-3">
               <button
                 type="button"
-                className="text-krds-foreground text-krds-body-md hover:bg-krds-surface-subtler focus:krds-focus-ring flex w-full items-center gap-2 rounded-md px-3 py-2"
+                className="text-krds-foreground text-krds-body-md hover:bg-krds-surface-secondary-subtle focus:krds-focus-ring flex w-full items-center gap-2 rounded-md px-3 py-2"
               >
                 <LogOut size={16} aria-hidden="true" />
                 로그아웃
