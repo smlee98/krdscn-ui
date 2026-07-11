@@ -1,27 +1,27 @@
-"use client";
+"use client"
 
-import * as React from "react";
+import * as React from "react"
 import {
   Tabs as ShadcnTabs,
   TabsContent as ShadcnTabsContent,
   TabsList as ShadcnTabsList,
-  TabsTrigger as ShadcnTabsTrigger
-} from "@/components/ui/tabs";
+  TabsTrigger as ShadcnTabsTrigger,
+} from "@/components/ui/tabs"
 import {
   Tab as KrdsTab,
   TabContent as KrdsTabContent,
   TabList as KrdsTabList,
   TabPanel as KrdsTabPanel,
-  TabTrigger as KrdsTabTrigger
-} from "@/components/ui/krds/(layout)/tab";
+  TabTrigger as KrdsTabTrigger,
+} from "@/components/ui/krds/(layout)/tab"
 import type {
   TabContentProps,
   TabListProps,
   TabPanelProps,
   TabProps,
-  TabTriggerProps
-} from "@/components/ui/krds/(layout)/tab";
-import { useUISystem } from "@/lib/ui-system";
+  TabTriggerProps,
+} from "@/components/ui/krds/(layout)/tab"
+import { useUISystem } from "@/lib/ui-system"
 
 export type {
   TabVariant,
@@ -30,8 +30,8 @@ export type {
   TabListProps,
   TabTriggerProps,
   TabContentProps,
-  TabPanelProps
-} from "@/components/ui/krds/(layout)/tab";
+  TabPanelProps,
+} from "@/components/ui/krds/(layout)/tab"
 
 // Dual-render dispatcher (cf. accordion.tsx): the public surface is the KRDS Tab
 // compound API, but each part renders either the KRDS-chromed wrapper or the
@@ -49,48 +49,54 @@ export type {
 // (boxed tabs). The KRDS `type` (primary/secondary axis) has no shadcn analog and
 // is still dropped.
 
-const ShadcnTabContext = React.createContext<{ variant: "line" | "fill" }>({ variant: "line" });
+const ShadcnTabContext = React.createContext<{ variant: "line" | "fill" }>({ variant: "line" })
 
 // ─── Tab (Root) ────────────────────────────────────────────────────────────────
 
 export function Tab(props: TabProps) {
-  const system = useUISystem();
-  if (system === "krds") return <KrdsTab {...props} />;
-  const { variant, type: _type, value, defaultValue, onValueChange, children, className, ...rest } = props;
+  const system = useUISystem()
+  if (system === "krds") return <KrdsTab {...props} />
+  const { variant, type: _type, value, defaultValue, onValueChange, children, className, ...rest } = props
   return (
     <ShadcnTabContext.Provider value={{ variant: variant ?? "line" }}>
-      <ShadcnTabs value={value} defaultValue={defaultValue} onValueChange={onValueChange} className={className} {...rest}>
+      <ShadcnTabs
+        value={value}
+        defaultValue={defaultValue}
+        onValueChange={onValueChange}
+        className={className}
+        {...rest}
+      >
         {children}
       </ShadcnTabs>
     </ShadcnTabContext.Provider>
-  );
+  )
 }
 
 // ─── TabList ─────────────────────────────────────────────────────────────────
 
 export function TabList(props: TabListProps) {
-  const system = useUISystem();
-  if (system === "krds") return <KrdsTabList {...props} />;
-  const { children, className, ...rest } = props;
-  const ctx = React.useContext(ShadcnTabContext);
+  const system = useUISystem()
+  const ctx = React.useContext(ShadcnTabContext)
+  if (system === "krds") return <KrdsTabList {...props} />
+  const { children, className, ...rest } = props
   return (
     <ShadcnTabsList variant={ctx.variant === "fill" ? "default" : "line"} className={className} {...rest}>
       {children}
     </ShadcnTabsList>
-  );
+  )
 }
 
 // ─── TabTrigger ────────────────────────────────────────────────────────────────
 
 export function TabTrigger(props: TabTriggerProps) {
-  const system = useUISystem();
-  if (system === "krds") return <KrdsTabTrigger {...props} />;
-  const { value, children, className, ...rest } = props;
+  const system = useUISystem()
+  if (system === "krds") return <KrdsTabTrigger {...props} />
+  const { value, children, className, ...rest } = props
   return (
     <ShadcnTabsTrigger value={value} className={className} {...rest}>
       {children}
     </ShadcnTabsTrigger>
-  );
+  )
 }
 
 // ─── TabContent ────────────────────────────────────────────────────────────────
@@ -98,21 +104,21 @@ export function TabTrigger(props: TabTriggerProps) {
 // a plain div carrying through className/attrs.
 
 export function TabContent(props: TabContentProps) {
-  const system = useUISystem();
-  if (system === "krds") return <KrdsTabContent {...props} />;
-  const { children, ...rest } = props;
-  return <div {...rest}>{children}</div>;
+  const system = useUISystem()
+  if (system === "krds") return <KrdsTabContent {...props} />
+  const { children, ...rest } = props
+  return <div {...rest}>{children}</div>
 }
 
 // ─── TabPanel ──────────────────────────────────────────────────────────────────
 
 export function TabPanel(props: TabPanelProps) {
-  const system = useUISystem();
-  if (system === "krds") return <KrdsTabPanel {...props} />;
-  const { value, children, className, ...rest } = props;
+  const system = useUISystem()
+  if (system === "krds") return <KrdsTabPanel {...props} />
+  const { value, children, className, ...rest } = props
   return (
     <ShadcnTabsContent value={value} className={className} {...rest}>
       {children}
     </ShadcnTabsContent>
-  );
+  )
 }

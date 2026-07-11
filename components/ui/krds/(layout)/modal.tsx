@@ -6,71 +6,71 @@
  *   is managed internally by ModalContent (which portals to document.body).
  */
 
-"use client";
+"use client"
 
-import * as React from "react";
-import { XIcon } from "lucide-react";
-import { Dialog as DialogPrimitive } from "radix-ui";
+import * as React from "react"
+import { XIcon } from "lucide-react"
+import { Dialog as DialogPrimitive } from "radix-ui"
 
-import { cn } from "@/lib/cn";
+import { cn } from "@/lib/cn"
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
-export type ModalSize = "sm" | "md" | "lg";
-export type ModalVariant = "default" | "bottom-sheet" | "fullscreen";
+export type ModalSize = "sm" | "md" | "lg"
+export type ModalVariant = "default" | "bottom-sheet" | "fullscreen"
 
 export type ModalRootProps = {
-  open?: boolean;
-  defaultOpen?: boolean;
-  onOpenChange?: (open: boolean) => void;
-  size?: ModalSize;
-  variant?: ModalVariant;
+  open?: boolean
+  defaultOpen?: boolean
+  onOpenChange?: (open: boolean) => void
+  size?: ModalSize
+  variant?: ModalVariant
   /** Pressing Escape closes the dialog (default: true). Implemented via Radix default. */
-  closeOnEsc?: boolean;
-  closeOnOverlayClick?: boolean;
+  closeOnEsc?: boolean
+  closeOnOverlayClick?: boolean
   /** @deprecated Portal is now managed by the radix Dialog layer. Ignored. */
-  usePortal?: boolean;
+  usePortal?: boolean
   /** @deprecated Portal container is now document.body. Ignored. */
-  portalContainer?: string | HTMLElement;
-  children?: React.ReactNode;
-};
+  portalContainer?: string | HTMLElement
+  children?: React.ReactNode
+}
 
 export type ModalTriggerProps = React.ComponentProps<"button"> & {
-  asChild?: boolean;
-};
+  asChild?: boolean
+}
 
-export type ModalOverlayProps = React.ComponentProps<"div">;
+export type ModalOverlayProps = React.ComponentProps<"div">
 
-export type ModalContentProps = React.ComponentProps<"div">;
+export type ModalContentProps = React.ComponentProps<"div">
 
 export type ModalHeaderProps = React.ComponentProps<"div"> & {
-  title?: React.ReactNode;
-  titleId?: string;
-};
+  title?: React.ReactNode
+  titleId?: string
+}
 
 export type ModalBodyProps = React.ComponentProps<"div"> & {
-  descriptionId?: string;
-};
+  descriptionId?: string
+}
 
-export type ModalFooterProps = React.ComponentProps<"div">;
+export type ModalFooterProps = React.ComponentProps<"div">
 
 export type ModalCloseProps = React.ComponentProps<"button"> & {
-  asChild?: boolean;
-};
+  asChild?: boolean
+}
 
 // ─── Context ──────────────────────────────────────────────────────────────────
 
 type ModalContextValue = {
-  size: ModalSize;
-  variant: ModalVariant;
-  closeOnOverlayClick: boolean;
-};
+  size: ModalSize
+  variant: ModalVariant
+  closeOnOverlayClick: boolean
+}
 
 const ModalContext = React.createContext<ModalContextValue>({
   size: "md",
   variant: "default",
-  closeOnOverlayClick: true
-});
+  closeOnOverlayClick: true,
+})
 
 // ─── ModalRoot ────────────────────────────────────────────────────────────────
 
@@ -84,7 +84,7 @@ function ModalRoot({
   closeOnOverlayClick = true,
   usePortal: _usePortal = true,
   portalContainer: _portalContainer,
-  children
+  children,
 }: ModalRootProps) {
   return (
     <ModalContext.Provider value={{ size, variant, closeOnOverlayClick }}>
@@ -92,7 +92,7 @@ function ModalRoot({
         {children}
       </DialogPrimitive.Root>
     </ModalContext.Provider>
-  );
+  )
 }
 
 // ─── ModalTrigger ─────────────────────────────────────────────────────────────
@@ -107,53 +107,53 @@ function ModalTrigger({ asChild, children, className, ...rest }: ModalTriggerPro
     >
       {children}
     </DialogPrimitive.Trigger>
-  );
+  )
 }
 
 // ─── ModalOverlay ─────────────────────────────────────────────────────────────
 // No-op stub: overlay is managed internally by ModalContent via portal.
 
 function ModalOverlay(_props: ModalOverlayProps) {
-  return null;
+  return null
 }
 
 // ─── ModalContent ─────────────────────────────────────────────────────────────
 
 function ModalContent({ className, children, ...rest }: ModalContentProps) {
-  const { size, variant, closeOnOverlayClick } = React.useContext(ModalContext);
+  const { size, variant, closeOnOverlayClick } = React.useContext(ModalContext)
 
   const sizeClass = {
     sm: "sm:max-w-[400px]",
     md: "sm:max-w-[560px]",
-    lg: "sm:max-w-[760px]"
-  }[size];
+    lg: "sm:max-w-[760px]",
+  }[size]
 
-  const isBottomSheet = variant === "bottom-sheet";
-  const isFullscreen = variant === "fullscreen";
+  const isBottomSheet = variant === "bottom-sheet"
+  const isFullscreen = variant === "fullscreen"
 
   const variantClass = isBottomSheet
     ? "!top-auto !right-0 !bottom-0 !left-0 !max-w-none !translate-x-0 !translate-y-0 !rounded-none rounded-t-xl"
     : isFullscreen
       ? "!top-0 !right-0 !bottom-0 !left-0 !max-w-none !translate-x-0 !translate-y-0 !rounded-none"
-      : sizeClass;
+      : sizeClass
 
   return (
     <DialogPrimitive.Portal>
       <DialogPrimitive.Overlay
         data-slot="krds-modal-overlay"
-        className="fixed inset-0 z-50 bg-black/50 data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:animate-in data-[state=open]:fade-in-0"
+        className="data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:animate-in data-[state=open]:fade-in-0 fixed inset-0 z-50 bg-black/50"
       />
       <DialogPrimitive.Content
         data-slot="krds-modal-content"
         onInteractOutside={(e) => {
-          if (!closeOnOverlayClick) e.preventDefault();
+          if (!closeOnOverlayClick) e.preventDefault()
         }}
         className={cn(
           "fixed top-[50%] left-[50%] z-50 w-full max-w-[calc(100%-2rem)] translate-x-[-50%] translate-y-[-50%] duration-200 outline-none",
           "data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95",
           "data-[state=open]:animate-in data-[state=open]:fade-in-0 data-[state=open]:zoom-in-95",
           "flex flex-col items-start gap-0",
-          "bg-krds-surface border border-krds-border rounded-[12px] p-6",
+          "bg-krds-surface border-krds-border rounded-[12px] border p-6",
           // KRDS: 콘텐츠 최대 높이를 뷰포트로 제한 → 긴 본문은 ModalBody 내부에서 스크롤.
           // (bottom-sheet/fullscreen 은 variantClass 가 위치·높이를 직접 제어하므로 default 에만 적용.)
           !isBottomSheet && !isFullscreen && "max-h-[calc(100dvh-2rem)]",
@@ -165,13 +165,13 @@ function ModalContent({ className, children, ...rest }: ModalContentProps) {
         {children}
       </DialogPrimitive.Content>
     </DialogPrimitive.Portal>
-  );
+  )
 }
 
 // ─── ModalHeader ──────────────────────────────────────────────────────────────
 
 function ModalHeader({ title, titleId, className, children, ...rest }: ModalHeaderProps) {
-  const idProp = titleId ? { id: titleId } : {};
+  const idProp = titleId ? { id: titleId } : {}
   return (
     <DialogPrimitive.Title
       data-slot="krds-modal-header"
@@ -181,18 +181,17 @@ function ModalHeader({ title, titleId, className, children, ...rest }: ModalHead
     >
       {title ?? children}
     </DialogPrimitive.Title>
-  );
+  )
 }
 
 // ─── ModalBody ────────────────────────────────────────────────────────────────
 
 function ModalBody({ descriptionId, className, children, ...rest }: ModalBodyProps) {
-  const { variant } = React.useContext(ModalContext);
   return (
     <div
       data-slot="krds-modal-body"
       className={cn(
-        "text-krds-foreground flex w-full flex-col gap-4 px-4 pb-2 text-krds-body-md font-normal",
+        "text-krds-foreground text-krds-body-md flex w-full flex-col gap-4 px-4 pb-2 font-normal",
         // KRDS: 긴 본문은 다이얼로그 밖으로 넘치지 않고 본문 영역 내부에서 스크롤.
         "min-h-0 flex-1 overflow-y-auto",
         className
@@ -207,7 +206,7 @@ function ModalBody({ descriptionId, className, children, ...rest }: ModalBodyPro
         children
       )}
     </div>
-  );
+  )
 }
 
 // ─── ModalFooter ──────────────────────────────────────────────────────────────
@@ -221,7 +220,7 @@ function ModalFooter({ className, children, ...rest }: ModalFooterProps) {
     >
       {children}
     </div>
-  );
+  )
 }
 
 // ─── ModalClose ───────────────────────────────────────────────────────────────
@@ -229,15 +228,10 @@ function ModalFooter({ className, children, ...rest }: ModalFooterProps) {
 function ModalClose({ asChild, children, className, ...rest }: ModalCloseProps) {
   if (children) {
     return (
-      <DialogPrimitive.Close
-        data-slot="krds-modal-close"
-        asChild={asChild}
-        className={className}
-        {...(rest as object)}
-      >
+      <DialogPrimitive.Close data-slot="krds-modal-close" asChild={asChild} className={className} {...(rest as object)}>
         {children}
       </DialogPrimitive.Close>
-    );
+    )
   }
   return (
     <DialogPrimitive.Close asChild>
@@ -256,7 +250,7 @@ function ModalClose({ asChild, children, className, ...rest }: ModalCloseProps) 
         <XIcon className="size-6" />
       </button>
     </DialogPrimitive.Close>
-  );
+  )
 }
 
-export { ModalRoot, ModalTrigger, ModalOverlay, ModalContent, ModalHeader, ModalBody, ModalFooter, ModalClose };
+export { ModalRoot, ModalTrigger, ModalOverlay, ModalContent, ModalHeader, ModalBody, ModalFooter, ModalClose }

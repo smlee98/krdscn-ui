@@ -1,20 +1,21 @@
-"use client";
+"use client"
 
-import * as React from "react";
-import { Textarea as ShadcnTextarea } from "@/components/ui/textarea";
+import * as React from "react"
+import { Textarea as ShadcnTextarea } from "@/components/ui/textarea"
 import {
   Textarea as KrdsTextarea,
-  type TextareaProps as KrdsTextareaProps
-} from "@/components/ui/krds/(input)/textarea";
-import { renderFieldMessage } from "@/components/ui/krds/(input)/field-message";
-import { useUISystem } from "@/lib/ui-system";
+  type TextareaProps as KrdsTextareaProps,
+} from "@/components/ui/krds/(input)/textarea"
+import { renderFieldMessage } from "@/components/ui/krds/(input)/field-message"
+import { useUISystem } from "@/lib/ui-system"
 
-export type TextareaProps = KrdsTextareaProps;
+export type TextareaProps = KrdsTextareaProps
 
 export function Textarea(props: TextareaProps) {
-  const system = useUISystem();
-  const [internal, setInternal] = React.useState(props.defaultValue ?? "");
-  if (system === "krds") return <KrdsTextarea {...props} />;
+  const system = useUISystem()
+  const [internal, setInternal] = React.useState(props.defaultValue ?? "")
+  const generatedId = React.useId()
+  if (system === "krds") return <KrdsTextarea {...props} />
 
   // shadcn branch — bridge KRDS-only props
   const {
@@ -37,30 +38,29 @@ export function Textarea(props: TextareaProps) {
     "aria-invalid": ariaInvalid,
     "aria-describedby": ariaDescribedby,
     ...rest
-  } = props;
-  void _defaultValue;
+  } = props
+  void _defaultValue
 
-  const generatedId = React.useId();
-  const id = propId ?? generatedId;
+  const id = propId ?? generatedId
 
-  const current = value !== undefined ? value : internal;
-  const currentLength = current.length;
-  const isOverLimit = showCount && countTotal !== undefined && currentLength > countTotal;
-  const hasError = error != null && error !== false;
+  const current = value !== undefined ? value : internal
+  const currentLength = current.length
+  const isOverLimit = showCount && countTotal !== undefined && currentLength > countTotal
+  const hasError = error != null && error !== false
 
-  const message = renderFieldMessage(id, { error, success, information, hint });
-  const describedBy = message ? [ariaDescribedby, `${id}-message`].filter(Boolean).join(" ") : ariaDescribedby;
+  const message = renderFieldMessage(id, { error, success, information, hint })
+  const describedBy = message ? [ariaDescribedby, `${id}-message`].filter(Boolean).join(" ") : ariaDescribedby
   const counter = showCount ? (
-    <div className="flex shrink-0 items-baseline gap-[2px] text-krds-body-sm whitespace-nowrap">
+    <div className="text-krds-body-sm flex shrink-0 items-baseline gap-[2px] whitespace-nowrap">
       <span className={isOverLimit ? "text-destructive" : "text-primary"}>{currentLength}</span>
       <span className="text-muted-foreground">/{countTotal}</span>
     </div>
-  ) : null;
+  ) : null
 
   function handleChange(e: React.ChangeEvent<HTMLTextAreaElement>) {
-    const v = e.target.value;
-    if (value === undefined) setInternal(v);
-    onChange?.(v);
+    const v = e.target.value
+    if (value === undefined) setInternal(v)
+    onChange?.(v)
   }
 
   return (
@@ -94,5 +94,5 @@ export function Textarea(props: TextareaProps) {
         </>
       )}
     </div>
-  );
+  )
 }
