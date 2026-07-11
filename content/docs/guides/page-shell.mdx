@@ -1,9 +1,9 @@
 ---
-title: 페이지 셸 만들기
-description: 공식 배너·헤더·푸터·운영기관 식별자로 공공 사이트의 기본 골격을 잡아봅니다.
+title: 페이지 셸
+description: 공식 배너·헤더·푸터·운영기관 식별자로 공공 누리집의 기본 골격을 구성합니다.
 ---
 
-공공 누리집에는 정해진 골격이 있습니다. 최상단의 공식 배너(Masthead), 헤더, 본문, 그리고 운영기관 식별자가 들어간 푸터. 이 가이드에서는 그 골격을 조립합니다.
+공공 누리집의 골격은 공식 배너(Masthead), 헤더, 본문, 운영기관 식별자(Identifier)가 포함된 푸터로 이루어집니다.
 
 ## 설치
 
@@ -13,15 +13,11 @@ pnpm dlx shadcn@latest add \
   https://krdscn-ui.smlee.info/r/footer.json
 ```
 
-두 개면 충분합니다 — Masthead·SkipLink·Identifier는 Header·Footer가 필요로 하는 파일로 함께 설치됩니다.
+Masthead·SkipLink·Identifier는 Header·Footer가 참조하는 파일로 함께 설치됩니다.
 
-<Steps>
+## Header
 
-<Step>
-
-### Header — 배너와 건너뛰기 링크는 공짜
-
-`Header`는 내부에서 **공식 배너(Masthead)와 건너뛰기 링크(SkipLink)를 자동으로 렌더링**합니다. 따로 배치할 필요가 없습니다. 여러분이 조립하는 건 유틸리티 메뉴·브랜드·액션·내비 네 부분입니다.
+`Header`는 내부에서 공식 배너(Masthead)와 건너뛰기 링크(SkipLink)를 자동으로 렌더링하므로 별도로 배치하지 않습니다. 유틸리티 메뉴·브랜드·액션·내비 네 영역을 조합합니다.
 
 ```tsx
 import { Menu, Search } from "lucide-react"
@@ -36,50 +32,50 @@ import {
   HeaderUtilityItem,
 } from "@/components/ui/krds/(identity)/header"
 
-;<Header>
-  <HeaderUtility>
-    <HeaderUtilityItem href="/about">기관 소개</HeaderUtilityItem>
-    <HeaderUtilityItem href="/faq">자주 묻는 질문</HeaderUtilityItem>
-  </HeaderUtility>
+export function SiteHeader() {
+  return (
+    <Header>
+      <HeaderUtility>
+        <HeaderUtilityItem href="/about">기관 소개</HeaderUtilityItem>
+        <HeaderUtilityItem href="/faq">자주 묻는 질문</HeaderUtilityItem>
+      </HeaderUtility>
 
-  <HeaderBrand href="/">우리기관</HeaderBrand>
+      <HeaderBrand href="/">우리기관</HeaderBrand>
 
-  <HeaderActions>
-    <HeaderActionItem icon={<Search />}>통합검색</HeaderActionItem>
-    <HeaderActionItem href="/login">로그인</HeaderActionItem>
-    <HeaderActionItem icon={<Menu />}>전체메뉴</HeaderActionItem>
-  </HeaderActions>
+      <HeaderActions>
+        <HeaderActionItem icon={<Search />}>통합검색</HeaderActionItem>
+        <HeaderActionItem href="/login">로그인</HeaderActionItem>
+        <HeaderActionItem icon={<Menu />}>전체메뉴</HeaderActionItem>
+      </HeaderActions>
 
-  <HeaderNav aria-label="주요 메뉴">
-    <HeaderNavItem href="/services" hasSubmenu>
-      민원 서비스
-    </HeaderNavItem>
-    <HeaderNavItem href="/notice">공지사항</HeaderNavItem>
-  </HeaderNav>
-</Header>
+      <HeaderNav aria-label="주요 메뉴">
+        <HeaderNavItem href="/services" hasSubmenu>
+          민원 서비스
+        </HeaderNavItem>
+        <HeaderNavItem href="/notice">공지사항</HeaderNavItem>
+      </HeaderNav>
+    </Header>
+  )
+}
 ```
 
-</Step>
+## 본문 영역
 
-<Step>
-
-### 본문 — id 하나만 지켜주세요
-
-Header에 내장된 건너뛰기 링크의 기본 타깃이 `#main-content`입니다. 본문 `<main>`에 이 id를 달아야 키보드 사용자가 메뉴를 건너뛸 수 있습니다.
+Header에 내장된 건너뛰기 링크의 기본 대상이 `#main-content`입니다. 본문 `<main>`에 해당 id를 지정해야 키보드 사용자가 메뉴를 건너뛸 수 있습니다.
 
 ```tsx
-<main id="main-content" tabIndex={-1}>
-  {/* 페이지 콘텐츠 */}
-</main>
+export function SiteMain({ children }: { children: React.ReactNode }) {
+  return (
+    <main id="main-content" tabIndex={-1}>
+      {children}
+    </main>
+  )
+}
 ```
 
-</Step>
+## Footer
 
-<Step>
-
-### Footer — Identifier는 직접 조합
-
-푸터도 부분 조립식입니다. 한 가지 규칙: **운영기관 식별자(Identifier)는 Footer에 내장돼 있지 않아서** `FooterBottom` 안에 직접 넣습니다.
+푸터도 부분 조립식입니다. 운영기관 식별자(Identifier)는 Footer에 내장되어 있지 않으므로 `FooterBottom` 안에 직접 배치합니다.
 
 ```tsx
 import {
@@ -96,60 +92,58 @@ import {
 } from "@/components/ui/krds/(identity)/footer"
 import { Identifier } from "@/components/ui/krds/(identity)/identifier"
 
-;<Footer>
-  <div className="mx-auto flex max-w-[1200px] flex-col gap-9 px-4 py-10">
-    <FooterLogo>우리기관</FooterLogo>
+export function SiteFooter() {
+  return (
+    <Footer>
+      <div className="mx-auto flex max-w-[1200px] flex-col gap-9 px-4 py-10">
+        <FooterLogo>우리기관</FooterLogo>
 
-    <FooterInfo>
-      <FooterAddress>(00000) 어딘가시 어딘가로 1 우리기관</FooterAddress>
-      <FooterContact>
-        <FooterContactItem label="대표전화 1500-0000" note="(유료, 평일 09시~18시)" />
-      </FooterContact>
-    </FooterInfo>
+        <FooterInfo>
+          <FooterAddress>(00000) 어딘가시 어딘가로 1 우리기관</FooterAddress>
+          <FooterContact>
+            <FooterContactItem label="대표전화 1500-0000" note="(유료, 평일 09시~18시)" />
+          </FooterContact>
+        </FooterInfo>
 
-    <FooterBottom>
-      <FooterMenu>
-        <FooterMenuLink href="/privacy" point>
-          개인정보처리방침
-        </FooterMenuLink>
-        <FooterMenuLink href="/copyright">저작권 정책</FooterMenuLink>
-      </FooterMenu>
-      <FooterCopyright>© 2026 Our Agency.</FooterCopyright>
-      <Identifier notice="이 누리집은 우리부처 산하기관 누리집입니다." />
-    </FooterBottom>
-  </div>
-</Footer>
+        <FooterBottom>
+          <FooterMenu>
+            <FooterMenuLink href="/privacy" point>
+              개인정보처리방침
+            </FooterMenuLink>
+            <FooterMenuLink href="/copyright">저작권 정책</FooterMenuLink>
+          </FooterMenu>
+          <FooterCopyright>© 2026 Our Agency.</FooterCopyright>
+          <Identifier notice="이 누리집은 우리부처 산하기관 누리집입니다." />
+        </FooterBottom>
+      </div>
+    </Footer>
+  )
+}
 ```
 
-`FooterMenuLink`의 `point`는 개인정보처리방침처럼 강조가 필요한 항목에 씁니다 — KRDS 규칙입니다.
+`FooterMenuLink`의 `point`는 개인정보처리방침처럼 강조가 필요한 항목에 사용합니다.
 
-</Step>
-
-<Step>
-
-### 골격 완성
+## 골격 구성
 
 ```tsx title="app/layout.tsx (본문 부분)"
-<Header>{/* ... */}</Header>
-
-<main id="main-content" tabIndex={-1}>
-  {children}
-</main>
-
-<Footer>{/* ... */}</Footer>
+export function Shell({ children }: { children: React.ReactNode }) {
+  return (
+    <>
+      <SiteHeader />
+      <main id="main-content" tabIndex={-1}>
+        {children}
+      </main>
+      <SiteFooter />
+    </>
+  )
+}
 ```
 
-Tab 키를 한 번 눌러보세요 — 화면 최상단에 "본문 바로가기" 링크가 나타나면 골격이 제대로 잡힌 겁니다.
-
-</Step>
-
-</Steps>
-
 <Callout>
-  Masthead("이 누리집은 대한민국 공식 전자정부 누리집입니다")와 Identifier의 문구는 `notice` 프롭으로 기관에 맞게 바꿀
-  수 있습니다. 별도 페이지에서 단독으로 쓰려면 `masthead`, `identifier` 아이템을 개별 설치하면 됩니다.
+  Masthead와 Identifier의 문구는 `notice` prop으로 기관에 맞게 변경할 수 있습니다. 단독으로 사용하려면 `masthead`,
+  `identifier` 항목을 개별 설치합니다.
 </Callout>
 
-## 다음
+## 다음 단계
 
-골격 안을 채울 차례입니다. [신청 폼 만들기](/docs/guides/building-a-form)로 이어집니다.
+[신청 폼](/docs/guides/building-a-form)에서 골격 안에 들어갈 폼을 구성합니다.

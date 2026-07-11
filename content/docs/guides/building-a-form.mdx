@@ -1,9 +1,9 @@
 ---
-title: 신청 폼 만들기
-description: 입력·선택·날짜·동의·검증까지, 접근성이 자동으로 따라오는 KRDS 신청 폼을 만들어봅니다.
+title: 신청 폼
+description: 입력·선택·날짜 컴포넌트를 조합하고 오류 메시지를 처리하는 방법입니다.
 ---
 
-공공 서비스의 절반은 폼입니다. 이 가이드에서는 "프로그램 신청" 폼을 만들면서 krdscn/ui 폼 컴포넌트의 핵심 패턴 — 특히 **`error` 프롭 하나로 접근성까지 처리되는 방식** — 을 익힙니다.
+프로그램 신청 폼을 예시로 폼 컴포넌트의 조합과 오류 메시지 처리 패턴을 다룹니다.
 
 ## 설치
 
@@ -16,52 +16,44 @@ pnpm dlx shadcn@latest add \
   https://krdscn-ui.smlee.info/r/button.json
 ```
 
-<Steps>
+## 레이블과 도움말
 
-<Step>
-
-### 텍스트 입력 — 레이블과 도움말
+`label`을 전달하면 `<label>` 요소와 입력 요소가 자동으로 연결됩니다. `hint`는 입력 아래 도움말로 렌더링되며 `aria-describedby`로 연결됩니다.
 
 ```tsx
 import { TextInput } from "@/components/ui/krds/(input)/text-input"
 
-;<TextInput label="이름" placeholder="홍길동" hint="주민등록상 이름을 입력하세요" />
+export function NameField() {
+  return <TextInput label="이름" placeholder="홍길동" hint="주민등록상 이름을 입력하세요" />
+}
 ```
 
-`label`을 넘기면 `<label>`과 입력 요소가 자동으로 연결됩니다. `hint`는 입력 아래 도움말로 렌더되고, 입력 요소의 `aria-describedby`에 연결됩니다.
+## 오류 메시지
 
-</Step>
-
-<Step>
-
-### 에러는 프롭 하나로
-
-검증 실패 시 `error`에 메시지를 넘기기만 하면 됩니다.
+검증에 실패하면 `error`에 메시지를 전달합니다.
 
 ```tsx
-<TextInput label="이메일" placeholder="you@example.com" error="이메일 형식이 아닙니다" />
+export function EmailField() {
+  return <TextInput label="이메일" placeholder="you@example.com" error="이메일 형식이 아닙니다" />
+}
 ```
 
-이 한 줄이 하는 일:
+`error` 하나로 다음이 함께 처리됩니다.
 
-- 입력 아래에 에러 메시지 렌더 (KRDS 규칙: 항상 컨트롤 아래)
-- 메시지에 `role="alert"` — 스크린리더가 즉시 낭독
+- 입력 아래 오류 메시지 렌더링 (KRDS 규칙: 메시지는 항상 컨트롤 아래)
+- 메시지에 `role="alert"` 적용 — 스크린리더가 즉시 낭독
 - 입력 요소에 `aria-invalid="true"`와 `aria-describedby` 자동 연결
-- 테두리가 danger 색으로 — 시각 스타일이 `aria-invalid` 셀렉터에 걸려 있어서, 화면과 보조기술이 어긋날 수 없습니다
+- 오류 테두리 표시 — 시각 스타일이 `aria-invalid` 셀렉터에 연결되어 있어 화면과 보조기술 상태가 항상 일치
 
-`success`, `information` 프롭도 같은 방식으로 동작합니다 (우선순위: error > success > information > hint).
+`success`, `information` prop도 같은 방식으로 동작하며 우선순위는 error > success > information > hint입니다.
 
-</Step>
+## 선택 컴포넌트
 
-<Step>
-
-### 선택 — Select와 Checkbox
-
-Select는 `options` 배열을 받습니다.
+Select는 `options` 배열을 받습니다. Select와 Checkbox 모두 Radix Primitives 기반으로 키보드 인터랙션과 ARIA 속성이 내장되어 있습니다.
 
 ```tsx
-import { Select } from "@/components/ui/krds/(selection)/select"
 import { Checkbox } from "@/components/ui/krds/(selection)/checkbox"
+import { Select } from "@/components/ui/krds/(selection)/select"
 
 const PROGRAM_OPTIONS = [
   { value: "tour", label: "견학 프로그램" },
@@ -69,41 +61,39 @@ const PROGRAM_OPTIONS = [
   { value: "event", label: "체험 행사" },
 ]
 
-<Select options={PROGRAM_OPTIONS} label="신청 프로그램" />
-<Checkbox label="개인정보 수집·이용에 동의합니다" />
+export function ProgramFields() {
+  return (
+    <>
+      <Select options={PROGRAM_OPTIONS} label="신청 프로그램" />
+      <Checkbox label="개인정보 수집·이용에 동의합니다" />
+    </>
+  )
+}
 ```
 
-둘 다 Radix Primitives 기반이라 키보드 인터랙션(방향키 탐색, Space 토글)과 ARIA 속성이 기본 내장입니다.
+## 날짜 입력
 
-</Step>
-
-<Step>
-
-### 날짜 — DateInput
+DateInput은 달력 팝오버로 값을 선택합니다. 직접 타이핑은 의도적으로 제한되어 있어 자유 입력으로 인한 형식 오류가 발생하지 않습니다.
 
 ```tsx
 import { DateInput } from "@/components/ui/krds/(input)/date-input"
 
-;<DateInput label="방문 희망일" />
+export function VisitDateField() {
+  return <DateInput label="방문 희망일" />
+}
 ```
 
-트리거를 누르면 달력 팝오버가 열립니다. 직접 타이핑은 의도적으로 막혀 있어서 — 값은 달력에서만 선택됩니다 — 자유 입력의 형식 오류를 원천 차단합니다.
-
-</Step>
-
-<Step>
-
-### 조합 — 신청 폼 완성
+## 폼 조합
 
 ```tsx title="app/apply/page.tsx"
 "use client"
 
 import { useState } from "react"
 import { Button } from "@/components/ui/krds/(action)/button"
-import { TextInput } from "@/components/ui/krds/(input)/text-input"
 import { DateInput } from "@/components/ui/krds/(input)/date-input"
-import { Select } from "@/components/ui/krds/(selection)/select"
+import { TextInput } from "@/components/ui/krds/(input)/text-input"
 import { Checkbox } from "@/components/ui/krds/(selection)/checkbox"
+import { Select } from "@/components/ui/krds/(selection)/select"
 
 const PROGRAM_OPTIONS = [
   { value: "tour", label: "견학 프로그램" },
@@ -144,15 +134,11 @@ export default function ApplyPage() {
 }
 ```
 
-</Step>
-
-</Steps>
-
 <Callout>
-  react-hook-form이나 TanStack Form과 함께 쓰는 방법은 [폼 라이브러리 통합](/docs/forms) 문서를 참고하세요. krdscn/ui
-  입력 컴포넌트는 특정 폼 라이브러리에 의존하지 않아서 controlled/uncontrolled 어느 쪽으로도 동작합니다.
+  입력 컴포넌트는 특정 폼 라이브러리에 의존하지 않으며 controlled/uncontrolled 모두 지원합니다. react-hook-form,
+  TanStack Form과의 통합은 [폼 문서](/docs/forms)를 참고하세요.
 </Callout>
 
-## 다음
+## 다음 단계
 
-폼이 있는 페이지에는 길 안내가 필요합니다. [내비게이션 구성하기](/docs/guides/navigation)로 이어집니다.
+[내비게이션](/docs/guides/navigation)에서 메뉴와 경로 표시를 구성합니다.

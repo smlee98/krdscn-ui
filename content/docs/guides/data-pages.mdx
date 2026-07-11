@@ -1,9 +1,9 @@
 ---
-title: 목록과 표 페이지
-description: 구조화 목록·표·배지·태그를 조합해 공공 서비스의 데이터 화면을 만들어봅니다.
+title: 목록과 표
+description: 구조화 목록·표·배지·긴급 공지로 데이터 화면을 구성합니다.
 ---
 
-공고 목록, 접수 현황, 안내 사항 — 공공 서비스 화면의 대부분은 데이터를 보여주는 일입니다. 이 가이드에서는 "지원 사업 공고" 페이지를 만들면서 데이터 표시 컴포넌트 네 가지를 조합합니다.
+지원 사업 공고 페이지를 예시로 데이터 표시 컴포넌트를 조합합니다.
 
 ## 설치
 
@@ -15,30 +15,26 @@ pnpm dlx shadcn@latest add \
   https://krdscn-ui.smlee.info/r/critical-alert.json
 ```
 
-<Steps>
+## CriticalAlert
 
-<Step>
-
-### 긴급 공지 — CriticalAlert
-
-페이지 최상단에 놓는 긴급 공지입니다. `type`으로 성격을 구분합니다 (`emergency | safety | info`).
+페이지 최상단에 배치하는 긴급 공지입니다. `type`으로 성격을 구분합니다 (`emergency | safety | info`).
 
 ```tsx
 import { CriticalAlert, CriticalAlertAction, CriticalAlertMessage } from "@/components/ui/krds/(layout)/critical-alert"
 
-;<CriticalAlert type="info">
-  <CriticalAlertMessage>2026년 하반기 접수 일정이 변경되었습니다</CriticalAlertMessage>
-  <CriticalAlertAction href="/notice/42">자세히보기</CriticalAlertAction>
-</CriticalAlert>
+export function NoticeAlert() {
+  return (
+    <CriticalAlert type="info">
+      <CriticalAlertMessage>2026년 하반기 접수 일정이 변경되었습니다</CriticalAlertMessage>
+      <CriticalAlertAction href="/notice/42">자세히보기</CriticalAlertAction>
+    </CriticalAlert>
+  )
+}
 ```
 
-</Step>
+## StructuredList
 
-<Step>
-
-### 공고 목록 — StructuredList
-
-KRDS의 "구조화 목록"은 제목·설명·기간·메타데이터·액션을 갖춘 카드형 목록입니다. 부분들이 전부 컴포넌트로 쪼개져 있어서 필요한 것만 조립합니다.
+구조화 목록은 제목·설명·기간·메타데이터·액션으로 이루어진 목록 패턴입니다. 부분별 컴포넌트를 필요한 만큼 조합합니다.
 
 ```tsx
 import {
@@ -52,92 +48,91 @@ import {
   StructuredListTitle,
 } from "@/components/ui/krds/(layout)/structured-list"
 
-;<StructuredListGroup>
-  <StructuredList variant="vertical">
-    <StructuredListBody>
-      <StructuredListHeader>
-        <StructuredListBadge>복지</StructuredListBadge>
-        <StructuredListTitle>아동수당 신청 안내</StructuredListTitle>
-      </StructuredListHeader>
-      <StructuredListDescription>만 8세 미만 아동에게 월 10만 원을 지급하는 제도입니다.</StructuredListDescription>
-      <StructuredListPeriod>2026.01.01 — 2026.12.31</StructuredListPeriod>
-    </StructuredListBody>
-  </StructuredList>
-</StructuredListGroup>
+export function ProgramList() {
+  return (
+    <StructuredListGroup>
+      <StructuredList variant="vertical">
+        <StructuredListBody>
+          <StructuredListHeader>
+            <StructuredListBadge>복지</StructuredListBadge>
+            <StructuredListTitle>아동수당 신청 안내</StructuredListTitle>
+          </StructuredListHeader>
+          <StructuredListDescription>만 8세 미만 아동에게 월 10만 원을 지급하는 제도입니다.</StructuredListDescription>
+          <StructuredListPeriod>2026.01.01 — 2026.12.31</StructuredListPeriod>
+        </StructuredListBody>
+      </StructuredList>
+    </StructuredListGroup>
+  )
+}
 ```
 
-역할 구분이 하나 있습니다: `StructuredListBadge`는 **카테고리**(복지, 교육), `StructuredListTag`는 **해시태그**(#디지털교육)입니다. 같은 자리에 섞어 쓰지 않는 게 KRDS 패턴입니다.
+`StructuredListBadge`는 카테고리(복지, 교육), `StructuredListTag`는 해시태그(#디지털교육) 용도로 역할이 구분되어 있습니다.
 
-</Step>
+## Table
 
-<Step>
-
-### 접수 현황 — Table
-
-KRDS 표의 특징은 `TableHead`(th)를 열 제목뿐 아니라 **행 제목**에도 쓴다는 점입니다. 스크린리더가 셀의 맥락을 읽을 수 있게 하는 접근성 장치입니다.
+KRDS 표는 `TableHead`(th)를 열 제목뿐 아니라 행 제목에도 사용합니다. 스크린리더가 셀의 맥락을 읽을 수 있게 하는 접근성 장치입니다.
 
 ```tsx
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/krds/(layout)/table"
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/krds/(layout)/table"
 
 const ROWS = [
   { id: "2026-0711-001", name: "김민준", status: "접수 완료" },
   { id: "2026-0711-002", name: "이서연", status: "검토 중" },
 ]
 
-<Table className="w-full">
-  <TableHeader>
-    <TableRow>
-      <TableHead>접수번호</TableHead>
-      <TableHead>신청자</TableHead>
-      <TableHead>상태</TableHead>
-    </TableRow>
-  </TableHeader>
-  <TableBody>
-    {ROWS.map((row) => (
-      <TableRow key={row.id}>
-        <TableCell className="font-mono text-xs">{row.id}</TableCell>
-        <TableCell>{row.name}</TableCell>
-        <TableCell>{row.status}</TableCell>
-      </TableRow>
-    ))}
-  </TableBody>
-</Table>
+export function ApplicationTable() {
+  return (
+    <Table className="w-full">
+      <TableHeader>
+        <TableRow>
+          <TableHead>접수번호</TableHead>
+          <TableHead>신청자</TableHead>
+          <TableHead>상태</TableHead>
+        </TableRow>
+      </TableHeader>
+      <TableBody>
+        {ROWS.map((row) => (
+          <TableRow key={row.id}>
+            <TableCell className="font-mono text-xs">{row.id}</TableCell>
+            <TableCell>{row.name}</TableCell>
+            <TableCell>{row.status}</TableCell>
+          </TableRow>
+        ))}
+      </TableBody>
+    </Table>
+  )
+}
 ```
 
 <Callout>
-  스크롤 영역에서 헤더를 고정할 때 `bg-white`처럼 색을 하드코딩하면 다크 모드에서 깨집니다. `sticky top-0
-  bg-krds-surface`처럼 시맨틱 토큰을 쓰세요.
+  스크롤 영역에서 헤더를 고정할 때는 `bg-white` 같은 고정 색 대신 `sticky top-0 bg-krds-surface`처럼 시맨틱 토큰을
+  사용해야 다크 모드에서 색이 유지됩니다.
 </Callout>
 
-</Step>
+## Badge
 
-<Step>
-
-### 상태 표시 — Badge
-
-Badge는 외형(`type`: solid/outline/pastel)과 색(`variant`: 8종)을 조합합니다.
+Badge는 외형(`type`: solid/outline/pastel)과 색(`variant`: 8종)을 조합합니다. 표의 상태 열에 문자열 대신 사용하면 시인성이 좋아집니다.
 
 ```tsx
 import { Badge } from "@/components/ui/krds/(layout)/badge"
 
-<Badge type="pastel" variant="success">접수 완료</Badge>
-<Badge type="pastel" variant="warning">검토 중</Badge>
-<Badge type="outline" variant="secondary">마감</Badge>
+export function StatusBadges() {
+  return (
+    <div className="flex gap-2">
+      <Badge type="pastel" variant="success">
+        접수 완료
+      </Badge>
+      <Badge type="pastel" variant="warning">
+        검토 중
+      </Badge>
+      <Badge type="outline" variant="secondary">
+        마감
+      </Badge>
+    </div>
+  )
+}
 ```
 
-표의 "상태" 열에 문자열 대신 Badge를 넣으면 시인성이 크게 좋아집니다.
+## 다음 단계
 
-</Step>
-
-</Steps>
-
-## 페이지가 길어지면
-
-목록이 한 화면을 넘어가면 페이지네이션이 필요합니다. [내비게이션 구성하기](/docs/guides/navigation)에서 Pagination을 다룹니다.
+목록이 길어지면 [내비게이션](/docs/guides/navigation)의 Pagination을 함께 사용합니다. [다크 모드](/docs/guides/dark-mode)에서 고대비 모드 적용을 다룹니다.
