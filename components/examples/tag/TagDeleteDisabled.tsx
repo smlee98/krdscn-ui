@@ -1,6 +1,6 @@
-"use client";
+"use client"
 
-import { Tag, TagDelete } from "@/components/ui/dynamic/tag";
+import { Tag, TagDelete } from "@/components/ui/dynamic/tag"
 
 export default function TagDeleteDisabled() {
   return (
@@ -18,5 +18,5 @@ export default function TagDeleteDisabled() {
         <TagDelete disabled />
       </Tag>
     </div>
-  );
+  )
 }

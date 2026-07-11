@@ -1,6 +1,6 @@
-import { ArrowRightIcon, ChevronRightIcon } from "lucide-react";
+import { ArrowRightIcon, ChevronRightIcon } from "lucide-react"
 
-import { Link } from "@/components/ui/dynamic/link";
+import { Link } from "@/components/ui/dynamic/link"
 
 export default function LinkWithIcons() {
   return (
@@ -14,5 +14,5 @@ export default function LinkWithIcons() {
         <ChevronRightIcon className="size-5" aria-hidden />
       </Link>
     </div>
-  );
+  )
 }

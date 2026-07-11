@@ -1,18 +1,18 @@
 // rsc:safe
-import * as React from "react";
-import { ArrowRight } from "lucide-react";
-import { Button } from "@/components/ui/dynamic/button";
-import { cn } from "@/lib/cn";
+import * as React from "react"
+import { ArrowRight } from "lucide-react"
+import { Button } from "@/components/ui/dynamic/button"
+import { cn } from "@/lib/cn"
 
-type StructuredListVariant = "vertical" | "horizontal";
-type StructuredListSize = "sm" | "md" | "lg";
+type StructuredListVariant = "vertical" | "horizontal"
+type StructuredListSize = "sm" | "md" | "lg"
 
 // ─── Group (list container) ─────────────────────────────────────────────────────
 
 export type StructuredListGroupProps = {
-  className?: string;
-  children?: React.ReactNode;
-};
+  className?: string
+  children?: React.ReactNode
+}
 
 /**
  * KRDS list container (`<ul class="krds-structured-list">`). Wraps one or more
@@ -27,22 +27,22 @@ function StructuredListGroup({ className, children }: StructuredListGroupProps) 
     >
       {children}
     </ul>
-  );
+  )
 }
 
 // ─── Root (card item) ─────────────────────────────────────────────────────────
 
 export type StructuredListProps = {
-  variant?: StructuredListVariant;
+  variant?: StructuredListVariant
   /** Card padding scale (KRDS `.sm/.md/.lg`). Default `md` matches the current look. */
-  size?: StructuredListSize;
+  size?: StructuredListSize
   /** Render as a selectable (checkbox-bearing) card. */
-  selectable?: boolean;
+  selectable?: boolean
   /** Selected/checked highlight border (KRDS `.is-check`). Only meaningful when `selectable`. */
-  checked?: boolean;
-  className?: string;
-  children?: React.ReactNode;
-};
+  checked?: boolean
+  className?: string
+  children?: React.ReactNode
+}
 
 function StructuredList({
   variant = "vertical",
@@ -50,7 +50,7 @@ function StructuredList({
   selectable = false,
   checked = false,
   className,
-  children
+  children,
 }: StructuredListProps) {
   return (
     <li
@@ -61,25 +61,25 @@ function StructuredList({
       data-checked={checked || undefined}
       aria-checked={selectable ? checked : undefined}
       className={cn(
-        "group/structured-list list-none overflow-hidden rounded-[12px] border border-krds-border bg-krds-surface",
+        "group/structured-list border-krds-border bg-krds-surface list-none overflow-hidden rounded-[12px] border",
         "flex w-[384px] flex-col",
         "data-[variant=horizontal]:w-[1200px] data-[variant=horizontal]:max-w-full data-[variant=horizontal]:flex-row",
         // KRDS .is-check: transparent border + primary outline ring on selected card
-        "data-[checked]:border-transparent data-[checked]:outline-2 data-[checked]:outline-krds-border-primary",
+        "data-[checked]:outline-krds-border-primary data-[checked]:border-transparent data-[checked]:outline-2",
         className
       )}
     >
       {children}
     </li>
-  );
+  )
 }
 
 // ─── Check area (selectable wrapper) ────────────────────────────────────────────
 
 export type StructuredListCheckProps = {
-  className?: string;
-  children?: React.ReactNode;
-};
+  className?: string
+  children?: React.ReactNode
+}
 
 /**
  * KRDS `.krds-check-area` — wraps the checkbox control for a selectable card.
@@ -90,16 +90,16 @@ function StructuredListCheck({ className, children }: StructuredListCheckProps) 
     <div data-slot="krds-structured-list-check" className={cn("flex shrink-0 items-start p-8 pb-0", className)}>
       {children}
     </div>
-  );
+  )
 }
 
 // ─── Image ────────────────────────────────────────────────────────────────────
 
 export type StructuredListImageProps = {
-  src: string;
-  alt: string;
-  className?: string;
-};
+  src: string
+  alt: string
+  className?: string
+}
 
 function StructuredListImage({ src, alt, className }: StructuredListImageProps) {
   return (
@@ -114,15 +114,15 @@ function StructuredListImage({ src, alt, className }: StructuredListImageProps) 
         className
       )}
     />
-  );
+  )
 }
 
 // ─── Body ─────────────────────────────────────────────────────────────────────
 
 export type StructuredListBodyProps = {
-  className?: string;
-  children?: React.ReactNode;
-};
+  className?: string
+  children?: React.ReactNode
+}
 
 function StructuredListBody({ className, children }: StructuredListBodyProps) {
   return (
@@ -139,30 +139,30 @@ function StructuredListBody({ className, children }: StructuredListBodyProps) {
     >
       {children}
     </div>
-  );
+  )
 }
 
 // ─── Header ───────────────────────────────────────────────────────────────────
 
 export type StructuredListHeaderProps = {
-  className?: string;
-  children?: React.ReactNode;
-};
+  className?: string
+  children?: React.ReactNode
+}
 
 function StructuredListHeader({ className, children }: StructuredListHeaderProps) {
   return (
     <header data-slot="krds-structured-list-header" className={cn("flex flex-col gap-3", className)}>
       {children}
     </header>
-  );
+  )
 }
 
 // ─── Badge ────────────────────────────────────────────────────────────────────
 
 export type StructuredListBadgeProps = {
-  className?: string;
-  children?: React.ReactNode;
-};
+  className?: string
+  children?: React.ReactNode
+}
 
 function StructuredListBadge({ className, children }: StructuredListBadgeProps) {
   return (
@@ -176,17 +176,17 @@ function StructuredListBadge({ className, children }: StructuredListBadgeProps) 
     >
       {children}
     </span>
-  );
+  )
 }
 
 // ─── Title ────────────────────────────────────────────────────────────────────
 
 export type StructuredListTitleProps = {
-  className?: string;
-  children?: React.ReactNode;
+  className?: string
+  children?: React.ReactNode
   /** Trailing arrow icon (default: true) */
-  withArrow?: boolean;
-};
+  withArrow?: boolean
+}
 
 function StructuredListTitle({ className, children, withArrow = true }: StructuredListTitleProps) {
   return (
@@ -201,57 +201,57 @@ function StructuredListTitle({ className, children, withArrow = true }: Structur
       <span className="line-clamp-1 flex-1">{children}</span>
       {withArrow ? <ArrowRight size={24} aria-hidden="true" className="shrink-0" /> : null}
     </h3>
-  );
+  )
 }
 
 // ─── Description ──────────────────────────────────────────────────────────────
 
 export type StructuredListDescriptionProps = {
-  className?: string;
-  children?: React.ReactNode;
-};
+  className?: string
+  children?: React.ReactNode
+}
 
 function StructuredListDescription({ className, children }: StructuredListDescriptionProps) {
   return (
     <p
       data-slot="krds-structured-list-description"
-      className={cn("text-krds-foreground-subtle line-clamp-3 text-krds-body-md", className)}
+      className={cn("text-krds-foreground-subtle text-krds-body-md line-clamp-3", className)}
     >
       {children}
     </p>
-  );
+  )
 }
 
 // ─── Period ───────────────────────────────────────────────────────────────────
 
 export type StructuredListPeriodProps = {
-  className?: string;
+  className?: string
   /** Bold leading label (default: "기간") */
-  label?: string;
-  children?: React.ReactNode;
-};
+  label?: string
+  children?: React.ReactNode
+}
 
 function StructuredListPeriod({ className, label = "기간", children }: StructuredListPeriodProps) {
   return (
     <p
       data-slot="krds-structured-list-period"
-      className={cn("text-krds-foreground flex flex-wrap items-baseline gap-2 text-krds-body-md", className)}
+      className={cn("text-krds-foreground text-krds-body-md flex flex-wrap items-baseline gap-2", className)}
     >
       <span className="font-bold">{label}</span>
       <span>{children}</span>
     </p>
-  );
+  )
 }
 
 // ─── Metadata (auto-inserts vertical dividers) ────────────────────────────────
 
 export type StructuredListMetadataProps = {
-  className?: string;
-  children?: React.ReactNode;
-};
+  className?: string
+  children?: React.ReactNode
+}
 
 function StructuredListMetadata({ className, children }: StructuredListMetadataProps) {
-  const items = React.Children.toArray(children).filter(React.isValidElement);
+  const items = React.Children.toArray(children).filter(React.isValidElement)
   return (
     <ul data-slot="krds-structured-list-metadata" className={cn("flex flex-wrap items-center gap-3", className)}>
       {items.map((item, idx) => (
@@ -261,13 +261,13 @@ function StructuredListMetadata({ className, children }: StructuredListMetadataP
         </React.Fragment>
       ))}
     </ul>
-  );
+  )
 }
 
 export type StructuredListMetadataItemProps = {
-  className?: string;
-  children?: React.ReactNode;
-};
+  className?: string
+  children?: React.ReactNode
+}
 
 function StructuredListMetadataItem({ className, children }: StructuredListMetadataItemProps) {
   return (
@@ -277,53 +277,56 @@ function StructuredListMetadataItem({ className, children }: StructuredListMetad
     >
       {children}
     </li>
-  );
+  )
 }
 
 // ─── Actions row ──────────────────────────────────────────────────────────────
 
 export type StructuredListActionsProps = {
-  className?: string;
-  children?: React.ReactNode;
-};
+  className?: string
+  children?: React.ReactNode
+}
 
 function StructuredListActions({ className, children }: StructuredListActionsProps) {
   return (
     <div
       data-slot="krds-structured-list-actions"
-      className={cn("border-krds-border-light flex flex-wrap items-center justify-between gap-4 border-t pt-6", className)}
+      className={cn(
+        "border-krds-border-light flex flex-wrap items-center justify-between gap-4 border-t pt-6",
+        className
+      )}
     >
       {children}
     </div>
-  );
+  )
 }
 
 // ─── Sub-actions group ────────────────────────────────────────────────────────
 
 export type StructuredListSubActionsProps = {
-  className?: string;
-  children?: React.ReactNode;
-};
+  className?: string
+  children?: React.ReactNode
+}
 
 function StructuredListSubActions({ className, children }: StructuredListSubActionsProps) {
   return (
     <div data-slot="krds-structured-list-sub-actions" className={cn("flex items-center gap-4", className)}>
       {children}
     </div>
-  );
+  )
 }
 
 // ─── Sub-action (icon + label text button) ────────────────────────────────────
 
 export type StructuredListSubActionProps = {
-  className?: string;
-  children?: React.ReactNode;
-  icon?: React.ReactNode;
-  onClick?: React.MouseEventHandler<HTMLButtonElement>;
-  type?: "button" | "submit" | "reset";
-  "aria-pressed"?: boolean;
-  "aria-label"?: string;
-};
+  className?: string
+  children?: React.ReactNode
+  icon?: React.ReactNode
+  onClick?: React.MouseEventHandler<HTMLButtonElement>
+  type?: "button" | "submit" | "reset"
+  "aria-pressed"?: boolean
+  "aria-label"?: string
+}
 
 function StructuredListSubAction({
   className,
@@ -332,7 +335,7 @@ function StructuredListSubAction({
   onClick,
   type = "button",
   "aria-pressed": ariaPressed,
-  "aria-label": ariaLabel
+  "aria-label": ariaLabel,
 }: StructuredListSubActionProps) {
   return (
     <Button
@@ -352,15 +355,15 @@ function StructuredListSubAction({
       ) : null}
       <span>{children}</span>
     </Button>
-  );
+  )
 }
 
 // ─── Tag list ─────────────────────────────────────────────────────────────────
 
 export type StructuredListTagListProps = {
-  className?: string;
-  children?: React.ReactNode;
-};
+  className?: string
+  children?: React.ReactNode
+}
 
 function StructuredListTagList({ className, children }: StructuredListTagListProps) {
   return (
@@ -370,27 +373,27 @@ function StructuredListTagList({ className, children }: StructuredListTagListPro
     >
       {children}
     </ul>
-  );
+  )
 }
 
 export type StructuredListTagProps = {
-  className?: string;
-  children?: React.ReactNode;
-};
+  className?: string
+  children?: React.ReactNode
+}
 
 function StructuredListTag({ className, children }: StructuredListTagProps) {
   return (
     <li
       data-slot="krds-structured-list-tag"
       className={cn(
-        "border-krds-border-light text-krds-foreground-subtle inline-flex h-8 items-center rounded-full border bg-krds-surface px-3",
+        "border-krds-border-light text-krds-foreground-subtle bg-krds-surface inline-flex h-8 items-center rounded-full border px-3",
         "text-krds-body-sm",
         className
       )}
     >
       {children}
     </li>
-  );
+  )
 }
 
 export {
@@ -410,5 +413,5 @@ export {
   StructuredListSubAction,
   StructuredListSubActions,
   StructuredListTagList,
-  StructuredListTag
-};
+  StructuredListTag,
+}

@@ -1,4 +1,4 @@
-"use client";
+"use client"
 
 /**
  * KRDS HelpPanel — right-side drawer composed on shadcn Sheet (Radix Dialog).
@@ -29,54 +29,54 @@
  * animation come from Sheet — no manual state management here.
  */
 
-import * as React from "react";
-import { ChevronRight, ChevronLeft, HelpCircle, MessageCircleQuestion, Phone } from "lucide-react";
+import * as React from "react"
+import { ChevronRight, ChevronLeft, HelpCircle, MessageCircleQuestion, Phone } from "lucide-react"
 
-import { Dialog as DialogPrimitive } from "radix-ui";
+import { Dialog as DialogPrimitive } from "radix-ui"
 
-import { Button } from "@/components/ui/dynamic/button";
-import { Disclosure, DisclosureContent, DisclosureTrigger } from "@/components/ui/dynamic/disclosure";
-import { cn } from "@/lib/cn";
+import { Button } from "@/components/ui/dynamic/button"
+import { Disclosure, DisclosureContent, DisclosureTrigger } from "@/components/ui/dynamic/disclosure"
+import { cn } from "@/lib/cn"
 
 // ─── HelpPanel (Root) ─────────────────────────────────────────────────────────
 
 type HelpPanelProps = {
-  isOpen?: boolean;
-  defaultOpen?: boolean;
-  onOpenChange?: (open: boolean) => void;
-  className?: string;
-  children?: React.ReactNode;
-};
+  isOpen?: boolean
+  defaultOpen?: boolean
+  onOpenChange?: (open: boolean) => void
+  className?: string
+  children?: React.ReactNode
+}
 
 function HelpPanel({ isOpen, defaultOpen = false, onOpenChange, className, children }: HelpPanelProps) {
   // Split children: HelpPanelTrigger mounts as SheetTrigger asChild;
   // everything else renders inside SheetContent.
-  const childArray = React.Children.toArray(children);
-  const triggers: React.ReactNode[] = [];
-  const inner: React.ReactNode[] = [];
+  const childArray = React.Children.toArray(children)
+  const triggers: React.ReactNode[] = []
+  const inner: React.ReactNode[] = []
   childArray.forEach((child) => {
     if (React.isValidElement(child) && child.type === HelpPanelTrigger) {
-      triggers.push(child);
+      triggers.push(child)
     } else {
-      inner.push(child);
+      inner.push(child)
     }
-  });
+  })
 
   return (
     <DialogPrimitive.Root open={isOpen} defaultOpen={defaultOpen} onOpenChange={onOpenChange}>
       {triggers.length > 0 ? <DialogPrimitive.Trigger asChild>{triggers[0]}</DialogPrimitive.Trigger> : null}
       <DialogPrimitive.Portal>
-        <DialogPrimitive.Overlay className="fixed inset-0 z-50 bg-black/50 data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:animate-in data-[state=open]:fade-in-0" />
+        <DialogPrimitive.Overlay className="data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:animate-in data-[state=open]:fade-in-0 fixed inset-0 z-50 bg-black/50" />
         <DialogPrimitive.Content
           data-slot="krds-help-panel"
           className={cn(
             "fixed z-50 flex flex-col transition ease-in-out",
-            "data-[state=closed]:animate-out data-[state=closed]:duration-300 data-[state=closed]:slide-out-to-right",
-            "data-[state=open]:animate-in data-[state=open]:duration-500 data-[state=open]:slide-in-from-right",
+            "data-[state=closed]:animate-out data-[state=closed]:slide-out-to-right data-[state=closed]:duration-300",
+            "data-[state=open]:animate-in data-[state=open]:slide-in-from-right data-[state=open]:duration-500",
             "inset-y-0 right-0 h-full",
             "krds-help-panel",
             "w-[390px] gap-0 p-0 sm:max-w-[390px]",
-            "border-l border-krds-border bg-krds-surface-subtler",
+            "border-krds-border bg-krds-surface-subtler border-l",
             className
           )}
         >
@@ -88,7 +88,7 @@ function HelpPanel({ isOpen, defaultOpen = false, onOpenChange, className, child
         </DialogPrimitive.Content>
       </DialogPrimitive.Portal>
     </DialogPrimitive.Root>
-  );
+  )
 }
 
 // ─── HelpPanelTrigger ─────────────────────────────────────────────────────────
@@ -96,8 +96,8 @@ function HelpPanel({ isOpen, defaultOpen = false, onOpenChange, className, child
 // and aria-controls are wired automatically by Sheet (Radix Dialog.Trigger).
 
 type HelpPanelTriggerProps = Omit<React.ComponentProps<"button">, "children"> & {
-  children?: React.ReactNode;
-};
+  children?: React.ReactNode
+}
 
 function HelpPanelTrigger({ className, children, ...props }: HelpPanelTriggerProps) {
   return (
@@ -116,15 +116,15 @@ function HelpPanelTrigger({ className, children, ...props }: HelpPanelTriggerPro
       <ChevronLeft className="size-4" aria-hidden="true" />
       <span>{children ?? "도움말"}</span>
     </Button>
-  );
+  )
 }
 
 // ─── HelpPanelClose ───────────────────────────────────────────────────────────
 // "접어두기" button — closes the panel via SheetClose.
 
 type HelpPanelCloseProps = Omit<React.ComponentProps<"button">, "children"> & {
-  children?: React.ReactNode;
-};
+  children?: React.ReactNode
+}
 
 function HelpPanelClose({ className, children, ...props }: HelpPanelCloseProps) {
   return (
@@ -134,8 +134,8 @@ function HelpPanelClose({ className, children, ...props }: HelpPanelCloseProps) 
         data-slot="krds-help-panel-close"
         className={cn(
           "btn-help-panel fold",
-          "inline-flex items-center gap-1 self-end text-krds-body-sm text-krds-foreground",
-          "transition-colors hover:text-krds-foreground-primary",
+          "text-krds-body-sm text-krds-foreground inline-flex items-center gap-1 self-end",
+          "hover:text-krds-foreground-primary transition-colors",
           "focus:krds-focus-ring",
           className
         )}
@@ -145,14 +145,14 @@ function HelpPanelClose({ className, children, ...props }: HelpPanelCloseProps) 
         <ChevronRight className="size-4" aria-hidden="true" />
       </button>
     </DialogPrimitive.Close>
-  );
+  )
 }
 
 // ─── HelpPanelContent ─────────────────────────────────────────────────────────
 
 type HelpPanelContentProps = React.ComponentProps<"div"> & {
-  srOnlyTitle?: string;
-};
+  srOnlyTitle?: string
+}
 
 function HelpPanelContent({ srOnlyTitle = "도움", className, children, ...props }: HelpPanelContentProps) {
   return (
@@ -162,15 +162,15 @@ function HelpPanelContent({ srOnlyTitle = "도움", className, children, ...prop
         {children}
       </div>
     </div>
-  );
+  )
 }
 
 // ─── HelpSection ──────────────────────────────────────────────────────────────
 
 type HelpSectionProps = React.ComponentProps<"div"> & {
-  title: React.ReactNode;
-  description?: React.ReactNode;
-};
+  title: React.ReactNode
+  description?: React.ReactNode
+}
 
 function HelpSection({ title, description, className, children, ...props }: HelpSectionProps) {
   return (
@@ -180,13 +180,13 @@ function HelpSection({ title, description, className, children, ...props }: Help
       {...props}
     >
       <div className="conts-wrap flex flex-col gap-3">
-        <h4 className="help-title flex items-center justify-between text-krds-heading-sm font-bold text-krds-foreground">
+        <h4 className="help-title text-krds-heading-sm text-krds-foreground flex items-center justify-between font-bold">
           <span>{title}</span>
           <button
             type="button"
             className={cn(
               "krds-btn medium icon",
-              "inline-flex size-8 items-center justify-center rounded text-krds-foreground",
+              "text-krds-foreground inline-flex size-8 items-center justify-center rounded",
               "hover:bg-krds-surface-subtle focus:krds-focus-ring"
             )}
             aria-label="도움말"
@@ -203,28 +203,28 @@ function HelpSection({ title, description, className, children, ...props }: Help
         {children}
       </div>
     </div>
-  );
+  )
 }
 
 // ─── HelpLinkList ─────────────────────────────────────────────────────────────
 
 type HelpLinkItem = {
-  text: React.ReactNode;
-  href: string;
-  target?: React.HTMLAttributeAnchorTarget;
-  icon?: React.ReactNode;
-};
+  text: React.ReactNode
+  href: string
+  target?: React.HTMLAttributeAnchorTarget
+  icon?: React.ReactNode
+}
 
 type HelpLinkListProps = React.ComponentProps<"ul"> & {
-  links: HelpLinkItem[];
-  iconPosition?: "left" | "right";
-};
+  links: HelpLinkItem[]
+  iconPosition?: "left" | "right"
+}
 
 function HelpLinkList({ links, iconPosition = "right", className, ...props }: HelpLinkListProps) {
   return (
     <ul data-slot="krds-help-link-list" className={cn("link-list flex flex-col gap-2", className)} {...props}>
       {links.map((link, i) => {
-        const icon = link.icon ?? <ChevronRight className="size-4" aria-hidden="true" />;
+        const icon = link.icon ?? <ChevronRight className="size-4" aria-hidden="true" />
         return (
           <li key={i}>
             <a
@@ -232,8 +232,8 @@ function HelpLinkList({ links, iconPosition = "right", className, ...props }: He
               target={link.target}
               rel={link.target === "_blank" ? "noopener noreferrer" : undefined}
               className={cn(
-                "inline-flex items-center gap-1 text-krds-body-sm font-bold text-krds-foreground-primary",
-                "underline underline-offset-2 hover:text-krds-foreground-primary",
+                "text-krds-body-sm text-krds-foreground-primary inline-flex items-center gap-1 font-bold",
+                "hover:text-krds-foreground-primary underline underline-offset-2",
                 "focus:krds-focus-ring"
               )}
             >
@@ -242,10 +242,10 @@ function HelpLinkList({ links, iconPosition = "right", className, ...props }: He
               {iconPosition === "right" && icon}
             </a>
           </li>
-        );
+        )
       })}
     </ul>
-  );
+  )
 }
 
 // ─── HelpRelatedService ───────────────────────────────────────────────────────
@@ -254,50 +254,51 @@ function HelpRelatedService({ className, children, ...props }: React.ComponentPr
   return (
     <div
       data-slot="krds-help-related-service"
-      className={cn("conts-area related-service flex flex-col gap-6", "border-t border-krds-border-light pt-8", className)}
+      className={cn(
+        "conts-area related-service flex flex-col gap-6",
+        "border-krds-border-light border-t pt-8",
+        className
+      )}
       {...props}
     >
       {children}
     </div>
-  );
+  )
 }
 
 // ─── HelpServiceGroup ─────────────────────────────────────────────────────────
 
 type HelpServiceGroupProps = React.ComponentProps<"div"> & {
-  title: React.ReactNode;
-};
+  title: React.ReactNode
+}
 
 function HelpServiceGroup({ title, className, children, ...props }: HelpServiceGroupProps) {
   return (
     <div data-slot="krds-help-service-group" className={cn("conts-wrap flex flex-col gap-3", className)} {...props}>
-      <h4 className="help-title text-krds-body-sm font-bold text-krds-foreground">{title}</h4>
+      <h4 className="help-title text-krds-body-sm text-krds-foreground font-bold">{title}</h4>
       {children}
     </div>
-  );
+  )
 }
 
 // ─── HelpTutorialTitle ────────────────────────────────────────────────────────
 
 type HelpTutorialTitleProps = {
-  title: React.ReactNode;
-  href?: string;
-  className?: string;
-};
+  title: React.ReactNode
+  href?: string
+  className?: string
+}
 
 function HelpTutorialTitle({ title, href, className }: HelpTutorialTitleProps) {
   return (
     <h4
       data-slot="krds-help-tutorial-title"
-      className={cn("help-title text-krds-heading-sm font-bold text-krds-foreground", className)}
+      className={cn("help-title text-krds-heading-sm text-krds-foreground font-bold", className)}
     >
       {href ? (
         <a
           href={href}
-          className={cn(
-            "inline-flex items-center gap-1 hover:text-krds-foreground-primary",
-            "focus:krds-focus-ring"
-          )}
+          className={cn("hover:text-krds-foreground-primary inline-flex items-center gap-1", "focus:krds-focus-ring")}
         >
           <span>{title}</span>
           <ChevronRight className="size-4" aria-hidden="true" />
@@ -306,7 +307,7 @@ function HelpTutorialTitle({ title, href, className }: HelpTutorialTitleProps) {
         title
       )}
     </h4>
-  );
+  )
 }
 
 // ─── HelpCoachProcess ─────────────────────────────────────────────────────────
@@ -320,18 +321,18 @@ function HelpCoachProcess({ className, children, ...props }: React.ComponentProp
     >
       {children}
     </ul>
-  );
+  )
 }
 
 // ─── HelpCoachTask ────────────────────────────────────────────────────────────
 
 type HelpCoachTaskProps = {
-  title: React.ReactNode;
-  isCurrent?: boolean;
-  expandText: React.ReactNode;
-  steps: React.ReactNode[];
-  className?: string;
-};
+  title: React.ReactNode
+  isCurrent?: boolean
+  expandText: React.ReactNode
+  steps: React.ReactNode[]
+  className?: string
+}
 
 function HelpCoachTask({ title, isCurrent = false, expandText, steps, className }: HelpCoachTaskProps) {
   return (
@@ -347,7 +348,7 @@ function HelpCoachTask({ title, isCurrent = false, expandText, steps, className 
       <Disclosure className="conts-expand-area">
         <DisclosureTrigger>{expandText}</DisclosureTrigger>
         <DisclosureContent>
-          <ol className="list-decimal pl-5 text-krds-body-sm text-krds-foreground">
+          <ol className="text-krds-body-sm text-krds-foreground list-decimal pl-5">
             {steps.map((step, i) => (
               <li key={i} className="mb-1 last:mb-0">
                 {step}
@@ -357,7 +358,7 @@ function HelpCoachTask({ title, isCurrent = false, expandText, steps, className 
         </DisclosureContent>
       </Disclosure>
     </li>
-  );
+  )
 }
 
 // ─── HelpPanelAction ──────────────────────────────────────────────────────────
@@ -371,7 +372,7 @@ function HelpPanelAction({ className, children, ...props }: React.ComponentProps
     >
       {children}
     </div>
-  );
+  )
 }
 
 // ─── HelpContentArea ──────────────────────────────────────────────────────────
@@ -382,12 +383,12 @@ function HelpContentArea({ className, children, ...props }: React.ComponentProps
     <div data-slot="krds-help-content-area" className={cn("conts-area flex flex-col gap-4", className)} {...props}>
       {children}
     </div>
-  );
+  )
 }
 
 // ─── Re-exported helper icons (for example consumers) ─────────────────────────
 
-export { Phone as HelpPhoneIcon, MessageCircleQuestion as HelpFaqIcon };
+export { Phone as HelpPhoneIcon, MessageCircleQuestion as HelpFaqIcon }
 
 export {
   HelpPanel,
@@ -402,8 +403,8 @@ export {
   HelpCoachTask,
   HelpPanelAction,
   HelpContentArea,
-  HelpPanelClose
-};
+  HelpPanelClose,
+}
 export type {
   HelpPanelProps,
   HelpPanelTriggerProps,
@@ -414,5 +415,5 @@ export type {
   HelpLinkItem,
   HelpServiceGroupProps,
   HelpTutorialTitleProps,
-  HelpCoachTaskProps
-};
+  HelpCoachTaskProps,
+}

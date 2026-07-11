@@ -1,6 +1,6 @@
-"use client";
+"use client"
 
-import * as React from "react";
+import * as React from "react"
 import {
   Pagination,
   PaginationContent,
@@ -8,13 +8,13 @@ import {
   PaginationItem,
   PaginationNext,
   PaginationPrev,
-  buildPageItems
-} from "@/components/ui/dynamic/pagination";
+  buildPageItems,
+} from "@/components/ui/dynamic/pagination"
 
 export default function PaginationDefault() {
-  const total = 10;
-  const [current, setCurrent] = React.useState(4);
-  const items = buildPageItems(current, total, 1, 3);
+  const total = 10
+  const [current, setCurrent] = React.useState(4)
+  const items = buildPageItems(current, total, 1, 3)
 
   return (
     <Pagination>
@@ -32,5 +32,5 @@ export default function PaginationDefault() {
         <PaginationNext disabled={current === total} onClick={() => setCurrent((p) => Math.min(total, p + 1))} />
       </PaginationContent>
     </Pagination>
-  );
+  )
 }

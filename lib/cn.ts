@@ -1,5 +1,5 @@
-import { type ClassValue, clsx } from "clsx";
-import { extendTailwindMerge } from "tailwind-merge";
+import { type ClassValue, clsx } from "clsx"
+import { extendTailwindMerge } from "tailwind-merge"
 
 // KRDS 타이포 토큰은 `text-krds-*` 라는 커스텀 이름의 font-size 유틸리티다.
 // 기본 twMerge 는 이를 모르고 text-color 그룹으로 오인해, 같은 요소의
@@ -25,14 +25,14 @@ const twMerge = extendTailwindMerge({
             "krds-body-lg",
             "krds-body-md",
             "krds-body-sm",
-            "krds-body-xs"
-          ]
-        }
-      ]
-    }
-  }
-});
+            "krds-body-xs",
+          ],
+        },
+      ],
+    },
+  },
+})
 
 export function cn(...inputs: ClassValue[]) {
-  return twMerge(clsx(inputs));
+  return twMerge(clsx(inputs))
 }

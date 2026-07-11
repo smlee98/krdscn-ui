@@ -25,7 +25,7 @@ export function DocsTableOfContents({ toc }: { toc?: TOCItemType[] }) {
 
   return (
     <div className="grid gap-2 text-sm">
-      <p className="font-medium text-foreground">이 페이지에서</p>
+      <p className="text-foreground font-medium">이 페이지에서</p>
       <div className="grid gap-1">
         {toc.map((rawItem) => {
           const item = rawItem as TocItem
@@ -34,7 +34,7 @@ export function DocsTableOfContents({ toc }: { toc?: TOCItemType[] }) {
               key={`${getHref(item)}-${String(getTitle(item))}`}
               href={getHref(item)}
               className={cn(
-                "line-clamp-1 text-xs text-muted-foreground transition-colors hover:text-foreground",
+                "text-muted-foreground hover:text-foreground line-clamp-1 text-xs transition-colors",
                 (item.depth ?? 2) > 2 && "pl-3"
               )}
             >

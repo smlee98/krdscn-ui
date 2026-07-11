@@ -1,6 +1,6 @@
-"use client";
+"use client"
 
-import * as React from "react";
+import * as React from "react"
 import {
   Pagination,
   PaginationContent,
@@ -12,13 +12,13 @@ import {
   PaginationJumpTotal,
   PaginationNext,
   PaginationPrev,
-  buildPageItems
-} from "@/components/ui/dynamic/pagination";
+  buildPageItems,
+} from "@/components/ui/dynamic/pagination"
 
 export default function PaginationWithManyPages() {
-  const total = 99;
-  const [current, setCurrent] = React.useState(4);
-  const items = buildPageItems(current, total, 1, 3);
+  const total = 99
+  const [current, setCurrent] = React.useState(4)
+  const items = buildPageItems(current, total, 1, 3)
 
   return (
     <Pagination>
@@ -41,5 +41,5 @@ export default function PaginationWithManyPages() {
         <PaginationJumpButton>이동</PaginationJumpButton>
       </PaginationJump>
     </Pagination>
-  );
+  )
 }

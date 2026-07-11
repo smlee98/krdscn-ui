@@ -1,5 +1,5 @@
-import { cn } from "@/lib/cn";
-import * as React from "react";
+import { cn } from "@/lib/cn"
+import * as React from "react"
 
 function ShadcnLogo({ className, ...props }: React.ComponentProps<"svg">) {
   return (
@@ -14,7 +14,7 @@ function ShadcnLogo({ className, ...props }: React.ComponentProps<"svg">) {
         d="m208 128-80 80M192 40 40 192"
       />
     </svg>
-  );
+  )
 }
 
-export { ShadcnLogo };
+export { ShadcnLogo }

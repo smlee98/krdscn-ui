@@ -1,6 +1,6 @@
-import { ArrowRightIcon } from "lucide-react";
+import { ArrowRightIcon } from "lucide-react"
 
-import { Link } from "@/components/ui/dynamic/link";
+import { Link } from "@/components/ui/dynamic/link"
 
 export default function LinkVariants() {
   return (
@@ -23,5 +23,5 @@ export default function LinkVariants() {
         밑줄 없음
       </Link>
     </div>
-  );
+  )
 }

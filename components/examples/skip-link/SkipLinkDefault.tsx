@@ -1,4 +1,4 @@
-import { SkipLink } from "@/components/ui/dynamic/skip-link";
+import { SkipLink } from "@/components/ui/dynamic/skip-link"
 
 export default function SkipLinkDefault() {
   return (
@@ -12,5 +12,5 @@ export default function SkipLinkDefault() {
         주요 콘텐츠 영역 (main).
       </main>
     </div>
-  );
+  )
 }

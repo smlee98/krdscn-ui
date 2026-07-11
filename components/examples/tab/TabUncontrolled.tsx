@@ -1,4 +1,4 @@
-import { Tab, TabList, TabTrigger, TabContent, TabPanel } from "@/components/ui/dynamic/tab";
+import { Tab, TabList, TabTrigger, TabContent, TabPanel } from "@/components/ui/dynamic/tab"
 
 const CATEGORIES = [
   { value: "all", label: "전체" },
@@ -8,8 +8,8 @@ const CATEGORIES = [
   { value: "welfare", label: "복지" },
   { value: "education", label: "교육" },
   { value: "housing", label: "주거" },
-  { value: "business", label: "사업" }
-];
+  { value: "business", label: "사업" },
+]
 
 export default function TabUncontrolled() {
   return (
@@ -33,5 +33,5 @@ export default function TabUncontrolled() {
         ))}
       </TabContent>
     </Tab>
-  );
+  )
 }

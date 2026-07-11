@@ -1,19 +1,19 @@
 // rsc:safe
-import * as React from "react";
-import { cn } from "@/lib/cn";
+import * as React from "react"
+import { cn } from "@/lib/cn"
 
 // ─── InPageNavigation (root) ──────────────────────────────────────────────────
 
 type InPageNavigationProps = {
-  className?: string;
-  children?: React.ReactNode;
-  "aria-label"?: string;
-};
+  className?: string
+  children?: React.ReactNode
+  "aria-label"?: string
+}
 
 function InPageNavigation({
   className,
   children,
-  "aria-label": ariaLabel = "이 페이지의 구성"
+  "aria-label": ariaLabel = "이 페이지의 구성",
 }: InPageNavigationProps) {
   return (
     <nav
@@ -23,30 +23,30 @@ function InPageNavigation({
     >
       {children}
     </nav>
-  );
+  )
 }
 
 // ─── InPageNavigationHeader (eyebrow + title wrapper) ─────────────────────────
 
 type InPageNavigationHeaderProps = {
-  className?: string;
-  children?: React.ReactNode;
-};
+  className?: string
+  children?: React.ReactNode
+}
 
 function InPageNavigationHeader({ className, children }: InPageNavigationHeaderProps) {
   return (
     <div data-slot="krds-in-page-navigation-header" className={cn("flex w-full flex-col gap-1", className)}>
       {children}
     </div>
-  );
+  )
 }
 
 // ─── InPageNavigationEyebrow (13px caption) ───────────────────────────────────
 
 type InPageNavigationEyebrowProps = {
-  className?: string;
-  children?: React.ReactNode;
-};
+  className?: string
+  children?: React.ReactNode
+}
 
 function InPageNavigationEyebrow({ className, children }: InPageNavigationEyebrowProps) {
   return (
@@ -56,15 +56,15 @@ function InPageNavigationEyebrow({ className, children }: InPageNavigationEyebro
     >
       {children}
     </span>
-  );
+  )
 }
 
 // ─── InPageNavigationTitle (17px Bold) ────────────────────────────────────────
 
 type InPageNavigationTitleProps = {
-  className?: string;
-  children?: React.ReactNode;
-};
+  className?: string
+  children?: React.ReactNode
+}
 
 function InPageNavigationTitle({ className, children }: InPageNavigationTitleProps) {
   return (
@@ -74,33 +74,33 @@ function InPageNavigationTitle({ className, children }: InPageNavigationTitlePro
     >
       {children}
     </strong>
-  );
+  )
 }
 
 // ─── InPageNavigationList ─────────────────────────────────────────────────────
 
 type InPageNavigationListProps = {
-  className?: string;
-  children?: React.ReactNode;
-};
+  className?: string
+  children?: React.ReactNode
+}
 
 function InPageNavigationList({ className, children }: InPageNavigationListProps) {
   return (
     <ul data-slot="krds-in-page-navigation-list" className={cn("flex w-full flex-col gap-1", className)}>
       {children}
     </ul>
-  );
+  )
 }
 
 // ─── InPageNavigationItem ─────────────────────────────────────────────────────
 
 type InPageNavigationItemProps = {
-  className?: string;
-  children?: React.ReactNode;
-  href?: string;
-  active?: boolean;
-  onClick?: React.MouseEventHandler<HTMLAnchorElement>;
-};
+  className?: string
+  children?: React.ReactNode
+  href?: string
+  active?: boolean
+  onClick?: React.MouseEventHandler<HTMLAnchorElement>
+}
 
 function InPageNavigationItem({ className, children, href, active, onClick }: InPageNavigationItemProps) {
   return (
@@ -117,22 +117,24 @@ function InPageNavigationItem({ className, children, href, active, onClick }: In
           "hover:bg-krds-surface-secondary-subtle",
           "active:bg-krds-surface-secondary-pressed",
           "focus:krds-focus-ring",
-          active ? "bg-krds-surface-secondary-subtle font-bold text-krds-foreground-secondary" : "text-krds-foreground-subtle",
+          active
+            ? "bg-krds-surface-secondary-subtle text-krds-foreground-secondary font-bold"
+            : "text-krds-foreground-subtle",
           className
         )}
       >
         {children}
       </a>
     </li>
-  );
+  )
 }
 
 // ─── InPageNavigationFooter (button + description wrapper) ────────────────────
 
 type InPageNavigationFooterProps = {
-  className?: string;
-  children?: React.ReactNode;
-};
+  className?: string
+  children?: React.ReactNode
+}
 
 function InPageNavigationFooter({ className, children }: InPageNavigationFooterProps) {
   return (
@@ -142,25 +144,25 @@ function InPageNavigationFooter({ className, children }: InPageNavigationFooterP
     >
       {children}
     </div>
-  );
+  )
 }
 
 // ─── InPageNavigationDescription (15px center caption under button) ───────────
 
 type InPageNavigationDescriptionProps = {
-  className?: string;
-  children?: React.ReactNode;
-};
+  className?: string
+  children?: React.ReactNode
+}
 
 function InPageNavigationDescription({ className, children }: InPageNavigationDescriptionProps) {
   return (
     <p
       data-slot="krds-in-page-navigation-description"
-      className={cn("text-krds-foreground-subtle w-full text-center text-krds-body-sm", className)}
+      className={cn("text-krds-foreground-subtle text-krds-body-sm w-full text-center", className)}
     >
       {children}
     </p>
-  );
+  )
 }
 
 export {
@@ -171,5 +173,5 @@ export {
   InPageNavigationList,
   InPageNavigationItem,
   InPageNavigationFooter,
-  InPageNavigationDescription
-};
+  InPageNavigationDescription,
+}

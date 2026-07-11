@@ -103,22 +103,27 @@ export function CodeBlockCommand({ command, className }: { command: string; clas
   const copyCommand = commands[packageManager]
 
   return (
-    <div className={cn("relative my-6 overflow-x-auto rounded-xl border bg-code text-code-foreground shadow-none", className)}>
+    <div
+      className={cn(
+        "bg-code text-code-foreground relative my-6 overflow-x-auto rounded-xl border shadow-none",
+        className
+      )}
+    >
       <Tabs
         value={packageManager}
         className="gap-0"
         onValueChange={(value) => setPackageManager(value as PackageManager)}
       >
-        <div className="flex items-center gap-2 border-b border-border/50 px-3 py-1">
-          <div className="flex size-4 items-center justify-center rounded-[1px] bg-foreground opacity-70">
-            <TerminalIcon className="size-3 text-code" />
+        <div className="border-border/50 flex items-center gap-2 border-b px-3 py-1">
+          <div className="bg-foreground flex size-4 items-center justify-center rounded-[1px] opacity-70">
+            <TerminalIcon className="text-code size-3" />
           </div>
           <TabsList className="bg-transparent">
             {managers.map((manager) => (
               <TabsTrigger
                 key={manager}
                 value={manager}
-                className="h-7 border-border/60 shadow-none! data-active:shadow-none!"
+                className="border-border/60 h-7 shadow-none! data-active:shadow-none!"
               >
                 {manager}
               </TabsTrigger>
@@ -142,7 +147,7 @@ export function CodeBlockCommand({ command, className }: { command: string; clas
         type="button"
         variant="ghost"
         size="icon"
-        className="absolute right-2 top-2 z-10"
+        className="absolute top-2 right-2 z-10"
         onClick={async () => {
           await navigator.clipboard.writeText(copyCommand)
           setCopied(true)

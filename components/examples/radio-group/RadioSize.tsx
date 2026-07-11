@@ -1,4 +1,4 @@
-import { Radio, RadioGroup } from "@/components/ui/dynamic/radio-group";
+import { Radio, RadioGroup } from "@/components/ui/dynamic/radio-group"
 
 export default function RadioSize() {
   return (
@@ -10,5 +10,5 @@ export default function RadioSize() {
         사이즈 : large
       </Radio>
     </RadioGroup>
-  );
+  )
 }

@@ -1,5 +1,5 @@
-import { Badge } from "@/components/ui/dynamic/badge";
+import { Badge } from "@/components/ui/dynamic/badge"
 
 export default function BadgeDefault() {
-  return <Badge>Label</Badge>;
+  return <Badge>Label</Badge>
 }

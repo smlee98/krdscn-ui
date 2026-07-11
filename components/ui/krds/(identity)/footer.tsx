@@ -1,8 +1,8 @@
 // rsc:safe
-import * as React from "react";
-import { Root as Slot } from "@radix-ui/react-slot";
-import { ChevronRight } from "lucide-react";
-import { cn } from "@/lib/cn";
+import * as React from "react"
+import { Root as Slot } from "@radix-ui/react-slot"
+import { ChevronRight } from "lucide-react"
+import { cn } from "@/lib/cn"
 
 // KRDS footer composition kit (reference: html/code/footer.html, scss/component/_footer.scss).
 // Region map: foot-quick → FooterQuick/FooterQuickLink, f-logo → FooterLogo, f-info → FooterInfo
@@ -15,14 +15,10 @@ import { cn } from "@/lib/cn";
 
 function Footer({ className, children, ...props }: React.ComponentProps<"footer">) {
   return (
-    <footer
-      data-slot="krds-footer"
-      className={cn("bg-krds-surface-subtler w-full", className)}
-      {...props}
-    >
+    <footer data-slot="krds-footer" className={cn("bg-krds-surface-subtler w-full", className)} {...props}>
       {children}
     </footer>
-  );
+  )
 }
 
 // ─── FooterQuick (foot-quick related-sites strip) ─────────────────────────────────
@@ -36,11 +32,15 @@ function FooterQuick({ className, children, ...props }: React.ComponentProps<"di
     >
       <div className="mx-auto flex max-w-[1200px] flex-col sm:flex-row">{children}</div>
     </div>
-  );
+  )
 }
 
-function FooterQuickLink({ asChild = false, className, ...props }: React.ComponentProps<"button"> & { asChild?: boolean }) {
-  const Comp = asChild ? Slot : "button";
+function FooterQuickLink({
+  asChild = false,
+  className,
+  ...props
+}: React.ComponentProps<"button"> & { asChild?: boolean }) {
+  const Comp = asChild ? Slot : "button"
   return (
     <Comp
       data-slot="krds-footer-quick-link"
@@ -48,7 +48,7 @@ function FooterQuickLink({ asChild = false, className, ...props }: React.Compone
       className={cn(
         "border-krds-border-light flex h-12 flex-1 items-center justify-between gap-2 px-4",
         // KRDS(_footer.scss quick): 기본은 투명(흰 스트립 위), hover secondary-5 / pressed secondary-10.
-        "bg-transparent text-krds-foreground text-krds-body-md",
+        "text-krds-foreground text-krds-body-md bg-transparent",
         "border-t sm:border-t-0 sm:border-l sm:first:border-l-0",
         "hover:bg-krds-surface-secondary-subtle",
         "active:bg-krds-surface-secondary-pressed",
@@ -57,7 +57,7 @@ function FooterQuickLink({ asChild = false, className, ...props }: React.Compone
       )}
       {...props}
     />
-  );
+  )
 }
 
 // ─── FooterLogo (org logo slot) ───────────────────────────────────────────────────
@@ -71,13 +71,13 @@ function FooterLogo({ className, children, ...props }: React.ComponentProps<"div
     >
       {children}
     </div>
-  );
+  )
 }
 
 // ─── FooterInfo (f-info container) ────────────────────────────────────────────────
 
 function FooterInfo({ className, ...props }: React.ComponentProps<"div">) {
-  return <div data-slot="krds-footer-info" className={cn("flex flex-1 flex-col gap-5", className)} {...props} />;
+  return <div data-slot="krds-footer-info" className={cn("flex flex-1 flex-col gap-5", className)} {...props} />
 }
 
 function FooterAddress({ className, ...props }: React.ComponentProps<"p">) {
@@ -87,18 +87,18 @@ function FooterAddress({ className, ...props }: React.ComponentProps<"p">) {
       className={cn("text-krds-foreground-subtle text-krds-body-md", className)}
       {...props}
     />
-  );
+  )
 }
 
 function FooterContact({ className, ...props }: React.ComponentProps<"ul">) {
-  return <ul data-slot="krds-footer-contact" className={cn("flex flex-col gap-3", className)} {...props} />;
+  return <ul data-slot="krds-footer-contact" className={cn("flex flex-col gap-3", className)} {...props} />
 }
 
 type FooterContactItemProps = {
-  className?: string;
-  label: React.ReactNode;
-  note?: React.ReactNode;
-};
+  className?: string
+  label: React.ReactNode
+  note?: React.ReactNode
+}
 
 function FooterContactItem({ className, label, note }: FooterContactItemProps) {
   return (
@@ -106,17 +106,17 @@ function FooterContactItem({ className, label, note }: FooterContactItemProps) {
       <strong className="text-krds-foreground text-krds-body-md font-bold">{label}</strong>
       {note && <span className="text-krds-foreground-subtle text-krds-body-sm">{note}</span>}
     </li>
-  );
+  )
 }
 
 // ─── FooterLinks (f-link container) ───────────────────────────────────────────────
 
 function FooterLinks({ className, ...props }: React.ComponentProps<"div">) {
-  return <div data-slot="krds-footer-links" className={cn("flex shrink-0 flex-col gap-8", className)} {...props} />;
+  return <div data-slot="krds-footer-links" className={cn("flex shrink-0 flex-col gap-8", className)} {...props} />
 }
 
 function FooterLinkActions({ className, ...props }: React.ComponentProps<"div">) {
-  return <div data-slot="krds-footer-link-actions" className={cn("flex flex-col gap-2", className)} {...props} />;
+  return <div data-slot="krds-footer-link-actions" className={cn("flex flex-col gap-2", className)} {...props} />
 }
 
 function FooterLinkAction({
@@ -125,7 +125,7 @@ function FooterLinkAction({
   children,
   ...props
 }: React.ComponentProps<"a"> & { asChild?: boolean }) {
-  const Comp = asChild ? Slot : "a";
+  const Comp = asChild ? Slot : "a"
   return (
     <Comp
       data-slot="krds-footer-link-action"
@@ -133,7 +133,7 @@ function FooterLinkAction({
         "inline-flex w-fit items-center gap-1",
         "text-krds-foreground text-krds-body-md",
         "hover:underline",
-        "rounded-sm focus:krds-focus-ring",
+        "focus:krds-focus-ring rounded-sm",
         className
       )}
       {...props}
@@ -141,19 +141,19 @@ function FooterLinkAction({
       {children}
       <ChevronRight size={16} aria-hidden="true" />
     </Comp>
-  );
+  )
 }
 
 function FooterSns({ className, ...props }: React.ComponentProps<"div">) {
-  return <div data-slot="krds-footer-sns" className={cn("flex flex-wrap gap-3", className)} {...props} />;
+  return <div data-slot="krds-footer-sns" className={cn("flex flex-wrap gap-3", className)} {...props} />
 }
 
 type FooterSnsLinkProps = React.ComponentProps<"a"> & {
-  label: React.ReactNode;
-};
+  label: React.ReactNode
+}
 
 function FooterSnsLink({ className, children, label, target = "_blank", ...props }: FooterSnsLinkProps) {
-  const rel = target === "_blank" ? "noopener noreferrer" : undefined;
+  const rel = target === "_blank" ? "noopener noreferrer" : undefined
   return (
     <a
       data-slot="krds-footer-sns-link"
@@ -171,7 +171,7 @@ function FooterSnsLink({ className, children, label, target = "_blank", ...props
       <span className="sr-only">{label}</span>
       {children}
     </a>
-  );
+  )
 }
 
 // ─── FooterBottom (f-btm) ─────────────────────────────────────────────────────────
@@ -185,16 +185,16 @@ function FooterBottom({ className, children, ...props }: React.ComponentProps<"d
     >
       {children}
     </div>
-  );
+  )
 }
 
 function FooterMenu({ className, ...props }: React.ComponentProps<"div">) {
-  return <div data-slot="krds-footer-menu" className={cn("flex flex-wrap items-center gap-3", className)} {...props} />;
+  return <div data-slot="krds-footer-menu" className={cn("flex flex-wrap items-center gap-3", className)} {...props} />
 }
 
 type FooterMenuLinkProps = React.ComponentProps<"a"> & {
-  point?: boolean;
-};
+  point?: boolean
+}
 
 function FooterMenuLink({ className, point = false, ...props }: FooterMenuLinkProps) {
   return (
@@ -202,13 +202,13 @@ function FooterMenuLink({ className, point = false, ...props }: FooterMenuLinkPr
       data-slot="krds-footer-menu-link"
       data-point={point ? "" : undefined}
       className={cn(
-        "text-krds-body-sm rounded-sm hover:underline focus:krds-focus-ring",
+        "text-krds-body-sm focus:krds-focus-ring rounded-sm hover:underline",
         point ? "text-krds-foreground-secondary font-bold" : "text-krds-foreground-subtle",
         className
       )}
       {...props}
     />
-  );
+  )
 }
 
 function FooterCopyright({ className, ...props }: React.ComponentProps<"p">) {
@@ -218,7 +218,7 @@ function FooterCopyright({ className, ...props }: React.ComponentProps<"p">) {
       className={cn("text-krds-foreground-subtle text-krds-body-sm", className)}
       {...props}
     />
-  );
+  )
 }
 
 export {
@@ -238,5 +238,5 @@ export {
   FooterBottom,
   FooterMenu,
   FooterMenuLink,
-  FooterCopyright
-};
+  FooterCopyright,
+}

@@ -1,11 +1,11 @@
 // rsc:safe
-import * as React from "react";
-import { cn } from "@/lib/cn";
+import * as React from "react"
+import { cn } from "@/lib/cn"
 
 type MastheadProps = {
-  className?: string;
-  notice?: React.ReactNode;
-};
+  className?: string
+  notice?: React.ReactNode
+}
 
 function Masthead({ className, notice = "이 누리집은 대한민국 공식 전자정부 누리집입니다." }: MastheadProps) {
   return (
@@ -21,7 +21,7 @@ function Masthead({ className, notice = "이 누리집은 대한민국 공식 �
       <KoreanFlagIcon className="h-4 w-6 shrink-0" />
       <p className="whitespace-nowrap">{notice}</p>
     </div>
-  );
+  )
 }
 
 function KoreanFlagIcon({ className }: { className?: string }) {
@@ -43,8 +43,8 @@ function KoreanFlagIcon({ className }: { className?: string }) {
         </clipPath>
       </defs>
     </svg>
-  );
+  )
 }
 
-export { Masthead, KoreanFlagIcon };
-export type { MastheadProps };
+export { Masthead, KoreanFlagIcon }
+export type { MastheadProps }

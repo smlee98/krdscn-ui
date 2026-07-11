@@ -1,61 +1,61 @@
-"use client";
+"use client"
 
-import * as React from "react";
-import { Calendar as CalendarIcon } from "lucide-react";
+import * as React from "react"
+import { Calendar as CalendarIcon } from "lucide-react"
 
-import { Popover as PopoverPrimitive } from "radix-ui";
-import { Calendar } from "@/components/ui/dynamic/calendar";
-import { cn } from "@/lib/cn";
-import { renderFieldMessage } from "@/components/ui/krds/(input)/field-message";
+import { Popover as PopoverPrimitive } from "radix-ui"
+import { Calendar } from "@/components/ui/dynamic/calendar"
+import { cn } from "@/lib/cn"
+import { renderFieldMessage } from "@/components/ui/krds/(input)/field-message"
 
-export type DateInputSize = "small" | "medium" | "large";
+export type DateInputSize = "small" | "medium" | "large"
 
 export type DateInputProps = Omit<
   React.InputHTMLAttributes<HTMLInputElement>,
   "onChange" | "value" | "defaultValue" | "size" | "type" | "readOnly"
 > & {
-  onChange?: (value: string) => void;
-  label?: string;
-  size?: DateInputSize;
-  value?: string;
-  defaultValue?: string;
-  readOnly?: boolean;
-  hint?: React.ReactNode;
-  error?: React.ReactNode;
-  success?: React.ReactNode;
-  information?: React.ReactNode;
-  isCalendarOpen?: boolean;
-  defaultIsCalendarOpen?: boolean;
-  onCalendarOpenChange?: (isOpen: boolean) => void;
-  calendarPosition?: "top" | "bottom";
-  disabledDates?: string[];
-  eventDates?: string[];
-  onYearChange?: (year: number) => void;
-  onMonthChange?: (month: number) => void;
-  onTodayClick?: () => void;
-  onConfirm?: () => void;
-  onCancel?: () => void;
-  openButtonLabel?: string;
-  prevButtonLabel?: string;
-  nextButtonLabel?: string;
-  yearSelectLabel?: string;
-  monthSelectLabel?: string;
-  todayButtonText?: string;
-  cancelButtonText?: string;
-  confirmButtonText?: string;
-};
+  onChange?: (value: string) => void
+  label?: string
+  size?: DateInputSize
+  value?: string
+  defaultValue?: string
+  readOnly?: boolean
+  hint?: React.ReactNode
+  error?: React.ReactNode
+  success?: React.ReactNode
+  information?: React.ReactNode
+  isCalendarOpen?: boolean
+  defaultIsCalendarOpen?: boolean
+  onCalendarOpenChange?: (isOpen: boolean) => void
+  calendarPosition?: "top" | "bottom"
+  disabledDates?: string[]
+  eventDates?: string[]
+  onYearChange?: (year: number) => void
+  onMonthChange?: (month: number) => void
+  onTodayClick?: () => void
+  onConfirm?: () => void
+  onCancel?: () => void
+  openButtonLabel?: string
+  prevButtonLabel?: string
+  nextButtonLabel?: string
+  yearSelectLabel?: string
+  monthSelectLabel?: string
+  todayButtonText?: string
+  cancelButtonText?: string
+  confirmButtonText?: string
+}
 
 const sizeBox: Record<DateInputSize, string> = {
   small: "h-10 px-4 rounded-[6px] text-krds-body-sm",
   medium: "h-12 px-4 rounded-[6px] text-krds-body-md",
-  large: "h-14 px-4 rounded-[8px] text-krds-body-lg"
-};
+  large: "h-14 px-4 rounded-[8px] text-krds-body-lg",
+}
 
 const sizeIcon: Record<DateInputSize, string> = {
   small: "size-4",
   medium: "size-5",
-  large: "size-6"
-};
+  large: "size-6",
+}
 
 function DateInput({
   label,
@@ -96,27 +96,25 @@ function DateInput({
   "aria-labelledby": ariaLabelledby,
   ...rest
 }: DateInputProps) {
-  const generatedId = React.useId();
-  const id = propId ?? generatedId;
-  const labelId = `${id}-label`;
+  const generatedId = React.useId()
+  const id = propId ?? generatedId
+  const labelId = `${id}-label`
 
-  const [internalOpen, setInternalOpen] = React.useState(defaultIsCalendarOpen);
-  const [internalValue, setInternalValue] = React.useState(defaultValue ?? "");
+  const [internalOpen, setInternalOpen] = React.useState(defaultIsCalendarOpen)
+  const [internalValue, setInternalValue] = React.useState(defaultValue ?? "")
 
-  const isControlled = isCalendarOpen !== undefined;
-  const open = isControlled ? isCalendarOpen : internalOpen;
-  const displayValue = value !== undefined ? value : internalValue;
+  const isControlled = isCalendarOpen !== undefined
+  const open = isControlled ? isCalendarOpen : internalOpen
+  const displayValue = value !== undefined ? value : internalValue
 
-  const message = renderFieldMessage(id, { error, success, information, hint });
-  const describedBy = message
-    ? [ariaDescribedby, `${id}-message`].filter(Boolean).join(" ")
-    : ariaDescribedby;
-  const labelledBy = label ? [ariaLabelledby, labelId].filter(Boolean).join(" ") : ariaLabelledby;
-  const resolvedInvalid = ariaInvalid ?? (error != null && error !== false ? true : undefined);
+  const message = renderFieldMessage(id, { error, success, information, hint })
+  const describedBy = message ? [ariaDescribedby, `${id}-message`].filter(Boolean).join(" ") : ariaDescribedby
+  const labelledBy = label ? [ariaLabelledby, labelId].filter(Boolean).join(" ") : ariaLabelledby
+  const resolvedInvalid = ariaInvalid ?? (error != null && error !== false ? true : undefined)
 
   function handleOpenChange(next: boolean) {
-    if (!isControlled) setInternalOpen(next);
-    onCalendarOpenChange?.(next);
+    if (!isControlled) setInternalOpen(next)
+    onCalendarOpenChange?.(next)
   }
 
   // The field is a read-only trigger button: clicking anywhere on it opens the
@@ -127,7 +125,7 @@ function DateInput({
   return (
     <div data-slot="krds-date-input" className={cn("flex flex-col", className)}>
       {label && (
-        <label id={labelId} className="mb-2 block text-krds-body-sm text-krds-foreground-subtle">
+        <label id={labelId} className="text-krds-body-sm text-krds-foreground-subtle mb-2 block">
           {label}
         </label>
       )}
@@ -145,10 +143,10 @@ function DateInput({
             aria-readonly={readOnly || undefined}
             disabled={disabled || readOnly}
             className={cn(
-              "relative flex w-full items-center border border-krds-border-dark bg-krds-surface text-left outline-none transition-colors",
+              "border-krds-border-dark bg-krds-surface relative flex w-full items-center border text-left transition-colors outline-none",
               "focus:border-krds-border-primary focus:krds-focus-ring",
               "aria-[invalid=true]:border-krds-danger-50 aria-[invalid=true]:focus:border-krds-danger-50",
-              disabled && "cursor-not-allowed border-krds-border bg-krds-surface-disabled",
+              disabled && "border-krds-border bg-krds-surface-disabled cursor-not-allowed",
               readOnly && !disabled && "cursor-default",
               !disabled && !readOnly && "cursor-pointer",
               sizeBox[size],
@@ -164,7 +162,7 @@ function DateInput({
             >
               {displayValue || placeholder}
             </span>
-            <span className="absolute right-4 flex items-center justify-center text-krds-foreground-subtle">
+            <span className="text-krds-foreground-subtle absolute right-4 flex items-center justify-center">
               <CalendarIcon className={sizeIcon[size]} />
             </span>
           </button>
@@ -201,9 +199,9 @@ function DateInput({
               confirmButtonText={confirmButtonText}
               value={displayValue || undefined}
               onChange={(v) => {
-                if (value === undefined) setInternalValue(v);
-                onChange?.(v);
-                handleOpenChange(false);
+                if (value === undefined) setInternalValue(v)
+                onChange?.(v)
+                handleOpenChange(false)
               }}
             />
           </PopoverPrimitive.Content>
@@ -212,25 +210,25 @@ function DateInput({
 
       {message && <div className="mt-2">{message}</div>}
     </div>
-  );
+  )
 }
 
 export type DateInputUnitProps = {
-  label?: string;
-  size?: DateInputSize;
-  yearLabel?: string;
-  monthLabel?: string;
-  dayLabel?: string;
-  yearValue?: string;
-  monthValue?: string;
-  dayValue?: string;
-  onYearChange?: (v: string) => void;
-  onMonthChange?: (v: string) => void;
-  onDayChange?: (v: string) => void;
-  disabled?: boolean;
-  "aria-invalid"?: boolean;
-  className?: string;
-};
+  label?: string
+  size?: DateInputSize
+  yearLabel?: string
+  monthLabel?: string
+  dayLabel?: string
+  yearValue?: string
+  monthValue?: string
+  dayValue?: string
+  onYearChange?: (v: string) => void
+  onMonthChange?: (v: string) => void
+  onDayChange?: (v: string) => void
+  disabled?: boolean
+  "aria-invalid"?: boolean
+  className?: string
+}
 
 function DateInputUnit({
   label,
@@ -246,7 +244,7 @@ function DateInputUnit({
   onDayChange,
   disabled,
   "aria-invalid": ariaInvalid,
-  className
+  className,
 }: DateInputUnitProps) {
   const inputCls = cn(
     "border border-krds-border-dark bg-krds-surface transition-colors",
@@ -254,11 +252,11 @@ function DateInputUnit({
     "has-[input[aria-invalid=true]]:border-krds-danger-50 has-[input[aria-invalid=true]]:focus-within:border-krds-danger-50",
     disabled && "border border-krds-border bg-krds-surface-disabled",
     sizeBox[size]
-  );
+  )
 
   return (
     <div data-slot="krds-date-input-unit" className={cn("flex flex-col", className)}>
-      {label && <label className="mb-2 block text-krds-body-sm text-krds-foreground-subtle">{label}</label>}
+      {label && <label className="text-krds-body-sm text-krds-foreground-subtle mb-2 block">{label}</label>}
       <div className={cn("flex flex-row", size === "small" ? "gap-1" : "gap-4")}>
         <div className="flex flex-1 items-center gap-1">
           <div className={cn(inputCls, "flex-1")}>
@@ -271,12 +269,12 @@ function DateInputUnit({
               onChange={(e) => onYearChange?.(e.target.value)}
               aria-invalid={ariaInvalid || undefined}
               className={cn(
-                "w-full bg-transparent text-krds-foreground outline-none placeholder:text-krds-foreground-disabled",
-                disabled && "cursor-not-allowed text-krds-foreground-disabled"
+                "text-krds-foreground placeholder:text-krds-foreground-disabled w-full bg-transparent outline-none",
+                disabled && "text-krds-foreground-disabled cursor-not-allowed"
               )}
             />
           </div>
-          <span className="shrink-0 text-krds-foreground">{yearLabel}</span>
+          <span className="text-krds-foreground shrink-0">{yearLabel}</span>
         </div>
 
         <div className="flex flex-1 items-center gap-1">
@@ -290,12 +288,12 @@ function DateInputUnit({
               onChange={(e) => onMonthChange?.(e.target.value)}
               aria-invalid={ariaInvalid || undefined}
               className={cn(
-                "w-full bg-transparent text-krds-foreground outline-none placeholder:text-krds-foreground-disabled",
-                disabled && "cursor-not-allowed text-krds-foreground-disabled"
+                "text-krds-foreground placeholder:text-krds-foreground-disabled w-full bg-transparent outline-none",
+                disabled && "text-krds-foreground-disabled cursor-not-allowed"
               )}
             />
           </div>
-          <span className="shrink-0 text-krds-foreground">{monthLabel}</span>
+          <span className="text-krds-foreground shrink-0">{monthLabel}</span>
         </div>
 
         <div className="flex flex-1 items-center gap-1">
@@ -309,40 +307,40 @@ function DateInputUnit({
               onChange={(e) => onDayChange?.(e.target.value)}
               aria-invalid={ariaInvalid || undefined}
               className={cn(
-                "w-full bg-transparent text-krds-foreground outline-none placeholder:text-krds-foreground-disabled",
-                disabled && "cursor-not-allowed text-krds-foreground-disabled"
+                "text-krds-foreground placeholder:text-krds-foreground-disabled w-full bg-transparent outline-none",
+                disabled && "text-krds-foreground-disabled cursor-not-allowed"
               )}
             />
           </div>
-          <span className="shrink-0 text-krds-foreground">{dayLabel}</span>
+          <span className="text-krds-foreground shrink-0">{dayLabel}</span>
         </div>
       </div>
     </div>
-  );
+  )
 }
 
 export type DateInputPeriodUnitProps = {
-  label?: string;
-  size?: DateInputSize;
-  separator?: React.ReactNode;
-  startValue?: string;
-  endValue?: string;
-  onStartChange?: (v: string) => void;
-  onEndChange?: (v: string) => void;
-  startLabel?: string;
-  endLabel?: string;
-  disabled?: boolean;
-  "aria-invalid"?: boolean;
-  className?: string;
-  startPlaceholder?: string;
-  endPlaceholder?: string;
-};
+  label?: string
+  size?: DateInputSize
+  separator?: React.ReactNode
+  startValue?: string
+  endValue?: string
+  onStartChange?: (v: string) => void
+  onEndChange?: (v: string) => void
+  startLabel?: string
+  endLabel?: string
+  disabled?: boolean
+  "aria-invalid"?: boolean
+  className?: string
+  startPlaceholder?: string
+  endPlaceholder?: string
+}
 
 const separatorSize: Record<DateInputSize, string> = {
   small: "text-krds-body-sm",
   medium: "text-krds-body-md",
-  large: "text-krds-body-lg"
-};
+  large: "text-krds-body-lg",
+}
 
 function DateInputPeriodUnit({
   label,
@@ -358,11 +356,11 @@ function DateInputPeriodUnit({
   "aria-invalid": ariaInvalid,
   className,
   startPlaceholder = "YYYY.MM.DD",
-  endPlaceholder = "YYYY.MM.DD"
+  endPlaceholder = "YYYY.MM.DD",
 }: DateInputPeriodUnitProps) {
   return (
     <div data-slot="krds-date-input-period-unit" className={cn("flex flex-col", className)}>
-      {label && <label className="mb-2 block text-krds-body-sm text-krds-foreground-subtle">{label}</label>}
+      {label && <label className="text-krds-body-sm text-krds-foreground-subtle mb-2 block">{label}</label>}
       <div className="flex w-full flex-row items-center gap-4">
         <div className="flex-1">
           <DateInput
@@ -375,7 +373,7 @@ function DateInputPeriodUnit({
             placeholder={startPlaceholder}
           />
         </div>
-        <span className={cn("shrink-0 text-krds-foreground", separatorSize[size])}>{separator}</span>
+        <span className={cn("text-krds-foreground shrink-0", separatorSize[size])}>{separator}</span>
         <div className="flex-1">
           <DateInput
             size={size}
@@ -389,7 +387,7 @@ function DateInputPeriodUnit({
         </div>
       </div>
     </div>
-  );
+  )
 }
 
-export { DateInput, DateInputUnit, DateInputPeriodUnit };
+export { DateInput, DateInputUnit, DateInputPeriodUnit }

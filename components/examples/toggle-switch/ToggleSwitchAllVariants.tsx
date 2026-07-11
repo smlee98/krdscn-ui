@@ -1,4 +1,4 @@
-import { ToggleSwitch } from "@/components/ui/dynamic/toggle-switch";
+import { ToggleSwitch } from "@/components/ui/dynamic/toggle-switch"
 
 export default function ToggleSwitchAllVariants() {
   return (
@@ -23,5 +23,5 @@ export default function ToggleSwitchAllVariants() {
       <ToggleSwitch size="medium" label="스위치" disabled defaultChecked />
       <ToggleSwitch size="large" label="스위치" disabled defaultChecked />
     </div>
-  );
+  )
 }

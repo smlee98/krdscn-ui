@@ -19,5 +19,5 @@ export {
   FooterBottom,
   FooterMenu,
   FooterMenuLink,
-  FooterCopyright
-} from "@/components/ui/krds/(identity)/footer";
+  FooterCopyright,
+} from "@/components/ui/krds/(identity)/footer"

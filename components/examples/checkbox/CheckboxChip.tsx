@@ -1,4 +1,4 @@
-import { CheckboxChip as KrdsCheckboxChip, CheckboxGroup as KrdsCheckboxGroup } from "@/components/ui/dynamic/checkbox";
+import { CheckboxChip as KrdsCheckboxChip, CheckboxGroup as KrdsCheckboxGroup } from "@/components/ui/dynamic/checkbox"
 
 export default function CheckboxChip() {
   return (
@@ -7,5 +7,5 @@ export default function CheckboxChip() {
       <KrdsCheckboxChip defaultValue={true}>chip 상태 : checked</KrdsCheckboxChip>
       <KrdsCheckboxChip disabled>chip 상태 : disabled</KrdsCheckboxChip>
     </KrdsCheckboxGroup>
-  );
+  )
 }

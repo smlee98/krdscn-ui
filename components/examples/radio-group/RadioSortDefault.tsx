@@ -1,4 +1,4 @@
-import { RadioGroup, RadioSort } from "@/components/ui/dynamic/radio-group";
+import { RadioGroup, RadioSort } from "@/components/ui/dynamic/radio-group"
 
 export default function RadioSortDefault() {
   return (
@@ -10,5 +10,5 @@ export default function RadioSortDefault() {
       <RadioSort value="views">조회순</RadioSort>
       <RadioSort value="alpha">가나다순</RadioSort>
     </RadioGroup>
-  );
+  )
 }

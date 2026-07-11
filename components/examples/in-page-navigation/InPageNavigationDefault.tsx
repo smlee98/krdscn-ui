@@ -4,8 +4,8 @@ import {
   InPageNavigationHeader,
   InPageNavigationItem,
   InPageNavigationList,
-  InPageNavigationTitle
-} from "@/components/ui/dynamic/in-page-navigation";
+  InPageNavigationTitle,
+} from "@/components/ui/dynamic/in-page-navigation"
 
 export default function InPageNavigationDefault() {
   return (
@@ -26,5 +26,5 @@ export default function InPageNavigationDefault() {
         <InPageNavigationItem href="#faq">자주 묻는 질문</InPageNavigationItem>
       </InPageNavigationList>
     </InPageNavigation>
-  );
+  )
 }

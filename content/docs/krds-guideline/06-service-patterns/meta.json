@@ -1,10 +1,4 @@
 {
   "title": "서비스 패턴",
-  "pages": [
-    "01-visit",
-    "02-search",
-    "03-login",
-    "04-application",
-    "05-policy-information-review"
-  ]
+  "pages": ["01-visit", "02-search", "03-login", "04-application", "05-policy-information-review"]
 }

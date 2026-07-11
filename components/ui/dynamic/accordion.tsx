@@ -1,25 +1,25 @@
-"use client";
+"use client"
 
-import type * as React from "react";
+import type * as React from "react"
 import {
   Accordion as ShadcnAccordion,
   AccordionContent as ShadcnAccordionContent,
   AccordionItem as ShadcnAccordionItem,
-  AccordionTrigger as ShadcnAccordionTrigger
-} from "@/components/ui/accordion";
+  AccordionTrigger as ShadcnAccordionTrigger,
+} from "@/components/ui/accordion"
 import {
   Accordion as KrdsAccordion,
   AccordionHeader as KrdsAccordionHeader,
   AccordionItem as KrdsAccordionItem,
-  AccordionPanel as KrdsAccordionPanel
-} from "@/components/ui/krds/(layout)/accordion";
+  AccordionPanel as KrdsAccordionPanel,
+} from "@/components/ui/krds/(layout)/accordion"
 import type {
   AccordionHeaderProps,
   AccordionItemProps,
   AccordionPanelProps,
-  AccordionProps
-} from "@/components/ui/krds/(layout)/accordion";
-import { useUISystem } from "@/lib/ui-system";
+  AccordionProps,
+} from "@/components/ui/krds/(layout)/accordion"
+import { useUISystem } from "@/lib/ui-system"
 
 export type {
   AccordionVariant,
@@ -27,8 +27,8 @@ export type {
   AccordionProps,
   AccordionItemProps,
   AccordionHeaderProps,
-  AccordionPanelProps
-} from "@/components/ui/krds/(layout)/accordion";
+  AccordionPanelProps,
+} from "@/components/ui/krds/(layout)/accordion"
 
 // Reference dual-render dispatcher (template for the other pass-through wrappers):
 // the public surface is the KRDS compound API, but each part renders either the
@@ -50,7 +50,7 @@ function ShadcnAccordionRoot({
   dir,
   ...rest
 }: AccordionProps) {
-  const radixDir = dir as "ltr" | "rtl" | undefined;
+  const radixDir = dir as "ltr" | "rtl" | undefined
 
   if (allowMultiple) {
     return (
@@ -65,7 +65,7 @@ function ShadcnAccordionRoot({
       >
         {children}
       </ShadcnAccordion>
-    );
+    )
   }
 
   return (
@@ -81,32 +81,32 @@ function ShadcnAccordionRoot({
     >
       {children}
     </ShadcnAccordion>
-  );
+  )
 }
 
 // ─── Dispatched parts ─────────────────────────────────────────────────────────
 
 export function Accordion(props: AccordionProps) {
-  const system = useUISystem();
-  if (system === "krds") return <KrdsAccordion {...props} />;
-  return <ShadcnAccordionRoot {...props} />;
+  const system = useUISystem()
+  if (system === "krds") return <KrdsAccordion {...props} />
+  return <ShadcnAccordionRoot {...props} />
 }
 
 export function AccordionItem(props: AccordionItemProps) {
-  const system = useUISystem();
-  if (system === "krds") return <KrdsAccordionItem {...props} />;
-  const { value, children, className, ...rest } = props;
+  const system = useUISystem()
+  if (system === "krds") return <KrdsAccordionItem {...props} />
+  const { value, children, className, ...rest } = props
   return (
     <ShadcnAccordionItem value={value} className={className} {...rest}>
       {children}
     </ShadcnAccordionItem>
-  );
+  )
 }
 
 export function AccordionHeader(props: AccordionHeaderProps) {
-  const system = useUISystem();
-  if (system === "krds") return <KrdsAccordionHeader {...props} />;
-  const { children, onClick, className, ...rest } = props;
+  const system = useUISystem()
+  if (system === "krds") return <KrdsAccordionHeader {...props} />
+  const { children, onClick, className, ...rest } = props
   return (
     <ShadcnAccordionTrigger
       onClick={onClick}
@@ -115,16 +115,16 @@ export function AccordionHeader(props: AccordionHeaderProps) {
     >
       {children}
     </ShadcnAccordionTrigger>
-  );
+  )
 }
 
 export function AccordionPanel(props: AccordionPanelProps) {
-  const system = useUISystem();
-  if (system === "krds") return <KrdsAccordionPanel {...props} />;
-  const { children, className, ...rest } = props;
+  const system = useUISystem()
+  if (system === "krds") return <KrdsAccordionPanel {...props} />
+  const { children, className, ...rest } = props
   return (
     <ShadcnAccordionContent className={className} {...rest}>
       {children}
     </ShadcnAccordionContent>
-  );
+  )
 }

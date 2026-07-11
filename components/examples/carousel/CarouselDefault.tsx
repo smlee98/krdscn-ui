@@ -4,14 +4,14 @@ import {
   CarouselItem,
   CarouselPrevious,
   CarouselNext,
-  CarouselNumber
-} from "@/components/ui/dynamic/carousel";
+  CarouselNumber,
+} from "@/components/ui/dynamic/carousel"
 
 const SLIDES = [
   { title: "정부24 민원 서비스", desc: "각종 민원서류를 온라인으로 간편하게 발급받으세요." },
   { title: "전자정부 포털", desc: "1,400여 종의 민원 서비스를 한 곳에서 이용하세요." },
-  { title: "간편인증 서비스", desc: "카카오, 네이버 등 간편인증으로 빠르게 로그인하세요." }
-];
+  { title: "간편인증 서비스", desc: "카카오, 네이버 등 간편인증으로 빠르게 로그인하세요." },
+]
 
 export default function CarouselDefault() {
   return (
@@ -34,5 +34,5 @@ export default function CarouselDefault() {
         </div>
       </div>
     </Carousel>
-  );
+  )
 }

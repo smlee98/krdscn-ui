@@ -1,7 +1,7 @@
-"use client";
+"use client"
 
-import * as React from "react";
-import { ArrowRight, ChevronRight, ExternalLink } from "lucide-react";
+import * as React from "react"
+import { ArrowRight, ChevronRight, ExternalLink } from "lucide-react"
 import {
   MainMenu as KrdsMainMenu,
   MainMenuBar as KrdsMainMenuBar,
@@ -12,11 +12,11 @@ import {
   MainMenuPanelHeader as KrdsMainMenuPanelHeader,
   MainMenuPanelShortcut as KrdsMainMenuPanelShortcut,
   MainMenuPanelSidebar as KrdsMainMenuPanelSidebar,
-  MainMenuSidebarItem as KrdsMainMenuSidebarItem
-} from "@/components/ui/krds/(navigation)/main-menu";
-import { navigationMenuTriggerStyle } from "@/components/ui/navigation-menu";
-import { cn } from "@/lib/cn";
-import { useUISystem } from "@/lib/ui-system";
+  MainMenuSidebarItem as KrdsMainMenuSidebarItem,
+} from "@/components/ui/krds/(navigation)/main-menu"
+import { navigationMenuTriggerStyle } from "@/components/ui/navigation-menu"
+import { cn } from "@/lib/cn"
+import { useUISystem } from "@/lib/ui-system"
 
 // Dual-render dispatcher (template: dynamic/accordion.tsx, dynamic/modal.tsx). The
 // public surface is the KRDS MainMenu compound API; each part renders either the
@@ -35,16 +35,16 @@ import { useUISystem } from "@/lib/ui-system";
 
 function ShadcnMainMenu({ className, children }: React.ComponentProps<typeof KrdsMainMenu>) {
   // Always-visible sibling layout: a plain styled wrapper, no Radix open-state.
-  return <nav className={cn("w-full max-w-full", className)}>{children}</nav>;
+  return <nav className={cn("w-full max-w-full", className)}>{children}</nav>
 }
 
 function ShadcnMainMenuBar({ className, children, ...rest }: React.ComponentProps<typeof KrdsMainMenuBar>) {
-  const { "aria-label": ariaLabel } = rest;
+  const { "aria-label": ariaLabel } = rest
   return (
     <ul role="list" aria-label={ariaLabel} className={cn("flex items-center", className)}>
       {children}
     </ul>
-  );
+  )
 }
 
 function ShadcnMainMenuBarItem({
@@ -54,12 +54,12 @@ function ShadcnMainMenuBarItem({
   active,
   asButton,
   expanded,
-  onClick
+  onClick,
 }: React.ComponentProps<typeof KrdsMainMenuBarItem>) {
   // Panel is always visible, so both submenu and plain items render as styled links
   // (no Radix Trigger↔Content toggle). navigationMenuTriggerStyle() supplies the look.
   // active → data-active (NavigationMenu styles data-[active=true]); asButton → <button>.
-  const itemClassName = cn(navigationMenuTriggerStyle(), className);
+  const itemClassName = cn(navigationMenuTriggerStyle(), className)
   return (
     <li>
       {asButton ? (
@@ -84,13 +84,13 @@ function ShadcnMainMenuBarItem({
         </a>
       )}
     </li>
-  );
+  )
 }
 
 function ShadcnMainMenuPanel({ className, children }: React.ComponentProps<typeof KrdsMainMenuPanel>) {
   // THE FIX: always-visible styled container instead of NavigationMenuContent,
   // which Radix requires to live inside a NavigationMenuItem and crashes as a sibling.
-  return <section className={cn("flex w-full", className)}>{children}</section>;
+  return <section className={cn("flex w-full", className)}>{children}</section>
 }
 
 function ShadcnMainMenuPanelHeader({
@@ -102,7 +102,7 @@ function ShadcnMainMenuPanelHeader({
     <div className={cn("flex h-14 items-center px-1", className)} {...rest}>
       <span className="text-lg font-bold">{children}</span>
     </div>
-  );
+  )
 }
 
 function ShadcnMainMenuPanelShortcut({
@@ -115,7 +115,7 @@ function ShadcnMainMenuPanelShortcut({
       <span className="underline">{children ?? "바로가기"}</span>
       <ChevronRight size={16} aria-hidden="true" />
     </a>
-  );
+  )
 }
 
 function ShadcnMainMenuPanelSidebar({
@@ -127,11 +127,11 @@ function ShadcnMainMenuPanelSidebar({
     <aside className={cn("bg-muted flex w-[266px] flex-col py-4", className)} {...rest}>
       {children}
     </aside>
-  );
+  )
 }
 
 function ShadcnMainMenuColumn({ className, children }: React.ComponentProps<typeof KrdsMainMenuColumn>) {
-  return <div className={cn("flex min-w-0 flex-1 flex-col gap-2", className)}>{children}</div>;
+  return <div className={cn("flex min-w-0 flex-1 flex-col gap-2", className)}>{children}</div>
 }
 
 function ShadcnMainMenuLink({ className, children, href, external }: React.ComponentProps<typeof KrdsMainMenuLink>) {
@@ -140,7 +140,7 @@ function ShadcnMainMenuLink({ className, children, href, external }: React.Compo
       <span className="flex-1">{children}</span>
       {external && <ExternalLink size={20} aria-hidden="true" />}
     </a>
-  );
+  )
 }
 
 function ShadcnMainMenuSidebarItem({
@@ -149,11 +149,11 @@ function ShadcnMainMenuSidebarItem({
   href,
   active,
   hasMore,
-  external
+  external,
 }: React.ComponentProps<typeof KrdsMainMenuSidebarItem>) {
   // active → data-active (NavigationMenuLink styles data-[active=true]); hasMore →
   // trailing arrow parity. The KRDS chevron-vs-arrow split collapses here.
-  const showArrow = hasMore || active;
+  const showArrow = hasMore || active
   return (
     <a
       href={href}
@@ -166,67 +166,67 @@ function ShadcnMainMenuSidebarItem({
       {showArrow && !external && <ArrowRight size={20} aria-hidden="true" />}
       {!showArrow && !external && <ChevronRight size={20} aria-hidden="true" />}
     </a>
-  );
+  )
 }
 
 // ─── Dispatched parts (public surface preserved) ────────────────────────────────
 
 export function MainMenu(props: React.ComponentProps<typeof KrdsMainMenu>) {
-  const system = useUISystem();
-  if (system === "krds") return <KrdsMainMenu {...props} />;
-  return <ShadcnMainMenu {...props} />;
+  const system = useUISystem()
+  if (system === "krds") return <KrdsMainMenu {...props} />
+  return <ShadcnMainMenu {...props} />
 }
 
 export function MainMenuBar(props: React.ComponentProps<typeof KrdsMainMenuBar>) {
-  const system = useUISystem();
-  if (system === "krds") return <KrdsMainMenuBar {...props} />;
-  return <ShadcnMainMenuBar {...props} />;
+  const system = useUISystem()
+  if (system === "krds") return <KrdsMainMenuBar {...props} />
+  return <ShadcnMainMenuBar {...props} />
 }
 
 export function MainMenuBarItem(props: React.ComponentProps<typeof KrdsMainMenuBarItem>) {
-  const system = useUISystem();
-  if (system === "krds") return <KrdsMainMenuBarItem {...props} />;
-  return <ShadcnMainMenuBarItem {...props} />;
+  const system = useUISystem()
+  if (system === "krds") return <KrdsMainMenuBarItem {...props} />
+  return <ShadcnMainMenuBarItem {...props} />
 }
 
 export function MainMenuPanel(props: React.ComponentProps<typeof KrdsMainMenuPanel>) {
-  const system = useUISystem();
-  if (system === "krds") return <KrdsMainMenuPanel {...props} />;
-  return <ShadcnMainMenuPanel {...props} />;
+  const system = useUISystem()
+  if (system === "krds") return <KrdsMainMenuPanel {...props} />
+  return <ShadcnMainMenuPanel {...props} />
 }
 
 export function MainMenuPanelHeader(props: React.ComponentProps<typeof KrdsMainMenuPanelHeader>) {
-  const system = useUISystem();
-  if (system === "krds") return <KrdsMainMenuPanelHeader {...props} />;
-  return <ShadcnMainMenuPanelHeader {...props} />;
+  const system = useUISystem()
+  if (system === "krds") return <KrdsMainMenuPanelHeader {...props} />
+  return <ShadcnMainMenuPanelHeader {...props} />
 }
 
 export function MainMenuPanelShortcut(props: React.ComponentProps<typeof KrdsMainMenuPanelShortcut>) {
-  const system = useUISystem();
-  if (system === "krds") return <KrdsMainMenuPanelShortcut {...props} />;
-  return <ShadcnMainMenuPanelShortcut {...props} />;
+  const system = useUISystem()
+  if (system === "krds") return <KrdsMainMenuPanelShortcut {...props} />
+  return <ShadcnMainMenuPanelShortcut {...props} />
 }
 
 export function MainMenuPanelSidebar(props: React.ComponentProps<typeof KrdsMainMenuPanelSidebar>) {
-  const system = useUISystem();
-  if (system === "krds") return <KrdsMainMenuPanelSidebar {...props} />;
-  return <ShadcnMainMenuPanelSidebar {...props} />;
+  const system = useUISystem()
+  if (system === "krds") return <KrdsMainMenuPanelSidebar {...props} />
+  return <ShadcnMainMenuPanelSidebar {...props} />
 }
 
 export function MainMenuColumn(props: React.ComponentProps<typeof KrdsMainMenuColumn>) {
-  const system = useUISystem();
-  if (system === "krds") return <KrdsMainMenuColumn {...props} />;
-  return <ShadcnMainMenuColumn {...props} />;
+  const system = useUISystem()
+  if (system === "krds") return <KrdsMainMenuColumn {...props} />
+  return <ShadcnMainMenuColumn {...props} />
 }
 
 export function MainMenuLink(props: React.ComponentProps<typeof KrdsMainMenuLink>) {
-  const system = useUISystem();
-  if (system === "krds") return <KrdsMainMenuLink {...props} />;
-  return <ShadcnMainMenuLink {...props} />;
+  const system = useUISystem()
+  if (system === "krds") return <KrdsMainMenuLink {...props} />
+  return <ShadcnMainMenuLink {...props} />
 }
 
 export function MainMenuSidebarItem(props: React.ComponentProps<typeof KrdsMainMenuSidebarItem>) {
-  const system = useUISystem();
-  if (system === "krds") return <KrdsMainMenuSidebarItem {...props} />;
-  return <ShadcnMainMenuSidebarItem {...props} />;
+  const system = useUISystem()
+  if (system === "krds") return <KrdsMainMenuSidebarItem {...props} />
+  return <ShadcnMainMenuSidebarItem {...props} />
 }

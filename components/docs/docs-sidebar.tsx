@@ -52,7 +52,7 @@ function ComponentSidebarMarker({ slug }: { slug?: string | null }) {
   return (
     <span
       className={cn(
-        "ml-auto rounded-full border px-1.5 text-[10px] font-medium leading-4",
+        "ml-auto rounded-full border px-1.5 text-[10px] leading-4 font-medium",
         taxonomy.kind === "extended" && "border-primary/30 bg-primary/10 text-primary",
         taxonomy.kind === "docs-only" && "border-amber-500/30 bg-amber-500/10 text-amber-700 dark:text-amber-300"
       )}
@@ -136,17 +136,17 @@ export function DocsSidebar({ tree }: { tree: typeof source.pageTree }) {
 
   return (
     <aside className="sticky top-[calc(var(--header-height)+0.6rem)] z-30 hidden h-[calc(100svh-5rem)] w-72 shrink-0 overscroll-none bg-transparent lg:block">
-      <div className="absolute top-0 z-10 h-8 w-56 bg-linear-to-b from-background via-background/80 to-background/50" />
-      <div className="absolute top-8 right-2 bottom-0 hidden w-px bg-linear-to-b from-transparent via-border to-transparent lg:flex" />
-      <div className="no-scrollbar h-full w-56 overflow-y-auto px-2 pb-28 pt-8">
+      <div className="from-background via-background/80 to-background/50 absolute top-0 z-10 h-8 w-56 bg-linear-to-b" />
+      <div className="via-border absolute top-8 right-2 bottom-0 hidden w-px bg-linear-to-b from-transparent to-transparent lg:flex" />
+      <div className="no-scrollbar h-full w-56 overflow-y-auto px-2 pt-8 pb-28">
         {showKrdsTree && krdsFolder?.type === "folder" ? (
           <div>
-            <h4 className="mb-2 px-2 text-xs font-medium text-muted-foreground">KRDS 가이드라인</h4>
+            <h4 className="text-muted-foreground mb-2 px-2 text-xs font-medium">KRDS 가이드라인</h4>
             <TreeLinks nodes={krdsFolder.children as PageTreeNode[]} pathname={pathname} expandAll />
           </div>
         ) : showBlocksTree && blocksFolder?.type === "folder" ? (
           <div>
-            <h4 className="mb-2 px-2 text-xs font-medium text-muted-foreground">블록</h4>
+            <h4 className="text-muted-foreground mb-2 px-2 text-xs font-medium">블록</h4>
             <div className="grid gap-1">
               {blockPages.map((page) => {
                 const active = pathname === normalizePath(page.url)
@@ -161,11 +161,12 @@ export function DocsSidebar({ tree }: { tree: typeof source.pageTree }) {
         ) : (
           <>
             <div className="mb-8">
-              <h4 className="mb-2 px-2 text-xs font-medium text-muted-foreground">섹션</h4>
+              <h4 className="text-muted-foreground mb-2 px-2 text-xs font-medium">섹션</h4>
               <div className="grid gap-1">
                 {sections.map((item) => {
                   const href = normalizePath(item.href)
-                  const active = href === "/docs" ? pathname === href : pathname === href || pathname.startsWith(`${href}/`)
+                  const active =
+                    href === "/docs" ? pathname === href : pathname === href || pathname.startsWith(`${href}/`)
                   return (
                     <Link key={item.href} href={item.href} className={itemClass(active)}>
                       {item.title}
@@ -175,7 +176,7 @@ export function DocsSidebar({ tree }: { tree: typeof source.pageTree }) {
               </div>
             </div>
             <div>
-              <h4 className="mb-2 px-2 text-xs font-medium text-muted-foreground">컴포넌트</h4>
+              <h4 className="text-muted-foreground mb-2 px-2 text-xs font-medium">컴포넌트</h4>
               <div className="grid gap-1">
                 {componentPages.map((page) => {
                   const active = pathname === normalizePath(page.url)
@@ -191,7 +192,7 @@ export function DocsSidebar({ tree }: { tree: typeof source.pageTree }) {
           </>
         )}
       </div>
-      <div className="pointer-events-none absolute bottom-0 h-10 w-56 bg-linear-to-t from-background to-transparent" />
+      <div className="from-background pointer-events-none absolute bottom-0 h-10 w-56 bg-linear-to-t to-transparent" />
     </aside>
   )
 }

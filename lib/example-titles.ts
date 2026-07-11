@@ -1,4 +1,4 @@
-import type { ExampleSlug } from "@/components/examples/examples-config";
+import type { ExampleSlug } from "@/components/examples/examples-config"
 
 /**
  * EXAMPLE_TITLES — per-example section titles from KRDS Storybook (https://www.krds.go.kr/storybook/react/).
@@ -20,23 +20,23 @@ export const EXAMPLE_TITLES = {
   breadcrumb: {
     BreadcrumbDefault: "Default",
     BreadcrumbSingleItem: "Single Item",
-    BreadcrumbWithDisabledItem: "With Disabled Item"
+    BreadcrumbWithDisabledItem: "With Disabled Item",
   },
   "side-navigation": {
     SideNavigationDefault: "Default",
     SideNavigationSimpleMenu: "Simple Menu",
-    SideNavigationWithPopupOnly: "With Popup Only"
+    SideNavigationWithPopupOnly: "With Popup Only",
   },
   "in-page-navigation": {
     InPageNavigationDefault: "Default",
     InPageNavigationLongItems: "Long Items",
     InPageNavigationWithScrollFunctionality: "With Scroll Functionality",
-    InPageNavigationWithoutAction: "Without Action"
+    InPageNavigationWithoutAction: "Without Action",
   },
   pagination: {
     PaginationDefault: "Default",
     PaginationControlled: "Controlled",
-    PaginationWithManyPages: "With Many Pages"
+    PaginationWithManyPages: "With Many Pages",
   },
 
   // ── Layout ────────────────────────────────────────────────────────────
@@ -44,18 +44,18 @@ export const EXAMPLE_TITLES = {
     StepIndicatorDefault: "Default",
     StepIndicatorAllCompleted: "All Completed",
     StepIndicatorAllDefault: "All Default",
-    StepIndicatorWithPageTitle: "With Page Title"
+    StepIndicatorWithPageTitle: "With Page Title",
   },
   "structured-list": {
     StructuredListDefault: "Default",
     StructuredListLongText: "Long Text",
     StructuredListMinimalData: "Minimal Data",
-    StructuredListVariousBadges: "Various Badges"
+    StructuredListVariousBadges: "Various Badges",
   },
   "critical-alert": {
     CriticalAlertDefault: "Default",
     CriticalAlertCustomLinkText: "Custom Link Text",
-    CriticalAlertWithoutLink: "Without Link"
+    CriticalAlertWithoutLink: "Without Link",
   },
   calendar: {
     CalendarDefault: "Default",
@@ -72,14 +72,14 @@ export const EXAMPLE_TITLES = {
     CalendarWithDefaultValue: "With Default Value",
     CalendarWithDefaultRange: "With Default Range",
     CalendarWithDisabledDates: "With Disabled Dates",
-    CalendarWithEventDates: "With Event Dates"
+    CalendarWithEventDates: "With Event Dates",
   },
   disclosure: {
     DisclosureDefault: "Default",
     DisclosureDefaultExpanded: "Default Expanded",
     DisclosureMultipleDisclosures: "Multiple Disclosures",
     DisclosureControlledExample: "Controlled Example",
-    DisclosureWithRichContent: "With Rich Content"
+    DisclosureWithRichContent: "With Rich Content",
   },
   modal: {
     ModalDefault: "Default",
@@ -89,20 +89,20 @@ export const EXAMPLE_TITLES = {
     ModalSizeLg: "Size Lg",
     ModalSizeMd: "Size Md",
     ModalSizeSm: "Size Sm",
-    ModalUsePortal: "Use Portal"
+    ModalUsePortal: "Use Portal",
   },
   badge: {
     BadgeDefault: "Default",
     BadgeColors: "Colors",
     BadgeRounded: "Rounded",
     BadgeSizes: "Sizes",
-    BadgeVariants: "Variants"
+    BadgeVariants: "Variants",
   },
   accordion: {
     AccordionDefault: "Default",
     AccordionSingleSelection: "Single Selection",
     AccordionControlled: "Controlled",
-    AccordionWithComplexContent: "With Complex Content"
+    AccordionWithComplexContent: "With Complex Content",
   },
   carousel: {
     CarouselDefault: "Default",
@@ -110,7 +110,7 @@ export const EXAMPLE_TITLES = {
     CarouselElementBanner: "Element Banner",
     CarouselAutoplay: "Autoplay",
     CarouselMultiple: "Multiple",
-    CarouselVertical: "Vertical"
+    CarouselVertical: "Vertical",
   },
   tab: {
     TabDefault: "Default",
@@ -123,20 +123,20 @@ export const EXAMPLE_TITLES = {
     TabWithDisabledTabs: "비활성 탭 포함",
     TabWithRichContent: "풍부한 콘텐츠",
     TabCompoundPatternExample: "Compound Pattern 예제",
-    TabKeyboardNavigation: "키보드 내비게이션"
+    TabKeyboardNavigation: "키보드 내비게이션",
   },
   table: {
     TableDefault: "Default",
     TableMobileScroll: "Mobile Scroll",
     TableMultipleColumns: "Multiple Columns",
     TableWithScroll: "With Scroll",
-    TableWithoutCaption: "Without Caption"
+    TableWithoutCaption: "Without Caption",
   },
   "text-list": {
     TextListDefault: "Default",
     TextListOrdered: "Ordered",
     TextListMixed: "Mixed",
-    TextListMixedOrdered: "Mixed Ordered"
+    TextListMixedOrdered: "Mixed Ordered",
   },
 
   // ── Action ────────────────────────────────────────────────────────────
@@ -145,7 +145,7 @@ export const EXAMPLE_TITLES = {
     LinkVariants: "Variants",
     LinkSizes: "Sizes",
     LinkUnderlines: "Underlines",
-    LinkWithIcons: "With Icons"
+    LinkWithIcons: "With Icons",
   },
   button: {
     ButtonPrimary: "Primary",
@@ -154,7 +154,7 @@ export const EXAMPLE_TITLES = {
     ButtonText: "Text",
     ButtonDisabled: "Disabled",
     ButtonIcon: "Icon",
-    ButtonSizes: "Sizes"
+    ButtonSizes: "Sizes",
   },
 
   // ── Selection ─────────────────────────────────────────────────────────
@@ -167,7 +167,7 @@ export const EXAMPLE_TITLES = {
     RadioGroupExample: "Radio Group Example",
     RadioGroupColumn: "Radio Group Column",
     RadioGroupColumnControlled: "Radio Group Column Controlled",
-    RadioSortDefault: "Sort Variant"
+    RadioSortDefault: "Sort Variant",
   },
   checkbox: {
     CheckboxDefault: "Default",
@@ -179,27 +179,27 @@ export const EXAMPLE_TITLES = {
     CheckboxIndeterminate: "Indeterminate",
     CheckboxGroup: "Group",
     CheckboxGroupColumn: "Group Column",
-    CheckboxChip: "Chip Variant"
+    CheckboxChip: "Chip Variant",
   },
   select: {
     SelectDefault: "Default",
     SelectStates: "States",
     SelectSizes: "Sizes",
     SelectSorting: "Sorting",
-    SelectControlled: "Controlled"
+    SelectControlled: "Controlled",
   },
   tag: {
     TagDefault: "Default",
     TagDeletable: "Deletable",
     TagLink: "Link",
     TagLinkTag: "Link Tag",
-    TagDeleteDisabled: "Delete Disabled"
+    TagDeleteDisabled: "Delete Disabled",
   },
   spinner: {
     SpinnerDefault: "Default",
     SpinnerWithoutLabel: "Without Label",
     SpinnerWithFormSpinner: "With Form Spinner",
-    SpinnerMultipleSpinners: "Multiple Spinners"
+    SpinnerMultipleSpinners: "Multiple Spinners",
   },
 
   // ── Feedback ──────────────────────────────────────────────────────────
@@ -211,7 +211,7 @@ export const EXAMPLE_TITLES = {
     ToggleSwitchMedium: "Medium",
     ToggleSwitchLarge: "Large",
     ToggleSwitchControlled: "Controlled",
-    ToggleSwitchAllVariants: "All Variants"
+    ToggleSwitchAllVariants: "All Variants",
   },
 
   // ── Help ──────────────────────────────────────────────────────────────
@@ -223,15 +223,15 @@ export const EXAMPLE_TITLES = {
   },
   "help-panel": {
     HelpPanelDefault: "Default",
-    HelpPanelWithTabs: "With Tabs"
+    HelpPanelWithTabs: "With Tabs",
   },
   "tutorial-panel": {
     TutorialPanelDefault: "Default",
-    TutorialPanelControlled: "Controlled"
+    TutorialPanelControlled: "Controlled",
   },
   "contextual-help": {
     ContextualHelpDefault: "Default",
-    ContextualHelpList: "List"
+    ContextualHelpList: "List",
   },
   tooltip: {
     TooltipVertical: "Vertical",
@@ -289,9 +289,9 @@ export const EXAMPLE_TITLES = {
     TextInputWithoutLabel: "Without Label",
     TextInputWithoutHint: "Without Hint",
   },
-} as const satisfies Partial<Record<ExampleSlug, Record<string, string>>>;
+} as const satisfies Partial<Record<ExampleSlug, Record<string, string>>>
 
 export function getExampleTitle(slug: string, name: string): string | undefined {
-  const group = (EXAMPLE_TITLES as Record<string, Record<string, string>>)[slug];
-  return group?.[name];
+  const group = (EXAMPLE_TITLES as Record<string, Record<string, string>>)[slug]
+  return group?.[name]
 }

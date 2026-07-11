@@ -1,21 +1,21 @@
-"use client";
+"use client"
 
-import * as React from "react";
-import { cn } from "@/lib/cn";
-import { renderFieldMessage } from "@/components/ui/krds/(input)/field-message";
+import * as React from "react"
+import { cn } from "@/lib/cn"
+import { renderFieldMessage } from "@/components/ui/krds/(input)/field-message"
 
 type TextareaProps = Omit<React.TextareaHTMLAttributes<HTMLTextAreaElement>, "onChange" | "value" | "defaultValue"> & {
-  onChange?: (value: string) => void;
-  label?: string;
-  showCount?: boolean;
-  countTotal?: number;
-  value?: string;
-  defaultValue?: string;
-  hint?: React.ReactNode;
-  error?: React.ReactNode;
-  success?: React.ReactNode;
-  information?: React.ReactNode;
-};
+  onChange?: (value: string) => void
+  label?: string
+  showCount?: boolean
+  countTotal?: number
+  value?: string
+  defaultValue?: string
+  hint?: React.ReactNode
+  error?: React.ReactNode
+  success?: React.ReactNode
+  information?: React.ReactNode
+}
 
 function Textarea({
   label,
@@ -38,47 +38,47 @@ function Textarea({
   "aria-describedby": ariaDescribedby,
   ...rest
 }: TextareaProps) {
-  const generatedId = React.useId();
-  const id = propId ?? generatedId;
+  const generatedId = React.useId()
+  const id = propId ?? generatedId
 
-  const [internal, setInternal] = React.useState(defaultValue ?? "");
-  const current = value !== undefined ? value : internal;
-  const currentLength = current.length;
-  const isOverLimit = countTotal !== undefined && currentLength > countTotal;
-  const hasError = error != null && error !== false;
-  const invalid = ariaInvalid ?? (hasError || isOverLimit || undefined);
+  const [internal, setInternal] = React.useState(defaultValue ?? "")
+  const current = value !== undefined ? value : internal
+  const currentLength = current.length
+  const isOverLimit = countTotal !== undefined && currentLength > countTotal
+  const hasError = error != null && error !== false
+  const invalid = ariaInvalid ?? (hasError || isOverLimit || undefined)
 
-  const message = renderFieldMessage(id, { error, success, information, hint });
-  const describedBy = message
-    ? [ariaDescribedby, `${id}-message`].filter(Boolean).join(" ")
-    : ariaDescribedby;
+  const message = renderFieldMessage(id, { error, success, information, hint })
+  const describedBy = message ? [ariaDescribedby, `${id}-message`].filter(Boolean).join(" ") : ariaDescribedby
   const counter = showCount ? (
-    <div className="flex shrink-0 items-baseline gap-[2px] text-krds-body-sm whitespace-nowrap">
-      <span className={cn(isOverLimit ? "text-krds-foreground-danger" : "text-krds-foreground-primary")}>{currentLength}</span>
+    <div className="text-krds-body-sm flex shrink-0 items-baseline gap-[2px] whitespace-nowrap">
+      <span className={cn(isOverLimit ? "text-krds-foreground-danger" : "text-krds-foreground-primary")}>
+        {currentLength}
+      </span>
       <span className="text-krds-foreground-subtle">/{countTotal}</span>
     </div>
-  ) : null;
+  ) : null
 
   function handleChange(e: React.ChangeEvent<HTMLTextAreaElement>) {
-    const v = e.target.value;
-    if (value === undefined) setInternal(v);
-    onChange?.(v);
+    const v = e.target.value
+    if (value === undefined) setInternal(v)
+    onChange?.(v)
   }
 
   return (
     <div data-slot="krds-textarea" className={cn("flex w-full flex-col gap-2", className)}>
       {label && (
-        <label htmlFor={id} className="block text-krds-body-sm text-krds-foreground-subtle">
+        <label htmlFor={id} className="text-krds-body-sm text-krds-foreground-subtle block">
           {label}
         </label>
       )}
       <div
         className={cn(
-          "h-36 rounded-[8px] border border-krds-border-dark bg-krds-surface px-4 py-2 transition-colors",
+          "border-krds-border-dark bg-krds-surface h-36 rounded-[8px] border px-4 py-2 transition-colors",
           "focus-within:border-krds-border-primary focus-within:krds-focus-ring",
           "has-[textarea[aria-invalid=true]]:border-krds-danger-50 has-[textarea[aria-invalid=true]]:focus-within:border-krds-danger-50",
-          disabled && "border border-krds-border bg-krds-surface-disabled",
-          readOnly && !disabled && "border border-krds-border bg-krds-surface-disabled"
+          disabled && "border-krds-border bg-krds-surface-disabled border",
+          readOnly && !disabled && "border-krds-border bg-krds-surface-disabled border"
         )}
       >
         <textarea
@@ -93,9 +93,9 @@ function Textarea({
           aria-describedby={describedBy}
           onChange={handleChange}
           className={cn(
-            "h-full w-full resize-none rounded-[8px] bg-transparent text-krds-body-md text-krds-foreground outline-none",
+            "text-krds-body-md text-krds-foreground h-full w-full resize-none rounded-[8px] bg-transparent outline-none",
             "placeholder:text-krds-foreground-disabled",
-            disabled && "cursor-not-allowed text-krds-foreground-disabled",
+            disabled && "text-krds-foreground-disabled cursor-not-allowed",
             readOnly && !disabled && "text-krds-foreground-subtle"
           )}
         />
@@ -113,8 +113,8 @@ function Textarea({
         </>
       )}
     </div>
-  );
+  )
 }
 
-export { Textarea };
-export type { TextareaProps };
+export { Textarea }
+export type { TextareaProps }

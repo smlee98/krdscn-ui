@@ -1,7 +1,7 @@
-"use client";
+"use client"
 
-import * as React from "react";
-import { Check, ChevronDown, ExternalLink, Globe } from "lucide-react";
+import * as React from "react"
+import { Check, ChevronDown, ExternalLink, Globe } from "lucide-react"
 
 import {
   DropdownMenu,
@@ -9,11 +9,11 @@ import {
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuSeparator,
-  DropdownMenuTrigger
-} from "@/components/ui/dropdown-menu";
-import { cn } from "@/lib/cn";
-import { useUISystem } from "@/lib/ui-system";
-import { LanguageSwitcher as KrdsLanguageSwitcher } from "@/components/ui/krds/(settings)/language-switcher";
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
+import { cn } from "@/lib/cn"
+import { useUISystem } from "@/lib/ui-system"
+import { LanguageSwitcher as KrdsLanguageSwitcher } from "@/components/ui/krds/(settings)/language-switcher"
 import type {
   LanguageOption,
   LanguageSwitcherProps,
@@ -21,8 +21,8 @@ import type {
   LanguageSwitcherMenuProps,
   LanguageSwitcherCurrentProps,
   LanguageSwitcherOptionListProps,
-  LanguageSwitcherOptionItemProps
-} from "@/components/ui/krds/(settings)/language-switcher";
+  LanguageSwitcherOptionItemProps,
+} from "@/components/ui/krds/(settings)/language-switcher"
 
 export type {
   LanguageOption,
@@ -31,8 +31,8 @@ export type {
   LanguageSwitcherMenuProps,
   LanguageSwitcherCurrentProps,
   LanguageSwitcherOptionListProps,
-  LanguageSwitcherOptionItemProps
-} from "@/components/ui/krds/(settings)/language-switcher";
+  LanguageSwitcherOptionItemProps,
+} from "@/components/ui/krds/(settings)/language-switcher"
 
 // Dual-render dispatcher. language-switcher had no dispatcher → examples imported
 // the KRDS compound directly and rendered KRDS chrome (the custom Popover bubble
@@ -44,17 +44,17 @@ export type {
 // The KRDS context is private, so the shadcn branch threads its own context.
 
 type ShadcnLangCtx = {
-  value: string;
-  setValue: (v: string, opt: LanguageOption) => void;
-  options: LanguageOption[];
-};
+  value: string
+  setValue: (v: string, opt: LanguageOption) => void
+  options: LanguageOption[]
+}
 
-const ShadcnLangContext = React.createContext<ShadcnLangCtx | null>(null);
+const ShadcnLangContext = React.createContext<ShadcnLangCtx | null>(null)
 
 function useShadcnLang(): ShadcnLangCtx {
-  const ctx = React.useContext(ShadcnLangContext);
-  if (!ctx) throw new Error("LanguageSwitcher compound components must be used inside <LanguageSwitcher>");
-  return ctx;
+  const ctx = React.useContext(ShadcnLangContext)
+  if (!ctx) throw new Error("LanguageSwitcher compound components must be used inside <LanguageSwitcher>")
+  return ctx
 }
 
 // ─── shadcn-mode parts ──────────────────────────────────────────────────────────
@@ -72,23 +72,23 @@ function ShadcnRoot({
   children,
   ...rest
 }: LanguageSwitcherProps) {
-  const [internalValue, setInternalValue] = React.useState<string>(defaultValue);
-  const [internalOpen, setInternalOpen] = React.useState<boolean>(defaultOpen ?? false);
+  const [internalValue, setInternalValue] = React.useState<string>(defaultValue)
+  const [internalOpen, setInternalOpen] = React.useState<boolean>(defaultOpen ?? false)
 
-  const isControlledValue = value !== undefined;
-  const isControlledOpen = open !== undefined;
-  const currentValue = isControlledValue ? value : internalValue;
-  const isOpen = isControlledOpen ? open : internalOpen;
+  const isControlledValue = value !== undefined
+  const isControlledOpen = open !== undefined
+  const currentValue = isControlledValue ? value : internalValue
+  const isOpen = isControlledOpen ? open : internalOpen
 
   function handleSetOpen(o: boolean) {
-    if (!isControlledOpen) setInternalOpen(o);
-    onOpenChange?.(o);
+    if (!isControlledOpen) setInternalOpen(o)
+    onOpenChange?.(o)
   }
 
   function handleSetValue(v: string, opt: LanguageOption) {
-    if (!isControlledValue) setInternalValue(v);
-    onChange?.(v, opt);
-    handleSetOpen(false);
+    if (!isControlledValue) setInternalValue(v)
+    onChange?.(v, opt)
+    handleSetOpen(false)
   }
 
   return (
@@ -103,12 +103,12 @@ function ShadcnRoot({
         </div>
       </DropdownMenu>
     </ShadcnLangContext.Provider>
-  );
+  )
 }
 
 function ShadcnTrigger({ label = "Language", className }: LanguageSwitcherTriggerProps) {
-  const { value, options } = useShadcnLang();
-  const resolvedLabel = options.find((o) => o.value === value)?.label ?? label;
+  const { value, options } = useShadcnLang()
+  const resolvedLabel = options.find((o) => o.value === value)?.label ?? label
 
   return (
     <DropdownMenuTrigger asChild>
@@ -127,7 +127,7 @@ function ShadcnTrigger({ label = "Language", className }: LanguageSwitcherTrigge
         <ChevronDown className="size-4 opacity-50" />
       </button>
     </DropdownMenuTrigger>
-  );
+  )
 }
 
 function ShadcnMenu({ className, children }: LanguageSwitcherMenuProps) {
@@ -135,12 +135,12 @@ function ShadcnMenu({ className, children }: LanguageSwitcherMenuProps) {
     <DropdownMenuContent align="center" sideOffset={8} className={cn("min-w-[200px]", className)}>
       {children}
     </DropdownMenuContent>
-  );
+  )
 }
 
 function ShadcnCurrent({ label, className }: LanguageSwitcherCurrentProps) {
-  const { value, options } = useShadcnLang();
-  const resolvedLabel = options.find((o) => o.value === value)?.label ?? value;
+  const { value, options } = useShadcnLang()
+  const resolvedLabel = options.find((o) => o.value === value)?.label ?? value
 
   return (
     <>
@@ -150,13 +150,13 @@ function ShadcnCurrent({ label, className }: LanguageSwitcherCurrentProps) {
       </DropdownMenuLabel>
       <DropdownMenuSeparator />
     </>
-  );
+  )
 }
 
 function ShadcnOptionItem({ value, label, href, external, className }: LanguageSwitcherOptionItemProps) {
-  const ctx = useShadcnLang();
-  const isSelected = ctx.value === value;
-  const option: LanguageOption = { value, label, href, external };
+  const ctx = useShadcnLang()
+  const isSelected = ctx.value === value
+  const option: LanguageOption = { value, label, href, external }
 
   if (href) {
     return (
@@ -167,7 +167,7 @@ function ShadcnOptionItem({ value, label, href, external, className }: LanguageS
           target={external ? "_blank" : undefined}
           rel={external ? "noopener noreferrer" : undefined}
           onClick={() => {
-            if (!external) ctx.setValue(value, option);
+            if (!external) ctx.setValue(value, option)
           }}
         >
           <span className="flex-1">{label}</span>
@@ -175,7 +175,7 @@ function ShadcnOptionItem({ value, label, href, external, className }: LanguageS
           {isSelected && !external && <Check className="size-4" aria-hidden />}
         </a>
       </DropdownMenuItem>
-    );
+    )
   }
 
   return (
@@ -187,56 +187,56 @@ function ShadcnOptionItem({ value, label, href, external, className }: LanguageS
       <span className="flex-1">{label}</span>
       {isSelected && <Check className="size-4" aria-hidden />}
     </DropdownMenuItem>
-  );
+  )
 }
 
 function ShadcnOptionList({ className: _className }: LanguageSwitcherOptionListProps) {
-  const { options } = useShadcnLang();
+  const { options } = useShadcnLang()
   return (
     <>
       {options.map((opt) => (
         <ShadcnOptionItem key={opt.value} value={opt.value} label={opt.label} href={opt.href} external={opt.external} />
       ))}
     </>
-  );
+  )
 }
 
 // ─── Dispatched compound parts (public surface preserved) ───────────────────────
 
 function Root(props: LanguageSwitcherProps) {
-  const system = useUISystem();
-  if (system === "krds") return <KrdsLanguageSwitcher {...props} />;
-  return <ShadcnRoot {...props} />;
+  const system = useUISystem()
+  if (system === "krds") return <KrdsLanguageSwitcher {...props} />
+  return <ShadcnRoot {...props} />
 }
 
 function Trigger(props: LanguageSwitcherTriggerProps) {
-  const system = useUISystem();
-  if (system === "krds") return <KrdsLanguageSwitcher.Trigger {...props} />;
-  return <ShadcnTrigger {...props} />;
+  const system = useUISystem()
+  if (system === "krds") return <KrdsLanguageSwitcher.Trigger {...props} />
+  return <ShadcnTrigger {...props} />
 }
 
 function Menu(props: LanguageSwitcherMenuProps) {
-  const system = useUISystem();
-  if (system === "krds") return <KrdsLanguageSwitcher.Menu {...props} />;
-  return <ShadcnMenu {...props} />;
+  const system = useUISystem()
+  if (system === "krds") return <KrdsLanguageSwitcher.Menu {...props} />
+  return <ShadcnMenu {...props} />
 }
 
 function Current(props: LanguageSwitcherCurrentProps) {
-  const system = useUISystem();
-  if (system === "krds") return <KrdsLanguageSwitcher.Current {...props} />;
-  return <ShadcnCurrent {...props} />;
+  const system = useUISystem()
+  if (system === "krds") return <KrdsLanguageSwitcher.Current {...props} />
+  return <ShadcnCurrent {...props} />
 }
 
 function OptionList(props: LanguageSwitcherOptionListProps) {
-  const system = useUISystem();
-  if (system === "krds") return <KrdsLanguageSwitcher.OptionList {...props} />;
-  return <ShadcnOptionList {...props} />;
+  const system = useUISystem()
+  if (system === "krds") return <KrdsLanguageSwitcher.OptionList {...props} />
+  return <ShadcnOptionList {...props} />
 }
 
 function OptionItem(props: LanguageSwitcherOptionItemProps) {
-  const system = useUISystem();
-  if (system === "krds") return <KrdsLanguageSwitcher.OptionItem {...props} />;
-  return <ShadcnOptionItem {...props} />;
+  const system = useUISystem()
+  if (system === "krds") return <KrdsLanguageSwitcher.OptionItem {...props} />
+  return <ShadcnOptionItem {...props} />
 }
 
 const LanguageSwitcher = Object.assign(Root, {
@@ -245,7 +245,7 @@ const LanguageSwitcher = Object.assign(Root, {
   Menu,
   Current,
   OptionList,
-  OptionItem
-});
+  OptionItem,
+})
 
-export { LanguageSwitcher };
+export { LanguageSwitcher }

@@ -1,30 +1,30 @@
 // rsc:safe
-import * as React from "react";
-import { ChevronRight, Home, MoreHorizontal } from "lucide-react";
-import { cn } from "@/lib/cn";
+import * as React from "react"
+import { ChevronRight, Home, MoreHorizontal } from "lucide-react"
+import { cn } from "@/lib/cn"
 
 // ─── Breadcrumb (root nav) ────────────────────────────────────────────────────
 
 type BreadcrumbProps = {
-  className?: string;
-  children?: React.ReactNode;
-  "aria-label"?: string;
-};
+  className?: string
+  children?: React.ReactNode
+  "aria-label"?: string
+}
 
 function Breadcrumb({ className, children, "aria-label": ariaLabel = "현재 경로" }: BreadcrumbProps) {
   return (
     <nav data-slot="krds-breadcrumb" aria-label={ariaLabel} className={cn("inline-flex items-center", className)}>
       {children}
     </nav>
-  );
+  )
 }
 
 // ─── BreadcrumbList ───────────────────────────────────────────────────────────
 
 type BreadcrumbListProps = {
-  className?: string;
-  children?: React.ReactNode;
-};
+  className?: string
+  children?: React.ReactNode
+}
 
 function BreadcrumbList({ className, children }: BreadcrumbListProps) {
   return (
@@ -45,22 +45,22 @@ function BreadcrumbList({ className, children }: BreadcrumbListProps) {
     >
       {children}
     </ol>
-  );
+  )
 }
 
 // ─── BreadcrumbItem ───────────────────────────────────────────────────────────
 
 type BreadcrumbItemProps = {
-  className?: string;
-  children?: React.ReactNode;
-};
+  className?: string
+  children?: React.ReactNode
+}
 
 function BreadcrumbItem({ className, children }: BreadcrumbItemProps) {
   return (
     <li data-slot="krds-breadcrumb-item" className={cn("inline-flex items-center", className)}>
       {children}
     </li>
-  );
+  )
 }
 
 // ─── BreadcrumbLink ───────────────────────────────────────────────────────────
@@ -71,29 +71,29 @@ const linkBaseClass = cn(
   "hover:bg-krds-surface-secondary-subtle",
   "active:bg-krds-surface-secondary-pressed",
   "focus:krds-focus-ring-inset"
-);
+)
 
 type BreadcrumbLinkProps = {
-  className?: string;
-  children?: React.ReactNode;
-  href?: string;
-};
+  className?: string
+  children?: React.ReactNode
+  href?: string
+}
 
 function BreadcrumbLink({ className, children, href }: BreadcrumbLinkProps) {
   return (
     <a data-slot="krds-breadcrumb-link" href={href} className={cn(linkBaseClass, className)}>
       {children}
     </a>
-  );
+  )
 }
 
 // ─── BreadcrumbHome ───────────────────────────────────────────────────────────
 
 type BreadcrumbHomeProps = {
-  className?: string;
-  children?: React.ReactNode;
-  href?: string;
-};
+  className?: string
+  children?: React.ReactNode
+  href?: string
+}
 
 function BreadcrumbHome({ className, children = "홈", href = "/" }: BreadcrumbHomeProps) {
   return (
@@ -101,15 +101,15 @@ function BreadcrumbHome({ className, children = "홈", href = "/" }: BreadcrumbH
       <Home size={16} aria-hidden="true" />
       {children}
     </a>
-  );
+  )
 }
 
 // ─── BreadcrumbPage (current page) ────────────────────────────────────────────
 
 type BreadcrumbPageProps = {
-  className?: string;
-  children?: React.ReactNode;
-};
+  className?: string
+  children?: React.ReactNode
+}
 
 function BreadcrumbPage({ className, children }: BreadcrumbPageProps) {
   return (
@@ -124,14 +124,14 @@ function BreadcrumbPage({ className, children }: BreadcrumbPageProps) {
     >
       {children}
     </span>
-  );
+  )
 }
 
 // ─── BreadcrumbEllipsis (overflow placeholder) ────────────────────────────────
 
 type BreadcrumbEllipsisProps = {
-  className?: string;
-};
+  className?: string
+}
 
 function BreadcrumbEllipsis({ className }: BreadcrumbEllipsisProps) {
   return (
@@ -143,15 +143,15 @@ function BreadcrumbEllipsis({ className }: BreadcrumbEllipsisProps) {
       <MoreHorizontal size={16} aria-hidden="true" />
       <span className="sr-only">생략된 경로</span>
     </span>
-  );
+  )
 }
 
 // ─── BreadcrumbSeparator ──────────────────────────────────────────────────────
 
 type BreadcrumbSeparatorProps = {
-  className?: string;
-  children?: React.ReactNode;
-};
+  className?: string
+  children?: React.ReactNode
+}
 
 function BreadcrumbSeparator({ className, children }: BreadcrumbSeparatorProps) {
   return (
@@ -163,7 +163,7 @@ function BreadcrumbSeparator({ className, children }: BreadcrumbSeparatorProps) 
     >
       {children ?? <ChevronRight size={16} />}
     </li>
-  );
+  )
 }
 
 export {
@@ -174,5 +174,5 @@ export {
   BreadcrumbHome,
   BreadcrumbPage,
   BreadcrumbEllipsis,
-  BreadcrumbSeparator
-};
+  BreadcrumbSeparator,
+}

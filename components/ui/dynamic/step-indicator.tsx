@@ -1,14 +1,14 @@
-"use client";
+"use client"
 
-import * as React from "react";
-import { CheckIcon } from "lucide-react";
+import * as React from "react"
+import { CheckIcon } from "lucide-react"
 
-import { cn } from "@/lib/cn";
-import { useUISystem } from "@/lib/ui-system";
+import { cn } from "@/lib/cn"
+import { useUISystem } from "@/lib/ui-system"
 import {
   StepIndicator as KrdsStepIndicator,
-  StepIndicatorItem as KrdsStepIndicatorItem
-} from "@/components/ui/krds/(feedback)/step-indicator";
+  StepIndicatorItem as KrdsStepIndicatorItem,
+} from "@/components/ui/krds/(feedback)/step-indicator"
 
 // Dual-render dispatcher. The public surface is the KRDS StepIndicator compound
 // (StepIndicator + StepIndicatorItem driven by `currentStep` / `step`). KRDS has
@@ -17,20 +17,20 @@ import {
 // gray/primary-50 palette. The KRDS context is private to the KRDS module, so the
 // shadcn branch threads its own context.
 
-type StepIndicatorType = "full" | "fixed";
+type StepIndicatorType = "full" | "fixed"
 
 type StepIndicatorProps = React.ComponentProps<"div"> & {
-  currentStep?: number;
-  "aria-label"?: string;
-  type?: StepIndicatorType;
-};
+  currentStep?: number
+  "aria-label"?: string
+  type?: StepIndicatorType
+}
 
-type StepIndicatorItemProps = React.ComponentProps<"li"> & { step: number };
+type StepIndicatorItemProps = React.ComponentProps<"li"> & { step: number }
 
 // ─── shadcn-mode context ────────────────────────────────────────────────────────
 
-type ShadcnStepCtx = { currentStep: number; totalSteps: number; type: StepIndicatorType };
-const ShadcnStepContext = React.createContext<ShadcnStepCtx>({ currentStep: 1, totalSteps: 0, type: "full" });
+type ShadcnStepCtx = { currentStep: number; totalSteps: number; type: StepIndicatorType }
+const ShadcnStepContext = React.createContext<ShadcnStepCtx>({ currentStep: 1, totalSteps: 0, type: "full" })
 
 // ─── shadcn-mode parts ──────────────────────────────────────────────────────────
 
@@ -42,7 +42,7 @@ function ShadcnStepIndicator({
   children,
   ...props
 }: StepIndicatorProps) {
-  const totalSteps = React.Children.count(children);
+  const totalSteps = React.Children.count(children)
   return (
     <ShadcnStepContext.Provider value={{ currentStep, totalSteps, type }}>
       <div data-slot="shadcn-step-indicator" className={cn("", className)} {...props}>
@@ -51,15 +51,15 @@ function ShadcnStepIndicator({
         </ol>
       </div>
     </ShadcnStepContext.Provider>
-  );
+  )
 }
 
 function ShadcnStepIndicatorItem({ className, step, children, ...props }: StepIndicatorItemProps) {
-  const { currentStep, totalSteps, type } = React.useContext(ShadcnStepContext);
-  const isDone = step < currentStep;
-  const isActive = step === currentStep;
-  const isLast = step === totalSteps;
-  const lineActive = isDone;
+  const { currentStep, totalSteps, type } = React.useContext(ShadcnStepContext)
+  const isDone = step < currentStep
+  const isActive = step === currentStep
+  const isLast = step === totalSteps
+  const lineActive = isDone
 
   return (
     <li
@@ -94,19 +94,19 @@ function ShadcnStepIndicatorItem({ className, step, children, ...props }: StepIn
         <span className="text-foreground text-[0.9375rem] font-bold">{children}</span>
       </div>
     </li>
-  );
+  )
 }
 
 // ─── Dispatched parts (public surface preserved) ────────────────────────────────
 
 export function StepIndicator(props: StepIndicatorProps) {
-  const system = useUISystem();
-  if (system === "krds") return <KrdsStepIndicator {...props} />;
-  return <ShadcnStepIndicator {...props} />;
+  const system = useUISystem()
+  if (system === "krds") return <KrdsStepIndicator {...props} />
+  return <ShadcnStepIndicator {...props} />
 }
 
 export function StepIndicatorItem(props: StepIndicatorItemProps) {
-  const system = useUISystem();
-  if (system === "krds") return <KrdsStepIndicatorItem {...props} />;
-  return <ShadcnStepIndicatorItem {...props} />;
+  const system = useUISystem()
+  if (system === "krds") return <KrdsStepIndicatorItem {...props} />
+  return <ShadcnStepIndicatorItem {...props} />
 }

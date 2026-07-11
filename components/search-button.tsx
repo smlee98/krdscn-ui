@@ -18,9 +18,7 @@ export function SearchButton() {
     >
       <SearchIcon className="size-3.5" />
       Docs 검색...
-      <kbd className="ml-auto rounded border bg-background px-1.5 py-0.5 text-[10px] text-muted-foreground">
-        ⌘K
-      </kbd>
+      <kbd className="bg-background text-muted-foreground ml-auto rounded border px-1.5 py-0.5 text-[10px]">⌘K</kbd>
     </Button>
   )
 }

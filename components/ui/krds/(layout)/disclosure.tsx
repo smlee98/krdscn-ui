@@ -1,27 +1,27 @@
-"use client";
+"use client"
 
-import { Collapsible as CollapsiblePrimitive } from "radix-ui";
-import { cn } from "@/lib/cn";
-import { CircleChevronDown } from "lucide-react";
-import * as React from "react";
+import { Collapsible as CollapsiblePrimitive } from "radix-ui"
+import { cn } from "@/lib/cn"
+import { CircleChevronDown } from "lucide-react"
+import * as React from "react"
 
 // ─── Types ───────────────────────────────────────────────────────────────────
 
 type DisclosureProps = React.ComponentProps<"div"> & {
-  defaultOpen?: boolean;
-  open?: boolean;
-  onOpenChange?: (open: boolean) => void;
-};
+  defaultOpen?: boolean
+  open?: boolean
+  onOpenChange?: (open: boolean) => void
+}
 
-type DisclosureTriggerProps = React.ComponentProps<"button">;
+type DisclosureTriggerProps = React.ComponentProps<"button">
 
-type DisclosureContentProps = React.ComponentProps<"div">;
+type DisclosureContentProps = React.ComponentProps<"div">
 
 // ─── Context ─────────────────────────────────────────────────────────────────
 
-type DisclosureContextValue = { open: boolean };
+type DisclosureContextValue = { open: boolean }
 
-const DisclosureContext = React.createContext<DisclosureContextValue>({ open: false });
+const DisclosureContext = React.createContext<DisclosureContextValue>({ open: false })
 
 // ─── Disclosure (Root) ────────────────────────────────────────────────────────
 
@@ -33,13 +33,13 @@ function Disclosure({
   children,
   ...props
 }: DisclosureProps) {
-  const isControlled = controlledOpen !== undefined;
-  const [internalOpen, setInternalOpen] = React.useState(defaultOpen);
-  const open = isControlled ? controlledOpen! : internalOpen;
+  const isControlled = controlledOpen !== undefined
+  const [internalOpen, setInternalOpen] = React.useState(defaultOpen)
+  const open = isControlled ? controlledOpen! : internalOpen
 
   function handleOpenChange(next: boolean) {
-    if (!isControlled) setInternalOpen(next);
-    onOpenChange?.(next);
+    if (!isControlled) setInternalOpen(next)
+    onOpenChange?.(next)
   }
 
   return (
@@ -55,20 +55,20 @@ function Disclosure({
         </div>
       </CollapsiblePrimitive.Root>
     </DisclosureContext.Provider>
-  );
+  )
 }
 
 // ─── DisclosureTrigger ────────────────────────────────────────────────────────
 
 function DisclosureTrigger({ className, children, ...props }: DisclosureTriggerProps) {
-  const { open } = React.useContext(DisclosureContext);
+  const { open } = React.useContext(DisclosureContext)
   return (
     <CollapsiblePrimitive.CollapsibleTrigger asChild>
       <button
         type="button"
         data-slot="krds-disclosure-trigger"
         className={cn(
-          "inline-flex cursor-pointer items-center gap-1 text-krds-body-md font-normal text-krds-foreground-bolder select-none focus:krds-focus-ring",
+          "text-krds-body-md text-krds-foreground-bolder focus:krds-focus-ring inline-flex cursor-pointer items-center gap-1 font-normal select-none",
           className
         )}
         {...props}
@@ -76,12 +76,12 @@ function DisclosureTrigger({ className, children, ...props }: DisclosureTriggerP
         <CircleChevronDown
           size={20}
           aria-hidden={true}
-          className={cn("shrink-0 text-krds-foreground transition-transform duration-200", open && "rotate-180")}
+          className={cn("text-krds-foreground shrink-0 transition-transform duration-200", open && "rotate-180")}
         />
         <span>{children}</span>
       </button>
     </CollapsiblePrimitive.CollapsibleTrigger>
-  );
+  )
 }
 
 // ─── DisclosureContent ────────────────────────────────────────────────────────
@@ -95,12 +95,16 @@ function DisclosureContent({ className, children, ...props }: DisclosureContentP
         "data-[state=closed]:animate-out data-[state=closed]:fade-out-0"
       )}
     >
-      <div data-slot="krds-disclosure-content" className={cn("rounded-[12px] bg-krds-surface-subtle p-6", className)} {...props}>
+      <div
+        data-slot="krds-disclosure-content"
+        className={cn("bg-krds-surface-subtle rounded-[12px] p-6", className)}
+        {...props}
+      >
         {children}
       </div>
     </CollapsiblePrimitive.CollapsibleContent>
-  );
+  )
 }
 
-export { Disclosure, DisclosureContent, DisclosureTrigger };
-export type { DisclosureContentProps, DisclosureProps, DisclosureTriggerProps };
+export { Disclosure, DisclosureContent, DisclosureTrigger }
+export type { DisclosureContentProps, DisclosureProps, DisclosureTriggerProps }

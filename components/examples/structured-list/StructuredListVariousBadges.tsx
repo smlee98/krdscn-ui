@@ -1,4 +1,4 @@
-import { Button } from "@/components/ui/dynamic/button";
+import { Button } from "@/components/ui/dynamic/button"
 import {
   StructuredList,
   StructuredListActions,
@@ -12,8 +12,8 @@ import {
   StructuredListSubActions,
   StructuredListTag,
   StructuredListTagList,
-  StructuredListTitle
-} from "@/components/ui/dynamic/structured-list";
+  StructuredListTitle,
+} from "@/components/ui/dynamic/structured-list"
 
 export default function StructuredListVariousBadges() {
   return (
@@ -63,5 +63,5 @@ export default function StructuredListVariousBadges() {
         </StructuredListBody>
       </StructuredList>
     </StructuredListGroup>
-  );
+  )
 }

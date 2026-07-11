@@ -1,7 +1,7 @@
-"use client";
+"use client"
 
-import * as React from "react";
-import { Button } from "@/components/ui/dynamic/button";
+import * as React from "react"
+import { Button } from "@/components/ui/dynamic/button"
 import {
   InPageNavigation,
   InPageNavigationDescription,
@@ -10,8 +10,8 @@ import {
   InPageNavigationHeader,
   InPageNavigationItem,
   InPageNavigationList,
-  InPageNavigationTitle
-} from "@/components/ui/dynamic/in-page-navigation";
+  InPageNavigationTitle,
+} from "@/components/ui/dynamic/in-page-navigation"
 
 const sections = [
   { id: "section_01", label: "서비스 개요" },
@@ -20,11 +20,11 @@ const sections = [
   { id: "section_04", label: "제출 서류" },
   { id: "section_05", label: "함께 신청할 수 있는 서비스" },
   { id: "section_06", label: "부가정보" },
-  { id: "section_07", label: "정보 변경 내역" }
-];
+  { id: "section_07", label: "정보 변경 내역" },
+]
 
 export default function InPageNavigationWithScrollFunctionality() {
-  const [active, setActive] = React.useState("intro");
+  const [active, setActive] = React.useState("intro")
 
   return (
     <InPageNavigation className="w-full">
@@ -39,8 +39,8 @@ export default function InPageNavigationWithScrollFunctionality() {
             href={`#${s.id}`}
             active={active === s.id}
             onClick={(e) => {
-              e.preventDefault();
-              setActive(s.id);
+              e.preventDefault()
+              setActive(s.id)
             }}
           >
             {s.label}
@@ -54,5 +54,5 @@ export default function InPageNavigationWithScrollFunctionality() {
         <InPageNavigationDescription>현재 보고 있는 섹션이 강조됩니다</InPageNavigationDescription>
       </InPageNavigationFooter>
     </InPageNavigation>
-  );
+  )
 }

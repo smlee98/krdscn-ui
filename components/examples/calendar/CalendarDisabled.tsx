@@ -1,5 +1,5 @@
-import { Calendar } from "@/components/ui/dynamic/calendar";
+import { Calendar } from "@/components/ui/dynamic/calendar"
 
 export default function CalendarDisabled() {
-  return <Calendar mode="single" defaultValue="2024.12.07" disabled />;
+  return <Calendar mode="single" defaultValue="2024.12.07" disabled />
 }

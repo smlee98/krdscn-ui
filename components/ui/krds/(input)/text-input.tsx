@@ -1,9 +1,9 @@
-"use client";
+"use client"
 
-import * as React from "react";
-import { Eye, EyeOff } from "lucide-react";
-import { cn } from "@/lib/cn";
-import { renderFieldMessage } from "@/components/ui/krds/(input)/field-message";
+import * as React from "react"
+import { Eye, EyeOff } from "lucide-react"
+import { cn } from "@/lib/cn"
+import { renderFieldMessage } from "@/components/ui/krds/(input)/field-message"
 
 function IconDelete({ className }: { className?: string }) {
   return (
@@ -16,53 +16,53 @@ function IconDelete({ className }: { className?: string }) {
         fill="#33363D"
       />
     </svg>
-  );
+  )
 }
 
-type TextInputSize = "small" | "medium" | "large";
+type TextInputSize = "small" | "medium" | "large"
 
 type TextInputProps = Omit<
   React.InputHTMLAttributes<HTMLInputElement>,
   "onChange" | "value" | "defaultValue" | "size"
 > & {
-  onChange?: (value: string) => void;
-  label?: string;
-  size?: TextInputSize;
-  value?: string;
-  defaultValue?: string;
-  showPasswordToggle?: boolean;
-  showClearButton?: boolean;
-  hint?: React.ReactNode;
-  error?: React.ReactNode;
-  success?: React.ReactNode;
-  information?: React.ReactNode;
-};
+  onChange?: (value: string) => void
+  label?: string
+  size?: TextInputSize
+  value?: string
+  defaultValue?: string
+  showPasswordToggle?: boolean
+  showClearButton?: boolean
+  hint?: React.ReactNode
+  error?: React.ReactNode
+  success?: React.ReactNode
+  information?: React.ReactNode
+}
 
 const sizeBox: Record<TextInputSize, string> = {
   small: "h-10 rounded-[6px] px-4",
   medium: "h-12 rounded-[6px] px-4",
-  large: "h-14 rounded-[8px] px-4"
-};
+  large: "h-14 rounded-[8px] px-4",
+}
 
 const sizeText: Record<TextInputSize, string> = {
   small: "text-krds-body-sm",
   medium: "text-krds-body-md",
-  large: "text-krds-body-lg"
-};
+  large: "text-krds-body-lg",
+}
 
 const sizeIcon: Record<TextInputSize, string> = {
   small: "size-4",
   medium: "size-5",
-  large: "size-6"
-};
+  large: "size-6",
+}
 
 // KRDS .krds-input radius (small/medium = radius medium1/2 = 6px, large = medium3 = 8px).
 // Mirrors the wrapper radius onto the focusable control so the focus ring corner matches KRDS.
 const sizeInputRadius: Record<TextInputSize, string> = {
   small: "rounded-[6px]",
   medium: "rounded-[6px]",
-  large: "rounded-[8px]"
-};
+  large: "rounded-[8px]",
+}
 
 function TextInput({
   label,
@@ -85,41 +85,39 @@ function TextInput({
   "aria-describedby": ariaDescribedby,
   ...rest
 }: TextInputProps) {
-  const generatedId = React.useId();
-  const id = propId ?? generatedId;
+  const generatedId = React.useId()
+  const id = propId ?? generatedId
 
-  const message = renderFieldMessage(id, { error, success, information, hint });
-  const describedBy = message
-    ? [ariaDescribedby, `${id}-message`].filter(Boolean).join(" ")
-    : ariaDescribedby;
-  const resolvedInvalid = ariaInvalid ?? (error != null && error !== false ? true : undefined);
+  const message = renderFieldMessage(id, { error, success, information, hint })
+  const describedBy = message ? [ariaDescribedby, `${id}-message`].filter(Boolean).join(" ") : ariaDescribedby
+  const resolvedInvalid = ariaInvalid ?? (error != null && error !== false ? true : undefined)
 
-  const [internal, setInternal] = React.useState(defaultValue ?? "");
-  const [visible, setVisible] = React.useState(false);
+  const [internal, setInternal] = React.useState(defaultValue ?? "")
+  const [visible, setVisible] = React.useState(false)
 
-  const isControlled = value !== undefined;
-  const currentValue = isControlled ? value : internal;
+  const isControlled = value !== undefined
+  const currentValue = isControlled ? value : internal
 
   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
-    const v = e.target.value;
-    if (!isControlled) setInternal(v);
-    onChange?.(v);
+    const v = e.target.value
+    if (!isControlled) setInternal(v)
+    onChange?.(v)
   }
 
   function handleClear() {
-    if (!isControlled) setInternal("");
-    onChange?.("");
+    if (!isControlled) setInternal("")
+    onChange?.("")
   }
 
-  const showClear = showClearButton && Boolean(currentValue) && !disabled && !readOnly;
-  const showToggle = showPasswordToggle && type === "password";
+  const showClear = showClearButton && Boolean(currentValue) && !disabled && !readOnly
+  const showToggle = showPasswordToggle && type === "password"
 
-  const resolvedType = showToggle && visible ? "text" : type;
+  const resolvedType = showToggle && visible ? "text" : type
 
   return (
     <div data-slot="krds-text-input" className={cn("flex w-full flex-col gap-2", className)}>
       {label && (
-        <label htmlFor={id} className="block text-krds-body-sm text-krds-foreground-subtle">
+        <label htmlFor={id} className="text-krds-body-sm text-krds-foreground-subtle block">
           {label}
         </label>
       )}
@@ -128,11 +126,11 @@ function TextInput({
         className={cn(
           "flex items-center gap-2 transition-colors",
           sizeBox[size],
-          "border border-krds-border-dark bg-krds-surface",
+          "border-krds-border-dark bg-krds-surface border",
           "focus-within:border-krds-border-primary focus-within:krds-focus-ring",
           "has-[input[aria-invalid=true]]:border-krds-danger-50 has-[input[aria-invalid=true]]:focus-within:border-krds-danger-50",
-          disabled && "border border-krds-border bg-krds-surface-disabled",
-          readOnly && !disabled && "border border-krds-border bg-krds-surface-disabled"
+          disabled && "border-krds-border bg-krds-surface-disabled border",
+          readOnly && !disabled && "border-krds-border bg-krds-surface-disabled border"
         )}
       >
         <input
@@ -151,7 +149,7 @@ function TextInput({
             "text-krds-foreground",
             sizeInputRadius[size],
             sizeText[size],
-            disabled && "cursor-not-allowed text-krds-foreground-disabled",
+            disabled && "text-krds-foreground-disabled cursor-not-allowed",
             readOnly && !disabled && "text-krds-foreground-subtle"
           )}
         />
@@ -161,7 +159,7 @@ function TextInput({
             type="button"
             aria-label="내용 삭제"
             onClick={handleClear}
-            className="inline-flex shrink-0 items-center justify-center rounded-full text-krds-foreground focus:krds-focus-ring"
+            className="text-krds-foreground focus:krds-focus-ring inline-flex shrink-0 items-center justify-center rounded-full"
           >
             <IconDelete className={sizeIcon[size]} />
           </button>
@@ -172,7 +170,7 @@ function TextInput({
             type="button"
             aria-label={visible ? "비밀번호 가리기" : "비밀번호 보기"}
             onClick={() => setVisible((v) => !v)}
-            className="inline-flex shrink-0 items-center justify-center rounded-md text-krds-foreground focus:krds-focus-ring"
+            className="text-krds-foreground focus:krds-focus-ring inline-flex shrink-0 items-center justify-center rounded-md"
           >
             {visible ? <EyeOff className={sizeIcon[size]} /> : <Eye className={sizeIcon[size]} />}
           </button>
@@ -181,8 +179,8 @@ function TextInput({
 
       {message}
     </div>
-  );
+  )
 }
 
-export { TextInput };
-export type { TextInputProps, TextInputSize };
+export { TextInput }
+export type { TextInputProps, TextInputSize }

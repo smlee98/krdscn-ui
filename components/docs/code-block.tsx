@@ -29,20 +29,21 @@ export async function CodeBlock({
   return (
     <figure
       data-rehype-pretty-code-figure=""
-      className={cn("relative overflow-hidden rounded-xl border bg-code text-sm text-code-foreground shadow-none", className)}
+      className={cn(
+        "bg-code text-code-foreground relative overflow-hidden rounded-xl border text-sm shadow-none",
+        className
+      )}
     >
       {title ? (
         <figcaption
           data-rehype-pretty-code-title=""
-          className="flex items-center gap-2 border-b border-border/30 px-4 py-2.5 font-mono text-sm text-code-foreground"
+          className="border-border/30 text-code-foreground flex items-center gap-2 border-b px-4 py-2.5 font-mono text-sm"
         >
           {title}
         </figcaption>
       ) : null}
       <CopyButton value={value} className="bg-code" />
-      <div className={cn("no-scrollbar overflow-auto px-4 py-3.5", maxHeight && "max-h-96")}>
-        {highlighted}
-      </div>
+      <div className={cn("no-scrollbar overflow-auto px-4 py-3.5", maxHeight && "max-h-96")}>{highlighted}</div>
     </figure>
   )
 }

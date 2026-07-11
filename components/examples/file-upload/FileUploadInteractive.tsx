@@ -1,25 +1,25 @@
-"use client";
+"use client"
 
-import * as React from "react";
-import { FileUpload, type FileItem } from "@/components/ui/dynamic/file-upload";
+import * as React from "react"
+import { FileUpload, type FileItem } from "@/components/ui/dynamic/file-upload"
 
 export default function FileUploadInteractive() {
-  const [files, setFiles] = React.useState<FileItem[]>([]);
+  const [files, setFiles] = React.useState<FileItem[]>([])
 
   async function handleFileUpload(_file: File): Promise<void> {
-    return new Promise((resolve) => setTimeout(resolve, 2000));
+    return new Promise((resolve) => setTimeout(resolve, 2000))
   }
 
   function handleFileDelete(fileId: string) {
-    setFiles((prev) => prev.filter((f) => f.id !== fileId));
+    setFiles((prev) => prev.filter((f) => f.id !== fileId))
   }
 
   function handleAllFilesDelete() {
-    setFiles([]);
+    setFiles([])
   }
 
   return (
-    <div className="w-full max-w-[760px] rounded-[12px] border border-krds-border bg-krds-surface p-10">
+    <div className="border-krds-border bg-krds-surface w-full max-w-[760px] rounded-[12px] border p-10">
       <FileUpload
         title="인터랙티브 파일 업로드"
         description="실제로 파일을 업로드하고 삭제할 수 있습니다."
@@ -34,5 +34,5 @@ export default function FileUploadInteractive() {
         onAllFilesDelete={handleAllFilesDelete}
       />
     </div>
-  );
+  )
 }

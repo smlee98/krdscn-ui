@@ -1,12 +1,12 @@
 // rsc:safe
-import * as React from "react";
-import { cn } from "@/lib/cn";
+import * as React from "react"
+import { cn } from "@/lib/cn"
 
 type SkipLinkProps = {
-  className?: string;
-  href?: string;
-  children?: React.ReactNode;
-};
+  className?: string
+  href?: string
+  children?: React.ReactNode
+}
 
 function SkipLink({ className, href = "#main-content", children = "본문 바로가기" }: SkipLinkProps) {
   return (
@@ -30,7 +30,7 @@ function SkipLink({ className, href = "#main-content", children = "본문 바로
     >
       {children}
     </a>
-  );
+  )
 }
 
-export { SkipLink };
+export { SkipLink }

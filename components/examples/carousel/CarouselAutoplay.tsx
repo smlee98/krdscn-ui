@@ -1,6 +1,6 @@
-"use client";
+"use client"
 
-import * as React from "react";
+import * as React from "react"
 import {
   Carousel,
   CarouselContent,
@@ -9,28 +9,28 @@ import {
   CarouselNext,
   CarouselDots,
   CarouselPlayPause,
-  type CarouselApi
-} from "@/components/ui/dynamic/carousel";
+  type CarouselApi,
+} from "@/components/ui/dynamic/carousel"
 
 const NOTICES = [
   { date: "2024.03.20", title: "시스템 점검 안내 (00:00 ~ 06:00)" },
   { date: "2024.03.15", title: "민원 서비스 개편 사전 안내" },
   { date: "2024.03.10", title: "간편인증 서비스 신규 추가 안내" },
-  { date: "2024.03.05", title: "2024년 상반기 전자정부 서비스 계획 공개" }
-];
+  { date: "2024.03.05", title: "2024년 상반기 전자정부 서비스 계획 공개" },
+]
 
 export default function CarouselAutoplay() {
-  const [api, setApi] = React.useState<CarouselApi>();
-  const [isPlaying, setIsPlaying] = React.useState(true);
+  const [api, setApi] = React.useState<CarouselApi>()
+  const [isPlaying, setIsPlaying] = React.useState(true)
 
   React.useEffect(() => {
-    if (!api || !isPlaying) return;
+    if (!api || !isPlaying) return
     const id = window.setInterval(() => {
-      if (api.canScrollNext()) api.scrollNext();
-      else api.scrollTo(0);
-    }, 3000);
-    return () => window.clearInterval(id);
-  }, [api, isPlaying]);
+      if (api.canScrollNext()) api.scrollNext()
+      else api.scrollTo(0)
+    }, 3000)
+    return () => window.clearInterval(id)
+  }, [api, isPlaying])
 
   return (
     <Carousel setApi={setApi} opts={{ loop: true }} className="mx-auto w-full max-w-xl">
@@ -55,5 +55,5 @@ export default function CarouselAutoplay() {
         </div>
       </div>
     </Carousel>
-  );
+  )
 }

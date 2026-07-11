@@ -1,4 +1,4 @@
-import { ToggleSwitch } from "@/components/ui/dynamic/toggle-switch";
+import { ToggleSwitch } from "@/components/ui/dynamic/toggle-switch"
 
 export default function ToggleSwitchLarge() {
   return (
@@ -6,5 +6,5 @@ export default function ToggleSwitchLarge() {
       <ToggleSwitch size="large" label="스위치" />
       <ToggleSwitch size="large" label="스위치" defaultChecked />
     </div>
-  );
+  )
 }

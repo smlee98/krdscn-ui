@@ -1,4 +1,4 @@
-import { Radio, RadioGroup } from "@/components/ui/dynamic/radio-group";
+import { Radio, RadioGroup } from "@/components/ui/dynamic/radio-group"
 
 export default function RadioWithDescription() {
   return (
@@ -7,5 +7,5 @@ export default function RadioWithDescription() {
         라디오 버튼
       </Radio>
     </RadioGroup>
-  );
+  )
 }

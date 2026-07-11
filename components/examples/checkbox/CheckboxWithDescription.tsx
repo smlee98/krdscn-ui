@@ -1,4 +1,4 @@
-import { Checkbox } from "@/components/ui/dynamic/checkbox";
+import { Checkbox } from "@/components/ui/dynamic/checkbox"
 
 export default function CheckboxWithDescription() {
   return (
@@ -6,5 +6,5 @@ export default function CheckboxWithDescription() {
       <Checkbox label="이용약관에 동의합니다." description="필수 항목입니다." />
       <Checkbox label="개인정보 수집·이용에 동의합니다." description="서비스 제공을 위해 필요합니다." defaultValue />
     </div>
-  );
+  )
 }

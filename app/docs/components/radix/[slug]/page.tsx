@@ -15,7 +15,9 @@ function getComponentSlugs() {
     return []
   }
 
-  return getPagesFromFolder(componentsFolder).map((page) => page.url.split("/").filter(Boolean).at(-1)).filter(Boolean) as string[]
+  return getPagesFromFolder(componentsFolder)
+    .map((page) => page.url.split("/").filter(Boolean).at(-1))
+    .filter(Boolean) as string[]
 }
 
 export function generateStaticParams() {
@@ -54,7 +56,7 @@ export default async function LegacyComponentPage(props: { params: Promise<{ slu
       />
       <div>
         <h1 className="text-2xl font-semibold tracking-tight">Docs가 이동되었습니다</h1>
-        <p className="mt-2 text-muted-foreground">이전 컴포넌트 경로는 새 경로로 자동 이동됩니다.</p>
+        <p className="text-muted-foreground mt-2">이전 컴포넌트 경로는 새 경로로 자동 이동됩니다.</p>
       </div>
       <Button asChild>
         <Link href={target}>새 Docs로 이동</Link>

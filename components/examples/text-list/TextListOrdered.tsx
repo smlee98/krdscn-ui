@@ -1,8 +1,8 @@
-import { TextList, TextListItem } from "@/components/ui/dynamic/text-list";
+import { TextList, TextListItem } from "@/components/ui/dynamic/text-list"
 
 export default function TextListOrdered() {
   return (
-    <div className="w-full flex flex-col gap-6">
+    <div className="flex w-full flex-col gap-6">
       <div>
         <p className="text-krds-gray-70 mb-2 text-sm font-medium">레벨 1 — decimal (1.)</p>
         <TextList type="decimal">
@@ -29,5 +29,5 @@ export default function TextListOrdered() {
         </TextList>
       </div>
     </div>
-  );
+  )
 }

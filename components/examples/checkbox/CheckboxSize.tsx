@@ -1,4 +1,4 @@
-import { Checkbox } from "@/components/ui/dynamic/checkbox";
+import { Checkbox } from "@/components/ui/dynamic/checkbox"
 
 export default function CheckboxSize() {
   return (
@@ -6,5 +6,5 @@ export default function CheckboxSize() {
       <Checkbox size="medium" label="사이즈 : medium" defaultValue />
       <Checkbox size="large" label="사이즈 : large" defaultValue />
     </div>
-  );
+  )
 }

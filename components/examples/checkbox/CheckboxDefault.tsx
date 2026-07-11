@@ -1,5 +1,5 @@
-import { Checkbox } from "@/components/ui/dynamic/checkbox";
+import { Checkbox } from "@/components/ui/dynamic/checkbox"
 
 export default function CheckboxDefault() {
-  return <Checkbox label="체크박스" />;
+  return <Checkbox label="체크박스" />
 }

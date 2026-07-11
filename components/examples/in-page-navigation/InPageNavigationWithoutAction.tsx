@@ -4,8 +4,8 @@ import {
   InPageNavigationHeader,
   InPageNavigationItem,
   InPageNavigationList,
-  InPageNavigationTitle
-} from "@/components/ui/dynamic/in-page-navigation";
+  InPageNavigationTitle,
+} from "@/components/ui/dynamic/in-page-navigation"
 
 export default function InPageNavigationWithoutAction() {
   return (
@@ -24,5 +24,5 @@ export default function InPageNavigationWithoutAction() {
         <InPageNavigationItem href="#contact">문의하기</InPageNavigationItem>
       </InPageNavigationList>
     </InPageNavigation>
-  );
+  )
 }

@@ -1,66 +1,66 @@
 // rsc:client
-"use client";
+"use client"
 
-import * as React from "react";
-import { ArrowLeft, ChevronDown, ChevronUp, ExternalLink } from "lucide-react";
-import { Button } from "@/components/ui/dynamic/button";
-import { cn } from "@/lib/cn";
+import * as React from "react"
+import { ArrowLeft, ChevronDown, ChevronUp, ExternalLink } from "lucide-react"
+import { Button } from "@/components/ui/dynamic/button"
+import { cn } from "@/lib/cn"
 
 // ─── Group context ────────────────────────────────────────────────────────────
 
-type SideNavigationGroupCtx = { open: boolean; toggle: () => void };
-const SideNavigationGroupContext = React.createContext<SideNavigationGroupCtx | null>(null);
+type SideNavigationGroupCtx = { open: boolean; toggle: () => void }
+const SideNavigationGroupContext = React.createContext<SideNavigationGroupCtx | null>(null)
 
 // ─── SideNavigation (root) ────────────────────────────────────────────────────
 
 type SideNavigationProps = {
-  className?: string;
-  children?: React.ReactNode;
-  "aria-label"?: string;
-};
+  className?: string
+  children?: React.ReactNode
+  "aria-label"?: string
+}
 
 function SideNavigation({ className, children, "aria-label": ariaLabel = "사이드 내비게이션" }: SideNavigationProps) {
   return (
     <nav data-slot="krds-side-navigation" aria-label={ariaLabel} className={cn("flex w-[248px] flex-col", className)}>
       {children}
     </nav>
-  );
+  )
 }
 
 // ─── SideNavigationTitle (1Depth header for 2-depth layout) ───────────────────
 
 type SideNavigationTitleProps = {
-  className?: string;
-  children?: React.ReactNode;
-};
+  className?: string
+  children?: React.ReactNode
+}
 
 function SideNavigationTitle({ className, children }: SideNavigationTitleProps) {
   return (
     <div
       data-slot="krds-side-navigation-title"
-      className={cn("flex w-full items-center border-b border-krds-border px-2 pt-6 pb-4", className)}
+      className={cn("border-krds-border flex w-full items-center border-b px-2 pt-6 pb-4", className)}
     >
-      <span className="text-krds-foreground flex-1 text-krds-heading-md font-bold">{children}</span>
+      <span className="text-krds-foreground text-krds-heading-md flex-1 font-bold">{children}</span>
     </div>
-  );
+  )
 }
 
 // ─── SideNavigationBackTitle (3Depth header) ──────────────────────────────────
 
 type SideNavigationBackTitleProps = {
-  className?: string;
-  children?: React.ReactNode;
-  href?: string;
-  onBack?: () => void;
-  backLabel?: string;
-};
+  className?: string
+  children?: React.ReactNode
+  href?: string
+  onBack?: () => void
+  backLabel?: string
+}
 
 function SideNavigationBackTitle({
   className,
   children,
   href,
   onBack,
-  backLabel = "뒤로 가기"
+  backLabel = "뒤로 가기",
 }: SideNavigationBackTitleProps) {
   const baseClass = cn(
     "flex w-full flex-col items-start gap-1 rounded-lg p-2",
@@ -69,19 +69,19 @@ function SideNavigationBackTitle({
     "active:bg-krds-surface-secondary-pressed",
     "focus:krds-focus-ring",
     className
-  );
+  )
   const content = (
     <>
       <ArrowLeft size={24} aria-hidden="true" />
       <span className="text-krds-body-lg font-bold">{children}</span>
     </>
-  );
+  )
   if (href) {
     return (
       <a data-slot="krds-side-navigation-back-title" href={href} aria-label={backLabel} className={baseClass}>
         {content}
       </a>
-    );
+    )
   }
   return (
     <Button
@@ -95,34 +95,34 @@ function SideNavigationBackTitle({
     >
       {content}
     </Button>
-  );
+  )
 }
 
 // ─── SideNavigationGroup (collapsible 2-depth group) ──────────────────────────
 
 type SideNavigationGroupProps = {
-  className?: string;
-  children?: React.ReactNode;
-  defaultOpen?: boolean;
-  open?: boolean;
-  onOpenChange?: (open: boolean) => void;
-};
+  className?: string
+  children?: React.ReactNode
+  defaultOpen?: boolean
+  open?: boolean
+  onOpenChange?: (open: boolean) => void
+}
 
 function SideNavigationGroup({
   className,
   children,
   defaultOpen,
   open: controlledOpen,
-  onOpenChange
+  onOpenChange,
 }: SideNavigationGroupProps) {
-  const [uncontrolledOpen, setUncontrolledOpen] = React.useState(defaultOpen ?? false);
-  const isControlled = controlledOpen !== undefined;
-  const open = isControlled ? controlledOpen : uncontrolledOpen;
+  const [uncontrolledOpen, setUncontrolledOpen] = React.useState(defaultOpen ?? false)
+  const isControlled = controlledOpen !== undefined
+  const open = isControlled ? controlledOpen : uncontrolledOpen
   const toggle = React.useCallback(() => {
-    const next = !open;
-    if (!isControlled) setUncontrolledOpen(next);
-    onOpenChange?.(next);
-  }, [open, isControlled, onOpenChange]);
+    const next = !open
+    if (!isControlled) setUncontrolledOpen(next)
+    onOpenChange?.(next)
+  }, [open, isControlled, onOpenChange])
 
   return (
     <SideNavigationGroupContext.Provider value={{ open, toggle }}>
@@ -134,19 +134,19 @@ function SideNavigationGroup({
         {children}
       </div>
     </SideNavigationGroupContext.Provider>
-  );
+  )
 }
 
 // ─── SideNavigationTrigger (2Depth row header) ────────────────────────────────
 
 type SideNavigationTriggerProps = {
-  className?: string;
-  children?: React.ReactNode;
-};
+  className?: string
+  children?: React.ReactNode
+}
 
 function SideNavigationTrigger({ className, children }: SideNavigationTriggerProps) {
-  const ctx = React.useContext(SideNavigationGroupContext);
-  const Icon = ctx?.open ? ChevronUp : ChevronDown;
+  const ctx = React.useContext(SideNavigationGroupContext)
+  const Icon = ctx?.open ? ChevronUp : ChevronDown
   return (
     <button
       type="button"
@@ -157,7 +157,7 @@ function SideNavigationTrigger({ className, children }: SideNavigationTriggerPro
       onClick={ctx?.toggle}
       className={cn(
         "flex w-full items-center gap-2 px-2 py-4",
-        "text-krds-foreground text-left text-krds-body-md font-bold",
+        "text-krds-foreground text-krds-body-md text-left font-bold",
         "hover:bg-krds-surface-secondary-subtle",
         "active:bg-krds-surface-secondary-pressed",
         "focus:krds-focus-ring",
@@ -167,22 +167,22 @@ function SideNavigationTrigger({ className, children }: SideNavigationTriggerPro
       <span className="flex-1">{children}</span>
       <Icon size={20} aria-hidden="true" />
     </button>
-  );
+  )
 }
 
 // ─── SideNavigationList (open list of last-depth items) ───────────────────────
 
 type SideNavigationListProps = {
-  className?: string;
-  children?: React.ReactNode;
-  bordered?: boolean;
-};
+  className?: string
+  children?: React.ReactNode
+  bordered?: boolean
+}
 
 function SideNavigationList({ className, children, bordered }: SideNavigationListProps) {
-  const ctx = React.useContext(SideNavigationGroupContext);
-  if (ctx && !ctx.open) return null;
+  const ctx = React.useContext(SideNavigationGroupContext)
+  if (ctx && !ctx.open) return null
   // Inside a group: this is a submenu. At the root level (no ctx): this is the menubar.
-  const isSubmenu = ctx !== null;
+  const isSubmenu = ctx !== null
   return (
     <ul
       data-slot="krds-side-navigation-list"
@@ -192,18 +192,18 @@ function SideNavigationList({ className, children, bordered }: SideNavigationLis
     >
       {children}
     </ul>
-  );
+  )
 }
 
 // ─── SideNavigationItem (Last depth bulleted link) ────────────────────────────
 
 type SideNavigationItemProps = {
-  className?: string;
-  children?: React.ReactNode;
-  href?: string;
-  external?: boolean;
-  active?: boolean;
-};
+  className?: string
+  children?: React.ReactNode
+  href?: string
+  external?: boolean
+  active?: boolean
+}
 
 function SideNavigationItem({ className, children, href, external, active }: SideNavigationItemProps) {
   return (
@@ -230,7 +230,7 @@ function SideNavigationItem({ className, children, href, external, active }: Sid
         {external && <ExternalLink size={20} aria-hidden="true" />}
       </a>
     </li>
-  );
+  )
 }
 
 export {
@@ -240,5 +240,5 @@ export {
   SideNavigationGroup,
   SideNavigationTrigger,
   SideNavigationList,
-  SideNavigationItem
-};
+  SideNavigationItem,
+}

@@ -1,8 +1,8 @@
-import { Disclosure, DisclosureTrigger, DisclosureContent } from "@/components/ui/dynamic/disclosure";
+import { Disclosure, DisclosureTrigger, DisclosureContent } from "@/components/ui/dynamic/disclosure"
 
 export default function DisclosureMultipleDisclosures() {
   return (
-    <div className="w-full flex flex-col gap-3">
+    <div className="flex w-full flex-col gap-3">
       <Disclosure>
         <DisclosureTrigger>첫 번째 디스클로저</DisclosureTrigger>
         <DisclosureContent>
@@ -31,5 +31,5 @@ export default function DisclosureMultipleDisclosures() {
         </DisclosureContent>
       </Disclosure>
     </div>
-  );
+  )
 }

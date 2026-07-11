@@ -1,4 +1,4 @@
-import { Spinner } from "@/components/ui/dynamic/spinner";
+import { Spinner } from "@/components/ui/dynamic/spinner"
 
 export default function SpinnerMultipleSpinners() {
   return (
@@ -15,5 +15,5 @@ export default function SpinnerMultipleSpinners() {
       </div>
       <Spinner size="small" aria-label="로딩 중" />
     </div>
-  );
+  )
 }

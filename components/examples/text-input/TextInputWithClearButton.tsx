@@ -1,4 +1,4 @@
-import { TextInput } from "@/components/ui/dynamic/text-input";
+import { TextInput } from "@/components/ui/dynamic/text-input"
 
 export default function TextInputWithClearButton() {
   return (
@@ -10,5 +10,5 @@ export default function TextInputWithClearButton() {
         defaultValue="삭제 가능한 텍스트"
       />
     </div>
-  );
+  )
 }

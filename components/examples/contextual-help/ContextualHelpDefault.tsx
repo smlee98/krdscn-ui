@@ -1,4 +1,4 @@
-import { ContextualHelp, ContextualHelpLabel, ContextualHelpTitle } from "@/components/ui/dynamic/contextual-help";
+import { ContextualHelp, ContextualHelpLabel, ContextualHelpTitle } from "@/components/ui/dynamic/contextual-help"
 
 export default function ContextualHelpDefault() {
   return (
@@ -11,5 +11,5 @@ export default function ContextualHelpDefault() {
         </ContextualHelp>
       </div>
     </div>
-  );
+  )
 }

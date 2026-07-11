@@ -1,6 +1,6 @@
-"use client";
+"use client"
 
-import { Button } from "@/components/ui/dynamic/button";
+import { Button } from "@/components/ui/dynamic/button"
 import {
   HelpContentArea,
   HelpCoachProcess,
@@ -16,9 +16,9 @@ import {
   HelpRelatedService,
   HelpSection,
   HelpServiceGroup,
-  HelpTutorialTitle
-} from "@/components/ui/dynamic/help-panel";
-import { Tab, TabContent, TabList, TabPanel, TabTrigger } from "@/components/ui/dynamic/tab";
+  HelpTutorialTitle,
+} from "@/components/ui/dynamic/help-panel"
+import { Tab, TabContent, TabList, TabPanel, TabTrigger } from "@/components/ui/dynamic/tab"
 
 export default function HelpPanelWithTabs() {
   return (
@@ -44,7 +44,7 @@ export default function HelpPanelWithTabs() {
                   <HelpLinkList
                     links={[
                       { text: "전자문서지갑 안드로이드 앱 다운로드", href: "#android", target: "_blank" },
-                      { text: "전자문서지갑 iOS 앱 다운로드", href: "#ios", target: "_blank" }
+                      { text: "전자문서지갑 iOS 앱 다운로드", href: "#ios", target: "_blank" },
                     ]}
                   />
                 </HelpSection>
@@ -55,7 +55,7 @@ export default function HelpPanelWithTabs() {
                       links={[
                         { text: "전자증명서 발급 안내", href: "#doc1" },
                         { text: "본인인증 수단 안내", href: "#doc2" },
-                        { text: "이용약관 및 개인정보 처리방침", href: "#doc3" }
+                        { text: "이용약관 및 개인정보 처리방침", href: "#doc3" },
                       ]}
                     />
                   </HelpServiceGroup>
@@ -67,13 +67,13 @@ export default function HelpPanelWithTabs() {
                         {
                           text: "고객센터 1588-0000",
                           href: "tel:1588-0000",
-                          icon: <HelpPhoneIcon className="size-4" aria-hidden="true" />
+                          icon: <HelpPhoneIcon className="size-4" aria-hidden="true" />,
                         },
                         {
                           text: "자주 묻는 질문 (FAQ)",
                           href: "#faq",
-                          icon: <HelpFaqIcon className="size-4" aria-hidden="true" />
-                        }
+                          icon: <HelpFaqIcon className="size-4" aria-hidden="true" />,
+                        },
                       ]}
                     />
                   </HelpServiceGroup>
@@ -109,5 +109,5 @@ export default function HelpPanelWithTabs() {
         </Button>
       </HelpPanelAction>
     </HelpPanel>
-  );
+  )
 }

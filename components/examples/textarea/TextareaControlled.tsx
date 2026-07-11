@@ -1,11 +1,11 @@
-"use client";
+"use client"
 
-import * as React from "react";
-import { Textarea } from "@/components/ui/dynamic/textarea";
-import { Button } from "@/components/ui/dynamic/button";
+import * as React from "react"
+import { Textarea } from "@/components/ui/dynamic/textarea"
+import { Button } from "@/components/ui/dynamic/button"
 
 export default function TextareaControlled() {
-  const [value, setValue] = React.useState("제어된 컴포넌트");
+  const [value, setValue] = React.useState("제어된 컴포넌트")
   return (
     <div className="flex w-[360px] flex-col gap-4">
       <Textarea label="제어된 Textarea" value={value} onChange={setValue} maxLength={100} />
@@ -14,5 +14,5 @@ export default function TextareaControlled() {
         텍스트 초기화
       </Button>
     </div>
-  );
+  )
 }

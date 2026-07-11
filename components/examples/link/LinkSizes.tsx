@@ -1,4 +1,4 @@
-import { Link } from "@/components/ui/dynamic/link";
+import { Link } from "@/components/ui/dynamic/link"
 
 export default function LinkSizes() {
   return (
@@ -13,5 +13,5 @@ export default function LinkSizes() {
         Large 크기 (19px)
       </Link>
     </div>
-  );
+  )
 }

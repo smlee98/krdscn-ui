@@ -1,7 +1,7 @@
-"use client";
+"use client"
 
-import * as React from "react";
-import { ChevronDown, RotateCcw, Type } from "lucide-react";
+import * as React from "react"
+import { ChevronDown, RotateCcw, Type } from "lucide-react"
 
 import {
   DropdownMenu,
@@ -10,13 +10,13 @@ import {
   DropdownMenuRadioGroup,
   DropdownMenuRadioItem,
   DropdownMenuSeparator,
-  DropdownMenuTrigger
-} from "@/components/ui/dropdown-menu";
-import { cn } from "@/lib/cn";
-import { useUISystem } from "@/lib/ui-system";
-import { Resize as KrdsResize, type ResizeProps, type ResizeScale } from "@/components/ui/krds/(settings)/resize";
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
+import { cn } from "@/lib/cn"
+import { useUISystem } from "@/lib/ui-system"
+import { Resize as KrdsResize, type ResizeProps, type ResizeScale } from "@/components/ui/krds/(settings)/resize"
 
-export type { ResizeProps, ResizeScale } from "@/components/ui/krds/(settings)/resize";
+export type { ResizeProps, ResizeScale } from "@/components/ui/krds/(settings)/resize"
 
 // Dual-render dispatcher. resize had no dispatcher → examples imported the KRDS
 // component directly and rendered KRDS chrome (custom Popover bubble + krds hex) in
@@ -31,14 +31,14 @@ const DEFAULT_LABELS: Record<ResizeScale, string> = {
   md: "보통",
   lg: "조금 크게",
   xlg: "크게",
-  xxlg: "가장 크게"
-};
+  xxlg: "가장 크게",
+}
 
-const SCALE_ORDER: ResizeScale[] = ["sm", "md", "lg", "xlg", "xxlg"];
+const SCALE_ORDER: ResizeScale[] = ["sm", "md", "lg", "xlg", "xxlg"]
 
 // Container/font size (px) for the growing "가" preview glyph — mirrors KRDS.
-const ICON_CONTAINER_SIZE: Record<ResizeScale, number> = { sm: 22, md: 24, lg: 26, xlg: 28, xxlg: 30 };
-const ICON_FONT_SIZE: Record<ResizeScale, number> = { sm: 13, md: 15, lg: 17, xlg: 19, xxlg: 21 };
+const ICON_CONTAINER_SIZE: Record<ResizeScale, number> = { sm: 22, md: 24, lg: 26, xlg: 28, xxlg: 30 }
+const ICON_FONT_SIZE: Record<ResizeScale, number> = { sm: 13, md: 15, lg: 17, xlg: 19, xxlg: 21 }
 
 function ShadcnResize({
   value,
@@ -47,26 +47,26 @@ function ShadcnResize({
   buttonText = "화면크기",
   resetText = "초기화",
   labels,
-  className
+  className,
 }: ResizeProps) {
-  const [internalValue, setInternalValue] = React.useState<ResizeScale>(defaultValue);
-  const [open, setOpen] = React.useState(false);
+  const [internalValue, setInternalValue] = React.useState<ResizeScale>(defaultValue)
+  const [open, setOpen] = React.useState(false)
 
-  const isControlled = value !== undefined;
-  const currentValue = isControlled ? value : internalValue;
+  const isControlled = value !== undefined
+  const currentValue = isControlled ? value : internalValue
 
-  const resolvedLabels: Record<ResizeScale, string> = { ...DEFAULT_LABELS, ...labels };
+  const resolvedLabels: Record<ResizeScale, string> = { ...DEFAULT_LABELS, ...labels }
 
   function handleSelect(scale: ResizeScale) {
-    if (!isControlled) setInternalValue(scale);
-    onChange?.(scale);
-    setOpen(false);
+    if (!isControlled) setInternalValue(scale)
+    onChange?.(scale)
+    setOpen(false)
   }
 
   function handleReset() {
-    if (!isControlled) setInternalValue(defaultValue);
-    onChange?.(defaultValue);
-    setOpen(false);
+    if (!isControlled) setInternalValue(defaultValue)
+    onChange?.(defaultValue)
+    setOpen(false)
   }
 
   return (
@@ -91,7 +91,7 @@ function ShadcnResize({
         <DropdownMenuContent align="center" sideOffset={8} className="min-w-[220px]">
           <DropdownMenuRadioGroup value={currentValue} onValueChange={(v) => handleSelect(v as ResizeScale)}>
             {SCALE_ORDER.map((scale) => {
-              const isSelected = currentValue === scale;
+              const isSelected = currentValue === scale
               return (
                 <DropdownMenuRadioItem key={scale} value={scale} className="gap-2">
                   <span
@@ -100,7 +100,7 @@ function ShadcnResize({
                       "inline-flex shrink-0 items-center justify-center rounded-sm",
                       isSelected
                         ? "bg-primary text-primary-foreground"
-                        : "border-input text-foreground border bg-background"
+                        : "border-input text-foreground bg-background border"
                     )}
                     style={{ width: ICON_CONTAINER_SIZE[scale], height: ICON_CONTAINER_SIZE[scale] }}
                   >
@@ -108,7 +108,7 @@ function ShadcnResize({
                   </span>
                   <span className={cn("text-sm", isSelected && "font-bold")}>{resolvedLabels[scale]}</span>
                 </DropdownMenuRadioItem>
-              );
+              )
             })}
           </DropdownMenuRadioGroup>
 
@@ -121,11 +121,11 @@ function ShadcnResize({
         </DropdownMenuContent>
       </DropdownMenu>
     </div>
-  );
+  )
 }
 
 export function Resize(props: ResizeProps) {
-  const system = useUISystem();
-  if (system === "krds") return <KrdsResize {...props} />;
-  return <ShadcnResize {...props} />;
+  const system = useUISystem()
+  if (system === "krds") return <KrdsResize {...props} />
+  return <ShadcnResize {...props} />
 }

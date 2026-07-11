@@ -25,7 +25,9 @@ export function getAllPagesFromFolder(folder: PageTreeFolder): PageTreePage[] {
 
 export function getPagesFromFolder(folder: PageTreeFolder): PageTreePage[] {
   if (folder.$id === "components" || folder.name === "컴포넌트" || folder.name === "Components") {
-    return folder.children.filter((child): child is PageTreePage => child.type === "page" && !normalizePath(child.url).endsWith("/components"))
+    return folder.children.filter(
+      (child): child is PageTreePage => child.type === "page" && !normalizePath(child.url).endsWith("/components")
+    )
   }
 
   return folder.children.filter((child): child is PageTreePage => child.type === "page")

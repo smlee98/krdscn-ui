@@ -1,10 +1,10 @@
-import { Select } from "@/components/ui/dynamic/select";
+import { Select } from "@/components/ui/dynamic/select"
 
 const sizeOptions = [
   { value: "small", label: "Small" },
   { value: "medium", label: "Medium" },
-  { value: "large", label: "Large" }
-];
+  { value: "large", label: "Large" },
+]
 
 export default function SelectSizes() {
   return (
@@ -13,5 +13,5 @@ export default function SelectSizes() {
       <Select options={sizeOptions} label="Medium 크기" size="medium" defaultValue="medium" />
       <Select options={sizeOptions} label="Large 크기" size="large" defaultValue="large" />
     </div>
-  );
+  )
 }

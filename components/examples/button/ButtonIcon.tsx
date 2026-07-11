@@ -1,6 +1,6 @@
-import { SearchIcon, Trash2Icon } from "lucide-react";
+import { SearchIcon, Trash2Icon } from "lucide-react"
 
-import { Button } from "@/components/ui/dynamic/button";
+import { Button } from "@/components/ui/dynamic/button"
 
 export default function ButtonIcon() {
   return (
@@ -12,5 +12,5 @@ export default function ButtonIcon() {
         <SearchIcon className="size-5" />
       </Button>
     </div>
-  );
+  )
 }

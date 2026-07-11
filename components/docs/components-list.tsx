@@ -17,7 +17,7 @@ function TaxonomyMarker({ slug }: { slug?: string | null }) {
   return (
     <span
       className={cn(
-        "inline-flex h-5 items-center rounded-full border px-1.5 text-[10px] font-medium leading-none no-underline",
+        "inline-flex h-5 items-center rounded-full border px-1.5 text-[10px] leading-none font-medium no-underline",
         isExtended && "border-primary/30 bg-primary/10 text-primary",
         isDocsOnly && "border-amber-500/30 bg-amber-500/10 text-amber-700 dark:text-amber-300",
         !isExtended && !isDocsOnly && "border-border bg-muted text-muted-foreground"
@@ -30,12 +30,7 @@ function TaxonomyMarker({ slug }: { slug?: string | null }) {
   )
 }
 
-export function ComponentsList({
-  componentsFolder,
-}: {
-  componentsFolder: PageTreeFolder
-  currentBase?: string
-}) {
+export function ComponentsList({ componentsFolder }: { componentsFolder: PageTreeFolder; currentBase?: string }) {
   const list = getPagesFromFolder(componentsFolder)
 
   return (

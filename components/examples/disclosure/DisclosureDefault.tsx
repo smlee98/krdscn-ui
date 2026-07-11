@@ -1,4 +1,4 @@
-import { Disclosure, DisclosureTrigger, DisclosureContent } from "@/components/ui/dynamic/disclosure";
+import { Disclosure, DisclosureTrigger, DisclosureContent } from "@/components/ui/dynamic/disclosure"
 
 export default function DisclosureDefault() {
   return (
@@ -11,5 +11,5 @@ export default function DisclosureDefault() {
         </ul>
       </DisclosureContent>
     </Disclosure>
-  );
+  )
 }

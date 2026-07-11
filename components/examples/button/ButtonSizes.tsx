@@ -1,4 +1,4 @@
-import { Button } from "@/components/ui/dynamic/button";
+import { Button } from "@/components/ui/dynamic/button"
 
 export default function ButtonSizes() {
   return (
@@ -19,5 +19,5 @@ export default function ButtonSizes() {
         XLarge
       </Button>
     </div>
-  );
+  )
 }

@@ -1,21 +1,21 @@
-"use client";
+"use client"
 
-import Link from "next/link";
-import { usePathname } from "next/navigation";
+import Link from "next/link"
+import { usePathname } from "next/navigation"
 
-import { ModeToggle } from "@/components/krds-app/mode-toggle";
-import { UISystemToggle } from "@/components/krds-app/ui-system-toggle";
-import { Button } from "@/components/ui/button";
-import { SearchButton } from "@/components/search-button";
-import { normalizePath } from "@/lib/page-tree";
+import { ModeToggle } from "@/components/krds-app/mode-toggle"
+import { UISystemToggle } from "@/components/krds-app/ui-system-toggle"
+import { Button } from "@/components/ui/button"
+import { SearchButton } from "@/components/search-button"
+import { normalizePath } from "@/lib/page-tree"
 
 const navItems = [
   { href: "/docs", label: "Docs" },
   { href: "/docs/components", label: "컴포넌트" },
   { href: "/docs/registry", label: "레지스트리" },
   { href: "/docs/theming", label: "테마" },
-  { href: "/docs/krds-guideline", label: "KRDS 가이드라인" }
-];
+  { href: "/docs/krds-guideline", label: "KRDS 가이드라인" },
+]
 
 function Logo() {
   return (
@@ -49,14 +49,14 @@ function Logo() {
       </span>
       <span className="hidden sm:inline-block">krdscn/ui</span>
     </Link>
-  );
+  )
 }
 
 export function SiteHeader() {
-  const pathname = normalizePath(usePathname());
+  const pathname = normalizePath(usePathname())
 
   if (pathname.startsWith("/preview")) {
-    return null;
+    return null
   }
 
   return (
@@ -69,7 +69,7 @@ export function SiteHeader() {
               const active =
                 item.href === "/docs"
                   ? pathname === normalizePath(item.href)
-                  : pathname === normalizePath(item.href) || pathname.startsWith(`${normalizePath(item.href)}/`);
+                  : pathname === normalizePath(item.href) || pathname.startsWith(`${normalizePath(item.href)}/`)
 
               return (
                 <Button key={item.href} asChild variant="ghost" size="sm">
@@ -81,7 +81,7 @@ export function SiteHeader() {
                     {item.label}
                   </Link>
                 </Button>
-              );
+              )
             })}
           </nav>
           <div className="ml-auto flex h-8 items-center gap-2">
@@ -93,5 +93,5 @@ export function SiteHeader() {
         </div>
       </div>
     </header>
-  );
+  )
 }

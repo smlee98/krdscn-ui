@@ -1,4 +1,4 @@
-import { Calendar } from "@/components/ui/dynamic/calendar";
+import { Calendar } from "@/components/ui/dynamic/calendar"
 
 export default function CalendarCustomButtonText() {
   return (
@@ -9,5 +9,5 @@ export default function CalendarCustomButtonText() {
       cancelButtonText="Cancel"
       confirmButtonText="OK"
     />
-  );
+  )
 }

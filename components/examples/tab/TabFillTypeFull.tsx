@@ -1,4 +1,4 @@
-import { Tab, TabList, TabTrigger, TabContent, TabPanel } from "@/components/ui/dynamic/tab";
+import { Tab, TabList, TabTrigger, TabContent, TabPanel } from "@/components/ui/dynamic/tab"
 
 export default function TabFillTypeFull() {
   return (
@@ -26,5 +26,5 @@ export default function TabFillTypeFull() {
         </TabPanel>
       </TabContent>
     </Tab>
-  );
+  )
 }

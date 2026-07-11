@@ -1,8 +1,8 @@
-import { TextList, TextListItem } from "@/components/ui/dynamic/text-list";
+import { TextList, TextListItem } from "@/components/ui/dynamic/text-list"
 
 export default function TextListMixedOrdered() {
   return (
-    <div className="w-full flex flex-col gap-6">
+    <div className="flex w-full flex-col gap-6">
       <div>
         <p className="text-krds-gray-70 mb-2 text-sm font-medium">순서 있는 혼합 계층: decimal → alpha → circle-num</p>
         <TextList type="decimal">
@@ -24,5 +24,5 @@ export default function TextListMixedOrdered() {
         </TextList>
       </div>
     </div>
-  );
+  )
 }

@@ -1,4 +1,4 @@
-import { Spinner } from "@/components/ui/dynamic/spinner";
+import { Spinner } from "@/components/ui/dynamic/spinner"
 
 export default function SpinnerWithFormSpinner() {
   return (
@@ -21,5 +21,5 @@ export default function SpinnerWithFormSpinner() {
         />
       </div>
     </div>
-  );
+  )
 }

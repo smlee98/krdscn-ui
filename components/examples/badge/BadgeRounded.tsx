@@ -1,4 +1,4 @@
-import { Badge } from "@/components/ui/dynamic/badge";
+import { Badge } from "@/components/ui/dynamic/badge"
 
 export default function BadgeRounded() {
   return (
@@ -22,5 +22,5 @@ export default function BadgeRounded() {
         danger pastel
       </Badge>
     </div>
-  );
+  )
 }

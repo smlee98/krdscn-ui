@@ -6,8 +6,8 @@ import {
   FooterInfo,
   FooterLogo,
   FooterMenu,
-  FooterMenuLink
-} from "@/components/ui/dynamic/footer";
+  FooterMenuLink,
+} from "@/components/ui/dynamic/footer"
 
 export default function FooterMinimal() {
   return (
@@ -28,5 +28,5 @@ export default function FooterMinimal() {
         </FooterBottom>
       </div>
     </Footer>
-  );
+  )
 }

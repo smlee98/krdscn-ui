@@ -1,7 +1,7 @@
-"use client";
+"use client"
 
-import * as React from "react";
-import { LanguageSwitcher } from "@/components/ui/dynamic/language-switcher";
+import * as React from "react"
+import { LanguageSwitcher } from "@/components/ui/dynamic/language-switcher"
 
 const defaultLanguages = [
   { value: "ko", label: "한국어" },
@@ -14,20 +14,21 @@ const defaultLanguages = [
     href: "https://www.krds.go.kr/html/site/component/component_10_01.html",
     external: true,
   },
-];
+]
 
 export default function LanguageSwitcherControlled() {
-  const [isOpen, setIsOpen] = React.useState(false);
-  const [selectedLanguage, setSelectedLanguage] = React.useState("ko");
-  const currentLabel = (
-    {
-      ko: "현재 언어",
-      en: "Current Language",
-      zh: "当前语言",
-      ja: "現在の言語",
-      fr: "Langue actuelle",
-    } as Record<string, string>
-  )[selectedLanguage] || "현재 언어";
+  const [isOpen, setIsOpen] = React.useState(false)
+  const [selectedLanguage, setSelectedLanguage] = React.useState("ko")
+  const currentLabel =
+    (
+      {
+        ko: "현재 언어",
+        en: "Current Language",
+        zh: "当前语言",
+        ja: "現在の言語",
+        fr: "Langue actuelle",
+      } as Record<string, string>
+    )[selectedLanguage] || "현재 언어"
 
   return (
     <div className="w-full max-w-md py-12">
@@ -45,5 +46,5 @@ export default function LanguageSwitcherControlled() {
         </LanguageSwitcher.Menu>
       </LanguageSwitcher>
     </div>
-  );
+  )
 }

@@ -1,10 +1,10 @@
-"use client";
+"use client"
 
-import { ChevronRight } from "lucide-react";
-import { ContextualHelp, ContextualHelpLabel, ContextualHelpTitle } from "@/components/ui/dynamic/contextual-help";
+import { ChevronRight } from "lucide-react"
+import { ContextualHelp, ContextualHelpLabel, ContextualHelpTitle } from "@/components/ui/dynamic/contextual-help"
 
-const positions = ["top", "bottom"] as const;
-const alignments = ["left", "center", "right"] as const;
+const positions = ["top", "bottom"] as const
+const alignments = ["left", "center", "right"] as const
 
 export default function ContextualHelpList() {
   return (
@@ -23,7 +23,7 @@ export default function ContextualHelpList() {
                 <div className="mt-2">
                   <a
                     href="#"
-                    className="inline-flex items-center gap-0.5 text-krds-body-sm text-krds-foreground hover:text-krds-foreground-primary"
+                    className="text-krds-body-sm text-krds-foreground hover:text-krds-foreground-primary inline-flex items-center gap-0.5"
                   >
                     <span>바로가기</span>
                     <ChevronRight className="size-4" aria-hidden="true" />
@@ -35,5 +35,5 @@ export default function ContextualHelpList() {
         </div>
       ))}
     </div>
-  );
+  )
 }

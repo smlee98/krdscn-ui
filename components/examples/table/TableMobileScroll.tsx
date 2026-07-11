@@ -5,8 +5,8 @@ import {
   TableBody,
   TableHead,
   TableRow,
-  TableCell
-} from "@/components/ui/dynamic/table";
+  TableCell,
+} from "@/components/ui/dynamic/table"
 
 const ROWS = [
   { id: "2024-001", name: "주민등록등본 발급", dept: "주민센터", date: "2024.03.15", status: "완료", fee: "무료" },
@@ -16,10 +16,10 @@ const ROWS = [
     dept: "건강보험공단",
     date: "2024.03.14",
     status: "처리중",
-    fee: "무료"
+    fee: "무료",
   },
-  { id: "2024-003", name: "자동차세 조회", dept: "세무서", date: "2024.03.13", status: "완료", fee: "무료" }
-];
+  { id: "2024-003", name: "자동차세 조회", dept: "세무서", date: "2024.03.13", status: "완료", fee: "무료" },
+]
 
 export default function TableMobileScroll() {
   return (
@@ -49,5 +49,5 @@ export default function TableMobileScroll() {
         </TableBody>
       </Table>
     </TableScroll>
-  );
+  )
 }

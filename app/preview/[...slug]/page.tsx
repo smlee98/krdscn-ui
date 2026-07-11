@@ -22,7 +22,7 @@ export default async function PreviewPage({ params }: Props) {
 
   return (
     <TooltipProvider>
-      <div className="min-h-screen bg-background p-6 text-foreground">
+      <div className="bg-background text-foreground min-h-screen p-6">
         <Demo />
       </div>
     </TooltipProvider>

@@ -13,9 +13,7 @@ export const dynamicParams = false
 
 export function generateStaticParams() {
   const params = source.generateParams()
-  return params.some((param) => param.slug?.length === 0)
-    ? params
-    : [{ slug: [] }, ...params]
+  return params.some((param) => param.slug?.length === 0) ? params : [{ slug: [] }, ...params]
 }
 
 export async function generateMetadata(props: { params: Promise<{ slug?: string[] }> }) {
@@ -50,9 +48,7 @@ export default async function Page(props: { params: Promise<{ slug?: string[] }>
         <article className="mx-auto flex w-full max-w-160 min-w-0 flex-1 flex-col gap-6 px-4 py-6 text-neutral-800 md:px-0 lg:py-8 dark:text-neutral-300">
           <div className="flex flex-col gap-2">
             <div className="flex items-center justify-between md:items-start">
-              <h1 className="scroll-m-24 text-3xl font-semibold tracking-tight sm:text-3xl">
-                {page.data.title}
-              </h1>
+              <h1 className="scroll-m-24 text-3xl font-semibold tracking-tight sm:text-3xl">{page.data.title}</h1>
               <div className="docs-nav flex items-center gap-2">
                 <Button variant="ghost" size="icon" className="hidden size-8 shadow-none sm:inline-flex md:size-7">
                   <CopyIcon className="size-3.5" />
@@ -61,7 +57,7 @@ export default async function Page(props: { params: Promise<{ slug?: string[] }>
               </div>
             </div>
             {page.data.description ? (
-              <p className="text-[1.05rem] text-muted-foreground sm:max-w-[80%] sm:text-base sm:text-balance">
+              <p className="text-muted-foreground text-[1.05rem] sm:max-w-[80%] sm:text-base sm:text-balance">
                 {page.data.description}
               </p>
             ) : null}

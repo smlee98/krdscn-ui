@@ -12,81 +12,81 @@
  *  - Indicators can be dots OR fraction (collapse to fraction on small screens).
  *  - Pause button = first focusable element in autoplay carousels.
  */
-"use client";
+"use client"
 
-import * as React from "react";
-import { ChevronLeft, ChevronRight, Pause, Play, Plus } from "lucide-react";
+import * as React from "react"
+import { ChevronLeft, ChevronRight, Pause, Play, Plus } from "lucide-react"
 
 import {
   Carousel as ShadcnCarousel,
   CarouselContent as ShadcnCarouselContent,
   CarouselItem as ShadcnCarouselItem,
-  type CarouselApi
-} from "@/components/ui/carousel";
-import { cn } from "@/lib/cn";
+  type CarouselApi,
+} from "@/components/ui/carousel"
+import { cn } from "@/lib/cn"
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
-type CarouselArrowSize = "xsmall" | "small" | "medium" | "large";
+type CarouselArrowSize = "xsmall" | "small" | "medium" | "large"
 
 type CarouselContextValue = {
-  api: CarouselApi | undefined;
-  selectedIndex: number;
-  slideCount: number;
-  scrollTo: (index: number) => void;
-  scrollPrev: () => void;
-  scrollNext: () => void;
-  canScrollPrev: boolean;
-  canScrollNext: boolean;
-};
+  api: CarouselApi | undefined
+  selectedIndex: number
+  slideCount: number
+  scrollTo: (index: number) => void
+  scrollPrev: () => void
+  scrollNext: () => void
+  canScrollPrev: boolean
+  canScrollNext: boolean
+}
 
-const KrdsCarouselContext = React.createContext<CarouselContextValue | null>(null);
+const KrdsCarouselContext = React.createContext<CarouselContextValue | null>(null)
 
 function useKrdsCarousel() {
-  const ctx = React.useContext(KrdsCarouselContext);
-  if (!ctx) throw new Error("KRDS Carousel sub-parts must be used inside <Carousel>");
-  return ctx;
+  const ctx = React.useContext(KrdsCarouselContext)
+  if (!ctx) throw new Error("KRDS Carousel sub-parts must be used inside <Carousel>")
+  return ctx
 }
 
 // ─── Carousel (Root) ──────────────────────────────────────────────────────────
 
-type CarouselProps = React.ComponentProps<typeof ShadcnCarousel>;
+type CarouselProps = React.ComponentProps<typeof ShadcnCarousel>
 
 function Carousel({ children, className, setApi: externalSetApi, ...props }: CarouselProps) {
-  const [api, setApi] = React.useState<CarouselApi>();
-  const [selectedIndex, setSelectedIndex] = React.useState(0);
-  const [slideCount, setSlideCount] = React.useState(0);
-  const [canScrollPrev, setCanScrollPrev] = React.useState(false);
-  const [canScrollNext, setCanScrollNext] = React.useState(false);
+  const [api, setApi] = React.useState<CarouselApi>()
+  const [selectedIndex, setSelectedIndex] = React.useState(0)
+  const [slideCount, setSlideCount] = React.useState(0)
+  const [canScrollPrev, setCanScrollPrev] = React.useState(false)
+  const [canScrollNext, setCanScrollNext] = React.useState(false)
 
   const handleSetApi = React.useCallback(
     (a: CarouselApi) => {
-      setApi(a);
-      externalSetApi?.(a);
+      setApi(a)
+      externalSetApi?.(a)
     },
     [externalSetApi]
-  );
+  )
 
   React.useEffect(() => {
-    if (!api) return;
+    if (!api) return
     const sync = () => {
-      setSelectedIndex(api.selectedScrollSnap());
-      setSlideCount(api.scrollSnapList().length);
-      setCanScrollPrev(api.canScrollPrev());
-      setCanScrollNext(api.canScrollNext());
-    };
-    sync();
-    api.on("select", sync);
-    api.on("reInit", sync);
+      setSelectedIndex(api.selectedScrollSnap())
+      setSlideCount(api.scrollSnapList().length)
+      setCanScrollPrev(api.canScrollPrev())
+      setCanScrollNext(api.canScrollNext())
+    }
+    sync()
+    api.on("select", sync)
+    api.on("reInit", sync)
     return () => {
-      api.off("select", sync);
-      api.off("reInit", sync);
-    };
-  }, [api]);
+      api.off("select", sync)
+      api.off("reInit", sync)
+    }
+  }, [api])
 
-  const scrollTo = React.useCallback((i: number) => api?.scrollTo(i), [api]);
-  const scrollPrev = React.useCallback(() => api?.scrollPrev(), [api]);
-  const scrollNext = React.useCallback(() => api?.scrollNext(), [api]);
+  const scrollTo = React.useCallback((i: number) => api?.scrollTo(i), [api])
+  const scrollPrev = React.useCallback(() => api?.scrollPrev(), [api])
+  const scrollNext = React.useCallback(() => api?.scrollNext(), [api])
 
   return (
     <KrdsCarouselContext.Provider
@@ -96,44 +96,44 @@ function Carousel({ children, className, setApi: externalSetApi, ...props }: Car
         {children}
       </ShadcnCarousel>
     </KrdsCarouselContext.Provider>
-  );
+  )
 }
 
 // ─── CarouselContent / CarouselItem — pass-throughs ───────────────────────────
 
 function CarouselContent({ className, ...props }: React.ComponentProps<typeof ShadcnCarouselContent>) {
-  return <ShadcnCarouselContent data-slot="krds-carousel-content" className={className} {...props} />;
+  return <ShadcnCarouselContent data-slot="krds-carousel-content" className={className} {...props} />
 }
 
 function CarouselItem({ className, ...props }: React.ComponentProps<typeof ShadcnCarouselItem>) {
-  return <ShadcnCarouselItem data-slot="krds-carousel-item" className={className} {...props} />;
+  return <ShadcnCarouselItem data-slot="krds-carousel-item" className={className} {...props} />
 }
 
 // ─── CarouselArrow / CarouselPrevious / CarouselNext ──────────────────────────
 
 type CarouselArrowProps = Omit<React.ComponentProps<"button">, "type"> & {
-  direction: "previous" | "next";
-  size?: CarouselArrowSize;
-};
+  direction: "previous" | "next"
+  size?: CarouselArrowSize
+}
 
 const ARROW_SIZE_CLASS: Record<CarouselArrowSize, string> = {
   xsmall: "size-8",
   small: "size-10",
   medium: "size-12",
-  large: "size-16"
-};
+  large: "size-16",
+}
 
 const ARROW_ICON_CLASS: Record<CarouselArrowSize, string> = {
   xsmall: "size-5",
   small: "size-6",
   medium: "size-7",
-  large: "size-9"
-};
+  large: "size-9",
+}
 
 function CarouselArrow({ direction, size = "small", className, "aria-label": ariaLabel, ...rest }: CarouselArrowProps) {
-  const { scrollPrev, scrollNext, canScrollPrev, canScrollNext } = useKrdsCarousel();
-  const isPrev = direction === "previous";
-  const Icon = isPrev ? ChevronLeft : ChevronRight;
+  const { scrollPrev, scrollNext, canScrollPrev, canScrollNext } = useKrdsCarousel()
+  const isPrev = direction === "previous"
+  const Icon = isPrev ? ChevronLeft : ChevronRight
   return (
     <button
       type="button"
@@ -142,7 +142,7 @@ function CarouselArrow({ direction, size = "small", className, "aria-label": ari
       disabled={isPrev ? !canScrollPrev : !canScrollNext}
       onClick={isPrev ? scrollPrev : scrollNext}
       className={cn(
-        "inline-flex shrink-0 items-center justify-center rounded-full bg-krds-surface text-krds-foreground",
+        "bg-krds-surface text-krds-foreground inline-flex shrink-0 items-center justify-center rounded-full",
         "border-krds-border-light border transition-colors",
         "hover:border-krds-border",
         "focus:krds-focus-ring",
@@ -154,33 +154,33 @@ function CarouselArrow({ direction, size = "small", className, "aria-label": ari
     >
       <Icon className={cn("shrink-0", ARROW_ICON_CLASS[size])} aria-hidden="true" />
     </button>
-  );
+  )
 }
 
-type CarouselPrevNextProps = Omit<CarouselArrowProps, "direction">;
+type CarouselPrevNextProps = Omit<CarouselArrowProps, "direction">
 
 function CarouselPrevious(props: CarouselPrevNextProps) {
-  return <CarouselArrow direction="previous" {...props} />;
+  return <CarouselArrow direction="previous" {...props} />
 }
 
 function CarouselNext(props: CarouselPrevNextProps) {
-  return <CarouselArrow direction="next" {...props} />;
+  return <CarouselArrow direction="next" {...props} />
 }
 
 // ─── CarouselNumber ───────────────────────────────────────────────────────────
 
-type CarouselNumberProps = React.ComponentProps<"div">;
+type CarouselNumberProps = React.ComponentProps<"div">
 
 function CarouselNumber({ className, ...rest }: CarouselNumberProps) {
-  const { selectedIndex, slideCount } = useKrdsCarousel();
-  if (slideCount === 0) return null;
+  const { selectedIndex, slideCount } = useKrdsCarousel()
+  if (slideCount === 0) return null
   return (
     <div
       data-slot="krds-carousel-number"
       role="status"
       aria-live="polite"
       className={cn(
-        "inline-flex h-10 items-center gap-1 rounded-full bg-krds-surface px-4",
+        "bg-krds-surface inline-flex h-10 items-center gap-1 rounded-full px-4",
         "border-krds-border-light border",
         "text-krds-body-md font-bold whitespace-nowrap",
         className
@@ -191,29 +191,29 @@ function CarouselNumber({ className, ...rest }: CarouselNumberProps) {
       <span className="text-krds-foreground">/</span>
       <span className="text-krds-foreground">{slideCount}</span>
     </div>
-  );
+  )
 }
 
 // ─── CarouselDots ─────────────────────────────────────────────────────────────
 
 type CarouselDotsProps = React.ComponentProps<"div"> & {
   /** Accessible label for the indicators container. Defaults to "슬라이드 선택". */
-  label?: string;
-};
+  label?: string
+}
 
 function CarouselDots({ className, label = "슬라이드 선택", ...rest }: CarouselDotsProps) {
-  const { selectedIndex, slideCount, scrollTo } = useKrdsCarousel();
-  if (slideCount === 0) return null;
+  const { selectedIndex, slideCount, scrollTo } = useKrdsCarousel()
+  if (slideCount === 0) return null
   return (
     <div
       data-slot="krds-carousel-dots"
       role="tablist"
       aria-label={label}
-      className={cn("inline-flex h-10 items-center gap-1 rounded-full bg-krds-surface px-4", className)}
+      className={cn("bg-krds-surface inline-flex h-10 items-center gap-1 rounded-full px-4", className)}
       {...rest}
     >
       {Array.from({ length: slideCount }, (_, i) => {
-        const isActive = i === selectedIndex;
+        const isActive = i === selectedIndex
         return (
           <button
             key={i}
@@ -229,22 +229,22 @@ function CarouselDots({ className, label = "슬라이드 선택", ...rest }: Car
               isActive ? "bg-krds-primary-50 w-5" : "bg-krds-gray-50 w-2"
             )}
           />
-        );
+        )
       })}
     </div>
-  );
+  )
 }
 
 // ─── CarouselPlayPause ────────────────────────────────────────────────────────
 
 type CarouselPlayPauseProps = Omit<React.ComponentProps<"button">, "type" | "children" | "onToggle"> & {
-  isPlaying: boolean;
-  onToggle: (next: boolean) => void;
-  size?: CarouselArrowSize;
+  isPlaying: boolean
+  onToggle: (next: boolean) => void
+  size?: CarouselArrowSize
   /** Accessible labels override. */
-  playLabel?: string;
-  pauseLabel?: string;
-};
+  playLabel?: string
+  pauseLabel?: string
+}
 
 function CarouselPlayPause({
   isPlaying,
@@ -255,7 +255,7 @@ function CarouselPlayPause({
   className,
   ...rest
 }: CarouselPlayPauseProps) {
-  const Icon = isPlaying ? Pause : Play;
+  const Icon = isPlaying ? Pause : Play
   return (
     <button
       type="button"
@@ -264,7 +264,7 @@ function CarouselPlayPause({
       aria-pressed={!isPlaying}
       onClick={() => onToggle(!isPlaying)}
       className={cn(
-        "inline-flex shrink-0 items-center justify-center rounded-full bg-krds-surface text-krds-foreground",
+        "bg-krds-surface text-krds-foreground inline-flex shrink-0 items-center justify-center rounded-full",
         "border-krds-border-light border transition-colors",
         "hover:border-krds-border",
         "focus:krds-focus-ring",
@@ -275,7 +275,7 @@ function CarouselPlayPause({
     >
       <Icon className={cn("shrink-0", ARROW_ICON_CLASS[size])} aria-hidden="true" />
     </button>
-  );
+  )
 }
 
 // ─── CarouselMore ─────────────────────────────────────────────────────────────
@@ -284,11 +284,11 @@ function CarouselPlayPause({
 // button. Shares the circular KRDS arrow-button chrome.
 
 type CarouselMoreProps = Omit<React.ComponentProps<"a">, "href"> & {
-  href?: string;
-  size?: CarouselArrowSize;
+  href?: string
+  size?: CarouselArrowSize
   /** Accessible label. Defaults to "모든 슬라이드 보기". */
-  label?: string;
-};
+  label?: string
+}
 
 function CarouselMore({ href, size = "small", label = "모든 슬라이드 보기", className, ...rest }: CarouselMoreProps) {
   const classes = cn(
@@ -298,21 +298,21 @@ function CarouselMore({ href, size = "small", label = "모든 슬라이드 보�
     "focus:krds-focus-ring",
     ARROW_SIZE_CLASS[size],
     className
-  );
+  )
   const inner = (
     <>
       <Plus className={cn("shrink-0", ARROW_ICON_CLASS[size])} aria-hidden="true" />
       <span className="sr-only">{label}</span>
     </>
-  );
+  )
   if (href) {
     return (
       <a data-slot="krds-carousel-more" href={href} aria-label={label} className={classes} {...rest}>
         {inner}
       </a>
-    );
+    )
   }
-  const { onClick, ...anchorRest } = rest;
+  const { onClick, ...anchorRest } = rest
   return (
     <button
       type="button"
@@ -324,7 +324,7 @@ function CarouselMore({ href, size = "small", label = "모든 슬라이드 보�
     >
       {inner}
     </button>
-  );
+  )
 }
 
 export {
@@ -338,8 +338,8 @@ export {
   CarouselDots,
   CarouselPlayPause,
   CarouselMore,
-  useKrdsCarousel
-};
+  useKrdsCarousel,
+}
 export type {
   CarouselProps,
   CarouselArrowProps,
@@ -348,5 +348,5 @@ export type {
   CarouselDotsProps,
   CarouselPlayPauseProps,
   CarouselMoreProps,
-  CarouselApi
-};
+  CarouselApi,
+}

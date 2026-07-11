@@ -1,4 +1,4 @@
-import { Resize } from "@/components/ui/dynamic/resize";
+import { Resize } from "@/components/ui/dynamic/resize"
 
 export default function ResizeCustomLabels() {
   return (
@@ -15,5 +15,5 @@ export default function ResizeCustomLabels() {
         }}
       />
     </div>
-  );
+  )
 }

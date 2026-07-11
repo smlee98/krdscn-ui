@@ -1,10 +1,10 @@
-import { Table, TableHeader, TableBody, TableHead, TableRow, TableCell } from "@/components/ui/dynamic/table";
+import { Table, TableHeader, TableBody, TableHead, TableRow, TableCell } from "@/components/ui/dynamic/table"
 
 const ROWS = [
   { id: "2024-001", name: "주민등록등본 발급", dept: "주민센터", date: "2024.03.15", status: "완료" },
   { id: "2024-002", name: "건강보험료 납부확인", dept: "건강보험공단", date: "2024.03.14", status: "처리중" },
-  { id: "2024-003", name: "자동차세 조회", dept: "세무서", date: "2024.03.13", status: "완료" }
-];
+  { id: "2024-003", name: "자동차세 조회", dept: "세무서", date: "2024.03.13", status: "완료" },
+]
 
 export default function TableWithoutCaption() {
   return (
@@ -30,5 +30,5 @@ export default function TableWithoutCaption() {
         ))}
       </TableBody>
     </Table>
-  );
+  )
 }

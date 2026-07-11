@@ -1,4 +1,4 @@
-import { Footer, FooterCopyright, FooterLogo } from "@/components/ui/dynamic/footer";
+import { Footer, FooterCopyright, FooterLogo } from "@/components/ui/dynamic/footer"
 
 export default function FooterSimple() {
   return (
@@ -8,5 +8,5 @@ export default function FooterSimple() {
         <FooterCopyright>© 2023 National Health Insurance Service. All rights reserved.</FooterCopyright>
       </div>
     </Footer>
-  );
+  )
 }

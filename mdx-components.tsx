@@ -1,69 +1,78 @@
-import Image from "next/image";
-import Link from "next/link";
-import defaultMdxComponents from "fumadocs-ui/mdx";
-import { ExternalLinkIcon, InfoIcon } from "lucide-react";
-import type { MDXComponents } from "mdx/types";
-import * as React from "react";
+import Image from "next/image"
+import Link from "next/link"
+import defaultMdxComponents from "fumadocs-ui/mdx"
+import { ExternalLinkIcon, InfoIcon } from "lucide-react"
+import type { MDXComponents } from "mdx/types"
+import * as React from "react"
 
-import { Callout } from "@/components/docs/callout";
-import { CodeBlockCommand } from "@/components/docs/code-block-command";
-import { CodeTabs } from "@/components/docs/code-tabs";
-import { ComponentPreview } from "@/components/docs/component-preview";
-import { ComponentSource } from "@/components/docs/component-source";
-import { ComponentsList } from "@/components/docs/components-list";
-import { PropsTable } from "@/components/docs/props-table";
-import { Step, Steps } from "@/components/docs/steps";
-import { Button } from "@/components/ui/button";
-import { Kbd } from "@/components/ui/kbd";
-import { Table, TableBody, TableCaption, TableCell, TableFooter, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import type { PageTreeFolder } from "@/lib/page-tree";
-import { source } from "@/lib/source";
-import { cn } from "@/lib/cn";
+import { Callout } from "@/components/docs/callout"
+import { CodeBlockCommand } from "@/components/docs/code-block-command"
+import { CodeTabs } from "@/components/docs/code-tabs"
+import { ComponentPreview } from "@/components/docs/component-preview"
+import { ComponentSource } from "@/components/docs/component-source"
+import { ComponentsList } from "@/components/docs/components-list"
+import { PropsTable } from "@/components/docs/props-table"
+import { Step, Steps } from "@/components/docs/steps"
+import { Button } from "@/components/ui/button"
+import { Kbd } from "@/components/ui/kbd"
+import {
+  Table,
+  TableBody,
+  TableCaption,
+  TableCell,
+  TableFooter,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table"
+import { TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import type { PageTreeFolder } from "@/lib/page-tree"
+import { source } from "@/lib/source"
+import { cn } from "@/lib/cn"
 
 function ComponentsListWrapper() {
-  const componentsFolder = source.pageTree.children.find((page) => page.$id === "components");
+  const componentsFolder = source.pageTree.children.find((page) => page.$id === "components")
 
   if (componentsFolder?.type !== "folder") {
-    return null;
+    return null
   }
 
-  return <ComponentsList componentsFolder={componentsFolder as PageTreeFolder} />;
+  return <ComponentsList componentsFolder={componentsFolder as PageTreeFolder} />
 }
 
 function getTextContent(node: React.ReactNode): string {
   if (typeof node === "string" || typeof node === "number") {
-    return String(node);
+    return String(node)
   }
 
   if (Array.isArray(node)) {
-    return node.map(getTextContent).join("");
+    return node.map(getTextContent).join("")
   }
 
   if (React.isValidElement<{ children?: React.ReactNode }>(node)) {
-    return getTextContent(node.props.children);
+    return getTextContent(node.props.children)
   }
 
-  return "";
+  return ""
 }
 
 function isPackageCommand(value: string) {
-  return /^(pnpm dlx|npx|npm install|npm run|pnpm add|yarn dlx|yarn add)\b/.test(value.trim());
+  return /^(pnpm dlx|npx|npm install|npm run|pnpm add|yarn dlx|yarn add)\b/.test(value.trim())
 }
 
-const fallbackPre = defaultMdxComponents.pre;
+const fallbackPre = defaultMdxComponents.pre
 
 export function getMDXComponents(components?: MDXComponents): MDXComponents {
   return {
     ...defaultMdxComponents,
     pre: (props: React.ComponentProps<"pre">) => {
-      const command = getTextContent(props.children).trim();
+      const command = getTextContent(props.children).trim()
 
       if (isPackageCommand(command)) {
-        return <CodeBlockCommand command={command} />;
+        return <CodeBlockCommand command={command} />
       }
 
-      return fallbackPre ? fallbackPre(props) : <pre {...props} />;
+      return fallbackPre ? fallbackPre(props) : <pre {...props} />
     },
     table: ({ className, ...props }: React.ComponentProps<"table">) => (
       <div className="my-6 w-full overflow-hidden rounded-xl border">
@@ -77,10 +86,10 @@ export function getMDXComponents(components?: MDXComponents): MDXComponents {
       <tr className={cn("border-b last:border-b-0", className)} {...props} />
     ),
     th: ({ className, ...props }: React.ComponentProps<"th">) => (
-      <th className={cn("px-4 py-2.5 text-left font-semibold text-foreground", className)} {...props} />
+      <th className={cn("text-foreground px-4 py-2.5 text-left font-semibold", className)} {...props} />
     ),
     td: ({ className, ...props }: React.ComponentProps<"td">) => (
-      <td className={cn("px-4 py-2.5 align-top text-muted-foreground", className)} {...props} />
+      <td className={cn("text-muted-foreground px-4 py-2.5 align-top", className)} {...props} />
     ),
     TabsList: ({ className, ...props }: React.ComponentProps<typeof TabsList>) => (
       <TabsList
@@ -92,7 +101,7 @@ export function getMDXComponents(components?: MDXComponents): MDXComponents {
     TabsTrigger: ({ className, ...props }: React.ComponentProps<typeof TabsTrigger>) => (
       <TabsTrigger
         className={cn(
-          "h-10 flex-none rounded-none border-0 border-b-2 border-transparent bg-transparent px-0 pb-3 text-base text-muted-foreground shadow-none hover:text-foreground data-active:border-foreground data-active:bg-transparent data-active:text-foreground data-active:shadow-none after:hidden dark:data-active:bg-transparent",
+          "text-muted-foreground hover:text-foreground data-active:border-foreground data-active:text-foreground h-10 flex-none rounded-none border-0 border-b-2 border-transparent bg-transparent px-0 pb-3 text-base shadow-none after:hidden data-active:bg-transparent data-active:shadow-none dark:data-active:bg-transparent",
           className
         )}
         {...props}
@@ -124,6 +133,6 @@ export function getMDXComponents(components?: MDXComponents): MDXComponents {
     InfoIcon,
     IconInfoCircle: InfoIcon,
     ExternalLinkIcon,
-    ...components
-  };
+    ...components,
+  }
 }

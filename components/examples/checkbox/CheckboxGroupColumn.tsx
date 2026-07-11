@@ -1,4 +1,4 @@
-import { Checkbox, CheckboxGroup as KrdsCheckboxGroup } from "@/components/ui/dynamic/checkbox";
+import { Checkbox, CheckboxGroup as KrdsCheckboxGroup } from "@/components/ui/dynamic/checkbox"
 
 export default function CheckboxGroupColumn() {
   return (
@@ -7,5 +7,5 @@ export default function CheckboxGroupColumn() {
       <Checkbox label="민원 처리 결과 알림" description="민원 상태가 변경될 때 알려드립니다." defaultValue />
       <Checkbox label="이벤트 안내" description="신규 이벤트 정보를 받아보세요." />
     </KrdsCheckboxGroup>
-  );
+  )
 }

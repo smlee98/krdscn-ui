@@ -1,22 +1,22 @@
-"use client";
+"use client"
 
-import * as React from "react";
+import * as React from "react"
 import {
   Select as ShadcnSelectRoot,
   SelectContent,
   SelectItem,
   SelectTrigger,
-  SelectValue
-} from "@/components/ui/select";
+  SelectValue,
+} from "@/components/ui/select"
 import {
   Select as KrdsSelect,
   type SelectProps,
   type SelectOption,
   type SelectSize,
-  type SelectVariant
-} from "@/components/ui/krds/(selection)/select";
-import { renderFieldMessage } from "@/components/ui/krds/(input)/field-message";
-import { useUISystem } from "@/lib/ui-system";
+  type SelectVariant,
+} from "@/components/ui/krds/(selection)/select"
+import { renderFieldMessage } from "@/components/ui/krds/(input)/field-message"
+import { useUISystem } from "@/lib/ui-system"
 
 // KRDS is data-driven (options array). shadcn is a compound (Trigger/Content/Item).
 // On the shadcn branch the dispatcher constructs the compound from `options`
@@ -29,14 +29,14 @@ import { useUISystem } from "@/lib/ui-system";
 const SHADCN_TRIGGER_SIZE: Record<SelectSize, "sm" | "default"> = {
   small: "sm",
   medium: "default",
-  large: "default"
-};
+  large: "default",
+}
 
 export function Select(props: SelectProps) {
-  const system = useUISystem();
-  const autoId = React.useId();
+  const system = useUISystem()
+  const autoId = React.useId()
 
-  if (system === "krds") return <KrdsSelect {...props} />;
+  if (system === "krds") return <KrdsSelect {...props} />
 
   const {
     options,
@@ -57,18 +57,16 @@ export function Select(props: SelectProps) {
     hint,
     error,
     success,
-    information
-  } = props;
-  void _variant;
-  void _name;
+    information,
+  } = props
+  void _variant
+  void _name
 
-  const triggerId = id ?? autoId;
+  const triggerId = id ?? autoId
 
-  const message = renderFieldMessage(triggerId, { error, success, information, hint });
-  const describedBy = message
-    ? [ariaDescribedby, `${triggerId}-message`].filter(Boolean).join(" ")
-    : ariaDescribedby;
-  const resolvedInvalid = ariaInvalid ?? (error != null && error !== false ? true : undefined);
+  const message = renderFieldMessage(triggerId, { error, success, information, hint })
+  const describedBy = message ? [ariaDescribedby, `${triggerId}-message`].filter(Boolean).join(" ") : ariaDescribedby
+  const resolvedInvalid = ariaInvalid ?? (error != null && error !== false ? true : undefined)
 
   return (
     <div className={["flex w-full flex-col gap-2", className].filter(Boolean).join(" ")}>
@@ -97,7 +95,7 @@ export function Select(props: SelectProps) {
       </ShadcnSelectRoot>
       {message}
     </div>
-  );
+  )
 }
 
-export type { SelectProps, SelectOption, SelectSize, SelectVariant };
+export type { SelectProps, SelectOption, SelectSize, SelectVariant }

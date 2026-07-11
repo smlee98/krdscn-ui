@@ -1,10 +1,10 @@
 // rsc:client
-"use client";
+"use client"
 
-import * as React from "react";
-import { HelpCircle, X } from "lucide-react";
-import { Popover as PopoverPrimitive } from "radix-ui";
-import { cn } from "@/lib/cn";
+import * as React from "react"
+import { HelpCircle, X } from "lucide-react"
+import { Popover as PopoverPrimitive } from "radix-ui"
+import { cn } from "@/lib/cn"
 
 // ─── ContextualHelp ───────────────────────────────────────────────────────────
 //
@@ -20,20 +20,20 @@ import { cn } from "@/lib/cn";
 
 type ContextualHelpProps = {
   /** Popover body content. Compose ContextualHelpTitle as first child for a heading. */
-  children: React.ReactNode;
+  children: React.ReactNode
   /** Vertical position of the popover relative to the trigger. */
-  position?: "top" | "bottom";
+  position?: "top" | "bottom"
   /** Horizontal anchor alignment of the popover. */
-  alignment?: "left" | "center" | "right";
+  alignment?: "left" | "center" | "right"
   /** Controlled open state. */
-  open?: boolean;
+  open?: boolean
   /** Uncontrolled initial open state. */
-  defaultOpen?: boolean;
+  defaultOpen?: boolean
   /** Called when open state changes. */
-  onOpenChange?: (open: boolean) => void;
+  onOpenChange?: (open: boolean) => void
   /** Class applied to the outer wrapper. */
-  className?: string;
-};
+  className?: string
+}
 
 // Geometry for the arrow placement.
 //   - Trigger button: 24×24, center at 12px from its edge.
@@ -44,7 +44,7 @@ type ContextualHelpProps = {
 // For align=end (right): Radix internally negates alignOffset, so the same -23
 //   produces a +23 shift (popover slides right) which puts its mirrored arrow
 //   center on the trigger center.
-const ALIGN_OFFSET = -23;
+const ALIGN_OFFSET = -23
 
 function ContextualHelp({
   children,
@@ -53,10 +53,10 @@ function ContextualHelp({
   open,
   defaultOpen,
   onOpenChange,
-  className
+  className,
 }: ContextualHelpProps) {
-  const align = alignment === "left" ? "start" : alignment === "right" ? "end" : "center";
-  const alignOffset = alignment === "center" ? 0 : ALIGN_OFFSET;
+  const align = alignment === "left" ? "start" : alignment === "right" ? "end" : "center"
+  const alignOffset = alignment === "center" ? 0 : ALIGN_OFFSET
 
   return (
     <PopoverPrimitive.Root open={open} defaultOpen={defaultOpen} onOpenChange={onOpenChange}>
@@ -78,7 +78,7 @@ function ContextualHelp({
             )}
           >
             <span className="sr-only">도움말</span>
-            <HelpCircle className="size-5 text-krds-foreground" aria-hidden="true" />
+            <HelpCircle className="text-krds-foreground size-5" aria-hidden="true" />
           </button>
         </PopoverPrimitive.Trigger>
       </div>
@@ -92,7 +92,7 @@ function ContextualHelp({
           role="tooltip"
           data-alignment={alignment}
           className={cn(
-            "group/cxh relative w-[360px] rounded-[12px] border border-krds-border bg-krds-surface p-6",
+            "group/cxh border-krds-border bg-krds-surface relative w-[360px] rounded-[12px] border p-6",
             "flex flex-col gap-2 shadow-none",
             "z-50 origin-(--radix-popover-content-transform-origin) outline-hidden",
             "data-[state=open]:animate-in data-[state=open]:fade-in-0 data-[state=open]:zoom-in-95",
@@ -103,11 +103,11 @@ function ContextualHelp({
         >
           <div className="flex flex-col gap-4">
             <div className="flex items-start gap-4">
-              <div className="flex flex-1 flex-col gap-4 text-krds-body-sm text-krds-foreground">{children}</div>
+              <div className="text-krds-body-sm text-krds-foreground flex flex-1 flex-col gap-4">{children}</div>
               <PopoverPrimitive.Close
                 aria-label="닫기"
                 className={cn(
-                  "inline-flex size-4 shrink-0 items-center justify-center text-krds-foreground",
+                  "text-krds-foreground inline-flex size-4 shrink-0 items-center justify-center",
                   "hover:text-krds-foreground-primary",
                   "focus:krds-focus-ring"
                 )}
@@ -133,13 +133,18 @@ function ContextualHelp({
                   arrow appear as one shape. Drawn first so the slant strokes sit
                   on top of it at (0,0) and (22,0), keeping their tips visible. */}
               <line className="stroke-krds-surface" x1="0" y1="0" x2="22" y2="0" strokeWidth="2" />
-              <path className="fill-krds-surface stroke-krds-border" d="M0 0 L11 11 L22 0" strokeWidth="1" strokeLinejoin="miter" />
+              <path
+                className="fill-krds-surface stroke-krds-border"
+                d="M0 0 L11 11 L22 0"
+                strokeWidth="1"
+                strokeLinejoin="miter"
+              />
             </svg>
           </span>
         </PopoverPrimitive.Content>
       </PopoverPrimitive.Portal>
     </PopoverPrimitive.Root>
-  );
+  )
 }
 
 // ─── ContextualHelpTitle ──────────────────────────────────────────────────────
@@ -147,10 +152,10 @@ function ContextualHelp({
 
 function ContextualHelpTitle({ className, children, ...props }: React.ComponentProps<"h4">) {
   return (
-    <h4 className={cn("text-krds-body-md font-bold text-krds-foreground-bolder", className)} {...props}>
+    <h4 className={cn("text-krds-body-md text-krds-foreground-bolder font-bold", className)} {...props}>
       {children}
     </h4>
-  );
+  )
 }
 
 // ─── ContextualHelpLabel ──────────────────────────────────────────────────────
@@ -161,8 +166,8 @@ function ContextualHelpLabel({ className, children, ...props }: React.ComponentP
     <p className={cn("text-krds-foreground text-krds-body-sm", className)} {...props}>
       {children}
     </p>
-  );
+  )
 }
 
-export { ContextualHelp, ContextualHelpTitle, ContextualHelpLabel };
-export type { ContextualHelpProps };
+export { ContextualHelp, ContextualHelpTitle, ContextualHelpLabel }
+export type { ContextualHelpProps }

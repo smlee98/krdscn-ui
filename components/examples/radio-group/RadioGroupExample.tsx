@@ -1,4 +1,4 @@
-import { Radio, RadioGroup } from "@/components/ui/dynamic/radio-group";
+import { Radio, RadioGroup } from "@/components/ui/dynamic/radio-group"
 
 export default function RadioGroupExample() {
   return (
@@ -12,5 +12,5 @@ export default function RadioGroupExample() {
         선택된 비활성화
       </Radio>
     </RadioGroup>
-  );
+  )
 }

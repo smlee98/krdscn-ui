@@ -1,9 +1,4 @@
 {
   "title": "가이드라인 소개",
-  "pages": [
-    "01-introduction",
-    "02-guideline-structure",
-    "03-how-to-use",
-    "04-government-ui-ux-design-system"
-  ]
+  "pages": ["01-introduction", "02-guideline-structure", "03-how-to-use", "04-government-ui-ux-design-system"]
 }

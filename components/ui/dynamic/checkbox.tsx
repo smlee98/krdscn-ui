@@ -1,19 +1,19 @@
-"use client";
+"use client"
 
-import * as React from "react";
-import { CheckIcon } from "lucide-react";
-import * as Krds from "@/components/ui/krds/(selection)/checkbox";
-import * as Shadcn from "@/components/ui/checkbox";
-import { cn } from "@/lib/cn";
-import { useUISystem } from "@/lib/ui-system";
+import * as React from "react"
+import { CheckIcon } from "lucide-react"
+import * as Krds from "@/components/ui/krds/(selection)/checkbox"
+import * as Shadcn from "@/components/ui/checkbox"
+import { cn } from "@/lib/cn"
+import { useUISystem } from "@/lib/ui-system"
 
 export type {
   CheckboxProps,
   CheckboxGroupProps,
   CheckboxChipProps,
   CheckboxSize,
-  CheckboxChipSize
-} from "@/components/ui/krds/(selection)/checkbox";
+  CheckboxChipSize,
+} from "@/components/ui/krds/(selection)/checkbox"
 
 export function Checkbox({
   label,
@@ -31,8 +31,8 @@ export function Checkbox({
   children,
   ...rest
 }: Krds.CheckboxProps) {
-  const system = useUISystem();
-  const autoId = React.useId();
+  const system = useUISystem()
+  const autoId = React.useId()
 
   if (system === "krds") {
     return (
@@ -53,7 +53,7 @@ export function Checkbox({
       >
         {children}
       </Krds.Checkbox>
-    );
+    )
   }
 
   // shadcn path — bridge KRDS semantics to Radix/shadcn props.
@@ -63,20 +63,20 @@ export function Checkbox({
   // `indeterminate` is forwarded via Radix's `checked="indeterminate"`.
   // `...rest` is intentionally NOT spread: it carries HTMLInputElement event
   // handlers which are incompatible with Radix's button-based Checkbox root.
-  void rest;
-  const inputId = id ?? autoId;
+  void rest
+  const inputId = id ?? autoId
 
   const checkedValue: boolean | "indeterminate" | undefined = indeterminate
     ? "indeterminate"
     : checked !== undefined
       ? checked
-      : undefined;
+      : undefined
 
   const handleCheckedChange = (state: boolean | "indeterminate") => {
-    onChange?.(state === true);
-  };
+    onChange?.(state === true)
+  }
 
-  const labelNode = label ?? children;
+  const labelNode = label ?? children
 
   return (
     <div className={className}>
@@ -100,13 +100,13 @@ export function Checkbox({
       </div>
       {description && <p className="text-muted-foreground mt-1 text-sm">{description}</p>}
     </div>
-  );
+  )
 }
 
 // CheckboxGroup is layout-only (flex + gap, no KRDS visual chrome), so the KRDS
 // implementation is reused in both modes.
 export function CheckboxGroup(props: Krds.CheckboxGroupProps) {
-  return <Krds.CheckboxGroup {...props} />;
+  return <Krds.CheckboxGroup {...props} />
 }
 
 // shadcn has no chip primitive. In shadcn mode we render a toggle-styled chip
@@ -115,14 +115,14 @@ export function CheckboxGroup(props: Krds.CheckboxGroupProps) {
 const SHADCN_CHIP_SIZE: Record<Krds.CheckboxChipSize, string> = {
   small: "h-7 gap-1.5 px-3 text-xs",
   medium: "h-8 gap-1.5 px-3 text-sm",
-  large: "h-10 gap-2 px-4 text-base"
-};
+  large: "h-10 gap-2 px-4 text-base",
+}
 
 const SHADCN_CHIP_ICON: Record<Krds.CheckboxChipSize, string> = {
   small: "size-3",
   medium: "size-3.5",
-  large: "size-4"
-};
+  large: "size-4",
+}
 
 function ShadcnCheckboxChip({
   size = "medium",
@@ -137,13 +137,13 @@ function ShadcnCheckboxChip({
   value,
   ...rest
 }: Krds.CheckboxChipProps) {
-  void rest;
-  const autoId = React.useId();
-  const inputId = id ?? autoId;
+  void rest
+  const autoId = React.useId()
+  const inputId = id ?? autoId
 
-  const [internalChecked, setInternalChecked] = React.useState<boolean>(defaultValue ?? false);
-  const isControlled = checked !== undefined;
-  const currentChecked = isControlled ? checked : internalChecked;
+  const [internalChecked, setInternalChecked] = React.useState<boolean>(defaultValue ?? false)
+  const isControlled = checked !== undefined
+  const currentChecked = isControlled ? checked : internalChecked
 
   return (
     <label
@@ -160,13 +160,13 @@ function ShadcnCheckboxChip({
         disabled={disabled}
         className="sr-only"
         onChange={(e) => {
-          if (!isControlled) setInternalChecked(e.target.checked);
-          onChange?.(e.target.checked);
+          if (!isControlled) setInternalChecked(e.target.checked)
+          onChange?.(e.target.checked)
         }}
       />
       <span
         className={cn(
-          "inline-flex items-center justify-center rounded-md border border-input bg-transparent font-medium transition-colors",
+          "border-input inline-flex items-center justify-center rounded-md border bg-transparent font-medium transition-colors",
           "hover:bg-accent hover:text-accent-foreground",
           currentChecked && "border-primary bg-accent text-accent-foreground",
           disabled && "pointer-events-none opacity-50",
@@ -178,11 +178,11 @@ function ShadcnCheckboxChip({
         {children}
       </span>
     </label>
-  );
+  )
 }
 
 export function CheckboxChip(props: Krds.CheckboxChipProps) {
-  const system = useUISystem();
-  if (system === "krds") return <Krds.CheckboxChip {...props} />;
-  return <ShadcnCheckboxChip {...props} />;
+  const system = useUISystem()
+  if (system === "krds") return <Krds.CheckboxChip {...props} />
+  return <ShadcnCheckboxChip {...props} />
 }

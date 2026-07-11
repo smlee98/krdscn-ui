@@ -4,8 +4,8 @@ import {
   SideNavigationItem,
   SideNavigationList,
   SideNavigationTitle,
-  SideNavigationTrigger
-} from "@/components/ui/dynamic/side-navigation";
+  SideNavigationTrigger,
+} from "@/components/ui/dynamic/side-navigation"
 
 export default function SideNavigationDefault() {
   return (
@@ -27,5 +27,5 @@ export default function SideNavigationDefault() {
         <SideNavigationTrigger>2Depth-menu</SideNavigationTrigger>
       </SideNavigationGroup>
     </SideNavigation>
-  );
+  )
 }

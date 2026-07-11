@@ -1,6 +1,6 @@
-"use client";
+"use client"
 
-import { Resize } from "@/components/ui/dynamic/resize";
+import { Resize } from "@/components/ui/dynamic/resize"
 
 export default function ResizeDefault() {
   return (
@@ -12,5 +12,5 @@ export default function ResizeDefault() {
         onChange={(scale) => console.log("scale:", scale)}
       />
     </div>
-  );
+  )
 }

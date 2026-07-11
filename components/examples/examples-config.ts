@@ -8,10 +8,10 @@
  *  - Per-category minimums per AC G22-G31 (see .omc/plans/ralplan-shadcn-docs-style-routing.md §2.2 Stage 4).
  */
 
-import type { SIDEBAR_GROUPS } from "@/lib/sidebar-nav";
+import type { SIDEBAR_GROUPS } from "@/lib/sidebar-nav"
 
 /** Union of every item.id across all sidebar groups — compile-error if EXAMPLES_CONFIG has missing/extra keys. */
-type SidebarItemId = (typeof SIDEBAR_GROUPS)[number]["items"][number]["id"];
+type SidebarItemId = (typeof SIDEBAR_GROUPS)[number]["items"][number]["id"]
 
 export const EXAMPLES_CONFIG = {
   // ── Identity (G22) — canonical KRDS Storybook names ──────────────────────
@@ -29,7 +29,7 @@ export const EXAMPLES_CONFIG = {
     "InPageNavigationDefault",
     "InPageNavigationLongItems",
     "InPageNavigationWithScrollFunctionality",
-    "InPageNavigationWithoutAction"
+    "InPageNavigationWithoutAction",
   ],
   pagination: ["PaginationDefault", "PaginationControlled", "PaginationWithManyPages"],
 
@@ -38,7 +38,7 @@ export const EXAMPLES_CONFIG = {
     "StructuredListDefault",
     "StructuredListLongText",
     "StructuredListMinimalData",
-    "StructuredListVariousBadges"
+    "StructuredListVariousBadges",
   ],
   "critical-alert": ["CriticalAlertDefault", "CriticalAlertCustomLinkText", "CriticalAlertWithoutLink"],
   calendar: [
@@ -56,14 +56,14 @@ export const EXAMPLES_CONFIG = {
     "CalendarWithDefaultValue",
     "CalendarWithDefaultRange",
     "CalendarWithDisabledDates",
-    "CalendarWithEventDates"
+    "CalendarWithEventDates",
   ],
   disclosure: [
     "DisclosureDefault",
     "DisclosureDefaultExpanded",
     "DisclosureMultipleDisclosures",
     "DisclosureControlledExample",
-    "DisclosureWithRichContent"
+    "DisclosureWithRichContent",
   ],
   modal: [
     "ModalDefault",
@@ -73,7 +73,7 @@ export const EXAMPLES_CONFIG = {
     "ModalSizeLg",
     "ModalSizeMd",
     "ModalSizeSm",
-    "ModalUsePortal"
+    "ModalUsePortal",
   ],
   badge: ["BadgeDefault", "BadgeColors", "BadgeRounded", "BadgeSizes", "BadgeVariants"],
   accordion: ["AccordionDefault", "AccordionSingleSelection", "AccordionControlled", "AccordionWithComplexContent"],
@@ -83,7 +83,7 @@ export const EXAMPLES_CONFIG = {
     "CarouselElementBanner",
     "CarouselAutoplay",
     "CarouselMultiple",
-    "CarouselVertical"
+    "CarouselVertical",
   ],
   tab: [
     "TabDefault",
@@ -96,7 +96,7 @@ export const EXAMPLES_CONFIG = {
     "TabWithDisabledTabs",
     "TabWithRichContent",
     "TabCompoundPatternExample",
-    "TabKeyboardNavigation"
+    "TabKeyboardNavigation",
   ],
   table: ["TableDefault", "TableMobileScroll", "TableMultipleColumns", "TableWithScroll", "TableWithoutCaption"],
   "text-list": ["TextListDefault", "TextListOrdered", "TextListMixed", "TextListMixedOrdered"],
@@ -110,7 +110,7 @@ export const EXAMPLES_CONFIG = {
     "ButtonText",
     "ButtonDisabled",
     "ButtonIcon",
-    "ButtonSizes"
+    "ButtonSizes",
   ],
 
   // ── Selection (G26) — 5 components × 3-4 each = 19 files ──────────────────
@@ -123,7 +123,7 @@ export const EXAMPLES_CONFIG = {
     "RadioGroupExample",
     "RadioGroupColumn",
     "RadioGroupColumnControlled",
-    "RadioSortDefault"
+    "RadioSortDefault",
   ],
   checkbox: [
     "CheckboxDefault",
@@ -135,7 +135,7 @@ export const EXAMPLES_CONFIG = {
     "CheckboxIndeterminate",
     "CheckboxGroup",
     "CheckboxGroupColumn",
-    "CheckboxChip"
+    "CheckboxChip",
   ],
   select: ["SelectDefault", "SelectStates", "SelectSizes", "SelectSorting", "SelectControlled"],
   tag: ["TagDefault", "TagDeletable", "TagLink", "TagLinkTag", "TagDeleteDisabled"],
@@ -147,7 +147,7 @@ export const EXAMPLES_CONFIG = {
     "ToggleSwitchMedium",
     "ToggleSwitchLarge",
     "ToggleSwitchControlled",
-    "ToggleSwitchAllVariants"
+    "ToggleSwitchAllVariants",
   ],
 
   // ── Feedback (G27) — 2 components × 2-3 each = 5 files ───────────────────
@@ -155,7 +155,7 @@ export const EXAMPLES_CONFIG = {
     "StepIndicatorDefault",
     "StepIndicatorAllCompleted",
     "StepIndicatorAllDefault",
-    "StepIndicatorWithPageTitle"
+    "StepIndicatorWithPageTitle",
   ],
   spinner: ["SpinnerDefault", "SpinnerWithoutLabel", "SpinnerWithFormSpinner", "SpinnerMultipleSpinners"],
 
@@ -172,7 +172,7 @@ export const EXAMPLES_CONFIG = {
     "DateInputWithHint",
     "DateInputWithDefaultValue",
     "DateInputControlled",
-    "DateInputAllStates"
+    "DateInputAllStates",
   ],
   textarea: [
     "TextareaDefault",
@@ -180,7 +180,7 @@ export const EXAMPLES_CONFIG = {
     "TextareaWithMaxLength",
     "TextareaStates",
     "TextareaErrorWithCounter",
-    "TextareaControlled"
+    "TextareaControlled",
   ],
   "text-input": [
     "TextInputDefault",
@@ -192,7 +192,7 @@ export const EXAMPLES_CONFIG = {
     "TextInputControlled",
     "TextInputUncontrolled",
     "TextInputWithoutLabel",
-    "TextInputWithoutHint"
+    "TextInputWithoutHint",
   ],
   "file-upload": [
     "FileUploadDefault",
@@ -200,14 +200,14 @@ export const EXAMPLES_CONFIG = {
     "FileUploadDisabled",
     "FileUploadNoDelete",
     "FileUploadRestrictedFileTypes",
-    "FileUploadInteractive"
+    "FileUploadInteractive",
   ],
 
   // ── Settings (G30) — 2 components × 1-2 each = 3 files ───────────────────
   "language-switcher": ["LanguageSwitcherDefault", "LanguageSwitcherSimple", "LanguageSwitcherControlled"],
-  resize: ["ResizeDefault", "ResizeControlled", "ResizeCustomLabels"]
-} as const satisfies Record<SidebarItemId, readonly [string, ...string[]]>;
+  resize: ["ResizeDefault", "ResizeControlled", "ResizeCustomLabels"],
+} as const satisfies Record<SidebarItemId, readonly [string, ...string[]]>
 
-export type ExamplesConfig = typeof EXAMPLES_CONFIG;
-export type ExampleSlug = keyof ExamplesConfig;
-export type ExampleName<S extends ExampleSlug> = ExamplesConfig[S][number];
+export type ExamplesConfig = typeof EXAMPLES_CONFIG
+export type ExampleSlug = keyof ExamplesConfig
+export type ExampleName<S extends ExampleSlug> = ExamplesConfig[S][number]

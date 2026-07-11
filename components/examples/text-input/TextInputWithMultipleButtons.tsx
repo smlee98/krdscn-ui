@@ -1,4 +1,4 @@
-import { TextInput } from "@/components/ui/dynamic/text-input";
+import { TextInput } from "@/components/ui/dynamic/text-input"
 
 export default function TextInputWithMultipleButtons() {
   return (
@@ -12,5 +12,5 @@ export default function TextInputWithMultipleButtons() {
         showClearButton
       />
     </div>
-  );
+  )
 }

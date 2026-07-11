@@ -1,4 +1,4 @@
-import { SkipLink } from "@/components/ui/dynamic/skip-link";
+import { SkipLink } from "@/components/ui/dynamic/skip-link"
 
 export default function SkipLinkCustomTarget() {
   return (
@@ -12,5 +12,5 @@ export default function SkipLinkCustomTarget() {
         사용자 정의 타겟 콘텐츠 섹션입니다.
       </section>
     </div>
-  );
+  )
 }

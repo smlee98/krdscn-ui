@@ -1,11 +1,11 @@
 // rsc:safe
-import * as React from "react";
-import { cn } from "@/lib/cn";
+import * as React from "react"
+import { cn } from "@/lib/cn"
 
 type IdentifierProps = {
-  className?: string;
-  notice?: React.ReactNode;
-};
+  className?: string
+  notice?: React.ReactNode
+}
 
 function Identifier({ className, notice = "이 누리집은 정부 산하기관 누리집입니다." }: IdentifierProps) {
   return (
@@ -20,9 +20,9 @@ function Identifier({ className, notice = "이 누리집은 정부 산하기관 
       )}
     >
       <KrdsIdentifierLogo className="h-6 w-[77px] shrink-0 max-md:h-5 max-md:w-[64px]" aria-label="KRDS" />
-      <p className="whitespace-nowrap max-md:text-krds-body-xs max-md:break-all max-md:whitespace-normal">{notice}</p>
+      <p className="max-md:text-krds-body-xs whitespace-nowrap max-md:break-all max-md:whitespace-normal">{notice}</p>
     </div>
-  );
+  )
 }
 
 function KrdsIdentifierLogo({ className, ...props }: React.ComponentProps<"svg">) {
@@ -72,8 +72,8 @@ function KrdsIdentifierLogo({ className, ...props }: React.ComponentProps<"svg">
         />
       </g>
     </svg>
-  );
+  )
 }
 
-export { Identifier, KrdsIdentifierLogo };
-export type { IdentifierProps };
+export { Identifier, KrdsIdentifierLogo }
+export type { IdentifierProps }

@@ -1,11 +1,4 @@
-import {
-  Table,
-  TableHeader,
-  TableBody,
-  TableHead,
-  TableRow,
-  TableCell
-} from "@/components/ui/dynamic/table";
+import { Table, TableHeader, TableBody, TableHead, TableRow, TableCell } from "@/components/ui/dynamic/table"
 
 export default function TableMultipleColumns() {
   return (
@@ -39,5 +32,5 @@ export default function TableMultipleColumns() {
         </TableRow>
       </TableBody>
     </Table>
-  );
+  )
 }

@@ -1,23 +1,23 @@
 // rsc:client
-"use client";
+"use client"
 
-import * as React from "react";
-import { Popover as PopoverPrimitive } from "radix-ui";
-import { cn } from "@/lib/cn";
+import * as React from "react"
+import { Popover as PopoverPrimitive } from "radix-ui"
+import { cn } from "@/lib/cn"
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
-type ResizeScale = "sm" | "md" | "lg" | "xlg" | "xxlg";
+type ResizeScale = "sm" | "md" | "lg" | "xlg" | "xxlg"
 
 type ResizeProps = {
-  value?: ResizeScale;
-  defaultValue?: ResizeScale;
-  onChange?: (scale: ResizeScale) => void;
-  buttonText?: string;
-  resetText?: string;
-  labels?: Partial<Record<ResizeScale, string>>;
-  className?: string;
-};
+  value?: ResizeScale
+  defaultValue?: ResizeScale
+  onChange?: (scale: ResizeScale) => void
+  buttonText?: string
+  resetText?: string
+  labels?: Partial<Record<ResizeScale, string>>
+  className?: string
+}
 
 const DEFAULT_LABELS: Record<ResizeScale, string> = {
   sm: "작게",
@@ -25,9 +25,9 @@ const DEFAULT_LABELS: Record<ResizeScale, string> = {
   lg: "조금 크게",
   xlg: "크게",
   xxlg: "가장 크게",
-};
+}
 
-const SCALE_ORDER: ResizeScale[] = ["sm", "md", "lg", "xlg", "xxlg"];
+const SCALE_ORDER: ResizeScale[] = ["sm", "md", "lg", "xlg", "xxlg"]
 
 // Container size (px) for the "가" preview icon
 const ICON_CONTAINER_SIZE: Record<ResizeScale, number> = {
@@ -36,7 +36,7 @@ const ICON_CONTAINER_SIZE: Record<ResizeScale, number> = {
   lg: 26,
   xlg: 28,
   xxlg: 30,
-};
+}
 
 // Font size (px) for the "가" character inside the preview icon
 const ICON_FONT_SIZE: Record<ResizeScale, number> = {
@@ -45,7 +45,7 @@ const ICON_FONT_SIZE: Record<ResizeScale, number> = {
   lg: 17,
   xlg: 19,
   xxlg: 21,
-};
+}
 
 // ─── Inline SVG Icons ─────────────────────────────────────────────────────────
 
@@ -59,7 +59,7 @@ function IconViewMode({ className }: { className?: string }) {
         fill="currentColor"
       />
     </svg>
-  );
+  )
 }
 
 function IconChevronDown({ className }: { className?: string }) {
@@ -67,7 +67,7 @@ function IconChevronDown({ className }: { className?: string }) {
     <svg viewBox="0 0 24 24" fill="none" aria-hidden xmlns="http://www.w3.org/2000/svg" className={className}>
       <path d="M6 9l6 6 6-6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
-  );
+  )
 }
 
 function IconReset({ className }: { className?: string }) {
@@ -76,7 +76,7 @@ function IconReset({ className }: { className?: string }) {
       <path d="M4 12a8 8 0 1 0 2.5-5.8" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
       <path d="M4 4v4h4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
-  );
+  )
 }
 
 // ─── Resize ───────────────────────────────────────────────────────────────────
@@ -90,35 +90,32 @@ function Resize({
   labels,
   className,
 }: ResizeProps) {
-  const [internalValue, setInternalValue] = React.useState<ResizeScale>(defaultValue);
-  const [open, setOpen] = React.useState(false);
+  const [internalValue, setInternalValue] = React.useState<ResizeScale>(defaultValue)
+  const [open, setOpen] = React.useState(false)
 
-  const isControlled = value !== undefined;
-  const currentValue = isControlled ? value : internalValue;
+  const isControlled = value !== undefined
+  const currentValue = isControlled ? value : internalValue
 
   const resolvedLabels: Record<ResizeScale, string> = {
     ...DEFAULT_LABELS,
     ...labels,
-  };
+  }
 
   function handleSelect(scale: ResizeScale) {
-    if (!isControlled) setInternalValue(scale);
-    onChange?.(scale);
-    setOpen(false);
+    if (!isControlled) setInternalValue(scale)
+    onChange?.(scale)
+    setOpen(false)
   }
 
   function handleReset() {
-    const resetValue = defaultValue;
-    if (!isControlled) setInternalValue(resetValue);
-    onChange?.(resetValue);
-    setOpen(false);
+    const resetValue = defaultValue
+    if (!isControlled) setInternalValue(resetValue)
+    onChange?.(resetValue)
+    setOpen(false)
   }
 
   return (
-    <div
-      data-slot="krds-resize"
-      className={cn("relative inline-flex flex-col items-center", className)}
-    >
+    <div data-slot="krds-resize" className={cn("relative inline-flex flex-col items-center", className)}>
       <PopoverPrimitive.Root open={open} onOpenChange={setOpen}>
         <PopoverPrimitive.Trigger asChild>
           <button
@@ -138,105 +135,101 @@ function Resize({
         </PopoverPrimitive.Trigger>
 
         <PopoverPrimitive.Portal>
-        <PopoverPrimitive.Content
-          align="center"
-          sideOffset={8}
-          className={cn(
-            "border-none bg-transparent p-0 shadow-none outline-hidden",
-            "drop-shadow-[0_0_1px_rgba(0,0,0,0.05)] drop-shadow-[0_4px_4px_rgba(0,0,0,0.08)]",
-            "data-[state=open]:animate-in data-[state=open]:fade-in-0 data-[state=open]:zoom-in-95",
-            "data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95",
-            "data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2"
-          )}
-        >
-          <div className="relative min-w-[220px] rounded-[8px] border border-krds-border-light bg-krds-surface p-2">
-            {/* Caret */}
-            <span
-              aria-hidden
-              className="pointer-events-none absolute -top-[4px] left-1/2 -translate-x-1/2 block h-2 w-2 rotate-45 border border-krds-border-light border-b-transparent border-r-transparent bg-krds-surface"
-            />
+          <PopoverPrimitive.Content
+            align="center"
+            sideOffset={8}
+            className={cn(
+              "border-none bg-transparent p-0 shadow-none outline-hidden",
+              "drop-shadow-[0_0_1px_rgba(0,0,0,0.05)] drop-shadow-[0_4px_4px_rgba(0,0,0,0.08)]",
+              "data-[state=open]:animate-in data-[state=open]:fade-in-0 data-[state=open]:zoom-in-95",
+              "data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95",
+              "data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2"
+            )}
+          >
+            <div className="border-krds-border-light bg-krds-surface relative min-w-[220px] rounded-[8px] border p-2">
+              {/* Caret */}
+              <span
+                aria-hidden
+                className="border-krds-border-light bg-krds-surface pointer-events-none absolute -top-[4px] left-1/2 block h-2 w-2 -translate-x-1/2 rotate-45 border border-r-transparent border-b-transparent"
+              />
 
-            {/* Options */}
-            <div className="flex flex-col">
-              {SCALE_ORDER.map((scale) => {
-                const isSelected = currentValue === scale;
-                const containerSize = ICON_CONTAINER_SIZE[scale];
-                const charFontSize = ICON_FONT_SIZE[scale];
+              {/* Options */}
+              <div className="flex flex-col">
+                {SCALE_ORDER.map((scale) => {
+                  const isSelected = currentValue === scale
+                  const containerSize = ICON_CONTAINER_SIZE[scale]
+                  const charFontSize = ICON_FONT_SIZE[scale]
 
-                return (
-                  <button
-                    key={scale}
-                    type="button"
-                    role="option"
-                    aria-selected={isSelected}
-                    onClick={() => handleSelect(scale)}
-                    className={cn(
-                      "flex h-12 w-full items-center gap-2 rounded-[6px] px-4 transition-colors focus:krds-focus-ring",
-                      isSelected
-                        ? "bg-krds-surface-secondary-subtle"
-                        : "bg-transparent hover:bg-krds-surface-secondary-subtle"
-                    )}
-                  >
-                    {/* "가" preview icon */}
-                    <span
+                  return (
+                    <button
+                      key={scale}
+                      type="button"
+                      role="option"
+                      aria-selected={isSelected}
+                      onClick={() => handleSelect(scale)}
                       className={cn(
-                        "inline-flex shrink-0 items-center justify-center rounded-[4px]",
+                        "focus:krds-focus-ring flex h-12 w-full items-center gap-2 rounded-[6px] px-4 transition-colors",
                         isSelected
-                          ? "bg-krds-secondary-bold"
-                          : "border border-krds-border-light bg-krds-surface"
+                          ? "bg-krds-surface-secondary-subtle"
+                          : "hover:bg-krds-surface-secondary-subtle bg-transparent"
                       )}
-                      style={{ width: containerSize, height: containerSize }}
                     >
+                      {/* "가" preview icon */}
                       <span
-                        aria-hidden
-                        style={{
-                          fontSize: charFontSize,
-                          color: isSelected ? "#ffffff" : "#1e2124",
-                          lineHeight: 1,
-                        }}
+                        className={cn(
+                          "inline-flex shrink-0 items-center justify-center rounded-[4px]",
+                          isSelected ? "bg-krds-secondary-bold" : "border-krds-border-light bg-krds-surface border"
+                        )}
+                        style={{ width: containerSize, height: containerSize }}
                       >
-                        가
+                        <span
+                          aria-hidden
+                          style={{
+                            fontSize: charFontSize,
+                            color: isSelected ? "#ffffff" : "#1e2124",
+                            lineHeight: 1,
+                          }}
+                        >
+                          가
+                        </span>
                       </span>
-                    </span>
 
-                    {/* Label */}
-                    <span
-                      className={cn(
-                        "text-krds-body-md",
-                        isSelected
-                          ? "font-bold text-krds-foreground-secondary"
-                          : "font-normal text-krds-foreground"
-                      )}
-                    >
-                      {resolvedLabels[scale]}
-                    </span>
-                  </button>
-                );
-              })}
-            </div>
+                      {/* Label */}
+                      <span
+                        className={cn(
+                          "text-krds-body-md",
+                          isSelected ? "text-krds-foreground-secondary font-bold" : "text-krds-foreground font-normal"
+                        )}
+                      >
+                        {resolvedLabels[scale]}
+                      </span>
+                    </button>
+                  )
+                })}
+              </div>
 
-            {/* Divider + Reset */}
-            <div className="flex h-12 items-center justify-center border-t border-krds-border-light">
-              <button
-                type="button"
-                onClick={handleReset}
-                className={cn(
-                  "inline-flex h-8 items-center gap-1 rounded-[4px] px-0.5",
-                  "hover:bg-krds-surface-secondary-subtle transition-colors",
-                  "focus:krds-focus-ring"
-                )}
-              >
-                <IconReset className="size-5" />
-                <span className="text-krds-body-md text-krds-foreground">{resetText}</span>
-              </button>
+              {/* Divider + Reset */}
+              <div className="border-krds-border-light flex h-12 items-center justify-center border-t">
+                <button
+                  type="button"
+                  onClick={handleReset}
+                  className={cn(
+                    "inline-flex h-8 items-center gap-1 rounded-[4px] px-0.5",
+                    "hover:bg-krds-surface-secondary-subtle transition-colors",
+                    "focus:krds-focus-ring"
+                  )}
+                >
+                  <IconReset className="size-5" />
+                  <span className="text-krds-body-md text-krds-foreground">{resetText}</span>
+                </button>
+              </div>
             </div>
-          </div>
-        </PopoverPrimitive.Content>
+          </PopoverPrimitive.Content>
         </PopoverPrimitive.Portal>
       </PopoverPrimitive.Root>
     </div>
-  );
+  )
 }
 
-export { Resize };
-export type { ResizeScale, ResizeProps };
+export { Resize }
+export type { ResizeScale, ResizeProps }

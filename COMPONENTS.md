@@ -18,7 +18,7 @@
 KRDS 기준으로 알파벳 정렬. 미래핑은 — 로 표기.
 
 | KRDS 컴포넌트 | 래핑 | Phase | shadcn base | 래퍼 파일 | 구성 요약 |
-|---|:-:|:-:|---|---|---|
+| --- | :-: | :-: | --- | --- | --- |
 | Accordion | ✅ | 3 | `accordion.tsx` | `ui/krds/accordion.tsx` | Accordion + 4 sub-parts, KRDS 토큰 |
 | Badge | ✅ | 1 | `badge.tsx` | `ui/krds/badge.tsx` | Badge + variant/size, 색상 제어 |
 | Breadcrumb | ✅ | 4 | `breadcrumb.tsx` | `ui/krds/breadcrumb.tsx` | Breadcrumb + Home icon, 스타일 |
@@ -61,6 +61,7 @@ KRDS 기준으로 알파벳 정렬. 미래핑은 — 로 표기.
 | TutorialPanel | — | — | — | — | https://www.krds.go.kr/storybook/react/?path=/story/components-tutorialpanel--default |
 
 **표 정보:**
+
 - **래핑**: ✅ = 래퍼 완료, — = 미래핑
 - **Phase**: Phase 1–5 (README 참고), — = 미래핑
 - **shadcn base**: 사용된 shadcn 베이스 파일 또는 Radix 직접 사용(—)
@@ -73,32 +74,32 @@ KRDS 기준으로 알파벳 정렬. 미래핑은 — 로 표기.
 
 KRDS Storybook에 존재하지만 아직 래핑되지 않은 컴포넌트:
 
-| 순번 | 컴포넌트 | Storybook 링크 |
-|---|---|---|
-| 1 | CoachMark | https://www.krds.go.kr/storybook/react/?path=/story/components-coachmark--default |
-| 2 | ContextualHelp | https://www.krds.go.kr/storybook/react/?path=/story/components-contextualhelp--default |
-| 3 | CriticalAlert | https://www.krds.go.kr/storybook/react/?path=/story/components-criticalalert--default |
-| 4 | Footer | https://www.krds.go.kr/storybook/react/?path=/story/components-footer--default |
-| 5 | Header | https://www.krds.go.kr/storybook/react/?path=/story/components-header--default |
-| 6 | HelpPanel | https://www.krds.go.kr/storybook/react/?path=/story/components-helppanel--default |
-| 7 | Identifier | https://www.krds.go.kr/storybook/react/?path=/story/components-identifier--default |
-| 8 | InPageNavigation | https://www.krds.go.kr/storybook/react/?path=/story/components-inpagenavigation--default |
-| 9 | LanguageSwitcher | https://www.krds.go.kr/storybook/react/?path=/story/components-languageswitcher--default |
-| 10 | MainMenu | https://www.krds.go.kr/storybook/react/?path=/story/components-mainmenu--default |
-| 11 | Masthead | https://www.krds.go.kr/storybook/react/?path=/story/components-masthead--default |
-| 12 | Resize | https://www.krds.go.kr/storybook/react/?path=/story/components-resize--default |
-| 13 | SideNavigation | https://www.krds.go.kr/storybook/react/?path=/story/components-sidenavigation--default |
-| 14 | SkipLink | https://www.krds.go.kr/storybook/react/?path=/story/components-skiplink--default |
-| 15 | StructuredList | https://www.krds.go.kr/storybook/react/?path=/story/components-structuredlist--default |
-| 16 | Table | https://www.krds.go.kr/storybook/react/?path=/story/components-table--default |
-| 17 | TutorialPanel | https://www.krds.go.kr/storybook/react/?path=/story/components-tutorialpanel--default |
+| 순번 | 컴포넌트         | Storybook 링크                                                                           |
+| ---- | ---------------- | ---------------------------------------------------------------------------------------- |
+| 1    | CoachMark        | https://www.krds.go.kr/storybook/react/?path=/story/components-coachmark--default        |
+| 2    | ContextualHelp   | https://www.krds.go.kr/storybook/react/?path=/story/components-contextualhelp--default   |
+| 3    | CriticalAlert    | https://www.krds.go.kr/storybook/react/?path=/story/components-criticalalert--default    |
+| 4    | Footer           | https://www.krds.go.kr/storybook/react/?path=/story/components-footer--default           |
+| 5    | Header           | https://www.krds.go.kr/storybook/react/?path=/story/components-header--default           |
+| 6    | HelpPanel        | https://www.krds.go.kr/storybook/react/?path=/story/components-helppanel--default        |
+| 7    | Identifier       | https://www.krds.go.kr/storybook/react/?path=/story/components-identifier--default       |
+| 8    | InPageNavigation | https://www.krds.go.kr/storybook/react/?path=/story/components-inpagenavigation--default |
+| 9    | LanguageSwitcher | https://www.krds.go.kr/storybook/react/?path=/story/components-languageswitcher--default |
+| 10   | MainMenu         | https://www.krds.go.kr/storybook/react/?path=/story/components-mainmenu--default         |
+| 11   | Masthead         | https://www.krds.go.kr/storybook/react/?path=/story/components-masthead--default         |
+| 12   | Resize           | https://www.krds.go.kr/storybook/react/?path=/story/components-resize--default           |
+| 13   | SideNavigation   | https://www.krds.go.kr/storybook/react/?path=/story/components-sidenavigation--default   |
+| 14   | SkipLink         | https://www.krds.go.kr/storybook/react/?path=/story/components-skiplink--default         |
+| 15   | StructuredList   | https://www.krds.go.kr/storybook/react/?path=/story/components-structuredlist--default   |
+| 16   | Table            | https://www.krds.go.kr/storybook/react/?path=/story/components-table--default            |
+| 17   | TutorialPanel    | https://www.krds.go.kr/storybook/react/?path=/story/components-tutorialpanel--default    |
 
 ---
 
 ## shadcn Base 인벤토리
 
 | 파일 | 내보낸 컴포넌트 | Radix 프리미티브 | 비고 |
-|---|---|---|---|
+| --- | --- | --- | --- |
 | **accordion.tsx** | Accordion, AccordionItem, AccordionTrigger, AccordionContent | `@radix-ui/react-accordion` | 루트 + Item + Trigger + Content |
 | **alert-dialog.tsx** | AlertDialog + 10 sub-parts | `@radix-ui/react-alert-dialog` | 복합 Dialog + Button variant |
 | **badge.tsx** | Badge, badgeVariants | `@radix-ui/react-slot` | CVA + asChild |
@@ -133,7 +134,7 @@ KRDS Storybook에 존재하지만 아직 래핑되지 않은 컴포넌트:
 ## 통계
 
 | 항목 | 값 |
-|---|---|
+| --- | --- |
 | KRDS Storybook 컴포넌트 | 40 |
 | 래핑 완료 | 23 (57.5%) |
 | 미래핑(Gap) | 17 (42.5%) |

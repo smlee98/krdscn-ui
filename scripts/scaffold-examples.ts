@@ -8,47 +8,47 @@
  * Usage: yarn scaffold:examples
  */
 
-import * as path from "node:path";
-import * as fs from "node:fs";
+import * as path from "node:path"
+import * as fs from "node:fs"
 
-import { EXAMPLES_CONFIG } from "../components/examples/examples-config";
+import { EXAMPLES_CONFIG } from "../components/examples/examples-config"
 
-const ROOT = process.cwd();
-const EXAMPLES_DIR = path.join(ROOT, "components/examples");
+const ROOT = process.cwd()
+const EXAMPLES_DIR = path.join(ROOT, "components/examples")
 
 function stubContent(name: string): string {
   return `export default function ${name}() {
   return <div>TODO: ${name}</div>;
 }
-`;
+`
 }
 
-let created = 0;
-let skipped = 0;
+let created = 0
+let skipped = 0
 
 for (const [slug, names] of Object.entries(EXAMPLES_CONFIG) as [string, readonly string[]][]) {
-  const slugDir = path.join(EXAMPLES_DIR, slug);
+  const slugDir = path.join(EXAMPLES_DIR, slug)
 
   if (!fs.existsSync(slugDir)) {
-    fs.mkdirSync(slugDir, { recursive: true });
+    fs.mkdirSync(slugDir, { recursive: true })
   }
 
   for (const name of names) {
-    const filePath = path.join(slugDir, `${name}.tsx`);
+    const filePath = path.join(slugDir, `${name}.tsx`)
 
     if (fs.existsSync(filePath)) {
-      skipped++;
-      continue;
+      skipped++
+      continue
     }
 
-    fs.writeFileSync(filePath, stubContent(name), "utf8");
-    created++;
-    console.log(`  created  components/examples/${slug}/${name}.tsx`);
+    fs.writeFileSync(filePath, stubContent(name), "utf8")
+    created++
+    console.log(`  created  components/examples/${slug}/${name}.tsx`)
   }
 }
 
-console.log(`\nDone. created=${created} skipped=${skipped}`);
+console.log(`\nDone. created=${created} skipped=${skipped}`)
 
 if (created === 0 && skipped > 0) {
-  console.log("✓ Idempotent: no files modified.");
+  console.log("✓ Idempotent: no files modified.")
 }

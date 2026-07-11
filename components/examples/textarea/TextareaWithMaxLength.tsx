@@ -1,4 +1,4 @@
-import { Textarea } from "@/components/ui/dynamic/textarea";
+import { Textarea } from "@/components/ui/dynamic/textarea"
 
 export default function TextareaWithMaxLength() {
   return (
@@ -10,5 +10,5 @@ export default function TextareaWithMaxLength() {
         defaultValue="최대 100자까지 입력할 수 있습니다."
       />
     </div>
-  );
+  )
 }

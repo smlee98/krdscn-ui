@@ -7,11 +7,11 @@
  *  - Badge number (361:44245): 20px-tall pill counter
  */
 
-import * as React from "react";
-import { cva, type VariantProps } from "class-variance-authority";
-import { Root as Slot } from "@radix-ui/react-slot";
+import * as React from "react"
+import { cva, type VariantProps } from "class-variance-authority"
+import { Root as Slot } from "@radix-ui/react-slot"
 
-import { cn } from "@/lib/cn";
+import { cn } from "@/lib/cn"
 
 // ─── Badge (text label) ───────────────────────────────────────────────────────
 
@@ -25,12 +25,12 @@ const badgeVariants = cva(
         //   KRDS small height (size-height-3 = 20px, label-small font).
         lg: "h-8 text-krds-body-md",
         default: "h-6 text-krds-body-sm",
-        small: "h-5 px-1.5 text-krds-body-xs"
+        small: "h-5 px-1.5 text-krds-body-xs",
       },
       type: {
         outline: "border",
         solid: "border-transparent",
-        pastel: "border-transparent"
+        pastel: "border-transparent",
       },
       variant: {
         // shadcn-standard 4
@@ -43,12 +43,12 @@ const badgeVariants = cva(
         warning: "",
         info: "",
         tertiary: "",
-        point: ""
+        point: "",
       },
       disabled: {
         true: "",
-        false: ""
-      }
+        false: "",
+      },
     },
     compoundVariants: [
       // ── outline type: 1px border + saturated text, transparent fill ───────────
@@ -73,15 +73,42 @@ const badgeVariants = cva(
 
       // ── pastel type: tinted background, saturated text ────────────────────────
       { type: "pastel", variant: "default", className: "bg-krds-surface-primary-subtle text-krds-foreground-primary" },
-      { type: "pastel", variant: "secondary", className: "bg-krds-surface-secondary-subtle text-krds-foreground-secondary" },
-      { type: "pastel", size: "lg", variant: "tertiary", className: "bg-krds-surface-subtle text-krds-foreground-subtle" },
-      { type: "pastel", size: "default", variant: "tertiary", className: "bg-krds-surface-subtler text-krds-foreground-subtle" },
-      { type: "pastel", size: "small", variant: "tertiary", className: "bg-krds-surface-subtler text-krds-foreground-subtle" },
+      {
+        type: "pastel",
+        variant: "secondary",
+        className: "bg-krds-surface-secondary-subtle text-krds-foreground-secondary",
+      },
+      {
+        type: "pastel",
+        size: "lg",
+        variant: "tertiary",
+        className: "bg-krds-surface-subtle text-krds-foreground-subtle",
+      },
+      {
+        type: "pastel",
+        size: "default",
+        variant: "tertiary",
+        className: "bg-krds-surface-subtler text-krds-foreground-subtle",
+      },
+      {
+        type: "pastel",
+        size: "small",
+        variant: "tertiary",
+        className: "bg-krds-surface-subtler text-krds-foreground-subtle",
+      },
       { type: "pastel", variant: "point", className: "bg-krds-surface-point-subtle text-krds-foreground-point" },
-      { type: "pastel", variant: "destructive", className: "bg-krds-surface-danger-subtle text-krds-foreground-danger" },
+      {
+        type: "pastel",
+        variant: "destructive",
+        className: "bg-krds-surface-danger-subtle text-krds-foreground-danger",
+      },
       { type: "pastel", variant: "warning", className: "bg-krds-surface-warning-subtle text-krds-foreground-warning" },
       { type: "pastel", variant: "success", className: "bg-krds-surface-success-subtle text-krds-foreground-success" },
-      { type: "pastel", variant: "info", className: "bg-krds-surface-information-subtle text-krds-foreground-information" },
+      {
+        type: "pastel",
+        variant: "info",
+        className: "bg-krds-surface-information-subtle text-krds-foreground-information",
+      },
 
       // ── disabled: overrides color/border/text per type ────────────────────────
       { type: "outline", disabled: true, className: "border-krds-border text-krds-foreground-disabled" },
@@ -91,28 +118,32 @@ const badgeVariants = cva(
       // ── shadcn-compat outline variant (neutral gray tone) ─────────────────────
       { variant: "outline", type: "solid", className: "border border-krds-border text-krds-foreground" },
       { variant: "outline", type: "outline", className: "border-krds-border text-krds-foreground" },
-      { variant: "outline", type: "pastel", className: "border border-krds-border bg-krds-surface-subtler text-krds-foreground" }
+      {
+        variant: "outline",
+        type: "pastel",
+        className: "border border-krds-border bg-krds-surface-subtler text-krds-foreground",
+      },
     ],
     defaultVariants: {
       size: "default",
       type: "solid",
       variant: "default",
-      disabled: false
-    }
+      disabled: false,
+    },
   }
-);
+)
 
-type BadgeSize = NonNullable<VariantProps<typeof badgeVariants>["size"]>;
-type BadgeType = NonNullable<VariantProps<typeof badgeVariants>["type"]>;
-type BadgeVariant = NonNullable<VariantProps<typeof badgeVariants>["variant"]>;
+type BadgeSize = NonNullable<VariantProps<typeof badgeVariants>["size"]>
+type BadgeType = NonNullable<VariantProps<typeof badgeVariants>["type"]>
+type BadgeVariant = NonNullable<VariantProps<typeof badgeVariants>["variant"]>
 
 type BadgeProps = React.ComponentProps<"span"> &
   VariantProps<typeof badgeVariants> & {
-    asChild?: boolean;
-  };
+    asChild?: boolean
+  }
 
 function Badge({ className, size, type, variant, disabled, asChild = false, ...props }: BadgeProps) {
-  const Comp = asChild ? Slot : "span";
+  const Comp = asChild ? Slot : "span"
   return (
     <Comp
       data-slot="krds-badge"
@@ -120,16 +151,16 @@ function Badge({ className, size, type, variant, disabled, asChild = false, ...p
       className={cn(badgeVariants({ size, type, variant, disabled, className }))}
       {...props}
     />
-  );
+  )
 }
 
 // ─── BadgeDot ─────────────────────────────────────────────────────────────────
 
-type BadgeDotTone = "primary" | "new";
+type BadgeDotTone = "primary" | "new"
 
 type BadgeDotProps = React.ComponentProps<"span"> & {
-  tone?: BadgeDotTone;
-};
+  tone?: BadgeDotTone
+}
 
 function BadgeDot({ tone = "primary", className, ...props }: BadgeDotProps) {
   return (
@@ -143,22 +174,22 @@ function BadgeDot({ tone = "primary", className, ...props }: BadgeDotProps) {
       )}
       {...props}
     />
-  );
+  )
 }
 
 // ─── BadgeNumber ──────────────────────────────────────────────────────────────
 
-type BadgeNumberTone = "primary" | "new";
+type BadgeNumberTone = "primary" | "new"
 
 type BadgeNumberProps = React.ComponentProps<"span"> & {
-  tone?: BadgeNumberTone;
+  tone?: BadgeNumberTone
   /** Cap displayed value (e.g. 999 → "999+"). Applied only when children is a number. */
-  max?: number;
-  children: React.ReactNode;
-};
+  max?: number
+  children: React.ReactNode
+}
 
 function BadgeNumber({ tone = "primary", max, className, children, ...props }: BadgeNumberProps) {
-  const display = typeof children === "number" && typeof max === "number" && children > max ? `${max}+` : children;
+  const display = typeof children === "number" && typeof max === "number" && children > max ? `${max}+` : children
   return (
     <span
       data-slot="krds-badge-number"
@@ -172,10 +203,10 @@ function BadgeNumber({ tone = "primary", max, className, children, ...props }: B
     >
       {display}
     </span>
-  );
+  )
 }
 
-export { Badge, BadgeDot, BadgeNumber, badgeVariants };
+export { Badge, BadgeDot, BadgeNumber, badgeVariants }
 export type {
   BadgeProps,
   BadgeDotProps,
@@ -184,5 +215,5 @@ export type {
   BadgeType,
   BadgeVariant,
   BadgeDotTone,
-  BadgeNumberTone
-};
+  BadgeNumberTone,
+}

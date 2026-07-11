@@ -1,12 +1,12 @@
-"use client";
+"use client"
 
-import { CoachMark as KrdsCoachMark } from "@/components/ui/krds/(help)/coach-mark";
-import type { CoachMarkProps } from "@/components/ui/krds/(help)/coach-mark";
-import { Button as ShadcnButton } from "@/components/ui/button";
-import { cn } from "@/lib/cn";
-import { useUISystem } from "@/lib/ui-system";
+import { CoachMark as KrdsCoachMark } from "@/components/ui/krds/(help)/coach-mark"
+import type { CoachMarkProps } from "@/components/ui/krds/(help)/coach-mark"
+import { Button as ShadcnButton } from "@/components/ui/button"
+import { cn } from "@/lib/cn"
+import { useUISystem } from "@/lib/ui-system"
 
-export type { CoachMarkProps } from "@/components/ui/krds/(help)/coach-mark";
+export type { CoachMarkProps } from "@/components/ui/krds/(help)/coach-mark"
 
 // Dual-render dispatcher (template: dynamic/accordion.tsx, dynamic/modal.tsx). The
 // public surface is the KRDS CoachMark API; it renders either the KRDS-chromed
@@ -34,17 +34,17 @@ function ShadcnCoachMark({
   onNext,
   isVisible = true,
   className,
-  children
+  children,
 }: CoachMarkProps) {
-  if (!isVisible) return null;
+  if (!isVisible) return null
 
   return (
     <div data-slot="shadcn-coach-mark-root" className="relative pt-[300px]">
       <div
         data-slot="shadcn-coach-mark"
         className={cn(
-          "relative rounded-xl border bg-background p-6",
-          "outline outline-[6px] outline-ring/20",
+          "bg-background relative rounded-xl border p-6",
+          "outline-ring/20 outline outline-[6px]",
           className
         )}
       >
@@ -52,7 +52,7 @@ function ShadcnCoachMark({
           data-slot="shadcn-coach-balloon"
           className={cn(
             "absolute top-0 right-0 z-[5] flex w-[360px] flex-col",
-            "rounded-xl border bg-popover p-6 text-popover-foreground shadow-md",
+            "bg-popover text-popover-foreground rounded-xl border p-6 shadow-md",
             "-translate-y-[calc(100%+26px)]"
           )}
         >
@@ -71,12 +71,12 @@ function ShadcnCoachMark({
           <h5 className="sr-only">따라하기 가이드</h5>
 
           <div className="flex flex-col gap-3">
-            <h6 className="text-sm font-bold leading-normal">{title}</h6>
-            <p className="text-sm font-normal leading-normal">{description}</p>
+            <h6 className="text-sm leading-normal font-bold">{title}</h6>
+            <p className="text-sm leading-normal font-normal">{description}</p>
           </div>
 
           <div className="mt-6 flex items-center gap-2">
-            <div className="flex items-center gap-1 text-sm font-bold leading-normal">
+            <div className="flex items-center gap-1 text-sm leading-normal font-bold">
               <span className="sr-only">현재 단계</span>
               <strong className="text-primary">{currentStep}</strong>
               <span aria-hidden="true">/</span>
@@ -103,11 +103,11 @@ function ShadcnCoachMark({
         {children}
       </div>
     </div>
-  );
+  )
 }
 
 export function CoachMark(props: CoachMarkProps) {
-  const system = useUISystem();
-  if (system === "krds") return <KrdsCoachMark {...props} />;
-  return <ShadcnCoachMark {...props} />;
+  const system = useUISystem()
+  if (system === "krds") return <KrdsCoachMark {...props} />
+  return <ShadcnCoachMark {...props} />
 }

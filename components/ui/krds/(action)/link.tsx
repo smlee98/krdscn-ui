@@ -1,12 +1,12 @@
 // rsc:client
-"use client";
+"use client"
 
-import * as React from "react";
-import NextLink from "next/link";
-import { cva } from "class-variance-authority";
-import { Root as Slot } from "@radix-ui/react-slot";
+import * as React from "react"
+import NextLink from "next/link"
+import { cva } from "class-variance-authority"
+import { Root as Slot } from "@radix-ui/react-slot"
 
-import { cn } from "@/lib/cn";
+import { cn } from "@/lib/cn"
 
 /**
  * KRDS Link (button_link) — Figma node 306:26203
@@ -21,25 +21,30 @@ import { cn } from "@/lib/cn";
  *  padding: 좌우 2px (padding/1)
  *  disabled: text/disabled #8a949e, no underline, pointer-events: none
  */
-type LinkType = "default" | "subtle" | "subtle_none";
-type LinkSize = "sm" | "default" | "lg";
+type LinkType = "default" | "subtle" | "subtle_none"
+type LinkSize = "sm" | "default" | "lg"
 
-const linkVariants = cva("inline-flex items-center rounded-[6px] px-0.5 leading-[1.5] tracking-normal outline-none focus:krds-focus-ring", {
-  variants: {
-    type: {
-      default: "text-krds-foreground-primary underline hover:text-krds-foreground-primary active:text-krds-foreground-primary visited:text-krds-foreground-visited",
-      subtle:
-        "text-krds-foreground no-underline hover:text-krds-foreground-primary hover:underline active:text-krds-foreground-primary active:underline visited:text-krds-foreground-visited visited:underline",
-      subtle_none: "text-krds-foreground no-underline hover:text-krds-foreground-primary active:text-krds-foreground-primary visited:text-krds-foreground-visited"
+const linkVariants = cva(
+  "inline-flex items-center rounded-[6px] px-0.5 leading-[1.5] tracking-normal outline-none focus:krds-focus-ring",
+  {
+    variants: {
+      type: {
+        default:
+          "text-krds-foreground-primary underline hover:text-krds-foreground-primary active:text-krds-foreground-primary visited:text-krds-foreground-visited",
+        subtle:
+          "text-krds-foreground no-underline hover:text-krds-foreground-primary hover:underline active:text-krds-foreground-primary active:underline visited:text-krds-foreground-visited visited:underline",
+        subtle_none:
+          "text-krds-foreground no-underline hover:text-krds-foreground-primary active:text-krds-foreground-primary visited:text-krds-foreground-visited",
+      },
+      size: {
+        sm: "gap-0.5 text-krds-body-sm",
+        default: "gap-1 text-krds-body-md",
+        lg: "gap-1 text-krds-body-lg",
+      },
     },
-    size: {
-      sm: "gap-0.5 text-krds-body-sm",
-      default: "gap-1 text-krds-body-md",
-      lg: "gap-1 text-krds-body-lg"
-    }
-  },
-  defaultVariants: { type: "default", size: "default" }
-});
+    defaultVariants: { type: "default", size: "default" },
+  }
+)
 
 function Link({
   type,
@@ -53,29 +58,30 @@ function Link({
   href,
   ...props
 }: Omit<React.ComponentProps<"a">, "size" | "type"> & {
-  type?: LinkType;
-  size?: LinkSize;
-  asChild?: boolean;
-  preserveColorOnHover?: boolean;
-  external?: boolean;
-  disabled?: boolean;
+  type?: LinkType
+  size?: LinkSize
+  asChild?: boolean
+  preserveColorOnHover?: boolean
+  external?: boolean
+  disabled?: boolean
 }) {
-  const effectiveType = type ?? "default";
+  const effectiveType = type ?? "default"
 
   const classes = cn(
     linkVariants({ type: effectiveType, size, className }),
-    disabled && "pointer-events-none text-krds-foreground-disabled no-underline hover:text-krds-foreground-disabled hover:no-underline",
+    disabled &&
+      "pointer-events-none text-krds-foreground-disabled no-underline hover:text-krds-foreground-disabled hover:no-underline",
     preserveColorOnHover && effectiveType === "default" && "hover:text-krds-foreground-primary"
-  );
+  )
 
-  const externalProps = external ? { target: "_blank" as const, rel: "noopener noreferrer" } : {};
+  const externalProps = external ? { target: "_blank" as const, rel: "noopener noreferrer" } : {}
 
   if (asChild) {
     return (
       <Slot data-slot="krds-link" className={classes} {...externalProps} {...props}>
         {children}
       </Slot>
-    );
+    )
   }
 
   if (!href || disabled) {
@@ -83,15 +89,15 @@ function Link({
       <span data-slot="krds-link" role="link" aria-disabled={disabled} className={classes}>
         {children}
       </span>
-    );
+    )
   }
 
   return (
     <NextLink data-slot="krds-link" href={href} className={classes} {...externalProps} {...props}>
       {children}
     </NextLink>
-  );
+  )
 }
 
-export { Link, linkVariants };
-export type { LinkType, LinkSize };
+export { Link, linkVariants }
+export type { LinkType, LinkSize }

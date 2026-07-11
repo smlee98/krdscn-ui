@@ -1,4 +1,4 @@
-import { Link } from "@/components/ui/dynamic/link";
+import { Link } from "@/components/ui/dynamic/link"
 
 export default function LinkUnderlines() {
   return (
@@ -13,5 +13,5 @@ export default function LinkUnderlines() {
         밑줄 없음
       </Link>
     </div>
-  );
+  )
 }

@@ -58,7 +58,7 @@ export function ComponentPreviewTabs({
     <div
       data-slot="component-preview"
       className={cn(
-        "group relative mb-12 mt-4 flex flex-col overflow-hidden rounded-xl border bg-background",
+        "group bg-background relative mt-4 mb-12 flex flex-col overflow-hidden rounded-xl border",
         className
       )}
       {...props}
@@ -108,7 +108,7 @@ export function ComponentPreviewTabs({
           {isCodeVisible ? (
             <>
               {direction === "rtl" && (
-                <div className="relative z-10 no-scrollbar overflow-x-auto border-t bg-code p-6 font-mono text-sm text-muted-foreground">
+                <div className="no-scrollbar bg-code text-muted-foreground relative z-10 overflow-x-auto border-t p-6 font-mono text-sm">
                   <pre>{`// This site is not RTL by default, so this example uses dir and data-lang attributes.`}</pre>
                   <span>
                     {"// 자세한 내용은 "}
@@ -192,13 +192,7 @@ function PreviewWrapper({
   )
 }
 
-function DirectionProviderWrapper({
-  dir: explicitDir,
-  children,
-}: {
-  dir?: "ltr" | "rtl"
-  children: React.ReactNode
-}) {
+function DirectionProviderWrapper({ dir: explicitDir, children }: { dir?: "ltr" | "rtl"; children: React.ReactNode }) {
   const translation = useTranslation(directionTranslations, "ar")
   const dir = explicitDir ?? translation.dir
 

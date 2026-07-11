@@ -1,17 +1,17 @@
-"use client";
+"use client"
 
-import { useState } from "react";
+import { useState } from "react"
 
-import { Tab, TabContent, TabList, TabPanel, TabTrigger } from "@/components/ui/dynamic/tab";
+import { Tab, TabContent, TabList, TabPanel, TabTrigger } from "@/components/ui/dynamic/tab"
 
 const TABS = [
   { value: "overview", label: "개요" },
   { value: "details", label: "상세" },
-  { value: "history", label: "이력" }
-];
+  { value: "history", label: "이력" },
+]
 
 export default function TabControlled() {
-  const [value, setValue] = useState("overview");
+  const [value, setValue] = useState("overview")
 
   return (
     <div className="flex flex-col gap-4">
@@ -37,5 +37,5 @@ export default function TabControlled() {
         </TabContent>
       </Tab>
     </div>
-  );
+  )
 }

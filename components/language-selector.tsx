@@ -2,14 +2,7 @@
 
 import * as React from "react"
 
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select"
+import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { cn } from "@/lib/cn"
 
 export type Language = "en" | "ar" | "he"
@@ -44,11 +37,7 @@ export function LanguageProvider({
 }) {
   const [language, setLanguage] = React.useState<Language>(defaultLanguage)
 
-  return (
-    <LanguageContext.Provider value={{ language, setLanguage }}>
-      {children}
-    </LanguageContext.Provider>
-  )
+  return <LanguageContext.Provider value={{ language, setLanguage }}>{children}</LanguageContext.Provider>
 }
 
 export function useLanguageContext() {

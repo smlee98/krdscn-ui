@@ -1,7 +1,4 @@
 {
   "title": "피드백",
-  "pages": [
-    "01-step-indicator",
-    "02-spinner"
-  ]
+  "pages": ["01-step-indicator", "02-spinner"]
 }

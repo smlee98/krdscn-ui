@@ -1,5 +1,5 @@
-import { Masthead } from "@/components/ui/dynamic/masthead";
+import { Masthead } from "@/components/ui/dynamic/masthead"
 
 export default function MastheadDefault() {
-  return <Masthead className="w-full" />;
+  return <Masthead className="w-full" />
 }

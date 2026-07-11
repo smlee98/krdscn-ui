@@ -1,5 +1,5 @@
 // rsc:client
-"use client";
+"use client"
 
 /**
  * KRDS TutorialPanel — slide-in help+tutorial drawer from the right.
@@ -24,121 +24,121 @@
  * Figma source: KRDS_v1.0.0 — node 360:44771.
  */
 
-import * as React from "react";
-import { ChevronLeft, ChevronRight, MessageCircleQuestion, Phone } from "lucide-react";
-import { Dialog as DialogPrimitive } from "radix-ui";
-import { Button } from "@/components/ui/dynamic/button";
-import { Tab, TabContent, TabList, TabPanel as KrdsTabPanel, TabTrigger } from "@/components/ui/dynamic/tab";
-import { Disclosure, DisclosureContent, DisclosureTrigger } from "@/components/ui/dynamic/disclosure";
-import { cn } from "@/lib/cn";
+import * as React from "react"
+import { ChevronLeft, ChevronRight, MessageCircleQuestion, Phone } from "lucide-react"
+import { Dialog as DialogPrimitive } from "radix-ui"
+import { Button } from "@/components/ui/dynamic/button"
+import { Tab, TabContent, TabList, TabPanel as KrdsTabPanel, TabTrigger } from "@/components/ui/dynamic/tab"
+import { Disclosure, DisclosureContent, DisclosureTrigger } from "@/components/ui/dynamic/disclosure"
+import { cn } from "@/lib/cn"
 
 // ─── Types ───────────────────────────────────────────────────────────────────
 
-type TutorialPanelTab = "help" | "tutorial";
+type TutorialPanelTab = "help" | "tutorial"
 
-type TutorialLinkIcon = "phone" | "faq" | "go" | "angle-right";
+type TutorialLinkIcon = "phone" | "faq" | "go" | "angle-right"
 
 type TutorialLink = {
-  label: string;
-  href: string;
-  external?: boolean;
-  icon?: TutorialLinkIcon;
-  iconPosition?: "left" | "right";
-};
+  label: string
+  href: string
+  external?: boolean
+  icon?: TutorialLinkIcon
+  iconPosition?: "left" | "right"
+}
 
 type TutorialHelpContent = {
-  title: string;
-  description: React.ReactNode;
-  links: TutorialLink[];
-};
+  title: string
+  description: React.ReactNode
+  links: TutorialLink[]
+}
 
 type TutorialRelatedService = {
-  title: string;
-  description?: React.ReactNode;
-  links: TutorialLink[];
-};
+  title: string
+  description?: React.ReactNode
+  links: TutorialLink[]
+}
 
 type TutorialStep = {
-  title: string;
-  current?: boolean;
-  steps?: string[];
-  content?: React.ReactNode;
-};
+  title: string
+  current?: boolean
+  steps?: string[]
+  content?: React.ReactNode
+}
 
 type TutorialPanelContextValue = {
-  isOpen: boolean;
-  setOpen: (open: boolean) => void;
-  activeTab: TutorialPanelTab;
-  setActiveTab: (tab: TutorialPanelTab) => void;
-};
+  isOpen: boolean
+  setOpen: (open: boolean) => void
+  activeTab: TutorialPanelTab
+  setActiveTab: (tab: TutorialPanelTab) => void
+}
 
 type TutorialPanelRootProps = {
-  isOpen?: boolean;
-  onOpenChange?: (open: boolean) => void;
-  activeTab?: TutorialPanelTab;
-  defaultActiveTab?: TutorialPanelTab;
-  onTabChange?: (tab: TutorialPanelTab) => void;
-  className?: string;
-  children?: React.ReactNode;
-};
+  isOpen?: boolean
+  onOpenChange?: (open: boolean) => void
+  activeTab?: TutorialPanelTab
+  defaultActiveTab?: TutorialPanelTab
+  onTabChange?: (tab: TutorialPanelTab) => void
+  className?: string
+  children?: React.ReactNode
+}
 
-type TutorialPanelTriggerProps = React.ComponentProps<"button">;
+type TutorialPanelTriggerProps = React.ComponentProps<"button">
 
-type TutorialPanelContainerProps = React.ComponentProps<"div">;
+type TutorialPanelContainerProps = React.ComponentProps<"div">
 
 type TutorialPanelTabsProps = {
-  id?: string;
-  className?: string;
-  children?: React.ReactNode;
-};
+  id?: string
+  className?: string
+  children?: React.ReactNode
+}
 
 type TutorialPanelTabPanelProps = React.ComponentProps<"div"> & {
-  value: TutorialPanelTab;
-};
+  value: TutorialPanelTab
+}
 
 type TutorialPanelHelpContentProps = Omit<React.ComponentProps<"div">, "content"> & {
-  helpContent: TutorialHelpContent;
-  relatedServices?: TutorialRelatedService[];
-};
+  helpContent: TutorialHelpContent
+  relatedServices?: TutorialRelatedService[]
+}
 
 type TutorialPanelTutorialContentProps = React.ComponentProps<"div"> & {
-  title: string;
-  steps?: TutorialStep[];
-  onTutorialStop?: () => void;
-  stopButtonText?: string;
-};
+  title: string
+  steps?: TutorialStep[]
+  onTutorialStop?: () => void
+  stopButtonText?: string
+}
 
-type TutorialPanelCloseProps = React.ComponentProps<"button">;
+type TutorialPanelCloseProps = React.ComponentProps<"button">
 
 // ─── Context ─────────────────────────────────────────────────────────────────
 
-const TutorialPanelContext = React.createContext<TutorialPanelContextValue | null>(null);
+const TutorialPanelContext = React.createContext<TutorialPanelContextValue | null>(null)
 
 function useTutorialPanel(): TutorialPanelContextValue {
-  const ctx = React.useContext(TutorialPanelContext);
-  if (!ctx) throw new Error("TutorialPanel parts must be rendered inside <TutorialPanel.Root>.");
-  return ctx;
+  const ctx = React.useContext(TutorialPanelContext)
+  if (!ctx) throw new Error("TutorialPanel parts must be rendered inside <TutorialPanel.Root>.")
+  return ctx
 }
 
 // ─── Helpers ─────────────────────────────────────────────────────────────────
 
 function renderLinkIcon(icon: TutorialLinkIcon | undefined) {
-  if (!icon) return null;
-  if (icon === "phone") return <Phone size={16} aria-hidden={true} className="shrink-0" />;
-  if (icon === "faq") return <MessageCircleQuestion size={16} aria-hidden={true} className="shrink-0" />;
-  return <ChevronRight size={16} aria-hidden={true} className="shrink-0" />;
+  if (!icon) return null
+  if (icon === "phone") return <Phone size={16} aria-hidden={true} className="shrink-0" />
+  if (icon === "faq") return <MessageCircleQuestion size={16} aria-hidden={true} className="shrink-0" />
+  return <ChevronRight size={16} aria-hidden={true} className="shrink-0" />
 }
 
 function TutorialLinkAnchor({ link, className }: { link: TutorialLink; className?: string }) {
-  const iconPosition = link.iconPosition ?? "right";
-  const icon = renderLinkIcon(link.icon);
+  const iconPosition = link.iconPosition ?? "right"
+  const icon = renderLinkIcon(link.icon)
   return (
     <a
       href={link.href}
       target={link.external ? "_blank" : undefined}
       rel={link.external ? "noopener noreferrer" : undefined}
       className={cn(
-        "inline-flex items-center gap-1 text-krds-body-sm text-krds-foreground underline underline-offset-2",
+        "text-krds-body-sm text-krds-foreground inline-flex items-center gap-1 underline underline-offset-2",
         "hover:text-krds-foreground-primary",
         "focus:krds-focus-ring rounded-[2px]",
         className
@@ -149,7 +149,7 @@ function TutorialLinkAnchor({ link, className }: { link: TutorialLink; className
       {iconPosition === "right" &&
         (icon ?? (link.external ? <ChevronRight size={16} aria-hidden={true} className="shrink-0" /> : null))}
     </a>
-  );
+  )
 }
 
 // ─── TutorialPanel.Root ──────────────────────────────────────────────────────
@@ -161,71 +161,71 @@ function TutorialPanelRoot({
   defaultActiveTab = "help",
   onTabChange,
   className,
-  children
+  children,
 }: TutorialPanelRootProps) {
-  const isOpenControlled = isOpen !== undefined;
-  const [internalOpen, setInternalOpen] = React.useState(false);
-  const open = isOpenControlled ? isOpen : internalOpen;
+  const isOpenControlled = isOpen !== undefined
+  const [internalOpen, setInternalOpen] = React.useState(false)
+  const open = isOpenControlled ? isOpen : internalOpen
 
-  const isTabControlled = activeTab !== undefined;
-  const [internalTab, setInternalTab] = React.useState<TutorialPanelTab>(defaultActiveTab);
-  const tab = isTabControlled ? activeTab : internalTab;
+  const isTabControlled = activeTab !== undefined
+  const [internalTab, setInternalTab] = React.useState<TutorialPanelTab>(defaultActiveTab)
+  const tab = isTabControlled ? activeTab : internalTab
 
   const setOpen = React.useCallback(
     (next: boolean) => {
-      if (!isOpenControlled) setInternalOpen(next);
-      onOpenChange?.(next);
+      if (!isOpenControlled) setInternalOpen(next)
+      onOpenChange?.(next)
     },
     [isOpenControlled, onOpenChange]
-  );
+  )
 
   const setActiveTab = React.useCallback(
     (next: TutorialPanelTab) => {
-      if (!isTabControlled) setInternalTab(next);
-      onTabChange?.(next);
+      if (!isTabControlled) setInternalTab(next)
+      onTabChange?.(next)
     },
     [isTabControlled, onTabChange]
-  );
+  )
 
   const ctx = React.useMemo<TutorialPanelContextValue>(
     () => ({ isOpen: open, setOpen, activeTab: tab, setActiveTab }),
     [open, setOpen, tab, setActiveTab]
-  );
+  )
 
   // Split children: TutorialPanel.Trigger renders OUTSIDE the SheetContent
   // (alongside the trigger button area), the rest render INSIDE.
-  const childArray = React.Children.toArray(children);
-  const triggers: React.ReactNode[] = [];
-  const inner: React.ReactNode[] = [];
+  const childArray = React.Children.toArray(children)
+  const triggers: React.ReactNode[] = []
+  const inner: React.ReactNode[] = []
   childArray.forEach((child) => {
     // dispatcher(dynamic/tutorial-panel) 경유 시 child.type 은 dispatcher 의 Trigger 함수라
     // KRDS 내부 함수 identity 비교가 빗나간다. displayName 마커로 양쪽을 모두 식별한다.
     const isTrigger =
       React.isValidElement(child) &&
       (child.type === TutorialPanelTrigger ||
-        (child.type as { displayName?: string }).displayName === "TutorialPanelTrigger");
+        (child.type as { displayName?: string }).displayName === "TutorialPanelTrigger")
     if (isTrigger) {
-      triggers.push(child);
+      triggers.push(child)
     } else {
-      inner.push(child);
+      inner.push(child)
     }
-  });
+  })
 
   return (
     <TutorialPanelContext.Provider value={ctx}>
       <DialogPrimitive.Root open={open} onOpenChange={setOpen}>
         {triggers.length > 0 ? <DialogPrimitive.Trigger asChild>{triggers[0]}</DialogPrimitive.Trigger> : null}
         <DialogPrimitive.Portal>
-          <DialogPrimitive.Overlay className="fixed inset-0 z-50 bg-black/50 data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:animate-in data-[state=open]:fade-in-0" />
+          <DialogPrimitive.Overlay className="data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:animate-in data-[state=open]:fade-in-0 fixed inset-0 z-50 bg-black/50" />
           <DialogPrimitive.Content
             data-slot="krds-tutorial-panel"
             className={cn(
               "fixed z-50 flex flex-col transition ease-in-out",
-              "data-[state=closed]:animate-out data-[state=closed]:duration-300 data-[state=closed]:slide-out-to-right",
-              "data-[state=open]:animate-in data-[state=open]:duration-500 data-[state=open]:slide-in-from-right",
+              "data-[state=closed]:animate-out data-[state=closed]:slide-out-to-right data-[state=closed]:duration-300",
+              "data-[state=open]:animate-in data-[state=open]:slide-in-from-right data-[state=open]:duration-500",
               "inset-y-0 right-0 h-full",
               "flex w-[390px] flex-col gap-8 overflow-y-auto p-10",
-              "border-l border-krds-border bg-krds-surface-subtler",
+              "border-krds-border bg-krds-surface-subtler border-l",
               className
             )}
           >
@@ -236,13 +236,13 @@ function TutorialPanelRoot({
         </DialogPrimitive.Portal>
       </DialogPrimitive.Root>
     </TutorialPanelContext.Provider>
-  );
+  )
 }
 
 // ─── TutorialPanel.Trigger ───────────────────────────────────────────────────
 
 function TutorialPanelTrigger({ children = "도움말", className, onClick, ...props }: TutorialPanelTriggerProps) {
-  const ctx = React.useContext(TutorialPanelContext);
+  const ctx = React.useContext(TutorialPanelContext)
   return (
     <Button
       type="button"
@@ -250,8 +250,8 @@ function TutorialPanelTrigger({ children = "도움말", className, onClick, ...p
       size="sm"
       data-slot="krds-tutorial-panel-trigger"
       onClick={(event) => {
-        onClick?.(event);
-        if (!event.defaultPrevented) ctx?.setOpen(!ctx.isOpen);
+        onClick?.(event)
+        if (!event.defaultPrevented) ctx?.setOpen(!ctx.isOpen)
       }}
       className={className}
       {...props}
@@ -259,15 +259,15 @@ function TutorialPanelTrigger({ children = "도움말", className, onClick, ...p
       <ChevronLeft size={16} aria-hidden={true} className="shrink-0" />
       <span>{children}</span>
     </Button>
-  );
+  )
 }
 
-TutorialPanelTrigger.displayName = "TutorialPanelTrigger";
+TutorialPanelTrigger.displayName = "TutorialPanelTrigger"
 
 // ─── TutorialPanel.Container ─────────────────────────────────────────────────
 
 function TutorialPanelContainer({ children, className, ...props }: TutorialPanelContainerProps) {
-  const ctx = useTutorialPanel();
+  const ctx = useTutorialPanel()
   return (
     <div
       data-slot="krds-tutorial-panel-container"
@@ -279,13 +279,13 @@ function TutorialPanelContainer({ children, className, ...props }: TutorialPanel
         <div className="help-conts-area flex flex-col gap-8">{children}</div>
       </div>
     </div>
-  );
+  )
 }
 
 // ─── TutorialPanel.Tabs ──────────────────────────────────────────────────────
 
 function TutorialPanelTabs({ children, className, id }: TutorialPanelTabsProps) {
-  const ctx = useTutorialPanel();
+  const ctx = useTutorialPanel()
   return (
     <Tab
       variant="line"
@@ -294,25 +294,25 @@ function TutorialPanelTabs({ children, className, id }: TutorialPanelTabsProps) 
       onValueChange={(value) => ctx.setActiveTab(value as TutorialPanelTab)}
       className={cn("layer", className)}
     >
-      <TabList id={id} className="border-b border-krds-border">
+      <TabList id={id} className="border-krds-border border-b">
         <TabTrigger value="help">도움</TabTrigger>
         <TabTrigger value="tutorial">따라하기</TabTrigger>
       </TabList>
       <TabContent>{children}</TabContent>
     </Tab>
-  );
+  )
 }
 
 // ─── TutorialPanel.TabPanel ──────────────────────────────────────────────────
 
 function TutorialPanelTabPanel({ value, children, className, ...props }: TutorialPanelTabPanelProps) {
-  const heading = value === "help" ? "도움" : "따라하기";
+  const heading = value === "help" ? "도움" : "따라하기"
   return (
     <KrdsTabPanel value={value} className={cn("flex flex-col gap-6", className)} {...props}>
       <h3 className="sr-only">{heading}</h3>
       {children}
     </KrdsTabPanel>
-  );
+  )
 }
 
 // ─── TutorialPanel.HelpContent ───────────────────────────────────────────────
@@ -326,7 +326,7 @@ function TutorialPanelHelpContent({
   return (
     <div data-slot="krds-tutorial-panel-help-content" className={cn("flex flex-col gap-8", className)} {...props}>
       <section className="flex flex-col gap-3">
-        <h4 className="text-krds-heading-sm font-bold text-krds-foreground">{helpContent.title}</h4>
+        <h4 className="text-krds-heading-sm text-krds-foreground font-bold">{helpContent.title}</h4>
         <div className="text-krds-body-sm text-krds-foreground">{helpContent.description}</div>
         {helpContent.links.length > 0 ? (
           <ul className="krds-info-list flex flex-col gap-1">
@@ -342,7 +342,7 @@ function TutorialPanelHelpContent({
         <div className="related-service-area flex flex-col gap-6">
           {relatedServices.map((service, idx) => (
             <section key={`${service.title}-${idx}`} className="flex flex-col gap-3">
-              <h4 className="text-krds-heading-xs font-bold text-krds-foreground">{service.title}</h4>
+              <h4 className="text-krds-heading-xs text-krds-foreground font-bold">{service.title}</h4>
               {service.description ? (
                 <div className="text-krds-body-sm text-krds-foreground">{service.description}</div>
               ) : null}
@@ -360,7 +360,7 @@ function TutorialPanelHelpContent({
         </div>
       ) : null}
     </div>
-  );
+  )
 }
 
 // ─── TutorialPanel.TutorialContent ───────────────────────────────────────────
@@ -378,15 +378,15 @@ function TutorialPanelTutorialContent({
       <a
         href="#"
         title="이전으로 돌아가기"
-        className="inline-flex items-center gap-1 text-krds-heading-sm font-bold text-krds-foreground hover:text-krds-foreground-primary focus:krds-focus-ring rounded-[2px]"
+        className="text-krds-heading-sm text-krds-foreground hover:text-krds-foreground-primary focus:krds-focus-ring inline-flex items-center gap-1 rounded-[2px] font-bold"
       >
         <ChevronLeft size={20} aria-hidden={true} className="shrink-0" />
         <span>{title}</span>
       </a>
       <ul className="krds-tutorial-task-list flex flex-col gap-3">
         {steps.map((step, index) => {
-          const stepCount = step.steps?.length ?? 0;
-          const buttonText = `전체 ${stepCount}단계`;
+          const stepCount = step.steps?.length ?? 0
+          const buttonText = `전체 ${stepCount}단계`
           return (
             <li key={`${step.title}-${index}`} className="flex flex-col gap-2">
               <h4
@@ -415,7 +415,7 @@ function TutorialPanelTutorialContent({
                 <div className="step-content text-krds-body-sm text-krds-foreground">{step.content}</div>
               ) : null}
             </li>
-          );
+          )
         })}
       </ul>
       <Button
@@ -428,13 +428,13 @@ function TutorialPanelTutorialContent({
         {stopButtonText}
       </Button>
     </div>
-  );
+  )
 }
 
 // ─── TutorialPanel.Close ─────────────────────────────────────────────────────
 
 function TutorialPanelClose({ children = "접어두기", className, onClick, ...props }: TutorialPanelCloseProps) {
-  const ctx = useTutorialPanel();
+  const ctx = useTutorialPanel()
   return (
     <Button
       type="button"
@@ -442,16 +442,16 @@ function TutorialPanelClose({ children = "접어두기", className, onClick, ...
       size="lg"
       data-slot="krds-tutorial-panel-close"
       onClick={(event) => {
-        onClick?.(event);
-        if (!event.defaultPrevented) ctx.setOpen(false);
+        onClick?.(event)
+        if (!event.defaultPrevented) ctx.setOpen(false)
       }}
-      className={cn("btn-help-panel fold self-end hover:text-krds-foreground-primary", className)}
+      className={cn("btn-help-panel fold hover:text-krds-foreground-primary self-end", className)}
       {...props}
     >
       <span>{children}</span>
       <ChevronRight size={16} aria-hidden={true} className="shrink-0" />
     </Button>
-  );
+  )
 }
 
 // ─── Compound export ─────────────────────────────────────────────────────────
@@ -464,10 +464,10 @@ const TutorialPanel = Object.assign(TutorialPanelRoot, {
   TabPanel: TutorialPanelTabPanel,
   HelpContent: TutorialPanelHelpContent,
   TutorialContent: TutorialPanelTutorialContent,
-  Close: TutorialPanelClose
-});
+  Close: TutorialPanelClose,
+})
 
-export { TutorialPanel };
+export { TutorialPanel }
 export type {
   TutorialPanelTab,
   TutorialLink,
@@ -482,5 +482,5 @@ export type {
   TutorialPanelTabPanelProps,
   TutorialPanelHelpContentProps,
   TutorialPanelTutorialContentProps,
-  TutorialPanelCloseProps
-};
+  TutorialPanelCloseProps,
+}

@@ -1,5 +1,5 @@
-import { cn } from "@/lib/cn";
-import * as React from "react";
+import { cn } from "@/lib/cn"
+import * as React from "react"
 
 function KrdsLogo({ className, ...props }: React.ComponentProps<"svg">) {
   return (
@@ -22,7 +22,7 @@ function KrdsLogo({ className, ...props }: React.ComponentProps<"svg">) {
         d="m208 128-80 80"
       />
     </svg>
-  );
+  )
 }
 
-export { KrdsLogo };
+export { KrdsLogo }

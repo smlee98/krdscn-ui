@@ -1,4 +1,4 @@
-import { Textarea } from "@/components/ui/dynamic/textarea";
+import { Textarea } from "@/components/ui/dynamic/textarea"
 
 export default function TextareaStates() {
   return (
@@ -7,5 +7,5 @@ export default function TextareaStates() {
       <Textarea label="Disabled 상태" placeholder="비활성화된 textarea" disabled defaultValue="비활성화된 상태" />
       <Textarea label="ReadOnly 상태" readOnly defaultValue="읽기 전용 상태" />
     </div>
-  );
+  )
 }

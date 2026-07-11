@@ -4,8 +4,8 @@ import {
   InPageNavigationHeader,
   InPageNavigationItem,
   InPageNavigationList,
-  InPageNavigationTitle
-} from "@/components/ui/dynamic/in-page-navigation";
+  InPageNavigationTitle,
+} from "@/components/ui/dynamic/in-page-navigation"
 
 export default function InPageNavigationLongItems() {
   return (
@@ -23,5 +23,5 @@ export default function InPageNavigationLongItems() {
         <InPageNavigationItem href="#section_04">네 번째 긴 텍스트 아이템</InPageNavigationItem>
       </InPageNavigationList>
     </InPageNavigation>
-  );
+  )
 }

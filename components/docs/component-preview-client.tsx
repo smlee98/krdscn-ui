@@ -32,8 +32,12 @@ export function ComponentPreviewClient({
 
   if (!Example) {
     return (
-      <div className="my-6 rounded-xl border bg-background p-4 text-sm text-muted-foreground">
-        예제 <code>{slug}/{name}</code>를 찾을 수 없습니다.
+      <div className="bg-background text-muted-foreground my-6 rounded-xl border p-4 text-sm">
+        예제{" "}
+        <code>
+          {slug}/{name}
+        </code>
+        를 찾을 수 없습니다.
         {source}
       </div>
     )

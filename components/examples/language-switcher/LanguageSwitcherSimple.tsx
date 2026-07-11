@@ -1,6 +1,6 @@
-"use client";
+"use client"
 
-import { LanguageSwitcher } from "@/components/ui/dynamic/language-switcher";
+import { LanguageSwitcher } from "@/components/ui/dynamic/language-switcher"
 
 const defaultLanguages = [
   { value: "ko", label: "한국어" },
@@ -13,21 +13,17 @@ const defaultLanguages = [
     href: "https://www.krds.go.kr/html/site/component/component_10_01.html",
     external: true,
   },
-];
+]
 
 export default function LanguageSwitcherSimple() {
   return (
     <div className="w-full max-w-md py-12">
-      <LanguageSwitcher
-        defaultValue="ko"
-        options={defaultLanguages}
-        onChange={(val) => console.log(val)}
-      >
+      <LanguageSwitcher defaultValue="ko" options={defaultLanguages} onChange={(val) => console.log(val)}>
         <LanguageSwitcher.Trigger label="언어 변경" />
         <LanguageSwitcher.Menu>
           <LanguageSwitcher.OptionList />
         </LanguageSwitcher.Menu>
       </LanguageSwitcher>
     </div>
-  );
+  )
 }

@@ -1,8 +1,8 @@
-import { TextList, TextListItem } from "@/components/ui/dynamic/text-list";
+import { TextList, TextListItem } from "@/components/ui/dynamic/text-list"
 
 export default function TextListMixed() {
   return (
-    <div className="w-full flex flex-col gap-6">
+    <div className="flex w-full flex-col gap-6">
       <div>
         <p className="text-krds-gray-70 mb-2 text-sm font-medium">혼합 계층: disc → dash → hollow</p>
         <TextList type="disc">
@@ -23,5 +23,5 @@ export default function TextListMixed() {
         </TextList>
       </div>
     </div>
-  );
+  )
 }

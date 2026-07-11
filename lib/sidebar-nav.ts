@@ -1,17 +1,17 @@
 // rsc:safe
 
 export type SidebarItem = {
-  id: string;
-  labelKo: string;
-  labelEn: string;
-  implemented: boolean;
-};
+  id: string
+  labelKo: string
+  labelEn: string
+  implemented: boolean
+}
 
 export type SidebarGroup = {
-  id: string;
-  title: string;
-  items: readonly SidebarItem[];
-};
+  id: string
+  title: string
+  items: readonly SidebarItem[]
+}
 
 export const SIDEBAR_GROUPS: readonly SidebarGroup[] = [
   {
@@ -21,8 +21,8 @@ export const SIDEBAR_GROUPS: readonly SidebarGroup[] = [
       { id: "masthead", labelKo: "공식 배너", labelEn: "Masthead", implemented: true },
       { id: "identifier", labelKo: "운영기관 식별자", labelEn: "Identifier", implemented: true },
       { id: "header", labelKo: "헤더", labelEn: "Header", implemented: true },
-      { id: "footer", labelKo: "푸터", labelEn: "Footer", implemented: true }
-    ]
+      { id: "footer", labelKo: "푸터", labelEn: "Footer", implemented: true },
+    ],
   },
   {
     id: "navigation",
@@ -33,8 +33,8 @@ export const SIDEBAR_GROUPS: readonly SidebarGroup[] = [
       { id: "breadcrumb", labelKo: "브레드크럼", labelEn: "Breadcrumb", implemented: true },
       { id: "side-navigation", labelKo: "사이드 메뉴", labelEn: "Side navigation", implemented: true },
       { id: "in-page-navigation", labelKo: "콘텐츠 내 탐색", labelEn: "In-page navigation", implemented: true },
-      { id: "pagination", labelKo: "페이지네이션", labelEn: "Pagination", implemented: true }
-    ]
+      { id: "pagination", labelKo: "페이지네이션", labelEn: "Pagination", implemented: true },
+    ],
   },
   {
     id: "layout",
@@ -50,16 +50,16 @@ export const SIDEBAR_GROUPS: readonly SidebarGroup[] = [
       { id: "carousel", labelKo: "캐러셀", labelEn: "Carousel", implemented: true },
       { id: "tab", labelKo: "탭", labelEn: "Tab", implemented: true },
       { id: "table", labelKo: "표", labelEn: "Table", implemented: true },
-      { id: "text-list", labelKo: "텍스트 목록", labelEn: "Text list", implemented: true }
-    ]
+      { id: "text-list", labelKo: "텍스트 목록", labelEn: "Text list", implemented: true },
+    ],
   },
   {
     id: "action",
     title: "액션",
     items: [
       { id: "link", labelKo: "링크", labelEn: "Link", implemented: true },
-      { id: "button", labelKo: "버튼", labelEn: "Button", implemented: true }
-    ]
+      { id: "button", labelKo: "버튼", labelEn: "Button", implemented: true },
+    ],
   },
   {
     id: "selection",
@@ -69,16 +69,16 @@ export const SIDEBAR_GROUPS: readonly SidebarGroup[] = [
       { id: "checkbox", labelKo: "체크박스", labelEn: "Checkbox", implemented: true },
       { id: "select", labelKo: "셀렉트", labelEn: "Select", implemented: true },
       { id: "tag", labelKo: "태그", labelEn: "Tag", implemented: true },
-      { id: "toggle-switch", labelKo: "토글 스위치", labelEn: "Toggle switch", implemented: true }
-    ]
+      { id: "toggle-switch", labelKo: "토글 스위치", labelEn: "Toggle switch", implemented: true },
+    ],
   },
   {
     id: "feedback",
     title: "피드백",
     items: [
       { id: "step-indicator", labelKo: "단계 표시기", labelEn: "Step indicator", implemented: true },
-      { id: "spinner", labelKo: "스피너", labelEn: "Spinner", implemented: true }
-    ]
+      { id: "spinner", labelKo: "스피너", labelEn: "Spinner", implemented: true },
+    ],
   },
   {
     id: "help",
@@ -88,8 +88,8 @@ export const SIDEBAR_GROUPS: readonly SidebarGroup[] = [
       { id: "tutorial-panel", labelKo: "따라하기 패널", labelEn: "Tutorial panel", implemented: true },
       { id: "contextual-help", labelKo: "맥락적 도움말", labelEn: "Contextual help", implemented: true },
       { id: "coach-mark", labelKo: "코치마크", labelEn: "Coach mark", implemented: true },
-      { id: "tooltip", labelKo: "툴팁", labelEn: "Tooltip", implemented: true }
-    ]
+      { id: "tooltip", labelKo: "툴팁", labelEn: "Tooltip", implemented: true },
+    ],
   },
   {
     id: "input",
@@ -98,15 +98,15 @@ export const SIDEBAR_GROUPS: readonly SidebarGroup[] = [
       { id: "date-input", labelKo: "날짜 입력 필드", labelEn: "Date input", implemented: true },
       { id: "textarea", labelKo: "텍스트 영역", labelEn: "Textarea", implemented: true },
       { id: "text-input", labelKo: "텍스트 입력 필드", labelEn: "Text input", implemented: true },
-      { id: "file-upload", labelKo: "파일 업로드", labelEn: "File upload", implemented: true }
-    ]
+      { id: "file-upload", labelKo: "파일 업로드", labelEn: "File upload", implemented: true },
+    ],
   },
   {
     id: "settings",
     title: "설정",
     items: [
       { id: "language-switcher", labelKo: "언어 변경", labelEn: "Language switcher", implemented: true },
-      { id: "resize", labelKo: "화면 크기 조정", labelEn: "Resize", implemented: true }
-    ]
-  }
-] as const;
+      { id: "resize", labelKo: "화면 크기 조정", labelEn: "Resize", implemented: true },
+    ],
+  },
+] as const

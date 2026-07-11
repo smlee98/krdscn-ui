@@ -1,7 +1,7 @@
-"use client";
+"use client"
 
-import * as React from "react";
-import { ChevronRight, MessageCircleQuestion, Phone } from "lucide-react";
+import * as React from "react"
+import { ChevronRight, MessageCircleQuestion, Phone } from "lucide-react"
 
 import {
   HelpPanelTrigger as KrdsHelpPanelTrigger,
@@ -15,8 +15,8 @@ import {
   HelpCoachProcess as KrdsHelpCoachProcess,
   HelpCoachTask as KrdsHelpCoachTask,
   HelpPanelAction as KrdsHelpPanelAction,
-  HelpContentArea as KrdsHelpContentArea
-} from "@/components/ui/krds/(help)/help-panel";
+  HelpContentArea as KrdsHelpContentArea,
+} from "@/components/ui/krds/(help)/help-panel"
 import type {
   HelpPanelProps,
   HelpPanelTriggerProps,
@@ -26,16 +26,16 @@ import type {
   HelpLinkListProps,
   HelpServiceGroupProps,
   HelpTutorialTitleProps,
-  HelpCoachTaskProps
-} from "@/components/ui/krds/(help)/help-panel";
-import { Sheet, SheetClose, SheetContent, SheetDescription, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
-import { Disclosure, DisclosureContent, DisclosureTrigger } from "@/components/ui/dynamic/disclosure";
-import { Button } from "@/components/ui/button";
-import { cn } from "@/lib/cn";
-import { useUISystem } from "@/lib/ui-system";
+  HelpCoachTaskProps,
+} from "@/components/ui/krds/(help)/help-panel"
+import { Sheet, SheetClose, SheetContent, SheetDescription, SheetTitle, SheetTrigger } from "@/components/ui/sheet"
+import { Disclosure, DisclosureContent, DisclosureTrigger } from "@/components/ui/dynamic/disclosure"
+import { Button } from "@/components/ui/button"
+import { cn } from "@/lib/cn"
+import { useUISystem } from "@/lib/ui-system"
 
 // Re-export helper icons (consumers import these by value from this module).
-export { Phone as HelpPhoneIcon, MessageCircleQuestion as HelpFaqIcon };
+export { Phone as HelpPhoneIcon, MessageCircleQuestion as HelpFaqIcon }
 
 export type {
   HelpPanelProps,
@@ -47,8 +47,8 @@ export type {
   HelpLinkItem,
   HelpServiceGroupProps,
   HelpTutorialTitleProps,
-  HelpCoachTaskProps
-} from "@/components/ui/krds/(help)/help-panel";
+  HelpCoachTaskProps,
+} from "@/components/ui/krds/(help)/help-panel"
 
 // Dual-render dispatcher (template: dynamic/tutorial-panel.tsx, the Sheet-based
 // sister component). The public surface is the KRDS HelpPanel named-export API;
@@ -94,21 +94,21 @@ export type {
 // only the SheetContent chrome by system. Both leaf trees still dispatch per-part.
 
 function HelpPanelRoot({ isOpen, defaultOpen = false, onOpenChange, className, children }: HelpPanelProps) {
-  const system = useUISystem();
-  const isKrds = system === "krds";
+  const system = useUISystem()
+  const isKrds = system === "krds"
 
   // Mirror KRDS Root: HelpPanelTrigger renders OUTSIDE SheetContent (as SheetTrigger),
   // everything else inside. Split against this module's dispatcher symbol.
-  const childArray = React.Children.toArray(children);
-  const triggers: React.ReactNode[] = [];
-  const inner: React.ReactNode[] = [];
+  const childArray = React.Children.toArray(children)
+  const triggers: React.ReactNode[] = []
+  const inner: React.ReactNode[] = []
   childArray.forEach((child) => {
     if (React.isValidElement(child) && child.type === HelpPanelTrigger) {
-      triggers.push(child);
+      triggers.push(child)
     } else {
-      inner.push(child);
+      inner.push(child)
     }
-  });
+  })
 
   return (
     <Sheet open={isOpen} defaultOpen={defaultOpen} onOpenChange={onOpenChange}>
@@ -121,7 +121,7 @@ function HelpPanelRoot({ isOpen, defaultOpen = false, onOpenChange, className, c
           className={cn(
             "krds-help-panel",
             "w-[390px] gap-0 p-0 sm:max-w-[390px]",
-            "border-l border-krds-border bg-krds-surface-subtler",
+            "border-krds-border bg-krds-surface-subtler border-l",
             className
           )}
         >
@@ -143,7 +143,7 @@ function HelpPanelRoot({ isOpen, defaultOpen = false, onOpenChange, className, c
         </SheetContent>
       )}
     </Sheet>
-  );
+  )
 }
 
 // ─── shadcn-mode parts ──────────────────────────────────────────────────────────
@@ -153,7 +153,7 @@ function ShadcnHelpPanelTrigger({ className, children, ...props }: HelpPanelTrig
     <Button type="button" variant="outline" size="sm" className={className} {...props}>
       <span>{children ?? "도움말"}</span>
     </Button>
-  );
+  )
 }
 
 function ShadcnHelpPanelClose({ className, children, ...props }: HelpPanelCloseProps) {
@@ -172,7 +172,7 @@ function ShadcnHelpPanelClose({ className, children, ...props }: HelpPanelCloseP
         <ChevronRight className="size-4" aria-hidden="true" />
       </button>
     </SheetClose>
-  );
+  )
 }
 
 function ShadcnHelpPanelContent({ srOnlyTitle = "도움", className, children, ...props }: HelpPanelContentProps) {
@@ -181,7 +181,7 @@ function ShadcnHelpPanelContent({ srOnlyTitle = "도움", className, children, .
       <h3 className="sr-only">{srOnlyTitle}</h3>
       {children}
     </div>
-  );
+  )
 }
 
 function ShadcnHelpSection({ title, description, className, children, ...props }: HelpSectionProps) {
@@ -191,14 +191,14 @@ function ShadcnHelpSection({ title, description, className, children, ...props }
       {description != null ? <p className="text-foreground text-sm leading-relaxed">{description}</p> : null}
       {children}
     </section>
-  );
+  )
 }
 
 function ShadcnHelpLinkList({ links, iconPosition = "right", className, ...props }: HelpLinkListProps) {
   return (
     <ul className={cn("flex flex-col gap-2", className)} {...props}>
       {links.map((link, i) => {
-        const icon = link.icon ?? <ChevronRight className="size-4" aria-hidden="true" />;
+        const icon = link.icon ?? <ChevronRight className="size-4" aria-hidden="true" />
         return (
           <li key={i}>
             <a
@@ -212,10 +212,10 @@ function ShadcnHelpLinkList({ links, iconPosition = "right", className, ...props
               {iconPosition === "right" && icon}
             </a>
           </li>
-        );
+        )
       })}
     </ul>
-  );
+  )
 }
 
 function ShadcnHelpRelatedService({ className, children, ...props }: React.ComponentProps<"div">) {
@@ -223,7 +223,7 @@ function ShadcnHelpRelatedService({ className, children, ...props }: React.Compo
     <div className={cn("border-border flex flex-col gap-6 border-t pt-8", className)} {...props}>
       {children}
     </div>
-  );
+  )
 }
 
 function ShadcnHelpServiceGroup({ title, className, children, ...props }: HelpServiceGroupProps) {
@@ -232,7 +232,7 @@ function ShadcnHelpServiceGroup({ title, className, children, ...props }: HelpSe
       <h4 className="text-foreground text-sm font-bold">{title}</h4>
       {children}
     </section>
-  );
+  )
 }
 
 function ShadcnHelpTutorialTitle({ title, href, className }: HelpTutorialTitleProps) {
@@ -247,7 +247,7 @@ function ShadcnHelpTutorialTitle({ title, href, className }: HelpTutorialTitlePr
         title
       )}
     </h4>
-  );
+  )
 }
 
 function ShadcnHelpCoachProcess({ className, children, ...props }: React.ComponentProps<"ul">) {
@@ -255,7 +255,7 @@ function ShadcnHelpCoachProcess({ className, children, ...props }: React.Compone
     <ul className={cn("flex flex-col gap-4", className)} {...props}>
       {children}
     </ul>
-  );
+  )
 }
 
 function ShadcnHelpCoachTask({ title, isCurrent = false, expandText, steps, className }: HelpCoachTaskProps) {
@@ -275,7 +275,7 @@ function ShadcnHelpCoachTask({ title, isCurrent = false, expandText, steps, clas
         </DisclosureContent>
       </Disclosure>
     </li>
-  );
+  )
 }
 
 function ShadcnHelpPanelAction({ className, children, ...props }: React.ComponentProps<"div">) {
@@ -283,7 +283,7 @@ function ShadcnHelpPanelAction({ className, children, ...props }: React.Componen
     <div className={cn("mt-4 flex flex-col gap-2", className)} {...props}>
       {children}
     </div>
-  );
+  )
 }
 
 function ShadcnHelpContentArea({ className, children, ...props }: React.ComponentProps<"div">) {
@@ -291,83 +291,83 @@ function ShadcnHelpContentArea({ className, children, ...props }: React.Componen
     <div className={cn("flex flex-col gap-4", className)} {...props}>
       {children}
     </div>
-  );
+  )
 }
 
 // ─── Dispatched parts (public surface preserved: named exports) ─────────────────
 
 export function HelpPanel(props: HelpPanelProps) {
-  return <HelpPanelRoot {...props} />;
+  return <HelpPanelRoot {...props} />
 }
 
 export function HelpPanelTrigger(props: HelpPanelTriggerProps) {
-  const system = useUISystem();
-  if (system === "krds") return <KrdsHelpPanelTrigger {...props} />;
-  return <ShadcnHelpPanelTrigger {...props} />;
+  const system = useUISystem()
+  if (system === "krds") return <KrdsHelpPanelTrigger {...props} />
+  return <ShadcnHelpPanelTrigger {...props} />
 }
 
 export function HelpPanelClose(props: HelpPanelCloseProps) {
-  const system = useUISystem();
-  if (system === "krds") return <KrdsHelpPanelClose {...props} />;
-  return <ShadcnHelpPanelClose {...props} />;
+  const system = useUISystem()
+  if (system === "krds") return <KrdsHelpPanelClose {...props} />
+  return <ShadcnHelpPanelClose {...props} />
 }
 
 export function HelpPanelContent(props: HelpPanelContentProps) {
-  const system = useUISystem();
-  if (system === "krds") return <KrdsHelpPanelContent {...props} />;
-  return <ShadcnHelpPanelContent {...props} />;
+  const system = useUISystem()
+  if (system === "krds") return <KrdsHelpPanelContent {...props} />
+  return <ShadcnHelpPanelContent {...props} />
 }
 
 export function HelpSection(props: HelpSectionProps) {
-  const system = useUISystem();
-  if (system === "krds") return <KrdsHelpSection {...props} />;
-  return <ShadcnHelpSection {...props} />;
+  const system = useUISystem()
+  if (system === "krds") return <KrdsHelpSection {...props} />
+  return <ShadcnHelpSection {...props} />
 }
 
 export function HelpLinkList(props: HelpLinkListProps) {
-  const system = useUISystem();
-  if (system === "krds") return <KrdsHelpLinkList {...props} />;
-  return <ShadcnHelpLinkList {...props} />;
+  const system = useUISystem()
+  if (system === "krds") return <KrdsHelpLinkList {...props} />
+  return <ShadcnHelpLinkList {...props} />
 }
 
 export function HelpRelatedService(props: React.ComponentProps<"div">) {
-  const system = useUISystem();
-  if (system === "krds") return <KrdsHelpRelatedService {...props} />;
-  return <ShadcnHelpRelatedService {...props} />;
+  const system = useUISystem()
+  if (system === "krds") return <KrdsHelpRelatedService {...props} />
+  return <ShadcnHelpRelatedService {...props} />
 }
 
 export function HelpServiceGroup(props: HelpServiceGroupProps) {
-  const system = useUISystem();
-  if (system === "krds") return <KrdsHelpServiceGroup {...props} />;
-  return <ShadcnHelpServiceGroup {...props} />;
+  const system = useUISystem()
+  if (system === "krds") return <KrdsHelpServiceGroup {...props} />
+  return <ShadcnHelpServiceGroup {...props} />
 }
 
 export function HelpTutorialTitle(props: HelpTutorialTitleProps) {
-  const system = useUISystem();
-  if (system === "krds") return <KrdsHelpTutorialTitle {...props} />;
-  return <ShadcnHelpTutorialTitle {...props} />;
+  const system = useUISystem()
+  if (system === "krds") return <KrdsHelpTutorialTitle {...props} />
+  return <ShadcnHelpTutorialTitle {...props} />
 }
 
 export function HelpCoachProcess(props: React.ComponentProps<"ul">) {
-  const system = useUISystem();
-  if (system === "krds") return <KrdsHelpCoachProcess {...props} />;
-  return <ShadcnHelpCoachProcess {...props} />;
+  const system = useUISystem()
+  if (system === "krds") return <KrdsHelpCoachProcess {...props} />
+  return <ShadcnHelpCoachProcess {...props} />
 }
 
 export function HelpCoachTask(props: HelpCoachTaskProps) {
-  const system = useUISystem();
-  if (system === "krds") return <KrdsHelpCoachTask {...props} />;
-  return <ShadcnHelpCoachTask {...props} />;
+  const system = useUISystem()
+  if (system === "krds") return <KrdsHelpCoachTask {...props} />
+  return <ShadcnHelpCoachTask {...props} />
 }
 
 export function HelpPanelAction(props: React.ComponentProps<"div">) {
-  const system = useUISystem();
-  if (system === "krds") return <KrdsHelpPanelAction {...props} />;
-  return <ShadcnHelpPanelAction {...props} />;
+  const system = useUISystem()
+  if (system === "krds") return <KrdsHelpPanelAction {...props} />
+  return <ShadcnHelpPanelAction {...props} />
 }
 
 export function HelpContentArea(props: React.ComponentProps<"div">) {
-  const system = useUISystem();
-  if (system === "krds") return <KrdsHelpContentArea {...props} />;
-  return <ShadcnHelpContentArea {...props} />;
+  const system = useUISystem()
+  if (system === "krds") return <KrdsHelpContentArea {...props} />
+  return <ShadcnHelpContentArea {...props} />
 }

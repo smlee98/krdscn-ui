@@ -1,7 +1,4 @@
 {
   "title": "콘텐츠",
-  "pages": [
-    "01-accessible-multimedia",
-    "02-visually-hidden"
-  ]
+  "pages": ["01-accessible-multimedia", "02-visually-hidden"]
 }

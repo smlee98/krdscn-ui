@@ -1,26 +1,26 @@
-"use client";
+"use client"
 
-import { format } from "date-fns";
-import * as React from "react";
-import type { DateRange } from "react-day-picker";
+import { format } from "date-fns"
+import * as React from "react"
+import type { DateRange } from "react-day-picker"
 
-import { Calendar as ShadcnCalendarPrimitive } from "@/components/ui/calendar";
-import { Input as ShadcnInput } from "@/components/ui/input";
+import { Calendar as ShadcnCalendarPrimitive } from "@/components/ui/calendar"
+import { Input as ShadcnInput } from "@/components/ui/input"
 import {
   Calendar as KrdsCalendar,
   CalendarButton as KrdsCalendarButton,
   CalendarDropdown as KrdsCalendarDropdown,
   CalendarInput as KrdsCalendarInput,
-  CalendarTable as KrdsCalendarTable
-} from "@/components/ui/krds/(layout)/calendar";
+  CalendarTable as KrdsCalendarTable,
+} from "@/components/ui/krds/(layout)/calendar"
 import type {
   CalendarButtonProps,
   CalendarDropdownProps,
   CalendarInputProps,
   CalendarProps,
-  CalendarTableProps
-} from "@/components/ui/krds/(layout)/calendar";
-import { useUISystem } from "@/lib/ui-system";
+  CalendarTableProps,
+} from "@/components/ui/krds/(layout)/calendar"
+import { useUISystem } from "@/lib/ui-system"
 
 export type {
   CalendarMode,
@@ -31,8 +31,8 @@ export type {
   CalendarInputProps,
   CalendarButtonProps,
   CalendarDropdownProps,
-  CalendarTableProps
-} from "@/components/ui/krds/(layout)/calendar";
+  CalendarTableProps,
+} from "@/components/ui/krds/(layout)/calendar"
 
 // Dual-render dispatcher (template: dynamic/accordion.tsx, dynamic/modal.tsx). The
 // public surface is the KRDS Calendar compound API; each part renders either the
@@ -53,14 +53,14 @@ export type {
 // ─── string ↔ Date adapters (KRDS uses "yyyy.MM.dd" strings) ──────────────────
 
 function formatKrdsDate(date: Date): string {
-  return format(date, "yyyy.MM.dd");
+  return format(date, "yyyy.MM.dd")
 }
 
 function parseKrdsDate(str?: string): Date | undefined {
-  if (!str) return undefined;
-  const m = str.match(/^(\d{4})[.\-/](\d{2})[.\-/](\d{2})$/);
-  if (!m) return undefined;
-  return new Date(Number(m[1]), Number(m[2]) - 1, Number(m[3]));
+  if (!str) return undefined
+  const m = str.match(/^(\d{4})[.\-/](\d{2})[.\-/](\d{2})$/)
+  if (!m) return undefined
+  return new Date(Number(m[1]), Number(m[2]) - 1, Number(m[3]))
 }
 
 // ─── shadcn-mode Calendar: vanilla day-picker with only the mapped KRDS props ──
@@ -101,17 +101,17 @@ function ShadcnCalendar({
   prevButtonLabel: _prevButtonLabel,
   nextButtonLabel: _nextButtonLabel,
   yearSelectLabel: _yearSelectLabel,
-  monthSelectLabel: _monthSelectLabel
+  monthSelectLabel: _monthSelectLabel,
   // Remaining HTMLDivElement attributes (incl. DOM onSelect / id / style) are KRDS
   // container props and don't map onto the day-picker primitive — not forwarded.
 }: CalendarProps) {
-  const disabledMatcher = disabledDates.map((d) => parseKrdsDate(d)).filter((d): d is Date => d !== undefined);
-  const disabledProp = disabledMatcher.length > 0 ? disabledMatcher : undefined;
+  const disabledMatcher = disabledDates.map((d) => parseKrdsDate(d)).filter((d): d is Date => d !== undefined)
+  const disabledProp = disabledMatcher.length > 0 ? disabledMatcher : undefined
 
   if (mode === "range") {
-    const from = parseKrdsDate(startDate ?? defaultStartDate);
-    const to = parseKrdsDate(endDate ?? defaultEndDate);
-    const selected: DateRange | undefined = from ? { from, to } : undefined;
+    const from = parseKrdsDate(startDate ?? defaultStartDate)
+    const to = parseKrdsDate(endDate ?? defaultEndDate)
+    const selected: DateRange | undefined = from ? { from, to } : undefined
     return (
       <ShadcnCalendarPrimitive
         mode="range"
@@ -123,10 +123,10 @@ function ShadcnCalendar({
         }
         className={className}
       />
-    );
+    )
   }
 
-  const selected = parseKrdsDate(value ?? defaultValue);
+  const selected = parseKrdsDate(value ?? defaultValue)
   return (
     <ShadcnCalendarPrimitive
       mode="single"
@@ -136,47 +136,47 @@ function ShadcnCalendar({
       onSelect={(date) => onChange?.(date ? formatKrdsDate(date) : "")}
       className={className}
     />
-  );
+  )
 }
 
 // ─── Dispatched parts (public surface preserved) ─────────────────────────────
 
 export function Calendar(props: CalendarProps) {
-  const system = useUISystem();
-  if (system === "krds") return <KrdsCalendar {...props} />;
-  return <ShadcnCalendar {...props} />;
+  const system = useUISystem()
+  if (system === "krds") return <KrdsCalendar {...props} />
+  return <ShadcnCalendar {...props} />
 }
 
 export function CalendarInput(props: CalendarInputProps) {
-  const system = useUISystem();
-  if (system === "krds") return <KrdsCalendarInput {...props} />;
+  const system = useUISystem()
+  if (system === "krds") return <KrdsCalendarInput {...props} />
   // No vanilla shadcn equivalent — simplify to a plain shadcn Input.
-  const { mode: _mode, onChange, className, ...rest } = props;
-  return <ShadcnInput className={className} onChange={(e) => onChange?.(e.target.value)} {...rest} />;
+  const { mode: _mode, onChange, className, ...rest } = props
+  return <ShadcnInput className={className} onChange={(e) => onChange?.(e.target.value)} {...rest} />
 }
 
 export function CalendarButton(props: CalendarButtonProps) {
-  const system = useUISystem();
-  if (system === "krds") return <KrdsCalendarButton {...props} />;
+  const system = useUISystem()
+  if (system === "krds") return <KrdsCalendarButton {...props} />
   // No vanilla shadcn equivalent — render a plain button.
-  const { variant: _variant, isActive: _isActive, isSelected: _isSelected, children, ...rest } = props;
+  const { variant: _variant, isActive: _isActive, isSelected: _isSelected, children, ...rest } = props
   return (
     <button type="button" {...rest}>
       {children}
     </button>
-  );
+  )
 }
 
 export function CalendarDropdown(props: CalendarDropdownProps) {
-  const system = useUISystem();
-  if (system === "krds") return <KrdsCalendarDropdown {...props} />;
+  const system = useUISystem()
+  if (system === "krds") return <KrdsCalendarDropdown {...props} />
   // No vanilla shadcn equivalent — vanilla Calendar handles its own dropdowns. No-op.
-  return null;
+  return null
 }
 
 export function CalendarTable(props: CalendarTableProps) {
-  const system = useUISystem();
-  if (system === "krds") return <KrdsCalendarTable {...props} />;
+  const system = useUISystem()
+  if (system === "krds") return <KrdsCalendarTable {...props} />
   // No vanilla shadcn equivalent — the day-picker grid is internal to Calendar. No-op.
-  return null;
+  return null
 }

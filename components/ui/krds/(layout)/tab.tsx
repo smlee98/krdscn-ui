@@ -16,11 +16,11 @@
  * Sub-parts (locked): Tab (Root), TabList, TabTrigger, TabContent, TabPanel
  * IMPORTANT: TabContent (no value) and TabPanel (value: string) are DISTINCT types.
  */
-"use client";
+"use client"
 
-import * as React from "react";
-import { Tabs as TabsPrimitive } from "radix-ui";
-import { cn } from "@/lib/cn";
+import * as React from "react"
+import { Tabs as TabsPrimitive } from "radix-ui"
+import { cn } from "@/lib/cn"
 
 // KRDS 탭은 shadcn 스타일 탭(@/components/ui/tabs)이 아니라 radix 프리미티브를 직접 합성한다.
 // shadcn 탭의 group-data 베이스 스타일(예: TabsList의 horizontal h-9, active pill bg/shadow)이
@@ -28,45 +28,45 @@ import { cn } from "@/lib/cn";
 
 // ─── Types ───────────────────────────────────────────────────────────────────
 
-type TabVariant = "line" | "fill";
-type TabType = "primary" | "secondary";
+type TabVariant = "line" | "fill"
+type TabType = "primary" | "secondary"
 
 type TabContextValue = {
-  variant: TabVariant;
-  type: TabType;
-};
+  variant: TabVariant
+  type: TabType
+}
 
 type TabProps = {
-  value?: string;
-  defaultValue?: string;
-  onValueChange?: (value: string) => void;
-  variant?: TabVariant;
-  type?: TabType;
-  children: React.ReactNode;
-  className?: string;
-};
+  value?: string
+  defaultValue?: string
+  onValueChange?: (value: string) => void
+  variant?: TabVariant
+  type?: TabType
+  children: React.ReactNode
+  className?: string
+}
 
 type TabListProps = React.HTMLAttributes<HTMLDivElement> & {
-  children?: React.ReactNode;
-};
+  children?: React.ReactNode
+}
 
 type TabTriggerProps = Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, "value" | "type"> & {
-  value: string;
-  children: React.ReactNode;
-};
+  value: string
+  children: React.ReactNode
+}
 
 type TabContentProps = React.HTMLAttributes<HTMLDivElement> & {
-  children: React.ReactNode;
-};
+  children: React.ReactNode
+}
 
 type TabPanelProps = React.HTMLAttributes<HTMLDivElement> & {
-  value: string;
-  children: React.ReactNode;
-};
+  value: string
+  children: React.ReactNode
+}
 
 // ─── Context ─────────────────────────────────────────────────────────────────
 
-const TabContext = React.createContext<TabContextValue>({ variant: "line", type: "primary" });
+const TabContext = React.createContext<TabContextValue>({ variant: "line", type: "primary" })
 
 // ─── Tab (Root) ───────────────────────────────────────────────────────────────
 
@@ -95,15 +95,15 @@ function Tab({
         {children}
       </TabsPrimitive.Root>
     </TabContext.Provider>
-  );
+  )
 }
 
 // ─── TabList ─────────────────────────────────────────────────────────────────
 
 function TabList({ children, className, ...rest }: TabListProps) {
-  const { variant, type } = React.useContext(TabContext);
-  const isFill = variant === "fill";
-  const isPrimary = type === "primary";
+  const { variant, type } = React.useContext(TabContext)
+  const isFill = variant === "fill"
+  const isPrimary = type === "primary"
 
   return (
     <TabsPrimitive.List
@@ -115,7 +115,7 @@ function TabList({ children, className, ...rest }: TabListProps) {
         // Fill variant
         isFill &&
           (isPrimary
-            ? "w-full items-stretch overflow-hidden rounded-lg border border-krds-border"
+            ? "border-krds-border w-full items-stretch overflow-hidden rounded-lg border"
             : "items-stretch gap-2"),
         className
       )}
@@ -123,16 +123,16 @@ function TabList({ children, className, ...rest }: TabListProps) {
     >
       {children}
     </TabsPrimitive.List>
-  );
+  )
 }
 
 // ─── TabTrigger ───────────────────────────────────────────────────────────────
 
 function TabTrigger({ value, children, className, ...rest }: TabTriggerProps) {
-  const { variant, type } = React.useContext(TabContext);
-  const isLine = variant === "line";
-  const isFill = variant === "fill";
-  const isPrimary = type === "primary";
+  const { variant, type } = React.useContext(TabContext)
+  const isLine = variant === "line"
+  const isFill = variant === "fill"
+  const isPrimary = type === "primary"
 
   return (
     <TabsPrimitive.Trigger
@@ -147,34 +147,34 @@ function TabTrigger({ value, children, className, ...rest }: TabTriggerProps) {
         "focus:krds-focus-ring-inset",
 
         // Size by type
-        isPrimary ? "h-14 text-krds-body-lg" : "h-10 text-krds-body-md",
+        isPrimary ? "text-krds-body-lg h-14" : "text-krds-body-md h-10",
 
         // Line variant
         isLine && [
-          "rounded-none bg-transparent text-krds-foreground-subtle",
-          "data-[state=active]:bg-transparent data-[state=active]:text-krds-foreground-secondary",
+          "text-krds-foreground-subtle rounded-none bg-transparent",
+          "data-[state=active]:text-krds-foreground-secondary data-[state=active]:bg-transparent",
           // active bottom bar (overlay; no layout shift)
           "data-[state=active]:after:absolute data-[state=active]:after:inset-x-0 data-[state=active]:after:bottom-0",
           "data-[state=active]:after:bg-krds-secondary-bold data-[state=active]:after:content-['']",
           isPrimary
             ? [
                 "min-w-[80px] flex-1 px-2",
-                "border-b-2 border-krds-border",
-                "data-[state=active]:after:h-1" // 4px
+                "border-krds-border border-b-2",
+                "data-[state=active]:after:h-1", // 4px
               ]
-            : ["min-w-[56px] px-1", "data-[state=active]:after:h-[3px]"]
+            : ["min-w-[56px] px-1", "data-[state=active]:after:h-[3px]"],
         ],
 
         // Fill variant
         isFill && [
-          "bg-transparent text-krds-foreground-subtle",
+          "text-krds-foreground-subtle bg-transparent",
           "data-[state=active]:bg-krds-secondary-bold data-[state=active]:text-white",
           isPrimary
             ? [
                 "min-w-[80px] flex-1 rounded-none px-4",
-                "[&:not(:last-child)]:border-r [&:not(:last-child)]:border-krds-border"
+                "[&:not(:last-child)]:border-krds-border [&:not(:last-child)]:border-r",
               ]
-            : "min-w-[56px] rounded-md px-3"
+            : "min-w-[56px] rounded-md px-3",
         ],
 
         className
@@ -183,7 +183,7 @@ function TabTrigger({ value, children, className, ...rest }: TabTriggerProps) {
     >
       {children}
     </TabsPrimitive.Trigger>
-  );
+  )
 }
 
 // ─── TabContent ───────────────────────────────────────────────────────────────
@@ -194,7 +194,7 @@ function TabContent({ children, className, ...rest }: TabContentProps) {
     <div data-slot="krds-tab-content" className={cn("pt-4", className)} {...rest}>
       {children}
     </div>
-  );
+  )
 }
 
 // ─── TabPanel ─────────────────────────────────────────────────────────────────
@@ -205,8 +205,8 @@ function TabPanel({ value, children, className, ...rest }: TabPanelProps) {
     <TabsPrimitive.Content data-slot="krds-tab-panel" value={value} className={cn("outline-none", className)} {...rest}>
       {children}
     </TabsPrimitive.Content>
-  );
+  )
 }
 
-export { Tab, TabList, TabTrigger, TabContent, TabPanel };
-export type { TabVariant, TabType, TabProps, TabListProps, TabTriggerProps, TabContentProps, TabPanelProps };
+export { Tab, TabList, TabTrigger, TabContent, TabPanel }
+export type { TabVariant, TabType, TabProps, TabListProps, TabTriggerProps, TabContentProps, TabPanelProps }

@@ -1,75 +1,75 @@
 // rsc:client
-"use client";
+"use client"
 
-import * as React from "react";
-import { Popover as PopoverPrimitive } from "radix-ui";
-import { cn } from "@/lib/cn";
+import * as React from "react"
+import { Popover as PopoverPrimitive } from "radix-ui"
+import { cn } from "@/lib/cn"
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
 type LanguageOption = {
-  value: string;
-  label: string;
-  href?: string;
-  external?: boolean;
-};
+  value: string
+  label: string
+  href?: string
+  external?: boolean
+}
 
 type LanguageSwitcherProps = Omit<React.ComponentPropsWithRef<"div">, "onChange" | "defaultValue"> & {
-  value?: string;
-  defaultValue?: string;
-  onChange?: (value: string, option: LanguageOption) => void;
-  options?: LanguageOption[];
-  open?: boolean;
-  defaultOpen?: boolean;
-  onOpenChange?: (open: boolean) => void;
-  closeOnClickOutside?: boolean;
-  children: React.ReactNode;
-};
+  value?: string
+  defaultValue?: string
+  onChange?: (value: string, option: LanguageOption) => void
+  options?: LanguageOption[]
+  open?: boolean
+  defaultOpen?: boolean
+  onOpenChange?: (open: boolean) => void
+  closeOnClickOutside?: boolean
+  children: React.ReactNode
+}
 
 type LanguageSwitcherTriggerProps = {
-  label?: string;
-  className?: string;
-};
+  label?: string
+  className?: string
+}
 
 type LanguageSwitcherMenuProps = {
-  className?: string;
-  children?: React.ReactNode;
-};
+  className?: string
+  children?: React.ReactNode
+}
 
 type LanguageSwitcherCurrentProps = {
-  label: string;
-  className?: string;
-};
+  label: string
+  className?: string
+}
 
 type LanguageSwitcherOptionListProps = {
-  className?: string;
-};
+  className?: string
+}
 
 type LanguageSwitcherOptionItemProps = {
-  value: string;
-  label: string;
-  href?: string;
-  external?: boolean;
-  className?: string;
-};
+  value: string
+  label: string
+  href?: string
+  external?: boolean
+  className?: string
+}
 
 // ─── Context ──────────────────────────────────────────────────────────────────
 
 type LangCtx = {
-  value: string;
-  setValue: (v: string, opt: LanguageOption) => void;
-  options: LanguageOption[];
-  open: boolean;
-  setOpen: (o: boolean) => void;
-  closeOnClickOutside: boolean;
-};
+  value: string
+  setValue: (v: string, opt: LanguageOption) => void
+  options: LanguageOption[]
+  open: boolean
+  setOpen: (o: boolean) => void
+  closeOnClickOutside: boolean
+}
 
-const LangContext = React.createContext<LangCtx | null>(null);
+const LangContext = React.createContext<LangCtx | null>(null)
 
 function useLangCtx(): LangCtx {
-  const ctx = React.useContext(LangContext);
-  if (!ctx) throw new Error("LanguageSwitcher compound components must be used inside <LanguageSwitcher>");
-  return ctx;
+  const ctx = React.useContext(LangContext)
+  if (!ctx) throw new Error("LanguageSwitcher compound components must be used inside <LanguageSwitcher>")
+  return ctx
 }
 
 // ─── Inline SVG Icons ─────────────────────────────────────────────────────────
@@ -80,7 +80,7 @@ function IconGlobe({ className }: { className?: string }) {
       <circle cx="12" cy="12" r="9" stroke="currentColor" strokeWidth="1.5" />
       <path d="M3 12h18M12 3a13 13 0 0 1 0 18M12 3a13 13 0 0 0 0 18" stroke="currentColor" strokeWidth="1.5" />
     </svg>
-  );
+  )
 }
 
 function IconChevronDown({ className }: { className?: string }) {
@@ -88,17 +88,22 @@ function IconChevronDown({ className }: { className?: string }) {
     <svg viewBox="0 0 24 24" fill="none" aria-hidden xmlns="http://www.w3.org/2000/svg" className={className}>
       <path d="M6 9l6 6 6-6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
-  );
+  )
 }
 
 function IconExternal({ className }: { className?: string }) {
   return (
     <svg viewBox="0 0 24 24" fill="none" aria-hidden xmlns="http://www.w3.org/2000/svg" className={className}>
-      <path d="M14 4h6v6M20 4l-9 9M19 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+      <path
+        d="M14 4h6v6M20 4l-9 9M19 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h5"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
     </svg>
-  );
+  )
 }
-
 
 // ─── Root ─────────────────────────────────────────────────────────────────────
 
@@ -115,24 +120,24 @@ function LanguageSwitcherRoot({
   children,
   ...rest
 }: LanguageSwitcherProps) {
-  const [internalValue, setInternalValue] = React.useState<string>(defaultValue);
-  const [internalOpen, setInternalOpen] = React.useState<boolean>(defaultOpen ?? false);
+  const [internalValue, setInternalValue] = React.useState<string>(defaultValue)
+  const [internalOpen, setInternalOpen] = React.useState<boolean>(defaultOpen ?? false)
 
-  const isControlledValue = value !== undefined;
-  const isControlledOpen = open !== undefined;
+  const isControlledValue = value !== undefined
+  const isControlledOpen = open !== undefined
 
-  const currentValue = isControlledValue ? value : internalValue;
-  const isOpen = isControlledOpen ? open : internalOpen;
+  const currentValue = isControlledValue ? value : internalValue
+  const isOpen = isControlledOpen ? open : internalOpen
 
   function handleSetOpen(o: boolean) {
-    if (!isControlledOpen) setInternalOpen(o);
-    onOpenChange?.(o);
+    if (!isControlledOpen) setInternalOpen(o)
+    onOpenChange?.(o)
   }
 
   function handleSetValue(v: string, opt: LanguageOption) {
-    if (!isControlledValue) setInternalValue(v);
-    onChange?.(v, opt);
-    handleSetOpen(false);
+    if (!isControlledValue) setInternalValue(v)
+    onChange?.(v, opt)
+    handleSetOpen(false)
   }
 
   return (
@@ -156,14 +161,14 @@ function LanguageSwitcherRoot({
         </div>
       </PopoverPrimitive.Root>
     </LangContext.Provider>
-  );
+  )
 }
 
 // ─── Trigger ──────────────────────────────────────────────────────────────────
 
 function LanguageSwitcherTrigger({ label = "Language", className }: LanguageSwitcherTriggerProps) {
-  const { value, options, open } = useLangCtx();
-  const resolvedLabel = options.find((o) => o.value === value)?.label ?? label;
+  const { value, options, open } = useLangCtx()
+  const resolvedLabel = options.find((o) => o.value === value)?.label ?? label
 
   return (
     <PopoverPrimitive.Trigger asChild>
@@ -183,13 +188,13 @@ function LanguageSwitcherTrigger({ label = "Language", className }: LanguageSwit
         <IconChevronDown className="size-4" />
       </button>
     </PopoverPrimitive.Trigger>
-  );
+  )
 }
 
 // ─── Menu ─────────────────────────────────────────────────────────────────────
 
 function LanguageSwitcherMenu({ className, children }: LanguageSwitcherMenuProps) {
-  const { closeOnClickOutside } = useLangCtx();
+  const { closeOnClickOutside } = useLangCtx()
 
   return (
     <PopoverPrimitive.Portal>
@@ -206,10 +211,10 @@ function LanguageSwitcherMenu({ className, children }: LanguageSwitcherMenuProps
           className
         )}
       >
-        <div className="relative min-w-[200px] rounded-[8px] border border-krds-border-light bg-krds-surface p-2">
+        <div className="border-krds-border-light bg-krds-surface relative min-w-[200px] rounded-[8px] border p-2">
           <span
             aria-hidden
-            className="pointer-events-none absolute -top-[4px] left-1/2 -translate-x-1/2 block h-2 w-2 rotate-45 border border-krds-border-light border-b-transparent border-r-transparent bg-krds-surface"
+            className="border-krds-border-light bg-krds-surface pointer-events-none absolute -top-[4px] left-1/2 block h-2 w-2 -translate-x-1/2 rotate-45 border border-r-transparent border-b-transparent"
           />
           <ul role="listbox" aria-label="언어 선택" className="m-0 flex list-none flex-col gap-2 p-0">
             {children}
@@ -217,27 +222,27 @@ function LanguageSwitcherMenu({ className, children }: LanguageSwitcherMenuProps
         </div>
       </PopoverPrimitive.Content>
     </PopoverPrimitive.Portal>
-  );
+  )
 }
 
 // ─── Current ──────────────────────────────────────────────────────────────────
 
 function LanguageSwitcherCurrent({ label, className }: LanguageSwitcherCurrentProps) {
-  const { value, options } = useLangCtx();
-  const resolvedLabel = options.find((o) => o.value === value)?.label ?? value;
+  const { value, options } = useLangCtx()
+  const resolvedLabel = options.find((o) => o.value === value)?.label ?? value
 
   return (
-    <div className={cn("flex flex-col gap-0.5 border-b border-krds-border-light px-4 py-2", className)}>
+    <div className={cn("border-krds-border-light flex flex-col gap-0.5 border-b px-4 py-2", className)}>
       <span className="text-krds-body-sm text-krds-foreground-subtle">{label}</span>
-      <strong className="text-krds-body-md font-bold text-krds-foreground-secondary">{resolvedLabel}</strong>
+      <strong className="text-krds-body-md text-krds-foreground-secondary font-bold">{resolvedLabel}</strong>
     </div>
-  );
+  )
 }
 
 // ─── OptionList ───────────────────────────────────────────────────────────────
 
 function LanguageSwitcherOptionList({ className }: LanguageSwitcherOptionListProps) {
-  const { options } = useLangCtx();
+  const { options } = useLangCtx()
 
   return (
     <div className={cn("flex flex-col", className)}>
@@ -251,21 +256,15 @@ function LanguageSwitcherOptionList({ className }: LanguageSwitcherOptionListPro
         />
       ))}
     </div>
-  );
+  )
 }
 
 // ─── OptionItem ───────────────────────────────────────────────────────────────
 
-function LanguageSwitcherOptionItem({
-  value,
-  label,
-  href,
-  external,
-  className,
-}: LanguageSwitcherOptionItemProps) {
-  const ctx = useLangCtx();
-  const isSelected = ctx.value === value;
-  const option: LanguageOption = { value, label, href, external };
+function LanguageSwitcherOptionItem({ value, label, href, external, className }: LanguageSwitcherOptionItemProps) {
+  const ctx = useLangCtx()
+  const isSelected = ctx.value === value
+  const option: LanguageOption = { value, label, href, external }
 
   const baseClasses = cn(
     "flex h-12 w-full min-w-[160px] items-center gap-1 rounded-[6px] px-4",
@@ -274,18 +273,18 @@ function LanguageSwitcherOptionItem({
       ? "bg-krds-surface-secondary-subtle text-krds-foreground-secondary font-bold"
       : "text-krds-foreground font-normal hover:bg-krds-surface-secondary-subtle",
     className
-  );
+  )
 
   function handleClick(e: React.MouseEvent) {
     if (href && external) {
       // Let external links navigate naturally — do not prevent default
-      return;
+      return
     }
     if (href) {
-      e.preventDefault();
+      e.preventDefault()
     }
-    ctx.setValue(value, option);
-    ctx.setOpen(false);
+    ctx.setValue(value, option)
+    ctx.setOpen(false)
   }
 
   const inner = (
@@ -293,7 +292,7 @@ function LanguageSwitcherOptionItem({
       <span className="flex-1">{label}</span>
       {external && <IconExternal className="size-5" aria-hidden />}
     </>
-  );
+  )
 
   return (
     <li role="none">
@@ -323,7 +322,7 @@ function LanguageSwitcherOptionItem({
         </button>
       )}
     </li>
-  );
+  )
 }
 
 // ─── Compound Export ──────────────────────────────────────────────────────────
@@ -335,9 +334,9 @@ const LanguageSwitcher = Object.assign(LanguageSwitcherRoot, {
   Current: LanguageSwitcherCurrent,
   OptionList: LanguageSwitcherOptionList,
   OptionItem: LanguageSwitcherOptionItem,
-});
+})
 
-export { LanguageSwitcher };
+export { LanguageSwitcher }
 export type {
   LanguageOption,
   LanguageSwitcherProps,
@@ -346,4 +345,4 @@ export type {
   LanguageSwitcherCurrentProps,
   LanguageSwitcherOptionListProps,
   LanguageSwitcherOptionItemProps,
-};
+}

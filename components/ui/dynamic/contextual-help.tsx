@@ -1,18 +1,18 @@
-"use client";
+"use client"
 
-import * as React from "react";
-import { HelpCircle } from "lucide-react";
+import * as React from "react"
+import { HelpCircle } from "lucide-react"
 import {
   ContextualHelp as KrdsContextualHelp,
   ContextualHelpLabel as KrdsContextualHelpLabel,
-  ContextualHelpTitle as KrdsContextualHelpTitle
-} from "@/components/ui/krds/(help)/contextual-help";
-import type { ContextualHelpProps } from "@/components/ui/krds/(help)/contextual-help";
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
-import { cn } from "@/lib/cn";
-import { useUISystem } from "@/lib/ui-system";
+  ContextualHelpTitle as KrdsContextualHelpTitle,
+} from "@/components/ui/krds/(help)/contextual-help"
+import type { ContextualHelpProps } from "@/components/ui/krds/(help)/contextual-help"
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
+import { cn } from "@/lib/cn"
+import { useUISystem } from "@/lib/ui-system"
 
-export type { ContextualHelpProps } from "@/components/ui/krds/(help)/contextual-help";
+export type { ContextualHelpProps } from "@/components/ui/krds/(help)/contextual-help"
 
 // Dual-render dispatcher (template: dynamic/accordion.tsx, dynamic/modal.tsx). The
 // public surface is the KRDS ContextualHelp single-component API; it renders either
@@ -34,9 +34,9 @@ function ShadcnContextualHelp({
   open,
   defaultOpen,
   onOpenChange,
-  className
+  className,
 }: ContextualHelpProps) {
-  const align = alignment === "left" ? "start" : alignment === "right" ? "end" : "center";
+  const align = alignment === "left" ? "start" : alignment === "right" ? "end" : "center"
 
   return (
     <Popover open={open} defaultOpen={defaultOpen} onOpenChange={onOpenChange}>
@@ -60,35 +60,35 @@ function ShadcnContextualHelp({
         {children}
       </PopoverContent>
     </Popover>
-  );
+  )
 }
 
 // ─── Dispatched parts (public surface preserved) ────────────────────────────────
 
 export function ContextualHelp(props: React.ComponentProps<typeof KrdsContextualHelp>) {
-  const system = useUISystem();
-  if (system === "krds") return <KrdsContextualHelp {...props} />;
-  return <ShadcnContextualHelp {...props} />;
+  const system = useUISystem()
+  if (system === "krds") return <KrdsContextualHelp {...props} />
+  return <ShadcnContextualHelp {...props} />
 }
 
 export function ContextualHelpTitle(props: React.ComponentProps<typeof KrdsContextualHelpTitle>) {
-  const system = useUISystem();
-  if (system === "krds") return <KrdsContextualHelpTitle {...props} />;
-  const { className, children, ...rest } = props;
+  const system = useUISystem()
+  if (system === "krds") return <KrdsContextualHelpTitle {...props} />
+  const { className, children, ...rest } = props
   return (
     <h4 className={cn("text-foreground text-base leading-normal font-semibold", className)} {...rest}>
       {children}
     </h4>
-  );
+  )
 }
 
 export function ContextualHelpLabel(props: React.ComponentProps<typeof KrdsContextualHelpLabel>) {
-  const system = useUISystem();
-  if (system === "krds") return <KrdsContextualHelpLabel {...props} />;
-  const { className, children, ...rest } = props;
+  const system = useUISystem()
+  if (system === "krds") return <KrdsContextualHelpLabel {...props} />
+  const { className, children, ...rest } = props
   return (
     <p className={cn("text-muted-foreground text-sm leading-normal", className)} {...rest}>
       {children}
     </p>
-  );
+  )
 }

@@ -1,20 +1,20 @@
-"use client";
+"use client"
 
-import * as React from "react";
-import { Tab, TabList, TabTrigger, TabContent, TabPanel } from "@/components/ui/dynamic/tab";
+import * as React from "react"
+import { Tab, TabList, TabTrigger, TabContent, TabPanel } from "@/components/ui/dynamic/tab"
 
 const STEPS = [
   { value: "step1", label: "1단계: 신청서" },
   { value: "step2", label: "2단계: 서류" },
-  { value: "step3", label: "3단계: 확인" }
-];
+  { value: "step3", label: "3단계: 확인" },
+]
 
 export default function TabCompoundPatternExample() {
-  const [active, setActive] = React.useState("step1");
+  const [active, setActive] = React.useState("step1")
 
-  const currentIdx = STEPS.findIndex((s) => s.value === active);
-  const isFirst = currentIdx === 0;
-  const isLast = currentIdx === STEPS.length - 1;
+  const currentIdx = STEPS.findIndex((s) => s.value === active)
+  const isFirst = currentIdx === 0
+  const isLast = currentIdx === STEPS.length - 1
 
   return (
     <div className="flex flex-col gap-4">
@@ -55,5 +55,5 @@ export default function TabCompoundPatternExample() {
         </button>
       </div>
     </div>
-  );
+  )
 }

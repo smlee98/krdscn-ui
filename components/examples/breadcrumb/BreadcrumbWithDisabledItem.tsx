@@ -4,8 +4,8 @@ import {
   BreadcrumbItem,
   BreadcrumbLink,
   BreadcrumbList,
-  BreadcrumbSeparator
-} from "@/components/ui/dynamic/breadcrumb";
+  BreadcrumbSeparator,
+} from "@/components/ui/dynamic/breadcrumb"
 
 export default function BreadcrumbWithDisabledItem() {
   return (
@@ -26,5 +26,5 @@ export default function BreadcrumbWithDisabledItem() {
         </BreadcrumbItem>
       </BreadcrumbList>
     </Breadcrumb>
-  );
+  )
 }

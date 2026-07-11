@@ -45,7 +45,7 @@ export function CopyButton({ value, className }: { value: string; className?: st
       size="icon-sm"
       data-slot="copy-button"
       data-copied={copied}
-      className={cn("absolute right-2 top-2 z-10 size-7 text-muted-foreground hover:text-foreground", className)}
+      className={cn("text-muted-foreground hover:text-foreground absolute top-2 right-2 z-10 size-7", className)}
       onClick={async () => {
         await copyText(value)
         setCopied(true)

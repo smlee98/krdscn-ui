@@ -1,16 +1,16 @@
-"use client";
+"use client"
 
-import { Tooltip as KrdsTooltip } from "@/components/ui/krds/(help)/tooltip";
-import type { TooltipProps } from "@/components/ui/krds/(help)/tooltip";
+import { Tooltip as KrdsTooltip } from "@/components/ui/krds/(help)/tooltip"
+import type { TooltipProps } from "@/components/ui/krds/(help)/tooltip"
 import {
   Tooltip as ShadcnTooltipRoot,
   TooltipContent as ShadcnTooltipContent,
   TooltipProvider as ShadcnTooltipProvider,
-  TooltipTrigger as ShadcnTooltipTrigger
-} from "@/components/ui/tooltip";
-import { useUISystem } from "@/lib/ui-system";
+  TooltipTrigger as ShadcnTooltipTrigger,
+} from "@/components/ui/tooltip"
+import { useUISystem } from "@/lib/ui-system"
 
-export type { TooltipProps } from "@/components/ui/krds/(help)/tooltip";
+export type { TooltipProps } from "@/components/ui/krds/(help)/tooltip"
 
 // Dual-render dispatcher (cf. accordion.tsx): the public surface stays the KRDS
 // single-component Tooltip API, but renders either the KRDS-chromed wrapper or a
@@ -22,15 +22,15 @@ export type { TooltipProps } from "@/components/ui/krds/(help)/tooltip";
 const DEFAULT_SIDE: Record<NonNullable<TooltipProps["variant"]>, NonNullable<TooltipProps["side"]>> = {
   vertical: "top",
   horizontal: "right",
-  box: "top"
-};
+  box: "top",
+}
 
 export function Tooltip(props: TooltipProps) {
-  const system = useUISystem();
-  if (system === "krds") return <KrdsTooltip {...props} />;
+  const system = useUISystem()
+  if (system === "krds") return <KrdsTooltip {...props} />
 
-  const { text, variant = "vertical", side, align = "center", className, children, delayDuration = 0 } = props;
-  const resolvedSide = side ?? DEFAULT_SIDE[variant];
+  const { text, variant = "vertical", side, align = "center", className, children, delayDuration = 0 } = props
+  const resolvedSide = side ?? DEFAULT_SIDE[variant]
 
   return (
     <ShadcnTooltipProvider delayDuration={delayDuration}>
@@ -41,5 +41,5 @@ export function Tooltip(props: TooltipProps) {
         </ShadcnTooltipContent>
       </ShadcnTooltipRoot>
     </ShadcnTooltipProvider>
-  );
+  )
 }

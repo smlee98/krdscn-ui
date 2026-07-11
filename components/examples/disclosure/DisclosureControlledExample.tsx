@@ -1,14 +1,14 @@
-"use client";
+"use client"
 
-import * as React from "react";
-import { Button } from "@/components/ui/dynamic/button";
-import { Disclosure, DisclosureTrigger, DisclosureContent } from "@/components/ui/dynamic/disclosure";
+import * as React from "react"
+import { Button } from "@/components/ui/dynamic/button"
+import { Disclosure, DisclosureTrigger, DisclosureContent } from "@/components/ui/dynamic/disclosure"
 
 export default function DisclosureControlledExample() {
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = React.useState(false)
 
   return (
-    <div className="w-full flex flex-col gap-4">
+    <div className="flex w-full flex-col gap-4">
       <div className="flex items-center gap-3">
         <Button variant="secondary" size="sm" onClick={() => setOpen((v) => !v)}>
           {open ? "접기" : "펼치기"}
@@ -27,5 +27,5 @@ export default function DisclosureControlledExample() {
         </DisclosureContent>
       </Disclosure>
     </div>
-  );
+  )
 }

@@ -1,11 +1,11 @@
-"use client";
+"use client"
 
-import * as React from "react";
-import { Calendar } from "@/components/ui/dynamic/calendar";
+import * as React from "react"
+import { Calendar } from "@/components/ui/dynamic/calendar"
 
 export default function CalendarControlledRange() {
-  const [rangeStart, setRangeStart] = React.useState("");
-  const [rangeEnd, setRangeEnd] = React.useState("");
+  const [rangeStart, setRangeStart] = React.useState("")
+  const [rangeEnd, setRangeEnd] = React.useState("")
 
   return (
     <div className="flex flex-col gap-3">
@@ -14,8 +14,8 @@ export default function CalendarControlledRange() {
         startDate={rangeStart}
         endDate={rangeEnd}
         onRangeChange={(s, e) => {
-          setRangeStart(s);
-          setRangeEnd(e);
+          setRangeStart(s)
+          setRangeEnd(e)
         }}
       />
       {rangeStart && rangeEnd && (
@@ -24,5 +24,5 @@ export default function CalendarControlledRange() {
         </p>
       )}
     </div>
-  );
+  )
 }

@@ -1,22 +1,22 @@
-"use client";
+"use client"
 
-import * as React from "react";
-import { Checkbox, CheckboxGroup } from "@/components/ui/dynamic/checkbox";
+import * as React from "react"
+import { Checkbox, CheckboxGroup } from "@/components/ui/dynamic/checkbox"
 
-const items = ["전기 사용 동의", "가스 사용 동의", "수도 사용 동의"] as const;
+const items = ["전기 사용 동의", "가스 사용 동의", "수도 사용 동의"] as const
 
 export default function CheckboxIndeterminate() {
   const [checked, setChecked] = React.useState<Record<string, boolean>>({
     "전기 사용 동의": true,
     "가스 사용 동의": false,
-    "수도 사용 동의": false
-  });
+    "수도 사용 동의": false,
+  })
 
-  const checkedCount = items.filter((item) => checked[item]).length;
-  const allChecked = checkedCount === items.length;
-  const isIndeterminate = checkedCount > 0 && checkedCount < items.length;
+  const checkedCount = items.filter((item) => checked[item]).length
+  const allChecked = checkedCount === items.length
+  const isIndeterminate = checkedCount > 0 && checkedCount < items.length
 
-  const handleAll = (value: boolean) => setChecked(Object.fromEntries(items.map((item) => [item, value])));
+  const handleAll = (value: boolean) => setChecked(Object.fromEntries(items.map((item) => [item, value])))
 
   return (
     <div className="flex flex-col gap-3">
@@ -38,5 +38,5 @@ export default function CheckboxIndeterminate() {
         ))}
       </CheckboxGroup>
     </div>
-  );
+  )
 }

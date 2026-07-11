@@ -1,18 +1,18 @@
 // rsc:client
-"use client";
+"use client"
 
-import * as React from "react";
-import { ChevronDown } from "lucide-react";
-import { cn } from "@/lib/cn";
-import { SkipLink } from "@/components/ui/dynamic/skip-link";
-import { Masthead } from "@/components/ui/dynamic/masthead";
+import * as React from "react"
+import { ChevronDown } from "lucide-react"
+import { cn } from "@/lib/cn"
+import { SkipLink } from "@/components/ui/dynamic/skip-link"
+import { Masthead } from "@/components/ui/dynamic/masthead"
 
 // ─── HeaderUtility ────────────────────────────────────────────────────────────
 
 type HeaderUtilityProps = {
-  className?: string;
-  children?: React.ReactNode;
-};
+  className?: string
+  children?: React.ReactNode
+}
 
 function HeaderUtility({ className, children }: HeaderUtilityProps) {
   return (
@@ -22,15 +22,15 @@ function HeaderUtility({ className, children }: HeaderUtilityProps) {
     >
       {children}
     </div>
-  );
+  )
 }
 
 type HeaderUtilityItemProps = {
-  className?: string;
-  children?: React.ReactNode;
-  href?: string;
-  asSelect?: boolean;
-};
+  className?: string
+  children?: React.ReactNode
+  href?: string
+  asSelect?: boolean
+}
 
 function HeaderUtilityItem({ className, children, href, asSelect }: HeaderUtilityItemProps) {
   const baseClass = cn(
@@ -39,70 +39,70 @@ function HeaderUtilityItem({ className, children, href, asSelect }: HeaderUtilit
     "hover:underline",
     "focus:krds-focus-ring rounded-sm",
     className
-  );
+  )
   const content = (
     <>
       {children}
       {asSelect && <ChevronDown size={16} aria-hidden="true" />}
     </>
-  );
+  )
   if (href) {
     return (
       <a data-slot="krds-header-utility-item" href={href} className={baseClass}>
         {content}
       </a>
-    );
+    )
   }
   return (
     <button data-slot="krds-header-utility-item" type="button" className={baseClass}>
       {content}
     </button>
-  );
+  )
 }
 
 // Divider between utility items
 function HeaderUtilityDivider() {
-  return <span aria-hidden="true" className="bg-krds-surface-disabled inline-block h-4 w-px" />;
+  return <span aria-hidden="true" className="bg-krds-surface-disabled inline-block h-4 w-px" />
 }
 
 // ─── useDropdown (shared open/close + outside-click + ESC) ──────────────────────
 
 function useDropdown() {
-  const [open, setOpen] = React.useState(false);
-  const rootRef = React.useRef<HTMLDivElement>(null);
+  const [open, setOpen] = React.useState(false)
+  const rootRef = React.useRef<HTMLDivElement>(null)
 
   React.useEffect(() => {
-    if (!open) return;
+    if (!open) return
     function onPointerDown(event: PointerEvent) {
       if (rootRef.current && !rootRef.current.contains(event.target as Node)) {
-        setOpen(false);
+        setOpen(false)
       }
     }
     function onKeyDown(event: KeyboardEvent) {
-      if (event.key === "Escape") setOpen(false);
+      if (event.key === "Escape") setOpen(false)
     }
-    document.addEventListener("pointerdown", onPointerDown);
-    document.addEventListener("keydown", onKeyDown);
+    document.addEventListener("pointerdown", onPointerDown)
+    document.addEventListener("keydown", onKeyDown)
     return () => {
-      document.removeEventListener("pointerdown", onPointerDown);
-      document.removeEventListener("keydown", onKeyDown);
-    };
-  }, [open]);
+      document.removeEventListener("pointerdown", onPointerDown)
+      document.removeEventListener("keydown", onKeyDown)
+    }
+  }, [open])
 
-  return { open, setOpen, rootRef };
+  return { open, setOpen, rootRef }
 }
 
 // ─── HeaderUtilityDropdown (utility-list dropdown) ──────────────────────────────
 
 type HeaderUtilityDropdownProps = {
-  className?: string;
-  children?: React.ReactNode;
-  label: React.ReactNode;
-};
+  className?: string
+  children?: React.ReactNode
+  label: React.ReactNode
+}
 
 function HeaderUtilityDropdown({ className, children, label }: HeaderUtilityDropdownProps) {
-  const { open, setOpen, rootRef } = useDropdown();
-  const menuId = React.useId();
+  const { open, setOpen, rootRef } = useDropdown()
+  const menuId = React.useId()
 
   return (
     <div ref={rootRef} data-slot="krds-header-utility-dropdown" className={cn("relative", className)}>
@@ -115,7 +115,7 @@ function HeaderUtilityDropdown({ className, children, label }: HeaderUtilityDrop
           "inline-flex items-center gap-1",
           "text-krds-foreground text-krds-body-sm",
           "hover:underline",
-          "rounded-sm focus:krds-focus-ring"
+          "focus:krds-focus-ring rounded-sm"
         )}
       >
         {label}
@@ -126,21 +126,21 @@ function HeaderUtilityDropdown({ className, children, label }: HeaderUtilityDrop
           id={menuId}
           data-slot="krds-header-utility-dropdown-menu"
           className={cn(
-            "border-krds-border bg-krds-surface absolute right-0 top-full z-50 mt-1 min-w-[160px] rounded-md border py-1 shadow-md"
+            "border-krds-border bg-krds-surface absolute top-full right-0 z-50 mt-1 min-w-[160px] rounded-md border py-1 shadow-md"
           )}
         >
           {children}
         </ul>
       )}
     </div>
-  );
+  )
 }
 
 type HeaderUtilityDropdownItemProps = {
-  className?: string;
-  children?: React.ReactNode;
-  href?: string;
-};
+  className?: string
+  children?: React.ReactNode
+  href?: string
+}
 
 function HeaderUtilityDropdownItem({ className, children, href }: HeaderUtilityDropdownItemProps) {
   const baseClass = cn(
@@ -149,7 +149,7 @@ function HeaderUtilityDropdownItem({ className, children, href }: HeaderUtilityD
     "hover:bg-krds-surface-secondary-subtle",
     "focus:krds-focus-ring-inset",
     className
-  );
+  )
   return (
     <li>
       {href ? (
@@ -162,16 +162,16 @@ function HeaderUtilityDropdownItem({ className, children, href }: HeaderUtilityD
         </button>
       )}
     </li>
-  );
+  )
 }
 
 // ─── HeaderBrand ──────────────────────────────────────────────────────────────
 
 type HeaderBrandProps = {
-  className?: string;
-  children?: React.ReactNode;
-  href?: string;
-};
+  className?: string
+  children?: React.ReactNode
+  href?: string
+}
 
 function HeaderBrand({ className, children, href }: HeaderBrandProps) {
   return (
@@ -187,31 +187,31 @@ function HeaderBrand({ className, children, href }: HeaderBrandProps) {
     >
       {children}
     </a>
-  );
+  )
 }
 
 // ─── HeaderActions ────────────────────────────────────────────────────────────
 
 type HeaderActionsProps = {
-  className?: string;
-  children?: React.ReactNode;
-};
+  className?: string
+  children?: React.ReactNode
+}
 
 function HeaderActions({ className, children }: HeaderActionsProps) {
   return (
     <div data-slot="krds-header-actions" className={cn("flex flex-1 items-start justify-end gap-2", className)}>
       {children}
     </div>
-  );
+  )
 }
 
 type HeaderActionItemProps = {
-  className?: string;
-  children?: React.ReactNode;
-  href?: string;
-  icon?: React.ReactNode;
-  "aria-controls"?: string;
-};
+  className?: string
+  children?: React.ReactNode
+  href?: string
+  icon?: React.ReactNode
+  "aria-controls"?: string
+}
 
 function HeaderActionItem({ className, children, href, icon, "aria-controls": ariaControls }: HeaderActionItemProps) {
   const baseClass = cn(
@@ -220,7 +220,7 @@ function HeaderActionItem({ className, children, href, icon, "aria-controls": ar
     "hover:bg-krds-surface-secondary-subtle",
     "focus:krds-focus-ring",
     className
-  );
+  )
   const content = (
     <>
       {icon && (
@@ -230,33 +230,33 @@ function HeaderActionItem({ className, children, href, icon, "aria-controls": ar
       )}
       {children}
     </>
-  );
+  )
   if (href) {
     return (
       <a data-slot="krds-header-action-item" href={href} aria-controls={ariaControls} className={baseClass}>
         {content}
       </a>
-    );
+    )
   }
   return (
     <button data-slot="krds-header-action-item" type="button" aria-controls={ariaControls} className={baseClass}>
       {content}
     </button>
-  );
+  )
 }
 
 // ─── HeaderActionDropdown (나의GOV action shell) ────────────────────────────────
 
 type HeaderActionDropdownProps = {
-  className?: string;
-  children?: React.ReactNode;
-  label?: React.ReactNode;
-  icon?: React.ReactNode;
-};
+  className?: string
+  children?: React.ReactNode
+  label?: React.ReactNode
+  icon?: React.ReactNode
+}
 
 function HeaderActionDropdown({ className, children, label = "나의GOV", icon }: HeaderActionDropdownProps) {
-  const { open, setOpen, rootRef } = useDropdown();
-  const panelId = React.useId();
+  const { open, setOpen, rootRef } = useDropdown()
+  const panelId = React.useId()
 
   return (
     <div ref={rootRef} data-slot="krds-header-action-dropdown" className={cn("relative", className)}>
@@ -285,23 +285,23 @@ function HeaderActionDropdown({ className, children, label = "나의GOV", icon }
           id={panelId}
           data-slot="krds-header-action-dropdown-panel"
           className={cn(
-            "border-krds-border bg-krds-surface absolute right-0 top-full z-50 mt-1 min-w-[260px] rounded-md border p-4 shadow-md"
+            "border-krds-border bg-krds-surface absolute top-full right-0 z-50 mt-1 min-w-[260px] rounded-md border p-4 shadow-md"
           )}
         >
           {children}
         </div>
       )}
     </div>
-  );
+  )
 }
 
 // ─── HeaderNav ────────────────────────────────────────────────────────────────
 
 type HeaderNavProps = {
-  className?: string;
-  children?: React.ReactNode;
-  "aria-label"?: string;
-};
+  className?: string
+  children?: React.ReactNode
+  "aria-label"?: string
+}
 
 function HeaderNav({ className, children, "aria-label": ariaLabel }: HeaderNavProps) {
   return (
@@ -312,15 +312,15 @@ function HeaderNav({ className, children, "aria-label": ariaLabel }: HeaderNavPr
     >
       {children}
     </nav>
-  );
+  )
 }
 
 type HeaderNavItemProps = {
-  className?: string;
-  children?: React.ReactNode;
-  href?: string;
-  hasSubmenu?: boolean;
-};
+  className?: string
+  children?: React.ReactNode
+  href?: string
+  hasSubmenu?: boolean
+}
 
 function HeaderNavItem({ className, children, href, hasSubmenu }: HeaderNavItemProps) {
   return (
@@ -338,24 +338,24 @@ function HeaderNavItem({ className, children, href, hasSubmenu }: HeaderNavItemP
       {children}
       {hasSubmenu && <ChevronDown size={20} aria-hidden="true" />}
     </a>
-  );
+  )
 }
 
 // ─── Header (root) ────────────────────────────────────────────────────────────
 
 type HeaderProps = {
-  className?: string;
-  children?: React.ReactNode;
-};
+  className?: string
+  children?: React.ReactNode
+}
 
 function Header({ className, children }: HeaderProps) {
-  const childrenArray = React.Children.toArray(children);
+  const childrenArray = React.Children.toArray(children)
 
-  const utilityChild = childrenArray.find((c) => React.isValidElement(c) && c.type === HeaderUtility);
-  const navChild = childrenArray.find((c) => React.isValidElement(c) && c.type === HeaderNav);
+  const utilityChild = childrenArray.find((c) => React.isValidElement(c) && c.type === HeaderUtility)
+  const navChild = childrenArray.find((c) => React.isValidElement(c) && c.type === HeaderNav)
   const topChildren = childrenArray.filter(
     (c) => !(React.isValidElement(c) && c.type === HeaderUtility) && !(React.isValidElement(c) && c.type === HeaderNav)
-  );
+  )
 
   return (
     <header data-slot="krds-header" className={cn("w-full", className)}>
@@ -367,7 +367,7 @@ function Header({ className, children }: HeaderProps) {
       </div>
       {navChild && <div className="border-krds-border-light bg-krds-surface w-full border-y">{navChild}</div>}
     </header>
-  );
+  )
 }
 
 export {
@@ -382,5 +382,5 @@ export {
   HeaderActionItem,
   HeaderActionDropdown,
   HeaderNav,
-  HeaderNavItem
-};
+  HeaderNavItem,
+}

@@ -21,21 +21,21 @@
  *  text 변형은 Figma button_text 의 더 컴팩트한 높이(20/24/32/40)를 사용.
  */
 
-import { cva, type VariantProps } from "class-variance-authority";
-import * as React from "react";
-import { Root as Slot } from "@radix-ui/react-slot";
+import { cva, type VariantProps } from "class-variance-authority"
+import * as React from "react"
+import { Root as Slot } from "@radix-ui/react-slot"
 
-import { cn } from "@/lib/cn";
+import { cn } from "@/lib/cn"
 
-type ButtonVariant = "default" | "secondary" | "outline" | "ghost" | "link" | "tertiary" | "text";
-type ButtonSize = "xs" | "sm" | "default" | "lg" | "xl" | "icon";
+type ButtonVariant = "default" | "secondary" | "outline" | "ghost" | "link" | "tertiary" | "text"
+type ButtonSize = "xs" | "sm" | "default" | "lg" | "xl" | "icon"
 
 const buttonVariants = cva(
   [
     "inline-flex items-center justify-center whitespace-nowrap",
     "font-normal leading-[1.5] tracking-normal transition-colors outline-none",
     "disabled:pointer-events-none",
-    "focus:krds-focus-ring"
+    "focus:krds-focus-ring",
   ].join(" "),
   {
     variants: {
@@ -44,44 +44,44 @@ const buttonVariants = cva(
           "border border-krds-border-primary bg-krds-primary-50 text-white",
           "hover:border-krds-border-primary hover:bg-krds-primary-60",
           "active:border-krds-border-primary active:bg-krds-primary-70",
-          "disabled:border-krds-border-light disabled:bg-krds-surface-disabled disabled:text-krds-foreground-disabled"
+          "disabled:border-krds-border-light disabled:bg-krds-surface-disabled disabled:text-krds-foreground-disabled",
         ].join(" "),
         secondary: [
           "border border-krds-border-primary bg-krds-surface-primary-subtle text-krds-foreground-primary",
           "hover:bg-krds-primary-10",
           "active:bg-krds-primary-20",
-          "disabled:border-krds-border disabled:bg-transparent disabled:text-krds-foreground-disabled"
+          "disabled:border-krds-border disabled:bg-transparent disabled:text-krds-foreground-disabled",
         ].join(" "),
         outline: [
           "border border-krds-border-dark bg-transparent text-krds-foreground",
           "hover:bg-krds-surface-subtler",
           "active:bg-krds-surface-subtle",
-          "disabled:border-krds-border disabled:bg-transparent disabled:text-krds-foreground-disabled"
+          "disabled:border-krds-border disabled:bg-transparent disabled:text-krds-foreground-disabled",
         ].join(" "),
         ghost: [
           "border border-transparent bg-transparent text-krds-foreground",
           "hover:bg-krds-surface-subtler",
           "active:bg-krds-surface-subtle",
-          "disabled:bg-transparent disabled:text-krds-foreground-disabled"
+          "disabled:bg-transparent disabled:text-krds-foreground-disabled",
         ].join(" "),
         link: [
           "border border-transparent bg-transparent text-krds-foreground-primary underline underline-offset-2",
           "hover:text-krds-foreground-primary",
           "active:text-krds-foreground-primary",
-          "disabled:text-krds-foreground-disabled disabled:no-underline"
+          "disabled:text-krds-foreground-disabled disabled:no-underline",
         ].join(" "),
         tertiary: [
           "border border-krds-border-dark bg-transparent text-krds-foreground",
           "hover:bg-krds-surface-subtler",
           "active:bg-krds-surface-subtle",
-          "disabled:border-krds-border disabled:bg-transparent disabled:text-krds-foreground-disabled"
+          "disabled:border-krds-border disabled:bg-transparent disabled:text-krds-foreground-disabled",
         ].join(" "),
         text: [
           "border border-transparent bg-transparent text-krds-foreground",
           "hover:bg-krds-surface-secondary-subtle",
           "active:bg-krds-surface-secondary-pressed",
-          "disabled:bg-transparent disabled:text-krds-foreground-disabled"
-        ].join(" ")
+          "disabled:bg-transparent disabled:text-krds-foreground-disabled",
+        ].join(" "),
       },
       size: {
         xs: "h-8 gap-0.5 rounded-[4px] text-krds-body-sm",
@@ -89,35 +89,35 @@ const buttonVariants = cva(
         default: "h-12 gap-1 rounded-[6px] text-krds-body-md",
         lg: "h-14 gap-1 rounded-[8px] text-krds-body-md",
         xl: "h-16 gap-1 rounded-[8px] text-krds-body-lg",
-        icon: "size-12 gap-1 rounded-[6px] text-krds-body-md p-0"
-      }
+        icon: "size-12 gap-1 rounded-[6px] text-krds-body-md p-0",
+      },
     },
     compoundVariants: [
       // ── 일반 fill 타입: 가로 padding + min-width ──
       {
         variant: ["default", "secondary", "tertiary", "outline"],
         size: "xs",
-        class: "min-w-[60px] px-2.5"
+        class: "min-w-[60px] px-2.5",
       },
       {
         variant: ["default", "secondary", "tertiary", "outline"],
         size: "sm",
-        class: "min-w-[64px] px-3"
+        class: "min-w-[64px] px-3",
       },
       {
         variant: ["default", "secondary", "tertiary", "outline"],
         size: "default",
-        class: "min-w-[78px] px-4"
+        class: "min-w-[78px] px-4",
       },
       {
         variant: ["default", "secondary", "tertiary", "outline"],
         size: "lg",
-        class: "min-w-[90px] px-5"
+        class: "min-w-[90px] px-5",
       },
       {
         variant: ["default", "secondary", "tertiary", "outline"],
         size: "xl",
-        class: "min-w-[98px] px-6"
+        class: "min-w-[98px] px-6",
       },
       // ── text / link / ghost: 컴팩트 padding + button_text 높이 ──
       { variant: ["text", "link", "ghost"], size: "xs", class: "h-5 px-0.5" },
@@ -127,28 +127,28 @@ const buttonVariants = cva(
       { variant: ["text", "link", "ghost"], size: "xl", class: "h-10 px-0.5" },
       // ── icon size: 정사각형 스타일 보강 ──
       { variant: ["outline", "tertiary"], size: "icon", class: "border bg-transparent" },
-      { variant: ["ghost", "text"], size: "icon", class: "border-transparent bg-transparent" }
+      { variant: ["ghost", "text"], size: "icon", class: "border-transparent bg-transparent" },
     ],
     defaultVariants: {
       variant: "default",
-      size: "default"
-    }
+      size: "default",
+    },
   }
-);
+)
 
-type ButtonShape = "default" | "circle";
+type ButtonShape = "default" | "circle"
 
 type ButtonProps = React.ComponentProps<"button"> &
   VariantProps<typeof buttonVariants> & {
-    asChild?: boolean;
+    asChild?: boolean
     /**
      * KRDS `.krds-btn.icon.border` — when "circle", renders a circular
      * (rounded-full) bordered icon-only button. Additive; the default keeps the
      * existing per-size rounding. Pair with `size="icon"` for the canonical
      * circular icon button.
      */
-    shape?: ButtonShape;
-  };
+    shape?: ButtonShape
+  }
 
 function Button({
   className,
@@ -158,7 +158,7 @@ function Button({
   asChild = false,
   ...props
 }: ButtonProps) {
-  const Comp = asChild ? Slot : "button";
+  const Comp = asChild ? Slot : "button"
   return (
     <Comp
       data-slot="krds-button"
@@ -168,8 +168,8 @@ function Button({
       className={cn(buttonVariants({ variant, size }), shape === "circle" && "rounded-full border", className)}
       {...props}
     />
-  );
+  )
 }
 
-export { Button, buttonVariants };
-export type { ButtonProps, ButtonVariant, ButtonSize, ButtonShape };
+export { Button, buttonVariants }
+export type { ButtonProps, ButtonVariant, ButtonSize, ButtonShape }

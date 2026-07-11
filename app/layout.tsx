@@ -1,34 +1,34 @@
-import "@/app/globals.css";
+import "@/app/globals.css"
 
-import type { Metadata } from "next";
-import localFont from "next/font/local";
-import type { ReactNode } from "react";
-import { RootProvider } from "fumadocs-ui/provider/next";
+import type { Metadata } from "next"
+import localFont from "next/font/local"
+import type { ReactNode } from "react"
+import { RootProvider } from "fumadocs-ui/provider/next"
 
-import { SiteHeader } from "@/components/site-header";
-import { UISystemProvider } from "@/lib/ui-system";
-import { cn } from "@/lib/cn";
+import { SiteHeader } from "@/components/site-header"
+import { UISystemProvider } from "@/lib/ui-system"
+import { cn } from "@/lib/cn"
 
 function normalizeBasePath(value?: string) {
-  if (!value) return "";
-  const withLeadingSlash = value.startsWith("/") ? value : `/${value}`;
-  return withLeadingSlash.replace(/\/$/, "");
+  if (!value) return ""
+  const withLeadingSlash = value.startsWith("/") ? value : `/${value}`
+  return withLeadingSlash.replace(/\/$/, "")
 }
 
-const basePath = normalizeBasePath(process.env.GITHUB_PAGES_BASE_PATH);
+const basePath = normalizeBasePath(process.env.GITHUB_PAGES_BASE_PATH)
 
 export const metadata: Metadata = {
   title: {
     default: "krdscn/ui",
-    template: "%s - krdscn/ui"
+    template: "%s - krdscn/ui",
   },
-  description: "KRDS 스타일을 적용한 Radix 기반 오픈 코드 레지스트리입니다."
-};
+  description: "KRDS 스타일을 적용한 Radix 기반 오픈 코드 레지스트리입니다.",
+}
 
 const pretendardGov = localFont({
   src: [{ path: "../assets/PretendardGOVVariable.woff2", weight: "45 920", style: "normal" }],
-  variable: "--font-pretendard-gov"
-});
+  variable: "--font-pretendard-gov",
+})
 
 const monoplexKr = localFont({
   src: [
@@ -47,15 +47,15 @@ const monoplexKr = localFont({
     { path: "../assets/MonoplexKR/MonoplexKR-SemiBold.ttf", weight: "600", style: "normal" },
     { path: "../assets/MonoplexKR/MonoplexKR-SemiBoldItalic.ttf", weight: "600", style: "italic" },
     { path: "../assets/MonoplexKR/MonoplexKR-Bold.ttf", weight: "700", style: "normal" },
-    { path: "../assets/MonoplexKR/MonoplexKR-BoldItalic.ttf", weight: "700", style: "italic" }
+    { path: "../assets/MonoplexKR/MonoplexKR-BoldItalic.ttf", weight: "700", style: "italic" },
   ],
-  variable: "--font-monoplex-kr"
-});
+  variable: "--font-monoplex-kr",
+})
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="ko" suppressHydrationWarning className={cn(pretendardGov.variable, monoplexKr.variable)}>
-      <body className="group/body min-h-svh overscroll-none bg-background font-sans antialiased [--header-height:calc(var(--spacing)*14)]">
+      <body className="group/body bg-background min-h-svh overscroll-none font-sans antialiased [--header-height:calc(var(--spacing)*14)]">
         <RootProvider
           i18n={{
             locale: "",
@@ -66,18 +66,18 @@ export default function RootLayout({ children }: { children: ReactNode }) {
               tocNoHeadings: "표시할 제목이 없습니다",
               nextPage: "다음 페이지",
               previousPage: "이전 페이지",
-              chooseTheme: "테마"
-            }
+              chooseTheme: "테마",
+            },
           }}
           search={{
             options: {
               type: "static",
-              api: `${basePath}/search.json`
-            }
+              api: `${basePath}/search.json`,
+            },
           }}
         >
           <UISystemProvider>
-            <div className="relative z-10 flex min-h-svh flex-col bg-background">
+            <div className="bg-background relative z-10 flex min-h-svh flex-col">
               <SiteHeader />
               <main className="flex min-h-0 flex-1 flex-col">{children}</main>
             </div>
@@ -85,5 +85,5 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         </RootProvider>
       </body>
     </html>
-  );
+  )
 }

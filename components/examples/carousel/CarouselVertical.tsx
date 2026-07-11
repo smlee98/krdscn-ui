@@ -4,15 +4,15 @@ import {
   CarouselItem,
   CarouselPrevious,
   CarouselNext,
-  CarouselNumber
-} from "@/components/ui/dynamic/carousel";
+  CarouselNumber,
+} from "@/components/ui/dynamic/carousel"
 
 const STEPS = [
   { step: "01", label: "신청서 작성", desc: "민원 정보를 입력합니다." },
   { step: "02", label: "서류 첨부", desc: "필요 서류를 업로드합니다." },
   { step: "03", label: "본인인증", desc: "간편인증으로 신원을 확인합니다." },
-  { step: "04", label: "제출 완료", desc: "접수번호를 저장해 두세요." }
-];
+  { step: "04", label: "제출 완료", desc: "접수번호를 저장해 두세요." },
+]
 
 export default function CarouselVertical() {
   return (
@@ -40,5 +40,5 @@ export default function CarouselVertical() {
         </div>
       </Carousel>
     </div>
-  );
+  )
 }

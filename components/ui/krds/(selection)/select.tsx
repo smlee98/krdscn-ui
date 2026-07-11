@@ -1,110 +1,110 @@
-"use client";
+"use client"
 
-import * as React from "react";
-import * as SelectPrimitive from "@radix-ui/react-select";
-import { ChevronDownIcon, CheckIcon } from "lucide-react";
-import { cn } from "@/lib/cn";
-import { renderFieldMessage } from "@/components/ui/krds/(input)/field-message";
+import * as React from "react"
+import * as SelectPrimitive from "@radix-ui/react-select"
+import { ChevronDownIcon, CheckIcon } from "lucide-react"
+import { cn } from "@/lib/cn"
+import { renderFieldMessage } from "@/components/ui/krds/(input)/field-message"
 
-type SelectSize = "small" | "medium" | "large";
-type SelectVariant = "default" | "sorting";
+type SelectSize = "small" | "medium" | "large"
+type SelectVariant = "default" | "sorting"
 
-type SelectOption = { value: string; label: string };
+type SelectOption = { value: string; label: string }
 
 interface SelectProps {
-  options: SelectOption[];
-  label?: string;
-  "aria-invalid"?: boolean;
-  "aria-describedby"?: string;
-  size?: SelectSize;
-  variant?: SelectVariant;
-  disabled?: boolean;
-  placeholder?: string;
-  value?: string;
-  defaultValue?: string;
-  onChange?: (value: string) => void;
-  id?: string;
-  name?: string;
-  className?: string;
-  selectClassName?: string;
-  hint?: React.ReactNode;
-  error?: React.ReactNode;
-  success?: React.ReactNode;
-  information?: React.ReactNode;
+  options: SelectOption[]
+  label?: string
+  "aria-invalid"?: boolean
+  "aria-describedby"?: string
+  size?: SelectSize
+  variant?: SelectVariant
+  disabled?: boolean
+  placeholder?: string
+  value?: string
+  defaultValue?: string
+  onChange?: (value: string) => void
+  id?: string
+  name?: string
+  className?: string
+  selectClassName?: string
+  hint?: React.ReactNode
+  error?: React.ReactNode
+  success?: React.ReactNode
+  information?: React.ReactNode
 }
 
 const triggerHeight: Record<SelectSize, string> = {
   small: "h-10",
   medium: "h-12",
-  large: "h-14"
-};
+  large: "h-14",
+}
 
 const triggerFont: Record<SelectSize, string> = {
   small: "text-krds-body-sm",
   medium: "text-krds-body-md",
-  large: "text-krds-body-lg"
-};
+  large: "text-krds-body-lg",
+}
 
 // KRDS .krds-form-select radius (small = medium3 = 8px, medium/large = medium2/1 = 6px).
 const triggerRadius: Record<SelectSize, string> = {
   small: "rounded-[8px]",
   medium: "rounded-[6px]",
-  large: "rounded-[6px]"
-};
+  large: "rounded-[6px]",
+}
 
 const triggerIconSize: Record<SelectSize, string> = {
   small: "size-4",
   medium: "size-5",
-  large: "size-6"
-};
+  large: "size-6",
+}
 
 const triggerIconRight: Record<SelectSize, string> = {
   small: "right-3",
   medium: "right-4",
-  large: "right-4"
-};
+  large: "right-4",
+}
 
 const sortingFont: Record<SelectSize, string> = {
   small: "text-krds-body-sm",
   medium: "text-krds-body-md",
-  large: "text-krds-heading-md font-bold"
-};
+  large: "text-krds-heading-md font-bold",
+}
 
 const sortingIconSize: Record<SelectSize, string> = {
   small: "size-4",
   medium: "size-5",
-  large: "size-6"
-};
+  large: "size-6",
+}
 
 const sortingPadX: Record<SelectSize, string> = {
   small: "px-0.5",
   medium: "px-1",
-  large: "px-1"
-};
+  large: "px-1",
+}
 
 const sortingGap: Record<SelectSize, string> = {
   small: "gap-1",
   medium: "gap-1",
-  large: "gap-1.5"
-};
+  large: "gap-1.5",
+}
 
 const itemFont: Record<SelectSize, string> = {
   small: "text-krds-body-sm",
   medium: "text-krds-body-md",
-  large: "text-krds-body-lg"
-};
+  large: "text-krds-body-lg",
+}
 
 const checkIconSize: Record<SelectSize, string> = {
   small: "size-4",
   medium: "size-5",
-  large: "size-5"
-};
+  large: "size-5",
+}
 
 // ── Internal styled primitives (self-contained, not exported) ──────────────
 
 interface KrdsSelectContentProps extends React.ComponentPropsWithoutRef<typeof SelectPrimitive.Content> {
-  matchTriggerWidth?: boolean;
-  minWidth?: string;
+  matchTriggerWidth?: boolean
+  minWidth?: string
 }
 
 function KrdsSelectContent({
@@ -126,7 +126,7 @@ function KrdsSelectContent({
           "data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95",
           "data-[side=bottom]:slide-in-from-top-2 data-[side=top]:slide-in-from-bottom-2",
           // panel look
-          "border-krds-border-light rounded-md border bg-krds-surface p-2 shadow-md",
+          "border-krds-border-light bg-krds-surface rounded-md border p-2 shadow-md",
           "overflow-hidden",
           // exact-match to trigger width (default) or custom min-width override
           matchTriggerWidth && "w-[var(--radix-select-trigger-width)]",
@@ -138,11 +138,11 @@ function KrdsSelectContent({
         <SelectPrimitive.Viewport className="w-full">{children}</SelectPrimitive.Viewport>
       </SelectPrimitive.Content>
     </SelectPrimitive.Portal>
-  );
+  )
 }
 
 interface KrdsSelectItemProps extends React.ComponentPropsWithoutRef<typeof SelectPrimitive.Item> {
-  size: SelectSize;
+  size: SelectSize
 }
 
 function KrdsSelectItem({ className, children, size, ...props }: KrdsSelectItemProps) {
@@ -170,7 +170,7 @@ function KrdsSelectItem({ className, children, size, ...props }: KrdsSelectItemP
         <CheckIcon className={cn("text-krds-foreground-secondary shrink-0", checkIconSize[size])} aria-hidden="true" />
       </SelectPrimitive.ItemIndicator>
     </SelectPrimitive.Item>
-  );
+  )
 }
 
 // ── Public component ───────────────────────────────────────────────────────
@@ -194,25 +194,23 @@ function Select({
   hint,
   error,
   success,
-  information
+  information,
 }: SelectProps) {
-  const autoId = React.useId();
-  const inputId = id ?? autoId;
+  const autoId = React.useId()
+  const inputId = id ?? autoId
 
-  const message = renderFieldMessage(inputId, { error, success, information, hint });
-  const describedBy = message
-    ? [ariaDescribedby, `${inputId}-message`].filter(Boolean).join(" ")
-    : ariaDescribedby;
-  const resolvedInvalid = ariaInvalid ?? (error != null && error !== false ? true : undefined);
+  const message = renderFieldMessage(inputId, { error, success, information, hint })
+  const describedBy = message ? [ariaDescribedby, `${inputId}-message`].filter(Boolean).join(" ") : ariaDescribedby
+  const resolvedInvalid = ariaInvalid ?? (error != null && error !== false ? true : undefined)
 
-  const [internal, setInternal] = React.useState<string | undefined>(defaultValue);
-  const isControlled = value !== undefined;
-  const currentValue = isControlled ? value : internal;
+  const [internal, setInternal] = React.useState<string | undefined>(defaultValue)
+  const isControlled = value !== undefined
+  const currentValue = isControlled ? value : internal
 
   const handleValueChange = (val: string) => {
-    if (!isControlled) setInternal(val);
-    onChange?.(val);
-  };
+    if (!isControlled) setInternal(val)
+    onChange?.(val)
+  }
 
   // ── Sorting variant ──────────────────────────────────────────────────────
   if (variant === "sorting") {
@@ -264,7 +262,7 @@ function Select({
           </KrdsSelectContent>
         </SelectPrimitive.Root>
       </div>
-    );
+    )
   }
 
   // ── Default variant ──────────────────────────────────────────────────────
@@ -329,8 +327,8 @@ function Select({
 
       {message}
     </div>
-  );
+  )
 }
 
-export { Select };
-export type { SelectProps, SelectOption, SelectSize, SelectVariant };
+export { Select }
+export type { SelectProps, SelectOption, SelectSize, SelectVariant }

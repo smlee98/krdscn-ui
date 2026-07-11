@@ -1,6 +1,6 @@
-"use client";
+"use client"
 
-import * as React from "react";
+import * as React from "react"
 
 import {
   Carousel as KrdsCarousel,
@@ -13,24 +13,24 @@ import {
   CarouselNumber as KrdsCarouselNumber,
   CarouselPlayPause as KrdsCarouselPlayPause,
   CarouselPrevious as KrdsCarouselPrevious,
-  useKrdsCarousel
-} from "@/components/ui/krds/(layout)/carousel";
+  useKrdsCarousel,
+} from "@/components/ui/krds/(layout)/carousel"
 import type {
   CarouselArrowProps,
   CarouselDotsProps,
   CarouselMoreProps,
   CarouselNumberProps,
   CarouselPlayPauseProps,
-  CarouselProps
-} from "@/components/ui/krds/(layout)/carousel";
+  CarouselProps,
+} from "@/components/ui/krds/(layout)/carousel"
 import {
   Carousel as ShadcnCarousel,
   CarouselContent as ShadcnCarouselContent,
   CarouselItem as ShadcnCarouselItem,
   CarouselNext as ShadcnCarouselNext,
-  CarouselPrevious as ShadcnCarouselPrevious
-} from "@/components/ui/carousel";
-import { useUISystem } from "@/lib/ui-system";
+  CarouselPrevious as ShadcnCarouselPrevious,
+} from "@/components/ui/carousel"
+import { useUISystem } from "@/lib/ui-system"
 
 export type {
   CarouselProps,
@@ -40,10 +40,10 @@ export type {
   CarouselDotsProps,
   CarouselPlayPauseProps,
   CarouselMoreProps,
-  CarouselApi
-} from "@/components/ui/krds/(layout)/carousel";
+  CarouselApi,
+} from "@/components/ui/krds/(layout)/carousel"
 
-export { useKrdsCarousel };
+export { useKrdsCarousel }
 
 // Dual-render dispatcher (template: dynamic/accordion.tsx, dynamic/modal.tsx). The
 // public surface is the KRDS Carousel compound API; each part renders either the
@@ -69,71 +69,71 @@ export { useKrdsCarousel };
 // ─── Dispatched parts (public surface preserved) ────────────────────────────────
 
 export function Carousel(props: CarouselProps) {
-  const system = useUISystem();
-  if (system === "krds") return <KrdsCarousel {...props} />;
-  return <ShadcnCarousel {...props} />;
+  const system = useUISystem()
+  if (system === "krds") return <KrdsCarousel {...props} />
+  return <ShadcnCarousel {...props} />
 }
 
 export function CarouselContent(props: React.ComponentProps<typeof KrdsCarouselContent>) {
-  const system = useUISystem();
-  if (system === "krds") return <KrdsCarouselContent {...props} />;
-  return <ShadcnCarouselContent {...props} />;
+  const system = useUISystem()
+  if (system === "krds") return <KrdsCarouselContent {...props} />
+  return <ShadcnCarouselContent {...props} />
 }
 
 export function CarouselItem(props: React.ComponentProps<typeof KrdsCarouselItem>) {
-  const system = useUISystem();
-  if (system === "krds") return <KrdsCarouselItem {...props} />;
-  return <ShadcnCarouselItem {...props} />;
+  const system = useUISystem()
+  if (system === "krds") return <KrdsCarouselItem {...props} />
+  return <ShadcnCarouselItem {...props} />
 }
 
 export function CarouselArrow(props: CarouselArrowProps) {
-  const system = useUISystem();
-  if (system === "krds") return <KrdsCarouselArrow {...props} />;
-  const { direction, size: _size, className, ...rest } = props;
-  const ShadcnArrow = direction === "previous" ? ShadcnCarouselPrevious : ShadcnCarouselNext;
-  return <ShadcnArrow className={className} {...(rest as React.ComponentProps<typeof ShadcnArrow>)} />;
+  const system = useUISystem()
+  if (system === "krds") return <KrdsCarouselArrow {...props} />
+  const { direction, size: _size, className, ...rest } = props
+  const ShadcnArrow = direction === "previous" ? ShadcnCarouselPrevious : ShadcnCarouselNext
+  return <ShadcnArrow className={className} {...(rest as React.ComponentProps<typeof ShadcnArrow>)} />
 }
 
 export function CarouselPrevious(props: Omit<CarouselArrowProps, "direction">) {
-  const system = useUISystem();
-  if (system === "krds") return <KrdsCarouselPrevious {...props} />;
-  const { size: _size, className, ...rest } = props;
+  const system = useUISystem()
+  if (system === "krds") return <KrdsCarouselPrevious {...props} />
+  const { size: _size, className, ...rest } = props
   return (
     <ShadcnCarouselPrevious className={className} {...(rest as React.ComponentProps<typeof ShadcnCarouselPrevious>)} />
-  );
+  )
 }
 
 export function CarouselNext(props: Omit<CarouselArrowProps, "direction">) {
-  const system = useUISystem();
-  if (system === "krds") return <KrdsCarouselNext {...props} />;
-  const { size: _size, className, ...rest } = props;
-  return <ShadcnCarouselNext className={className} {...(rest as React.ComponentProps<typeof ShadcnCarouselNext>)} />;
+  const system = useUISystem()
+  if (system === "krds") return <KrdsCarouselNext {...props} />
+  const { size: _size, className, ...rest } = props
+  return <ShadcnCarouselNext className={className} {...(rest as React.ComponentProps<typeof ShadcnCarouselNext>)} />
 }
 
 export function CarouselNumber(props: CarouselNumberProps) {
-  const system = useUISystem();
-  if (system === "krds") return <KrdsCarouselNumber {...props} />;
+  const system = useUISystem()
+  if (system === "krds") return <KrdsCarouselNumber {...props} />
   // shadcn has no fraction/number indicator — KRDS-only chrome, dropped.
-  return null;
+  return null
 }
 
 export function CarouselDots(props: CarouselDotsProps) {
-  const system = useUISystem();
-  if (system === "krds") return <KrdsCarouselDots {...props} />;
+  const system = useUISystem()
+  if (system === "krds") return <KrdsCarouselDots {...props} />
   // shadcn has no dot/tablist indicator — KRDS-only chrome, dropped.
-  return null;
+  return null
 }
 
 export function CarouselPlayPause(props: CarouselPlayPauseProps) {
-  const system = useUISystem();
-  if (system === "krds") return <KrdsCarouselPlayPause {...props} />;
+  const system = useUISystem()
+  if (system === "krds") return <KrdsCarouselPlayPause {...props} />
   // shadcn has no autoplay control — KRDS-only chrome, dropped.
-  return null;
+  return null
 }
 
 export function CarouselMore(props: CarouselMoreProps) {
-  const system = useUISystem();
-  if (system === "krds") return <KrdsCarouselMore {...props} />;
+  const system = useUISystem()
+  if (system === "krds") return <KrdsCarouselMore {...props} />
   // shadcn has no carousel "more" affordance — KRDS-only chrome, dropped.
-  return null;
+  return null
 }

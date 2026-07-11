@@ -1,4 +1,4 @@
-import { TextInput } from "@/components/ui/dynamic/text-input";
+import { TextInput } from "@/components/ui/dynamic/text-input"
 
 export default function TextInputStates() {
   return (
@@ -10,5 +10,5 @@ export default function TextInputStates() {
       <TextInput label="읽기 전용" placeholder="플레이스홀더" defaultValue="readonly" readOnly hint="도움말" />
       <TextInput label="비활성화" placeholder="플레이스홀더" defaultValue="disabled" disabled hint="도움말" />
     </div>
-  );
+  )
 }

@@ -1,5 +1,5 @@
-import { Tab, TabList, TabTrigger, TabContent, TabPanel } from "@/components/ui/dynamic/tab";
-import { FileTextIcon, HelpCircleIcon, BookOpenIcon } from "lucide-react";
+import { Tab, TabList, TabTrigger, TabContent, TabPanel } from "@/components/ui/dynamic/tab"
+import { FileTextIcon, HelpCircleIcon, BookOpenIcon } from "lucide-react"
 
 export default function TabWithRichContent() {
   return (
@@ -36,5 +36,5 @@ export default function TabWithRichContent() {
         </TabPanel>
       </TabContent>
     </Tab>
-  );
+  )
 }

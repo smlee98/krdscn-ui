@@ -1,5 +1,5 @@
-import { TextInput } from "@/components/ui/dynamic/text-input";
-import { FieldHint } from "@/components/ui/dynamic/field-message";
+import { TextInput } from "@/components/ui/dynamic/text-input"
+import { FieldHint } from "@/components/ui/dynamic/field-message"
 
 export default function TextInputWithoutLabel() {
   return (
@@ -9,5 +9,5 @@ export default function TextInputWithoutLabel() {
         <FieldHint>레이블 없이도 사용할 수 있습니다</FieldHint>
       </div>
     </div>
-  );
+  )
 }

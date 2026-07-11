@@ -1,48 +1,47 @@
 // rsc:safe
-import * as React from "react";
-import { ChevronRight, Info, Siren, TriangleAlert } from "lucide-react";
-import { Button } from "@/components/ui/dynamic/button";
-import { cn } from "@/lib/cn";
+import * as React from "react"
+import { ChevronRight, Info, Siren, TriangleAlert } from "lucide-react"
+import { Button } from "@/components/ui/dynamic/button"
+import { cn } from "@/lib/cn"
 
 // ─── Type config ──────────────────────────────────────────────────────────────
 
-export type CriticalAlertType = "emergency" | "safety" | "info";
+export type CriticalAlertType = "emergency" | "safety" | "info"
 
 const TYPE_CONFIG: Record<
   CriticalAlertType,
   {
-    bgClass: string;
-    icon: React.ComponentType<{ size?: number; "aria-hidden"?: boolean }>;
-    label: string;
+    bgClass: string
+    icon: React.ComponentType<{ size?: number; "aria-hidden"?: boolean }>
+    label: string
   }
 > = {
   emergency: { bgClass: "bg-krds-danger-50", icon: Siren, label: "긴급" },
   safety: { bgClass: "bg-krds-success-50", icon: TriangleAlert, label: "안전" },
-  info: { bgClass: "bg-krds-info-50", icon: Info, label: "안내" }
-};
+  info: { bgClass: "bg-krds-info-50", icon: Info, label: "안내" },
+}
 
 // ─── Root ─────────────────────────────────────────────────────────────────────
 
 export type CriticalAlertProps = {
-  type?: CriticalAlertType;
-  className?: string;
-  children?: React.ReactNode;
-};
+  type?: CriticalAlertType
+  className?: string
+  children?: React.ReactNode
+}
 
 // KRDS `--krds-critical-alerts--banner-shadow` (resources/scss/component/_critical_alerts.scss):
 //   0 0 0.2rem 0 alpha-shadow1, 0 0.4rem 0.8rem 0 alpha-shadow2
-const CRITICAL_ALERT_SHADOW =
-  "shadow-[0_0_2px_0_rgba(0,0,0,0.08),0_4px_8px_0_rgba(0,0,0,0.08)]";
+const CRITICAL_ALERT_SHADOW = "shadow-[0_0_2px_0_rgba(0,0,0,0.08),0_4px_8px_0_rgba(0,0,0,0.08)]"
 
 function CriticalAlert({ type = "emergency", className, children }: CriticalAlertProps) {
-  const { bgClass, icon: Icon, label } = TYPE_CONFIG[type];
+  const { bgClass, icon: Icon, label } = TYPE_CONFIG[type]
   return (
     <div
       role="alert"
       data-slot="krds-critical-alert"
       data-type={type}
       className={cn(
-        "border-krds-border-light flex w-full items-center gap-4 rounded-[10px] border bg-krds-surface p-4",
+        "border-krds-border-light bg-krds-surface flex w-full items-center gap-4 rounded-[10px] border p-4",
         CRITICAL_ALERT_SHADOW,
         className
       )}
@@ -60,43 +59,43 @@ function CriticalAlert({ type = "emergency", className, children }: CriticalAler
       </div>
       {children}
     </div>
-  );
+  )
 }
 
 // ─── Message ──────────────────────────────────────────────────────────────────
 
 export type CriticalAlertMessageProps = {
-  className?: string;
-  children?: React.ReactNode;
-};
+  className?: string
+  children?: React.ReactNode
+}
 
 function CriticalAlertMessage({ className, children }: CriticalAlertMessageProps) {
   return (
     <p
       data-slot="krds-critical-alert-message"
-      className={cn("flex-1 text-krds-body-md font-bold text-krds-foreground-bolder", className)}
+      className={cn("text-krds-body-md text-krds-foreground-bolder flex-1 font-bold", className)}
     >
       {children}
     </p>
-  );
+  )
 }
 
 // ─── Action (trailing link/button with chevron) ───────────────────────────────
 
 export type CriticalAlertActionProps = {
-  className?: string;
-  children?: React.ReactNode;
-  href?: string;
-  onClick?: React.MouseEventHandler<HTMLElement>;
-  "aria-label"?: string;
-};
+  className?: string
+  children?: React.ReactNode
+  href?: string
+  onClick?: React.MouseEventHandler<HTMLElement>
+  "aria-label"?: string
+}
 
 function CriticalAlertAction({
   className,
   children,
   href,
   onClick,
-  "aria-label": ariaLabel
+  "aria-label": ariaLabel,
 }: CriticalAlertActionProps) {
   const sharedClassName = cn(
     "text-krds-foreground inline-flex h-8 shrink-0 items-center gap-1 rounded-[4px] px-0.5",
@@ -104,14 +103,14 @@ function CriticalAlertAction({
     "hover:underline",
     "focus:krds-focus-ring",
     className
-  );
+  )
 
   const inner = (
     <>
       <span>{children}</span>
-      <ChevronRight size={20} aria-hidden={true} className="shrink-0 text-krds-foreground" />
+      <ChevronRight size={20} aria-hidden={true} className="text-krds-foreground shrink-0" />
     </>
-  );
+  )
 
   if (href) {
     return (
@@ -124,7 +123,7 @@ function CriticalAlertAction({
       >
         {inner}
       </a>
-    );
+    )
   }
 
   return (
@@ -139,7 +138,7 @@ function CriticalAlertAction({
     >
       {inner}
     </Button>
-  );
+  )
 }
 
 // ─── List wrapper (multiple alerts) ────────────────────────────────────────────
@@ -149,18 +148,18 @@ function CriticalAlertAction({
 // in an <li>; otherwise author the <li>s directly.
 
 export type CriticalAlertListProps = {
-  className?: string;
-  children?: React.ReactNode;
+  className?: string
+  children?: React.ReactNode
   /** Wrap each child in an `<li>` automatically. Default false (author `<li>`s yourself). */
-  wrapItems?: boolean;
-  "aria-label"?: string;
-};
+  wrapItems?: boolean
+  "aria-label"?: string
+}
 
 function CriticalAlertList({
   className,
   children,
   wrapItems = false,
-  "aria-label": ariaLabel
+  "aria-label": ariaLabel,
 }: CriticalAlertListProps) {
   return (
     <ul
@@ -168,11 +167,9 @@ function CriticalAlertList({
       aria-label={ariaLabel}
       className={cn("flex w-full flex-col gap-6", className)}
     >
-      {wrapItems
-        ? React.Children.map(children, (child, i) => <li key={i}>{child}</li>)
-        : children}
+      {wrapItems ? React.Children.map(children, (child, i) => <li key={i}>{child}</li>) : children}
     </ul>
-  );
+  )
 }
 
-export { CriticalAlert, CriticalAlertList, CriticalAlertMessage, CriticalAlertAction };
+export { CriticalAlert, CriticalAlertList, CriticalAlertMessage, CriticalAlertAction }

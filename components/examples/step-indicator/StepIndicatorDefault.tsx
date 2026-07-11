@@ -1,4 +1,4 @@
-import { StepIndicator, StepIndicatorItem } from "@/components/ui/dynamic/step-indicator";
+import { StepIndicator, StepIndicatorItem } from "@/components/ui/dynamic/step-indicator"
 
 export default function StepIndicatorDefault() {
   return (
@@ -8,5 +8,5 @@ export default function StepIndicatorDefault() {
       <StepIndicatorItem step={3}>정보 입력</StepIndicatorItem>
       <StepIndicatorItem step={4}>가입 완료</StepIndicatorItem>
     </StepIndicator>
-  );
+  )
 }

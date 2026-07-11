@@ -1,21 +1,21 @@
-"use client";
+"use client"
 
-import * as React from "react";
-import { Button } from "@/components/ui/dynamic/button";
-import { cn } from "@/lib/cn";
+import * as React from "react"
+import { Button } from "@/components/ui/dynamic/button"
+import { cn } from "@/lib/cn"
 
 export type CoachMarkProps = {
-  title?: string;
-  description?: string;
-  currentStep?: number;
-  totalSteps?: number;
-  onSkip?: () => void;
-  onPrevious?: () => void;
-  onNext?: () => void;
-  isVisible?: boolean;
-  className?: string;
-  children?: React.ReactNode;
-};
+  title?: string
+  description?: string
+  currentStep?: number
+  totalSteps?: number
+  onSkip?: () => void
+  onPrevious?: () => void
+  onNext?: () => void
+  isVisible?: boolean
+  className?: string
+  children?: React.ReactNode
+}
 
 function CoachMark({
   title = "1단계 : 코치 마크",
@@ -29,14 +29,14 @@ function CoachMark({
   className,
   children,
 }: CoachMarkProps) {
-  if (!isVisible) return null;
+  if (!isVisible) return null
 
   return (
     <div data-slot="krds-coach-mark-root" className="relative">
       <div
         data-slot="krds-coach-mark"
         className={cn(
-          "relative rounded-[12px] border border-krds-border-primary bg-krds-surface p-6",
+          "border-krds-border-primary bg-krds-surface relative rounded-[12px] border p-6",
           "outline outline-[10px] outline-[rgba(37,110,244,0.2)]",
           className
         )}
@@ -45,7 +45,7 @@ function CoachMark({
           data-slot="krds-coach-balloon"
           className={cn(
             "absolute top-0 right-0 z-[5] flex w-[360px] flex-col",
-            "rounded-[12px] border-2 border-krds-border-primary bg-krds-surface p-6",
+            "border-krds-border-primary bg-krds-surface rounded-[12px] border-2 p-6",
             "-translate-y-[calc(100%+26px)]"
           )}
         >
@@ -58,7 +58,7 @@ function CoachMark({
             className={cn(
               "pointer-events-none absolute top-full right-6 -mt-2",
               "block h-4 w-4 rotate-45",
-              "border-2 border-krds-border-primary border-t-transparent border-l-transparent",
+              "border-krds-border-primary border-2 border-t-transparent border-l-transparent",
               "bg-krds-surface"
             )}
           />
@@ -66,15 +66,17 @@ function CoachMark({
           <h5 className="sr-only">따라하기 가이드</h5>
 
           <div className="flex flex-col gap-3">
-            <h6 className="text-krds-body-sm font-normal text-krds-foreground">{title}</h6>
-            <p className="text-krds-body-md font-normal text-krds-foreground">{description}</p>
+            <h6 className="text-krds-body-sm text-krds-foreground font-normal">{title}</h6>
+            <p className="text-krds-body-md text-krds-foreground font-normal">{description}</p>
           </div>
 
           <div className="mt-8 flex items-center gap-2">
-            <div className="flex items-center gap-1 text-krds-body-md font-bold">
+            <div className="text-krds-body-md flex items-center gap-1 font-bold">
               <span className="sr-only">현재 단계</span>
               <strong className="text-krds-foreground-primary">{currentStep}</strong>
-              <span aria-hidden="true" className="text-krds-foreground">/</span>
+              <span aria-hidden="true" className="text-krds-foreground">
+                /
+              </span>
               <span className="sr-only">총 단계</span>
               <span className="text-krds-foreground">{totalSteps}</span>
             </div>
@@ -98,7 +100,7 @@ function CoachMark({
         {children}
       </div>
     </div>
-  );
+  )
 }
 
-export { CoachMark };
+export { CoachMark }

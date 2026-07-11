@@ -1,4 +1,4 @@
-import { TextInput } from "@/components/ui/dynamic/text-input";
+import { TextInput } from "@/components/ui/dynamic/text-input"
 
 export default function TextInputWithPasswordToggle() {
   return (
@@ -11,5 +11,5 @@ export default function TextInputWithPasswordToggle() {
         showPasswordToggle
       />
     </div>
-  );
+  )
 }

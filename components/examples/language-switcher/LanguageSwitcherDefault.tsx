@@ -1,6 +1,6 @@
-"use client";
+"use client"
 
-import { LanguageSwitcher } from "@/components/ui/dynamic/language-switcher";
+import { LanguageSwitcher } from "@/components/ui/dynamic/language-switcher"
 
 export default function LanguageSwitcherDefault() {
   return (
@@ -20,5 +20,5 @@ export default function LanguageSwitcherDefault() {
         </LanguageSwitcher.Menu>
       </LanguageSwitcher>
     </div>
-  );
+  )
 }

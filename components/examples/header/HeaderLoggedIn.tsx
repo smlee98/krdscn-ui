@@ -1,4 +1,4 @@
-import { LogOut, Menu, Search, User } from "lucide-react";
+import { LogOut, Menu, Search, User } from "lucide-react"
 import {
   Header,
   HeaderActionDropdown,
@@ -11,8 +11,8 @@ import {
   HeaderUtilityDivider,
   HeaderUtilityDropdown,
   HeaderUtilityDropdownItem,
-  HeaderUtilityItem
-} from "@/components/ui/dynamic/header";
+  HeaderUtilityItem,
+} from "@/components/ui/dynamic/header"
 
 export default function HeaderLoggedIn() {
   return (
@@ -82,5 +82,5 @@ export default function HeaderLoggedIn() {
         <HeaderNavItem href="#">정책</HeaderNavItem>
       </HeaderNav>
     </Header>
-  );
+  )
 }

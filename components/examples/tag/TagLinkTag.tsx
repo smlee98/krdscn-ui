@@ -1,4 +1,4 @@
-import { Tag } from "@/components/ui/dynamic/tag";
+import { Tag } from "@/components/ui/dynamic/tag"
 
 export default function TagLinkTag() {
   return (
@@ -19,5 +19,5 @@ export default function TagLinkTag() {
         #정책
       </Tag>
     </div>
-  );
+  )
 }

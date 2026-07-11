@@ -1,19 +1,19 @@
-"use client";
+"use client"
 
-import * as React from "react";
-import { CheckCircle2, ChevronRight, CircleAlert, Download, X } from "lucide-react";
+import * as React from "react"
+import { CheckCircle2, ChevronRight, CircleAlert, Download, X } from "lucide-react"
 
-import { cn } from "@/lib/cn";
-import { Button } from "@/components/ui/button";
-import { useUISystem } from "@/lib/ui-system";
+import { cn } from "@/lib/cn"
+import { Button } from "@/components/ui/button"
+import { useUISystem } from "@/lib/ui-system"
 import {
   FileUpload as KrdsFileUpload,
   type FileItem,
   type FileStatus,
-  type FileUploadProps
-} from "@/components/ui/krds/(input)/file-upload";
+  type FileUploadProps,
+} from "@/components/ui/krds/(input)/file-upload"
 
-export type { FileItem, FileStatus, FileUploadProps } from "@/components/ui/krds/(input)/file-upload";
+export type { FileItem, FileStatus, FileUploadProps } from "@/components/ui/krds/(input)/file-upload"
 
 // Dual-render dispatcher. file-upload had no dispatcher, so examples imported the
 // KRDS wrapper directly and rendered KRDS in BOTH systems — leaving KRDS chrome
@@ -25,14 +25,14 @@ export type { FileItem, FileStatus, FileUploadProps } from "@/components/ui/krds
 // states) mirrors the KRDS wrapper; only the visuals are retokenized.
 
 function formatBytes(bytes: number): string {
-  if (bytes === 0) return "0B";
-  const units = ["B", "KB", "MB", "GB"];
-  const i = Math.floor(Math.log(bytes) / Math.log(1024));
-  return `${parseFloat((bytes / Math.pow(1024, i)).toFixed(1))}${units[i]}`;
+  if (bytes === 0) return "0B"
+  const units = ["B", "KB", "MB", "GB"]
+  const i = Math.floor(Math.log(bytes) / Math.log(1024))
+  return `${parseFloat((bytes / Math.pow(1024, i)).toFixed(1))}${units[i]}`
 }
 
 function getExtension(filename: string): string {
-  return filename.split(".").pop()?.toLowerCase() ?? "";
+  return filename.split(".").pop()?.toLowerCase() ?? ""
 }
 
 function ShadcnFileUpload({
@@ -54,140 +54,140 @@ function ShadcnFileUpload({
   ref,
   ...rest
 }: FileUploadProps) {
-  const inputRef = React.useRef<HTMLInputElement>(null);
-  const [internalFiles, setInternalFiles] = React.useState<FileItem[]>([]);
-  const [isDragActive, setIsDragActive] = React.useState(false);
+  const inputRef = React.useRef<HTMLInputElement>(null)
+  const [internalFiles, setInternalFiles] = React.useState<FileItem[]>([])
+  const [isDragActive, setIsDragActive] = React.useState(false)
 
-  const isControlled = filesProp !== undefined;
-  const files = isControlled ? filesProp : internalFiles;
+  const isControlled = filesProp !== undefined
+  const files = isControlled ? filesProp : internalFiles
 
   function setFiles(next: FileItem[]) {
-    if (!isControlled) setInternalFiles(next);
-    onFilesChange?.(next);
+    if (!isControlled) setInternalFiles(next)
+    onFilesChange?.(next)
   }
 
   function validateFile(file: File): { valid: boolean; errorMessage?: string } {
     if (file.size > maxFileSize) {
       return {
         valid: false,
-        errorMessage: `등록 가능한 파일 용량을 초과하였습니다.\n${formatBytes(maxFileSize)} 미만의 파일만 등록할 수 있습니다.`
-      };
+        errorMessage: `등록 가능한 파일 용량을 초과하였습니다.\n${formatBytes(maxFileSize)} 미만의 파일만 등록할 수 있습니다.`,
+      }
     }
     if (acceptedFileTypes && acceptedFileTypes.length > 0) {
-      const ext = getExtension(file.name);
+      const ext = getExtension(file.name)
       if (!acceptedFileTypes.includes(ext)) {
         return {
           valid: false,
-          errorMessage: `지원하지 않는 파일 형식입니다.\n${acceptedFileTypes.join(", ")} 형식만 업로드 가능합니다.`
-        };
+          errorMessage: `지원하지 않는 파일 형식입니다.\n${acceptedFileTypes.join(", ")} 형식만 업로드 가능합니다.`,
+        }
       }
     }
-    return { valid: true };
+    return { valid: true }
   }
 
   async function processFiles(selected: File[]) {
-    if (selected.length === 0) return;
+    if (selected.length === 0) return
 
-    const slots = maxFiles - files.length;
-    if (slots <= 0) return;
-    const toProcess = selected.slice(0, slots);
+    const slots = maxFiles - files.length
+    if (slots <= 0) return
+    const toProcess = selected.slice(0, slots)
 
     const newItems: FileItem[] = toProcess.map((f) => {
-      const { valid, errorMessage } = validateFile(f);
-      const ext = getExtension(f.name);
-      const baseName = ext ? f.name.replace(new RegExp(`\\.${ext}$`, "i"), "") : f.name;
+      const { valid, errorMessage } = validateFile(f)
+      const ext = getExtension(f.name)
+      const baseName = ext ? f.name.replace(new RegExp(`\\.${ext}$`, "i"), "") : f.name
       return {
         id: `${f.name}-${f.lastModified}-${Math.random()}`,
         name: baseName,
         size: f.size,
         type: ext,
         status: valid ? ("ready" as FileStatus) : ("error" as FileStatus),
-        errorMessage: valid ? undefined : errorMessage
-      };
-    });
+        errorMessage: valid ? undefined : errorMessage,
+      }
+    })
 
-    const next = [...files, ...newItems];
-    if (!isControlled) setInternalFiles(next);
-    onFilesChange?.(next);
+    const next = [...files, ...newItems]
+    if (!isControlled) setInternalFiles(next)
+    onFilesChange?.(next)
 
     if (onFileUpload) {
       const pairs: Array<[FileItem, File]> = newItems
         .map((item, i): [FileItem, File] | null => {
-          const file = toProcess[i];
-          return file !== undefined ? [item, file] : null;
+          const file = toProcess[i]
+          return file !== undefined ? [item, file] : null
         })
-        .filter((pair): pair is [FileItem, File] => pair !== null);
+        .filter((pair): pair is [FileItem, File] => pair !== null)
 
       for (const [item, file] of pairs) {
-        if (item.status === "error") continue;
+        if (item.status === "error") continue
 
         const withUploading = (current: FileItem[]) =>
-          current.map((f) => (f.id === item.id ? { ...f, status: "uploading" as FileStatus } : f));
+          current.map((f) => (f.id === item.id ? { ...f, status: "uploading" as FileStatus } : f))
 
-        if (!isControlled) setInternalFiles((prev) => withUploading(prev));
-        onFilesChange?.(withUploading(files.concat(newItems)));
+        if (!isControlled) setInternalFiles((prev) => withUploading(prev))
+        onFilesChange?.(withUploading(files.concat(newItems)))
 
         try {
-          await onFileUpload(file);
+          await onFileUpload(file)
           const withCompleted = (current: FileItem[]) =>
-            current.map((f) => (f.id === item.id ? { ...f, status: "completed" as FileStatus } : f));
-          if (!isControlled) setInternalFiles((prev) => withCompleted(prev));
-          onFilesChange?.(withCompleted(files.concat(newItems)));
+            current.map((f) => (f.id === item.id ? { ...f, status: "completed" as FileStatus } : f))
+          if (!isControlled) setInternalFiles((prev) => withCompleted(prev))
+          onFilesChange?.(withCompleted(files.concat(newItems)))
         } catch {
           const withError = (current: FileItem[]) =>
             current.map((f) =>
               f.id === item.id
                 ? { ...f, status: "error" as FileStatus, errorMessage: "파일 업로드에 실패했습니다." }
                 : f
-            );
-          if (!isControlled) setInternalFiles((prev) => withError(prev));
-          onFilesChange?.(withError(files.concat(newItems)));
+            )
+          if (!isControlled) setInternalFiles((prev) => withError(prev))
+          onFilesChange?.(withError(files.concat(newItems)))
         }
       }
     }
   }
 
   function handleInputChange(e: React.ChangeEvent<HTMLInputElement>) {
-    const selected = Array.from(e.target.files ?? []);
-    e.target.value = "";
-    void processFiles(selected);
+    const selected = Array.from(e.target.files ?? [])
+    e.target.value = ""
+    void processFiles(selected)
   }
 
   function handleDragOver(e: React.DragEvent<HTMLDivElement>) {
-    e.preventDefault();
-    if (!disabled) setIsDragActive(true);
+    e.preventDefault()
+    if (!disabled) setIsDragActive(true)
   }
 
   function handleDragLeave(e: React.DragEvent<HTMLDivElement>) {
-    e.preventDefault();
-    setIsDragActive(false);
+    e.preventDefault()
+    setIsDragActive(false)
   }
 
   function handleDrop(e: React.DragEvent<HTMLDivElement>) {
-    e.preventDefault();
-    setIsDragActive(false);
-    if (disabled) return;
-    const selected = Array.from(e.dataTransfer.files);
-    void processFiles(selected);
+    e.preventDefault()
+    setIsDragActive(false)
+    if (disabled) return
+    const selected = Array.from(e.dataTransfer.files)
+    void processFiles(selected)
   }
 
   function handleDelete(id: string) {
     if (onFileDelete) {
-      onFileDelete(id);
+      onFileDelete(id)
     } else {
-      setFiles(files.filter((f) => f.id !== id));
+      setFiles(files.filter((f) => f.id !== id))
     }
   }
 
   function handleAllDelete() {
     if (onAllFilesDelete) {
-      onAllFilesDelete();
+      onAllFilesDelete()
     } else {
-      setFiles([]);
+      setFiles([])
     }
   }
 
-  const hasHeader = !!(title || description || children);
+  const hasHeader = !!(title || description || children)
 
   return (
     <div data-slot="shadcn-file-upload" ref={ref} {...rest} className={cn("flex w-full flex-col gap-6", className)}>
@@ -335,11 +335,11 @@ function ShadcnFileUpload({
         </ul>
       )}
     </div>
-  );
+  )
 }
 
 export function FileUpload(props: FileUploadProps) {
-  const system = useUISystem();
-  if (system === "krds") return <KrdsFileUpload {...props} />;
-  return <ShadcnFileUpload {...props} />;
+  const system = useUISystem()
+  if (system === "krds") return <KrdsFileUpload {...props} />
+  return <ShadcnFileUpload {...props} />
 }

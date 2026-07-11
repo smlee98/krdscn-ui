@@ -1,31 +1,31 @@
-"use client";
+"use client"
 
-import * as React from "react";
-import { ChevronRight, Info, Siren, TriangleAlert } from "lucide-react";
+import * as React from "react"
+import { ChevronRight, Info, Siren, TriangleAlert } from "lucide-react"
 import {
   CriticalAlert as KrdsCriticalAlert,
   CriticalAlertAction as KrdsCriticalAlertAction,
   CriticalAlertList as KrdsCriticalAlertList,
-  CriticalAlertMessage as KrdsCriticalAlertMessage
-} from "@/components/ui/krds/(layout)/critical-alert";
+  CriticalAlertMessage as KrdsCriticalAlertMessage,
+} from "@/components/ui/krds/(layout)/critical-alert"
 import type {
   CriticalAlertActionProps,
   CriticalAlertListProps,
   CriticalAlertMessageProps,
   CriticalAlertProps,
-  CriticalAlertType
-} from "@/components/ui/krds/(layout)/critical-alert";
-import { Button } from "@/components/ui/button";
-import { cn } from "@/lib/cn";
-import { useUISystem } from "@/lib/ui-system";
+  CriticalAlertType,
+} from "@/components/ui/krds/(layout)/critical-alert"
+import { Button } from "@/components/ui/button"
+import { cn } from "@/lib/cn"
+import { useUISystem } from "@/lib/ui-system"
 
 export type {
   CriticalAlertProps,
   CriticalAlertListProps,
   CriticalAlertMessageProps,
   CriticalAlertActionProps,
-  CriticalAlertType
-} from "@/components/ui/krds/(layout)/critical-alert";
+  CriticalAlertType,
+} from "@/components/ui/krds/(layout)/critical-alert"
 
 // Dual-render dispatcher (template: dynamic/accordion.tsx, dynamic/modal.tsx). The
 // public surface is the KRDS CriticalAlert compound API; each part renders either the
@@ -42,32 +42,32 @@ export type {
 const SHADCN_TYPE_CONFIG: Record<
   CriticalAlertType,
   {
-    containerClass: string;
-    iconClass: string;
-    icon: React.ComponentType<{ className?: string; "aria-hidden"?: boolean }>;
+    containerClass: string
+    iconClass: string
+    icon: React.ComponentType<{ className?: string; "aria-hidden"?: boolean }>
   }
 > = {
   emergency: {
     containerClass: "border-destructive/30 bg-destructive/10 text-foreground",
     iconClass: "text-destructive",
-    icon: Siren
+    icon: Siren,
   },
   safety: {
     containerClass: "border-border bg-muted text-foreground",
     iconClass: "text-muted-foreground",
-    icon: TriangleAlert
+    icon: TriangleAlert,
   },
   info: {
     containerClass: "border-border bg-muted text-foreground",
     iconClass: "text-muted-foreground",
-    icon: Info
-  }
-};
+    icon: Info,
+  },
+}
 
 // ─── shadcn-mode parts ──────────────────────────────────────────────────────────
 
 function ShadcnCriticalAlert({ type = "emergency", className, children }: CriticalAlertProps) {
-  const { containerClass, iconClass, icon: Icon } = SHADCN_TYPE_CONFIG[type];
+  const { containerClass, iconClass, icon: Icon } = SHADCN_TYPE_CONFIG[type]
   return (
     <div
       role="alert"
@@ -78,20 +78,20 @@ function ShadcnCriticalAlert({ type = "emergency", className, children }: Critic
       <Icon className={cn("size-6 shrink-0", iconClass)} aria-hidden={true} />
       {children}
     </div>
-  );
+  )
 }
 
 function ShadcnCriticalAlertList({
   className,
   children,
   wrapItems = false,
-  "aria-label": ariaLabel
+  "aria-label": ariaLabel,
 }: CriticalAlertListProps) {
   return (
     <ul data-slot="critical-alert-list" aria-label={ariaLabel} className={cn("flex w-full flex-col gap-4", className)}>
       {wrapItems ? React.Children.map(children, (child, i) => <li key={i}>{child}</li>) : children}
     </ul>
-  );
+  )
 }
 
 function ShadcnCriticalAlertMessage({ className, children }: CriticalAlertMessageProps) {
@@ -99,7 +99,7 @@ function ShadcnCriticalAlertMessage({ className, children }: CriticalAlertMessag
     <p data-slot="critical-alert-message" className={cn("flex-1 text-sm font-medium", className)}>
       {children}
     </p>
-  );
+  )
 }
 
 function ShadcnCriticalAlertAction({
@@ -107,14 +107,14 @@ function ShadcnCriticalAlertAction({
   children,
   href,
   onClick,
-  "aria-label": ariaLabel
+  "aria-label": ariaLabel,
 }: CriticalAlertActionProps) {
   const inner = (
     <>
       <span>{children}</span>
       <ChevronRight className="size-4 shrink-0" aria-hidden={true} />
     </>
-  );
+  )
 
   if (href) {
     return (
@@ -130,7 +130,7 @@ function ShadcnCriticalAlertAction({
       >
         {inner}
       </a>
-    );
+    )
   }
 
   return (
@@ -145,31 +145,31 @@ function ShadcnCriticalAlertAction({
     >
       {inner}
     </Button>
-  );
+  )
 }
 
 // ─── Dispatched parts (public surface preserved) ────────────────────────────────
 
 export function CriticalAlert(props: CriticalAlertProps) {
-  const system = useUISystem();
-  if (system === "krds") return <KrdsCriticalAlert {...props} />;
-  return <ShadcnCriticalAlert {...props} />;
+  const system = useUISystem()
+  if (system === "krds") return <KrdsCriticalAlert {...props} />
+  return <ShadcnCriticalAlert {...props} />
 }
 
 export function CriticalAlertList(props: CriticalAlertListProps) {
-  const system = useUISystem();
-  if (system === "krds") return <KrdsCriticalAlertList {...props} />;
-  return <ShadcnCriticalAlertList {...props} />;
+  const system = useUISystem()
+  if (system === "krds") return <KrdsCriticalAlertList {...props} />
+  return <ShadcnCriticalAlertList {...props} />
 }
 
 export function CriticalAlertMessage(props: CriticalAlertMessageProps) {
-  const system = useUISystem();
-  if (system === "krds") return <KrdsCriticalAlertMessage {...props} />;
-  return <ShadcnCriticalAlertMessage {...props} />;
+  const system = useUISystem()
+  if (system === "krds") return <KrdsCriticalAlertMessage {...props} />
+  return <ShadcnCriticalAlertMessage {...props} />
 }
 
 export function CriticalAlertAction(props: CriticalAlertActionProps) {
-  const system = useUISystem();
-  if (system === "krds") return <KrdsCriticalAlertAction {...props} />;
-  return <ShadcnCriticalAlertAction {...props} />;
+  const system = useUISystem()
+  if (system === "krds") return <KrdsCriticalAlertAction {...props} />
+  return <ShadcnCriticalAlertAction {...props} />
 }

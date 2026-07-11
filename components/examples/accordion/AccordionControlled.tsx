@@ -1,16 +1,16 @@
-"use client";
+"use client"
 
-import * as React from "react";
-import { Button } from "@/components/ui/dynamic/button";
-import { Accordion, AccordionItem, AccordionHeader, AccordionPanel } from "@/components/ui/dynamic/accordion";
+import * as React from "react"
+import { Button } from "@/components/ui/dynamic/button"
+import { Accordion, AccordionItem, AccordionHeader, AccordionPanel } from "@/components/ui/dynamic/accordion"
 
-const ITEMS = ["faq-1", "faq-2", "faq-3"];
+const ITEMS = ["faq-1", "faq-2", "faq-3"]
 
 export default function AccordionControlled() {
-  const [openValues, setOpenValues] = React.useState<string[]>(["faq-1"]);
+  const [openValues, setOpenValues] = React.useState<string[]>(["faq-1"])
 
   return (
-    <div className="w-full flex flex-col gap-4">
+    <div className="flex w-full flex-col gap-4">
       <div className="flex gap-2">
         <Button variant="secondary" size="sm" onClick={() => setOpenValues(ITEMS)}>
           모두 펼치기
@@ -41,5 +41,5 @@ export default function AccordionControlled() {
         </AccordionItem>
       </Accordion>
     </div>
-  );
+  )
 }

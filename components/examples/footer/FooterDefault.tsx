@@ -1,4 +1,4 @@
-import { siInstagram, siYoutube, siX, siFacebook, siNaver } from "simple-icons";
+import { siInstagram, siYoutube, siX, siFacebook, siNaver } from "simple-icons"
 import {
   Footer,
   FooterAddress,
@@ -16,16 +16,16 @@ import {
   FooterQuick,
   FooterQuickLink,
   FooterSns,
-  FooterSnsLink
-} from "@/components/ui/dynamic/footer";
-import { Identifier } from "@/components/ui/dynamic/identifier";
+  FooterSnsLink,
+} from "@/components/ui/dynamic/footer"
+import { Identifier } from "@/components/ui/dynamic/identifier"
 
 function BrandIcon({ icon }: { icon: { path: string } }) {
   return (
     <svg role="img" viewBox="0 0 24 24" className="size-5 fill-current" aria-hidden="true">
       <path d={icon.path} />
     </svg>
-  );
+  )
 }
 
 export default function FooterDefault() {
@@ -90,5 +90,5 @@ export default function FooterDefault() {
         </FooterBottom>
       </div>
     </Footer>
-  );
+  )
 }

@@ -1,4 +1,4 @@
-import { Badge } from "@/components/ui/dynamic/badge";
+import { Badge } from "@/components/ui/dynamic/badge"
 
 export default function BadgeSizes() {
   return (
@@ -13,5 +13,5 @@ export default function BadgeSizes() {
         소형 (small)
       </Badge>
     </div>
-  );
+  )
 }

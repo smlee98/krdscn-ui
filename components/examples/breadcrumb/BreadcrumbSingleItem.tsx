@@ -1,4 +1,4 @@
-import { Breadcrumb, BreadcrumbHome, BreadcrumbItem, BreadcrumbList } from "@/components/ui/dynamic/breadcrumb";
+import { Breadcrumb, BreadcrumbHome, BreadcrumbItem, BreadcrumbList } from "@/components/ui/dynamic/breadcrumb"
 
 export default function BreadcrumbSingleItem() {
   return (
@@ -9,5 +9,5 @@ export default function BreadcrumbSingleItem() {
         </BreadcrumbItem>
       </BreadcrumbList>
     </Breadcrumb>
-  );
+  )
 }

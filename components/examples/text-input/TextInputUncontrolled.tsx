@@ -1,5 +1,5 @@
-import { TextInput } from "@/components/ui/dynamic/text-input";
-import { FieldHint } from "@/components/ui/dynamic/field-message";
+import { TextInput } from "@/components/ui/dynamic/text-input"
+import { FieldHint } from "@/components/ui/dynamic/field-message"
 
 export default function TextInputUncontrolled() {
   return (
@@ -9,5 +9,5 @@ export default function TextInputUncontrolled() {
         <FieldHint>비제어 상태로 동작합니다</FieldHint>
       </div>
     </div>
-  );
+  )
 }

@@ -1,4 +1,4 @@
-import { MainMenu, MainMenuBar, MainMenuBarItem } from "@/components/ui/dynamic/main-menu";
+import { MainMenu, MainMenuBar, MainMenuBarItem } from "@/components/ui/dynamic/main-menu"
 
 export default function MainMenuDefault() {
   return (
@@ -13,5 +13,5 @@ export default function MainMenuDefault() {
         <MainMenuBarItem href="#">공지사항</MainMenuBarItem>
       </MainMenuBar>
     </MainMenu>
-  );
+  )
 }

@@ -1,7 +1,7 @@
-import * as React from "react";
-import { cva, type VariantProps } from "class-variance-authority";
+import * as React from "react"
+import { cva, type VariantProps } from "class-variance-authority"
 
-import { cn } from "@/lib/cn";
+import { cn } from "@/lib/cn"
 
 const spinnerVariants = cva(
   "block animate-spin rounded-full border-solid border-krds-border-light border-t-krds-border-primary shrink-0",
@@ -10,18 +10,18 @@ const spinnerVariants = cva(
       size: {
         small: "size-5 border-2",
         medium: "size-8 border-[3px]",
-        large: "size-12 border-4"
-      }
+        large: "size-12 border-4",
+      },
     },
-    defaultVariants: { size: "large" }
+    defaultVariants: { size: "large" },
   }
-);
+)
 
 type SpinnerProps = Omit<React.ComponentProps<"span">, "children"> &
   VariantProps<typeof spinnerVariants> & {
-    label?: string;
-  };
-type KrdsSpinnerProps = SpinnerProps;
+    label?: string
+  }
+type KrdsSpinnerProps = SpinnerProps
 
 function Spinner({ size, className, label = "로딩 중", ...props }: SpinnerProps) {
   return (
@@ -34,8 +34,8 @@ function Spinner({ size, className, label = "로딩 중", ...props }: SpinnerPro
       />
       <span className="sr-only">{label}</span>
     </span>
-  );
+  )
 }
 
-export { Spinner, spinnerVariants };
-export type { SpinnerProps, KrdsSpinnerProps };
+export { Spinner, spinnerVariants }
+export type { SpinnerProps, KrdsSpinnerProps }

@@ -1,9 +1,9 @@
-"use client";
+"use client"
 
-import * as React from "react";
-import { X } from "lucide-react";
+import * as React from "react"
+import { X } from "lucide-react"
 
-import { Badge as ShadcnBadge } from "@/components/ui/badge";
+import { Badge as ShadcnBadge } from "@/components/ui/badge"
 import {
   Tag as KrdsTag,
   TagDelete as KrdsTagDelete,
@@ -11,12 +11,12 @@ import {
   tagVariants,
   type TagProps as KrdsTagProps,
   type LinkTagProps,
-  type TagWrapProps
-} from "@/components/ui/krds/(selection)/tag";
-import { cn } from "@/lib/cn";
-import { useUISystem } from "@/lib/ui-system";
+  type TagWrapProps,
+} from "@/components/ui/krds/(selection)/tag"
+import { cn } from "@/lib/cn"
+import { useUISystem } from "@/lib/ui-system"
 
-export type TagProps = KrdsTagProps;
+export type TagProps = KrdsTagProps
 
 // KRDS Tag has no color axis — only size + deletable/link kind. shadcn's Badge
 // has no pill/size/link semantics, so in shadcn mode every KRDS Tag maps to the
@@ -25,35 +25,35 @@ export type TagProps = KrdsTagProps;
 // The only KRDS surplus we preserve is link semantics: an href renders the
 // Badge as an <a> via asChild.
 export function Tag(props: TagProps) {
-  const system = useUISystem();
-  if (system === "krds") return <KrdsTag {...props} />;
+  const system = useUISystem()
+  if (system === "krds") return <KrdsTag {...props} />
 
-  const { children, className } = props;
+  const { children, className } = props
 
   if (props.variant === "link") {
-    const { href, target, rel } = props as LinkTagProps;
+    const { href, target, rel } = props as LinkTagProps
     return (
       <ShadcnBadge asChild variant="secondary" className={cn("cursor-pointer", className)}>
         <a href={href} target={target} rel={rel}>
           {children}
         </a>
       </ShadcnBadge>
-    );
+    )
   }
 
   return (
     <ShadcnBadge variant="secondary" className={className}>
       {children}
     </ShadcnBadge>
-  );
+  )
 }
 
 // shadcn mode: minimal inline delete affordance (lucide X) using shadcn tokens.
 export function TagDelete(props: React.ComponentProps<"button">) {
-  const system = useUISystem();
-  if (system === "krds") return <KrdsTagDelete {...props} />;
+  const system = useUISystem()
+  if (system === "krds") return <KrdsTagDelete {...props} />
 
-  const { className, ...rest } = props;
+  const { className, ...rest } = props
   return (
     <button
       type="button"
@@ -68,10 +68,10 @@ export function TagDelete(props: React.ComponentProps<"button">) {
     >
       <X className="size-3" />
     </button>
-  );
+  )
 }
 
 // TagWrap is a system-agnostic flex-wrap layout container (no KRDS/shadcn token
 // divergence), so it is re-exported directly without a dispatcher branch.
-export { TagWrap, tagVariants };
-export type { TagWrapProps };
+export { TagWrap, tagVariants }
+export type { TagWrapProps }

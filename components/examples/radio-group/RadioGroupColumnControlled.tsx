@@ -1,10 +1,10 @@
-"use client";
+"use client"
 
-import { useState } from "react";
-import { Radio, RadioGroup } from "@/components/ui/dynamic/radio-group";
+import { useState } from "react"
+import { Radio, RadioGroup } from "@/components/ui/dynamic/radio-group"
 
 export default function RadioGroupColumnControlled() {
-  const [value, setValue] = useState("option1");
+  const [value, setValue] = useState("option1")
 
   return (
     <RadioGroup name="example-group-column" column value={value} onChange={(v) => setValue(v)}>
@@ -15,5 +15,5 @@ export default function RadioGroupColumnControlled() {
         라디오버튼
       </Radio>
     </RadioGroup>
-  );
+  )
 }

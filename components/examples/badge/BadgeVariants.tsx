@@ -1,4 +1,4 @@
-import { Badge } from "@/components/ui/dynamic/badge";
+import { Badge } from "@/components/ui/dynamic/badge"
 
 export default function BadgeVariants() {
   return (
@@ -23,5 +23,5 @@ export default function BadgeVariants() {
         </Badge>
       </div>
     </div>
-  );
+  )
 }

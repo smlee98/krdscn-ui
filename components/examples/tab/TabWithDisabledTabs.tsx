@@ -1,4 +1,4 @@
-import { Tab, TabList, TabTrigger, TabContent, TabPanel } from "@/components/ui/dynamic/tab";
+import { Tab, TabList, TabTrigger, TabContent, TabPanel } from "@/components/ui/dynamic/tab"
 
 export default function TabWithDisabledTabs() {
   return (
@@ -22,5 +22,5 @@ export default function TabWithDisabledTabs() {
         </TabPanel>
       </TabContent>
     </Tab>
-  );
+  )
 }

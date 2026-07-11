@@ -16,10 +16,10 @@
  * Nesting: render <TextList> inside a <TextListItem> — each nested list resets its own
  * type context. Indentation is left to the caller via className.
  */
-import * as React from "react";
-import { cn } from "@/lib/cn";
+import * as React from "react"
+import { cn } from "@/lib/cn"
 
-export type TextListType = "disc" | "dash" | "hollow" | "decimal" | "alpha" | "circle-num" | "ordered";
+export type TextListType = "disc" | "dash" | "hollow" | "decimal" | "alpha" | "circle-num" | "ordered"
 
 const TYPE_TO_LEVEL: Record<TextListType, 1 | 2 | 3> = {
   disc: 1,
@@ -28,27 +28,27 @@ const TYPE_TO_LEVEL: Record<TextListType, 1 | 2 | 3> = {
   dash: 2,
   alpha: 2,
   hollow: 3,
-  "circle-num": 3
-};
+  "circle-num": 3,
+}
 
-const ORDERED_TYPES = new Set<TextListType>(["decimal", "ordered", "alpha", "circle-num"]);
+const ORDERED_TYPES = new Set<TextListType>(["decimal", "ordered", "alpha", "circle-num"])
 
-const TextListTypeContext = React.createContext<TextListType>("disc");
-const TextListIndexContext = React.createContext<number | null>(null);
+const TextListTypeContext = React.createContext<TextListType>("disc")
+const TextListIndexContext = React.createContext<number | null>(null)
 
 export type TextListProps = Omit<React.HTMLAttributes<HTMLUListElement | HTMLOListElement>, "type"> & {
-  type?: TextListType;
-};
+  type?: TextListType
+}
 
 export type TextListItemProps = React.ComponentProps<"li"> & {
-  number?: string;
-};
+  number?: string
+}
 
 function TextList({ type = "disc", className, children, ...rest }: TextListProps) {
-  const ordered = ORDERED_TYPES.has(type);
-  const Tag = ordered ? "ol" : "ul";
-  const level = TYPE_TO_LEVEL[type];
-  const gap = level === 1 ? "gap-3" : "gap-2";
+  const ordered = ORDERED_TYPES.has(type)
+  const Tag = ordered ? "ol" : "ul"
+  const level = TYPE_TO_LEVEL[type]
+  const gap = level === 1 ? "gap-3" : "gap-2"
 
   const items = ordered
     ? React.Children.map(children, (child, idx) =>
@@ -60,69 +60,72 @@ function TextList({ type = "disc", className, children, ...rest }: TextListProps
           child
         )
       )
-    : children;
+    : children
 
   return (
     <TextListTypeContext.Provider value={type}>
       <Tag
         data-slot="krds-text-list"
         data-type={type}
-        className={cn("flex list-none flex-col pl-0 text-krds-foreground-subtle", gap, className)}
+        className={cn("text-krds-foreground-subtle flex list-none flex-col pl-0", gap, className)}
         {...(rest as React.HTMLAttributes<HTMLOListElement>)}
       >
         {items}
       </Tag>
     </TextListTypeContext.Provider>
-  );
+  )
 }
 
-const CIRCLED_NUMS = ["①", "②", "③", "④", "⑤", "⑥", "⑦", "⑧", "⑨", "⑩", "⑪", "⑫", "⑬", "⑭", "⑮"];
+const CIRCLED_NUMS = ["①", "②", "③", "④", "⑤", "⑥", "⑦", "⑧", "⑨", "⑩", "⑪", "⑫", "⑬", "⑭", "⑮"]
 
 function Bullet({ type, idx, explicit }: { type: TextListType; idx: number | null; explicit?: string }) {
   if (explicit !== undefined) {
     return (
-      <span aria-hidden="true" className="shrink-0 text-krds-body-md">
+      <span aria-hidden="true" className="text-krds-body-md shrink-0">
         {explicit}.
       </span>
-    );
+    )
   }
   switch (type) {
     case "disc":
-      return <span aria-hidden="true" className="mt-[10px] inline-block size-1.5 shrink-0 rounded-sm bg-krds-gray-70" />;
+      return <span aria-hidden="true" className="bg-krds-gray-70 mt-[10px] inline-block size-1.5 shrink-0 rounded-sm" />
     case "dash":
-      return <span aria-hidden="true" className="mt-[12px] inline-block h-px w-1.5 shrink-0 bg-krds-gray-70" />;
+      return <span aria-hidden="true" className="bg-krds-gray-70 mt-[12px] inline-block h-px w-1.5 shrink-0" />
     case "hollow":
       return (
-        <span aria-hidden="true" className="mt-[9px] inline-block size-1 shrink-0 rounded-sm border border-krds-border-dark" />
-      );
+        <span
+          aria-hidden="true"
+          className="border-krds-border-dark mt-[9px] inline-block size-1 shrink-0 rounded-sm border"
+        />
+      )
     case "decimal":
     case "ordered":
       return (
-        <span aria-hidden="true" className="shrink-0 text-krds-body-md">
+        <span aria-hidden="true" className="text-krds-body-md shrink-0">
           {idx ?? 1}.
         </span>
-      );
+      )
     case "alpha":
       return (
-        <span aria-hidden="true" className="shrink-0 text-krds-body-sm">
+        <span aria-hidden="true" className="text-krds-body-sm shrink-0">
           {String.fromCharCode(96 + (idx ?? 1))}.
         </span>
-      );
+      )
     case "circle-num":
       return (
-        <span aria-hidden="true" className="shrink-0 text-krds-body-xs">
+        <span aria-hidden="true" className="text-krds-body-xs shrink-0">
           {CIRCLED_NUMS[(idx ?? 1) - 1] ?? `${idx ?? 1}.`}
         </span>
-      );
+      )
   }
 }
 
 function TextListItem({ className, number, children, ...props }: TextListItemProps) {
-  const type = React.useContext(TextListTypeContext);
-  const idx = React.useContext(TextListIndexContext);
-  const level = TYPE_TO_LEVEL[type];
-  const itemGap = level === 1 ? "gap-2" : "gap-1";
-  const textSize = level === 3 ? "text-krds-body-sm" : "text-krds-body-md";
+  const type = React.useContext(TextListTypeContext)
+  const idx = React.useContext(TextListIndexContext)
+  const level = TYPE_TO_LEVEL[type]
+  const itemGap = level === 1 ? "gap-2" : "gap-1"
+  const textSize = level === 3 ? "text-krds-body-sm" : "text-krds-body-md"
 
   return (
     <li
@@ -133,7 +136,7 @@ function TextListItem({ className, number, children, ...props }: TextListItemPro
       <Bullet type={type} idx={idx} explicit={number} />
       <span className="min-w-0 flex-1">{children}</span>
     </li>
-  );
+  )
 }
 
-export { TextList, TextListItem };
+export { TextList, TextListItem }

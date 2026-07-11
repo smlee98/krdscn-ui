@@ -1,11 +1,11 @@
-"use client";
+"use client"
 
-import * as React from "react";
-import { TextInput } from "@/components/ui/dynamic/text-input";
-import { FieldHint } from "@/components/ui/dynamic/field-message";
+import * as React from "react"
+import { TextInput } from "@/components/ui/dynamic/text-input"
+import { FieldHint } from "@/components/ui/dynamic/field-message"
 
 export default function TextInputControlled() {
-  const [value, setValue] = React.useState("제어된 입력");
+  const [value, setValue] = React.useState("제어된 입력")
 
   return (
     <div className="w-full max-w-[400px]">
@@ -14,5 +14,5 @@ export default function TextInputControlled() {
         <FieldHint>{`현재 값: ${value}`}</FieldHint>
       </div>
     </div>
-  );
+  )
 }

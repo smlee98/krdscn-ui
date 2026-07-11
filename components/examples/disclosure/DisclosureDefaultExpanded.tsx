@@ -1,4 +1,4 @@
-import { Disclosure, DisclosureTrigger, DisclosureContent } from "@/components/ui/dynamic/disclosure";
+import { Disclosure, DisclosureTrigger, DisclosureContent } from "@/components/ui/dynamic/disclosure"
 
 export default function DisclosureDefaultExpanded() {
   return (
@@ -16,5 +16,5 @@ export default function DisclosureDefaultExpanded() {
         </div>
       </DisclosureContent>
     </Disclosure>
-  );
+  )
 }

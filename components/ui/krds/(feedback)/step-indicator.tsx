@@ -1,12 +1,12 @@
-"use client";
+"use client"
 
-import * as React from "react";
-import { cn } from "@/lib/cn";
+import * as React from "react"
+import { cn } from "@/lib/cn"
 
 // ─── Context ───────────────────────────────────────────────────────────────────
 
-type StepIndicatorCtx = { currentStep: number; totalSteps: number; type: "full" | "fixed" };
-const Ctx = React.createContext<StepIndicatorCtx>({ currentStep: 1, totalSteps: 0, type: "full" });
+type StepIndicatorCtx = { currentStep: number; totalSteps: number; type: "full" | "fixed" }
+const Ctx = React.createContext<StepIndicatorCtx>({ currentStep: 1, totalSteps: 0, type: "full" })
 
 // ─── Root ──────────────────────────────────────────────────────────────────────
 
@@ -18,11 +18,11 @@ function StepIndicator({
   children,
   ...props
 }: React.ComponentProps<"div"> & {
-  currentStep?: number;
-  "aria-label"?: string;
-  type?: "full" | "fixed";
+  currentStep?: number
+  "aria-label"?: string
+  type?: "full" | "fixed"
 }) {
-  const totalSteps = React.Children.count(children);
+  const totalSteps = React.Children.count(children)
   return (
     <Ctx.Provider value={{ currentStep, totalSteps, type }}>
       <div data-slot="krds-step-indicator" className={cn("", className)} {...props}>
@@ -31,17 +31,17 @@ function StepIndicator({
         </ol>
       </div>
     </Ctx.Provider>
-  );
+  )
 }
 
 // ─── Item ──────────────────────────────────────────────────────────────────────
 
 function StepIndicatorItem({ className, step, children, ...props }: React.ComponentProps<"li"> & { step: number }) {
-  const { currentStep, totalSteps, type } = React.useContext(Ctx);
-  const isDone = step < currentStep;
-  const isActive = step === currentStep;
-  const isLast = step === totalSteps;
-  const lineActive = isDone;
+  const { currentStep, totalSteps, type } = React.useContext(Ctx)
+  const isDone = step < currentStep
+  const isActive = step === currentStep
+  const isLast = step === totalSteps
+  const lineActive = isDone
 
   return (
     <li
@@ -79,7 +79,9 @@ function StepIndicatorItem({ className, step, children, ...props }: React.Compon
           <div className="bg-krds-surface-subtle border-krds-border size-5 shrink-0 rounded-full border" />
         )}
         {/* connector (skip on last item) */}
-        {!isLast && <div className={cn("h-px flex-1", lineActive ? "bg-krds-primary-50" : "bg-krds-surface-disabled")} />}
+        {!isLast && (
+          <div className={cn("h-px flex-1", lineActive ? "bg-krds-primary-50" : "bg-krds-surface-disabled")} />
+        )}
       </div>
       {/* title block */}
       <div className="flex w-full flex-col gap-0.5 pr-6 leading-[1.5] max-md:pr-0">
@@ -87,7 +89,7 @@ function StepIndicatorItem({ className, step, children, ...props }: React.Compon
         <span className="text-krds-foreground text-[0.9375rem] font-bold max-md:sr-only">{children}</span>
       </div>
     </li>
-  );
+  )
 }
 
-export { StepIndicator, StepIndicatorItem };
+export { StepIndicator, StepIndicatorItem }

@@ -6,50 +6,50 @@
  *  - size: "large" | "medium"
  *  - Open/closed state driven by Radix data-state on each item.
  */
-"use client";
+"use client"
 
-import * as React from "react";
-import { Accordion as AccordionPrimitive } from "radix-ui";
-import { ChevronDownIcon } from "lucide-react";
-import { cn } from "@/lib/cn";
+import * as React from "react"
+import { Accordion as AccordionPrimitive } from "radix-ui"
+import { ChevronDownIcon } from "lucide-react"
+import { cn } from "@/lib/cn"
 
 // ─── Types ───────────────────────────────────────────────────────────────────
 
-type AccordionVariant = "default" | "line";
-type AccordionSize = "large" | "medium";
+type AccordionVariant = "default" | "line"
+type AccordionSize = "large" | "medium"
 
-type AccordionContextValue = { variant: AccordionVariant; size: AccordionSize };
+type AccordionContextValue = { variant: AccordionVariant; size: AccordionSize }
 
 type AccordionProps = Omit<React.HTMLAttributes<HTMLDivElement>, "onChange"> & {
-  variant?: AccordionVariant;
-  size?: AccordionSize;
-  allowMultiple?: boolean;
-  value?: string[];
-  onChange?: (values: string[]) => void;
-  defaultValue?: string[];
-  children: React.ReactNode;
-};
+  variant?: AccordionVariant
+  size?: AccordionSize
+  allowMultiple?: boolean
+  value?: string[]
+  onChange?: (values: string[]) => void
+  defaultValue?: string[]
+  children: React.ReactNode
+}
 
 type AccordionItemProps = Omit<React.HTMLAttributes<HTMLDivElement>, "title"> & {
-  value: string;
-  children: React.ReactNode;
-};
+  value: string
+  children: React.ReactNode
+}
 
 type AccordionHeaderProps = Omit<React.HTMLAttributes<HTMLElement>, "onClick"> & {
-  children: React.ReactNode;
-  onClick?: () => void;
-};
+  children: React.ReactNode
+  onClick?: () => void
+}
 
 type AccordionPanelProps = React.HTMLAttributes<HTMLDivElement> & {
-  children: React.ReactNode;
-};
+  children: React.ReactNode
+}
 
 // ─── Context ─────────────────────────────────────────────────────────────────
 
 const AccordionContext = React.createContext<AccordionContextValue>({
   variant: "default",
-  size: "large"
-});
+  size: "large",
+})
 
 // ─── Accordion (Root) ─────────────────────────────────────────────────────────
 
@@ -65,8 +65,8 @@ function Accordion({
   dir,
   ...rest
 }: AccordionProps) {
-  const isLine = variant === "line";
-  const radixDir = dir as "ltr" | "rtl" | undefined;
+  const isLine = variant === "line"
+  const radixDir = dir as "ltr" | "rtl" | undefined
 
   const commonProps = {
     "data-slot": "krds-accordion",
@@ -74,8 +74,8 @@ function Accordion({
     "data-size": size,
     className: cn("flex flex-col", isLine ? "gap-0" : "gap-2", className),
     dir: radixDir,
-    ...rest
-  };
+    ...rest,
+  }
 
   return (
     <AccordionContext.Provider value={{ variant, size }}>
@@ -102,15 +102,15 @@ function Accordion({
         </AccordionPrimitive.Root>
       )}
     </AccordionContext.Provider>
-  );
+  )
 }
 
 // ─── AccordionItem ────────────────────────────────────────────────────────────
 
 function AccordionItem({ value, children, className, ...rest }: AccordionItemProps) {
-  const { variant, size } = React.useContext(AccordionContext);
-  const isLine = variant === "line";
-  const isLarge = size === "large";
+  const { variant, size } = React.useContext(AccordionContext)
+  const isLine = variant === "line"
+  const isLarge = size === "large"
 
   return (
     <AccordionPrimitive.Item
@@ -125,15 +125,15 @@ function AccordionItem({ value, children, className, ...rest }: AccordionItemPro
               "data-[state=open]:border-krds-border-dark",
               // wrapper spacing: pt:4 always, pb:4 closed → pb:24/20 open
               "pt-1 pb-1",
-              isLarge ? "data-[state=open]:pb-6" : "data-[state=open]:pb-5"
+              isLarge ? "data-[state=open]:pb-6" : "data-[state=open]:pb-5",
             ]
           : [
               // default: 패딩을 trigger/panel로 이관해 focus ring 이 헤더 전체를 감싸도록 한다.
               // overflow-hidden 제거 — trigger 가 item 을 가득 채우므로 ring(box-shadow 4px)이 잘리지 않게.
               // (rounded 배경은 border-radius 로 클립되어 overflow-hidden 없이도 모서리가 둥글다.)
               // KRDS: accordion 아이템은 항상 secondary fill(닫힘=subtle), 열림 시 더 진한 hover fill.
-              "rounded-[10px] border-0 bg-krds-surface-secondary-subtle",
-              "data-[state=open]:bg-krds-secondary-10"
+              "bg-krds-surface-secondary-subtle rounded-[10px] border-0",
+              "data-[state=open]:bg-krds-secondary-10",
             ],
         className
       )}
@@ -141,15 +141,15 @@ function AccordionItem({ value, children, className, ...rest }: AccordionItemPro
     >
       {children}
     </AccordionPrimitive.Item>
-  );
+  )
 }
 
 // ─── AccordionHeader ──────────────────────────────────────────────────────────
 
 function AccordionHeader({ children, onClick, className, ...rest }: AccordionHeaderProps) {
-  const { variant, size } = React.useContext(AccordionContext);
-  const isLine = variant === "line";
-  const isLarge = size === "large";
+  const { variant, size } = React.useContext(AccordionContext)
+  const isLine = variant === "line"
+  const isLarge = size === "large"
 
   return (
     <AccordionPrimitive.Header className="flex">
@@ -158,7 +158,7 @@ function AccordionHeader({ children, onClick, className, ...rest }: AccordionHea
         onClick={onClick}
         className={cn(
           // base layout
-          "flex w-full items-center justify-between gap-4 transition-colors outline-none focus:krds-focus-ring",
+          "focus:krds-focus-ring flex w-full items-center justify-between gap-4 transition-colors outline-none",
           "hover:no-underline disabled:pointer-events-none disabled:opacity-50",
           // typography
           "text-krds-foreground text-left leading-[1.5] font-bold",
@@ -175,7 +175,7 @@ function AccordionHeader({ children, onClick, className, ...rest }: AccordionHea
           !isLine && [
             "bg-krds-surface-secondary-subtle hover:bg-krds-secondary-10",
             "data-[state=open]:bg-krds-secondary-10",
-            "data-[state=open]:rounded-b-none focus:data-[state=open]:rounded-[10px]"
+            "data-[state=open]:rounded-b-none focus:data-[state=open]:rounded-[10px]",
           ],
           // chevron rotation on open
           "[&[data-state=open]>svg]:rotate-180",
@@ -186,24 +186,24 @@ function AccordionHeader({ children, onClick, className, ...rest }: AccordionHea
         {children}
         <ChevronDownIcon
           aria-hidden
-          className="size-6 shrink-0 translate-y-0 text-krds-foreground transition-transform duration-200"
+          className="text-krds-foreground size-6 shrink-0 translate-y-0 transition-transform duration-200"
         />
       </AccordionPrimitive.Trigger>
     </AccordionPrimitive.Header>
-  );
+  )
 }
 
 // ─── AccordionPanel ───────────────────────────────────────────────────────────
 
 function AccordionPanel({ children, className, ...rest }: AccordionPanelProps) {
-  const { variant, size } = React.useContext(AccordionContext);
-  const isLine = variant === "line";
-  const isLarge = size === "large";
+  const { variant, size } = React.useContext(AccordionContext)
+  const isLine = variant === "line"
+  const isLarge = size === "large"
 
   return (
     <AccordionPrimitive.Content
       data-slot="krds-accordion-panel"
-      className="overflow-hidden data-[state=closed]:animate-accordion-up data-[state=open]:animate-accordion-down"
+      className="data-[state=closed]:animate-accordion-up data-[state=open]:animate-accordion-down overflow-hidden"
       {...rest}
     >
       <div
@@ -220,15 +220,15 @@ function AccordionPanel({ children, className, ...rest }: AccordionPanelProps) {
         {children}
       </div>
     </AccordionPrimitive.Content>
-  );
+  )
 }
 
-export { Accordion, AccordionItem, AccordionHeader, AccordionPanel };
+export { Accordion, AccordionItem, AccordionHeader, AccordionPanel }
 export type {
   AccordionVariant,
   AccordionSize,
   AccordionProps,
   AccordionItemProps,
   AccordionHeaderProps,
-  AccordionPanelProps
-};
+  AccordionPanelProps,
+}

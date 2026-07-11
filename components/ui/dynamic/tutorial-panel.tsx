@@ -1,9 +1,9 @@
-"use client";
+"use client"
 
-import * as React from "react";
-import { ChevronLeft, ChevronRight, MessageCircleQuestion, Phone } from "lucide-react";
+import * as React from "react"
+import { ChevronLeft, ChevronRight, MessageCircleQuestion, Phone } from "lucide-react"
 
-import { TutorialPanel as KrdsTutorialPanel } from "@/components/ui/krds/(help)/tutorial-panel";
+import { TutorialPanel as KrdsTutorialPanel } from "@/components/ui/krds/(help)/tutorial-panel"
 import type {
   TutorialLink,
   TutorialLinkIcon,
@@ -15,14 +15,14 @@ import type {
   TutorialPanelTabPanelProps,
   TutorialPanelTabsProps,
   TutorialPanelTriggerProps,
-  TutorialPanelTutorialContentProps
-} from "@/components/ui/krds/(help)/tutorial-panel";
-import { Sheet, SheetContent, SheetDescription, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
-import { Button } from "@/components/ui/button";
-import { cn } from "@/lib/cn";
-import { useUISystem } from "@/lib/ui-system";
+  TutorialPanelTutorialContentProps,
+} from "@/components/ui/krds/(help)/tutorial-panel"
+import { Sheet, SheetContent, SheetDescription, SheetTitle, SheetTrigger } from "@/components/ui/sheet"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible"
+import { Button } from "@/components/ui/button"
+import { cn } from "@/lib/cn"
+import { useUISystem } from "@/lib/ui-system"
 
 export type {
   TutorialPanelTab,
@@ -38,8 +38,8 @@ export type {
   TutorialPanelTabPanelProps,
   TutorialPanelHelpContentProps,
   TutorialPanelTutorialContentProps,
-  TutorialPanelCloseProps
-} from "@/components/ui/krds/(help)/tutorial-panel";
+  TutorialPanelCloseProps,
+} from "@/components/ui/krds/(help)/tutorial-panel"
 
 // Dual-render dispatcher (template: dynamic/modal.tsx). The public surface is the
 // KRDS TutorialPanel compound (single Object.assign symbol with dot-notation parts);
@@ -67,32 +67,32 @@ export type {
 // KRDS Root only. The shadcn parts get their own provider, same shape.)
 
 type ShadcnTutorialPanelContextValue = {
-  isOpen: boolean;
-  setOpen: (open: boolean) => void;
-  activeTab: TutorialPanelTab;
-  setActiveTab: (tab: TutorialPanelTab) => void;
-};
+  isOpen: boolean
+  setOpen: (open: boolean) => void
+  activeTab: TutorialPanelTab
+  setActiveTab: (tab: TutorialPanelTab) => void
+}
 
-const ShadcnTutorialPanelContext = React.createContext<ShadcnTutorialPanelContextValue | null>(null);
+const ShadcnTutorialPanelContext = React.createContext<ShadcnTutorialPanelContextValue | null>(null)
 
 function useShadcnTutorialPanel(): ShadcnTutorialPanelContextValue {
-  const ctx = React.useContext(ShadcnTutorialPanelContext);
-  if (!ctx) throw new Error("TutorialPanel parts must be rendered inside <TutorialPanel.Root>.");
-  return ctx;
+  const ctx = React.useContext(ShadcnTutorialPanelContext)
+  if (!ctx) throw new Error("TutorialPanel parts must be rendered inside <TutorialPanel.Root>.")
+  return ctx
 }
 
 // ─── shadcn-mode helpers ────────────────────────────────────────────────────────
 
 function renderLinkIcon(icon: TutorialLinkIcon | undefined) {
-  if (!icon) return null;
-  if (icon === "phone") return <Phone size={16} aria-hidden={true} className="shrink-0" />;
-  if (icon === "faq") return <MessageCircleQuestion size={16} aria-hidden={true} className="shrink-0" />;
-  return <ChevronRight size={16} aria-hidden={true} className="shrink-0" />;
+  if (!icon) return null
+  if (icon === "phone") return <Phone size={16} aria-hidden={true} className="shrink-0" />
+  if (icon === "faq") return <MessageCircleQuestion size={16} aria-hidden={true} className="shrink-0" />
+  return <ChevronRight size={16} aria-hidden={true} className="shrink-0" />
 }
 
 function ShadcnTutorialLinkAnchor({ link }: { link: TutorialLink }) {
-  const iconPosition = link.iconPosition ?? "right";
-  const icon = renderLinkIcon(link.icon);
+  const iconPosition = link.iconPosition ?? "right"
+  const icon = renderLinkIcon(link.icon)
   return (
     <a
       href={link.href}
@@ -105,7 +105,7 @@ function ShadcnTutorialLinkAnchor({ link }: { link: TutorialLink }) {
       {iconPosition === "right" &&
         (icon ?? (link.external ? <ChevronRight size={16} aria-hidden={true} className="shrink-0" /> : null))}
     </a>
-  );
+  )
 }
 
 // ─── shadcn-mode parts ──────────────────────────────────────────────────────────
@@ -117,48 +117,48 @@ function ShadcnTutorialPanelRoot({
   defaultActiveTab = "help",
   onTabChange,
   className,
-  children
+  children,
 }: TutorialPanelRootProps) {
-  const isOpenControlled = isOpen !== undefined;
-  const [internalOpen, setInternalOpen] = React.useState(false);
-  const open = isOpenControlled ? isOpen : internalOpen;
+  const isOpenControlled = isOpen !== undefined
+  const [internalOpen, setInternalOpen] = React.useState(false)
+  const open = isOpenControlled ? isOpen : internalOpen
 
-  const isTabControlled = activeTab !== undefined;
-  const [internalTab, setInternalTab] = React.useState<TutorialPanelTab>(defaultActiveTab);
-  const tab = isTabControlled ? activeTab : internalTab;
+  const isTabControlled = activeTab !== undefined
+  const [internalTab, setInternalTab] = React.useState<TutorialPanelTab>(defaultActiveTab)
+  const tab = isTabControlled ? activeTab : internalTab
 
   const setOpen = React.useCallback(
     (next: boolean) => {
-      if (!isOpenControlled) setInternalOpen(next);
-      onOpenChange?.(next);
+      if (!isOpenControlled) setInternalOpen(next)
+      onOpenChange?.(next)
     },
     [isOpenControlled, onOpenChange]
-  );
+  )
 
   const setActiveTab = React.useCallback(
     (next: TutorialPanelTab) => {
-      if (!isTabControlled) setInternalTab(next);
-      onTabChange?.(next);
+      if (!isTabControlled) setInternalTab(next)
+      onTabChange?.(next)
     },
     [isTabControlled, onTabChange]
-  );
+  )
 
   const ctx = React.useMemo<ShadcnTutorialPanelContextValue>(
     () => ({ isOpen: open, setOpen, activeTab: tab, setActiveTab }),
     [open, setOpen, tab, setActiveTab]
-  );
+  )
 
   // Mirror KRDS Root: Trigger renders OUTSIDE SheetContent, the rest inside.
-  const childArray = React.Children.toArray(children);
-  const triggers: React.ReactNode[] = [];
-  const inner: React.ReactNode[] = [];
+  const childArray = React.Children.toArray(children)
+  const triggers: React.ReactNode[] = []
+  const inner: React.ReactNode[] = []
   childArray.forEach((child) => {
     if (React.isValidElement(child) && child.type === TutorialPanelTrigger) {
-      triggers.push(child);
+      triggers.push(child)
     } else {
-      inner.push(child);
+      inner.push(child)
     }
-  });
+  })
 
   return (
     <ShadcnTutorialPanelContext.Provider value={ctx}>
@@ -175,26 +175,26 @@ function ShadcnTutorialPanelRoot({
         </SheetContent>
       </Sheet>
     </ShadcnTutorialPanelContext.Provider>
-  );
+  )
 }
 
 function ShadcnTutorialPanelTrigger({ children = "Help", className, onClick, ...props }: TutorialPanelTriggerProps) {
-  const ctx = React.useContext(ShadcnTutorialPanelContext);
+  const ctx = React.useContext(ShadcnTutorialPanelContext)
   return (
     <Button
       type="button"
       variant="outline"
       size="sm"
       onClick={(event) => {
-        onClick?.(event);
-        if (!event.defaultPrevented) ctx?.setOpen(!ctx.isOpen);
+        onClick?.(event)
+        if (!event.defaultPrevented) ctx?.setOpen(!ctx.isOpen)
       }}
       className={className}
       {...props}
     >
       <span>{children}</span>
     </Button>
-  );
+  )
 }
 
 function ShadcnTutorialPanelContainer({ children, className, ...props }: TutorialPanelContainerProps) {
@@ -202,11 +202,11 @@ function ShadcnTutorialPanelContainer({ children, className, ...props }: Tutoria
     <div className={cn("flex flex-col gap-8", className)} {...props}>
       {children}
     </div>
-  );
+  )
 }
 
 function ShadcnTutorialPanelTabs({ children, className, id }: TutorialPanelTabsProps) {
-  const ctx = useShadcnTutorialPanel();
+  const ctx = useShadcnTutorialPanel()
   return (
     <Tabs
       value={ctx.activeTab}
@@ -219,7 +219,7 @@ function ShadcnTutorialPanelTabs({ children, className, id }: TutorialPanelTabsP
       </TabsList>
       {children}
     </Tabs>
-  );
+  )
 }
 
 function ShadcnTutorialPanelTabPanel({ value, children, className, ...props }: TutorialPanelTabPanelProps) {
@@ -227,7 +227,7 @@ function ShadcnTutorialPanelTabPanel({ value, children, className, ...props }: T
     <TabsContent value={value} className={cn("flex flex-col gap-6", className)} {...props}>
       {children}
     </TabsContent>
-  );
+  )
 }
 
 function ShadcnTutorialPanelHelpContent({
@@ -273,7 +273,7 @@ function ShadcnTutorialPanelHelpContent({
         </div>
       ) : null}
     </div>
-  );
+  )
 }
 
 function ShadcnTutorialPanelTutorialContent({
@@ -292,8 +292,8 @@ function ShadcnTutorialPanelTutorialContent({
       </h3>
       <ul className="flex flex-col gap-3">
         {steps.map((step, index) => {
-          const stepCount = step.steps?.length ?? 0;
-          const buttonText = `전체 ${stepCount}단계`;
+          const stepCount = step.steps?.length ?? 0
+          const buttonText = `전체 ${stepCount}단계`
           return (
             <li key={`${step.title}-${index}`} className="flex flex-col gap-2">
               <h4 className={cn("text-base font-bold", step.current ? "text-primary" : "text-foreground")}>
@@ -317,26 +317,26 @@ function ShadcnTutorialPanelTutorialContent({
               ) : null}
               {step.content ? <div className="text-foreground text-sm leading-relaxed">{step.content}</div> : null}
             </li>
-          );
+          )
         })}
       </ul>
       <Button type="button" variant="secondary" className="w-full" onClick={onTutorialStop}>
         {stopButtonText}
       </Button>
     </div>
-  );
+  )
 }
 
 function ShadcnTutorialPanelClose({ children = "접어두기", className, onClick, ...props }: TutorialPanelCloseProps) {
-  const ctx = useShadcnTutorialPanel();
+  const ctx = useShadcnTutorialPanel()
   return (
     <Button
       type="button"
       variant="ghost"
       size="lg"
       onClick={(event) => {
-        onClick?.(event);
-        if (!event.defaultPrevented) ctx.setOpen(false);
+        onClick?.(event)
+        if (!event.defaultPrevented) ctx.setOpen(false)
       }}
       className={cn("self-end", className)}
       {...props}
@@ -344,7 +344,7 @@ function ShadcnTutorialPanelClose({ children = "접어두기", className, onClic
       <span>{children}</span>
       <ChevronRight size={16} aria-hidden={true} className="shrink-0" />
     </Button>
-  );
+  )
 }
 
 // ─── Dispatched parts (public surface preserved) ────────────────────────────────
@@ -354,54 +354,54 @@ function ShadcnTutorialPanelClose({ children = "접어두기", className, onClic
 // own split against the KRDS Trigger symbol), so the two systems never cross-bind.
 
 function TutorialPanelRoot(props: TutorialPanelRootProps) {
-  const system = useUISystem();
-  if (system === "krds") return <KrdsTutorialPanel.Root {...props} />;
-  return <ShadcnTutorialPanelRoot {...props} />;
+  const system = useUISystem()
+  if (system === "krds") return <KrdsTutorialPanel.Root {...props} />
+  return <ShadcnTutorialPanelRoot {...props} />
 }
 
 function TutorialPanelTrigger(props: TutorialPanelTriggerProps) {
-  const system = useUISystem();
-  if (system === "krds") return <KrdsTutorialPanel.Trigger {...props} />;
-  return <ShadcnTutorialPanelTrigger {...props} />;
+  const system = useUISystem()
+  if (system === "krds") return <KrdsTutorialPanel.Trigger {...props} />
+  return <ShadcnTutorialPanelTrigger {...props} />
 }
 // 트리거 식별 마커: dispatcher 경유 시 KRDS Root(및 shadcn Root)에 이 함수가 child.type 으로
 // 넘어가므로, displayName 으로 트리거를 분류해 포털 밖(가시 영역)에 렌더되게 한다.
-TutorialPanelTrigger.displayName = "TutorialPanelTrigger";
+TutorialPanelTrigger.displayName = "TutorialPanelTrigger"
 
 function TutorialPanelContainer(props: TutorialPanelContainerProps) {
-  const system = useUISystem();
-  if (system === "krds") return <KrdsTutorialPanel.Container {...props} />;
-  return <ShadcnTutorialPanelContainer {...props} />;
+  const system = useUISystem()
+  if (system === "krds") return <KrdsTutorialPanel.Container {...props} />
+  return <ShadcnTutorialPanelContainer {...props} />
 }
 
 function TutorialPanelTabs(props: TutorialPanelTabsProps) {
-  const system = useUISystem();
-  if (system === "krds") return <KrdsTutorialPanel.Tabs {...props} />;
-  return <ShadcnTutorialPanelTabs {...props} />;
+  const system = useUISystem()
+  if (system === "krds") return <KrdsTutorialPanel.Tabs {...props} />
+  return <ShadcnTutorialPanelTabs {...props} />
 }
 
 function TutorialPanelTabPanel(props: TutorialPanelTabPanelProps) {
-  const system = useUISystem();
-  if (system === "krds") return <KrdsTutorialPanel.TabPanel {...props} />;
-  return <ShadcnTutorialPanelTabPanel {...props} />;
+  const system = useUISystem()
+  if (system === "krds") return <KrdsTutorialPanel.TabPanel {...props} />
+  return <ShadcnTutorialPanelTabPanel {...props} />
 }
 
 function TutorialPanelHelpContent(props: TutorialPanelHelpContentProps) {
-  const system = useUISystem();
-  if (system === "krds") return <KrdsTutorialPanel.HelpContent {...props} />;
-  return <ShadcnTutorialPanelHelpContent {...props} />;
+  const system = useUISystem()
+  if (system === "krds") return <KrdsTutorialPanel.HelpContent {...props} />
+  return <ShadcnTutorialPanelHelpContent {...props} />
 }
 
 function TutorialPanelTutorialContent(props: TutorialPanelTutorialContentProps) {
-  const system = useUISystem();
-  if (system === "krds") return <KrdsTutorialPanel.TutorialContent {...props} />;
-  return <ShadcnTutorialPanelTutorialContent {...props} />;
+  const system = useUISystem()
+  if (system === "krds") return <KrdsTutorialPanel.TutorialContent {...props} />
+  return <ShadcnTutorialPanelTutorialContent {...props} />
 }
 
 function TutorialPanelClose(props: TutorialPanelCloseProps) {
-  const system = useUISystem();
-  if (system === "krds") return <KrdsTutorialPanel.Close {...props} />;
-  return <ShadcnTutorialPanelClose {...props} />;
+  const system = useUISystem()
+  if (system === "krds") return <KrdsTutorialPanel.Close {...props} />
+  return <ShadcnTutorialPanelClose {...props} />
 }
 
 // ─── Compound export (shape preserved: single Object.assign symbol) ─────────────
@@ -414,7 +414,7 @@ const TutorialPanel = Object.assign(TutorialPanelRoot, {
   TabPanel: TutorialPanelTabPanel,
   HelpContent: TutorialPanelHelpContent,
   TutorialContent: TutorialPanelTutorialContent,
-  Close: TutorialPanelClose
-});
+  Close: TutorialPanelClose,
+})
 
-export { TutorialPanel };
+export { TutorialPanel }

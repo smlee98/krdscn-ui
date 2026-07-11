@@ -1,4 +1,4 @@
-import { Button } from "@/components/ui/dynamic/button";
+import { Button } from "@/components/ui/dynamic/button"
 import {
   ModalRoot,
   ModalTrigger,
@@ -6,8 +6,8 @@ import {
   ModalHeader,
   ModalBody,
   ModalFooter,
-  ModalClose
-} from "@/components/ui/dynamic/modal";
+  ModalClose,
+} from "@/components/ui/dynamic/modal"
 
 export default function ModalLongContentInitialBodyFocus() {
   return (
@@ -36,5 +36,5 @@ export default function ModalLongContentInitialBodyFocus() {
         </ModalFooter>
       </ModalContent>
     </ModalRoot>
-  );
+  )
 }

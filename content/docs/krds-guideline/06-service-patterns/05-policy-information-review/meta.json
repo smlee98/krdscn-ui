@@ -1,9 +1,4 @@
 {
   "title": "정책 정보 확인",
-  "pages": [
-    "01-overview",
-    "02-explore-policy",
-    "03-review-information",
-    "04-explore-policy-resources"
-  ]
+  "pages": ["01-overview", "02-explore-policy", "03-review-information", "04-explore-policy-resources"]
 }

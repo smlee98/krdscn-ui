@@ -1,28 +1,28 @@
-"use client";
+"use client"
 
-import * as React from "react";
-import { Loader2 } from "lucide-react";
+import * as React from "react"
+import { Loader2 } from "lucide-react"
 
-import { cn } from "@/lib/cn";
-import { useUISystem } from "@/lib/ui-system";
-import { spinnerVariants } from "@/components/ui/krds/(feedback)/spinner";
+import { cn } from "@/lib/cn"
+import { useUISystem } from "@/lib/ui-system"
+import { spinnerVariants } from "@/components/ui/krds/(feedback)/spinner"
 
-type SpinnerSize = "small" | "medium" | "large";
+type SpinnerSize = "small" | "medium" | "large"
 
 export type SpinnerProps = {
-  size?: SpinnerSize;
-  className?: string;
-  "aria-label"?: string;
-};
+  size?: SpinnerSize
+  className?: string
+  "aria-label"?: string
+}
 
 const SHADCN_SIZE: Record<SpinnerSize, string> = {
   small: "size-5",
   medium: "size-8",
-  large: "size-12"
-};
+  large: "size-12",
+}
 
 function Spinner({ size = "large", className, "aria-label": ariaLabel }: SpinnerProps) {
-  const system = useUISystem();
+  const system = useUISystem()
 
   if (system === "shadcn") {
     return (
@@ -35,7 +35,7 @@ function Spinner({ size = "large", className, "aria-label": ariaLabel }: Spinner
         // foreground (near-black) instead of the muted gray it had before.
         className={cn("animate-spin", SHADCN_SIZE[size], className)}
       />
-    );
+    )
   }
 
   return (
@@ -46,7 +46,7 @@ function Spinner({ size = "large", className, "aria-label": ariaLabel }: Spinner
       aria-hidden="true"
       className={cn(spinnerVariants({ size }), className)}
     />
-  );
+  )
 }
 
-export { Spinner };
+export { Spinner }

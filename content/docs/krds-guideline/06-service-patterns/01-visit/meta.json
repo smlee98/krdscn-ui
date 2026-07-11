@@ -1,7 +1,4 @@
 {
   "title": "방문",
-  "pages": [
-    "01-overview",
-    "02-visit"
-  ]
+  "pages": ["01-overview", "02-visit"]
 }

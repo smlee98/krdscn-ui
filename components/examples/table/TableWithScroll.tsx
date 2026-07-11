@@ -1,16 +1,16 @@
-import { Table, TableHeader, TableBody, TableHead, TableRow, TableCell } from "@/components/ui/dynamic/table";
+import { Table, TableHeader, TableBody, TableHead, TableRow, TableCell } from "@/components/ui/dynamic/table"
 
 const ALL_ROWS = Array.from({ length: 15 }, (_, i) => ({
   id: `2024-${String(i + 1).padStart(3, "0")}`,
   name: ["주민등록등본", "건강보험확인서", "소득확인서", "납세완납증명"][i % 4]!,
   dept: ["주민센터", "건강보험공단", "세무서", "국세청"][i % 4]!,
   date: `2024.03.${String((i % 28) + 1).padStart(2, "0")}`,
-  status: i % 3 === 0 ? "처리중" : "완료"
-}));
+  status: i % 3 === 0 ? "처리중" : "완료",
+}))
 
 export default function TableWithScroll() {
   return (
-    <div className="w-full max-h-64 overflow-y-auto">
+    <div className="max-h-64 w-full overflow-y-auto">
       <Table>
         <TableHeader>
           <TableRow>
@@ -34,5 +34,5 @@ export default function TableWithScroll() {
         </TableBody>
       </Table>
     </div>
-  );
+  )
 }

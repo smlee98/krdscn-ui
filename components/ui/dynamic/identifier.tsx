@@ -1,16 +1,16 @@
-"use client";
+"use client"
 
-import * as React from "react";
+import * as React from "react"
 
-import { cn } from "@/lib/cn";
-import { useUISystem } from "@/lib/ui-system";
+import { cn } from "@/lib/cn"
+import { useUISystem } from "@/lib/ui-system"
 import {
   Identifier as KrdsIdentifier,
   KrdsIdentifierLogo,
-  type IdentifierProps
-} from "@/components/ui/krds/(identity)/identifier";
+  type IdentifierProps,
+} from "@/components/ui/krds/(identity)/identifier"
 
-export type { IdentifierProps } from "@/components/ui/krds/(identity)/identifier";
+export type { IdentifierProps } from "@/components/ui/krds/(identity)/identifier"
 
 // Dual-render dispatcher. identifier had no dispatcher, so the example imported the
 // KRDS component directly and rendered KRDS government chrome (bg-krds-gray-0 bar,
@@ -36,13 +36,13 @@ function ShadcnIdentifier({ className, notice = "이 누리집은 정부 산하�
       <span className="bg-border h-4 w-px shrink-0" aria-hidden />
       <p className="truncate">{notice}</p>
     </div>
-  );
+  )
 }
 
 function Identifier(props: IdentifierProps) {
-  const system = useUISystem();
-  if (system === "krds") return <KrdsIdentifier {...props} />;
-  return <ShadcnIdentifier {...props} />;
+  const system = useUISystem()
+  if (system === "krds") return <KrdsIdentifier {...props} />
+  return <ShadcnIdentifier {...props} />
 }
 
-export { Identifier };
+export { Identifier }

@@ -1,6 +1,6 @@
-"use client";
+"use client"
 
-import { CoachMark } from "@/components/ui/dynamic/coach-mark";
+import { CoachMark } from "@/components/ui/dynamic/coach-mark"
 
 export default function CoachMarkLongDescription() {
   return (
@@ -15,5 +15,5 @@ export default function CoachMarkLongDescription() {
         <h3>코치 마크 내용</h3>
       </CoachMark>
     </div>
-  );
+  )
 }

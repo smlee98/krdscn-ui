@@ -1,14 +1,14 @@
-"use client";
+"use client"
 
-import * as React from "react";
-import { Input } from "@/components/ui/input";
+import * as React from "react"
+import { Input } from "@/components/ui/input"
 import {
   TextInput as KrdsTextInput,
   type TextInputProps,
-  type TextInputSize
-} from "@/components/ui/krds/(input)/text-input";
-import { renderFieldMessage } from "@/components/ui/krds/(input)/field-message";
-import { useUISystem } from "@/lib/ui-system";
+  type TextInputSize,
+} from "@/components/ui/krds/(input)/text-input"
+import { renderFieldMessage } from "@/components/ui/krds/(input)/field-message"
+import { useUISystem } from "@/lib/ui-system"
 
 // shadcn fallback: label rendered above the Input using shadcn tokens.
 // showClearButton/showPasswordToggle have no shadcn-side implementation (v1).
@@ -17,10 +17,10 @@ import { useUISystem } from "@/lib/ui-system";
 // feedback-shadcn-uses-native-size).
 
 function TextInput(props: TextInputProps) {
-  const system = useUISystem();
-  const generatedId = React.useId();
+  const system = useUISystem()
+  const generatedId = React.useId()
 
-  if (system === "krds") return <KrdsTextInput {...props} />;
+  if (system === "krds") return <KrdsTextInput {...props} />
 
   const {
     label,
@@ -39,17 +39,17 @@ function TextInput(props: TextInputProps) {
     "aria-invalid": ariaInvalid,
     "aria-describedby": ariaDescribedby,
     ...rest
-  } = props;
-  void _size;
+  } = props
+  void _size
 
-  const id = propId ?? generatedId;
+  const id = propId ?? generatedId
 
-  const message = renderFieldMessage(id, { error, success, information, hint });
-  const describedBy = message ? [ariaDescribedby, `${id}-message`].filter(Boolean).join(" ") : ariaDescribedby;
-  const resolvedInvalid = ariaInvalid ?? (error != null && error !== false ? true : undefined);
+  const message = renderFieldMessage(id, { error, success, information, hint })
+  const describedBy = message ? [ariaDescribedby, `${id}-message`].filter(Boolean).join(" ") : ariaDescribedby
+  const resolvedInvalid = ariaInvalid ?? (error != null && error !== false ? true : undefined)
 
   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
-    onChange?.(e.target.value);
+    onChange?.(e.target.value)
   }
 
   return (
@@ -71,8 +71,8 @@ function TextInput(props: TextInputProps) {
       />
       {message}
     </div>
-  );
+  )
 }
 
-export { TextInput };
-export type { TextInputProps, TextInputSize };
+export { TextInput }
+export type { TextInputProps, TextInputSize }

@@ -1,4 +1,4 @@
-import { Badge, type BadgeVariant } from "@/components/ui/dynamic/badge";
+import { Badge, type BadgeVariant } from "@/components/ui/dynamic/badge"
 
 const VARIANTS: ReadonlyArray<BadgeVariant> = [
   "default",
@@ -8,8 +8,8 @@ const VARIANTS: ReadonlyArray<BadgeVariant> = [
   "destructive",
   "warning",
   "success",
-  "info"
-];
+  "info",
+]
 
 export default function BadgeColors() {
   return (
@@ -36,5 +36,5 @@ export default function BadgeColors() {
         ))}
       </div>
     </div>
-  );
+  )
 }

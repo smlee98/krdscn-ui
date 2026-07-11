@@ -4,8 +4,8 @@ import {
   SideNavigationItem,
   SideNavigationList,
   SideNavigationTitle,
-  SideNavigationTrigger
-} from "@/components/ui/dynamic/side-navigation";
+  SideNavigationTrigger,
+} from "@/components/ui/dynamic/side-navigation"
 
 export default function SideNavigationWithPopupOnly() {
   return (
@@ -18,5 +18,5 @@ export default function SideNavigationWithPopupOnly() {
         </SideNavigationList>
       </SideNavigationGroup>
     </SideNavigation>
-  );
+  )
 }

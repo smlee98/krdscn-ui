@@ -1,7 +1,7 @@
-"use client";
+"use client"
 
-import { DateInput } from "@/components/ui/dynamic/date-input";
-import { FieldHint, FieldError, FieldSuccess, FieldInformation } from "@/components/ui/dynamic/field-message";
+import { DateInput } from "@/components/ui/dynamic/date-input"
+import { FieldHint, FieldError, FieldSuccess, FieldInformation } from "@/components/ui/dynamic/field-message"
 
 export default function DateInputAllStates() {
   return (
@@ -26,5 +26,5 @@ export default function DateInputAllStates() {
       <DateInput label="비활성화" disabled defaultValue="2024.12.25" />
       <DateInput label="읽기 전용" readOnly defaultValue="2024.12.25" />
     </div>
-  );
+  )
 }

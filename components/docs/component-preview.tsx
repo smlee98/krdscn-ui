@@ -53,7 +53,7 @@ export function ComponentPreview({
   return (
     <figure data-hide-code={hideCode} className="flex flex-col data-[hide-code=true]:gap-4">
       {content}
-      <figcaption className="-mt-8 text-center text-sm text-muted-foreground data-[hide-code=true]:mt-0">
+      <figcaption className="text-muted-foreground -mt-8 text-center text-sm data-[hide-code=true]:mt-0">
         {caption}
       </figcaption>
     </figure>

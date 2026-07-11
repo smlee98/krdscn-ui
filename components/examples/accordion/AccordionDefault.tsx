@@ -1,4 +1,4 @@
-import { Accordion, AccordionItem, AccordionHeader, AccordionPanel } from "@/components/ui/dynamic/accordion";
+import { Accordion, AccordionItem, AccordionHeader, AccordionPanel } from "@/components/ui/dynamic/accordion"
 
 export default function AccordionDefault() {
   return (
@@ -18,5 +18,5 @@ export default function AccordionDefault() {
         <AccordionPanel>세 번째 아코디언 내용입니다.</AccordionPanel>
       </AccordionItem>
     </Accordion>
-  );
+  )
 }

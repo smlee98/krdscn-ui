@@ -4,8 +4,8 @@ import {
   CarouselItem,
   CarouselPrevious,
   CarouselNext,
-  CarouselDots
-} from "@/components/ui/dynamic/carousel";
+  CarouselDots,
+} from "@/components/ui/dynamic/carousel"
 
 const SERVICES = [
   { icon: "📋", name: "주민등록등본" },
@@ -13,8 +13,8 @@ const SERVICES = [
   { icon: "🚗", name: "자동차 등록" },
   { icon: "📚", name: "학력 인증" },
   { icon: "💼", name: "사업자 등록" },
-  { icon: "🏥", name: "의료급여" }
-];
+  { icon: "🏥", name: "의료급여" },
+]
 
 export default function CarouselMultiple() {
   return (
@@ -37,5 +37,5 @@ export default function CarouselMultiple() {
         </div>
       </div>
     </Carousel>
-  );
+  )
 }

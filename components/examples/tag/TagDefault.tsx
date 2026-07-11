@@ -1,4 +1,4 @@
-import { Tag } from "@/components/ui/dynamic/tag";
+import { Tag } from "@/components/ui/dynamic/tag"
 
 export default function TagDefault() {
   return (
@@ -9,5 +9,5 @@ export default function TagDefault() {
       <Tag>업데이트</Tag>
       <Tag>긴급</Tag>
     </div>
-  );
+  )
 }

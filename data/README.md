@@ -19,6 +19,7 @@ Also runs automatically as `prebuild` on `yarn build`.
 ### Policy: committed, not gitignored
 
 The committed artifact serves three purposes:
+
 1. Cold builds stay fast (no generation needed for read-only consumers).
 2. PR diffs surface unintended prop API changes on the KRDS wrappers.
 3. Matches shadcn/ui registry convention.

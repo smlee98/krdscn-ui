@@ -13,51 +13,51 @@
  * via Radix's internal hidden input (name/value props on Root).
  */
 
-"use client";
+"use client"
 
-import * as React from "react";
-import { CheckIcon, MinusIcon } from "lucide-react";
-import { Checkbox as CheckboxPrimitive } from "radix-ui";
-import { cn } from "@/lib/cn";
+import * as React from "react"
+import { CheckIcon, MinusIcon } from "lucide-react"
+import { Checkbox as CheckboxPrimitive } from "radix-ui"
+import { cn } from "@/lib/cn"
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
-type CheckboxSize = "medium" | "large";
-type CheckboxChipSize = "small" | "medium" | "large";
+type CheckboxSize = "medium" | "large"
+type CheckboxChipSize = "small" | "medium" | "large"
 
 type CheckboxProps = Omit<
   React.ComponentProps<"input">,
   "size" | "type" | "defaultChecked" | "defaultValue" | "onChange" | "value" | "children"
 > & {
-  size?: CheckboxSize;
-  label?: string;
-  description?: string;
-  checked?: boolean;
-  indeterminate?: boolean;
-  defaultValue?: boolean;
-  onChange?: (checked: boolean) => void;
-  className?: string;
-  children?: React.ReactNode;
-  value?: string;
-};
+  size?: CheckboxSize
+  label?: string
+  description?: string
+  checked?: boolean
+  indeterminate?: boolean
+  defaultValue?: boolean
+  onChange?: (checked: boolean) => void
+  className?: string
+  children?: React.ReactNode
+  value?: string
+}
 
 type CheckboxGroupProps = Omit<React.ComponentProps<"div">, "children"> & {
-  size?: CheckboxSize;
-  column?: boolean;
-  children?: React.ReactNode;
-};
+  size?: CheckboxSize
+  column?: boolean
+  children?: React.ReactNode
+}
 
 type CheckboxChipProps = Omit<
   React.ComponentProps<"input">,
   "size" | "type" | "defaultChecked" | "defaultValue" | "onChange" | "value"
 > & {
-  size?: CheckboxChipSize;
-  checked?: boolean;
-  defaultValue?: boolean;
-  onChange?: (checked: boolean) => void;
-  children?: React.ReactNode;
-  value?: string;
-};
+  size?: CheckboxChipSize
+  checked?: boolean
+  defaultValue?: boolean
+  onChange?: (checked: boolean) => void
+  children?: React.ReactNode
+  value?: string
+}
 
 // ─── Checkbox ─────────────────────────────────────────────────────────────────
 
@@ -76,52 +76,49 @@ function Checkbox({
   value,
   children,
 }: CheckboxProps) {
-  const autoId = React.useId();
-  const inputId = id ?? autoId;
+  const autoId = React.useId()
+  const inputId = id ?? autoId
 
-  const [internalChecked, setInternalChecked] = React.useState<boolean>(defaultValue ?? false);
-  const isControlled = checked !== undefined;
-  const currentChecked = isControlled ? checked : internalChecked;
-  const isOn = currentChecked || indeterminate === true;
+  const [internalChecked, setInternalChecked] = React.useState<boolean>(defaultValue ?? false)
+  const isControlled = checked !== undefined
+  const currentChecked = isControlled ? checked : internalChecked
+  const isOn = currentChecked || indeterminate === true
 
   // Figma node 306:26713 — 24px (large), 20px (medium); check glyph 16px / 12px.
-  const outerSize = size === "large" ? "size-6" : "size-5";
-  const iconGlyphSize = size === "large" ? "size-4" : "size-3";
+  const outerSize = size === "large" ? "size-6" : "size-5"
+  const iconGlyphSize = size === "large" ? "size-4" : "size-3"
   // Description indent: control size (size-6=24px / size-5=20px) + gap-2 (8px).
-  const descIndent = size === "large" ? "pl-8" : "pl-7";
+  const descIndent = size === "large" ? "pl-8" : "pl-7"
   // Label/help typography mirrors Radio (Figma node 313:27198).
-  const labelSize = size === "large" ? "text-krds-body-lg" : "text-krds-body-md";
-  const helpSize = size === "large" ? "text-krds-body-md" : "text-krds-body-sm";
+  const labelSize = size === "large" ? "text-krds-body-lg" : "text-krds-body-md"
+  const helpSize = size === "large" ? "text-krds-body-md" : "text-krds-body-sm"
   // Border + background per state (matches Radio's color decisions for consistency).
   //  - default off:        border #58616a (gray-dark), bg white
   //  - default on/indet:   bg primary-50, no visible border
   //  - disabled (any):     border #8a949e, bg krds-gray-20 (#cdd1d5)
-  let borderClass: string;
-  let bgClass: string;
+  let borderClass: string
+  let bgClass: string
   if (disabled) {
-    borderClass = isOn ? "border border-transparent" : "border border-krds-border";
-    bgClass = "bg-krds-surface-disabled";
+    borderClass = isOn ? "border border-transparent" : "border border-krds-border"
+    bgClass = "bg-krds-surface-disabled"
   } else if (isOn) {
-    borderClass = "border border-transparent";
-    bgClass = "bg-krds-primary-50";
+    borderClass = "border border-transparent"
+    bgClass = "bg-krds-primary-50"
   } else {
-    borderClass = "border border-krds-border-dark";
+    borderClass = "border border-krds-border-dark"
     // Kept white (not surface) on purpose: in high-contrast/dark the unchecked
     // box must stay a visible white affordance, not blend into the dark surface.
-    bgClass = "bg-white";
+    bgClass = "bg-white"
   }
 
-  const glyphColor = disabled ? "text-krds-foreground-disabled" : "text-white";
-  const labelColor = disabled ? "text-krds-foreground-disabled" : "text-krds-foreground-bolder";
-  const helpColor = disabled ? "text-krds-foreground-disabled" : "text-krds-foreground-subtle";
+  const glyphColor = disabled ? "text-krds-foreground-disabled" : "text-white"
+  const labelColor = disabled ? "text-krds-foreground-disabled" : "text-krds-foreground-bolder"
+  const helpColor = disabled ? "text-krds-foreground-disabled" : "text-krds-foreground-subtle"
 
-  const labelNode = label ?? children;
+  const labelNode = label ?? children
 
   return (
-    <div
-      data-slot="krds-checkbox"
-      className={cn("flex flex-col gap-1", disabled && "cursor-not-allowed", className)}
-    >
+    <div data-slot="krds-checkbox" className={cn("flex flex-col gap-1", disabled && "cursor-not-allowed", className)}>
       <div className="flex w-fit items-center gap-2">
         <CheckboxPrimitive.Root
           id={inputId}
@@ -130,12 +127,12 @@ function Checkbox({
           disabled={disabled}
           checked={indeterminate ? "indeterminate" : currentChecked}
           onCheckedChange={(checkedState) => {
-            const val = checkedState === "indeterminate" ? false : (checkedState as boolean);
-            if (!isControlled) setInternalChecked(val);
-            onChange?.(val);
+            const val = checkedState === "indeterminate" ? false : (checkedState as boolean)
+            if (!isControlled) setInternalChecked(val)
+            onChange?.(val)
           }}
           className={cn(
-            "relative inline-flex shrink-0 items-center justify-center rounded-[4px] transition-colors focus:krds-focus-ring",
+            "focus:krds-focus-ring relative inline-flex shrink-0 items-center justify-center rounded-[4px] transition-colors",
             outerSize,
             borderClass,
             bgClass
@@ -152,22 +149,15 @@ function Checkbox({
         {labelNode && (
           <label
             htmlFor={inputId}
-            className={cn(
-              "cursor-pointer select-none",
-              disabled && "cursor-not-allowed",
-              labelSize,
-              labelColor
-            )}
+            className={cn("cursor-pointer select-none", disabled && "cursor-not-allowed", labelSize, labelColor)}
           >
             {labelNode}
           </label>
         )}
       </div>
-      {description && (
-        <span className={cn(descIndent, helpSize, helpColor)}>{description}</span>
-      )}
+      {description && <span className={cn(descIndent, helpSize, helpColor)}>{description}</span>}
     </div>
-  );
+  )
 }
 
 // ─── CheckboxGroup ────────────────────────────────────────────────────────────
@@ -175,7 +165,7 @@ function Checkbox({
 function CheckboxGroup({ children, column = false, size = "medium", className, ...props }: CheckboxGroupProps) {
   // Figma checkbox__list (node 309:26481): column gap 24px (large) / 20px (medium).
   // Row layout uses gap-2 (Figma does not define a row gap).
-  const columnGap = size === "large" ? "gap-6" : "gap-5";
+  const columnGap = size === "large" ? "gap-6" : "gap-5"
 
   return (
     <div
@@ -185,7 +175,7 @@ function CheckboxGroup({ children, column = false, size = "medium", className, .
     >
       {children}
     </div>
-  );
+  )
 }
 
 // ─── CheckboxChip ─────────────────────────────────────────────────────────────
@@ -202,21 +192,21 @@ function CheckboxChip({
   name,
   value,
 }: CheckboxChipProps) {
-  const autoId = React.useId();
-  const inputId = id ?? autoId;
+  const autoId = React.useId()
+  const inputId = id ?? autoId
 
-  const [internalChecked, setInternalChecked] = React.useState<boolean>(defaultValue ?? false);
-  const isControlled = checked !== undefined;
-  const currentChecked = isControlled ? checked : internalChecked;
+  const [internalChecked, setInternalChecked] = React.useState<boolean>(defaultValue ?? false)
+  const isControlled = checked !== undefined
+  const currentChecked = isControlled ? checked : internalChecked
 
   // KRDS form-chip heights (ref _form_chip.scss): small 40px / medium 48px / large 56px.
   const sizeClass = {
     small: "h-10 gap-1.5 px-3 rounded-md text-sm",
     medium: "h-12 gap-1.5 px-4 rounded-md text-base",
-    large: "h-14 gap-2 px-5 rounded-lg text-base"
-  }[size];
+    large: "h-14 gap-2 px-5 rounded-lg text-base",
+  }[size]
 
-  const iconSize = size === "large" ? "size-4" : size === "small" ? "size-3" : "size-3.5";
+  const iconSize = size === "large" ? "size-4" : size === "small" ? "size-3" : "size-3.5"
 
   return (
     <CheckboxPrimitive.Root
@@ -226,16 +216,16 @@ function CheckboxChip({
       disabled={disabled}
       checked={currentChecked}
       onCheckedChange={(checkedState) => {
-        const val = checkedState === "indeterminate" ? false : (checkedState as boolean);
-        if (!isControlled) setInternalChecked(val);
-        onChange?.(val);
+        const val = checkedState === "indeterminate" ? false : (checkedState as boolean)
+        if (!isControlled) setInternalChecked(val)
+        onChange?.(val)
       }}
       data-slot="krds-checkbox-chip"
       className={cn(
-        "inline-flex cursor-pointer items-center border transition-colors focus:krds-focus-ring",
+        "focus:krds-focus-ring inline-flex cursor-pointer items-center border transition-colors",
         "bg-krds-surface border-krds-border-light text-krds-foreground",
         currentChecked && "bg-krds-surface-primary-subtle border-krds-border-primary text-krds-foreground-primary",
-        disabled && "cursor-not-allowed bg-krds-surface-subtler border-krds-border-light text-krds-foreground-disabled",
+        disabled && "bg-krds-surface-subtler border-krds-border-light text-krds-foreground-disabled cursor-not-allowed",
         sizeClass,
         className
       )}
@@ -252,8 +242,8 @@ function CheckboxChip({
       />
       {children}
     </CheckboxPrimitive.Root>
-  );
+  )
 }
 
-export { Checkbox, CheckboxGroup, CheckboxChip };
-export type { CheckboxProps, CheckboxGroupProps, CheckboxChipProps, CheckboxSize, CheckboxChipSize };
+export { Checkbox, CheckboxGroup, CheckboxChip }
+export type { CheckboxProps, CheckboxGroupProps, CheckboxChipProps, CheckboxSize, CheckboxChipSize }

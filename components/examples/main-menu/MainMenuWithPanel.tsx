@@ -8,8 +8,8 @@ import {
   MainMenuPanelHeader,
   MainMenuPanelShortcut,
   MainMenuPanelSidebar,
-  MainMenuSidebarItem
-} from "@/components/ui/dynamic/main-menu";
+  MainMenuSidebarItem,
+} from "@/components/ui/dynamic/main-menu"
 
 export default function MainMenuWithPanel() {
   return (
@@ -45,5 +45,5 @@ export default function MainMenuWithPanel() {
         </div>
       </MainMenuPanel>
     </MainMenu>
-  );
+  )
 }

@@ -2,8 +2,8 @@ import {
   SideNavigation,
   SideNavigationBackTitle,
   SideNavigationItem,
-  SideNavigationList
-} from "@/components/ui/dynamic/side-navigation";
+  SideNavigationList,
+} from "@/components/ui/dynamic/side-navigation"
 
 export default function SideNavigationSimpleMenu() {
   return (
@@ -17,5 +17,5 @@ export default function SideNavigationSimpleMenu() {
         <SideNavigationItem href="#">하위 메뉴 3</SideNavigationItem>
       </SideNavigationList>
     </SideNavigation>
-  );
+  )
 }

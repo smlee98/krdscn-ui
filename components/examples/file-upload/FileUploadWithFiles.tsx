@@ -1,7 +1,7 @@
-"use client";
+"use client"
 
-import * as React from "react";
-import { FileUpload, type FileItem } from "@/components/ui/dynamic/file-upload";
+import * as React from "react"
+import { FileUpload, type FileItem } from "@/components/ui/dynamic/file-upload"
 
 const INITIAL_FILES: FileItem[] = [
   {
@@ -49,13 +49,13 @@ const INITIAL_FILES: FileItem[] = [
     type: "pdf",
     status: "completed",
   },
-];
+]
 
 export default function FileUploadWithFiles() {
-  const [files, setFiles] = React.useState<FileItem[]>(INITIAL_FILES);
+  const [files, setFiles] = React.useState<FileItem[]>(INITIAL_FILES)
 
   return (
-    <div className="w-full max-w-[760px] rounded-[12px] border border-krds-border bg-krds-surface p-10">
+    <div className="border-krds-border bg-krds-surface w-full max-w-[760px] rounded-[12px] border p-10">
       <FileUpload
         title="파일 목록 예시"
         description="다양한 상태의 파일 목록을 보여줍니다."
@@ -65,5 +65,5 @@ export default function FileUploadWithFiles() {
         maxFileSize={20 * 1024 * 1024}
       />
     </div>
-  );
+  )
 }

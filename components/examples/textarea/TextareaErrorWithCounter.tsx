@@ -1,4 +1,4 @@
-import { Textarea } from "@/components/ui/dynamic/textarea";
+import { Textarea } from "@/components/ui/dynamic/textarea"
 
 export default function TextareaErrorWithCounter() {
   return (
@@ -11,5 +11,5 @@ export default function TextareaErrorWithCounter() {
         error="입력 가능한 글자수를 초과했습니다."
       />
     </div>
-  );
+  )
 }

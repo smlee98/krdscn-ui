@@ -1,5 +1,5 @@
-import { TextInput } from "@/components/ui/dynamic/text-input";
-import { FieldHint } from "@/components/ui/dynamic/field-message";
+import { TextInput } from "@/components/ui/dynamic/text-input"
+import { FieldHint } from "@/components/ui/dynamic/field-message"
 
 export default function TextInputDefault() {
   return (
@@ -9,5 +9,5 @@ export default function TextInputDefault() {
         <FieldHint>도움말</FieldHint>
       </div>
     </div>
-  );
+  )
 }

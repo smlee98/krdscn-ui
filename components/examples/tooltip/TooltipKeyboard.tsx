@@ -1,6 +1,6 @@
-"use client";
-import { Button } from "@/components/ui/dynamic/button";
-import { Tooltip } from "@/components/ui/dynamic/tooltip";
+"use client"
+import { Button } from "@/components/ui/dynamic/button"
+import { Tooltip } from "@/components/ui/dynamic/tooltip"
 
 export default function TooltipKeyboard() {
   return (
@@ -10,5 +10,5 @@ export default function TooltipKeyboard() {
         <Button variant="default">접근성 테스트</Button>
       </Tooltip>
     </div>
-  );
+  )
 }

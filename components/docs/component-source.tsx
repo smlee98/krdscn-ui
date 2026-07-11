@@ -27,8 +27,12 @@ export async function ComponentSource({
     code = getExampleSource(slug, name)
   } catch {
     return (
-      <div className="my-6 rounded-xl border bg-muted/30 p-4 text-sm text-muted-foreground">
-        소스 <code>{slug}/{name}</code>를 찾을 수 없습니다.
+      <div className="bg-muted/30 text-muted-foreground my-6 rounded-xl border p-4 text-sm">
+        소스{" "}
+        <code>
+          {slug}/{name}
+        </code>
+        를 찾을 수 없습니다.
       </div>
     )
   }

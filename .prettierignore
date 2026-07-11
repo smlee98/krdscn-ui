@@ -1,10 +1,13 @@
 .next
 .out
+.source
 .yarn
 **/.cache
 **/.tmp
 *.log
 next-env.d.ts
 yarn.lock
+registry.json
+public/r
 .omc
 .claude
