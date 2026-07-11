@@ -23,6 +23,7 @@ out
 
 # shadcn registry build output
 public/r
+registry.json
 
 # Debug & logs
 debug.log

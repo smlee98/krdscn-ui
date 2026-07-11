@@ -18,17 +18,28 @@ pnpm dlx shadcn@latest init
 전체 UI 컴포넌트를 한 번에 가져옵니다.
 
 ```bash
-pnpm dlx shadcn@latest add https://krdscn.gwlee.kr/r/krds-all.json
+pnpm dlx shadcn@latest add https://krdscn-ui.smlee.info/r/krds-all.json
 ```
 
 설치된 컴포넌트는 프로젝트의 `components/ui` 경로에 복사됩니다. 이후에는 패키지 API에 맞추기보다, 프로젝트 안의 소스 코드를 기준으로 필요한 변경을 직접 적용하면 됩니다.
+
+## KRDS 토큰 연결
+
+설치 시 KRDS 디자인 토큰 파일(`app/krds.css`)이 함께 복사됩니다. 전역 CSS(예: `app/globals.css`)에 한 줄을 추가해 토큰을 연결하세요.
+
+```css
+@import "tailwindcss";
+@import "./krds.css";
+```
+
+이 파일에는 KRDS 색상 팔레트, 시맨틱 토큰(light/high-contrast), 타이포그래피, 포커스 링 유틸리티가 들어 있습니다. Tailwind CSS v4 기준이며, 다크 모드는 `.dark` 클래스를 사용합니다.
 
 ## 단일 컴포넌트 설치
 
 필요한 컴포넌트만 선택해서 가져올 수도 있습니다.
 
 ```bash
-pnpm dlx shadcn@latest add https://krdscn.gwlee.kr/r/button.json
+pnpm dlx shadcn@latest add https://krdscn-ui.smlee.info/r/button.json
 ```
 
 다른 컴포넌트도 `/r/{component}.json` 형식의 레지스트리 URL로 설치합니다.
