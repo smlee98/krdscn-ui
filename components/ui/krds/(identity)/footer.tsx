@@ -47,9 +47,11 @@ function FooterQuickLink({ asChild = false, className, ...props }: React.Compone
       type={asChild ? undefined : "button"}
       className={cn(
         "border-krds-border-light flex h-12 flex-1 items-center justify-between gap-2 px-4",
-        "bg-krds-surface-secondary-subtle text-krds-foreground text-krds-body-md",
+        // KRDS(_footer.scss quick): 기본은 투명(흰 스트립 위), hover secondary-5 / pressed secondary-10.
+        "bg-transparent text-krds-foreground text-krds-body-md",
         "border-t sm:border-t-0 sm:border-l sm:first:border-l-0",
-        "hover:bg-krds-surface-subtle",
+        "hover:bg-krds-surface-secondary-subtle",
+        "active:bg-krds-surface-secondary-pressed",
         "focus:krds-focus-ring-inset",
         className
       )}

@@ -114,8 +114,8 @@ function InPageNavigationItem({ className, children, href, active, onClick }: In
         className={cn(
           "flex w-full items-center rounded-[4px] px-2 py-1",
           "text-krds-body-sm",
-          "hover:bg-krds-surface-subtler",
-          "active:bg-krds-surface-subtle",
+          "hover:bg-krds-surface-secondary-subtle",
+          "active:bg-krds-surface-secondary-pressed",
           "focus:krds-focus-ring",
           active ? "bg-krds-surface-secondary-subtle font-bold text-krds-foreground-secondary" : "text-krds-foreground-subtle",
           className

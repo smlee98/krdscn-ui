@@ -234,7 +234,7 @@ function Select({
             aria-label={label ?? "정렬"}
             className={cn(
               "text-krds-foreground inline-flex h-auto cursor-pointer appearance-none items-center rounded-sm border border-transparent bg-transparent leading-[1.5] transition-colors outline-none",
-              "hover:bg-krds-surface-subtler active:bg-krds-surface-subtle",
+              "hover:bg-krds-surface-secondary-subtle active:bg-krds-surface-secondary-pressed",
               "focus:krds-focus-ring",
               "disabled:text-krds-foreground-disabled disabled:cursor-not-allowed disabled:bg-transparent",
               sortingFont[size],

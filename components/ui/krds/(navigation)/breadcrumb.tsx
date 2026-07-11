@@ -68,8 +68,8 @@ function BreadcrumbItem({ className, children }: BreadcrumbItemProps) {
 const linkBaseClass = cn(
   "inline-flex h-6 items-center gap-1 rounded-[6px] px-1",
   "text-krds-foreground text-krds-body-sm underline",
-  "hover:bg-krds-surface-subtler",
-  "active:bg-krds-surface-subtle",
+  "hover:bg-krds-surface-secondary-subtle",
+  "active:bg-krds-surface-secondary-pressed",
   "focus:krds-focus-ring-inset"
 );
 

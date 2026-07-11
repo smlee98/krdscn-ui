@@ -72,7 +72,7 @@ function PaginationContent({ className, children }: PaginationContentProps) {
 const btnBase = cn(
   "inline-flex h-10 items-center justify-center rounded-[6px] bg-transparent select-none",
   "text-krds-body-md text-krds-foreground-subtle",
-  "hover:bg-krds-surface-subtler active:bg-krds-surface-subtle",
+  "hover:bg-krds-surface-secondary-subtle active:bg-krds-surface-secondary-pressed",
   "focus:krds-focus-ring",
   "disabled:cursor-not-allowed disabled:bg-transparent disabled:text-krds-foreground-disabled disabled:pointer-events-none"
 );

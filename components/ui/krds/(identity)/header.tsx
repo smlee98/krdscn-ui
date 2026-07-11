@@ -146,7 +146,7 @@ function HeaderUtilityDropdownItem({ className, children, href }: HeaderUtilityD
   const baseClass = cn(
     "flex w-full items-center px-4 py-2 text-left",
     "text-krds-foreground text-krds-body-sm",
-    "hover:bg-krds-surface-subtler",
+    "hover:bg-krds-surface-secondary-subtle",
     "focus:krds-focus-ring-inset",
     className
   );
@@ -217,7 +217,7 @@ function HeaderActionItem({ className, children, href, icon, "aria-controls": ar
   const baseClass = cn(
     "inline-flex h-10 items-center gap-2 rounded-md px-3",
     "text-krds-body-md font-bold text-krds-foreground",
-    "hover:bg-krds-surface-subtler",
+    "hover:bg-krds-surface-secondary-subtle",
     "focus:krds-focus-ring",
     className
   );
@@ -268,7 +268,7 @@ function HeaderActionDropdown({ className, children, label = "나의GOV", icon }
         className={cn(
           "inline-flex h-10 items-center gap-2 rounded-md px-3",
           "text-krds-body-md text-krds-foreground font-bold",
-          "hover:bg-krds-surface-subtler",
+          "hover:bg-krds-surface-secondary-subtle",
           "focus:krds-focus-ring"
         )}
       >

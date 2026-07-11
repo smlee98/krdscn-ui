@@ -201,8 +201,8 @@ function MainMenuLink({ className, children, href, external }: MainMenuLinkProps
       className={cn(
         "flex items-center gap-1 rounded-md px-2 py-2.5",
         "text-krds-foreground text-krds-body-md",
-        "hover:bg-krds-surface-subtler",
-        "active:bg-krds-surface-subtle",
+        "hover:bg-krds-surface-secondary-subtle",
+        "active:bg-krds-surface-secondary-pressed",
         "focus:krds-focus-ring",
         className
       )}

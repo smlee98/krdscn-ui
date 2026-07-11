@@ -65,8 +65,8 @@ function SideNavigationBackTitle({
   const baseClass = cn(
     "flex w-full flex-col items-start gap-1 rounded-lg p-2",
     "text-left text-krds-foreground",
-    "hover:bg-krds-surface-subtler",
-    "active:bg-krds-surface-subtle",
+    "hover:bg-krds-surface-secondary-subtle",
+    "active:bg-krds-surface-secondary-pressed",
     "focus:krds-focus-ring",
     className
   );
@@ -158,8 +158,8 @@ function SideNavigationTrigger({ className, children }: SideNavigationTriggerPro
       className={cn(
         "flex w-full items-center gap-2 px-2 py-4",
         "text-krds-foreground text-left text-krds-body-md font-bold",
-        "hover:bg-krds-surface-subtler",
-        "active:bg-krds-surface-subtle",
+        "hover:bg-krds-surface-secondary-subtle",
+        "active:bg-krds-surface-secondary-pressed",
         "focus:krds-focus-ring",
         className
       )}
@@ -216,8 +216,8 @@ function SideNavigationItem({ className, children, href, external, active }: Sid
         className={cn(
           "flex w-full items-center gap-1 rounded-md px-4 py-2",
           "text-krds-foreground text-krds-body-md",
-          "hover:bg-krds-surface-subtler",
-          "active:bg-krds-surface-subtle",
+          "hover:bg-krds-surface-secondary-subtle",
+          "active:bg-krds-surface-secondary-pressed",
           "focus:krds-focus-ring",
           active && "font-bold",
           className
