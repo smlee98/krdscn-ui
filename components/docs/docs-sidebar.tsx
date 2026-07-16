@@ -9,7 +9,7 @@ import type { source } from "@/lib/source"
 import { getComponentTaxonomy } from "@/lib/docs-component-taxonomy"
 import { cn } from "@/lib/cn"
 
-const sections = [
+export const docsSections = [
   { title: "소개", href: "/docs" },
   { title: "설치", href: "/docs/installation" },
   { title: "테마", href: "/docs/theming" },
@@ -42,7 +42,7 @@ function isFolderActive(folder: PageTreeFolder, pathname: string) {
   })
 }
 
-function ComponentSidebarMarker({ slug }: { slug?: string | null }) {
+export function ComponentSidebarMarker({ slug }: { slug?: string | null }) {
   const taxonomy = getComponentTaxonomy(slug)
 
   if (!taxonomy || taxonomy.kind === "native") {
@@ -168,7 +168,7 @@ export function DocsSidebar({ tree }: { tree: typeof source.pageTree }) {
             <div className="mb-8">
               <h4 className="text-muted-foreground mb-2 px-2 text-xs font-medium">섹션</h4>
               <div className="grid gap-1">
-                {sections.map((item) => {
+                {docsSections.map((item) => {
                   const href = normalizePath(item.href)
                   const active =
                     href === "/docs" ? pathname === href : pathname === href || pathname.startsWith(`${href}/`)

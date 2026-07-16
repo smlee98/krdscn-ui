@@ -8,6 +8,7 @@ import { RootProvider } from "fumadocs-ui/provider/next"
 import { SiteHeader } from "@/components/site-header"
 import { UISystemProvider } from "@/lib/ui-system"
 import { cn } from "@/lib/cn"
+import { source } from "@/lib/source"
 
 function normalizeBasePath(value?: string) {
   if (!value) return ""
@@ -78,7 +79,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         >
           <UISystemProvider>
             <div className="bg-background relative z-10 flex min-h-svh flex-col">
-              <SiteHeader />
+              <SiteHeader tree={source.pageTree} />
               <main className="flex min-h-0 flex-1 flex-col">{children}</main>
             </div>
           </UISystemProvider>

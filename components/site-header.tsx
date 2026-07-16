@@ -6,8 +6,10 @@ import { usePathname } from "next/navigation"
 import { ModeToggle } from "@/components/krds-app/mode-toggle"
 import { UISystemToggle } from "@/components/krds-app/ui-system-toggle"
 import { Button } from "@/components/ui/button"
+import { MobileNav } from "@/components/mobile-nav"
 import { SearchButton } from "@/components/search-button"
 import { normalizePath } from "@/lib/page-tree"
+import type { source } from "@/lib/source"
 
 const navItems = [
   { href: "/docs", label: "Docs" },
@@ -52,7 +54,7 @@ function Logo() {
   )
 }
 
-export function SiteHeader() {
+export function SiteHeader({ tree }: { tree: typeof source.pageTree }) {
   const pathname = normalizePath(usePathname())
 
   if (pathname.startsWith("/preview")) {
@@ -63,6 +65,7 @@ export function SiteHeader() {
     <header className="bg-background/95 supports-[backdrop-filter]:bg-background/80 sticky top-0 z-50 w-full border-b backdrop-blur">
       <div className="container-wrapper px-4 xl:px-6">
         <div className="flex h-(--header-height) items-center gap-3">
+          <MobileNav tree={tree} items={navItems} className="lg:hidden" />
           <Logo />
           <nav className="ml-3 hidden items-center gap-0 lg:flex">
             {navItems.map((item) => {
