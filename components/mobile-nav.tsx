@@ -6,7 +6,7 @@ import Link from "next/link"
 import { ComponentSidebarMarker, docsSections } from "@/components/docs/docs-sidebar"
 import { Button } from "@/components/ui/button"
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
-import { getPagesFromFolder, normalizePath } from "@/lib/page-tree"
+import { getPagesFromFolder } from "@/lib/page-tree"
 import type { source } from "@/lib/source"
 import { cn } from "@/lib/cn"
 
@@ -23,11 +23,6 @@ export function MobileNav({
 
   const componentsFolder = tree.children.find((item) => item.$id === "components" && item.type === "folder")
   const componentPages = componentsFolder?.type === "folder" ? getPagesFromFolder(componentsFolder) : []
-  const guidesFolder = tree.children.find((item) => item.$id === "guides" && item.type === "folder")
-  const guidePages =
-    guidesFolder?.type === "folder"
-      ? getPagesFromFolder(guidesFolder).filter((page) => !normalizePath(page.url).endsWith("/guides"))
-      : []
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
@@ -79,15 +74,6 @@ export function MobileNav({
               </MobileLink>
             ))}
           </MobileNavGroup>
-          {guidePages.length > 0 && (
-            <MobileNavGroup title="가이드">
-              {guidePages.map((page) => (
-                <MobileLink key={page.url} href={page.url} onOpenChange={setOpen}>
-                  {page.name}
-                </MobileLink>
-              ))}
-            </MobileNavGroup>
-          )}
           {componentPages.length > 0 && (
             <MobileNavGroup title="컴포넌트">
               {componentPages.map((page) => (

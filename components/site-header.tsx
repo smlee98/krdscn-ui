@@ -15,7 +15,6 @@ const navItems = [
   { href: "/docs", label: "Docs" },
   { href: "/docs/components", label: "컴포넌트" },
   { href: "/docs/registry", label: "레지스트리" },
-  { href: "/docs/theming", label: "테마" },
   { href: "/docs/krds-guideline", label: "KRDS 가이드라인" },
 ]
 

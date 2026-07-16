@@ -128,11 +128,6 @@ export function DocsSidebar({ tree }: { tree: typeof source.pageTree }) {
   const pathname = normalizePath(usePathname())
   const componentsFolder = tree.children.find((item) => item.$id === "components" && item.type === "folder")
   const componentPages = componentsFolder?.type === "folder" ? getPagesFromFolder(componentsFolder) : []
-  const guidesFolder = tree.children.find((item) => item.$id === "guides" && item.type === "folder")
-  const guidePages =
-    guidesFolder?.type === "folder"
-      ? getPagesFromFolder(guidesFolder).filter((page) => !normalizePath(page.url).endsWith("/guides"))
-      : []
   const blocksFolder = tree.children.find((item) => item.$id === "blocks" && item.type === "folder")
   const blockPages = blocksFolder?.type === "folder" ? getPagesFromFolder(blocksFolder) : []
   const krdsFolder = tree.children.find((item) => item.$id === "krds-guideline" && item.type === "folder")
@@ -180,21 +175,6 @@ export function DocsSidebar({ tree }: { tree: typeof source.pageTree }) {
                 })}
               </div>
             </div>
-            {guidePages.length > 0 && (
-              <div className="mb-8">
-                <h4 className="text-muted-foreground mb-2 px-2 text-xs font-medium">가이드</h4>
-                <div className="grid gap-1">
-                  {guidePages.map((page) => {
-                    const active = pathname === normalizePath(page.url)
-                    return (
-                      <Link key={page.url} href={page.url} className={cn(itemClass(active), "w-full")}>
-                        <span className="truncate">{page.name}</span>
-                      </Link>
-                    )
-                  })}
-                </div>
-              </div>
-            )}
             <div>
               <h4 className="text-muted-foreground mb-2 px-2 text-xs font-medium">컴포넌트</h4>
               <div className="grid gap-1">

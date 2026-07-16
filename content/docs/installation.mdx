@@ -1,6 +1,6 @@
 ---
 title: 설치
-description: KRDS 레지스트리를 기존 프로젝트에 적용하는 방법입니다.
+description: KRDS 레지스트리를 기존 프로젝트에 적용하고 페이지 골격을 구성하는 방법입니다.
 ---
 
 ## 준비 사항
@@ -48,3 +48,144 @@ pnpm dlx shadcn@latest add https://krdscn-ui.smlee.info/r/button.json
 
 - 기존 컴포넌트와 경로가 겹치는 경우 CLI가 표시하는 변경 사항을 검토합니다.
 - 서비스별 요구사항이 있다면 설치된 컴포넌트 파일을 직접 수정해 확장합니다.
+
+## 페이지 셸
+
+공공 누리집의 골격은 공식 배너(Masthead), 헤더, 본문, 운영기관 식별자(Identifier)가 포함된 푸터로 이루어집니다.
+
+```bash
+pnpm dlx shadcn@latest add \
+  https://krdscn-ui.smlee.info/r/header.json \
+  https://krdscn-ui.smlee.info/r/footer.json
+```
+
+Masthead·SkipLink·Identifier는 Header·Footer가 참조하는 파일로 함께 설치됩니다.
+
+### Header
+
+`Header`는 내부에서 공식 배너(Masthead)와 건너뛰기 링크(SkipLink)를 자동으로 렌더링하므로 별도로 배치하지 않습니다. 유틸리티 메뉴·브랜드·액션·내비 네 영역을 조합합니다.
+
+```tsx
+import { Menu, Search } from "lucide-react"
+import {
+  Header,
+  HeaderActionItem,
+  HeaderActions,
+  HeaderBrand,
+  HeaderNav,
+  HeaderNavItem,
+  HeaderUtility,
+  HeaderUtilityItem,
+} from "@/components/ui/krds/(identity)/header"
+
+export function SiteHeader() {
+  return (
+    <Header>
+      <HeaderUtility>
+        <HeaderUtilityItem href="/about">기관 소개</HeaderUtilityItem>
+        <HeaderUtilityItem href="/faq">자주 묻는 질문</HeaderUtilityItem>
+      </HeaderUtility>
+
+      <HeaderBrand href="/">우리기관</HeaderBrand>
+
+      <HeaderActions>
+        <HeaderActionItem icon={<Search />}>통합검색</HeaderActionItem>
+        <HeaderActionItem href="/login">로그인</HeaderActionItem>
+        <HeaderActionItem icon={<Menu />}>전체메뉴</HeaderActionItem>
+      </HeaderActions>
+
+      <HeaderNav aria-label="주요 메뉴">
+        <HeaderNavItem href="/services" hasSubmenu>
+          민원 서비스
+        </HeaderNavItem>
+        <HeaderNavItem href="/notice">공지사항</HeaderNavItem>
+      </HeaderNav>
+    </Header>
+  )
+}
+```
+
+### 본문 영역
+
+Header에 내장된 건너뛰기 링크의 기본 대상이 `#main-content`입니다. 본문 `<main>`에 해당 id를 지정해야 키보드 사용자가 메뉴를 건너뛸 수 있습니다.
+
+```tsx
+export function SiteMain({ children }: { children: React.ReactNode }) {
+  return (
+    <main id="main-content" tabIndex={-1}>
+      {children}
+    </main>
+  )
+}
+```
+
+### Footer
+
+푸터도 부분 조립식입니다. 운영기관 식별자(Identifier)는 Footer에 내장되어 있지 않으므로 `FooterBottom` 안에 직접 배치합니다.
+
+```tsx
+import {
+  Footer,
+  FooterAddress,
+  FooterBottom,
+  FooterContact,
+  FooterContactItem,
+  FooterCopyright,
+  FooterInfo,
+  FooterLogo,
+  FooterMenu,
+  FooterMenuLink,
+} from "@/components/ui/krds/(identity)/footer"
+import { Identifier } from "@/components/ui/krds/(identity)/identifier"
+
+export function SiteFooter() {
+  return (
+    <Footer>
+      <div className="mx-auto flex max-w-[1200px] flex-col gap-9 px-4 py-10">
+        <FooterLogo>우리기관</FooterLogo>
+
+        <FooterInfo>
+          <FooterAddress>(00000) 어딘가시 어딘가로 1 우리기관</FooterAddress>
+          <FooterContact>
+            <FooterContactItem label="대표전화 1500-0000" note="(유료, 평일 09시~18시)" />
+          </FooterContact>
+        </FooterInfo>
+
+        <FooterBottom>
+          <FooterMenu>
+            <FooterMenuLink href="/privacy" point>
+              개인정보처리방침
+            </FooterMenuLink>
+            <FooterMenuLink href="/copyright">저작권 정책</FooterMenuLink>
+          </FooterMenu>
+          <FooterCopyright>© 2026 Our Agency.</FooterCopyright>
+          <Identifier notice="이 누리집은 우리부처 산하기관 누리집입니다." />
+        </FooterBottom>
+      </div>
+    </Footer>
+  )
+}
+```
+
+`FooterMenuLink`의 `point`는 개인정보처리방침처럼 강조가 필요한 항목에 사용합니다.
+
+### 골격 구성
+
+```tsx title="app/layout.tsx (본문 부분)"
+export function Shell({ children }: { children: React.ReactNode }) {
+  return (
+    <>
+      <SiteHeader />
+      <main id="main-content" tabIndex={-1}>
+        {children}
+      </main>
+      <SiteFooter />
+    </>
+  )
+}
+```
+
+<Callout>
+  Masthead와 Identifier의 문구는 `notice` prop으로 기관에 맞게 변경할 수 있습니다. 단독으로 사용하려면 `masthead`,
+  `identifier` 항목을 개별 설치합니다.
+</Callout>
