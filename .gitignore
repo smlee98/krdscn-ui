@@ -18,6 +18,10 @@ node_modules
 out
 .eslintcache
 
+# TypeScript generated
+next-env.d.ts
+*.tsbuildinfo
+
 # fumadocs generated source
 .source
 
@@ -32,9 +36,13 @@ yarn-error.log*
 
 # Misc
 .DS_Store
+Thumbs.db
+desktop.ini
 
 # Claude Code / OMC
+claude.md
 .claude/
 .omc/
 
+# Local dev HTTPS certificates
 certificates
