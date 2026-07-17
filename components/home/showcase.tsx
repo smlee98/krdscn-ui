@@ -35,7 +35,7 @@ import {
   PaginationNext,
   PaginationPrev,
 } from "@/registry/krds/ui/pagination"
-import { Select } from "@/registry/krds/ui/select"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/registry/krds/ui/select"
 import { StepIndicator, StepIndicatorItem } from "@/registry/krds/ui/step-indicator"
 import { Tag } from "@/registry/krds/ui/tag"
 import { TextInput } from "@/registry/krds/ui/text-input"
@@ -85,7 +85,18 @@ export function ApplyFormDemo() {
           error={emailError}
           hint={emailError ? undefined : "접수 결과를 이메일로 안내합니다"}
         />
-        <Select options={PROGRAM_OPTIONS} label="신청 프로그램" defaultValue="tour" />
+        <Select label="신청 프로그램" defaultValue="tour">
+          <SelectTrigger>
+            <SelectValue />
+          </SelectTrigger>
+          <SelectContent>
+            {PROGRAM_OPTIONS.map((o) => (
+              <SelectItem key={o.value} value={o.value}>
+                {o.label}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
         <DateInput label="방문 희망일" />
         <Checkbox label="개인정보 수집·이용에 동의합니다" />
         <div className="flex gap-2">

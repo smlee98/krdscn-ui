@@ -1,4 +1,4 @@
-import { Select } from "@/registry/krds/ui/select"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/registry/krds/ui/select"
 import { FieldHint } from "@/registry/krds/ui/field-message"
 
 const options = [
@@ -12,7 +12,18 @@ export default function SelectDefault() {
   return (
     <div className="w-full max-w-sm">
       <div className="flex w-full flex-col gap-2">
-        <Select options={options} label="레이블" defaultValue="option1" />
+        <Select label="레이블" defaultValue="option1">
+          <SelectTrigger>
+            <SelectValue />
+          </SelectTrigger>
+          <SelectContent>
+            {options.map((o) => (
+              <SelectItem key={o.value} value={o.value}>
+                {o.label}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
         <FieldHint>도움말</FieldHint>
       </div>
     </div>

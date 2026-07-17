@@ -1241,8 +1241,40 @@
   ],
   "KrdsHeader": [
     {
+      "name": "aria-label",
+      "type": "string",
+      "description": "Defines a string value that labels the current element.\n@see aria-labelledby.",
+      "required": false
+    },
+    {
       "name": "className",
       "type": "string",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "id",
+      "type": "string",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "onClick",
+      "type": "MouseEventHandler<HTMLElement>",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "skipLinkHref",
+      "type": "string",
+      "defaultValue": "#main-content",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "skipLinkLabel",
+      "type": "ReactNode",
+      "defaultValue": "본문 바로가기",
       "description": "",
       "required": false
     },
@@ -1251,6 +1283,18 @@
       "type": "boolean",
       "defaultValue": "true",
       "description": "KRDS #krds-header is sticky + hides on scroll-down / reveals on scroll-up (_header.scss:32-33,148-180).",
+      "required": false
+    },
+    {
+      "name": "style",
+      "type": "CSSProperties",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "tabIndex",
+      "type": "number",
+      "description": "",
       "required": false
     }
   ],
@@ -1755,14 +1799,32 @@
       "required": false
     },
     {
+      "name": "autoComplete",
+      "type": "string",
+      "description": "",
+      "required": false
+    },
+    {
       "name": "className",
       "type": "string",
       "description": "",
       "required": false
     },
     {
+      "name": "defaultOpen",
+      "type": "boolean",
+      "description": "",
+      "required": false
+    },
+    {
       "name": "defaultValue",
       "type": "string",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "dir",
+      "type": "enum",
       "description": "",
       "required": false
     },
@@ -1775,6 +1837,12 @@
     {
       "name": "error",
       "type": "ReactNode",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "form",
+      "type": "string",
       "description": "",
       "required": false
     },
@@ -1798,7 +1866,7 @@
     },
     {
       "name": "label",
-      "type": "string",
+      "type": "ReactNode",
       "description": "",
       "required": false
     },
@@ -1809,26 +1877,26 @@
       "required": false
     },
     {
-      "name": "onChange",
+      "name": "onOpenChange",
+      "type": "((open: boolean) => void)",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "onValueChange",
       "type": "((value: string) => void)",
       "description": "",
       "required": false
     },
     {
-      "name": "options",
-      "type": "SelectOption[]",
-      "description": "",
-      "required": true
-    },
-    {
-      "name": "placeholder",
-      "type": "string",
+      "name": "open",
+      "type": "boolean",
       "description": "",
       "required": false
     },
     {
-      "name": "selectClassName",
-      "type": "string",
+      "name": "required",
+      "type": "boolean",
       "description": "",
       "required": false
     },

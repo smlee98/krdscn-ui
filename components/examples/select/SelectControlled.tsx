@@ -1,7 +1,7 @@
 "use client"
 
 import * as React from "react"
-import { Select } from "@/registry/krds/ui/select"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/registry/krds/ui/select"
 import { FieldHint } from "@/registry/krds/ui/field-message"
 
 const options = [
@@ -30,11 +30,33 @@ export default function SelectControlled() {
   return (
     <div className="flex w-full max-w-sm flex-col gap-6">
       <div className="flex w-full flex-col gap-2">
-        <Select options={options} label="제어 Select" value={selected} onChange={setSelected} />
+        <Select label="제어 Select" value={selected} onValueChange={setSelected}>
+          <SelectTrigger>
+            <SelectValue />
+          </SelectTrigger>
+          <SelectContent>
+            {options.map((o) => (
+              <SelectItem key={o.value} value={o.value}>
+                {o.label}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
         <FieldHint>현재 선택된 값: {selected}</FieldHint>
       </div>
       <div className="flex flex-col gap-2">
-        <Select options={sortOptions} variant="sorting" size="medium" value={sortBy} onChange={setSortBy} />
+        <Select variant="sorting" size="medium" value={sortBy} onValueChange={setSortBy}>
+          <SelectTrigger>
+            <SelectValue />
+          </SelectTrigger>
+          <SelectContent>
+            {sortOptions.map((o) => (
+              <SelectItem key={o.value} value={o.value}>
+                {o.label}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
         <p className="text-krds-gray-70 text-sm">정렬 기준: {sortLabel[sortBy]}</p>
       </div>
     </div>
