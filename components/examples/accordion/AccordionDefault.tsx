@@ -1,4 +1,4 @@
-import { Accordion, AccordionItem, AccordionHeader, AccordionPanel } from "@/components/ui/dynamic/accordion"
+import { Accordion, AccordionItem, AccordionHeader, AccordionPanel } from "@/registry/krds/ui/accordion"
 
 export default function AccordionDefault() {
   return (

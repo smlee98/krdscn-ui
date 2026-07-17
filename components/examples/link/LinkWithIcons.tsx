@@ -1,6 +1,6 @@
 import { ArrowRightIcon, ChevronRightIcon } from "lucide-react"
 
-import { Link } from "@/components/ui/dynamic/link"
+import { Link } from "@/registry/krds/ui/link"
 
 export default function LinkWithIcons() {
   return (

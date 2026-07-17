@@ -1,8 +1,8 @@
 "use client"
 
 import * as React from "react"
-import { Textarea } from "@/components/ui/dynamic/textarea"
-import { Button } from "@/components/ui/dynamic/button"
+import { Textarea } from "@/registry/krds/ui/textarea"
+import { Button } from "@/registry/krds/ui/button"
 
 export default function TextareaControlled() {
   const [value, setValue] = React.useState("제어된 컴포넌트")

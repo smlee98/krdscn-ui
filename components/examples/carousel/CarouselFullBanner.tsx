@@ -6,8 +6,8 @@ import {
   CarouselPrevious,
   CarouselNext,
   CarouselDots,
-} from "@/components/ui/dynamic/carousel"
-import { Button } from "@/components/ui/dynamic/button"
+} from "@/registry/krds/ui/carousel"
+import { Button } from "@/registry/krds/ui/button"
 
 const BANNERS = [
   {

@@ -1,6 +1,6 @@
 "use client"
-import { Button } from "@/components/ui/dynamic/button"
-import { Tooltip } from "@/components/ui/dynamic/tooltip"
+import { Button } from "@/registry/krds/ui/button"
+import { Tooltip } from "@/registry/krds/ui/tooltip"
 
 export default function TooltipKeyboard() {
   return (

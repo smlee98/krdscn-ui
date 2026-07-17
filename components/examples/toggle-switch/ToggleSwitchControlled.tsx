@@ -2,7 +2,7 @@
 
 import * as React from "react"
 
-import { ToggleSwitch } from "@/components/ui/dynamic/toggle-switch"
+import { ToggleSwitch } from "@/registry/krds/ui/toggle-switch"
 
 export default function ToggleSwitchControlled() {
   const [on, setOn] = React.useState(false)

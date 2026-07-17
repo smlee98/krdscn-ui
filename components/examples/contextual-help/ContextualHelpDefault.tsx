@@ -1,4 +1,4 @@
-import { ContextualHelp, ContextualHelpLabel, ContextualHelpTitle } from "@/components/ui/dynamic/contextual-help"
+import { ContextualHelp, ContextualHelpLabel, ContextualHelpTitle } from "@/registry/krds/ui/contextual-help"
 
 export default function ContextualHelpDefault() {
   return (

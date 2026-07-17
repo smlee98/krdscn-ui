@@ -5,7 +5,7 @@ import {
   InPageNavigationItem,
   InPageNavigationList,
   InPageNavigationTitle,
-} from "@/components/ui/dynamic/in-page-navigation"
+} from "@/registry/krds/ui/in-page-navigation"
 
 export default function InPageNavigationWithoutAction() {
   return (

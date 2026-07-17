@@ -1,7 +1,7 @@
 "use client"
 
 import * as React from "react"
-import { DateInput } from "@/components/ui/dynamic/date-input"
+import { DateInput } from "@/registry/krds/ui/date-input"
 
 export default function DateInputControlled() {
   const [value, setValue] = React.useState("2024.12.25")

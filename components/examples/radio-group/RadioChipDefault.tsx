@@ -1,6 +1,6 @@
 "use client"
 
-import { RadioChip, RadioGroup } from "@/components/ui/dynamic/radio-group"
+import { RadioChip, RadioGroup } from "@/registry/krds/ui/radio-group"
 
 export default function RadioChipDefault() {
   return (

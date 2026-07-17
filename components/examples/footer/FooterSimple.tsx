@@ -1,4 +1,4 @@
-import { Footer, FooterCopyright, FooterLogo } from "@/components/ui/dynamic/footer"
+import { Footer, FooterCopyright, FooterLogo } from "@/registry/krds/ui/footer"
 
 export default function FooterSimple() {
   return (

@@ -1,8 +1,8 @@
 "use client"
 
 import * as React from "react"
-import { Button } from "@/components/ui/dynamic/button"
-import { Disclosure, DisclosureTrigger, DisclosureContent } from "@/components/ui/dynamic/disclosure"
+import { Button } from "@/registry/krds/ui/button"
+import { Disclosure, DisclosureTrigger, DisclosureContent } from "@/registry/krds/ui/disclosure"
 
 export default function DisclosureControlledExample() {
   const [open, setOpen] = React.useState(false)

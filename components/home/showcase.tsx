@@ -4,7 +4,7 @@ import * as React from "react"
 import Link from "next/link"
 import { ArrowUpRightIcon } from "lucide-react"
 
-import { Badge } from "@/components/ui/dynamic/badge"
+import { Badge } from "@/registry/krds/ui/badge"
 import {
   Breadcrumb,
   BreadcrumbHome,
@@ -13,10 +13,10 @@ import {
   BreadcrumbList,
   BreadcrumbPage,
   BreadcrumbSeparator,
-} from "@/components/ui/dynamic/breadcrumb"
-import { Button } from "@/components/ui/dynamic/button"
-import { Checkbox } from "@/components/ui/dynamic/checkbox"
-import { DateInput } from "@/components/ui/dynamic/date-input"
+} from "@/registry/krds/ui/breadcrumb"
+import { Button } from "@/registry/krds/ui/button"
+import { Checkbox } from "@/registry/krds/ui/checkbox"
+import { DateInput } from "@/registry/krds/ui/date-input"
 import {
   ModalBody,
   ModalClose,
@@ -25,7 +25,7 @@ import {
   ModalHeader,
   ModalRoot,
   ModalTrigger,
-} from "@/components/ui/dynamic/modal"
+} from "@/registry/krds/ui/modal"
 import {
   buildPageItems,
   Pagination,
@@ -34,13 +34,13 @@ import {
   PaginationItem,
   PaginationNext,
   PaginationPrev,
-} from "@/components/ui/dynamic/pagination"
-import { Select } from "@/components/ui/dynamic/select"
-import { StepIndicator, StepIndicatorItem } from "@/components/ui/dynamic/step-indicator"
-import { Tag } from "@/components/ui/dynamic/tag"
-import { TextInput } from "@/components/ui/dynamic/text-input"
-import { ToggleSwitch } from "@/components/ui/dynamic/toggle-switch"
-import { cn } from "@/lib/cn"
+} from "@/registry/krds/ui/pagination"
+import { Select } from "@/registry/krds/ui/select"
+import { StepIndicator, StepIndicatorItem } from "@/registry/krds/ui/step-indicator"
+import { Tag } from "@/registry/krds/ui/tag"
+import { TextInput } from "@/registry/krds/ui/text-input"
+import { ToggleSwitch } from "@/registry/krds/ui/toggle-switch"
+import { cn } from "@/lib/utils"
 
 const PROGRAM_OPTIONS = [
   { value: "tour", label: "견학 프로그램" },

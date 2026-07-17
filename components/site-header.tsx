@@ -4,7 +4,6 @@ import Link from "next/link"
 import { usePathname } from "next/navigation"
 
 import { ModeToggle } from "@/components/krds-app/mode-toggle"
-import { UISystemToggle } from "@/components/krds-app/ui-system-toggle"
 import { Button } from "@/components/ui/button"
 import { MobileNav } from "@/components/mobile-nav"
 import { SearchButton } from "@/components/search-button"
@@ -89,7 +88,6 @@ export function SiteHeader({ tree }: { tree: typeof source.pageTree }) {
           <div className="ml-auto flex h-8 items-center gap-2">
             <SearchButton />
             <div className="bg-border hidden h-4 w-px shrink-0 lg:block" />
-            <UISystemToggle />
             <ModeToggle />
           </div>
         </div>

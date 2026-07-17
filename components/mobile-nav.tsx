@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button"
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
 import { getPagesFromFolder } from "@/lib/page-tree"
 import type { source } from "@/lib/source"
-import { cn } from "@/lib/cn"
+import { cn } from "@/lib/utils"
 
 export function MobileNav({
   tree,

@@ -1,8 +1,8 @@
 "use client"
 
 import * as React from "react"
-import { Button } from "@/components/ui/dynamic/button"
-import { Accordion, AccordionItem, AccordionHeader, AccordionPanel } from "@/components/ui/dynamic/accordion"
+import { Button } from "@/registry/krds/ui/button"
+import { Accordion, AccordionItem, AccordionHeader, AccordionPanel } from "@/registry/krds/ui/accordion"
 
 const ITEMS = ["faq-1", "faq-2", "faq-3"]
 

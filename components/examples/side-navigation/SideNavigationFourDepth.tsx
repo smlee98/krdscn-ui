@@ -14,7 +14,7 @@ import {
   SideNavigationPopupTrigger,
   SideNavigationTitle,
   SideNavigationTrigger,
-} from "@/components/ui/dynamic/side-navigation"
+} from "@/registry/krds/ui/side-navigation"
 
 export default function SideNavigationFourDepth() {
   const [popupOpen, setPopupOpen] = React.useState(true)

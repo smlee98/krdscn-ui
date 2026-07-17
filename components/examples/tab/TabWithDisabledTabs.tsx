@@ -1,4 +1,4 @@
-import { Tab, TabList, TabTrigger, TabContent, TabPanel } from "@/components/ui/dynamic/tab"
+import { Tab, TabList, TabTrigger, TabContent, TabPanel } from "@/registry/krds/ui/tab"
 
 export default function TabWithDisabledTabs() {
   return (

@@ -5,7 +5,7 @@ import {
   CarouselPrevious,
   CarouselNext,
   CarouselDots,
-} from "@/components/ui/dynamic/carousel"
+} from "@/registry/krds/ui/carousel"
 
 const SERVICES = [
   { icon: "📋", name: "주민등록등본" },

@@ -1,4 +1,4 @@
-import { CriticalAlert, CriticalAlertMessage } from "@/components/ui/dynamic/critical-alert"
+import { CriticalAlert, CriticalAlertMessage } from "@/registry/krds/ui/critical-alert"
 
 export default function CriticalAlertWithoutLink() {
   return (

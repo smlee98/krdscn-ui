@@ -17,8 +17,8 @@ import {
   FooterQuickLink,
   FooterSns,
   FooterSnsLink,
-} from "@/components/ui/dynamic/footer"
-import { Identifier } from "@/components/ui/dynamic/identifier"
+} from "@/registry/krds/ui/footer"
+import { Identifier } from "@/registry/krds/ui/identifier"
 
 function BrandIcon({ icon }: { icon: { path: string } }) {
   return (

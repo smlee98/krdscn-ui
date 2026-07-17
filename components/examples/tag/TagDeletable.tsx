@@ -1,7 +1,7 @@
 "use client"
 
 import * as React from "react"
-import { Tag, TagDelete } from "@/components/ui/dynamic/tag"
+import { Tag, TagDelete } from "@/registry/krds/ui/tag"
 
 export default function TagDeletable() {
   const [tags, setTags] = React.useState(["서울", "경기", "부산", "대전", "광주"])

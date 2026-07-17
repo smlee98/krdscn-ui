@@ -1192,6 +1192,13 @@
       "defaultValue": "첨부할 파일을 여기에 끌어다 놓거나, 파일 선택 버튼을 눌러 파일을 직접 선택해주세요.",
       "description": "",
       "required": false
+    },
+    {
+      "name": "variant",
+      "type": "enum",
+      "defaultValue": "default",
+      "description": "",
+      "required": false
     }
   ],
   "KrdsFooter": [
@@ -1237,6 +1244,13 @@
       "name": "className",
       "type": "string",
       "description": "",
+      "required": false
+    },
+    {
+      "name": "sticky",
+      "type": "boolean",
+      "defaultValue": "true",
+      "description": "KRDS #krds-header is sticky + hides on scroll-down / reveals on scroll-up (_header.scss:32-33,148-180).",
       "required": false
     }
   ],
@@ -1495,6 +1509,27 @@
     {
       "name": "className",
       "type": "string",
+      "description": "",
+      "required": false
+    }
+  ],
+  "KrdsMainMenuMobile": [
+    {
+      "name": "defaultOpen",
+      "type": "boolean",
+      "defaultValue": "false",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "onOpenChange",
+      "type": "((open: boolean) => void)",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "open",
+      "type": "boolean",
       "description": "",
       "required": false
     }
@@ -1887,6 +1922,13 @@
       "required": false
     },
     {
+      "name": "showLabel",
+      "type": "boolean",
+      "defaultValue": "false",
+      "description": "",
+      "required": false
+    },
+    {
       "name": "size",
       "type": "\"small\" | \"medium\" | \"large\" | null",
       "description": "",
@@ -1901,6 +1943,13 @@
     {
       "name": "tabIndex",
       "type": "number",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "variant",
+      "type": "enum",
+      "defaultValue": "default",
       "description": "",
       "required": false
     }

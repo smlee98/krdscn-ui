@@ -12,7 +12,7 @@ import * as React from "react"
 import { BunIcon, NpmIcon, PnpmIcon, YarnIcon } from "@/components/docs/brand-icons"
 import { Button } from "@/components/ui/button"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { cn } from "@/lib/cn"
+import { cn } from "@/lib/utils"
 
 type PackageManager = "pnpm" | "npm" | "yarn" | "bun"
 

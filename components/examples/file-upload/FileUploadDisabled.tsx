@@ -1,4 +1,4 @@
-import { FileUpload } from "@/components/ui/dynamic/file-upload"
+import { FileUpload } from "@/registry/krds/ui/file-upload"
 
 export default function FileUploadDisabled() {
   return (

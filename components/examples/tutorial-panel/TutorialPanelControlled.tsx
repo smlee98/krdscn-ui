@@ -1,8 +1,8 @@
 "use client"
 
 import * as React from "react"
-import { TutorialPanel } from "@/components/ui/dynamic/tutorial-panel"
-import type { TutorialPanelTab } from "@/components/ui/dynamic/tutorial-panel"
+import { TutorialPanel } from "@/registry/krds/ui/tutorial-panel"
+import type { TutorialPanelTab } from "@/registry/krds/ui/tutorial-panel"
 
 const helpContent = {
   title: "전자문서지갑",

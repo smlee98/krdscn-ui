@@ -1,4 +1,4 @@
-import { Spinner } from "@/components/ui/dynamic/spinner"
+import { Spinner } from "@/registry/krds/ui/spinner"
 
 export default function SpinnerWithFormSpinner() {
   return (

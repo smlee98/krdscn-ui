@@ -1,6 +1,6 @@
 "use client"
 
-import { Resize } from "@/components/ui/dynamic/resize"
+import { Resize } from "@/registry/krds/ui/resize"
 
 export default function ResizeDefault() {
   return (

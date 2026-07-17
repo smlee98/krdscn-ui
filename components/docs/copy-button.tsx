@@ -4,7 +4,7 @@ import * as React from "react"
 import { CheckIcon, CopyIcon } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
-import { cn } from "@/lib/cn"
+import { cn } from "@/lib/utils"
 
 async function copyText(value: string) {
   const clipboard = navigator.clipboard as Clipboard | undefined

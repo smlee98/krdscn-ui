@@ -9,7 +9,7 @@ import {
   MainMenuPanelShortcut,
   MainMenuPanelSidebar,
   MainMenuSidebarItem,
-} from "@/components/ui/dynamic/main-menu"
+} from "@/registry/krds/ui/main-menu"
 
 export default function MainMenuWithPanel() {
   return (

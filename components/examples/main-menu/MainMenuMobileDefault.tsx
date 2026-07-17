@@ -25,7 +25,7 @@ import {
   MainMenuMobileTrigger,
   MainMenuMobileUtilItem,
   MainMenuMobileUtilList,
-} from "@/components/ui/krds/(navigation)/main-menu-mobile"
+} from "@/registry/krds/ui/main-menu-mobile"
 import { Bell, FileText, Grid2x2, HelpCircle, LogIn } from "lucide-react"
 
 export default function MainMenuMobileDefault() {

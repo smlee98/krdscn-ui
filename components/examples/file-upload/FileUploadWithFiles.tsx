@@ -1,7 +1,7 @@
 "use client"
 
 import * as React from "react"
-import { FileUpload, type FileItem } from "@/components/ui/dynamic/file-upload"
+import { FileUpload, type FileItem } from "@/registry/krds/ui/file-upload"
 
 const INITIAL_FILES: FileItem[] = [
   {

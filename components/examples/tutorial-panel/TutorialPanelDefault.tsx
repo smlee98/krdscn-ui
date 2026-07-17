@@ -1,6 +1,6 @@
 "use client"
 
-import { TutorialPanel } from "@/components/ui/dynamic/tutorial-panel"
+import { TutorialPanel } from "@/registry/krds/ui/tutorial-panel"
 
 const helpContent = {
   title: "전자문서지갑",

@@ -1,4 +1,4 @@
-import { Badge } from "@/components/ui/dynamic/badge"
+import { Badge } from "@/registry/krds/ui/badge"
 
 export default function BadgeVariants() {
   return (

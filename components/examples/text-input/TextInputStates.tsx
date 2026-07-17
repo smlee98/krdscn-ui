@@ -1,4 +1,4 @@
-import { TextInput } from "@/components/ui/dynamic/text-input"
+import { TextInput } from "@/registry/krds/ui/text-input"
 
 export default function TextInputStates() {
   return (

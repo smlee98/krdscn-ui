@@ -1,6 +1,6 @@
 "use client"
 
-import { LanguageSwitcher } from "@/components/ui/dynamic/language-switcher"
+import { LanguageSwitcher } from "@/registry/krds/ui/language-switcher"
 
 export default function LanguageSwitcherDefault() {
   return (

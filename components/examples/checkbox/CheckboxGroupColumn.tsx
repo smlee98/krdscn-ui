@@ -1,4 +1,4 @@
-import { Checkbox, CheckboxGroup as KrdsCheckboxGroup } from "@/components/ui/dynamic/checkbox"
+import { Checkbox, CheckboxGroup as KrdsCheckboxGroup } from "@/registry/krds/ui/checkbox"
 
 export default function CheckboxGroupColumn() {
   return (

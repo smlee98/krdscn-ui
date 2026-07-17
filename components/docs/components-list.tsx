@@ -2,7 +2,7 @@ import Link from "next/link"
 
 import { getPagesFromFolder, type PageTreeFolder } from "@/lib/page-tree"
 import { getComponentTaxonomy } from "@/lib/docs-component-taxonomy"
-import { cn } from "@/lib/cn"
+import { cn } from "@/lib/utils"
 
 function TaxonomyMarker({ slug }: { slug?: string | null }) {
   const taxonomy = getComponentTaxonomy(slug)

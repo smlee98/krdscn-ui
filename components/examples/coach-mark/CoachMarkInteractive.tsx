@@ -1,8 +1,8 @@
 "use client"
 
 import * as React from "react"
-import { Button } from "@/components/ui/dynamic/button"
-import { CoachMark } from "@/components/ui/dynamic/coach-mark"
+import { Button } from "@/registry/krds/ui/button"
+import { CoachMark } from "@/registry/krds/ui/coach-mark"
 
 const steps = [
   {

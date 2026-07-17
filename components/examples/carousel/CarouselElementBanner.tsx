@@ -11,7 +11,7 @@ import {
   CarouselPlayPause,
   CarouselMore,
   type CarouselApi,
-} from "@/components/ui/dynamic/carousel"
+} from "@/registry/krds/ui/carousel"
 
 const ITEMS = [
   { sub: "서브타이틀", title: "타이틀" },

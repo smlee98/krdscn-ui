@@ -1,4 +1,4 @@
-import { Select } from "@/components/ui/dynamic/select"
+import { Select } from "@/registry/krds/ui/select"
 
 const options = [
   { value: "option1", label: "항목1" },

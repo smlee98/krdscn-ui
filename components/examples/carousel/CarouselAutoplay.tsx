@@ -10,7 +10,7 @@ import {
   CarouselDots,
   CarouselPlayPause,
   type CarouselApi,
-} from "@/components/ui/dynamic/carousel"
+} from "@/registry/krds/ui/carousel"
 
 const NOTICES = [
   { date: "2024.03.20", title: "시스템 점검 안내 (00:00 ~ 06:00)" },

@@ -1,6 +1,6 @@
 "use client"
 
-import { Button } from "@/components/ui/dynamic/button"
+import { Button } from "@/registry/krds/ui/button"
 import {
   HelpContentArea,
   HelpCoachProcess,
@@ -17,8 +17,8 @@ import {
   HelpSection,
   HelpServiceGroup,
   HelpTutorialTitle,
-} from "@/components/ui/dynamic/help-panel"
-import { Tab, TabContent, TabList, TabPanel, TabTrigger } from "@/components/ui/dynamic/tab"
+} from "@/registry/krds/ui/help-panel"
+import { Tab, TabContent, TabList, TabPanel, TabTrigger } from "@/registry/krds/ui/tab"
 
 export default function HelpPanelWithTabs() {
   return (

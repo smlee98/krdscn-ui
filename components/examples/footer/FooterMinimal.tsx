@@ -7,7 +7,7 @@ import {
   FooterLogo,
   FooterMenu,
   FooterMenuLink,
-} from "@/components/ui/dynamic/footer"
+} from "@/registry/krds/ui/footer"
 
 export default function FooterMinimal() {
   return (

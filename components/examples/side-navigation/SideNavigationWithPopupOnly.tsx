@@ -5,7 +5,7 @@ import {
   SideNavigationList,
   SideNavigationTitle,
   SideNavigationTrigger,
-} from "@/components/ui/dynamic/side-navigation"
+} from "@/registry/krds/ui/side-navigation"
 
 export default function SideNavigationWithPopupOnly() {
   return (

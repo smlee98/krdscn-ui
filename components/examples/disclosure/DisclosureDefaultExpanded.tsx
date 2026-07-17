@@ -1,4 +1,4 @@
-import { Disclosure, DisclosureTrigger, DisclosureContent } from "@/components/ui/dynamic/disclosure"
+import { Disclosure, DisclosureTrigger, DisclosureContent } from "@/registry/krds/ui/disclosure"
 
 export default function DisclosureDefaultExpanded() {
   return (

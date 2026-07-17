@@ -28,7 +28,7 @@ import {
 import { TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import type { PageTreeFolder } from "@/lib/page-tree"
 import { source } from "@/lib/source"
-import { cn } from "@/lib/cn"
+import { cn } from "@/lib/utils"
 
 function ComponentsListWrapper() {
   const componentsFolder = source.pageTree.children.find((page) => page.$id === "components")

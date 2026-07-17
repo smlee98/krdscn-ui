@@ -1,5 +1,5 @@
 import { Heart, Share2 } from "lucide-react"
-import { Button } from "@/components/ui/dynamic/button"
+import { Button } from "@/registry/krds/ui/button"
 import {
   StructuredList,
   StructuredListActions,
@@ -16,7 +16,7 @@ import {
   StructuredListTag,
   StructuredListTagList,
   StructuredListTitle,
-} from "@/components/ui/dynamic/structured-list"
+} from "@/registry/krds/ui/structured-list"
 
 export default function StructuredListDefault() {
   return (

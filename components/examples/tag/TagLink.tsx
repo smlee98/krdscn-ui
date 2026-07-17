@@ -1,4 +1,4 @@
-import { Tag } from "@/components/ui/dynamic/tag"
+import { Tag } from "@/registry/krds/ui/tag"
 
 export default function TagLink() {
   return (

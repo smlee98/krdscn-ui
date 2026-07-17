@@ -3,7 +3,7 @@ import {
   SideNavigationBackTitle,
   SideNavigationItem,
   SideNavigationList,
-} from "@/components/ui/dynamic/side-navigation"
+} from "@/registry/krds/ui/side-navigation"
 
 export default function SideNavigationSimpleMenu() {
   return (

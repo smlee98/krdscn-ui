@@ -1,4 +1,4 @@
-import { Radio, RadioGroup } from "@/components/ui/dynamic/radio-group"
+import { Radio, RadioGroup } from "@/registry/krds/ui/radio-group"
 
 export default function RadioWithDescription() {
   return (

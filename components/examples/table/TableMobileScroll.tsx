@@ -1,12 +1,4 @@
-import {
-  Table,
-  TableScroll,
-  TableHeader,
-  TableBody,
-  TableHead,
-  TableRow,
-  TableCell,
-} from "@/components/ui/dynamic/table"
+import { Table, TableScroll, TableHeader, TableBody, TableHead, TableRow, TableCell } from "@/registry/krds/ui/table"
 
 const ROWS = [
   { id: "2024-001", name: "주민등록등본 발급", dept: "주민센터", date: "2024.03.15", status: "완료", fee: "무료" },

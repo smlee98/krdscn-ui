@@ -1,4 +1,4 @@
-import { TextList, TextListItem } from "@/components/ui/dynamic/text-list"
+import { TextList, TextListItem } from "@/registry/krds/ui/text-list"
 
 export default function TextListMixedOrdered() {
   return (

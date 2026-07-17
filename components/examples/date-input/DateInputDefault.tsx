@@ -1,6 +1,6 @@
 "use client"
 
-import { DateInput } from "@/components/ui/dynamic/date-input"
+import { DateInput } from "@/registry/krds/ui/date-input"
 
 export default function DateInputDefault() {
   return (

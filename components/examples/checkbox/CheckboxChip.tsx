@@ -1,4 +1,4 @@
-import { CheckboxChip as KrdsCheckboxChip, CheckboxGroup as KrdsCheckboxGroup } from "@/components/ui/dynamic/checkbox"
+import { CheckboxChip as KrdsCheckboxChip, CheckboxGroup as KrdsCheckboxGroup } from "@/registry/krds/ui/checkbox"
 
 export default function CheckboxChip() {
   return (

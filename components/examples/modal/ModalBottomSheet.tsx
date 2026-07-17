@@ -1,4 +1,4 @@
-import { Button } from "@/components/ui/dynamic/button"
+import { Button } from "@/registry/krds/ui/button"
 import {
   ModalRoot,
   ModalTrigger,
@@ -7,7 +7,7 @@ import {
   ModalBody,
   ModalFooter,
   ModalClose,
-} from "@/components/ui/dynamic/modal"
+} from "@/registry/krds/ui/modal"
 
 export default function ModalBottomSheet() {
   return (

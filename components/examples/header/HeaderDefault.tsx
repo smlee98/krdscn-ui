@@ -13,7 +13,7 @@ import {
   HeaderUtilityDropdown,
   HeaderUtilityDropdownItem,
   HeaderUtilityItem,
-} from "@/components/ui/dynamic/header"
+} from "@/registry/krds/ui/header"
 
 export default function HeaderDefault() {
   return (

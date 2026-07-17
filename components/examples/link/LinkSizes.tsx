@@ -1,4 +1,4 @@
-import { Link } from "@/components/ui/dynamic/link"
+import { Link } from "@/registry/krds/ui/link"
 
 export default function LinkSizes() {
   return (

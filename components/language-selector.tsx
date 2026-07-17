@@ -3,7 +3,7 @@
 import * as React from "react"
 
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { cn } from "@/lib/cn"
+import { cn } from "@/lib/utils"
 
 export type Language = "en" | "ar" | "he"
 export type Direction = "ltr" | "rtl"

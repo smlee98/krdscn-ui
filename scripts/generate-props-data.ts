@@ -4,7 +4,7 @@ import * as docgen from "react-docgen-typescript"
 import * as ts from "typescript"
 
 const ROOT = process.cwd()
-const KRDS_DIR = path.join(ROOT, "components/ui/krds")
+const KRDS_DIR = path.join(ROOT, "registry/krds/ui")
 const OUTPUT = path.join(ROOT, "data/props-data.json")
 const TSCONFIG = path.join(ROOT, "tsconfig.json")
 
@@ -18,9 +18,7 @@ function fileToComponentName(filePath: string): string {
   return `Krds${pascal}`
 }
 
-// Recursively glob all .tsx wrappers from krds/ and its category subdirectories.
-// Wrappers were regrouped into "(group)/" folders, so a flat readdir of KRDS_DIR
-// finds nothing — walk into subdirectories. Skip index files.
+// Glob all .tsx components from registry/krds/ui (flat). Skip index files.
 function collectTsxFiles(dir: string): string[] {
   const out: string[] = []
   for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {

@@ -1,7 +1,7 @@
 "use client"
 
 import * as React from "react"
-import { Button } from "@/components/ui/dynamic/button"
+import { Button } from "@/registry/krds/ui/button"
 import {
   InPageNavigation,
   InPageNavigationDescription,
@@ -11,7 +11,7 @@ import {
   InPageNavigationItem,
   InPageNavigationList,
   InPageNavigationTitle,
-} from "@/components/ui/dynamic/in-page-navigation"
+} from "@/registry/krds/ui/in-page-navigation"
 
 const sections = [
   { id: "section_01", label: "서비스 개요" },

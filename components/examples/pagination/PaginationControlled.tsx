@@ -1,7 +1,7 @@
 "use client"
 
 import * as React from "react"
-import { Pagination, PaginationContent, PaginationNext, PaginationPrev } from "@/components/ui/dynamic/pagination"
+import { Pagination, PaginationContent, PaginationNext, PaginationPrev } from "@/registry/krds/ui/pagination"
 
 export default function PaginationControlled() {
   const total = 20

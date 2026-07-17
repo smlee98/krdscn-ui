@@ -1,4 +1,4 @@
-import { Calendar } from "@/components/ui/dynamic/calendar"
+import { Calendar } from "@/registry/krds/ui/calendar"
 
 export default function CalendarCustomButtonText() {
   return (

@@ -26,7 +26,7 @@ const steps = [
     step: "03",
     title: "프로젝트 코드로 소유",
     description: "소스가 프로젝트 안으로 복사되므로, 서비스 요구사항에 맞게 직접 수정하고 확장합니다.",
-    code: "components/ui/krds/(action)/button.tsx",
+    code: "components/ui/button.tsx",
   },
 ]
 

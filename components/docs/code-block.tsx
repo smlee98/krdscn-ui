@@ -1,7 +1,7 @@
 import { highlight } from "fumadocs-core/highlight"
 
 import { CopyButton } from "@/components/docs/copy-button"
-import { cn } from "@/lib/cn"
+import { cn } from "@/lib/utils"
 
 export async function CodeBlock({
   code,

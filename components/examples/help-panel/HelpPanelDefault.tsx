@@ -1,6 +1,6 @@
 "use client"
 
-import { Button } from "@/components/ui/dynamic/button"
+import { Button } from "@/registry/krds/ui/button"
 import {
   HelpContentArea,
   HelpCoachProcess,
@@ -17,7 +17,7 @@ import {
   HelpSection,
   HelpServiceGroup,
   HelpTutorialTitle,
-} from "@/components/ui/dynamic/help-panel"
+} from "@/registry/krds/ui/help-panel"
 
 export default function HelpPanelDefault() {
   return (

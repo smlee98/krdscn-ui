@@ -7,7 +7,7 @@ import { getAllPagesFromFolder, getPagesFromFolder, normalizePath } from "@/lib/
 import type { PageTreeFolder, PageTreeNode, PageTreePage } from "@/lib/page-tree"
 import type { source } from "@/lib/source"
 import { getComponentTaxonomy } from "@/lib/docs-component-taxonomy"
-import { cn } from "@/lib/cn"
+import { cn } from "@/lib/utils"
 
 export const docsSections = [
   { title: "소개", href: "/docs" },

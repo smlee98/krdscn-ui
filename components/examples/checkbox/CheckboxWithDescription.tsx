@@ -1,4 +1,4 @@
-import { Checkbox } from "@/components/ui/dynamic/checkbox"
+import { Checkbox } from "@/registry/krds/ui/checkbox"
 
 export default function CheckboxWithDescription() {
   return (

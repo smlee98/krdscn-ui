@@ -1,4 +1,4 @@
-import { Button } from "@/components/ui/dynamic/button"
+import { Button } from "@/registry/krds/ui/button"
 
 export default function ButtonSecondary() {
   return (

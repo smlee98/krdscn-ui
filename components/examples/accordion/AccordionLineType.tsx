@@ -1,6 +1,6 @@
 "use client"
 
-import { Accordion, AccordionHeader, AccordionItem, AccordionPanel } from "@/components/ui/dynamic/accordion"
+import { Accordion, AccordionHeader, AccordionItem, AccordionPanel } from "@/registry/krds/ui/accordion"
 
 export default function AccordionLineType() {
   return (

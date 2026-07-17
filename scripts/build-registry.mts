@@ -1,22 +1,31 @@
-// build-registry.mts — shadcn 레지스트리 파이프라인 (Z:\portfolio 구조 참고).
+// build-registry.mts — shadcn 레지스트리 파이프라인.
 //
-// components/ui/krds/(그룹)/*.tsx 42개를 엔트리로 import 그래프를 재귀 탐색해
-// 각 컴포넌트의 파일 목록(내부 소스)과 npm 의존성을 자동 산출하고,
+// registry/krds/ui/*.tsx 전 파일을 엔트리로 import 그래프를 재귀 탐색해
+// 각 컴포넌트의 파일 목록·npm 의존성·registryDependencies 를 자동 산출하고,
 // 루트 registry.json 을 생성한다. 이후 `shadcn build` 가 public/r/*.json 을 만든다.
 //
+// 배포 모델 (shadcn 관례):
+//  - 파일 target 은 하드코딩 경로 대신 @ui/ @lib/ @hooks/ 플레이스홀더 — 소비자
+//    components.json aliases 로 해석된다.
+//  - KRDS → KRDS import 는 파일 동봉 대신 registryDependencies(항목 URL) 로 선언.
+//  - KRDS → shadcn 베이스(components/ui/*) import 는 공식 shadcn 레지스트리 이름
+//    ("calendar" 등) registryDependency 로 선언 — 소비자의 기존 커스텀을 덮어쓰지 않는다.
+//  - krds-theme 은 app/krds.css 를 파싱해 cssVars(theme/light/dark) + css(@utility,
+//    @media) 필드로 배포 — 설치 시 소비자 CSS 에 자동 주입된다(수동 @import 불필요).
+//
 // 항목 구성:
-//  - <component> × 42     — 컴포넌트 소스 + 전이 의존 파일(dynamic/*, base ui, lib)
-//  - krds-theme           — app/krds.css (KRDS 토큰; 모든 컴포넌트의 registryDependencies)
-//  - krds-utils           — lib/cn.ts
-//  - use-mobile           — lib/hooks/use-mobile.ts
-//  - krds-all             — 전체 묶음(registryDependencies 로 42개 전부 참조)
+//  - <component> × N — registry/krds/ui/*.tsx
+//  - krds-theme      — KRDS 토큰 (registry:theme, cssVars/css)
+//  - krds-utils      — lib/utils.ts (cn)
+//  - use-mobile      — lib/hooks/use-mobile.ts
+//  - krds-all        — 전체 묶음 (registry:block)
 //
 // 실행: yarn registry:build  (= tsx scripts/build-registry.mts && shadcn build)
 
 import { promises as fs } from "node:fs"
 import path from "node:path"
 
-// CJS/ESM interop 때문에 named import 대신 동적 import (실패 시 설명 없이 진행)
+// CJS/ESM interop 때문에 named import 대신 동적 import
 let COMPONENT_COPY: Record<string, { intro: string }> = {}
 try {
   const mod = (await import("../lib/component-copy")) as {
@@ -33,12 +42,14 @@ const REGISTRY_NAME = "krdscn-ui"
 const HOMEPAGE = "https://krdscn-ui.smlee.info"
 // 항목 간 참조(registryDependencies) base URL — 로컬 E2E 테스트 시 KRDS_REGISTRY_URL 로 오버라이드
 const REGISTRY_URL = process.env.KRDS_REGISTRY_URL ?? `${HOMEPAGE}/r`
-const KRDS_DIR = path.join(ROOT, "components/ui/krds")
+const KRDS_UI_DIR = path.join(ROOT, "registry/krds/ui")
+const KRDS_UI_PREFIX = "@/registry/krds/ui/"
+const SHADCN_BASE_PREFIX = "@/components/ui/"
 
 // 프레임워크/런타임 제공 — 레지스트리 dependencies 에서 제외
 const EXCLUDED_PACKAGES = new Set(["react", "react-dom", "next"])
 
-type RegistryFile = { path: string; type: string; target: string }
+type RegistryFile = { path: string; type: string; target?: string }
 type RegistryItem = {
   name: string
   type: string
@@ -47,6 +58,8 @@ type RegistryItem = {
   dependencies?: string[]
   registryDependencies?: string[]
   files?: RegistryFile[]
+  cssVars?: Record<string, Record<string, string>>
+  css?: Record<string, unknown>
 }
 
 const pkg = JSON.parse(await fs.readFile(path.join(ROOT, "package.json"), "utf8"))
@@ -92,10 +105,21 @@ function extractImportSpecs(source: string): string[] {
   return specs
 }
 
-/** 엔트리 파일에서 시작해 내부 소스 파일과 npm 의존성을 전이적으로 수집 */
+/**
+ * 엔트리 파일에서 시작해 수집:
+ *  - files: 동봉할 내부 소스 (엔트리 + lib/ 등 비-항목 파일)
+ *  - packages: npm 의존성
+ *  - krdsDeps: 다른 KRDS 항목 이름 (registryDependencies URL 로 선언, 동봉 안 함)
+ *  - shadcnDeps: 공식 shadcn 항목 이름 (registryDependencies 이름으로 선언, 동봉 안 함)
+ *  - needsUtils: @/lib/utils(cn) 사용 여부 — krds-utils 항목 의존으로 선언 (KRDS
+ *    타이포 충돌 그룹을 등록한 커스텀 cn 이라 소비자 기본 utils 로 대체 불가)
+ */
 async function walkImportGraph(entryFile: string) {
   const files = new Set<string>()
   const packages = new Set<string>()
+  const krdsDeps = new Set<string>()
+  const shadcnDeps = new Set<string>()
+  let needsUtils = false
   const queue = [entryFile]
 
   while (queue.length > 0) {
@@ -106,6 +130,26 @@ async function walkImportGraph(entryFile: string) {
 
     const source = await fs.readFile(file, "utf8")
     for (const spec of extractImportSpecs(source)) {
+      // 다른 KRDS 컴포넌트 → 항목 간 의존으로 선언 (엔트리 자신 제외)
+      if (spec.startsWith(KRDS_UI_PREFIX)) {
+        const name = spec.slice(KRDS_UI_PREFIX.length)
+        const specFile = path.join(KRDS_UI_DIR, `${name}.tsx`)
+        if (path.resolve(specFile) !== path.resolve(entryFile)) {
+          if (!(await fileExists(specFile))) throw new Error(`KRDS 항목 해석 실패: "${spec}" (from ${relative})`)
+          krdsDeps.add(name)
+          continue
+        }
+      }
+      // shadcn 베이스 → 공식 레지스트리 이름으로 선언 (파일 동봉 안 함)
+      if (spec.startsWith(SHADCN_BASE_PREFIX)) {
+        shadcnDeps.add(spec.slice(SHADCN_BASE_PREFIX.length))
+        continue
+      }
+      // cn 유틸 → krds-utils 항목 의존으로 선언 (파일 동봉 안 함)
+      if (spec === "@/lib/utils") {
+        needsUtils = true
+        continue
+      }
       if (spec.startsWith("@/") || spec.startsWith(".")) {
         queue.push(await resolveSourceFile(spec, file))
         continue
@@ -115,21 +159,35 @@ async function walkImportGraph(entryFile: string) {
     }
   }
 
-  return { files: [...files], packages: [...packages].sort() }
+  return {
+    files: [...files],
+    packages: [...packages].sort(),
+    krdsDeps: [...krdsDeps].sort(),
+    shadcnDeps: [...shadcnDeps].sort(),
+    needsUtils,
+  }
 }
 
 /** 저장소 경로 → registry 파일 타입 */
 function fileType(relative: string) {
-  if (relative.startsWith("components/ui/")) return "registry:ui"
-  if (relative.startsWith("components/")) return "registry:component"
+  if (relative.startsWith("registry/krds/ui/")) return "registry:ui"
   if (relative.startsWith("lib/hooks/")) return "registry:hook"
   if (relative.startsWith("lib/")) return "registry:lib"
+  if (relative.startsWith("components/")) return "registry:component"
   return "registry:file"
 }
 
+/** 설치 위치 — 소비자 aliases 로 해석되는 플레이스홀더 target */
+function fileTarget(relative: string): string | undefined {
+  if (relative.startsWith("registry/krds/ui/")) return `@ui/${relative.slice("registry/krds/ui/".length)}`
+  if (relative.startsWith("lib/hooks/")) return `@hooks/${relative.slice("lib/hooks/".length)}`
+  if (relative.startsWith("lib/")) return `@lib/${relative.slice("lib/".length)}`
+  return undefined
+}
+
 function toRegistryFile(relative: string): RegistryFile {
-  // 설치 위치를 저장소 구조 그대로 유지해야 파일 간 "@/..." import 가 깨지지 않는다.
-  return { path: relative, type: fileType(relative), target: relative }
+  const target = fileTarget(relative)
+  return { path: relative, type: fileType(relative), ...(target ? { target } : {}) }
 }
 
 /** package.json 의 버전 범위를 붙여 의존성 표기 ("radix-ui@^1.4.3") */
@@ -138,25 +196,99 @@ function toDependency(name: string) {
   return range && /^[\^~]?\d/.test(range) ? `${name}@${range}` : name
 }
 
-function themeRef() {
-  return `${REGISTRY_URL}/krds-theme.json`
+function itemRef(name: string) {
+  return `${REGISTRY_URL}/${name}.json`
 }
 
-// ── 컴포넌트 항목 42개 ────────────────────────────────────────────────────────
-const groups = await fs.readdir(KRDS_DIR, { withFileTypes: true })
-const entryFiles: string[] = []
-for (const group of groups) {
-  if (!group.isDirectory()) continue
-  for (const file of await fs.readdir(path.join(KRDS_DIR, group.name))) {
-    if (file.endsWith(".tsx")) entryFiles.push(path.join(KRDS_DIR, group.name, file))
+// ── krds.css → cssVars / css 필드 파싱 ──────────────────────────────────────────
+// app/krds.css 는 규칙적 구조를 유지해야 한다:
+//   @utility <name> { ... } / @theme inline { ... } / :root { ... }
+//   @media (min-width: 1024px) { :root { ... } } / .dark { ... }
+// 새 최상위 블록 형태를 추가하면 이 파서도 함께 갱신할 것 (미인식 블록은 에러).
+
+function stripCssComments(css: string) {
+  return css.replace(/\/\*[\s\S]*?\*\//g, "")
+}
+
+/** "prop: value; ..." 본문 → 선언 객체. cssVars 용은 앞의 "--" 를 벗긴다. */
+function parseDeclarations(body: string, { stripVarPrefix = false } = {}): Record<string, string> {
+  const out: Record<string, string> = {}
+  for (const decl of body.split(";")) {
+    const idx = decl.indexOf(":")
+    if (idx === -1) continue
+    const prop = decl.slice(0, idx).trim()
+    const value = decl.slice(idx + 1).trim()
+    if (!prop || !value) continue
+    out[stripVarPrefix ? prop.replace(/^--/, "") : prop] = value
+  }
+  return out
+}
+
+/** 최상위 블록(selector { body })을 중괄호 균형으로 순회 */
+function* topLevelBlocks(css: string): Generator<{ selector: string; body: string }> {
+  let i = 0
+  while (i < css.length) {
+    const open = css.indexOf("{", i)
+    if (open === -1) break
+    const selector = css.slice(i, open).trim()
+    let depth = 1
+    let j = open + 1
+    while (j < css.length && depth > 0) {
+      if (css[j] === "{") depth++
+      else if (css[j] === "}") depth--
+      j++
+    }
+    yield { selector, body: css.slice(open + 1, j - 1) }
+    i = j
   }
 }
-entryFiles.sort()
+
+async function buildThemeFields() {
+  const raw = await fs.readFile(path.join(ROOT, "app/krds.css"), "utf8")
+  const css = stripCssComments(raw)
+
+  const cssVars: Record<string, Record<string, string>> = {}
+  const cssField: Record<string, unknown> = {}
+
+  for (const { selector, body } of topLevelBlocks(css)) {
+    if (selector.startsWith("@utility ")) {
+      cssField[selector] = parseDeclarations(body)
+    } else if (selector === "@theme inline") {
+      cssVars.theme = parseDeclarations(body, { stripVarPrefix: true })
+    } else if (selector === ":root") {
+      cssVars.light = parseDeclarations(body, { stripVarPrefix: true })
+    } else if (selector === ".dark") {
+      cssVars.dark = parseDeclarations(body, { stripVarPrefix: true })
+    } else if (selector.startsWith("@media")) {
+      const inner: Record<string, Record<string, string>> = {}
+      for (const block of topLevelBlocks(body)) {
+        inner[block.selector] = parseDeclarations(block.body)
+      }
+      cssField[selector] = inner
+    } else {
+      throw new Error(`krds.css 파서가 모르는 최상위 블록: "${selector}" — buildThemeFields() 를 갱신하세요.`)
+    }
+  }
+
+  for (const section of ["theme", "light", "dark"] as const) {
+    if (!cssVars[section] || Object.keys(cssVars[section]).length === 0) {
+      throw new Error(`krds.css 파싱 결과 cssVars.${section} 이 비어 있습니다 — 구조 변경 여부를 확인하세요.`)
+    }
+  }
+
+  return { cssVars, css: cssField }
+}
+
+// ── 컴포넌트 항목 ────────────────────────────────────────────────────────────────
+const entryFiles = (await fs.readdir(KRDS_UI_DIR))
+  .filter((file) => file.endsWith(".tsx"))
+  .map((file) => path.join(KRDS_UI_DIR, file))
+  .sort()
 
 const componentItems: RegistryItem[] = []
 for (const entryFile of entryFiles) {
   const name = path.basename(entryFile, ".tsx")
-  const { files, packages } = await walkImportGraph(entryFile)
+  const { files, packages, krdsDeps, shadcnDeps, needsUtils } = await walkImportGraph(entryFile)
   const copy = (COMPONENT_COPY as Record<string, { intro: string }>)[name]
 
   componentItems.push({
@@ -165,7 +297,12 @@ for (const entryFile of entryFiles) {
     title: name,
     description: copy?.intro,
     dependencies: packages.map(toDependency),
-    registryDependencies: [themeRef()],
+    registryDependencies: [
+      itemRef("krds-theme"),
+      ...(needsUtils ? [itemRef("krds-utils")] : []),
+      ...shadcnDeps,
+      ...krdsDeps.map(itemRef),
+    ],
     files: files.map(toRegistryFile),
   })
 }
@@ -174,12 +311,14 @@ const duplicated = componentItems.map((item) => item.name).filter((name, i, all)
 if (duplicated.length > 0) throw new Error(`컴포넌트 이름 충돌: ${duplicated.join(", ")}`)
 
 // ── 인프라 항목 ───────────────────────────────────────────────────────────────
+const themeFields = await buildThemeFields()
 const themeItem: RegistryItem = {
   name: "krds-theme",
-  type: "registry:item",
+  type: "registry:theme",
   title: "KRDS theme tokens",
-  description: "KRDS 디자인 토큰(색상·타이포그래피·포커스 링)을 담은 Tailwind CSS v4 스타일시트.",
-  files: [{ path: "app/krds.css", type: "registry:file", target: "app/krds.css" }],
+  description: "KRDS 디자인 토큰(색상·타이포그래피·포커스 링). 설치 시 프로젝트 CSS에 자동 주입됩니다.",
+  cssVars: themeFields.cssVars,
+  css: themeFields.css,
 }
 
 const utilsItem: RegistryItem = {
@@ -188,7 +327,7 @@ const utilsItem: RegistryItem = {
   title: "krds-utils",
   description: "컴포넌트에서 사용하는 cn(clsx + tailwind-merge) 유틸리티.",
   dependencies: ["clsx", "tailwind-merge"].map(toDependency),
-  files: [{ path: "lib/cn.ts", type: "registry:lib", target: "lib/cn.ts" }],
+  files: [toRegistryFile("lib/utils.ts")],
 }
 
 const useMobileItem: RegistryItem = {
@@ -196,15 +335,15 @@ const useMobileItem: RegistryItem = {
   type: "registry:hook",
   title: "use-mobile",
   description: "반응형 컴포넌트를 위한 모바일 뷰포트 감지 훅.",
-  files: [{ path: "lib/hooks/use-mobile.ts", type: "registry:hook", target: "lib/hooks/use-mobile.ts" }],
+  files: [toRegistryFile("lib/hooks/use-mobile.ts")],
 }
 
 const allItem: RegistryItem = {
   name: "krds-all",
-  type: "registry:item",
+  type: "registry:block",
   title: "krds-all",
   description: "KRDS 전체 UI 컴포넌트 묶음.",
-  registryDependencies: [themeRef(), ...componentItems.map((item) => `${REGISTRY_URL}/${item.name}.json`)],
+  registryDependencies: [itemRef("krds-theme"), ...componentItems.map((item) => itemRef(item.name))],
 }
 
 // ── registry.json 출력 ────────────────────────────────────────────────────────
@@ -213,6 +352,15 @@ const registry = {
   name: REGISTRY_NAME,
   homepage: HOMEPAGE,
   items: [themeItem, utilsItem, useMobileItem, ...componentItems, allItem],
+}
+
+// 간단 자기 검증: 하드코딩 저장소 경로 target 금지
+for (const item of registry.items) {
+  for (const file of item.files ?? []) {
+    if (file.target && !file.target.startsWith("@") && !file.target.startsWith("~")) {
+      throw new Error(`플레이스홀더가 아닌 target: ${item.name} → ${file.target}`)
+    }
+  }
 }
 
 await fs.writeFile(path.join(ROOT, "registry.json"), `${JSON.stringify(registry, null, 2)}\n`, "utf8")
