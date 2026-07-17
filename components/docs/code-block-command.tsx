@@ -1,8 +1,15 @@
 "use client"
 
-import * as React from "react"
-import { CheckIcon, CopyIcon, TerminalIcon } from "lucide-react"
+// Z:\portfolio 의 code-block-command 룩을 포팅한 버전.
+// - 상단: 패키지매니저 브랜드 아이콘(전환 시 스왑 애니메이션) + line 탭(활성 밑줄)
+// - 본문: 보더 코드 박스, 우상단 ghost 복사 버튼
+// portfolio 와 달리 rehype 파이프라인(__pnpm__ 등 사전 계산 prop)·Base UI·motion 의존 없이,
+// 기존 시그니처(command 문자열 → getCommands 변환)와 localStorage 퍼시스턴스를 유지한다.
 
+import { CheckIcon, CopyIcon } from "lucide-react"
+import * as React from "react"
+
+import { BunIcon, NpmIcon, PnpmIcon, YarnIcon } from "@/components/docs/brand-icons"
 import { Button } from "@/components/ui/button"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { cn } from "@/lib/cn"
@@ -10,6 +17,13 @@ import { cn } from "@/lib/cn"
 type PackageManager = "pnpm" | "npm" | "yarn" | "bun"
 
 const managers: PackageManager[] = ["pnpm", "npm", "yarn", "bun"]
+
+const managerIcons: Record<PackageManager, React.ReactNode> = {
+  pnpm: <PnpmIcon />,
+  npm: <NpmIcon />,
+  yarn: <YarnIcon />,
+  bun: <BunIcon />,
+}
 
 function getCommands(command: string): Record<PackageManager, string> {
   const raw = command.trim()
@@ -104,8 +118,12 @@ export function CodeBlockCommand({ command, className }: { command: string; clas
 
   return (
     <div
+      data-slot="code-block-command"
       className={cn(
-        "bg-code text-code-foreground relative my-6 overflow-x-auto rounded-xl border shadow-none",
+        // portfolio 의 figure 셸([data-rehype-pretty-code-figure]) 재현: 연회색 카드
+        // (rounded-xl + p-1 + inset ring) 안에 코드 박스가 떠 있고, 명령 블록은 탭 행이
+        // 셸 상단에 붙도록 pt-0 (has-data-[slot=code-block-command]:pt-0 대응).
+        "bg-code text-code-foreground inset-ring-border/60 relative my-6 rounded-xl p-1 pt-0 inset-ring-1",
         className
       )}
     >
@@ -114,40 +132,37 @@ export function CodeBlockCommand({ command, className }: { command: string; clas
         className="gap-0"
         onValueChange={(value) => setPackageManager(value as PackageManager)}
       >
-        <div className="border-border/50 flex items-center gap-2 border-b px-3 py-1">
-          <div className="bg-foreground flex size-4 items-center justify-center rounded-[1px] opacity-70">
-            <TerminalIcon className="text-code size-3" />
-          </div>
-          <TabsList className="bg-transparent">
+        <div className="px-3">
+          <TabsList variant="line" className="[&_svg]:text-muted-foreground h-10 bg-transparent p-0 [&_svg]:size-4">
+            {/* motion(IconSwap) 대신 key 리마운트 + tw-animate 로 아이콘 스왑 */}
+            <span key={packageManager} className="animate-in fade-in zoom-in-50 mr-2 duration-200" aria-hidden="true">
+              {managerIcons[packageManager]}
+            </span>
             {managers.map((manager) => (
-              <TabsTrigger
-                key={manager}
-                value={manager}
-                className="border-border/60 h-7 shadow-none! data-active:shadow-none!"
-              >
+              <TabsTrigger key={manager} value={manager} className="h-7 flex-none rounded-lg px-2 font-mono">
                 {manager}
               </TabsTrigger>
             ))}
           </TabsList>
         </div>
-        <div className="no-scrollbar overflow-x-auto">
-          {managers.map((manager) => (
-            <TabsContent key={manager} value={manager} className="mt-0 px-4 py-3.5">
-              <pre>
-                <code className="relative font-mono text-sm leading-none" data-language="bash">
+        {managers.map((manager) => (
+          <TabsContent key={manager} value={manager} className="mt-0">
+            <div className="bg-background rounded-[9px] border">
+              <pre className="no-scrollbar overflow-x-auto overscroll-x-contain px-4 py-3.5 leading-5">
+                <code data-language="bash" className="text-muted-foreground font-mono text-sm/none">
                   {commands[manager]}
                 </code>
               </pre>
-            </TabsContent>
-          ))}
-        </div>
+            </div>
+          </TabsContent>
+        ))}
       </Tabs>
       <Button
         data-slot="copy-button"
         type="button"
         variant="ghost"
         size="icon"
-        className="absolute top-2 right-2 z-10"
+        className="text-muted-foreground absolute top-1.5 right-1.5 z-10 size-7"
         onClick={async () => {
           await navigator.clipboard.writeText(copyCommand)
           setCopied(true)
