@@ -124,6 +124,10 @@ import _ex105 from "@/components/examples/radio-group/RadioWithDescription"
 import _ex106 from "@/components/examples/resize/ResizeDefault"
 import _ex198 from "@/components/examples/resize/ResizeControlled"
 import _ex199 from "@/components/examples/resize/ResizeCustomLabels"
+import _ex200 from "@/components/examples/side-navigation/SideNavigationFourDepth"
+import _ex201 from "@/components/examples/accordion/AccordionLineType"
+import _ex202 from "@/components/examples/radio-group/RadioChipDefault"
+import _ex203 from "@/components/examples/main-menu/MainMenuMobileDefault"
 import _ex107 from "@/components/examples/select/SelectDefault"
 import _ex108 from "@/components/examples/select/SelectStates"
 import _ex109 from "@/components/examples/select/SelectSizes"
@@ -339,6 +343,10 @@ export const EXAMPLE_REGISTRY: Record<string, ComponentType> = {
   "side-navigation/SideNavigationDefault": _ex111,
   "side-navigation/SideNavigationSimpleMenu": _ex112,
   "side-navigation/SideNavigationWithPopupOnly": _ex113,
+  "side-navigation/SideNavigationFourDepth": _ex200,
+  "accordion/AccordionLineType": _ex201,
+  "radio-group/RadioChipDefault": _ex202,
+  "main-menu/MainMenuMobileDefault": _ex203,
   "skip-link/SkipLinkCustomTarget": _ex114,
   "skip-link/SkipLinkDefault": _ex115,
   "spinner/SpinnerDefault": _ex116,

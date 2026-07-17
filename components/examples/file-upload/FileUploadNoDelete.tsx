@@ -24,8 +24,9 @@ export default function FileUploadNoDelete() {
   const [files, setFiles] = React.useState<FileItem[]>(INITIAL_FILES)
 
   return (
-    <div className="border-krds-border bg-krds-surface w-full max-w-[760px] rounded-[12px] border p-10">
+    <div className="w-full max-w-[760px]">
       <FileUpload
+        variant="line"
         title="삭제 불가능한 파일 업로드"
         description="파일 삭제가 허용되지 않습니다."
         files={files}

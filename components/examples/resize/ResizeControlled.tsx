@@ -8,7 +8,7 @@ export default function ResizeControlled() {
   const [value, setValue] = React.useState<ResizeScale>("md")
 
   return (
-    <div className="flex w-full max-w-md flex-col gap-4 py-12">
+    <div className="flex w-full max-w-md flex-col items-center gap-4 py-12">
       <p>
         현재 선택된 크기: <strong>{value}</strong>
       </p>

@@ -17,7 +17,7 @@ const defaultLanguages = [
 
 export default function LanguageSwitcherSimple() {
   return (
-    <div className="w-full max-w-md py-12">
+    <div className="flex w-full max-w-md justify-center py-12">
       <LanguageSwitcher defaultValue="ko" options={defaultLanguages} onChange={(val) => console.log(val)}>
         <LanguageSwitcher.Trigger label="언어 변경" />
         <LanguageSwitcher.Menu>

@@ -5,7 +5,6 @@ import {
   BreadcrumbLink,
   BreadcrumbList,
   BreadcrumbPage,
-  BreadcrumbSeparator,
 } from "@/components/ui/dynamic/breadcrumb"
 
 export default function BreadcrumbDefault() {
@@ -15,19 +14,15 @@ export default function BreadcrumbDefault() {
         <BreadcrumbItem>
           <BreadcrumbHome href="#" />
         </BreadcrumbItem>
-        <BreadcrumbSeparator />
         <BreadcrumbItem>
           <BreadcrumbLink href="#">서비스 신청</BreadcrumbLink>
         </BreadcrumbItem>
-        <BreadcrumbSeparator />
         <BreadcrumbItem>
           <BreadcrumbLink href="#">서비스 신청2</BreadcrumbLink>
         </BreadcrumbItem>
-        <BreadcrumbSeparator />
         <BreadcrumbItem>
           <BreadcrumbLink href="#">서비스 신청3</BreadcrumbLink>
         </BreadcrumbItem>
-        <BreadcrumbSeparator />
         <BreadcrumbItem>
           <BreadcrumbPage>서비스 신청4</BreadcrumbPage>
         </BreadcrumbItem>

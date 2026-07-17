@@ -49,7 +49,7 @@ export default function CoachMarkInteractive() {
 
   return (
     // 말풍선이 하이라이트 영역 위쪽에 뜨므로 데모에서는 상단 공간을 확보한다.
-    <div className="pt-75">
+    <div className="w-full pt-75">
       <CoachMark
         title={step.title}
         description={step.description}
@@ -66,7 +66,7 @@ export default function CoachMarkInteractive() {
           }
         }}
       >
-        <h3>{step.content}</h3>
+        <h3 className="text-krds-body-md text-krds-foreground font-bold">{step.content}</h3>
       </CoachMark>
     </div>
   )

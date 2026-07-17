@@ -4,7 +4,7 @@ import { LanguageSwitcher } from "@/components/ui/dynamic/language-switcher"
 
 export default function LanguageSwitcherDefault() {
   return (
-    <div className="w-full max-w-md py-12">
+    <div className="flex w-full max-w-md justify-center py-12">
       <LanguageSwitcher
         defaultValue="ko"
         options={[

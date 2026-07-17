@@ -2,8 +2,9 @@ import { FileUpload } from "@/components/ui/dynamic/file-upload"
 
 export default function FileUploadRestrictedFileTypes() {
   return (
-    <div className="border-krds-border bg-krds-surface w-full max-w-[760px] rounded-[12px] border p-10">
+    <div className="w-full max-w-[760px]">
       <FileUpload
+        variant="line"
         title="이미지 파일 업로드"
         description="JPG, PNG 파일만 업로드 가능합니다."
         uploadText="이미지 파일을 선택하거나 드래그하여 업로드하세요."

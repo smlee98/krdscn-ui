@@ -31,7 +31,7 @@ export default function LanguageSwitcherControlled() {
     )[selectedLanguage] || "현재 언어"
 
   return (
-    <div className="w-full max-w-md py-12">
+    <div className="flex w-full max-w-md justify-center py-12">
       <LanguageSwitcher
         value={selectedLanguage}
         options={defaultLanguages}

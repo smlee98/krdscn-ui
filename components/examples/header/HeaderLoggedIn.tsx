@@ -1,4 +1,5 @@
 import { LogOut, Menu, Search, User } from "lucide-react"
+import { KrdsLogo } from "@/components/logo/krds"
 import {
   Header,
   HeaderActionDropdown,
@@ -25,7 +26,12 @@ export default function HeaderLoggedIn() {
           <HeaderUtilityDropdownItem href="#">자주 묻는 질문</HeaderUtilityDropdownItem>
         </HeaderUtilityDropdown>
       </HeaderUtility>
-      <HeaderBrand href="/">KRDS</HeaderBrand>
+      <HeaderBrand href="/">
+        <span className="bg-krds-surface border-krds-border-light flex size-7 items-center justify-center rounded-md border">
+          <KrdsLogo aria-hidden="true" />
+        </span>
+        krdscn/ui
+      </HeaderBrand>
       <HeaderActions>
         <HeaderActionItem icon={<Search />}>통합검색</HeaderActionItem>
         <HeaderActionDropdown label="나의GOV" icon={<User />}>
@@ -35,7 +41,7 @@ export default function HeaderLoggedIn() {
               <li>
                 <a
                   href="#"
-                  className="text-krds-foreground text-krds-body-md hover:bg-krds-surface-secondary-subtle focus:krds-focus-ring flex items-center rounded-md px-3 py-2"
+                  className="text-krds-foreground text-krds-body-md hover:bg-krds-surface-secondary-subtle focus-visible:krds-focus-ring flex items-center rounded-md px-3 py-2"
                 >
                   나의 GOV 홈
                 </a>
@@ -43,7 +49,7 @@ export default function HeaderLoggedIn() {
               <li>
                 <a
                   href="#"
-                  className="text-krds-foreground text-krds-body-md hover:bg-krds-surface-secondary-subtle focus:krds-focus-ring flex items-center rounded-md px-3 py-2"
+                  className="text-krds-foreground text-krds-body-md hover:bg-krds-surface-secondary-subtle focus-visible:krds-focus-ring flex items-center rounded-md px-3 py-2"
                 >
                   나의 신청내역
                 </a>
@@ -51,7 +57,7 @@ export default function HeaderLoggedIn() {
               <li>
                 <a
                   href="#"
-                  className="text-krds-foreground text-krds-body-md hover:bg-krds-surface-secondary-subtle focus:krds-focus-ring flex items-center rounded-md px-3 py-2"
+                  className="text-krds-foreground text-krds-body-md hover:bg-krds-surface-secondary-subtle focus-visible:krds-focus-ring flex items-center rounded-md px-3 py-2"
                 >
                   나의 정보관리
                 </a>
@@ -60,7 +66,7 @@ export default function HeaderLoggedIn() {
             <div className="border-krds-border-light border-t pt-3">
               <button
                 type="button"
-                className="text-krds-foreground text-krds-body-md hover:bg-krds-surface-secondary-subtle focus:krds-focus-ring flex w-full items-center gap-2 rounded-md px-3 py-2"
+                className="text-krds-foreground text-krds-body-md hover:bg-krds-surface-secondary-subtle focus-visible:krds-focus-ring flex w-full items-center gap-2 rounded-md px-3 py-2"
               >
                 <LogOut size={16} aria-hidden="true" />
                 로그아웃

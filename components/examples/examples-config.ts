@@ -22,9 +22,14 @@ export const EXAMPLES_CONFIG = {
 
   // ── Navigation (G23) — canonical KRDS Storybook names ────────────────────
   "skip-link": ["SkipLinkDefault", "SkipLinkCustomTarget"],
-  "main-menu": ["MainMenuDefault", "MainMenuWithPanel"],
+  "main-menu": ["MainMenuDefault", "MainMenuWithPanel", "MainMenuMobileDefault"],
   breadcrumb: ["BreadcrumbDefault", "BreadcrumbSingleItem", "BreadcrumbWithDisabledItem"],
-  "side-navigation": ["SideNavigationDefault", "SideNavigationSimpleMenu", "SideNavigationWithPopupOnly"],
+  "side-navigation": [
+    "SideNavigationDefault",
+    "SideNavigationSimpleMenu",
+    "SideNavigationWithPopupOnly",
+    "SideNavigationFourDepth",
+  ],
   "in-page-navigation": [
     "InPageNavigationDefault",
     "InPageNavigationLongItems",
@@ -76,7 +81,13 @@ export const EXAMPLES_CONFIG = {
     "ModalUsePortal",
   ],
   badge: ["BadgeDefault", "BadgeColors", "BadgeRounded", "BadgeSizes", "BadgeVariants"],
-  accordion: ["AccordionDefault", "AccordionSingleSelection", "AccordionControlled", "AccordionWithComplexContent"],
+  accordion: [
+    "AccordionDefault",
+    "AccordionLineType",
+    "AccordionSingleSelection",
+    "AccordionControlled",
+    "AccordionWithComplexContent",
+  ],
   carousel: [
     "CarouselDefault",
     "CarouselFullBanner",
@@ -123,6 +134,7 @@ export const EXAMPLES_CONFIG = {
     "RadioGroupExample",
     "RadioGroupColumn",
     "RadioGroupColumnControlled",
+    "RadioChipDefault",
     "RadioSortDefault",
   ],
   checkbox: [

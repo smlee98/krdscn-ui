@@ -4,7 +4,7 @@ import { Resize } from "@/components/ui/dynamic/resize"
 
 export default function ResizeDefault() {
   return (
-    <div className="w-full max-w-md py-12">
+    <div className="flex w-full max-w-md justify-center py-12">
       <Resize
         defaultValue="md"
         buttonText="화면크기"

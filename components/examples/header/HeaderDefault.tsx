@@ -1,4 +1,5 @@
-import { Menu, Search, UserPlus } from "lucide-react"
+import { LogIn, Menu, Search, User, UserPlus } from "lucide-react"
+import { KrdsLogo } from "@/components/logo/krds"
 import {
   Header,
   HeaderActionDropdown,
@@ -26,17 +27,24 @@ export default function HeaderDefault() {
           <HeaderUtilityDropdownItem href="#">고객센터</HeaderUtilityDropdownItem>
         </HeaderUtilityDropdown>
       </HeaderUtility>
-      <HeaderBrand href="/">KRDS</HeaderBrand>
+      <HeaderBrand href="/">
+        <span className="bg-krds-surface border-krds-border-light flex size-7 items-center justify-center rounded-md border">
+          <KrdsLogo aria-hidden="true" />
+        </span>
+        krdscn/ui
+      </HeaderBrand>
       <HeaderActions>
         <HeaderActionItem icon={<Search />}>통합검색</HeaderActionItem>
-        <HeaderActionItem href="#">로그인</HeaderActionItem>
+        <HeaderActionItem href="#" icon={<LogIn />}>
+          로그인
+        </HeaderActionItem>
         <HeaderActionItem icon={<UserPlus />}>회원가입</HeaderActionItem>
-        <HeaderActionDropdown label="나의GOV">
+        <HeaderActionDropdown label="나의GOV" icon={<User />}>
           <ul className="flex flex-col gap-1">
             <li>
               <a
                 href="#"
-                className="text-krds-foreground text-krds-body-md hover:bg-krds-surface-secondary-subtle focus:krds-focus-ring flex items-center rounded-md px-3 py-2"
+                className="text-krds-foreground text-krds-body-md hover:bg-krds-surface-secondary-subtle focus-visible:krds-focus-ring flex items-center rounded-md px-3 py-2"
               >
                 나의 GOV 홈
               </a>
@@ -44,7 +52,7 @@ export default function HeaderDefault() {
             <li>
               <a
                 href="#"
-                className="text-krds-foreground text-krds-body-md hover:bg-krds-surface-secondary-subtle focus:krds-focus-ring flex items-center rounded-md px-3 py-2"
+                className="text-krds-foreground text-krds-body-md hover:bg-krds-surface-secondary-subtle focus-visible:krds-focus-ring flex items-center rounded-md px-3 py-2"
               >
                 나의 신청내역
               </a>
@@ -52,7 +60,7 @@ export default function HeaderDefault() {
             <li>
               <a
                 href="#"
-                className="text-krds-foreground text-krds-body-md hover:bg-krds-surface-secondary-subtle focus:krds-focus-ring flex items-center rounded-md px-3 py-2"
+                className="text-krds-foreground text-krds-body-md hover:bg-krds-surface-secondary-subtle focus-visible:krds-focus-ring flex items-center rounded-md px-3 py-2"
               >
                 나의 정보관리
               </a>
