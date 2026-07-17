@@ -3,6 +3,9 @@
  *
  * Figma sources:
  *  - Arrow buttons : 343:24138 (4 sizes × 2 directions; circle, #cdd1d5 border, #33363d chevron)
+ *    NOTE: the compiled KRDS web CSS (`_carousel.scss:79`, `[class^='swiper-button-']`) defines
+ *    only ONE arrow size (`size-height-6` = 40px). The 4-step xsmall/small/medium/large scale
+ *    below is a Figma-derived project extension, not present in the web component spec.
  *  - Number badge  : 1170:66159 ("current / total" pill; h-40, body/medium-bold)
  *  - Dot indicators: 343:23518 (h-40 pill wrapper; 8px circles, active = 20×8 #256ef4 pill)
  *
@@ -144,9 +147,12 @@ function CarouselArrow({ direction, size = "small", className, "aria-label": ari
       className={cn(
         "bg-krds-surface text-krds-foreground inline-flex shrink-0 items-center justify-center rounded-full",
         "border-krds-border-light border transition-colors",
-        "hover:border-krds-border",
-        "focus:krds-focus-ring",
-        "disabled:cursor-not-allowed disabled:opacity-50",
+        "hover:bg-krds-surface-secondary-subtle",
+        "active:bg-krds-surface-secondary-pressed",
+        "focus-visible:krds-focus-ring",
+        // KRDS .swiper-button-disabled (_carousel.scss:123-129): action-disabled fill +
+        // icon-disabled-on glyph color, opacity stays 1 (not faded).
+        "disabled:bg-krds-surface-disabled disabled:text-krds-foreground-disabled disabled:cursor-not-allowed disabled:opacity-100",
         ARROW_SIZE_CLASS[size],
         className
       )}
@@ -209,7 +215,10 @@ function CarouselDots({ className, label = "슬라이드 선택", ...rest }: Car
       data-slot="krds-carousel-dots"
       role="tablist"
       aria-label={label}
-      className={cn("bg-krds-surface inline-flex h-10 items-center gap-1 rounded-full px-4", className)}
+      // KRDS .swiper-pagination:not(.swiper-pagination-fraction) (_carousel.scss:17-23) fills
+      // with element-inverse (opposite polarity of the ambient surface) so the pill still reads
+      // over hero imagery; padding-5 = 12px, not the 16px this previously used.
+      className={cn("bg-krds-surface-inverse inline-flex h-10 items-center gap-1 rounded-full px-3", className)}
       {...rest}
     >
       {Array.from({ length: slideCount }, (_, i) => {
@@ -225,7 +234,7 @@ function CarouselDots({ className, label = "슬라이드 선택", ...rest }: Car
             onClick={() => scrollTo(i)}
             className={cn(
               "h-2 shrink-0 rounded-full transition-all",
-              "focus:krds-focus-ring",
+              "focus-visible:krds-focus-ring",
               isActive ? "bg-krds-primary-50 w-5" : "bg-krds-gray-50 w-2"
             )}
           />
@@ -267,7 +276,7 @@ function CarouselPlayPause({
         "bg-krds-surface text-krds-foreground inline-flex shrink-0 items-center justify-center rounded-full",
         "border-krds-border-light border transition-colors",
         "hover:border-krds-border",
-        "focus:krds-focus-ring",
+        "focus-visible:krds-focus-ring",
         ARROW_SIZE_CLASS[size],
         className
       )}
@@ -295,7 +304,7 @@ function CarouselMore({ href, size = "small", label = "모든 슬라이드 보�
     "inline-flex shrink-0 items-center justify-center rounded-full bg-krds-surface text-krds-foreground",
     "border-krds-border-light border transition-colors",
     "hover:border-krds-border",
-    "focus:krds-focus-ring",
+    "focus-visible:krds-focus-ring",
     ARROW_SIZE_CLASS[size],
     className
   )

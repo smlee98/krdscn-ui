@@ -49,7 +49,11 @@ function CriticalAlert({ type = "emergency", className, children }: CriticalAler
       <div
         data-slot="krds-critical-alert-badge"
         className={cn(
-          "inline-flex h-12 shrink-0 items-center gap-1 rounded-[6px] py-2 pr-2.5 pl-2",
+          // min-w-[78px] (KRDS --krds-critical-alerts--badge-size-min-width = 7.8rem)
+          // keeps the 긴급/안전/안내 badges aligned to the same width. Horizontal padding is
+          // symmetric px-2.5 (KRDS badge-padding = padding-4 = 10px, applied `0 <padding>` on
+          // both sides — _critical_alerts.scss:82).
+          "inline-flex h-12 min-w-[78px] shrink-0 items-center gap-1 rounded-[6px] px-2.5 py-2",
           "text-krds-body-md font-bold whitespace-nowrap text-white",
           bgClass
         )}
@@ -73,7 +77,8 @@ function CriticalAlertMessage({ className, children }: CriticalAlertMessageProps
   return (
     <p
       data-slot="krds-critical-alert-message"
-      className={cn("text-krds-body-md text-krds-foreground-bolder flex-1 font-bold", className)}
+      // KRDS .critical-txt ellipsis(2) (_critical_alerts.scss:108) clamps to 2 lines on PC.
+      className={cn("text-krds-body-md text-krds-foreground-bolder line-clamp-2 flex-1 font-bold", className)}
     >
       {children}
     </p>
@@ -101,7 +106,7 @@ function CriticalAlertAction({
     "text-krds-foreground inline-flex h-8 shrink-0 items-center gap-1 rounded-[4px] px-0.5",
     "text-krds-body-md",
     "hover:underline",
-    "focus:krds-focus-ring",
+    "focus-visible:krds-focus-ring",
     className
   )
 
@@ -165,7 +170,7 @@ function CriticalAlertList({
     <ul
       data-slot="krds-critical-alert-list"
       aria-label={ariaLabel}
-      className={cn("flex w-full flex-col gap-6", className)}
+      className={cn("flex w-full flex-col gap-2.5", className)}
     >
       {wrapItems ? React.Children.map(children, (child, i) => <li key={i}>{child}</li>) : children}
     </ul>

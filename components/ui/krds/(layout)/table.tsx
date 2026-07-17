@@ -38,7 +38,10 @@ function TableScroll({ className, mobileFullBleed = false, ...props }: TableScro
 }
 
 function Table({ className, ...props }: TableProps) {
-  return <ShadcnTable data-slot="krds-table" className={cn("w-full", className)} {...props} />
+  return (
+    // KRDS size-medium(모바일) 이하에서 .tbl min-width 73.2rem → 표가 찌그러지지 않고 TableScroll에서 가로 스크롤 (_table.scss:87).
+    <ShadcnTable data-slot="krds-table" className={cn("w-full max-md:min-w-[732px]", className)} {...props} />
+  )
 }
 
 function TableHeader({ className, ...props }: TableHeaderProps) {

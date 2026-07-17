@@ -72,10 +72,9 @@ export type {
 //
 // shadcn has no card primitive, so the shadcn path rebuilds the card look from
 // shadcn tokens (rounded-xl border bg-card text-card-foreground shadow-sm) plus the
-// badge/button primitives. KRDS-only chrome (hex borders, krds-* tokens, fixed
-// 384px / 1200px widths, h-6 badge pill, h-8 tag pill) is intentionally shed — the
-// shadcn variant takes its width from the parent. children / onClick / aria are
-// preserved across both paths.
+// badge/button primitives. KRDS-only chrome (hex borders, krds-* tokens, h-6 badge
+// pill, h-8 tag pill) is intentionally shed — the shadcn variant takes its width
+// from the parent. children / onClick / aria are preserved across both paths.
 
 // ─── shadcn-mode parts ──────────────────────────────────────────────────────────
 

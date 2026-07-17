@@ -20,9 +20,11 @@ const badgeVariants = cva(
   {
     variants: {
       size: {
-        // KRDS badge sizes (ref _badge.scss): large 32px / medium 24px / small 20px.
-        //   lg/default kept as existing keys (large/medium); `small` added for the
-        //   KRDS small height (size-height-3 = 20px, label-small font).
+        // KRDS compiled CSS (_badge.scss:3-17) only defines base(size-height-4=24px, `default`
+        // below) and large(size-height-5=32px, `lg` below) for the text badge, plus the
+        // separately-classed number(size-height-3=20px) and dot(6px) variants exported as
+        // BadgeNumber/BadgeDot. `small` has no counterpart in the compiled CSS — it is a
+        // project extension kept for a denser 20px/13px label use case. Do not remove.
         lg: "h-8 text-krds-body-md",
         default: "h-6 text-krds-body-sm",
         small: "h-5 px-1.5 text-krds-body-xs",

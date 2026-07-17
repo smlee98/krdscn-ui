@@ -1,9 +1,15 @@
 /**
  * KRDS Accordion — composes radix-ui Accordion primitives directly.
  *
- * Figma source: KRDS_v1.0.0 — node 360:44958
- *  - variant: "line" | "default"
- *  - size: "large" | "medium"
+ * 기준: KRDS uiux 웹 소스 (_accordion.scss / accordion.html / accordion_line.html)
+ *  - variant: "default" | "line"
+ *  - size: "large" | "medium" — KRDS 웹엔 사이즈 변형이 없고 PC/모바일 반응형만 존재한다.
+ *    large = PC 스펙(패딩 24px·아이콘 24px), medium = 모바일 스펙(패딩 16px·아이콘 20px)
+ *    프리셋으로 매핑한 프로젝트 확장. 버튼 폰트는 heading-xsmall 17px로 PC/모바일 동일.
+ *  - 상태 사다리(KRDS action-secondary 체인): 닫힘 = 투명, hover = secondary-5,
+ *    pressed = secondary-10, 열림 = secondary-5 (헤더+바디 균일).
+ *  - default: 컨테이너 상·하 1px 헤어라인(gray-20) + 4px 패딩, 아이템 연속 배치.
+ *  - line: 아이템별 상단 보더, 열림 시 gray-50 강조, 컨테이너 하단 보더 유지.
  *  - Open/closed state driven by Radix data-state on each item.
  */
 "use client"
@@ -72,7 +78,13 @@ function Accordion({
     "data-slot": "krds-accordion",
     "data-variant": variant,
     "data-size": size,
-    className: cn("flex flex-col", isLine ? "gap-0" : "gap-2", className),
+    className: cn(
+      "flex flex-col",
+      // KRDS: default 는 리스트 상·하 헤어라인 + 4px 패딩(연속 배치),
+      // line 은 컨테이너 상단 보더만 제거하고 하단 보더는 유지(마지막 아이템 밑줄).
+      isLine ? "border-b border-krds-border-light" : "border-y border-krds-border-light py-1",
+      className
+    ),
     dir: radixDir,
     ...rest,
   }
@@ -108,33 +120,23 @@ function Accordion({
 // ─── AccordionItem ────────────────────────────────────────────────────────────
 
 function AccordionItem({ value, children, className, ...rest }: AccordionItemProps) {
-  const { variant, size } = React.useContext(AccordionContext)
+  const { variant } = React.useContext(AccordionContext)
   const isLine = variant === "line"
-  const isLarge = size === "large"
 
   return (
     <AccordionPrimitive.Item
       data-slot="krds-accordion-item"
       value={value}
       className={cn(
-        isLine
-          ? [
-              "overflow-hidden",
-              // top divider only — bottom comes from next item's top
-              "border-krds-border-light border-t border-b-0",
-              "data-[state=open]:border-krds-border-dark",
-              // wrapper spacing: pt:4 always, pb:4 closed → pb:24/20 open
-              "pt-1 pb-1",
-              isLarge ? "data-[state=open]:pb-6" : "data-[state=open]:pb-5",
-            ]
-          : [
-              // default: 패딩을 trigger/panel로 이관해 focus ring 이 헤더 전체를 감싸도록 한다.
-              // overflow-hidden 제거 — trigger 가 item 을 가득 채우므로 ring(box-shadow 4px)이 잘리지 않게.
-              // (rounded 배경은 border-radius 로 클립되어 overflow-hidden 없이도 모서리가 둥글다.)
-              // KRDS: accordion 아이템은 항상 secondary fill(닫힘=subtle), 열림 시 더 진한 hover fill.
-              "bg-krds-surface-secondary-subtle rounded-[10px] border-0",
-              "data-[state=open]:bg-krds-secondary-10",
-            ],
+        // KRDS .accordion-item: 상하 4px 패딩(양 변형 공통), 배경 없음 — fill 은 trigger/panel 이 담당.
+        "py-1 transition-colors",
+        isLine && [
+          "overflow-hidden",
+          // top divider only — bottom comes from next item's top (마지막은 컨테이너 border-b)
+          "border-krds-border-light border-t border-b-0",
+          // 열림 시 상단 구분선 강조 — KRDS divider-gray-dark = gray-50 (라이트/고대비 동일값이라 numeric 사용)
+          "data-[state=open]:border-krds-gray-50",
+        ],
         className
       )}
       {...rest}
@@ -157,26 +159,30 @@ function AccordionHeader({ children, onClick, className, ...rest }: AccordionHea
         data-slot="krds-accordion-header"
         onClick={onClick}
         className={cn(
-          // base layout
-          "focus:krds-focus-ring flex w-full items-center justify-between gap-4 transition-colors outline-none",
+          // base layout — 아이콘은 KRDS 처럼 첫 줄 상단 기준 정렬(items-start)
+          "focus-visible:krds-focus-ring flex w-full items-start justify-between gap-4 transition-colors outline-none",
           "hover:no-underline disabled:pointer-events-none disabled:opacity-50",
-          // typography
-          "text-krds-foreground text-left leading-[1.5] font-bold",
-          isLarge ? "text-krds-body-lg" : "text-krds-body-md",
+          // typography — KRDS heading-xsmall 17px (PC/모바일 동일)
+          "text-krds-foreground text-krds-heading-xs text-left leading-[1.5] font-bold",
           // open-state title color → secondary darker
           "data-[state=open]:text-krds-foreground-secondary",
-          // padding — line variant supplies its own header padding; default variant now carries the
-          // full header padding(이전엔 item p-6) so the trigger fills the visual header → focus ring 가 헤더 전체를 감쌈.
-          isLine ? (isLarge ? "py-5" : "py-3") : isLarge ? "p-6" : "px-4 py-5",
-          // default: KRDS .btn-accordion radius(10px) 로 focus ring 모서리 정렬.
-          !isLine && "rounded-[10px]",
-          // default: KRDS .btn-accordion — secondary fill always, hover/open 시 더 진한 fill.
-          // 열림 시 하단 모서리를 펴 panel 과 맞닿게 한다(focus 시엔 다시 radius 복원).
-          !isLine && [
-            "bg-krds-surface-secondary-subtle hover:bg-krds-secondary-10",
-            "data-[state=open]:bg-krds-secondary-10",
-            "data-[state=open]:rounded-b-none focus:data-[state=open]:rounded-[10px]",
-          ],
+          // KRDS action-secondary 상태 사다리: 닫힘 투명 → hover secondary-5 → pressed secondary-10
+          "hover:bg-krds-surface-secondary-subtle active:bg-krds-surface-secondary-pressed bg-transparent",
+          // padding — default: PC 24px / 모바일 16px, line: PC 20px / 모바일 12px
+          isLine ? (isLarge ? "py-5" : "py-3") : isLarge ? "p-6" : "p-4",
+          isLine
+            ? [
+                // line 열림: KRDS .type-line .btn-accordion.active { background: none }
+                "data-[state=open]:bg-transparent data-[state=open]:hover:bg-transparent",
+              ]
+            : [
+                // default: KRDS .btn-accordion radius(10px) 로 focus ring 모서리 정렬.
+                "rounded-[10px]",
+                // 열림 = secondary-5 (hover 와 동일 단계) — panel 과 균일한 한 톤의 카드.
+                // 열림 시 하단 모서리를 펴 panel 과 맞닿게 한다(focus 시엔 다시 radius 복원).
+                "data-[state=open]:bg-krds-surface-secondary-subtle",
+                "data-[state=open]:rounded-b-none focus-visible:data-[state=open]:rounded-[10px]",
+              ],
           // chevron rotation on open
           "[&[data-state=open]>svg]:rotate-180",
           className
@@ -186,7 +192,11 @@ function AccordionHeader({ children, onClick, className, ...rest }: AccordionHea
         {children}
         <ChevronDownIcon
           aria-hidden
-          className="text-krds-foreground size-6 shrink-0 translate-y-0 transition-transform duration-200"
+          className={cn(
+            // KRDS icon: PC 24px / 모바일 20px
+            "text-krds-foreground shrink-0 transition-transform duration-200",
+            isLarge ? "size-6" : "size-5"
+          )}
         />
       </AccordionPrimitive.Trigger>
     </AccordionPrimitive.Header>
@@ -208,10 +218,9 @@ function AccordionPanel({ children, className, ...rest }: AccordionPanelProps) {
     >
       <div
         className={cn(
-          // line: 패딩 없음(item/trigger 가 처리). default: item 에서 옮겨온 좌우/하단 inset + pt-0
-          // (trigger 하단 패딩이 헤더-내용 간격을 제공 → 총 여백 보존).
-          isLine ? "px-0 pt-0 pb-0" : isLarge ? "px-6 pt-0 pb-6" : "px-4 pt-0 pb-5",
-          // default: KRDS panel — secondary-subtle 배경 + 하단 모서리 radius(헤더와 이어진 카드).
+          // KRDS .accordion-body padding: 0 24px 24px (모바일 0 16px 16px). line 은 좌우 0.
+          isLine ? (isLarge ? "px-0 pt-0 pb-6" : "px-0 pt-0 pb-4") : isLarge ? "px-6 pt-0 pb-6" : "px-4 pt-0 pb-4",
+          // default: 열림 시 헤더와 같은 secondary-5 로 균일한 카드 + 하단 radius.
           !isLine && "bg-krds-surface-secondary-subtle rounded-b-[10px]",
           "text-krds-foreground text-krds-body-md",
           className

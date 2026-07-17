@@ -52,7 +52,10 @@ export type ModalBodyProps = React.ComponentProps<"div"> & {
   descriptionId?: string
 }
 
-export type ModalFooterProps = React.ComponentProps<"div">
+export type ModalFooterProps = React.ComponentProps<"div"> & {
+  /** KRDS .modal-btn.multi-conts — 버튼 그룹을 좌우로 벌려 배치(justify-between). 기본값 false(justify-end 유지, 기존 동작 호환) (_modal.scss:180-182). */
+  multiConts?: boolean
+}
 
 export type ModalCloseProps = React.ComponentProps<"button"> & {
   asChild?: boolean
@@ -141,7 +144,7 @@ function ModalContent({ className, children, ...rest }: ModalContentProps) {
     <DialogPrimitive.Portal>
       <DialogPrimitive.Overlay
         data-slot="krds-modal-overlay"
-        className="data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:animate-in data-[state=open]:fade-in-0 fixed inset-0 z-50 bg-black/50"
+        className="data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:animate-in data-[state=open]:fade-in-0 fixed inset-0 z-50 bg-black/75"
       />
       <DialogPrimitive.Content
         data-slot="krds-modal-content"
@@ -154,9 +157,12 @@ function ModalContent({ className, children, ...rest }: ModalContentProps) {
           "data-[state=open]:animate-in data-[state=open]:fade-in-0 data-[state=open]:zoom-in-95",
           "flex flex-col items-start gap-0",
           "bg-krds-surface border-krds-border rounded-[12px] border p-6",
-          // KRDS: 콘텐츠 최대 높이를 뷰포트로 제한 → 긴 본문은 ModalBody 내부에서 스크롤.
+          // KRDS --krds-modal--wrap-shadow: 0 0 0.2rem shadow2, 0 1.6rem 2.4rem shadow3 (_modal.scss:38,133)
+          "shadow-[0_0_2px_0_rgba(0,0,0,0.08),0_16px_24px_0_rgba(0,0,0,0.12)]",
+          "dark:shadow-[0_0_2px_0_rgba(0,0,0,0.2),0_16px_24px_0_rgba(0,0,0,0.4)]",
+          // KRDS: modal-content max-height 80%, min-height 26.4rem(264px) (_modal.scss:113,126) → 긴 본문은 ModalBody 내부에서 스크롤.
           // (bottom-sheet/fullscreen 은 variantClass 가 위치·높이를 직접 제어하므로 default 에만 적용.)
-          !isBottomSheet && !isFullscreen && "max-h-[calc(100dvh-2rem)]",
+          !isBottomSheet && !isFullscreen && "max-h-[80%] min-h-[264px]",
           variantClass,
           className
         )}
@@ -176,7 +182,11 @@ function ModalHeader({ title, titleId, className, children, ...rest }: ModalHead
     <DialogPrimitive.Title
       data-slot="krds-modal-header"
       {...idProp}
-      className={cn("text-krds-foreground w-full px-4 pt-8 pb-4 text-2xl leading-[1.5] font-bold", className)}
+      className={cn(
+        // KRDS 모바일 헤딩은 mobile-font-size-heading-medium(22px)로 축소 (_modal.scss:283).
+        "text-krds-foreground w-full px-4 pt-8 pb-4 text-2xl leading-[1.5] font-bold max-md:text-[22px]",
+        className
+      )}
       {...(rest as React.ComponentProps<typeof DialogPrimitive.Title>)}
     >
       {title ?? children}
@@ -211,11 +221,18 @@ function ModalBody({ descriptionId, className, children, ...rest }: ModalBodyPro
 
 // ─── ModalFooter ──────────────────────────────────────────────────────────────
 
-function ModalFooter({ className, children, ...rest }: ModalFooterProps) {
+function ModalFooter({ className, children, multiConts = false, ...rest }: ModalFooterProps) {
   return (
     <div
       data-slot="krds-modal-footer"
-      className={cn("flex w-full items-center justify-end gap-2 p-4", className)}
+      data-multi-conts={multiConts || undefined}
+      className={cn(
+        "flex w-full items-center gap-2 p-4",
+        multiConts ? "justify-between" : "justify-end",
+        // KRDS .krds-btn min-width 7.8rem(78px) — 직접 자식 버튼에 적용 (_modal.scss:178).
+        "[&>*]:min-w-[78px]",
+        className
+      )}
       {...rest}
     >
       {children}
@@ -241,7 +258,7 @@ function ModalClose({ asChild, children, className, ...rest }: ModalCloseProps) 
         className={cn(
           "absolute top-6 right-6 outline-none",
           "text-krds-foreground",
-          "focus:krds-focus-ring",
+          "focus-visible:krds-focus-ring",
           className
         )}
         aria-label="닫기"

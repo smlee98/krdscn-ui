@@ -49,6 +49,10 @@ function TextList({ type = "disc", className, children, ...rest }: TextListProps
   const Tag = ordered ? "ol" : "ul"
   const level = TYPE_TO_LEVEL[type]
   const gap = level === 1 ? "gap-3" : "gap-2"
+  // KRDS depth별 들여쓰기(32/24/20px)와 중첩 리스트 상단 마진(L2 16px/L3 12px)을 기본 내장 —
+  // 호출자는 className으로 오버라이드 가능 (_text_list.scss:7-9,52-62).
+  const paddingLeft = level === 1 ? "pl-8" : level === 2 ? "pl-6" : "pl-5"
+  const nestedMarginTop = level === 2 ? "mt-4" : level === 3 ? "mt-3" : ""
 
   const items = ordered
     ? React.Children.map(children, (child, idx) =>
@@ -67,7 +71,13 @@ function TextList({ type = "disc", className, children, ...rest }: TextListProps
       <Tag
         data-slot="krds-text-list"
         data-type={type}
-        className={cn("text-krds-foreground-subtle flex list-none flex-col pl-0", gap, className)}
+        className={cn(
+          "text-krds-foreground-subtle flex list-none flex-col",
+          paddingLeft,
+          gap,
+          nestedMarginTop,
+          className
+        )}
         {...(rest as React.HTMLAttributes<HTMLOListElement>)}
       >
         {items}
@@ -88,14 +98,17 @@ function Bullet({ type, idx, explicit }: { type: TextListType; idx: number | nul
   }
   switch (type) {
     case "disc":
-      return <span aria-hidden="true" className="bg-krds-gray-70 mt-[10px] inline-block size-1.5 shrink-0 rounded-sm" />
+      return (
+        <span aria-hidden="true" className="bg-krds-gray-70 mt-[10px] inline-block size-1.5 shrink-0 rounded-full" />
+      )
     case "dash":
       return <span aria-hidden="true" className="bg-krds-gray-70 mt-[12px] inline-block h-px w-1.5 shrink-0" />
     case "hollow":
       return (
         <span
           aria-hidden="true"
-          className="border-krds-border-dark mt-[9px] inline-block size-1 shrink-0 rounded-sm border"
+          // KRDS hollow 마커 보더는 depth1 텍스트 색(text-subtle=gray-70)과 동일 토큰 사용 (_text_list.scss:106)
+          className="border-krds-foreground-subtle mt-[9px] inline-block size-1 shrink-0 rounded-full border"
         />
       )
     case "decimal":

@@ -109,14 +109,13 @@ function TabList({ children, className, ...rest }: TabListProps) {
     <TabsPrimitive.List
       data-slot="krds-tab-list"
       className={cn(
-        "flex h-auto rounded-none bg-transparent p-0",
+        // KRDS .tab > ul { overflow-x: auto } — 탭이 많아 넘칠 때 가로 스크롤 (_tab.scss:57).
+        // fill+primary 는 rounded-md 컨테이너 클리핑을 overflow-x-auto 가 그대로 담당(auto도 hidden처럼 클리핑됨).
+        "flex h-auto overflow-x-auto rounded-none bg-transparent p-0",
         // Line variant
         !isFill && (isPrimary ? "w-full items-end" : "items-end gap-2"),
         // Fill variant
-        isFill &&
-          (isPrimary
-            ? "border-krds-border w-full items-stretch overflow-hidden rounded-lg border"
-            : "items-stretch gap-2"),
+        isFill && (isPrimary ? "border-krds-border w-full items-stretch rounded-md border" : "items-stretch gap-2"),
         className
       )}
       {...rest}
@@ -144,30 +143,35 @@ function TabTrigger({ value, children, className, ...rest }: TabTriggerProps) {
         "font-bold whitespace-nowrap",
         "disabled:pointer-events-none disabled:opacity-50",
         "data-[state=active]:border-0",
-        "focus:krds-focus-ring-inset",
+        "focus-visible:krds-focus-ring-inset",
 
         // Size by type
-        isPrimary ? "text-krds-body-lg h-14" : "text-krds-body-md h-10",
+        isPrimary ? "text-krds-body-lg h-14" : "text-krds-body-md h-12",
 
         // Line variant
         isLine && [
           "text-krds-foreground-subtle rounded-none bg-transparent",
+          "hover:bg-krds-surface-secondary-subtle active:bg-krds-surface-secondary-pressed",
           "data-[state=active]:text-krds-foreground-secondary data-[state=active]:bg-transparent",
           // active bottom bar (overlay; no layout shift)
           "data-[state=active]:after:absolute data-[state=active]:after:inset-x-0 data-[state=active]:after:bottom-0",
           "data-[state=active]:after:bg-krds-secondary-bold data-[state=active]:after:content-['']",
           isPrimary
             ? [
-                "min-w-[80px] flex-1 px-2",
+                "min-w-[64px] flex-1 px-2",
                 "border-krds-border border-b-2",
                 "data-[state=active]:after:h-1", // 4px
               ]
-            : ["min-w-[56px] px-1", "data-[state=active]:after:h-[3px]"],
+            : ["min-w-[64px] px-1", "data-[state=active]:after:h-1"], // 4px (KRDS 단일 bar 두께, _tab.scss:171)
         ],
 
         // Fill variant
         isFill && [
           "text-krds-foreground-subtle bg-transparent",
+          // KRDS .btn-tab:hover/:active 는 최상위 정의라 fill 에도 적용 (_tab.scss:78-85).
+          // 선택 세그먼트(navy)가 항상 우선하도록 비선택 상태로 한정한다.
+          "data-[state=inactive]:hover:bg-krds-surface-secondary-subtle",
+          "data-[state=inactive]:active:bg-krds-surface-secondary-pressed",
           "data-[state=active]:bg-krds-secondary-bold data-[state=active]:text-white",
           isPrimary
             ? [
@@ -191,7 +195,7 @@ function TabTrigger({ value, children, className, ...rest }: TabTriggerProps) {
 
 function TabContent({ children, className, ...rest }: TabContentProps) {
   return (
-    <div data-slot="krds-tab-content" className={cn("pt-4", className)} {...rest}>
+    <div data-slot="krds-tab-content" className={cn("pt-10", className)} {...rest}>
       {children}
     </div>
   )

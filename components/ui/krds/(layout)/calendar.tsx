@@ -122,6 +122,21 @@ function parseKrdsDate(str: string): Date | undefined {
   return new Date(Number(m[1]), Number(m[2]) - 1, Number(m[3]))
 }
 
+// ─── Shared day-cell state classes ───────────────────────────────────────────
+// KrdsDayButton (RDP-driven) and the standalone CalendarTable/CalendarButton
+// primitives render the same KRDS date-cell states independently — keep them
+// visually identical by editing the state colors once, here.
+// Hover/selected map to KRDS _calendar.scss `action-secondary-on-selected`
+// (resolves to gray-0/white, i.e. `bg-krds-surface`) and `action-secondary-active`
+// (resolves to secondary-70, i.e. `bg-krds-secondary-bold`) respectively —
+// both already match the project's semantic tokens exactly, in light and dark.
+const KRDS_DAY_TEXT_DEFAULT = "text-krds-foreground/80"
+const KRDS_DAY_TEXT_DAY_OFF = "text-krds-foreground-danger"
+const KRDS_DAY_TEXT_EVENT = "text-krds-foreground-information underline underline-offset-2"
+const KRDS_DAY_TEXT_DISABLED = "text-krds-foreground-disabled"
+const KRDS_DAY_HOVER = "hover:bg-krds-surface"
+const KRDS_DAY_SELECTED = "bg-krds-secondary-bold text-white"
+
 // ─── KrdsDayButton: 44×44 rounded-full with KRDS visuals ─────────────────────
 
 function KrdsDayButton({ className, day, modifiers, children, ...rest }: React.ComponentProps<typeof DayButton>) {
@@ -159,13 +174,14 @@ function KrdsDayButton({ className, day, modifiers, children, ...rest }: React.C
       data-day-off={isDayOff || undefined}
       className={cn(
         "text-krds-body-md relative z-10 mx-auto flex size-11 flex-col items-center justify-center rounded-full font-normal transition-colors",
-        "focus:krds-focus-ring",
+        "focus-visible:krds-focus-ring",
         "disabled:pointer-events-none disabled:opacity-40",
-        isOutside && !isHighlighted && "text-krds-foreground-disabled",
-        !isOutside && !isHighlighted && !isDayOff && "text-krds-foreground/80",
-        !isOutside && !isHighlighted && isDayOff && "text-krds-foreground-danger",
-        !isHighlighted && !isRangeMiddle && "hover:bg-krds-surface",
-        isHighlighted && "bg-krds-secondary-bold text-white",
+        isOutside && !isHighlighted && KRDS_DAY_TEXT_DISABLED,
+        !isOutside && !isHighlighted && !isDayOff && !hasEvent && KRDS_DAY_TEXT_DEFAULT,
+        !isOutside && !isHighlighted && isDayOff && KRDS_DAY_TEXT_DAY_OFF,
+        !isOutside && !isHighlighted && !isDayOff && hasEvent && KRDS_DAY_TEXT_EVENT,
+        !isHighlighted && !isRangeMiddle && KRDS_DAY_HOVER,
+        isHighlighted && KRDS_DAY_SELECTED,
         isRangeStart && "rounded-r-none",
         isRangeEnd && !isRangeStart && "rounded-l-none",
         className
@@ -177,15 +193,6 @@ function KrdsDayButton({ className, day, modifiers, children, ...rest }: React.C
         <span
           aria-hidden
           className="bg-krds-point-50 absolute bottom-1.5 left-1/2 size-1 -translate-x-1/2 rounded-full"
-        />
-      )}
-      {hasEvent && !isToday && (
-        <span
-          aria-hidden
-          className={cn(
-            "absolute bottom-1.5 left-1/2 size-1 -translate-x-1/2 rounded-full",
-            isHighlighted ? "bg-white" : "bg-krds-secondary-bold"
-          )}
         />
       )}
     </button>
@@ -220,9 +227,9 @@ function KrdsCalendarDropdown({
         data-slot="krds-calendar-dropdown"
         className={cn(
           "h-10 gap-1 rounded-[6px] border-0 bg-transparent px-2 shadow-none",
-          "text-krds-body-lg text-krds-foreground font-bold",
+          "text-krds-body-md text-krds-foreground font-bold",
           "data-[state=open]:bg-krds-surface-secondary-subtle hover:bg-black/5 dark:hover:bg-white/10",
-          "focus:krds-focus-ring",
+          "focus-visible:krds-focus-ring",
           "[&_svg:not([class*='text-'])]:text-krds-foreground [&_svg]:opacity-100 [&_svg:not([class*='size-'])]:size-4"
         )}
       >
@@ -278,7 +285,7 @@ function CalendarInput({ mode: _mode, onChange, className, ...rest }: CalendarIn
       className={cn(
         "border-krds-border-dark bg-krds-surface text-krds-body-sm rounded-[6px] border px-4 py-2",
         "text-krds-foreground placeholder:text-krds-foreground-disabled",
-        "focus:border-krds-border-primary focus:krds-focus-ring",
+        "focus:border-krds-border-primary focus-visible:krds-focus-ring",
         className
       )}
       {...rest}
@@ -295,16 +302,17 @@ function CalendarButton({ variant = "date", isActive, isSelected, className, chi
       data-active={isActive || undefined}
       data-selected={isSelected || undefined}
       className={cn(
-        "focus:krds-focus-ring inline-flex items-center justify-center transition-colors outline-none",
+        "focus-visible:krds-focus-ring inline-flex items-center justify-center transition-colors outline-none",
         variant === "move" &&
           "border-krds-border-light size-8 rounded-full border-[0.8px] bg-transparent hover:bg-black/5 dark:hover:bg-white/10",
         variant === "switch" &&
-          "text-krds-body-lg text-krds-foreground rounded-[6px] px-2 py-1 font-bold hover:bg-black/5 dark:hover:bg-white/10",
+          "text-krds-body-md text-krds-foreground rounded-[6px] px-2 py-1 font-bold hover:bg-black/5 dark:hover:bg-white/10",
         variant === "icon" && "size-8 rounded-full hover:bg-black/5 dark:hover:bg-white/10",
         variant === "date" && [
           "text-krds-body-md size-11 rounded-full",
-          !isSelected && !isActive && "text-krds-foreground/80 hover:bg-krds-secondary-bold/10",
-          (isSelected || isActive) && "bg-krds-secondary-bold text-white",
+          !isSelected && !isActive && KRDS_DAY_TEXT_DEFAULT,
+          !isSelected && !isActive && KRDS_DAY_HOVER,
+          (isSelected || isActive) && KRDS_DAY_SELECTED,
         ],
         variant === "action" &&
           "border-krds-border-dark bg-krds-surface text-krds-body-sm text-krds-foreground h-10 min-w-16 rounded-[6px] border px-3 hover:bg-black/5 dark:hover:bg-white/10",
@@ -323,7 +331,7 @@ function CalendarDropdown({ isOpen, items = [], onItemSelect, onToggle, classNam
       <button
         type="button"
         onClick={onToggle}
-        className="text-krds-body-lg text-krds-foreground focus:krds-focus-ring inline-flex h-10 items-center gap-1 rounded-[6px] px-2 font-bold hover:bg-black/5 dark:hover:bg-white/10"
+        className="text-krds-body-md text-krds-foreground focus-visible:krds-focus-ring inline-flex h-10 items-center gap-1 rounded-[6px] px-2 font-bold hover:bg-black/5 dark:hover:bg-white/10"
       >
         {items.find((i) => i.isActive)?.label ?? ""}
         <ChevronDown size={16} aria-hidden className="shrink-0" />
@@ -337,7 +345,7 @@ function CalendarDropdown({ isOpen, items = [], onItemSelect, onToggle, classNam
               disabled={item.isDisabled}
               onClick={() => onItemSelect?.(item)}
               className={cn(
-                "text-krds-body-sm focus:krds-focus-ring w-full px-3 py-1 text-left hover:bg-black/5 dark:hover:bg-white/10",
+                "text-krds-body-sm focus-visible:krds-focus-ring w-full px-3 py-1 text-left hover:bg-black/5 dark:hover:bg-white/10",
                 item.isActive && "text-krds-foreground-secondary font-bold",
                 item.isDisabled && "cursor-not-allowed opacity-40"
               )}
@@ -406,12 +414,15 @@ function CalendarTable({
                     onClick={() => onDateClick?.(date)}
                     className={cn(
                       "text-krds-body-md relative z-10 inline-flex size-11 items-center justify-center rounded-full transition-colors outline-none",
-                      isDimmed && "text-krds-foreground-disabled",
-                      !isDimmed && !isHighlighted && "text-krds-foreground/80",
+                      isDimmed && KRDS_DAY_TEXT_DISABLED,
+                      !isDimmed && !isHighlighted && !date.isDayOff && !date.hasEvent && KRDS_DAY_TEXT_DEFAULT,
                       date.isDisabled && "cursor-not-allowed opacity-40",
-                      date.isDayOff && !isHighlighted && !isDimmed && "text-krds-foreground-point",
-                      isHighlighted && "bg-krds-secondary-bold text-white",
-                      !isHighlighted && !date.isDisabled && "hover:bg-krds-secondary-bold/10"
+                      date.isDayOff && !isHighlighted && !isDimmed && KRDS_DAY_TEXT_DAY_OFF,
+                      !date.isDayOff && date.hasEvent && !isHighlighted && !isDimmed && KRDS_DAY_TEXT_EVENT,
+                      isHighlighted && KRDS_DAY_SELECTED,
+                      !isHighlighted && !date.isDisabled && KRDS_DAY_HOVER,
+                      date.isStart && !date.isEnd && "rounded-r-none",
+                      date.isEnd && !date.isStart && "rounded-l-none"
                     )}
                     aria-pressed={isHighlighted}
                     aria-label={`${date.year}년 ${date.month}월 ${date.day}일`}
@@ -453,6 +464,10 @@ const SHADCN_CLASSNAMES = {
   weekday: "h-6 text-center text-krds-body-sm font-normal text-krds-foreground select-none !bg-transparent",
   week: "grid grid-cols-7 w-full mt-0.5 first:mt-2",
   day: "relative h-11 p-0 text-center select-none",
+  // KRDS period-band fill (`action-secondary-on-selected`) resolves to gray-0/white in light
+  // mode and gray-95 in high-contrast — i.e. exactly `bg-krds-surface` (see krds_tokens.css).
+  // It reads as a tint only because it sits inside the tinted `surface-secondary-subtle`
+  // calendar container, not because the token itself is colored.
   range_start:
     "relative before:absolute before:inset-y-0 before:left-1/2 before:right-0 before:bg-krds-surface before:content-['']",
   range_middle: "bg-krds-surface",
@@ -572,10 +587,12 @@ function Calendar({
         orientation?: "left" | "right" | "up" | "down"
         className?: string
       }) => {
+        // Move (prev/next) buttons: KRDS icon size-height-3 = 20px (_calendar.scss:81).
         if (orientation === "left")
-          return <ChevronLeft className={cn("text-krds-foreground size-4", chevronClassName)} />
+          return <ChevronLeft className={cn("text-krds-foreground size-5", chevronClassName)} />
         if (orientation === "right")
-          return <ChevronRight className={cn("text-krds-foreground size-4", chevronClassName)} />
+          return <ChevronRight className={cn("text-krds-foreground size-5", chevronClassName)} />
+        // Dropdown caret: KRDS icon--size-small (unaffected by the move-button fix above).
         return <ChevronDown className={cn("text-krds-foreground size-4", chevronClassName)} />
       },
     },
@@ -618,6 +635,11 @@ function Calendar({
     <div
       data-slot="krds-calendar"
       data-mode={mode}
+      // `bg-krds-surface-secondary-subtle` already resolves to KRDS `surface-secondary-subtler`
+      // (secondary-5 / secondary-95) in both light and dark — verified against krds_tokens.css.
+      // `border-krds-secondary-10` is a raw primitive matching KRDS `border-secondary-light` only
+      // in light mode; no mode-aware "secondary-tinted border" semantic token exists in this
+      // project's palette (only the gray-toned `border-light`), so it's kept as-is.
       className={cn(
         "border-krds-secondary-10 bg-krds-surface-secondary-subtle inline-flex w-[384px] flex-col items-stretch overflow-hidden rounded-[12px] border",
         disabled && "pointer-events-none opacity-50",

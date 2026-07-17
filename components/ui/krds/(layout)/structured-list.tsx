@@ -1,6 +1,6 @@
 // rsc:safe
 import * as React from "react"
-import { ArrowRight } from "lucide-react"
+import { ChevronRight } from "lucide-react"
 import { Button } from "@/components/ui/dynamic/button"
 import { cn } from "@/lib/cn"
 
@@ -17,6 +17,11 @@ export type StructuredListGroupProps = {
 /**
  * KRDS list container (`<ul class="krds-structured-list">`). Wraps one or more
  * `<StructuredList>` cards, each of which renders as an `<li>`.
+ *
+ * [의도적 이탈] KRDS 원본은 컨테이너에 3열(태블릿 2열/모바일 1열) 그리드를 강제하지만,
+ * 이 컴포넌트는 세로 스택을 기본으로 두고 열 배치는 사용처에 위임한다
+ * (예: `<StructuredListGroup className="grid grid-cols-3 …">`). 카드가 w-full 로
+ * 트랙을 채우므로 어떤 레이아웃에서도 동작한다.
  */
 function StructuredListGroup({ className, children }: StructuredListGroupProps) {
   return (
@@ -62,8 +67,9 @@ function StructuredList({
       aria-checked={selectable ? checked : undefined}
       className={cn(
         "group/structured-list border-krds-border bg-krds-surface list-none overflow-hidden rounded-[12px] border",
-        "flex w-[384px] flex-col",
-        "data-[variant=horizontal]:w-[1200px] data-[variant=horizontal]:max-w-full data-[variant=horizontal]:flex-row",
+        // relative: .card-btn(StructuredListActions)의 절대 배치 기준
+        "relative flex w-full flex-col",
+        "data-[variant=horizontal]:col-span-full data-[variant=horizontal]:flex-row",
         // KRDS .is-check: transparent border + primary outline ring on selected card
         "data-[checked]:outline-krds-border-primary data-[checked]:border-transparent data-[checked]:outline-2",
         className
@@ -193,13 +199,15 @@ function StructuredListTitle({ className, children, withArrow = true }: Structur
     <h3
       data-slot="krds-structured-list-title"
       className={cn(
-        "text-krds-foreground flex items-center gap-2 font-bold",
+        // KRDS .c-tit: 아이콘은 타이틀 텍스트 바로 뒤에 붙는 chevron(ico_angle -90°),
+        // gap = --card-body-title-gap = gap-1 토큰 = 2px (_structured_list.scss)
+        "text-krds-foreground flex items-center gap-0.5 font-bold",
         "text-krds-heading-sm group-data-[variant=horizontal]/structured-list:text-krds-heading-md",
         className
       )}
     >
-      <span className="line-clamp-1 flex-1">{children}</span>
-      {withArrow ? <ArrowRight size={24} aria-hidden="true" className="shrink-0" /> : null}
+      <span className="line-clamp-1">{children}</span>
+      {withArrow ? <ChevronRight size={24} aria-hidden="true" className="shrink-0" /> : null}
     </h3>
   )
 }
@@ -292,7 +300,10 @@ function StructuredListActions({ className, children }: StructuredListActionsPro
     <div
       data-slot="krds-structured-list-actions"
       className={cn(
-        "border-krds-border-light flex flex-wrap items-center justify-between gap-4 border-t pt-6",
+        // KRDS .card-btn: 카드 우상단 절대 배치(top/right = gap-8 = 32px, md 기준 —
+        // _structured_list.scss:96-97,267-274). 하단 바가 아니라 공유하기/찜하기류
+        // 텍스트 버튼을 카드 오른쪽 위에 나열한다.
+        "absolute top-8 right-8 flex items-center gap-6",
         className
       )}
     >
