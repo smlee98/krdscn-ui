@@ -138,7 +138,7 @@
   }
 
   body {
-    @apply bg-background text-foreground overflow-x-hidden overflow-y-auto;
+    @apply bg-background text-foreground overflow-x-hidden overflow-y-auto text-pretty break-keep;
     font-feature-settings:
       "rlig" 1,
       "calt" 1;
@@ -231,7 +231,7 @@
 
 @utility container-wrapper {
   width: 100%;
-  max-width: 1400px;
+  max-width: 1600px;
   margin-inline: auto;
 }
 
