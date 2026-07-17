@@ -25,12 +25,13 @@ type LinkType = "default" | "subtle" | "subtle_none"
 type LinkSize = "sm" | "default" | "lg"
 
 const linkVariants = cva(
-  "inline-flex items-center rounded-[6px] px-0.5 leading-[1.5] tracking-normal outline-none focus:krds-focus-ring",
+  "inline-flex items-center rounded-[6px] px-0.5 leading-[1.5] tracking-normal outline-none focus-visible:krds-focus-ring",
   {
     variants: {
       type: {
         default:
-          "text-krds-foreground-primary underline hover:text-krds-foreground-primary active:text-krds-foreground-primary visited:text-krds-foreground-visited",
+          // 색 사다리(50→60→70; 고대비 30→20→10): base/pressed는 numeric+dark:, hover는 foreground-primary(60/고대비20)가 이미 일치
+          "text-krds-primary-50 dark:text-krds-primary-30 underline hover:text-krds-foreground-primary active:text-krds-primary-70 dark:active:text-krds-primary-10 visited:text-krds-foreground-visited",
         subtle:
           "text-krds-foreground no-underline hover:text-krds-foreground-primary hover:underline active:text-krds-foreground-primary active:underline visited:text-krds-foreground-visited visited:underline",
         subtle_none:
@@ -71,7 +72,7 @@ function Link({
     linkVariants({ type: effectiveType, size, className }),
     disabled &&
       "pointer-events-none text-krds-foreground-disabled no-underline hover:text-krds-foreground-disabled hover:no-underline",
-    preserveColorOnHover && effectiveType === "default" && "hover:text-krds-foreground-primary"
+    preserveColorOnHover && effectiveType === "default" && "hover:text-krds-primary-50 dark:hover:text-krds-primary-30"
   )
 
   const externalProps = external ? { target: "_blank" as const, rel: "noopener noreferrer" } : {}

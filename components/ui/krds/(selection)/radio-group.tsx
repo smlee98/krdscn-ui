@@ -11,6 +11,7 @@
  */
 "use client"
 
+import { CheckIcon } from "lucide-react"
 import { RadioGroup as RadioGroupPrimitive } from "radix-ui"
 import { cn } from "@/lib/cn"
 import * as React from "react"
@@ -70,16 +71,7 @@ type RadioSortProps = Omit<React.ComponentProps<"input">, "size" | "defaultCheck
 
 // ─── RadioGroup ───────────────────────────────────────────────────────────────
 
-function RadioGroup({
-  value,
-  defaultValue,
-  onChange,
-  name,
-  size = "large",
-  children,
-  className,
-  column = true,
-}: RadioGroupProps) {
+function RadioGroup({ value, defaultValue, onChange, name, children, className, column = true }: RadioGroupProps) {
   const [internalValue, setInternalValue] = React.useState<string | undefined>(defaultValue)
   const isControlled = value !== undefined
   const currentValue = isControlled ? value : internalValue
@@ -92,11 +84,9 @@ function RadioGroup({
     [isControlled, onChange]
   )
 
-  // Figma list arrangement (node 315:27045): column gap depends on size.
-  //   large → 24px (gap-6), medium → 20px (gap-5).
-  // Row layout keeps gap-2 (Figma does not define a row gap).
-  const columnGap = size === "large" ? "gap-6" : "gap-5"
-
+  // KRDS .krds-check-area { gap: var(--krds-gap-6) } = 20px, flat on both axes and
+  // both sizes — .chk-column only flips direction, it does not change the gap
+  // (_form_check.scss:9-15). `size` does not affect the group gap.
   return (
     <RadioGroupContext.Provider value={{ value: currentValue, onChange: handleChange, name }}>
       <RadioGroupPrimitive.Root
@@ -104,7 +94,7 @@ function RadioGroup({
         value={currentValue}
         onValueChange={handleChange}
         name={name}
-        className={cn("flex", column ? cn("flex-col", columnGap) : "flex-row flex-wrap gap-2", className)}
+        className={cn("flex gap-5", column ? "flex-col" : "flex-row flex-wrap", className)}
       >
         {children}
       </RadioGroupPrimitive.Root>
@@ -131,9 +121,11 @@ function Radio({ size = "medium", description, value, children, disabled, classN
   // Border classes per state.
   //  - default unchecked: 1px gray-dark #58616a
   //  - default checked:   1.4–1.6px primary-50
-  //  - disabled (any):    1px disabled-dark #8a949e
+  //  - disabled (any):    1px disabled-dark #8a949e (gray-60 #58616a in KRDS
+  //                       high-contrast) — border-krds-border is the wrong semantic
+  //                       here, it resolves to gray-30.
   const borderClass = disabled
-    ? "border border-krds-border"
+    ? "border border-krds-gray-40 dark:border-krds-gray-60"
     : isChecked
       ? cn(checkedBorder, "border-krds-border-primary")
       : "border border-krds-border-dark"
@@ -168,7 +160,7 @@ function Radio({ size = "medium", description, value, children, disabled, classN
           // w-fit keeps the focus ring (and hover bg) content-width — wrapping only
           // the radio + label, matching KRDS where the ring sits on the inline-flex
           // <label>. Without it, the Item stretches to the full column width.
-          "focus:krds-focus-ring hover:bg-krds-surface-subtler flex w-fit cursor-pointer items-center gap-2 rounded-[4px]",
+          "focus-visible:krds-focus-ring hover:bg-krds-surface-subtler flex w-fit cursor-pointer items-center gap-2 rounded-[4px]",
           disabled && "cursor-not-allowed"
         )}
       >
@@ -198,12 +190,17 @@ function RadioChip({ size = "medium", value, children, disabled, className }: Ra
   const ctx = useRadioGroupContext()
   const isChecked = ctx.value === value
 
-  // KRDS form-chip heights (ref _form_chip.scss): small 40px / medium 48px / large 56px.
+  // KRDS form-chip (ref _form_chip.scss): heights 40/48/56px, radius 6/6/8px(둥근 사각형),
+  // 폰트 label-small/medium/large = 15/17/19px — CheckboxChip과 동일 스케일.
   const sizeClass = {
-    small: "h-10 px-2.5 rounded-full text-sm",
-    medium: "h-12 px-3 rounded-full text-base",
-    large: "h-14 px-4 rounded-full text-base",
+    small: "h-10 px-2.5 rounded-md text-krds-body-sm",
+    medium: "h-12 px-3 rounded-md text-krds-body-md",
+    large: "h-14 px-4 rounded-lg text-krds-body-lg",
   }[size]
+
+  // Check icon glyph size (_form_chip.scss check-size: small 1.2rem=12px, medium/large
+  // icon--size-small=16px).
+  const iconSize = size === "small" ? "size-3" : "size-4"
 
   return (
     <RadioGroupPrimitive.Item
@@ -211,14 +208,30 @@ function RadioChip({ size = "medium", value, children, disabled, className }: Ra
       value={value}
       disabled={disabled}
       className={cn(
-        "focus:krds-focus-ring inline-flex cursor-pointer items-center border transition-colors",
-        "bg-krds-surface border-krds-border-light text-krds-foreground",
+        "focus-visible:krds-focus-ring inline-flex cursor-pointer items-center gap-1 border transition-colors",
+        // KRDS chip default 보더 = color-border-gray = gray-30 (_form_chip.scss:69)
+        "bg-krds-surface border-krds-border text-krds-foreground",
         isChecked && "bg-krds-surface-primary-subtle border-krds-border-primary text-krds-foreground-primary",
-        disabled && "bg-krds-surface-subtler border-krds-border-light text-krds-foreground-disabled cursor-not-allowed",
+        // KRDS chip disabled: 채움 action-disabled=gray-20(고대비 gray-80), 텍스트 text-disabled-on=gray-50 (_form_chip.scss:65,68)
+        disabled &&
+          "bg-krds-gray-20 dark:bg-krds-gray-80 border-krds-border-light text-krds-gray-50 cursor-not-allowed",
         sizeClass,
         className
       )}
     >
+      {/* KRDS radio-chip hides the check glyph unchecked and shows it only when
+          checked (_form_chip.scss:145-158), unlike CheckboxChip which always renders it. */}
+      {isChecked && (
+        <CheckIcon
+          className={cn(
+            iconSize,
+            "shrink-0",
+            disabled ? "text-krds-foreground-disabled" : "text-krds-foreground-primary"
+          )}
+          strokeWidth={2.2}
+          aria-hidden="true"
+        />
+      )}
       {children}
     </RadioGroupPrimitive.Item>
   )
@@ -236,7 +249,7 @@ function RadioSort({ value, children, disabled, className }: RadioSortProps) {
       value={value}
       disabled={disabled}
       className={cn(
-        "text-krds-foreground text-krds-body-md focus:krds-focus-ring hover:bg-krds-surface-subtler inline-flex cursor-pointer items-center rounded border border-transparent px-1 transition-colors",
+        "text-krds-foreground text-krds-body-md focus-visible:krds-focus-ring hover:bg-krds-surface-subtler inline-flex cursor-pointer items-center rounded border border-transparent px-1 transition-colors",
         isChecked && "bg-krds-surface-secondary-subtle underline underline-offset-2",
         disabled && "text-krds-foreground-disabled cursor-not-allowed",
         className

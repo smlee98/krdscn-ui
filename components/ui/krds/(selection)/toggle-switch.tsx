@@ -48,15 +48,18 @@ const sizeConfig: Record<
   { track: string; thumb: string; iconSize: string; label: string; translate: string }
 > = {
   medium: {
+    // KRDS thumb = full track height, no track padding (_switch.scss:9,18,100-106).
+    // translate = track width(32px) − thumb width(20px) = 12px = translate-x-3.
     track: "w-8 h-5",
-    thumb: "size-4",
+    thumb: "size-5",
     iconSize: "size-2",
     label: "text-krds-body-md",
     translate: "data-[state=unchecked]:translate-x-0 data-[state=checked]:translate-x-3",
   },
   large: {
+    // translate = track width(40px) − thumb width(24px) = 16px = translate-x-4.
     track: "w-10 h-6",
-    thumb: "size-5",
+    thumb: "size-6",
     iconSize: "size-2.5",
     label: "text-krds-body-lg",
     translate: "data-[state=unchecked]:translate-x-0 data-[state=checked]:translate-x-4",
@@ -95,17 +98,23 @@ function ToggleSwitch({
         disabled={disabled}
         onCheckedChange={onCheckedChange}
         className={cn(
-          "group inline-flex shrink-0 cursor-pointer rounded-full p-0.5 transition-colors",
+          // KRDS 트랙에는 패딩이 없다 — thumb이 트랙과 동일한 높이로 꽉 찬다 (_switch.scss:100-106).
+          "group inline-flex shrink-0 cursor-pointer rounded-full transition-colors",
           "bg-krds-gray-50 data-[state=checked]:bg-krds-primary-50",
-          "data-[disabled]:bg-krds-surface-disabled data-[disabled]:cursor-not-allowed",
-          "focus:krds-focus-ring",
+          // KRDS :disabled 는 checked 여부와 무관하게 트랙=element-disabled-light(gray-20)
+          // (_switch.scss:175-183) — 복합 변형으로 checked 배경보다 항상 우선시킨다.
+          "data-[disabled]:bg-krds-surface-disabled data-[disabled]:data-[state=checked]:bg-krds-surface-disabled data-[disabled]:cursor-not-allowed",
+          "focus-visible:krds-focus-ring",
           sz.track
         )}
       >
         <SwitchPrimitive.Thumb
           className={cn(
-            "flex items-center justify-center rounded-full bg-white shadow-sm transition-transform",
-            "group-data-[disabled]:bg-krds-gray-40",
+            // thumb border는 트랙과 동일한 상태색을 따름: off=gray-50, on=primary-50, disabled=surface-disabled
+            // (_switch.scss:18,147,166 — check-color-border = button-color-background 체인).
+            "flex items-center justify-center rounded-full border-2 bg-white shadow-sm transition-transform",
+            "border-krds-gray-50 group-data-[state=checked]:border-krds-primary-50",
+            "group-data-[disabled]:border-krds-surface-disabled group-data-[disabled]:group-data-[state=checked]:border-krds-surface-disabled group-data-[disabled]:bg-krds-gray-40",
             sz.thumb,
             sz.translate
           )}

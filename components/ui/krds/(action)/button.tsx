@@ -16,7 +16,12 @@
  *   - default : 48h · px-4   · gap-1   · text-17 · radius-6
  *   - lg      : 56h · px-5   · gap-1   · text-17 · radius-8
  *   - xl      : 64h · px-6   · gap-1   · text-19 · radius-8
- *   - icon    : 48×48 (size-12) · p-0
+ *   - icon    : 48×48 (size-12) · p-0 [shadcn-compat]
+ *
+ *  [shadcn-compat 의도적 이탈] size="icon" 은 shadcn Button 의 icon API(기본 높이와 같은
+ *  정사각 버튼, 모든 variant 와 조합 — default/secondary 는 채움 배경 유지)를 따른다.
+ *  KRDS 원본 `.btn.icon`(24px 투명·무보더, 16~40px 아이콘 스케일, `.icon.border` 원형)과는
+ *  다른 규격이며, date-input 의 Popover 트리거와 같은 계열의 의도된 호환 선택이다.
  *
  *  text 변형은 Figma button_text 의 더 컴팩트한 높이(20/24/32/40)를 사용.
  */
@@ -35,7 +40,7 @@ const buttonVariants = cva(
     "inline-flex items-center justify-center whitespace-nowrap",
     "font-normal leading-[1.5] tracking-normal transition-colors outline-none",
     "disabled:pointer-events-none",
-    "focus:krds-focus-ring",
+    "focus-visible:krds-focus-ring",
   ].join(" "),
   {
     variants: {
@@ -44,19 +49,22 @@ const buttonVariants = cva(
           "border border-krds-border-primary bg-krds-primary-50 text-white",
           "hover:border-krds-border-primary hover:bg-krds-primary-60",
           "active:border-krds-border-primary active:bg-krds-primary-70",
-          "disabled:border-krds-border-light disabled:bg-krds-surface-disabled disabled:text-krds-foreground-disabled",
+          // disabled 텍스트=text-disabled-on(gray-50, 라이트/고대비 동일값), 보더=button-disabled-border(gray-30→고대비 gray-70; border-krds-border 토큰이 이미 매칭)
+          "disabled:border-krds-border disabled:bg-krds-surface-disabled disabled:text-krds-gray-50",
         ].join(" "),
         secondary: [
           "border border-krds-border-primary bg-krds-surface-primary-subtle text-krds-foreground-primary",
           "hover:bg-krds-primary-10",
           "active:bg-krds-primary-20",
-          "disabled:border-krds-border disabled:bg-transparent disabled:text-krds-foreground-disabled",
+          // disabled 채움=button-disabled-fill(gray-20→고대비 gray-80, 세만틱 토큰 부재로 numeric+dark: 사용), 텍스트=text-disabled-on(gray-50)
+          "disabled:border-krds-border disabled:bg-krds-gray-20 dark:disabled:bg-krds-gray-80 disabled:text-krds-gray-50",
         ].join(" "),
         outline: [
           "border border-krds-border-dark bg-transparent text-krds-foreground",
           "hover:bg-krds-surface-subtler",
           "active:bg-krds-surface-subtle",
-          "disabled:border-krds-border disabled:bg-transparent disabled:text-krds-foreground-disabled",
+          // outline은 tertiary의 문서화된 별칭 — disabled 색상도 동일하게 유지
+          "disabled:border-krds-border disabled:bg-krds-gray-20 dark:disabled:bg-krds-gray-80 disabled:text-krds-gray-50",
         ].join(" "),
         ghost: [
           "border border-transparent bg-transparent text-krds-foreground",
@@ -65,16 +73,19 @@ const buttonVariants = cva(
           "disabled:bg-transparent disabled:text-krds-foreground-disabled",
         ].join(" "),
         link: [
-          "border border-transparent bg-transparent text-krds-foreground-primary underline underline-offset-2",
+          "border border-transparent bg-transparent underline underline-offset-2",
+          // link 색 사다리(50→60→70; 고대비 30→20→10): base/pressed 세만틱 토큰이 없어 numeric+dark: 사용, hover는 foreground-primary가 이미 60/고대비20과 일치
+          "text-krds-primary-50 dark:text-krds-primary-30",
           "hover:text-krds-foreground-primary",
-          "active:text-krds-foreground-primary",
+          "active:text-krds-primary-70 dark:active:text-krds-primary-10",
           "disabled:text-krds-foreground-disabled disabled:no-underline",
         ].join(" "),
         tertiary: [
           "border border-krds-border-dark bg-transparent text-krds-foreground",
           "hover:bg-krds-surface-subtler",
           "active:bg-krds-surface-subtle",
-          "disabled:border-krds-border disabled:bg-transparent disabled:text-krds-foreground-disabled",
+          // disabled 채움=button-disabled-fill(gray-20→고대비 gray-80), 텍스트=text-disabled-on(gray-50)
+          "disabled:border-krds-border disabled:bg-krds-gray-20 dark:disabled:bg-krds-gray-80 disabled:text-krds-gray-50",
         ].join(" "),
         text: [
           "border border-transparent bg-transparent text-krds-foreground",

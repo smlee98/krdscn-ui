@@ -30,10 +30,7 @@ const tagVariants = cva(
         large: "h-10 px-3 gap-0.5 text-[1.0625rem]",
       },
       interactive: {
-        true: [
-          "hover:bg-krds-surface-secondary-subtle hover:border-transparent",
-          "active:bg-krds-surface-secondary-subtle active:border-transparent",
-        ].join(" "),
+        true: ["hover:bg-krds-surface-secondary-subtle", "active:bg-krds-surface-secondary-pressed"].join(" "),
         false: "",
       },
     },
@@ -110,7 +107,7 @@ function Tag(props: TagProps) {
         data-slot="krds-tag"
         className={cn(
           tagVariants({ size, interactive: true, className }),
-          "focus:krds-focus-ring cursor-pointer hover:underline focus:underline active:underline"
+          "focus-visible:krds-focus-ring cursor-pointer hover:underline focus-visible:underline active:underline"
         )}
         {...rest}
       >

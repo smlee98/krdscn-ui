@@ -59,7 +59,7 @@ const triggerIconSize: Record<SelectSize, string> = {
 }
 
 const triggerIconRight: Record<SelectSize, string> = {
-  small: "right-3",
+  small: "right-4",
   medium: "right-4",
   large: "right-4",
 }
@@ -67,7 +67,8 @@ const triggerIconRight: Record<SelectSize, string> = {
 const sortingFont: Record<SelectSize, string> = {
   small: "text-krds-body-sm",
   medium: "text-krds-body-md",
-  large: "text-krds-heading-md font-bold",
+  // KRDS sorting-large = heading-small(19px) bold, not heading-medium(24px) (_select.scss:168)
+  large: "text-krds-heading-sm font-bold",
 }
 
 const sortingIconSize: Record<SelectSize, string> = {
@@ -231,9 +232,10 @@ function Select({
             id={inputId}
             aria-label={label ?? "정렬"}
             className={cn(
-              "text-krds-foreground inline-flex h-auto cursor-pointer appearance-none items-center rounded-sm border border-transparent bg-transparent leading-[1.5] transition-colors outline-none",
+              // KRDS sorting radius = radius-small2(4px), not Tailwind rounded-sm(2px) (_select.scss:194)
+              "text-krds-foreground inline-flex h-auto cursor-pointer appearance-none items-center rounded-[4px] border border-transparent bg-transparent leading-[1.5] transition-colors outline-none",
               "hover:bg-krds-surface-secondary-subtle active:bg-krds-surface-secondary-pressed",
-              "focus:krds-focus-ring",
+              "focus-visible:krds-focus-ring",
               "disabled:text-krds-foreground-disabled disabled:cursor-not-allowed disabled:bg-transparent",
               sortingFont[size],
               sortingPadX[size],
@@ -290,16 +292,16 @@ function Select({
             // placeholder colour (when no value selected)
             "data-[placeholder]:text-krds-foreground-disabled",
             // focus
-            "focus:border-krds-border-primary focus:krds-focus-ring",
+            "focus:border-krds-border-primary focus-visible:krds-focus-ring",
             // disabled
             "disabled:bg-krds-surface-disabled disabled:border-krds-border disabled:text-krds-foreground-disabled disabled:cursor-not-allowed",
-            // error (via aria-invalid)
-            "aria-invalid:border-krds-danger-50 aria-invalid:focus:border-krds-danger-50",
+            // error (via aria-invalid) — KRDS is-error = text-point(point-60) + 2px border, not danger-50 (_select.scss:113,124-128)
+            "aria-invalid:border-krds-foreground-point aria-invalid:focus:border-krds-foreground-point aria-invalid:border-2",
             triggerHeight[size],
             triggerFont[size],
             triggerRadius[size],
             // right padding to leave room for chevron
-            size === "small" ? "pr-9" : size === "medium" ? "pr-11" : "pr-12",
+            size === "small" ? "pr-10" : size === "medium" ? "pr-11" : "pr-12",
             selectClassName
           )}
         >

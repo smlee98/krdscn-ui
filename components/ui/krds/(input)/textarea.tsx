@@ -76,7 +76,8 @@ function Textarea({
         className={cn(
           "border-krds-border-dark bg-krds-surface h-36 rounded-[8px] border px-4 py-2 transition-colors",
           "focus-within:border-krds-border-primary focus-within:krds-focus-ring",
-          "has-[textarea[aria-invalid=true]]:border-krds-danger-50 has-[textarea[aria-invalid=true]]:focus-within:border-krds-danger-50",
+          // KRDS .is-error 는 2px 보더 (_input.scss:152-161) — 포커스 링 정책과 무관한 비포커스 상태 스펙
+          "has-[textarea[aria-invalid=true]]:border-krds-danger-50 has-[textarea[aria-invalid=true]]:focus-within:border-krds-danger-50 has-[textarea[aria-invalid=true]]:border-2",
           disabled && "border-krds-border bg-krds-surface-disabled border",
           readOnly && !disabled && "border-krds-border bg-krds-surface-disabled border"
         )}
@@ -93,9 +94,11 @@ function Textarea({
           aria-describedby={describedBy}
           onChange={handleChange}
           className={cn(
-            "text-krds-body-md text-krds-foreground h-full w-full resize-none rounded-[8px] bg-transparent outline-none",
+            // KRDS textarea는 large 라벨(body-lg 19px)을 상속하고, 텍스트 색은 text-subtle(gray-70) (_input.scss:42,75,98,142-151)
+            "text-krds-body-lg text-krds-foreground-subtle h-full w-full resize-none rounded-[8px] bg-transparent outline-none",
             "placeholder:text-krds-foreground-disabled",
-            disabled && "text-krds-foreground-disabled cursor-not-allowed",
+            // disabled 텍스트=text-disabled-on(gray-50, 라이트/고대비 동일값)
+            disabled && "text-krds-gray-50 cursor-not-allowed",
             readOnly && !disabled && "text-krds-foreground-subtle"
           )}
         />

@@ -1,7 +1,7 @@
 "use client"
 
 import * as React from "react"
-import { CheckCircle2, CircleAlert } from "lucide-react"
+import { CheckCircle2, CircleAlert, Upload } from "lucide-react"
 import { cn } from "@/lib/cn"
 import { Button } from "@/components/ui/dynamic/button"
 
@@ -21,7 +21,14 @@ type FileItem = {
   deletable?: boolean
 }
 
+// KRDS's own reference sample (file_upload.html) is actually the `.line` card variant —
+// a bordered wrapper with 12px radius and 40px padding (_file_upload.scss:48-56).
+// `variant="line"` renders that chrome; `variant="default"` keeps this wrapper's original
+// chrome-less look for backward compatibility with existing call sites.
+type FileUploadVariant = "default" | "line"
+
 type FileUploadProps = Omit<React.ComponentPropsWithRef<"div">, "onChange" | "children"> & {
+  variant?: FileUploadVariant
   title?: string
   description?: string
   uploadText?: string
@@ -93,6 +100,7 @@ function getExtension(filename: string): string {
 // ── Component ──────────────────────────────────────────────────────────────
 
 function FileUpload({
+  variant = "default",
   title,
   description,
   uploadText = "첨부할 파일을 여기에 끌어다 놓거나, 파일 선택 버튼을 눌러 파일을 직접 선택해주세요.",
@@ -247,7 +255,17 @@ function FileUpload({
   const hasHeader = !!(title || description || children)
 
   return (
-    <div data-slot="krds-file-upload" ref={ref} {...rest} className={cn("flex w-full flex-col gap-6", className)}>
+    <div
+      data-slot="krds-file-upload"
+      data-variant={variant}
+      ref={ref}
+      {...rest}
+      className={cn(
+        "flex w-full flex-col gap-6",
+        variant === "line" && "border-krds-border rounded-[12px] border p-10",
+        className
+      )}
+    >
       {/* Header block */}
       {hasHeader && (
         <div className="flex w-full flex-col gap-4">
@@ -260,8 +278,10 @@ function FileUpload({
       {/* Drop area */}
       <div
         className={cn(
-          "bg-krds-surface-subtle flex w-full flex-col items-center justify-center gap-6 rounded-[12px] p-10 transition-colors",
-          isDragActive && !disabled && "outline-krds-border-primary outline outline-2",
+          // KRDS 패딩 6.4rem/4rem = 64px/40px, gap 40px (_file_upload.scss:71-74); 드래그 시
+          // 파랑 solid outline이 아니라 dashed border가 gray-30(=border-krds-border)로 바뀜 (:76,88-90).
+          "bg-krds-surface-subtle flex w-full flex-col items-center justify-center gap-10 rounded-[12px] border border-dashed border-transparent px-10 py-16 transition-colors",
+          isDragActive && !disabled && "border-krds-border",
           disabled && "opacity-60"
         )}
         onDragOver={handleDragOver}
@@ -285,7 +305,7 @@ function FileUpload({
           type="button"
           onClick={() => inputRef.current?.click()}
         >
-          파일선택
+          <Upload className="size-5" /> 파일선택
         </Button>
       </div>
 
@@ -319,7 +339,8 @@ function FileUpload({
               {/* Top row */}
               <div className="flex w-full items-center gap-4">
                 <div className="text-krds-body-md text-krds-foreground-bolder min-w-0 flex-1">
-                  <span className="break-words">
+                  {/* KRDS 파일명은 줄바꿈 없이 1줄 말줄임(ellipsis) 처리 (_file_upload.scss:135) */}
+                  <span className="block truncate">
                     {file.name} [{file.type}, {formatBytes(file.size)}]
                   </span>
                 </div>
@@ -390,7 +411,8 @@ function FileUpload({
               {/* Error row */}
               {file.status === "error" && (
                 <>
-                  <div className="bg-krds-danger-50/30 h-px w-full" />
+                  {/* KRDS 구분선은 danger 색이 아니라 divider-gray (border-krds-border로 근사) (_file_upload.scss:175) */}
+                  <div className="bg-krds-border h-px w-full" />
                   <div className="flex w-full items-start gap-1">
                     <div className="flex shrink-0 items-start pt-[2px]">
                       <CircleAlert className="text-krds-foreground-danger size-5" />

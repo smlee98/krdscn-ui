@@ -144,7 +144,7 @@ function DateInput({
             disabled={disabled || readOnly}
             className={cn(
               "border-krds-border-dark bg-krds-surface relative flex w-full items-center border text-left transition-colors outline-none",
-              "focus:border-krds-border-primary focus:krds-focus-ring",
+              "focus:border-krds-border-primary focus-visible:krds-focus-ring",
               "aria-[invalid=true]:border-krds-danger-50 aria-[invalid=true]:focus:border-krds-danger-50",
               disabled && "border-krds-border bg-krds-surface-disabled cursor-not-allowed",
               readOnly && !disabled && "cursor-default",
@@ -157,7 +157,8 @@ function DateInput({
               className={cn(
                 "flex-1 truncate",
                 displayValue ? "text-krds-foreground" : "text-krds-foreground-disabled",
-                disabled && "text-krds-foreground-disabled"
+                // disabled 텍스트=text-disabled-on(gray-50, 라이트/고대비 동일값)
+                disabled && "text-krds-gray-50"
               )}
             >
               {displayValue || placeholder}
@@ -270,7 +271,8 @@ function DateInputUnit({
               aria-invalid={ariaInvalid || undefined}
               className={cn(
                 "text-krds-foreground placeholder:text-krds-foreground-disabled w-full bg-transparent outline-none",
-                disabled && "text-krds-foreground-disabled cursor-not-allowed"
+                // disabled 텍스트=text-disabled-on(gray-50, 라이트/고대비 동일값)
+                disabled && "text-krds-gray-50 cursor-not-allowed"
               )}
             />
           </div>
@@ -289,7 +291,8 @@ function DateInputUnit({
               aria-invalid={ariaInvalid || undefined}
               className={cn(
                 "text-krds-foreground placeholder:text-krds-foreground-disabled w-full bg-transparent outline-none",
-                disabled && "text-krds-foreground-disabled cursor-not-allowed"
+                // disabled 텍스트=text-disabled-on(gray-50, 라이트/고대비 동일값)
+                disabled && "text-krds-gray-50 cursor-not-allowed"
               )}
             />
           </div>
@@ -308,7 +311,8 @@ function DateInputUnit({
               aria-invalid={ariaInvalid || undefined}
               className={cn(
                 "text-krds-foreground placeholder:text-krds-foreground-disabled w-full bg-transparent outline-none",
-                disabled && "text-krds-foreground-disabled cursor-not-allowed"
+                // disabled 텍스트=text-disabled-on(gray-50, 라이트/고대비 동일값)
+                disabled && "text-krds-gray-50 cursor-not-allowed"
               )}
             />
           </div>
