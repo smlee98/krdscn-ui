@@ -13,13 +13,13 @@ function Identifier({ className, notice = "이 누리집은 정부 산하기관 
       data-slot="krds-identifier"
       role="contentinfo"
       className={cn(
-        "bg-krds-surface flex h-10 w-full items-center gap-2 px-4",
+        "bg-krds-surface flex h-10 w-full items-center gap-2 rounded-[6px] px-4",
         "text-krds-foreground text-krds-body-sm",
         "max-md:h-auto max-md:flex-col max-md:items-start max-md:gap-1 max-md:py-2",
         className
       )}
     >
-      <KrdsIdentifierLogo className="h-6 w-[77px] shrink-0 max-md:h-5 max-md:w-[64px]" aria-label="KRDS" />
+      <KrdsIdentifierLogo className="h-6 w-[68px] shrink-0 max-md:h-5 max-md:w-[58px]" aria-label="KRDS" />
       <p className="max-md:text-krds-body-xs whitespace-nowrap max-md:break-all max-md:whitespace-normal">{notice}</p>
     </div>
   )

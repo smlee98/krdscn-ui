@@ -2,7 +2,7 @@
 "use client"
 
 import * as React from "react"
-import { HelpCircle, X } from "lucide-react"
+import { Info, X } from "lucide-react"
 import { Popover as PopoverPrimitive } from "radix-ui"
 import { cn } from "@/lib/cn"
 
@@ -74,11 +74,11 @@ function ContextualHelp({
               "inline-flex size-6 items-center justify-center rounded-[4px]",
               "bg-transparent transition-colors",
               "hover:bg-krds-surface-secondary-subtle active:bg-krds-surface-secondary-subtle",
-              "focus:krds-focus-ring"
+              "focus-visible:krds-focus-ring"
             )}
           >
             <span className="sr-only">도움말</span>
-            <HelpCircle className="text-krds-foreground size-5" aria-hidden="true" />
+            <Info className="text-krds-foreground-information size-5" aria-hidden="true" />
           </button>
         </PopoverPrimitive.Trigger>
       </div>
@@ -93,7 +93,10 @@ function ContextualHelp({
           data-alignment={alignment}
           className={cn(
             "group/cxh border-krds-border bg-krds-surface relative w-[360px] rounded-[12px] border p-6",
-            "flex flex-col gap-2 shadow-none",
+            "flex flex-col gap-2",
+            // KRDS --krds-contextual-help--popover-shadow: 0 0 0.2rem shadow2, 0 0.8rem 1.6rem shadow3 (_contextual_help.scss:29,73)
+            "shadow-[0_0_2px_0_rgba(0,0,0,0.08),0_8px_16px_0_rgba(0,0,0,0.12)]",
+            "dark:shadow-[0_0_2px_0_rgba(0,0,0,0.2),0_8px_16px_0_rgba(0,0,0,0.4)]",
             "z-50 origin-(--radix-popover-content-transform-origin) outline-hidden",
             "data-[state=open]:animate-in data-[state=open]:fade-in-0 data-[state=open]:zoom-in-95",
             "data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95",
@@ -103,13 +106,13 @@ function ContextualHelp({
         >
           <div className="flex flex-col gap-4">
             <div className="flex items-start gap-4">
-              <div className="text-krds-body-sm text-krds-foreground flex flex-1 flex-col gap-4">{children}</div>
+              <div className="text-krds-body-sm text-krds-foreground flex flex-1 flex-col gap-2">{children}</div>
               <PopoverPrimitive.Close
                 aria-label="닫기"
                 className={cn(
                   "text-krds-foreground inline-flex size-4 shrink-0 items-center justify-center",
                   "hover:text-krds-foreground-primary",
-                  "focus:krds-focus-ring"
+                  "focus-visible:krds-focus-ring"
                 )}
               >
                 <X className="size-4" aria-hidden="true" />
@@ -117,30 +120,23 @@ function ContextualHelp({
             </div>
           </div>
 
-          {/* Arrow follows the actually rendered side via Radix's data-side attribute,
-              so it stays correct when collision detection flips the popover on scroll. */}
+          {/* Arrow follows the actually rendered side via Radix's data-side attribute, so it stays
+              correct when collision detection flips the popover on scroll. 16px square rotated 45deg
+              with the top+left borders erased (KRDS --bubble-arrow-size: 1.6rem, _contextual_help.scss:
+              60,74-84) — same border-square technique as language-switcher's caret span. side=bottom
+              needs an extra 180deg (→225deg total) since the transparent borders must face the opposite
+              corner to point up instead of down. Hidden below the mobile breakpoint (:164-172,164-180). */}
           <span
             aria-hidden="true"
             className={cn(
-              "pointer-events-none absolute block h-3 w-[22px]",
-              "group-data-[side=top]/cxh:-bottom-3",
-              "group-data-[side=bottom]/cxh:-top-3 group-data-[side=bottom]/cxh:rotate-180",
-              alignment === "left" ? "left-6" : alignment === "right" ? "right-6" : "left-1/2 -translate-x-[11px]"
+              "pointer-events-none absolute block h-4 w-4 rotate-45",
+              "border-krds-border bg-krds-surface border border-t-transparent border-l-transparent",
+              "group-data-[side=top]/cxh:-bottom-2",
+              "group-data-[side=bottom]/cxh:-top-2 group-data-[side=bottom]/cxh:rotate-[225deg]",
+              alignment === "left" ? "left-6" : alignment === "right" ? "right-6" : "left-1/2 -translate-x-1/2",
+              "max-md:hidden"
             )}
-          >
-            <svg viewBox="0 0 22 12" xmlns="http://www.w3.org/2000/svg" className="block size-full overflow-visible">
-              {/* Erase the popover border under the arrow base so the popover and
-                  arrow appear as one shape. Drawn first so the slant strokes sit
-                  on top of it at (0,0) and (22,0), keeping their tips visible. */}
-              <line className="stroke-krds-surface" x1="0" y1="0" x2="22" y2="0" strokeWidth="2" />
-              <path
-                className="fill-krds-surface stroke-krds-border"
-                d="M0 0 L11 11 L22 0"
-                strokeWidth="1"
-                strokeLinejoin="miter"
-              />
-            </svg>
-          </span>
+          />
         </PopoverPrimitive.Content>
       </PopoverPrimitive.Portal>
     </PopoverPrimitive.Root>

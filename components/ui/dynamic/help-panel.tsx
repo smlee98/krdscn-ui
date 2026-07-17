@@ -127,8 +127,16 @@ function HelpPanelRoot({ isOpen, defaultOpen = false, onOpenChange, className, c
         >
           <SheetTitle className="sr-only">도움말</SheetTitle>
           <SheetDescription className="sr-only">도움말 패널 콘텐츠</SheetDescription>
-          <div className="help-panel-wrap flex h-full flex-col">
-            <div className="help-conts-area flex h-full flex-col overflow-y-auto p-10">{inner}</div>
+          {/* krds/(help)/help-panel.tsx 의 패널 크롬과 동기화 유지: shadow + 상단 80px(고정 접어두기 공간) */}
+          <div
+            className={cn(
+              "help-panel-wrap flex h-full flex-col",
+              // KRDS --krds-help-panel--shadow: 0 0 0.2rem shadow2, 0 0.8rem 1.6rem shadow3 (_help_panel.scss:29,61)
+              "shadow-[0_0_2px_0_rgba(0,0,0,0.08),0_8px_16px_0_rgba(0,0,0,0.12)]",
+              "dark:shadow-[0_0_2px_0_rgba(0,0,0,0.2),0_8px_16px_0_rgba(0,0,0,0.4)]"
+            )}
+          >
+            <div className="help-conts-area flex h-full flex-col overflow-y-auto px-10 pt-20 pb-10">{inner}</div>
           </div>
         </SheetContent>
       ) : (

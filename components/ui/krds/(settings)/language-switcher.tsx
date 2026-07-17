@@ -179,7 +179,7 @@ function LanguageSwitcherTrigger({ label = "Language", className }: LanguageSwit
         className={cn(
           "inline-flex h-6 items-center gap-0.5 rounded-[4px] px-0.5 transition-colors",
           "text-krds-foreground hover:bg-krds-surface-secondary-subtle data-[state=open]:bg-krds-surface-secondary-subtle",
-          "focus:krds-focus-ring",
+          "focus-visible:krds-focus-ring",
           className
         )}
       >
@@ -200,11 +200,14 @@ function LanguageSwitcherMenu({ className, children }: LanguageSwitcherMenuProps
     <PopoverPrimitive.Portal>
       <PopoverPrimitive.Content
         align="center"
-        sideOffset={8}
+        sideOffset={16}
         onPointerDownOutside={closeOnClickOutside ? undefined : (e) => e.preventDefault()}
         className={cn(
-          "border-none bg-transparent p-0 shadow-none outline-hidden",
-          "drop-shadow-[0_0_1px_rgba(0,0,0,0.05)] drop-shadow-[0_4px_4px_rgba(0,0,0,0.08)]",
+          // KRDS .drop-menu z-index:6 (_dropdown.scss:36) — 페이지 스태킹 컨텍스트 위로. 프로젝트 오버레이 관례 z-50 사용.
+          "z-50 border-none bg-transparent p-0 outline-hidden",
+          // KRDS --krds-dropdown--menu-color-alpha-shadow: 0 0 0.2rem shadow1, 0 0.4rem 0.8rem shadow2 (_dropdown.scss:17)
+          "shadow-[0_0_2px_0_rgba(0,0,0,0.05),0_4px_8px_0_rgba(0,0,0,0.08)]",
+          "dark:shadow-[0_0_2px_0_rgba(0,0,0,0.12),0_4px_8px_0_rgba(0,0,0,0.2)]",
           "data-[state=open]:animate-in data-[state=open]:fade-in-0 data-[state=open]:zoom-in-95",
           "data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95",
           "data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2",
@@ -214,7 +217,7 @@ function LanguageSwitcherMenu({ className, children }: LanguageSwitcherMenuProps
         <div className="border-krds-border-light bg-krds-surface relative min-w-[200px] rounded-[8px] border p-2">
           <span
             aria-hidden
-            className="border-krds-border-light bg-krds-surface pointer-events-none absolute -top-[4px] left-1/2 block h-2 w-2 -translate-x-1/2 rotate-45 border border-r-transparent border-b-transparent"
+            className="border-krds-border-light bg-krds-surface pointer-events-none absolute -top-[6px] left-1/2 block h-3 w-3 -translate-x-1/2 rotate-45 border border-r-transparent border-b-transparent"
           />
           <ul role="listbox" aria-label="언어 선택" className="m-0 flex list-none flex-col gap-2 p-0">
             {children}
@@ -268,10 +271,10 @@ function LanguageSwitcherOptionItem({ value, label, href, external, className }:
 
   const baseClasses = cn(
     "flex h-12 w-full min-w-[160px] items-center gap-1 rounded-[6px] px-4",
-    "text-krds-body-md no-underline outline-none transition-colors focus:krds-focus-ring",
+    "text-krds-body-md no-underline outline-none transition-colors focus-visible:krds-focus-ring",
     isSelected
       ? "bg-krds-surface-secondary-subtle text-krds-foreground-secondary font-bold"
-      : "text-krds-foreground font-normal hover:bg-krds-surface-secondary-subtle",
+      : "text-krds-foreground font-normal hover:bg-krds-surface-secondary-subtle active:bg-krds-surface-secondary-pressed",
     className
   )
 

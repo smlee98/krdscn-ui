@@ -27,6 +27,12 @@
  * mounted as SheetTrigger; everything else renders inside SheetContent.
  * Open/close state, focus trap, portal, overlay, ESC handling, and slide
  * animation come from Sheet — no manual state management here.
+ *
+ * [의도적 이탈] KRDS 원본(help_panel.html)은 "도움/따라하기" 탭 패널 하나로 구성되며
+ * tutorial_panel.html 과 마크업이 동일(기본 활성 탭만 다름)하다. 이 프로젝트는 이를
+ * 의도적으로 분해했다: 원본 탭 구조는 (help)/tutorial-panel.tsx 가 충실 구현하고,
+ * 본 HelpPanel 은 탭 없는 단순 도움말 변형을 제공한다. 탭 구조가 필요하면
+ * TutorialPanel 을 사용할 것.
  */
 
 import * as React from "react"
@@ -82,8 +88,17 @@ function HelpPanel({ isOpen, defaultOpen = false, onOpenChange, className, child
         >
           <DialogPrimitive.Title className="sr-only">도움말</DialogPrimitive.Title>
           <DialogPrimitive.Description className="sr-only">도움말 패널 콘텐츠</DialogPrimitive.Description>
-          <div className="help-panel-wrap flex h-full flex-col">
-            <div className="help-conts-area flex h-full flex-col overflow-y-auto p-10">{inner}</div>
+          <div
+            className={cn(
+              "help-panel-wrap flex h-full flex-col",
+              // KRDS --krds-help-panel--shadow: 0 0 0.2rem shadow2, 0 0.8rem 1.6rem shadow3 (_help_panel.scss:29,61)
+              "shadow-[0_0_2px_0_rgba(0,0,0,0.08),0_8px_16px_0_rgba(0,0,0,0.12)]",
+              "dark:shadow-[0_0_2px_0_rgba(0,0,0,0.2),0_8px_16px_0_rgba(0,0,0,0.4)]"
+            )}
+          >
+            {/* KRDS .help-conts-area padding-top = padding-10 + size-height-6 = 80px, to clear the
+                fixed '접어두기' close button (_help_panel.scss:66). */}
+            <div className="help-conts-area flex h-full flex-col overflow-y-auto px-10 pt-20 pb-10">{inner}</div>
           </div>
         </DialogPrimitive.Content>
       </DialogPrimitive.Portal>
@@ -134,9 +149,14 @@ function HelpPanelClose({ className, children, ...props }: HelpPanelCloseProps) 
         data-slot="krds-help-panel-close"
         className={cn(
           "btn-help-panel fold",
-          "text-krds-body-sm text-krds-foreground inline-flex items-center gap-1 self-end",
-          "hover:text-krds-foreground-primary transition-colors",
-          "focus:krds-focus-ring",
+          // KRDS .btn-help-panel is position:fixed top/right 4rem (_help_panel.scss:195-197); the
+          // panel itself is the fixed-positioned ancestor here, so absolute top-10/right-10 (40px)
+          // reproduces the same fixed-to-viewport-edge placement without escaping the panel.
+          // 접어두기는 krds-btn small tertiary(보더 버튼, help_panel.html:173) — 텍스트 링크가 아님.
+          "border-krds-border-dark text-krds-body-sm text-krds-foreground absolute top-10 right-10",
+          "inline-flex h-10 items-center gap-1 rounded-[6px] border bg-transparent px-3",
+          "hover:bg-krds-surface-subtler active:bg-krds-surface-subtle transition-colors",
+          "focus-visible:krds-focus-ring",
           className
         )}
         {...props}
@@ -187,7 +207,7 @@ function HelpSection({ title, description, className, children, ...props }: Help
             className={cn(
               "krds-btn medium icon",
               "text-krds-foreground inline-flex size-8 items-center justify-center rounded",
-              "hover:bg-krds-surface-subtle focus:krds-focus-ring"
+              "hover:bg-krds-surface-subtle focus-visible:krds-focus-ring"
             )}
             aria-label="도움말"
           >
@@ -232,9 +252,10 @@ function HelpLinkList({ links, iconPosition = "right", className, ...props }: He
               target={link.target}
               rel={link.target === "_blank" ? "noopener noreferrer" : undefined}
               className={cn(
-                "text-krds-body-sm text-krds-foreground-primary inline-flex items-center gap-1 font-bold",
-                "hover:text-krds-foreground-primary underline underline-offset-2",
-                "focus:krds-focus-ring"
+                // KRDS .link-list 링크는 검정(text-basic) 17px 무밑줄 + 아이콘 (help_panel.html — 파랑/밑줄 아님)
+                "text-krds-body-md text-krds-foreground inline-flex items-center gap-1",
+                "hover:underline",
+                "focus-visible:krds-focus-ring"
               )}
             >
               {iconPosition === "left" && icon}
@@ -275,7 +296,7 @@ type HelpServiceGroupProps = React.ComponentProps<"div"> & {
 function HelpServiceGroup({ title, className, children, ...props }: HelpServiceGroupProps) {
   return (
     <div data-slot="krds-help-service-group" className={cn("conts-wrap flex flex-col gap-3", className)} {...props}>
-      <h4 className="help-title text-krds-body-sm text-krds-foreground font-bold">{title}</h4>
+      <h4 className="help-title text-krds-heading-xs text-krds-foreground font-bold">{title}</h4>
       {children}
     </div>
   )
@@ -298,7 +319,10 @@ function HelpTutorialTitle({ title, href, className }: HelpTutorialTitleProps) {
       {href ? (
         <a
           href={href}
-          className={cn("hover:text-krds-foreground-primary inline-flex items-center gap-1", "focus:krds-focus-ring")}
+          className={cn(
+            "hover:text-krds-foreground-primary inline-flex items-center gap-1",
+            "focus-visible:krds-focus-ring"
+          )}
         >
           <span>{title}</span>
           <ChevronRight className="size-4" aria-hidden="true" />
@@ -316,7 +340,11 @@ function HelpCoachProcess({ className, children, ...props }: React.ComponentProp
   return (
     <ul
       data-slot="krds-help-coach-process"
-      className={cn("coach-help-process flex flex-col gap-4", className)}
+      className={cn(
+        "coach-help-process flex flex-col gap-10",
+        "[&>li+li]:border-krds-border-light [&>li+li]:border-t [&>li+li]:pt-10",
+        className
+      )}
       {...props}
     >
       {children}
@@ -367,7 +395,7 @@ function HelpPanelAction({ className, children, ...props }: React.ComponentProps
   return (
     <div
       data-slot="krds-help-panel-action"
-      className={cn("help-panel-action mt-4 flex flex-col gap-2", className)}
+      className={cn("help-panel-action border-krds-border-light flex w-full flex-col gap-2 border-t pt-8", className)}
       {...props}
     >
       {children}

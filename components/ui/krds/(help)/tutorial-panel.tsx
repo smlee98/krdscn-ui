@@ -140,7 +140,7 @@ function TutorialLinkAnchor({ link, className }: { link: TutorialLink; className
       className={cn(
         "text-krds-body-sm text-krds-foreground inline-flex items-center gap-1 underline underline-offset-2",
         "hover:text-krds-foreground-primary",
-        "focus:krds-focus-ring rounded-[2px]",
+        "focus-visible:krds-focus-ring rounded-[2px]",
         className
       )}
     >
@@ -158,7 +158,7 @@ function TutorialPanelRoot({
   isOpen,
   onOpenChange,
   activeTab,
-  defaultActiveTab = "help",
+  defaultActiveTab = "tutorial",
   onTabChange,
   className,
   children,
@@ -224,7 +224,9 @@ function TutorialPanelRoot({
               "data-[state=closed]:animate-out data-[state=closed]:slide-out-to-right data-[state=closed]:duration-300",
               "data-[state=open]:animate-in data-[state=open]:slide-in-from-right data-[state=open]:duration-500",
               "inset-y-0 right-0 h-full",
-              "flex w-[390px] flex-col gap-8 overflow-y-auto p-10",
+              // KRDS .help-conts-area padding-top = padding-10 + size-height-6 = 80px, to clear the
+              // fixed '접어두기' close button (_help_panel.scss:66).
+              "flex w-[390px] flex-col gap-8 overflow-y-auto px-10 pt-20 pb-10",
               "border-krds-border bg-krds-surface-subtler border-l",
               className
             )}
@@ -275,7 +277,14 @@ function TutorialPanelContainer({ children, className, ...props }: TutorialPanel
       className={cn("krds-help-panel flex flex-col gap-8", ctx.isOpen && "expand", className)}
       {...props}
     >
-      <div className="help-panel-wrap flex flex-col gap-8">
+      <div
+        className={cn(
+          "help-panel-wrap flex flex-col gap-8",
+          // KRDS --krds-help-panel--shadow: 0 0 0.2rem shadow2, 0 0.8rem 1.6rem shadow3 (_help_panel.scss:29,61)
+          "shadow-[0_0_2px_0_rgba(0,0,0,0.08),0_8px_16px_0_rgba(0,0,0,0.12)]",
+          "dark:shadow-[0_0_2px_0_rgba(0,0,0,0.2),0_8px_16px_0_rgba(0,0,0,0.4)]"
+        )}
+      >
         <div className="help-conts-area flex flex-col gap-8">{children}</div>
       </div>
     </div>
@@ -378,12 +387,17 @@ function TutorialPanelTutorialContent({
       <a
         href="#"
         title="이전으로 돌아가기"
-        className="text-krds-heading-sm text-krds-foreground hover:text-krds-foreground-primary focus:krds-focus-ring inline-flex items-center gap-1 rounded-[2px] font-bold"
+        className="text-krds-heading-sm text-krds-foreground hover:text-krds-foreground-primary focus-visible:krds-focus-ring inline-flex items-center gap-1 rounded-[2px] font-bold"
       >
         <ChevronLeft size={20} aria-hidden={true} className="shrink-0" />
         <span>{title}</span>
       </a>
-      <ul className="krds-tutorial-task-list flex flex-col gap-3">
+      <ul
+        className={cn(
+          "krds-tutorial-task-list flex flex-col gap-10",
+          "[&>li+li]:border-krds-border-light [&>li+li]:border-t [&>li+li]:pt-10"
+        )}
+      >
         {steps.map((step, index) => {
           const stepCount = step.steps?.length ?? 0
           const buttonText = `전체 ${stepCount}단계`
@@ -391,7 +405,7 @@ function TutorialPanelTutorialContent({
             <li key={`${step.title}-${index}`} className="flex flex-col gap-2">
               <h4
                 className={cn(
-                  "tit text-krds-body-md font-bold",
+                  "tit text-krds-body-lg mb-4 font-bold",
                   step.current ? "current text-krds-foreground-primary" : "text-krds-foreground"
                 )}
               >
@@ -418,15 +432,17 @@ function TutorialPanelTutorialContent({
           )
         })}
       </ul>
-      <Button
-        type="button"
-        variant="secondary"
-        size="default"
-        className="coach-btn-stop w-full"
-        onClick={onTutorialStop}
-      >
-        {stopButtonText}
-      </Button>
+      <div className="help-panel-action border-krds-border-light flex w-full flex-col gap-2 border-t pt-8">
+        <Button
+          type="button"
+          variant="secondary"
+          size="default"
+          className="coach-btn-stop w-full"
+          onClick={onTutorialStop}
+        >
+          {stopButtonText}
+        </Button>
+      </div>
     </div>
   )
 }
@@ -438,14 +454,15 @@ function TutorialPanelClose({ children = "접어두기", className, onClick, ...
   return (
     <Button
       type="button"
-      variant="text"
-      size="lg"
+      variant="tertiary"
+      size="sm"
       data-slot="krds-tutorial-panel-close"
       onClick={(event) => {
         onClick?.(event)
         if (!event.defaultPrevented) ctx.setOpen(false)
       }}
-      className={cn("btn-help-panel fold hover:text-krds-foreground-primary self-end", className)}
+      // 접어두기는 krds-btn small tertiary(보더 버튼, help_panel.html:173) — help-panel 접어두기와 동일 처리
+      className={cn("btn-help-panel fold absolute top-10 right-10", className)}
       {...props}
     >
       <span>{children}</span>

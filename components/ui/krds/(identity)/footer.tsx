@@ -1,7 +1,7 @@
 // rsc:safe
 import * as React from "react"
 import { Root as Slot } from "@radix-ui/react-slot"
-import { ChevronRight } from "lucide-react"
+import { ChevronRight, Plus } from "lucide-react"
 import { cn } from "@/lib/cn"
 
 // KRDS footer composition kit (reference: html/code/footer.html, scss/component/_footer.scss).
@@ -38,6 +38,7 @@ function FooterQuick({ className, children, ...props }: React.ComponentProps<"di
 function FooterQuickLink({
   asChild = false,
   className,
+  children,
   ...props
 }: React.ComponentProps<"button"> & { asChild?: boolean }) {
   const Comp = asChild ? Slot : "button"
@@ -46,17 +47,24 @@ function FooterQuickLink({
       data-slot="krds-footer-quick-link"
       type={asChild ? undefined : "button"}
       className={cn(
-        "border-krds-border-light flex h-12 flex-1 items-center justify-between gap-2 px-4",
-        // KRDS(_footer.scss quick): 기본은 투명(흰 스트립 위), hover secondary-5 / pressed secondary-10.
+        // KRDS(_footer.scss:26): background-color: var(--krds-color-action-secondary), which resolves
+        // (krds_tokens.css:397) to --krds-color-light-alpha-white0 = #ffffff00 — CONFIRMED transparent
+        // at rest. hover=secondary-5(#eef2f7, :398)/pressed=secondary-10(#d6e0eb, :399) below are correct.
+        // Height: size-height-8(56px) - 0.2rem border = 54px desktop/tablet; mobile min-height
+        // size-height-7(48px) - 0.2rem = 46px (_footer.scss:24,56).
+        "border-krds-border-light flex min-h-[46px] flex-1 items-center justify-between gap-2 px-4 sm:h-[54px]",
         "text-krds-foreground text-krds-body-md bg-transparent",
         "border-t sm:border-t-0 sm:border-l sm:first:border-l-0",
         "hover:bg-krds-surface-secondary-subtle",
         "active:bg-krds-surface-secondary-pressed",
-        "focus:krds-focus-ring-inset",
+        "focus-visible:krds-focus-ring-inset",
         className
       )}
       {...props}
-    />
+    >
+      {children}
+      <Plus size={20} aria-hidden="true" className="shrink-0" />
+    </Comp>
   )
 }
 
@@ -77,7 +85,7 @@ function FooterLogo({ className, children, ...props }: React.ComponentProps<"div
 // ─── FooterInfo (f-info container) ────────────────────────────────────────────────
 
 function FooterInfo({ className, ...props }: React.ComponentProps<"div">) {
-  return <div data-slot="krds-footer-info" className={cn("flex flex-1 flex-col gap-5", className)} {...props} />
+  return <div data-slot="krds-footer-info" className={cn("flex flex-1 flex-col gap-4", className)} {...props} />
 }
 
 function FooterAddress({ className, ...props }: React.ComponentProps<"p">) {
@@ -91,7 +99,7 @@ function FooterAddress({ className, ...props }: React.ComponentProps<"p">) {
 }
 
 function FooterContact({ className, ...props }: React.ComponentProps<"ul">) {
-  return <ul data-slot="krds-footer-contact" className={cn("flex flex-col gap-3", className)} {...props} />
+  return <ul data-slot="krds-footer-contact" className={cn("flex flex-col gap-2", className)} {...props} />
 }
 
 type FooterContactItemProps = {
@@ -112,11 +120,11 @@ function FooterContactItem({ className, label, note }: FooterContactItemProps) {
 // ─── FooterLinks (f-link container) ───────────────────────────────────────────────
 
 function FooterLinks({ className, ...props }: React.ComponentProps<"div">) {
-  return <div data-slot="krds-footer-links" className={cn("flex shrink-0 flex-col gap-8", className)} {...props} />
+  return <div data-slot="krds-footer-links" className={cn("flex shrink-0 flex-col gap-10", className)} {...props} />
 }
 
 function FooterLinkActions({ className, ...props }: React.ComponentProps<"div">) {
-  return <div data-slot="krds-footer-link-actions" className={cn("flex flex-col gap-2", className)} {...props} />
+  return <div data-slot="krds-footer-link-actions" className={cn("flex flex-col gap-1", className)} {...props} />
 }
 
 function FooterLinkAction({
@@ -133,7 +141,7 @@ function FooterLinkAction({
         "inline-flex w-fit items-center gap-1",
         "text-krds-foreground text-krds-body-md",
         "hover:underline",
-        "focus:krds-focus-ring rounded-sm",
+        "focus-visible:krds-focus-ring rounded-sm",
         className
       )}
       {...props}
@@ -160,10 +168,11 @@ function FooterSnsLink({ className, children, label, target = "_blank", ...props
       target={target}
       rel={rel}
       className={cn(
-        "border-krds-border inline-flex size-12 items-center justify-center rounded-md border",
+        // KRDS SNS 버튼 = .krds-btn xlarge icon border: 원형(rounded-full) + 흰 배경 + 회색 보더
+        "border-krds-border bg-krds-surface inline-flex size-12 items-center justify-center rounded-full border",
         "text-krds-foreground [&>svg]:size-6",
         "hover:bg-krds-surface-subtle",
-        "focus:krds-focus-ring",
+        "focus-visible:krds-focus-ring",
         className
       )}
       {...props}
@@ -180,7 +189,7 @@ function FooterBottom({ className, children, ...props }: React.ComponentProps<"d
   return (
     <div
       data-slot="krds-footer-bottom"
-      className={cn("border-krds-border-light flex flex-col gap-6 border-t pt-6", className)}
+      className={cn("border-krds-border-light flex flex-col gap-10 border-t pt-4", className)}
       {...props}
     >
       {children}
@@ -189,7 +198,7 @@ function FooterBottom({ className, children, ...props }: React.ComponentProps<"d
 }
 
 function FooterMenu({ className, ...props }: React.ComponentProps<"div">) {
-  return <div data-slot="krds-footer-menu" className={cn("flex flex-wrap items-center gap-3", className)} {...props} />
+  return <div data-slot="krds-footer-menu" className={cn("flex flex-wrap items-center gap-2", className)} {...props} />
 }
 
 type FooterMenuLinkProps = React.ComponentProps<"a"> & {
@@ -202,7 +211,7 @@ function FooterMenuLink({ className, point = false, ...props }: FooterMenuLinkPr
       data-slot="krds-footer-menu-link"
       data-point={point ? "" : undefined}
       className={cn(
-        "text-krds-body-sm focus:krds-focus-ring rounded-sm hover:underline",
+        "text-krds-body-sm focus-visible:krds-focus-ring rounded-sm hover:underline",
         point ? "text-krds-foreground-secondary font-bold" : "text-krds-foreground-subtle",
         className
       )}

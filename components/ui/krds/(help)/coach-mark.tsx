@@ -32,12 +32,16 @@ function CoachMark({
   if (!isVisible) return null
 
   return (
-    <div data-slot="krds-coach-mark-root" className="relative">
+    <div data-slot="krds-coach-mark-root" className="relative w-full">
       <div
         data-slot="krds-coach-mark"
         className={cn(
-          "border-krds-border-primary bg-krds-surface relative rounded-[12px] border p-6",
-          "outline outline-[10px] outline-[rgba(37,110,244,0.2)]",
+          // KRDS .txt-box padding = pc-padding-card-large 40px / mobile 24px (_coach_mark.scss:12-13,36,139)
+          "border-krds-border-primary bg-krds-surface relative rounded-[12px] border p-10 max-md:p-6",
+          // KRDS --krds-coach-mark--color-outline: color-border-primary-light = primary-10 in light mode
+          // (_coach_mark.scss:20,44). No mode-aware semantic token exists for this in krds.css, so the
+          // numeric primitive is the closest available match.
+          "outline-krds-primary-10 outline outline-[10px]",
           className
         )}
       >
@@ -65,26 +69,26 @@ function CoachMark({
 
           <h5 className="sr-only">따라하기 가이드</h5>
 
-          <div className="flex flex-col gap-3">
-            <h6 className="text-krds-body-sm text-krds-foreground font-normal">{title}</h6>
+          <div className="flex flex-col gap-2">
+            <h6 className="text-krds-body-xs text-krds-foreground-subtle font-normal">{title}</h6>
             <p className="text-krds-body-md text-krds-foreground font-normal">{description}</p>
           </div>
 
-          <div className="mt-8 flex items-center gap-2">
-            <div className="text-krds-body-md flex items-center gap-1 font-bold">
+          <div className="mt-4 flex items-center gap-2">
+            <div className="text-krds-body-md text-krds-foreground flex items-center gap-1">
               <span className="sr-only">현재 단계</span>
-              <strong className="text-krds-foreground-primary">{currentStep}</strong>
-              <span aria-hidden="true" className="text-krds-foreground">
-                /
-              </span>
+              <strong className="font-normal">{currentStep}</strong>
+              <span aria-hidden="true">/</span>
               <span className="sr-only">총 단계</span>
-              <span className="text-krds-foreground">{totalSteps}</span>
+              <span>{totalSteps}</span>
             </div>
 
-            <div className="flex flex-1 items-center justify-end gap-4">
+            <div className="flex flex-1 items-center justify-end gap-3">
               <Button variant="text" size="sm" onClick={() => onSkip?.()}>
                 그만보기
               </Button>
+              {/* '이전으로': KRDS coach_mark.html 원본은 그만보기+다음으로만 제공한다.
+                  다단계 흐름에서 뒤로 이동을 지원하는 이 프로젝트의 확장이다. */}
               {currentStep > 1 && (
                 <Button variant="text" size="sm" onClick={() => onPrevious?.()}>
                   이전으로
