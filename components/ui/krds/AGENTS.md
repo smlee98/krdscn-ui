@@ -67,16 +67,19 @@ Wrappers that compose a single shadcn primitive, adding KRDS variant/color via `
 
 **Phase 6 1D wrappers (added by unwrapped-krds-implementation):**
 
-| Component        | shadcn base           | File                               |
-| ---------------- | --------------------- | ---------------------------------- |
-| ContextualHelp   | `popover.tsx`         | `(help)/contextual-help.tsx`       |
-| HelpPanel        | `sheet.tsx`           | `(help)/help-panel.tsx`            |
-| Table            | `table.tsx`           | `(layout)/table.tsx`               |
-| MainMenu         | `navigation-menu.tsx` | `(navigation)/main-menu.tsx`       |
-| LanguageSwitcher | `popover.tsx`         | `(settings)/language-switcher.tsx` |
-| SideNavigation   | `collapsible.tsx`     | `(navigation)/side-navigation.tsx` |
-| CoachMark        | `popover.tsx`         | `(help)/coach-mark.tsx`            |
-| TutorialPanel    | `sheet.tsx`           | `(help)/tutorial-panel.tsx`        |
+| Component        | shadcn base           | File                                |
+| ---------------- | --------------------- | ----------------------------------- |
+| ContextualHelp   | `popover.tsx`         | `(help)/contextual-help.tsx`        |
+| HelpPanel        | `sheet.tsx`           | `(help)/help-panel.tsx`             |
+| Table            | `table.tsx`           | `(layout)/table.tsx`                |
+| MainMenu         | `navigation-menu.tsx` | `(navigation)/main-menu.tsx`        |
+| LanguageSwitcher | `popover.tsx`         | `(settings)/language-switcher.tsx`  |
+| SideNavigation   | `collapsible.tsx`     | `(navigation)/side-navigation.tsx`  |
+| CoachMark        | `popover.tsx`         | `(help)/coach-mark.tsx`             |
+| TutorialPanel    | `sheet.tsx`           | `(help)/tutorial-panel.tsx`         |
+| MainMenuMobile   | `sheet.tsx`           | `(navigation)/main-menu-mobile.tsx` |
+
+> **MainMenuMobile note:** KRDS `.krds-main-menu-mobile` (mobile GNB drawer) was fully unimplemented until this wrapper. Composed on Radix `Dialog` directly (same technique as `(help)/help-panel.tsx`, not the `@/components/ui/sheet` re-export) because the depth4 slide-over panel and custom width/backdrop needs exceed Sheet's defaults. Trigger auto-extraction, contexts for `activeTab`/`activeDepth4`, and 24 compound sub-parts mirror the KRDS DOM regions 1:1 (gnb-header/gnb-utils/gnb-login/gnb-service-menu/sch-input, gnb-body/gnb-menu/menu-wrap/submenu-wrap, depth3-wrap accordion, depth4-wrap full-screen panel, gnb-bottom). No `dynamic/main-menu-mobile.tsx` dual-render dispatcher exists yet (unlike PC `MainMenu`) — only KRDS-mode rendering is implemented; a shadcn-mode fallback is a follow-up if dual-render parity is required.
 
 > **MainMenu R1 note:** shadcn `NavigationMenu` (Radix `NavigationMenuPrimitive`) was sufficient for the KRDS Default story shape (one level of submenu items). The R1 fallback (pure-custom `<nav aria-haspopup/aria-expanded>`) was **not** needed.
 

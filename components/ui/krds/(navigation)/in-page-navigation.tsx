@@ -70,7 +70,7 @@ function InPageNavigationTitle({ className, children }: InPageNavigationTitlePro
   return (
     <strong
       data-slot="krds-in-page-navigation-title"
-      className={cn("text-krds-foreground text-krds-body-md font-bold", className)}
+      className={cn("text-krds-foreground-bolder text-krds-body-md font-bold", className)}
     >
       {children}
     </strong>
@@ -116,7 +116,7 @@ function InPageNavigationItem({ className, children, href, active, onClick }: In
           "text-krds-body-sm",
           "hover:bg-krds-surface-secondary-subtle",
           "active:bg-krds-surface-secondary-pressed",
-          "focus:krds-focus-ring",
+          "focus-visible:krds-focus-ring",
           active
             ? "bg-krds-surface-secondary-subtle text-krds-foreground-secondary font-bold"
             : "text-krds-foreground-subtle",

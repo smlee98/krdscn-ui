@@ -2,7 +2,7 @@
 "use client"
 
 import * as React from "react"
-import { ArrowLeft, ArrowRight, MoreHorizontal } from "lucide-react"
+import { ChevronLeft, ChevronRight, MoreHorizontal } from "lucide-react"
 import { Button } from "@/components/ui/dynamic/button"
 import { cn } from "@/lib/cn"
 
@@ -62,6 +62,16 @@ function PaginationContent({ className, children }: PaginationContentProps) {
       data-slot="krds-pagination-content"
       className={cn("flex items-center gap-2", "max-md:w-full max-md:flex-wrap max-md:justify-center", className)}
     >
+      {/* KRDS mobile: prev/next share the top row (order 0/1) while the number
+          links wrap onto their own full-width row below — equivalent to KRDS's
+          `.page-links{width:100%}` line break (_pagination.scss:143-159). This
+          zero-height, full-basis spacer forces that wrap without requiring
+          callers to group their PaginationItem/PaginationEllipsis children. */}
+      <span
+        aria-hidden="true"
+        data-slot="krds-pagination-content-break"
+        className="hidden max-md:order-2 max-md:block max-md:h-0 max-md:basis-full"
+      />
       {children}
     </div>
   )
@@ -73,7 +83,7 @@ const btnBase = cn(
   "inline-flex h-10 items-center justify-center rounded-[6px] bg-transparent select-none",
   "text-krds-body-md text-krds-foreground-subtle",
   "hover:bg-krds-surface-secondary-subtle active:bg-krds-surface-secondary-pressed",
-  "focus:krds-focus-ring",
+  "focus-visible:krds-focus-ring",
   "disabled:cursor-not-allowed disabled:bg-transparent disabled:text-krds-foreground-disabled disabled:pointer-events-none"
 )
 
@@ -103,7 +113,7 @@ function PaginationPrev({
       onClick={onClick}
       className={cn(btnBase, "gap-1 pr-2 pl-1", className)}
     >
-      <ArrowLeft size={20} aria-hidden="true" />
+      <ChevronLeft size={20} aria-hidden="true" />
       <span>{children ?? "이전"}</span>
     </button>
   )
@@ -136,7 +146,7 @@ function PaginationNext({
       className={cn(btnBase, "gap-1 pr-1 pl-2", "max-md:order-1", className)}
     >
       <span>{children ?? "다음"}</span>
-      <ArrowRight size={20} aria-hidden="true" />
+      <ChevronRight size={20} aria-hidden="true" />
     </button>
   )
 }
@@ -162,7 +172,7 @@ function PaginationItem({ className, children, active, disabled, onClick }: Pagi
       onClick={onClick}
       className={cn(
         btnBase,
-        "w-10",
+        "w-10 max-md:order-3",
         active &&
           "bg-krds-secondary-bold hover:bg-krds-secondary-bold active:bg-krds-secondary-bold font-bold text-white",
         className
@@ -185,7 +195,7 @@ function PaginationEllipsis({ className }: PaginationEllipsisProps) {
       data-slot="krds-pagination-ellipsis"
       aria-hidden="true"
       className={cn(
-        "text-krds-foreground-subtle inline-flex h-10 w-10 items-center justify-center select-none",
+        "text-krds-foreground-subtle inline-flex h-10 w-10 items-center justify-center select-none max-md:order-3",
         className
       )}
     >
@@ -193,6 +203,11 @@ function PaginationEllipsis({ className }: PaginationEllipsisProps) {
     </span>
   )
 }
+
+// ─── PaginationJump (project extension — no KRDS reference equivalent) ────────
+// `PaginationJump`/`PaginationJumpInput`/`PaginationJumpTotal`/`PaginationJumpButton`
+// below are not part of the KRDS uiux pagination spec (no `_pagination.scss` or
+// `pagination.html` counterpart); they're an internal "jump to page" affordance.
 
 // ─── PaginationJump context ───────────────────────────────────────────────────
 
@@ -285,7 +300,7 @@ function PaginationJumpInput({
       className={cn(
         "border-krds-border-dark bg-krds-surface h-10 w-14 rounded-[6px] border px-4",
         "text-krds-foreground text-krds-body-sm text-center",
-        "focus:krds-focus-ring",
+        "focus-visible:krds-focus-ring",
         className
       )}
       {...props}

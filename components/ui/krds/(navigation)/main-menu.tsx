@@ -12,7 +12,10 @@ type MainMenuProps = {
 
 function MainMenu({ className, children }: MainMenuProps) {
   return (
-    <div data-slot="krds-main-menu" className={cn("bg-krds-surface flex w-full flex-col items-center", className)}>
+    <div
+      data-slot="krds-main-menu"
+      className={cn("bg-krds-surface relative flex w-full flex-col items-center", className)}
+    >
       {children}
     </div>
   )
@@ -54,7 +57,7 @@ type MainMenuBarItemProps = {
 
 // KRDS `gnb-main-trigger` active indicator (_main_menu.scss): a `::before` bottom
 // border that animates width 0→100%. Static rendering: a full-width 4px bottom bar
-// in the selected (primary) color, shown only when `active`.
+// in the action-secondary-active (secondary-70) color, shown only when `active`.
 function MainMenuBarItem({
   className,
   children,
@@ -68,18 +71,27 @@ function MainMenuBarItem({
   const sharedClassName = cn(
     "relative inline-flex h-14 items-center gap-2 px-4",
     "text-krds-foreground-subtle text-krds-body-lg font-bold",
-    "hover:text-krds-foreground",
-    "active:text-krds-foreground",
-    "rounded-none focus:krds-focus-ring-inset",
+    "hover:text-krds-foreground hover:bg-krds-surface-secondary-subtle",
+    "active:text-krds-foreground active:bg-krds-surface-secondary-pressed",
+    "rounded-none focus-visible:krds-focus-ring-inset",
     active && "text-krds-foreground",
+    // KRDS `gnb-main-trigger.active::before` border color is action-secondary-active
+    // (secondary-70), not primary-50 (_main_menu.scss:46,100-104,123-137).
     active &&
-      "before:bg-krds-primary-50 before:absolute before:inset-x-0 before:bottom-0 before:h-1 before:content-['']",
+      "before:bg-krds-secondary-bold before:absolute before:inset-x-0 before:bottom-0 before:h-1 before:content-['']",
     className
   )
   const inner = (
     <>
       {children}
-      {hasSubmenu && <ChevronDown size={20} aria-hidden="true" />}
+      {hasSubmenu && (
+        <ChevronDown
+          size={20}
+          aria-hidden="true"
+          // KRDS `gnb-main-trigger.active::after { transform: rotate(-180deg) }` (:128-130).
+          className={cn("transition-transform", expanded && "rotate-180")}
+        />
+      )}
     </>
   )
 
@@ -110,7 +122,10 @@ function MainMenuBarItem({
   )
 }
 
-// ─── MainMenuPanel (open content area below bar) ──────────────────────────────
+// ─── MainMenuPanel (open content area below bar; KRDS gnb-toggle-wrap) ────────
+// KRDS renders this as an absolute, full-width dropdown anchored below the menu
+// bar — not a static in-flow box — scrollable past 70vh, with `MainMenu` (the
+// root) as its positioning context (_main_menu.scss:151-158).
 
 type MainMenuPanelProps = {
   className?: string
@@ -119,9 +134,30 @@ type MainMenuPanelProps = {
 
 function MainMenuPanel({ className, children }: MainMenuPanelProps) {
   return (
-    <div data-slot="krds-main-menu-panel" className={cn("mx-auto flex w-full max-w-[1200px]", className)}>
-      {children}
+    <div
+      data-slot="krds-main-menu-panel"
+      className="border-krds-border-light bg-krds-surface absolute inset-x-0 top-full z-20 max-h-[calc(70vh-17rem)] w-full overflow-y-auto border-t"
+    >
+      <div className={cn("mx-auto flex w-full max-w-[1200px]", className)}>{children}</div>
     </div>
+  )
+}
+
+// ─── MainMenuBackdrop (dim overlay behind an open panel; KRDS gnb-backdrop) ───
+
+type MainMenuBackdropProps = {
+  className?: string
+  active?: boolean
+}
+
+function MainMenuBackdrop({ className, active }: MainMenuBackdropProps) {
+  if (!active) return null
+  return (
+    <div
+      data-slot="krds-main-menu-backdrop"
+      aria-hidden="true"
+      className={cn("fixed inset-0 z-10 bg-black/75", className)}
+    />
   )
 }
 
@@ -144,7 +180,7 @@ function MainMenuPanelShortcut({ className, children, ...props }: React.Componen
       className={cn(
         "inline-flex items-center gap-0.5 px-0.5",
         "text-krds-foreground text-krds-body-sm",
-        "focus:krds-focus-ring rounded-sm",
+        "focus-visible:krds-focus-ring rounded-sm",
         className
       )}
       {...props}
@@ -203,7 +239,7 @@ function MainMenuLink({ className, children, href, external }: MainMenuLinkProps
         "text-krds-foreground text-krds-body-md",
         "hover:bg-krds-surface-secondary-subtle",
         "active:bg-krds-surface-secondary-pressed",
-        "focus:krds-focus-ring",
+        "focus-visible:krds-focus-ring",
         className
       )}
     >
@@ -237,7 +273,7 @@ function MainMenuSidebarItem({ className, children, href, active, hasMore, exter
       className={cn(
         "flex w-full items-center px-6 py-4",
         "text-krds-body-md",
-        "focus:krds-focus-ring",
+        "focus-visible:krds-focus-ring",
         showArrow ? "gap-6" : "gap-2",
         active ? "bg-krds-surface text-krds-foreground-secondary font-bold" : "text-krds-foreground",
         className
@@ -256,6 +292,7 @@ export {
   MainMenuBar,
   MainMenuBarItem,
   MainMenuPanel,
+  MainMenuBackdrop,
   MainMenuPanelHeader,
   MainMenuPanelShortcut,
   MainMenuPanelSidebar,

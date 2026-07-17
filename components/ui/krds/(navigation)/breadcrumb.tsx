@@ -28,21 +28,7 @@ type BreadcrumbListProps = {
 
 function BreadcrumbList({ className, children }: BreadcrumbListProps) {
   return (
-    <ol
-      data-slot="krds-breadcrumb-list"
-      className={cn(
-        "flex flex-wrap items-center gap-1",
-        // KRDS mobile: collapse intermediate crumbs, keep home (first) + current (last),
-        // and surface an ellipsis indicator before the last item. The ellipsis is only
-        // rendered when something is actually collapsed (last item is past nth-child(2)),
-        // so single-item / home+page breadcrumbs render unchanged.
-        "max-md:[&>*:not(:first-child):not(:last-child)]:sr-only",
-        "max-md:[&>*:last-child:not(:first-child):not(:nth-child(2))]:before:content-['…']",
-        "max-md:[&>*:last-child:not(:first-child):not(:nth-child(2))]:before:mr-1",
-        "max-md:[&>*:last-child:not(:first-child):not(:nth-child(2))]:before:text-krds-foreground",
-        className
-      )}
-    >
+    <ol data-slot="krds-breadcrumb-list" className={cn("flex flex-wrap items-center gap-1", className)}>
       {children}
     </ol>
   )
@@ -57,8 +43,35 @@ type BreadcrumbItemProps = {
 
 function BreadcrumbItem({ className, children }: BreadcrumbItemProps) {
   return (
-    <li data-slot="krds-breadcrumb-item" className={cn("inline-flex items-center", className)}>
-      {children}
+    <li
+      data-slot="krds-breadcrumb-item"
+      className={cn(
+        "inline-flex items-center gap-1",
+        // KRDS attaches the separator chevron to each crumb's own `::after` rather than
+        // a sibling DOM node (_breadcrumb.scss:67-77), so the mobile ellipsis gate below
+        // sees only real crumbs when counting nth-child — no separator to throw it off.
+        "[&:not(:last-child)>[data-slot=krds-breadcrumb-item-separator]]:inline-flex",
+        // Mobile: collapse intermediate crumbs, keep home + current, and prefix the
+        // (still-visible) current item with an ellipsis + its own separator chevron
+        // ahead of the label (KRDS `li:last-child::before/::after` + `.txt{order:3}`,
+        // _breadcrumb.scss:106-124).
+        "max-md:[&:not(:first-child):not(:last-child)]:sr-only",
+        "max-md:[&:last-child:not(:first-child):not(:nth-child(2))]:before:content-['…']",
+        "max-md:[&:last-child:not(:first-child):not(:nth-child(2))]:before:text-krds-foreground",
+        "max-md:[&:last-child:not(:first-child):not(:nth-child(2))>[data-slot=krds-breadcrumb-item-separator]]:inline-flex",
+        "max-md:[&:last-child:not(:first-child):not(:nth-child(2))>[data-slot=krds-breadcrumb-item-label]]:order-last",
+        className
+      )}
+    >
+      <span data-slot="krds-breadcrumb-item-label" className="inline-flex items-center gap-1">
+        {children}
+      </span>
+      <ChevronRight
+        aria-hidden="true"
+        size={16}
+        data-slot="krds-breadcrumb-item-separator"
+        className="text-krds-foreground hidden shrink-0"
+      />
     </li>
   )
 }
@@ -70,7 +83,7 @@ const linkBaseClass = cn(
   "text-krds-foreground text-krds-body-sm underline",
   "hover:bg-krds-surface-secondary-subtle",
   "active:bg-krds-surface-secondary-pressed",
-  "focus:krds-focus-ring-inset"
+  "focus-visible:krds-focus-ring-inset"
 )
 
 type BreadcrumbLinkProps = {
@@ -146,24 +159,20 @@ function BreadcrumbEllipsis({ className }: BreadcrumbEllipsisProps) {
   )
 }
 
-// ─── BreadcrumbSeparator ──────────────────────────────────────────────────────
+// ─── BreadcrumbSeparator (deprecated no-op) ───────────────────────────────────
 
+// KRDS renders no separator DOM node — the chevron is each crumb's own trailing
+// `::after` (see BreadcrumbItem above). This is kept only so existing call sites
+// that still render <BreadcrumbSeparator /> between items don't break; a sibling
+// <li> here would re-introduce the nth-child miscount BreadcrumbItem now avoids,
+// so it intentionally renders nothing.
 type BreadcrumbSeparatorProps = {
   className?: string
   children?: React.ReactNode
 }
 
-function BreadcrumbSeparator({ className, children }: BreadcrumbSeparatorProps) {
-  return (
-    <li
-      data-slot="krds-breadcrumb-separator"
-      role="presentation"
-      aria-hidden="true"
-      className={cn("text-krds-foreground inline-flex items-center", className)}
-    >
-      {children ?? <ChevronRight size={16} />}
-    </li>
-  )
+function BreadcrumbSeparator(_props: BreadcrumbSeparatorProps) {
+  return null
 }
 
 export {

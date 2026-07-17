@@ -16,8 +16,11 @@ import { useUISystem } from "@/lib/ui-system"
 
 // ─── shadcn-mode group context (mirrors KRDS SideNavigationGroup) ──────────────
 
-type ShadcnSideNavGroupCtx = { open: boolean; toggle: () => void }
+type ShadcnSideNavGroupCtx = { open: boolean; toggle: () => void; listId: string }
 const ShadcnSideNavGroupContext = React.createContext<ShadcnSideNavGroupCtx | null>(null)
+
+type ShadcnSideNavPopupCtx = { open: boolean; toggle: () => void; panelId: string }
+const ShadcnSideNavPopupContext = React.createContext<ShadcnSideNavPopupCtx | null>(null)
 
 // ─── shadcn-mode parts ──────────────────────────────────────────────────────────
 
@@ -82,6 +85,7 @@ function ShadcnSideNavigationGroup({
   const [uncontrolledOpen, setUncontrolledOpen] = React.useState(defaultOpen ?? false)
   const isControlled = controlledOpen !== undefined
   const open = isControlled ? controlledOpen : uncontrolledOpen
+  const listId = React.useId()
   const toggle = React.useCallback(() => {
     const next = !open
     if (!isControlled) setUncontrolledOpen(next)
@@ -89,7 +93,7 @@ function ShadcnSideNavigationGroup({
   }, [open, isControlled, onOpenChange])
 
   return (
-    <ShadcnSideNavGroupContext.Provider value={{ open, toggle }}>
+    <ShadcnSideNavGroupContext.Provider value={{ open, toggle, listId }}>
       <div
         data-state={open ? "open" : "closed"}
         className={cn("border-border flex w-full flex-col border-b", className)}
@@ -107,6 +111,7 @@ function ShadcnSideNavigationTrigger({ className, children }: React.ComponentPro
     <button
       type="button"
       aria-expanded={ctx?.open ?? false}
+      aria-controls={ctx?.listId}
       onClick={ctx?.toggle}
       className={cn(
         "text-foreground hover:bg-accent focus-visible:ring-ring flex w-full items-center gap-2 px-2 py-4 text-left text-base font-bold focus-visible:ring-2 focus-visible:outline-none",
@@ -127,9 +132,116 @@ function ShadcnSideNavigationList({
   const ctx = React.useContext(ShadcnSideNavGroupContext)
   if (ctx && !ctx.open) return null
   return (
-    <ul className={cn("flex w-full flex-col", ctx && "py-2", bordered && "border-border border-y py-4", className)}>
+    <ul
+      id={ctx ? ctx.listId : undefined}
+      className={cn("flex w-full flex-col", ctx && "py-2", bordered && "border-border border-y py-4", className)}
+    >
       {children}
     </ul>
+  )
+}
+
+function ShadcnSideNavigationPopupGroup({
+  className,
+  children,
+  defaultOpen,
+  open: controlledOpen,
+  onOpenChange,
+}: React.ComponentProps<typeof Krds.SideNavigationPopupGroup>) {
+  const [uncontrolledOpen, setUncontrolledOpen] = React.useState(defaultOpen ?? false)
+  const isControlled = controlledOpen !== undefined
+  const open = isControlled ? controlledOpen : uncontrolledOpen
+  const panelId = React.useId()
+  const toggle = React.useCallback(() => {
+    const next = !open
+    if (!isControlled) setUncontrolledOpen(next)
+    onOpenChange?.(next)
+  }, [open, isControlled, onOpenChange])
+
+  return (
+    <ShadcnSideNavPopupContext.Provider value={{ open, toggle, panelId }}>
+      <li className={cn("w-full", className)}>{children}</li>
+    </ShadcnSideNavPopupContext.Provider>
+  )
+}
+
+function ShadcnSideNavigationPopupTrigger({
+  className,
+  children,
+}: React.ComponentProps<typeof Krds.SideNavigationPopupTrigger>) {
+  const ctx = React.useContext(ShadcnSideNavPopupContext)
+  const Icon = ctx?.open ? ChevronUp : ChevronDown
+  return (
+    <button
+      type="button"
+      aria-haspopup="true"
+      aria-expanded={ctx?.open ?? false}
+      aria-controls={ctx?.panelId}
+      onClick={ctx?.toggle}
+      className={cn(
+        "text-foreground hover:bg-accent focus-visible:ring-ring flex w-full items-center gap-1 rounded-md px-4 py-2 text-left text-base focus-visible:ring-2 focus-visible:outline-none",
+        className
+      )}
+    >
+      <span className="flex items-center pr-2">
+        <span aria-hidden="true" className="bg-foreground inline-block size-1 rounded-full" />
+      </span>
+      <span className="flex-1">{children}</span>
+      <Icon size={20} aria-hidden="true" />
+    </button>
+  )
+}
+
+function ShadcnSideNavigationPopup({ className, children }: React.ComponentProps<typeof Krds.SideNavigationPopup>) {
+  const ctx = React.useContext(ShadcnSideNavPopupContext)
+  const open = ctx?.open ?? false
+  return (
+    <div
+      id={ctx?.panelId}
+      aria-hidden={!open}
+      className={cn(
+        "bg-background invisible absolute top-0 left-[-100%] z-10 h-full w-full opacity-0 transition-[left,opacity,visibility] duration-300 ease-in-out",
+        open && "visible left-0 opacity-100",
+        className
+      )}
+    >
+      {children}
+    </div>
+  )
+}
+
+function ShadcnSideNavigationPopupList({
+  className,
+  children,
+}: React.ComponentProps<typeof Krds.SideNavigationPopupList>) {
+  return <ul className={cn("border-border flex w-full flex-col border-y py-4", className)}>{children}</ul>
+}
+
+function ShadcnSideNavigationPopupItem({
+  className,
+  children,
+  href,
+  external,
+  active,
+}: React.ComponentProps<typeof Krds.SideNavigationPopupItem>) {
+  return (
+    <li className="w-full">
+      <a
+        href={href}
+        aria-current={active ? "page" : undefined}
+        className={cn(
+          "text-foreground hover:bg-accent focus-visible:ring-ring flex w-full items-center gap-1 rounded-md px-4 py-2 text-base focus-visible:ring-2 focus-visible:outline-none",
+          active && "bg-accent font-bold",
+          className
+        )}
+      >
+        <span className="flex items-center pr-2">
+          <span aria-hidden="true" className="bg-foreground inline-block size-1 rounded-full" />
+        </span>
+        <span className="flex-1">{children}</span>
+        {external && <ExternalLink size={20} aria-hidden="true" />}
+      </a>
+    </li>
   )
 }
 
@@ -203,4 +315,34 @@ export function SideNavigationItem(props: React.ComponentProps<typeof Krds.SideN
   const system = useUISystem()
   if (system === "krds") return <Krds.SideNavigationItem {...props} />
   return <ShadcnSideNavigationItem {...props} />
+}
+
+export function SideNavigationPopupGroup(props: React.ComponentProps<typeof Krds.SideNavigationPopupGroup>) {
+  const system = useUISystem()
+  if (system === "krds") return <Krds.SideNavigationPopupGroup {...props} />
+  return <ShadcnSideNavigationPopupGroup {...props} />
+}
+
+export function SideNavigationPopupTrigger(props: React.ComponentProps<typeof Krds.SideNavigationPopupTrigger>) {
+  const system = useUISystem()
+  if (system === "krds") return <Krds.SideNavigationPopupTrigger {...props} />
+  return <ShadcnSideNavigationPopupTrigger {...props} />
+}
+
+export function SideNavigationPopup(props: React.ComponentProps<typeof Krds.SideNavigationPopup>) {
+  const system = useUISystem()
+  if (system === "krds") return <Krds.SideNavigationPopup {...props} />
+  return <ShadcnSideNavigationPopup {...props} />
+}
+
+export function SideNavigationPopupList(props: React.ComponentProps<typeof Krds.SideNavigationPopupList>) {
+  const system = useUISystem()
+  if (system === "krds") return <Krds.SideNavigationPopupList {...props} />
+  return <ShadcnSideNavigationPopupList {...props} />
+}
+
+export function SideNavigationPopupItem(props: React.ComponentProps<typeof Krds.SideNavigationPopupItem>) {
+  const system = useUISystem()
+  if (system === "krds") return <Krds.SideNavigationPopupItem {...props} />
+  return <ShadcnSideNavigationPopupItem {...props} />
 }
