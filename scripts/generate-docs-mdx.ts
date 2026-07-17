@@ -66,10 +66,8 @@ function buildPage(slug: string, labelKo: string, labelEn: string): string {
   lines.push(`description: "${esc(description)}"`)
   lines.push("---")
   lines.push("")
-  if (intro) {
-    lines.push(intro)
-    lines.push("")
-  }
+  // intro 는 frontmatter description 으로만 내보낸다 — 페이지 헤더(app/docs)가
+  // description 을 타이틀 아래에 렌더하므로 본문에 반복하면 같은 문장이 두 번 노출된다.
   if (usage) {
     lines.push("## 사용 지침")
     lines.push("")
