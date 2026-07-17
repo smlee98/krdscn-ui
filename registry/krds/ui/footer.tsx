@@ -1,6 +1,6 @@
 // rsc:safe
 import * as React from "react"
-import { Root as Slot } from "@radix-ui/react-slot"
+import { Slot } from "radix-ui"
 import { ChevronRight, Plus } from "lucide-react"
 import { cn } from "@/lib/utils"
 
@@ -41,7 +41,7 @@ function FooterQuickLink({
   children,
   ...props
 }: React.ComponentProps<"button"> & { asChild?: boolean }) {
-  const Comp = asChild ? Slot : "button"
+  const Comp = asChild ? Slot.Root : "button"
   return (
     <Comp
       data-slot="krds-footer-quick-link"
@@ -133,7 +133,7 @@ function FooterLinkAction({
   children,
   ...props
 }: React.ComponentProps<"a"> & { asChild?: boolean }) {
-  const Comp = asChild ? Slot : "a"
+  const Comp = asChild ? Slot.Root : "a"
   return (
     <Comp
       data-slot="krds-footer-link-action"

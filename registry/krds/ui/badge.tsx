@@ -1,3 +1,4 @@
+// rsc:safe
 /**
  * KRDS Badge — text badge, dot badge, and number badge primitives.
  *
@@ -9,7 +10,7 @@
 
 import * as React from "react"
 import { cva, type VariantProps } from "class-variance-authority"
-import { Root as Slot } from "@radix-ui/react-slot"
+import { Slot } from "radix-ui"
 
 import { cn } from "@/lib/utils"
 
@@ -145,7 +146,7 @@ type BadgeProps = React.ComponentProps<"span"> &
   }
 
 function Badge({ className, size, type, variant, disabled, asChild = false, ...props }: BadgeProps) {
-  const Comp = asChild ? Slot : "span"
+  const Comp = asChild ? Slot.Root : "span"
   return (
     <Comp
       data-slot="krds-badge"

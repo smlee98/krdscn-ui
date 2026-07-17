@@ -1,6 +1,7 @@
+// rsc:safe
 import * as React from "react"
 import { cva, type VariantProps } from "class-variance-authority"
-import { Root as Slot } from "@radix-ui/react-slot"
+import { Slot } from "radix-ui"
 
 import { cn } from "@/lib/utils"
 
@@ -101,7 +102,7 @@ function Tag(props: TagProps) {
       interactive: _i,
       ...rest
     } = props as LinkTagProps & { interactive?: boolean }
-    const Comp = asChild ? Slot : "a"
+    const Comp = asChild ? Slot.Root : "a"
     return (
       <Comp
         data-slot="krds-tag"
@@ -125,7 +126,7 @@ function Tag(props: TagProps) {
     interactive: _i,
     ...rest
   } = props as DeletableTagProps & { interactive?: boolean }
-  const Comp = asChild ? Slot : "span"
+  const Comp = asChild ? Slot.Root : "span"
 
   return (
     <Comp data-slot="krds-tag" className={cn(tagVariants({ size, interactive: false, className }))} {...rest}>

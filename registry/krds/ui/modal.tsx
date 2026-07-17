@@ -1,3 +1,5 @@
+// rsc:client
+"use client"
 /**
  * KRDS Modal — radix Dialog 직접 합성.
  * Sub-parts (locked): ModalRoot, ModalTrigger, ModalOverlay, ModalContent,
@@ -5,8 +7,6 @@
  * NOTE: ModalOverlay is a no-op stub kept for API compatibility — the overlay
  *   is managed internally by ModalContent (which portals to document.body).
  */
-
-"use client"
 
 import * as React from "react"
 import { XIcon } from "lucide-react"

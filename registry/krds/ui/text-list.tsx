@@ -1,3 +1,5 @@
+// rsc:client
+"use client"
 /**
  * KRDS TextList — composes a native ul/ol with KRDS bullet styling.
  *

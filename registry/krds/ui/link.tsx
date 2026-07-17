@@ -4,7 +4,7 @@
 import * as React from "react"
 import NextLink from "next/link"
 import { cva } from "class-variance-authority"
-import { Root as Slot } from "@radix-ui/react-slot"
+import { Slot } from "radix-ui"
 
 import { cn } from "@/lib/utils"
 
@@ -79,9 +79,9 @@ function Link({
 
   if (asChild) {
     return (
-      <Slot data-slot="krds-link" className={classes} {...externalProps} {...props}>
+      <Slot.Root data-slot="krds-link" className={classes} {...externalProps} {...props}>
         {children}
-      </Slot>
+      </Slot.Root>
     )
   }
 

@@ -1,3 +1,5 @@
+// rsc:client
+"use client"
 /**
  * KRDS Checkbox, CheckboxGroup, CheckboxChip — Figma-aligned wrappers.
  *
@@ -12,8 +14,6 @@
  * Radix: CheckboxPrimitive.Root renders as <button>; form integration is handled
  * via Radix's internal hidden input (name/value props on Root).
  */
-
-"use client"
 
 import * as React from "react"
 import { CheckIcon, MinusIcon } from "lucide-react"

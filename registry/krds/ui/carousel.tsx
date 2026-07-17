@@ -1,3 +1,5 @@
+// rsc:client
+"use client"
 /**
  * KRDS Carousel — wraps the shadcn/Embla carousel and adds KRDS-spec indicators.
  *
@@ -15,7 +17,6 @@
  *  - Indicators can be dots OR fraction (collapse to fraction on small screens).
  *  - Pause button = first focusable element in autoplay carousels.
  */
-"use client"
 
 import * as React from "react"
 import { ChevronLeft, ChevronRight, Pause, Play, Plus } from "lucide-react"

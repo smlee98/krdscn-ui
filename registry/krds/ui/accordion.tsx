@@ -1,3 +1,5 @@
+// rsc:client
+"use client"
 /**
  * KRDS Accordion — composes radix-ui Accordion primitives directly.
  *
@@ -12,7 +14,6 @@
  *  - line: 아이템별 상단 보더, 열림 시 gray-50 강조, 컨테이너 하단 보더 유지.
  *  - Open/closed state driven by Radix data-state on each item.
  */
-"use client"
 
 import * as React from "react"
 import { Accordion as AccordionPrimitive } from "radix-ui"

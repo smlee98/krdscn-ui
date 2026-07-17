@@ -1,3 +1,5 @@
+// rsc:client
+"use client"
 /**
  * KRDS Tab compound wrapper — composes radix-ui Tabs primitives directly
  *
@@ -16,7 +18,6 @@
  * Sub-parts (locked): Tab (Root), TabList, TabTrigger, TabContent, TabPanel
  * IMPORTANT: TabContent (no value) and TabPanel (value: string) are DISTINCT types.
  */
-"use client"
 
 import * as React from "react"
 import { Tabs as TabsPrimitive } from "radix-ui"

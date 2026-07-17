@@ -1,3 +1,4 @@
+// rsc:safe
 /**
  * KRDS Button — Figma nodes 305:2236 (button) + 300:26102 (button_text)
  *
@@ -28,7 +29,7 @@
 
 import { cva, type VariantProps } from "class-variance-authority"
 import * as React from "react"
-import { Root as Slot } from "@radix-ui/react-slot"
+import { Slot } from "radix-ui"
 
 import { cn } from "@/lib/utils"
 
@@ -169,7 +170,7 @@ function Button({
   asChild = false,
   ...props
 }: ButtonProps) {
-  const Comp = asChild ? Slot : "button"
+  const Comp = asChild ? Slot.Root : "button"
   return (
     <Comp
       data-slot="krds-button"

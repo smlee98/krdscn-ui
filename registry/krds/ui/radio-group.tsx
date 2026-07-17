@@ -1,3 +1,5 @@
+// rsc:client
+"use client"
 /**
  * KRDS Radio, RadioGroup, RadioChip, RadioSort — radix RadioGroup 직접 합성
  * RadioGroup: RadioGroupPrimitive.Root (value/onValueChange/name 위임)
@@ -9,7 +11,6 @@
  *  - RadioGroup list: node 315:27045
  *  - RadioSort: node 1055:38179
  */
-"use client"
 
 import { CheckIcon } from "lucide-react"
 import { RadioGroup as RadioGroupPrimitive } from "radix-ui"

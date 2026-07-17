@@ -1,3 +1,4 @@
+// rsc:client
 "use client"
 
 import { format } from "date-fns"
