@@ -280,10 +280,14 @@ function CarouselDots({ className, label = "슬라이드 선택", ...rest }: Car
       data-slot="krds-carousel-dots"
       role="tablist"
       aria-label={label}
-      // KRDS .swiper-pagination:not(.swiper-pagination-fraction) (_carousel.scss:17-23) fills
-      // with element-inverse (opposite polarity of the ambient surface) so the pill still reads
-      // over hero imagery; padding-5 = 12px, not the 16px this previously used.
-      className={cn("bg-krds-surface-inverse inline-flex h-10 items-center gap-1 rounded-full px-3", className)}
+      // KRDS .swiper-pagination:not(.swiper-pagination-fraction) (_carousel.scss:17-23) fills with
+      // element-inverse: light = gray-0(#fff 흰색), 고대비 = gray-95(#131416). 이름과 달리
+      // 라이트 모드는 '흰 pill'이다. element-inverse에 대응하는 세만틱 토큰이 없어 numeric+dark:로
+      // 원본을 정확히 재현한다(§4). padding-5 = 12px.
+      className={cn(
+        "bg-krds-gray-0 dark:bg-krds-gray-95 inline-flex h-10 items-center gap-1 rounded-full px-3",
+        className
+      )}
       {...rest}
     >
       {Array.from({ length: slideCount }, (_, i) => {

@@ -15,35 +15,33 @@
  * 구조 (KRDS DOM 영역과 1:1):
  *   <TutorialPanel>                                    (Dialog.Root — open/defaultOpen 전파)
  *     <TutorialPanelTrigger>도움말</TutorialPanelTrigger>   (Dialog.Trigger — 포털 밖)
- *     <TutorialPanelContent>                           (Dialog.Portal + Overlay + Content)
+ *     <TutorialPanelContent>                           (Dialog.Portal + Overlay + Content; .help-panel-wrap 그림자 래퍼 내장)
  *       <TutorialPanelClose />                          (접어두기 — 패널에 고정)
- *       <TutorialPanelContainer>                        (.help-panel-wrap 그림자 래퍼)
- *         <TutorialPanelTabs defaultValue="tutorial">
- *           <TutorialPanelTabPanel value="help">
- *             <TutorialPanelHelpContent>
- *               <TutorialPanelSection title="..." description="...">
+ *       <TutorialPanelTabs defaultValue="tutorial">
+ *         <TutorialPanelTabPanel value="help">
+ *           <TutorialPanelHelpContent>
+ *             <TutorialPanelSection title="..." description="...">
+ *               <TutorialPanelLinkList links={[...]} />
+ *             </TutorialPanelSection>
+ *             <TutorialPanelRelatedService>
+ *               <TutorialPanelServiceGroup title="관련서비스/민원">
  *                 <TutorialPanelLinkList links={[...]} />
- *               </TutorialPanelSection>
- *               <TutorialPanelRelatedService>
- *                 <TutorialPanelServiceGroup title="관련서비스/민원">
- *                   <TutorialPanelLinkList links={[...]} />
- *                 </TutorialPanelServiceGroup>
- *               </TutorialPanelRelatedService>
- *             </TutorialPanelHelpContent>
- *           </TutorialPanelTabPanel>
- *           <TutorialPanelTabPanel value="tutorial">
- *             <TutorialPanelTutorialContent>
- *               <TutorialPanelTitle title="..." href="..." />
- *               <TutorialPanelTaskList>
- *                 <TutorialPanelTask title="..." steps={[...]} isCurrent />
- *               </TutorialPanelTaskList>
- *               <TutorialPanelAction>
- *                 <Button variant="secondary">그만 따라하기</Button>
- *               </TutorialPanelAction>
- *             </TutorialPanelTutorialContent>
- *           </TutorialPanelTabPanel>
- *         </TutorialPanelTabs>
- *       </TutorialPanelContainer>
+ *               </TutorialPanelServiceGroup>
+ *             </TutorialPanelRelatedService>
+ *           </TutorialPanelHelpContent>
+ *         </TutorialPanelTabPanel>
+ *         <TutorialPanelTabPanel value="tutorial">
+ *           <TutorialPanelTutorialContent>
+ *             <TutorialPanelTitle title="..." href="..." />
+ *             <TutorialPanelTaskList>
+ *               <TutorialPanelTask title="..." steps={[...]} isCurrent />
+ *             </TutorialPanelTaskList>
+ *             <TutorialPanelAction>
+ *               <Button variant="secondary">그만 따라하기</Button>
+ *             </TutorialPanelAction>
+ *           </TutorialPanelTutorialContent>
+ *         </TutorialPanelTabPanel>
+ *       </TutorialPanelTabs>
  *     </TutorialPanelContent>
  *   </TutorialPanel>
  *
@@ -191,9 +189,8 @@ function TutorialPanelContent({
           "data-[state=closed]:animate-out data-[state=closed]:slide-out-to-right data-[state=closed]:duration-300",
           "data-[state=open]:animate-in data-[state=open]:slide-in-from-right data-[state=open]:duration-500",
           "inset-y-0 right-0 h-full",
-          // KRDS .help-conts-area padding-top = padding-10 + size-height-6 = 80px, to clear the
-          // fixed '접어두기' close button (_help_panel.scss:66).
-          "flex w-[390px] flex-col gap-8 overflow-y-auto px-10 pt-20 pb-10",
+          "krds-help-panel",
+          "w-[390px] gap-0 p-0 sm:max-w-[390px]",
           "border-krds-border bg-krds-surface-subtler border-l",
           className
         )}
@@ -201,7 +198,23 @@ function TutorialPanelContent({
       >
         <DialogPrimitive.Title className="sr-only">{title}</DialogPrimitive.Title>
         <DialogPrimitive.Description className="sr-only">{description}</DialogPrimitive.Description>
-        {children}
+        {/*
+         * KRDS 원본 `.help-panel-wrap`은 패널을 꽉 채우는 풀블리드 래퍼(position:absolute inset:0)이며
+         * 그림자는 왼쪽 경계에서만 드러난다. h-full 로 패널을 채워 원본과 동일하게 만든다.
+         * (help-panel.tsx 와 동일 구조 — 별도 Container 로 감싸 안쪽에 떠있는 그림자 박스를 만들지 않는다.)
+         */}
+        <div
+          className={cn(
+            "help-panel-wrap flex h-full flex-col",
+            // KRDS --krds-help-panel--shadow: 0 0 0.2rem shadow2, 0 0.8rem 1.6rem shadow3 (_help_panel.scss:29,61)
+            "shadow-[0_0_2px_0_rgba(0,0,0,0.08),0_8px_16px_0_rgba(0,0,0,0.12)]",
+            "dark:shadow-[0_0_2px_0_rgba(0,0,0,0.2),0_8px_16px_0_rgba(0,0,0,0.4)]"
+          )}
+        >
+          {/* KRDS .help-conts-area padding-top = padding-10 + size-height-6 = 80px, to clear the
+              fixed '접어두기' close button (_help_panel.scss:66). */}
+          <div className="help-conts-area flex h-full flex-col gap-8 overflow-y-auto px-10 pt-20 pb-10">{children}</div>
+        </div>
       </DialogPrimitive.Content>
     </DialogPrimitive.Portal>
   )
@@ -231,34 +244,6 @@ function TutorialPanelClose({ className, children, label = "접어두기", ...pr
         <ChevronRight size={16} aria-hidden={true} className="shrink-0" />
       </Button>
     </DialogPrimitive.Close>
-  )
-}
-
-// ─── TutorialPanelContainer ───────────────────────────────────────────────────
-// .help-panel-wrap 그림자 래퍼. Dialog 는 열림 상태에서만 Content 를 마운트하므로 KRDS
-// `.expand`(열림) 클래스를 정적으로 부여한다.
-
-type TutorialPanelContainerProps = React.ComponentProps<"div">
-
-function TutorialPanelContainer({ children, className, ...props }: TutorialPanelContainerProps) {
-  return (
-    <div
-      data-slot="krds-tutorial-panel-container"
-      data-expand="true"
-      className={cn("krds-help-panel expand flex flex-col gap-8", className)}
-      {...props}
-    >
-      <div
-        className={cn(
-          "help-panel-wrap flex flex-col gap-8",
-          // KRDS --krds-help-panel--shadow: 0 0 0.2rem shadow2, 0 0.8rem 1.6rem shadow3 (_help_panel.scss:29,61)
-          "shadow-[0_0_2px_0_rgba(0,0,0,0.08),0_8px_16px_0_rgba(0,0,0,0.12)]",
-          "dark:shadow-[0_0_2px_0_rgba(0,0,0,0.2),0_8px_16px_0_rgba(0,0,0,0.4)]"
-        )}
-      >
-        <div className="help-conts-area flex flex-col gap-8">{children}</div>
-      </div>
-    </div>
   )
 }
 
@@ -543,7 +528,6 @@ export {
   TutorialPanelTrigger,
   TutorialPanelContent,
   TutorialPanelClose,
-  TutorialPanelContainer,
   TutorialPanelTabs,
   TutorialPanelTabPanel,
   TutorialPanelHelpContent,
@@ -565,7 +549,6 @@ export type {
   TutorialPanelTriggerProps,
   TutorialPanelContentProps,
   TutorialPanelCloseProps,
-  TutorialPanelContainerProps,
   TutorialPanelTabsProps,
   TutorialPanelTabPanelProps,
   TutorialPanelSectionProps,
