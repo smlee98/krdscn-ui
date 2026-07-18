@@ -10,12 +10,11 @@ type TooltipVariant = "vertical" | "horizontal" | "box"
 type TooltipSide = "top" | "right" | "bottom" | "left"
 type TooltipAlign = "start" | "center" | "end"
 
-type TooltipProps = {
+type TooltipProps = Omit<React.ComponentProps<typeof TooltipPrimitive.Content>, "children"> & {
   text: React.ReactNode
   variant?: TooltipVariant
   side?: TooltipSide
   align?: TooltipAlign
-  className?: string
   children: React.ReactNode
   delayDuration?: number
 }
@@ -31,9 +30,12 @@ function Tooltip({
   variant = "vertical",
   side,
   align = "center",
+  sideOffset,
+  collisionPadding,
   className,
   children,
   delayDuration = 0,
+  ...rest
 }: TooltipProps) {
   const resolvedSide = side ?? DEFAULT_SIDE[variant]
   const isBox = variant === "box"
@@ -48,8 +50,8 @@ function Tooltip({
             data-variant={variant}
             side={resolvedSide}
             align={align}
-            sideOffset={isBox ? 10 : 8}
-            collisionPadding={8}
+            sideOffset={sideOffset ?? (isBox ? 10 : 8)}
+            collisionPadding={collisionPadding ?? 8}
             className={cn(
               "text-krds-body-sm relative z-50",
               "animate-in fade-in-0 zoom-in-95",
@@ -59,6 +61,7 @@ function Tooltip({
                 : "bg-krds-surface-inverse rounded-[4px] px-3 py-1 whitespace-nowrap text-white max-[420px]:max-w-[calc(100vw-2rem)] max-[420px]:whitespace-normal",
               className
             )}
+            {...rest}
           >
             {text}
             <TooltipArrowMark isBox={isBox} side={resolvedSide} align={align} />

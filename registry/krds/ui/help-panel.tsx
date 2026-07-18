@@ -18,7 +18,9 @@
  *       <HelpPanelClose />                               (접어두기 — 패널에 고정)
  *       <HelpPanelBody srOnlyTitle="도움">
  *         <HelpSection title="..." description="...">
- *           <HelpLinkList links={[{ text, href, target?, icon? }]} />
+ *           <HelpLinkList>
+ *             <HelpLinkListItem href="...">...</HelpLinkListItem>
+ *           </HelpLinkList>
  *         </HelpSection>
  *         <HelpRelatedService>
  *           <HelpServiceGroup title="관련서비스/민원">...</HelpServiceGroup>
@@ -26,7 +28,9 @@
  *         <HelpContentArea>
  *           <HelpTutorialTitle title="..." href="..." />
  *           <HelpCoachProcess>
- *             <HelpCoachTask title="..." expandText="..." steps={[...]} />
+ *             <HelpCoachTask title="..." expandText="...">
+ *               <HelpCoachStep>...</HelpCoachStep>
+ *             </HelpCoachTask>
  *           </HelpCoachProcess>
  *         </HelpContentArea>
  *       </HelpPanelBody>
@@ -266,45 +270,53 @@ function HelpSection({ title, description, helpLabel = "도움말", className, c
   )
 }
 
-// ─── HelpLinkList ─────────────────────────────────────────────────────────────
+// ─── HelpLinkList / HelpLinkListItem ──────────────────────────────────────────
 
-type HelpLinkItem = {
-  text: React.ReactNode
+type HelpLinkListProps = React.ComponentProps<"ul">
+
+function HelpLinkList({ className, children, ...props }: HelpLinkListProps) {
+  return (
+    <ul data-slot="krds-help-link-list" className={cn("link-list flex flex-col gap-2", className)} {...props}>
+      {children}
+    </ul>
+  )
+}
+
+type HelpLinkListItemProps = Omit<React.ComponentProps<"li">, "children"> & {
   href: string
   target?: React.HTMLAttributeAnchorTarget
   icon?: React.ReactNode
-}
-
-type HelpLinkListProps = React.ComponentProps<"ul"> & {
-  links: HelpLinkItem[]
   iconPosition?: "left" | "right"
+  children: React.ReactNode
 }
 
-function HelpLinkList({ links, iconPosition = "right", className, ...props }: HelpLinkListProps) {
+function HelpLinkListItem({
+  href,
+  target,
+  icon,
+  iconPosition = "right",
+  className,
+  children,
+  ...props
+}: HelpLinkListItemProps) {
+  const resolvedIcon = icon ?? <ChevronRight className="size-4" aria-hidden="true" />
   return (
-    <ul data-slot="krds-help-link-list" className={cn("link-list flex flex-col gap-2", className)} {...props}>
-      {links.map((link, i) => {
-        const icon = link.icon ?? <ChevronRight className="size-4" aria-hidden="true" />
-        return (
-          <li key={i}>
-            <HelpLink
-              href={link.href}
-              target={link.target}
-              className={cn(
-                // KRDS .link-list 링크는 검정(text-basic) 17px 무밑줄 + 아이콘 (help_panel.html — 파랑/밑줄 아님)
-                "text-krds-body-md text-krds-foreground inline-flex items-center gap-1",
-                "hover:underline",
-                "focus-visible:krds-focus-ring"
-              )}
-            >
-              {iconPosition === "left" && icon}
-              <span>{link.text}</span>
-              {iconPosition === "right" && icon}
-            </HelpLink>
-          </li>
-        )
-      })}
-    </ul>
+    <li data-slot="krds-help-link-list-item" className={className} {...props}>
+      <HelpLink
+        href={href}
+        target={target}
+        className={cn(
+          // KRDS .link-list 링크는 검정(text-basic) 17px 무밑줄 + 아이콘 (help_panel.html — 파랑/밑줄 아님)
+          "text-krds-body-md text-krds-foreground inline-flex items-center gap-1",
+          "hover:underline",
+          "focus-visible:krds-focus-ring"
+        )}
+      >
+        {iconPosition === "left" && resolvedIcon}
+        <span>{children}</span>
+        {iconPosition === "right" && resolvedIcon}
+      </HelpLink>
+    </li>
   )
 }
 
@@ -397,10 +409,9 @@ type HelpCoachTaskProps = Omit<React.ComponentProps<"li">, "title"> & {
   title: React.ReactNode
   isCurrent?: boolean
   expandText: React.ReactNode
-  steps: React.ReactNode[]
 }
 
-function HelpCoachTask({ title, isCurrent = false, expandText, steps, className, ...props }: HelpCoachTaskProps) {
+function HelpCoachTask({ title, isCurrent = false, expandText, className, children, ...props }: HelpCoachTaskProps) {
   return (
     <li data-slot="krds-help-coach-task" className={cn("flex flex-col gap-2", className)} {...props}>
       <h4
@@ -414,15 +425,19 @@ function HelpCoachTask({ title, isCurrent = false, expandText, steps, className,
       <Disclosure className="conts-expand-area">
         <DisclosureTrigger>{expandText}</DisclosureTrigger>
         <DisclosureContent>
-          <ol className="text-krds-body-sm text-krds-foreground list-decimal pl-5">
-            {steps.map((step, i) => (
-              <li key={i} className="mb-1 last:mb-0">
-                {step}
-              </li>
-            ))}
-          </ol>
+          <ol className="text-krds-body-sm text-krds-foreground list-decimal pl-5">{children}</ol>
         </DisclosureContent>
       </Disclosure>
+    </li>
+  )
+}
+
+type HelpCoachStepProps = React.ComponentProps<"li">
+
+function HelpCoachStep({ className, children, ...props }: HelpCoachStepProps) {
+  return (
+    <li data-slot="krds-help-coach-step" className={cn("mb-1 last:mb-0", className)} {...props}>
+      {children}
     </li>
   )
 }
@@ -460,11 +475,13 @@ export {
   HelpPanelBody,
   HelpSection,
   HelpLinkList,
+  HelpLinkListItem,
   HelpRelatedService,
   HelpServiceGroup,
   HelpTutorialTitle,
   HelpCoachProcess,
   HelpCoachTask,
+  HelpCoachStep,
   HelpPanelAction,
   HelpContentArea,
 }
@@ -476,8 +493,9 @@ export type {
   HelpPanelBodyProps,
   HelpSectionProps,
   HelpLinkListProps,
-  HelpLinkItem,
+  HelpLinkListItemProps,
   HelpServiceGroupProps,
   HelpTutorialTitleProps,
   HelpCoachTaskProps,
+  HelpCoachStepProps,
 }

@@ -2615,8 +2615,50 @@
       "required": false
     },
     {
+      "name": "alignOffset",
+      "type": "number",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "aria-label",
+      "type": "string",
+      "description": "A more descriptive label for accessibility purpose",
+      "required": false
+    },
+    {
+      "name": "arrowPadding",
+      "type": "number",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "asChild",
+      "type": "boolean",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "avoidCollisions",
+      "type": "boolean",
+      "description": "",
+      "required": false
+    },
+    {
       "name": "className",
       "type": "string",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "collisionBoundary",
+      "type": "Boundary | Boundary[]",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "collisionPadding",
+      "type": "number | Partial<Record<\"top\" | \"right\" | \"bottom\" | \"left\", number>>",
       "description": "",
       "required": false
     },
@@ -2628,8 +2670,68 @@
       "required": false
     },
     {
+      "name": "forceMount",
+      "type": "true",
+      "description": "Used to force mounting when more control is needed. Useful when\ncontrolling animation with React animation libraries.",
+      "required": false
+    },
+    {
+      "name": "hideWhenDetached",
+      "type": "boolean",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "id",
+      "type": "string",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "onClick",
+      "type": "MouseEventHandler<HTMLDivElement>",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "onEscapeKeyDown",
+      "type": "((event: KeyboardEvent) => void)",
+      "description": "Event handler called when the escape key is down.\nCan be prevented.",
+      "required": false
+    },
+    {
+      "name": "onPointerDownOutside",
+      "type": "((event: PointerDownOutsideEvent) => void)",
+      "description": "Event handler called when the a `pointerdown` event happens outside of the `Tooltip`.\nCan be prevented.",
+      "required": false
+    },
+    {
       "name": "side",
       "type": "enum",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "sideOffset",
+      "type": "number",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "sticky",
+      "type": "enum",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "style",
+      "type": "CSSProperties",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "tabIndex",
+      "type": "number",
       "description": "",
       "required": false
     },
@@ -2638,6 +2740,12 @@
       "type": "ReactNode",
       "description": "",
       "required": true
+    },
+    {
+      "name": "updatePositionStrategy",
+      "type": "enum",
+      "description": "",
+      "required": false
     },
     {
       "name": "variant",
