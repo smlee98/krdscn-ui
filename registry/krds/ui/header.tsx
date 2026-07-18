@@ -200,11 +200,18 @@ function HeaderUtilityDropdown({
           </button>
         </PopoverPrimitive.Trigger>
         <PopoverPrimitive.Portal>
-          <PopoverPrimitive.Content asChild align="end" sideOffset={4}>
+          <PopoverPrimitive.Content asChild align="center" sideOffset={6}>
             <ul
               data-slot="krds-header-utility-dropdown-menu"
-              className={cn("border-krds-border bg-krds-surface z-50 min-w-[160px] rounded-md border py-1 shadow-md")}
+              className={cn(
+                "border-krds-border bg-krds-surface relative z-50 min-w-[160px] rounded-md border py-1 shadow-md"
+              )}
             >
+              {/* 원본 .krds-drop-wrap .drop-menu::before — 중앙 꼬리 (common.css:873) */}
+              <span
+                aria-hidden
+                className="border-krds-border bg-krds-surface pointer-events-none absolute -top-[6px] left-1/2 block h-3 w-3 -translate-x-1/2 rotate-45 border border-r-transparent border-b-transparent"
+              />
               {children}
             </ul>
           </PopoverPrimitive.Content>
@@ -362,11 +369,18 @@ function HeaderActionDropdown({
         </PopoverPrimitive.Trigger>
         <PopoverPrimitive.Portal>
           <PopoverPrimitive.Content
-            align="end"
-            sideOffset={4}
+            align="center"
+            sideOffset={6}
             data-slot="krds-header-action-dropdown-panel"
-            className={cn("border-krds-border bg-krds-surface z-50 min-w-[260px] rounded-md border p-4 shadow-md")}
+            className={cn(
+              "border-krds-border bg-krds-surface relative z-50 min-w-[260px] rounded-md border p-4 shadow-md"
+            )}
           >
+            {/* 원본 .krds-drop-wrap .drop-menu::before — 중앙 꼬리 (common.css:873) */}
+            <span
+              aria-hidden
+              className="border-krds-border bg-krds-surface pointer-events-none absolute -top-[6px] left-1/2 block h-3 w-3 -translate-x-1/2 rotate-45 border border-r-transparent border-b-transparent"
+            />
             {children}
           </PopoverPrimitive.Content>
         </PopoverPrimitive.Portal>

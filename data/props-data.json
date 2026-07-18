@@ -255,7 +255,7 @@
     {
       "name": "confirmButtonText",
       "type": "string",
-      "defaultValue": "선택",
+      "defaultValue": "확인",
       "description": "",
       "required": false
     },
@@ -314,7 +314,7 @@
       "name": "holidays",
       "type": "string[]",
       "defaultValue": "[]",
-      "description": "Explicit holiday dates rendered in the KRDS \"day-off\" red color (weekends are auto-colored).",
+      "description": "Explicit holiday dates rendered in the KRDS \"day-off\" red color (Sundays are auto-colored).",
       "required": false
     },
     {

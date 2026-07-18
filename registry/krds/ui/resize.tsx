@@ -24,7 +24,7 @@ const DEFAULT_LABELS: Record<ResizeScale, string> = {
   md: "보통",
   lg: "조금 크게",
   xlg: "크게",
-  xxlg: "가장 크게",
+  xxlg: "가장크게",
 }
 
 const SCALE_ORDER: ResizeScale[] = ["sm", "md", "lg", "xlg", "xxlg"]

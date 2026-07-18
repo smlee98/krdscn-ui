@@ -167,8 +167,6 @@ function DateInput({
             )}
           >
             <Calendar
-              // KRDS date-input 팝오버의 확정 버튼 원문은 "확인" (단독 Calendar 기본 "선택"과 다름)
-              confirmButtonText="확인"
               {...calendarProps}
               mode="single"
               position={calendarPosition}

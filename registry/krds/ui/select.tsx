@@ -340,7 +340,7 @@ function SelectItem({ className, children, ...props }: SelectItemProps) {
       {...props}
     >
       <SelectPrimitive.ItemText>{children}</SelectPrimitive.ItemText>
-      <SelectPrimitive.ItemIndicator>
+      <SelectPrimitive.ItemIndicator data-slot="krds-select-item-indicator">
         <CheckIcon className={cn("text-krds-foreground-secondary shrink-0", checkIconSize[size])} aria-hidden="true" />
       </SelectPrimitive.ItemIndicator>
     </SelectPrimitive.Item>

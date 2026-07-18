@@ -38,7 +38,7 @@ export type CalendarProps = Omit<React.HTMLAttributes<HTMLDivElement>, "onChange
   defaultEndDate?: string
   disabledDates?: string[]
   eventDates?: string[]
-  /** Explicit holiday dates rendered in the KRDS "day-off" red color (weekends are auto-colored). */
+  /** Explicit holiday dates rendered in the KRDS "day-off" red color (Sundays are auto-colored). */
   holidays?: string[]
   onChange?: (value: string) => void
   onRangeChange?: (startDate: string, endDate: string) => void
@@ -108,9 +108,9 @@ function KrdsDayButton({ className, day, modifiers, children, ...rest }: React.C
   const isToday = Boolean(modifiers.today)
   const isOutside = Boolean(modifiers.outside)
   const hasEvent = Boolean((modifiers as Record<string, boolean>).hasEvent)
-  // day-off: weekend (Sun/Sat) or explicitly provided holiday → KRDS danger (red) text
+  // day-off: 일요일 또는 명시된 휴일 → KRDS danger(red). 원본은 토요일을 자동 착색하지 않는다(렌더 대조 2026-07-18 확인).
   const weekday = day.date.getDay()
-  const isDayOff = Boolean((modifiers as Record<string, boolean>).dayOff) || weekday === 0 || weekday === 6
+  const isDayOff = Boolean((modifiers as Record<string, boolean>).dayOff) || weekday === 0
   const isHighlighted = isSelectedSingle || isRangeStart || isRangeEnd
 
   return (
@@ -177,6 +177,13 @@ const CALENDAR_DROPDOWN_TRIGGER =
   "h-10 gap-1 rounded-[6px] px-2 font-bold text-krds-body-md text-krds-foreground " +
   "data-[state=open]:bg-krds-surface-secondary-subtle hover:bg-black/5 dark:hover:bg-white/10 [&_svg]:size-4"
 
+// 원본 캘린더 연/월 드롭다운 항목: 체크마크 없음, 현재 항목은 파란 아웃라인 박스(채움/색 변화 없음)
+// — Select sorting 룩(체크+배경)을 원본 룩으로 되돌린다 (렌더 대조 2026-07-18).
+const CALENDAR_DROPDOWN_ITEM =
+  "[&_[data-slot=krds-select-item-indicator]]:hidden " +
+  "data-[state=checked]:bg-transparent data-[state=checked]:text-krds-foreground " +
+  "data-[state=checked]:ring-[1.5px] data-[state=checked]:ring-inset data-[state=checked]:ring-krds-border-primary"
+
 function CalendarNavDropdown({
   axis,
   options,
@@ -204,7 +211,7 @@ function CalendarNavDropdown({
       </SelectTrigger>
       <SelectContent className="max-h-72">
         {options?.map((o) => (
-          <SelectItem key={o.value} value={String(o.value)} disabled={o.disabled}>
+          <SelectItem key={o.value} value={String(o.value)} disabled={o.disabled} className={CALENDAR_DROPDOWN_ITEM}>
             {o.label}
           </SelectItem>
         ))}
@@ -309,7 +316,8 @@ function Calendar({
   monthSelectLabel = "월 선택",
   todayButtonText = "오늘",
   cancelButtonText = "취소",
-  confirmButtonText = "선택",
+  // 원본 KRDS 캘린더 레이어 확정 버튼 원문 (krds-btn primary "확인")
+  confirmButtonText = "확인",
   disabled = false,
   readOnly = false,
   className,
