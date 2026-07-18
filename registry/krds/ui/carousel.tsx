@@ -344,7 +344,9 @@ function CarouselPlayPause({
       className={cn(
         "bg-krds-surface text-krds-foreground inline-flex shrink-0 items-center justify-center rounded-full",
         "border-krds-border-light border transition-colors",
-        "hover:border-krds-border",
+        // KRDS [class^=swiper-button-]:hover → action-secondary-hover(secondary-5) 배경 변경
+        // (border 색이 아니라 배경. 화살표 버튼과 동일 처리).
+        "hover:bg-krds-surface-secondary-subtle",
         "focus-visible:krds-focus-ring",
         ARROW_SIZE_CLASS[size],
         className
@@ -376,7 +378,8 @@ function CarouselMore({ href, size = "small", label = "모든 슬라이드 보�
   const classes = cn(
     "inline-flex shrink-0 items-center justify-center rounded-full bg-krds-surface text-krds-foreground",
     "border-krds-border-light border transition-colors",
-    "hover:border-krds-border",
+    // KRDS [class^=swiper-button-]:hover → action-secondary-hover(secondary-5) 배경 변경 (화살표와 동일)
+    "hover:bg-krds-surface-secondary-subtle",
     "focus-visible:krds-focus-ring",
     ARROW_SIZE_CLASS[size],
     className
