@@ -521,6 +521,7 @@
     {
       "name": "orientation",
       "type": "enum",
+      "defaultValue": "horizontal",
       "description": "",
       "required": false
     },
