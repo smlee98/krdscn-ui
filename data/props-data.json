@@ -773,22 +773,14 @@
       "required": false
     },
     {
-      "name": "cancelButtonText",
-      "type": "string",
-      "defaultValue": "취소",
+      "name": "calendarProps",
+      "type": "Partial<CalendarProps>",
       "description": "",
       "required": false
     },
     {
       "name": "className",
       "type": "string",
-      "description": "",
-      "required": false
-    },
-    {
-      "name": "confirmButtonText",
-      "type": "string",
-      "defaultValue": "확인",
       "description": "",
       "required": false
     },
@@ -800,32 +792,14 @@
       "required": false
     },
     {
-      "name": "defaultValue",
-      "type": "string",
-      "description": "",
-      "required": false
-    },
-    {
       "name": "disabled",
       "type": "boolean",
       "description": "",
       "required": false
     },
     {
-      "name": "disabledDates",
-      "type": "string[]",
-      "description": "",
-      "required": false
-    },
-    {
       "name": "error",
       "type": "ReactNode",
-      "description": "",
-      "required": false
-    },
-    {
-      "name": "eventDates",
-      "type": "string[]",
       "description": "",
       "required": false
     },
@@ -860,64 +834,20 @@
       "required": false
     },
     {
-      "name": "monthSelectLabel",
-      "type": "string",
-      "defaultValue": "월 선택",
-      "description": "",
-      "required": false
-    },
-    {
-      "name": "nextButtonLabel",
-      "type": "string",
-      "defaultValue": "다음 달",
-      "description": "",
-      "required": false
-    },
-    {
       "name": "onCalendarOpenChange",
       "type": "((isOpen: boolean) => void)",
       "description": "",
       "required": false
     },
     {
-      "name": "onCancel",
-      "type": "(() => void)",
-      "description": "",
-      "required": false
-    },
-    {
-      "name": "onChange",
-      "type": "((value: string) => void)",
-      "description": "",
-      "required": false
-    },
-    {
       "name": "onClick",
-      "type": "MouseEventHandler<HTMLInputElement>",
+      "type": "MouseEventHandler<HTMLButtonElement>",
       "description": "",
       "required": false
     },
     {
-      "name": "onConfirm",
-      "type": "(() => void)",
-      "description": "",
-      "required": false
-    },
-    {
-      "name": "onMonthChange",
-      "type": "((month: number) => void)",
-      "description": "",
-      "required": false
-    },
-    {
-      "name": "onTodayClick",
-      "type": "(() => void)",
-      "description": "",
-      "required": false
-    },
-    {
-      "name": "onYearChange",
-      "type": "((year: number) => void)",
+      "name": "onValueChange",
+      "type": "((value: string) => void)",
       "description": "",
       "required": false
     },
@@ -929,9 +859,9 @@
       "required": false
     },
     {
-      "name": "prevButtonLabel",
+      "name": "placeholder",
       "type": "string",
-      "defaultValue": "이전 달",
+      "defaultValue": "YYYY.MM.DD",
       "description": "",
       "required": false
     },
@@ -968,22 +898,8 @@
       "required": false
     },
     {
-      "name": "todayButtonText",
-      "type": "string",
-      "defaultValue": "오늘",
-      "description": "",
-      "required": false
-    },
-    {
       "name": "value",
       "type": "string",
-      "description": "",
-      "required": false
-    },
-    {
-      "name": "yearSelectLabel",
-      "type": "string",
-      "defaultValue": "연도 선택",
       "description": "",
       "required": false
     }
@@ -1672,18 +1588,24 @@
       "name": "closeOnEsc",
       "type": "boolean",
       "defaultValue": "true",
-      "description": "Pressing Escape closes the dialog (default: true). Implemented via Radix default.",
+      "description": "Escape 키로 닫기 (기본값: true).",
       "required": false
     },
     {
       "name": "closeOnOverlayClick",
       "type": "boolean",
       "defaultValue": "true",
-      "description": "",
+      "description": "오버레이(딤) 클릭으로 닫기 (기본값: true).",
       "required": false
     },
     {
       "name": "defaultOpen",
+      "type": "boolean",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "modal",
       "type": "boolean",
       "description": "",
       "required": false
@@ -1701,23 +1623,10 @@
       "required": false
     },
     {
-      "name": "portalContainer",
-      "type": "string | HTMLElement",
-      "description": "@deprecated Portal container is now document.body. Ignored.",
-      "required": false
-    },
-    {
       "name": "size",
       "type": "enum",
       "defaultValue": "md",
       "description": "",
-      "required": false
-    },
-    {
-      "name": "usePortal",
-      "type": "boolean",
-      "defaultValue": "true",
-      "description": "@deprecated Portal is now managed by the radix Dialog layer. Ignored.",
       "required": false
     },
     {
