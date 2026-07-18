@@ -50,9 +50,9 @@
  *     </MainMenuMobileContent>
  *   </MainMenuMobile>
  *
- * Trigger is auto-extracted from children via React element identity and mounted
- * as Dialog.Trigger (asChild is an internal implementation detail here, not a
- * prop exposed on any of these components — same technique as HelpPanel).
+ * Trigger 와 Content 는 별도 파트로 소비자가 명시 합성한다 — 루트(Dialog.Root)가 children 을
+ * `child.type` 으로 분류하지 않는다. Trigger 가 스스로 Dialog.Trigger asChild 로 Button 을 감싸고,
+ * Radix Dialog.Root 컨텍스트가 Trigger↔Content 를 자동 연결한다(help-panel/tutorial-panel 과 동일).
  * Depth4Panel is a fixed, full-viewport slide-over (KRDS `depth4-wrap`: right
  * -100% → 0) independent of DOM nesting depth, toggled by `activeDepth4` state
  * held on Content and opened via a `depth4` value on MainMenuMobileDepth3Item.
@@ -89,38 +89,15 @@ function useMainMenuMobileContext(component: string): MainMenuMobileCtx {
 
 // ─── MainMenuMobile (Root) ─────────────────────────────────────────────────────
 
-type MainMenuMobileProps = {
-  open?: boolean
-  defaultOpen?: boolean
-  onOpenChange?: (open: boolean) => void
-  children?: React.ReactNode
-}
+type MainMenuMobileProps = React.ComponentProps<typeof DialogPrimitive.Root>
 
-function MainMenuMobile({ open, defaultOpen = false, onOpenChange, children }: MainMenuMobileProps) {
-  // Split children: MainMenuMobileTrigger mounts as Dialog.Trigger asChild;
-  // everything else (MainMenuMobileContent) renders as a sibling of the trigger.
-  const childArray = React.Children.toArray(children)
-  const triggers: React.ReactNode[] = []
-  const inner: React.ReactNode[] = []
-  childArray.forEach((child) => {
-    if (React.isValidElement(child) && child.type === MainMenuMobileTrigger) {
-      triggers.push(child)
-    } else {
-      inner.push(child)
-    }
-  })
-
-  return (
-    <DialogPrimitive.Root open={open} defaultOpen={defaultOpen} onOpenChange={onOpenChange}>
-      {triggers.length > 0 ? <DialogPrimitive.Trigger asChild>{triggers[0]}</DialogPrimitive.Trigger> : null}
-      {inner}
-    </DialogPrimitive.Root>
-  )
+function MainMenuMobile(props: MainMenuMobileProps) {
+  return <DialogPrimitive.Root {...props} />
 }
 
 // ─── MainMenuMobileTrigger ──────────────────────────────────────────────────────
-// Mounted as Dialog.Trigger asChild by MainMenuMobile root — aria-expanded and
-// aria-controls are wired automatically by Radix Dialog.Trigger.
+// Dialog.Trigger asChild 로 Button 을 감싼다 — open 동작, aria-expanded, aria-controls
+// 는 Radix Dialog.Trigger 가 자동 배선한다.
 
 type MainMenuMobileTriggerProps = Omit<React.ComponentProps<"button">, "children"> & {
   children?: React.ReactNode
@@ -129,28 +106,29 @@ type MainMenuMobileTriggerProps = Omit<React.ComponentProps<"button">, "children
 
 function MainMenuMobileTrigger({ className, children, label = "전체메뉴", ...props }: MainMenuMobileTriggerProps) {
   return (
-    <Button
-      type="button"
-      variant="text"
-      size="icon"
-      className={className}
-      {...props}
-      data-slot="krds-main-menu-mobile-trigger"
-      aria-label={typeof label === "string" ? label : undefined}
-    >
-      {children ?? <Menu className="size-6" aria-hidden="true" />}
-      {typeof label !== "string" ? <span className="sr-only">{label}</span> : null}
-    </Button>
+    <DialogPrimitive.Trigger asChild>
+      <Button
+        type="button"
+        variant="text"
+        size="icon"
+        className={className}
+        {...props}
+        data-slot="krds-main-menu-mobile-trigger"
+        aria-label={typeof label === "string" ? label : undefined}
+      >
+        {children ?? <Menu className="size-6" aria-hidden="true" />}
+        {typeof label !== "string" ? <span className="sr-only">{label}</span> : null}
+      </Button>
+    </DialogPrimitive.Trigger>
   )
 }
 
 // ─── MainMenuMobileContent (gnb-wrap) ──────────────────────────────────────────
 
-type MainMenuMobileContentProps = {
-  className?: string
-  children?: React.ReactNode
+type MainMenuMobileContentProps = React.ComponentProps<typeof DialogPrimitive.Content> & {
   defaultActiveTab?: string
   title?: string
+  overlayClassName?: string
 }
 
 function MainMenuMobileContent({
@@ -158,6 +136,8 @@ function MainMenuMobileContent({
   children,
   defaultActiveTab,
   title = "전체메뉴",
+  overlayClassName,
+  ...props
 }: MainMenuMobileContentProps) {
   const [activeTab, setActiveTab] = React.useState<string | undefined>(defaultActiveTab)
   const [activeDepth4, setActiveDepth4] = React.useState<string | null>(null)
@@ -180,7 +160,8 @@ function MainMenuMobileContent({
         className={cn(
           "fixed inset-0 z-50 bg-black/75",
           "data-[state=closed]:animate-out data-[state=closed]:fade-out-0",
-          "data-[state=open]:animate-in data-[state=open]:fade-in-0"
+          "data-[state=open]:animate-in data-[state=open]:fade-in-0",
+          overlayClassName
         )}
       />
       <DialogPrimitive.Content
@@ -193,6 +174,7 @@ function MainMenuMobileContent({
           "md:w-2/5",
           className
         )}
+        {...props}
       >
         <DialogPrimitive.Title className="sr-only">{title}</DialogPrimitive.Title>
         <DialogPrimitive.Description className="sr-only">모바일 전체메뉴 패널</DialogPrimitive.Description>
