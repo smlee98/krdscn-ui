@@ -13,7 +13,7 @@ export default function DateInputControlled() {
         label="레이블"
         value={value}
         isCalendarOpen={isCalendarOpen}
-        onChange={setValue}
+        onValueChange={setValue}
         onCalendarOpenChange={setIsCalendarOpen}
       />
       <div className="bg-krds-surface-subtler text-krds-body-sm text-krds-foreground mt-4 rounded-[4px] p-4">
