@@ -10,7 +10,7 @@ type TooltipVariant = "vertical" | "horizontal" | "box"
 type TooltipSide = "top" | "right" | "bottom" | "left"
 type TooltipAlign = "start" | "center" | "end"
 
-export interface TooltipProps {
+type TooltipProps = {
   text: React.ReactNode
   variant?: TooltipVariant
   side?: TooltipSide
@@ -129,3 +129,4 @@ function TooltipArrowMark({ isBox, side, align }: { isBox: boolean; side: Toolti
 }
 
 export { Tooltip }
+export type { TooltipProps, TooltipVariant, TooltipSide, TooltipAlign }

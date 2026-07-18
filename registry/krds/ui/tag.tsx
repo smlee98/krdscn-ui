@@ -72,11 +72,11 @@ function CloseIcon({ className }: { className?: string }) {
   )
 }
 
-function TagDelete({ className, ...props }: React.ComponentProps<"button">) {
+function TagDelete({ className, "aria-label": ariaLabel = "태그 삭제", ...props }: React.ComponentProps<"button">) {
   return (
     <button
       type="button"
-      aria-label="태그 삭제"
+      aria-label={ariaLabel}
       className={cn(
         "inline-flex size-4 shrink-0 items-center justify-center",
         "disabled:cursor-not-allowed disabled:opacity-40",

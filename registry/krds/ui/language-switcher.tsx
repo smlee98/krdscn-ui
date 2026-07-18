@@ -34,6 +34,8 @@ type LanguageSwitcherTriggerProps = {
 type LanguageSwitcherMenuProps = {
   className?: string
   children?: React.ReactNode
+  /** 언어 목록(listbox)의 접근성 라벨. */
+  listLabel?: string
 }
 
 type LanguageSwitcherCurrentProps = {
@@ -193,7 +195,7 @@ function LanguageSwitcherTrigger({ label = "Language", className }: LanguageSwit
 
 // ─── Menu ─────────────────────────────────────────────────────────────────────
 
-function LanguageSwitcherMenu({ className, children }: LanguageSwitcherMenuProps) {
+function LanguageSwitcherMenu({ className, children, listLabel = "언어 선택" }: LanguageSwitcherMenuProps) {
   const { closeOnClickOutside } = useLangCtx()
 
   return (
@@ -219,7 +221,7 @@ function LanguageSwitcherMenu({ className, children }: LanguageSwitcherMenuProps
             aria-hidden
             className="border-krds-border-light bg-krds-surface pointer-events-none absolute -top-[6px] left-1/2 block h-3 w-3 -translate-x-1/2 rotate-45 border border-r-transparent border-b-transparent"
           />
-          <ul role="listbox" aria-label="언어 선택" className="m-0 flex list-none flex-col gap-2 p-0">
+          <ul role="listbox" aria-label={listLabel} className="m-0 flex list-none flex-col gap-2 p-0">
             {children}
           </ul>
         </div>

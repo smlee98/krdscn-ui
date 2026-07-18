@@ -349,6 +349,10 @@ type MainMenuMobileSearchProps = {
   placeholder?: string
   value?: string
   onSearch?: (value: string) => void
+  /** 검색 입력의 title 속성. */
+  inputTitle?: string
+  /** 검색 제출 버튼의 접근성 라벨. */
+  searchButtonLabel?: string
 }
 
 function MainMenuMobileSearch({
@@ -356,6 +360,8 @@ function MainMenuMobileSearch({
   placeholder = "찾고자 하는 메뉴명을 입력해 주세요",
   value,
   onSearch,
+  inputTitle = "찾고자 하는 메뉴명 입력",
+  searchButtonLabel = "검색",
 }: MainMenuMobileSearchProps) {
   const [internal, setInternal] = React.useState(value ?? "")
   const isControlled = value !== undefined
@@ -377,10 +383,10 @@ function MainMenuMobileSearch({
           if (!isControlled) setInternal(next)
         }}
         placeholder={placeholder}
-        title="찾고자 하는 메뉴명 입력"
+        title={inputTitle}
         className="flex-1"
       />
-      <Button type="submit" variant="text" size="icon" aria-label="검색">
+      <Button type="submit" variant="text" size="icon" aria-label={searchButtonLabel}>
         <Search className="size-5" aria-hidden="true" />
       </Button>
     </form>

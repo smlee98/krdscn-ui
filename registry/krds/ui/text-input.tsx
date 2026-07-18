@@ -20,6 +20,8 @@ type TextInputProps = Omit<
   defaultValue?: string
   showPasswordToggle?: boolean
   showClearButton?: boolean
+  /** 내용 삭제 버튼의 접근성 라벨. */
+  clearLabel?: string
   hint?: React.ReactNode
   error?: React.ReactNode
   success?: React.ReactNode
@@ -60,6 +62,7 @@ function TextInput({
   onChange,
   showPasswordToggle = false,
   showClearButton = false,
+  clearLabel = "내용 삭제",
   className,
   type,
   disabled,
@@ -148,7 +151,7 @@ function TextInput({
         {showClear && (
           <button
             type="button"
-            aria-label="내용 삭제"
+            aria-label={clearLabel}
             onClick={handleClear}
             className="text-krds-foreground focus-visible:krds-focus-ring inline-flex shrink-0 items-center justify-center rounded-full"
           >

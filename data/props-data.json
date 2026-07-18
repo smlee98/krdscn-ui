@@ -718,6 +718,13 @@
       "required": false
     },
     {
+      "name": "closeLabel",
+      "type": "string",
+      "defaultValue": "닫기",
+      "description": "Accessible label for the close button.",
+      "required": false
+    },
+    {
       "name": "defaultOpen",
       "type": "boolean",
       "description": "Uncontrolled initial open state.",
@@ -740,6 +747,13 @@
       "type": "enum",
       "defaultValue": "top",
       "description": "Vertical position of the popover relative to the trigger.",
+      "required": false
+    },
+    {
+      "name": "triggerLabel",
+      "type": "string",
+      "defaultValue": "도움말",
+      "description": "Accessible label for the help trigger button.",
       "required": false
     }
   ],
@@ -1551,7 +1565,12 @@
     {
       "name": "defaultOpen",
       "type": "boolean",
-      "defaultValue": "false",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "modal",
+      "type": "boolean",
       "description": "",
       "required": false
     },
@@ -2251,6 +2270,13 @@
       "name": "className",
       "type": "string",
       "description": "",
+      "required": false
+    },
+    {
+      "name": "clearLabel",
+      "type": "string",
+      "defaultValue": "내용 삭제",
+      "description": "내용 삭제 버튼의 접근성 라벨.",
       "required": false
     },
     {

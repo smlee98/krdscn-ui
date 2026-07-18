@@ -33,6 +33,10 @@ type ContextualHelpProps = {
   onOpenChange?: (open: boolean) => void
   /** Class applied to the outer wrapper. */
   className?: string
+  /** Accessible label for the help trigger button. */
+  triggerLabel?: string
+  /** Accessible label for the close button. */
+  closeLabel?: string
 }
 
 // Geometry for the arrow placement.
@@ -54,6 +58,8 @@ function ContextualHelp({
   defaultOpen,
   onOpenChange,
   className,
+  triggerLabel = "도움말",
+  closeLabel = "닫기",
 }: ContextualHelpProps) {
   const align = alignment === "left" ? "start" : alignment === "right" ? "end" : "center"
   const alignOffset = alignment === "center" ? 0 : ALIGN_OFFSET
@@ -69,7 +75,7 @@ function ContextualHelp({
         <PopoverPrimitive.Trigger asChild>
           <button
             type="button"
-            aria-label="도움말"
+            aria-label={triggerLabel}
             className={cn(
               "inline-flex size-6 items-center justify-center rounded-[4px]",
               "bg-transparent transition-colors",
@@ -77,7 +83,7 @@ function ContextualHelp({
               "focus-visible:krds-focus-ring"
             )}
           >
-            <span className="sr-only">도움말</span>
+            <span className="sr-only">{triggerLabel}</span>
             <Info className="text-krds-foreground-information size-5" aria-hidden="true" />
           </button>
         </PopoverPrimitive.Trigger>
@@ -108,7 +114,7 @@ function ContextualHelp({
             <div className="flex items-start gap-4">
               <div className="text-krds-body-sm text-krds-foreground flex flex-1 flex-col gap-2">{children}</div>
               <PopoverPrimitive.Close
-                aria-label="닫기"
+                aria-label={closeLabel}
                 className={cn(
                   "text-krds-foreground inline-flex size-4 shrink-0 items-center justify-center",
                   "hover:text-krds-foreground-primary",
