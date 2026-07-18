@@ -18,7 +18,6 @@ import { Popover as PopoverPrimitive } from "radix-ui"
 
 import { cn } from "@/lib/utils"
 import { SkipLink } from "@/registry/krds/ui/skip-link"
-import { Masthead } from "@/registry/krds/ui/masthead"
 
 // ─── HeaderLink (a/button 다형성 단일 헬퍼 — raw <a> 복붙 방지) ──────────────────
 //
@@ -81,25 +80,20 @@ function Header({
   const hidden = useHeaderScroll(sticky)
 
   return (
-    <>
-      {/* KRDS renders #krds-masthead as a sibling before #krds-header, not nested — masthead scrolls
-          away normally while only the header row itself sticks/hides (_header.scss:32-33). */}
-      <Masthead />
-      <header
-        data-slot="krds-header"
-        className={cn(
-          "w-full",
-          sticky && "sticky top-0 z-50 transition-transform duration-300 ease-in-out",
-          sticky && hidden && "-translate-y-full",
-          className
-        )}
-        {...props}
-      >
-        {/* WAI: SkipLink는 <header>의 첫 자식으로 유지한다. */}
-        <SkipLink href={skipLinkHref}>{skipLinkLabel}</SkipLink>
-        {children}
-      </header>
-    </>
+    <header
+      data-slot="krds-header"
+      className={cn(
+        "w-full",
+        sticky && "sticky top-0 z-50 transition-transform duration-300 ease-in-out",
+        sticky && hidden && "-translate-y-full",
+        className
+      )}
+      {...props}
+    >
+      {/* WAI: SkipLink는 <header>의 첫 자식으로 유지한다. */}
+      <SkipLink href={skipLinkHref}>{skipLinkLabel}</SkipLink>
+      {children}
+    </header>
   )
 }
 

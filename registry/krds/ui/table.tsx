@@ -11,6 +11,8 @@ export type TableHeadProps = React.ComponentProps<"th">
 export type TableRowProps = React.ComponentProps<"tr">
 export type TableCellProps = React.ComponentProps<"td">
 export type TableCaptionProps = React.ComponentProps<"caption">
+export type TableColgroupProps = React.ComponentProps<"colgroup">
+export type TableColProps = React.ComponentProps<"col">
 export type TableScrollProps = React.ComponentProps<"div"> & {
   /** Bleed full-width on small screens (negative margin + padding). Default false. */
   mobileFullBleed?: boolean
@@ -121,4 +123,26 @@ function TableCaption({ className, ...props }: TableCaptionProps) {
   )
 }
 
-export { Table, TableScroll, TableHeader, TableBody, TableFooter, TableHead, TableRow, TableCell, TableCaption }
+// KRDS 원본 `.tbl.col`은 <colgroup>/<col>로 열 너비를 고정한다(table.html:5-8).
+// 네이티브 요소 그대로 — <col>은 style/width 로 열 폭을 지정한다.
+function TableColgroup({ ...props }: TableColgroupProps) {
+  return <colgroup data-slot="krds-table-colgroup" {...props} />
+}
+
+function TableCol({ ...props }: TableColProps) {
+  return <col data-slot="krds-table-col" {...props} />
+}
+
+export {
+  Table,
+  TableScroll,
+  TableHeader,
+  TableBody,
+  TableFooter,
+  TableHead,
+  TableRow,
+  TableCell,
+  TableCaption,
+  TableColgroup,
+  TableCol,
+}

@@ -270,9 +270,14 @@ function CarouselNumber({ className, ...rest }: CarouselNumberProps) {
 type CarouselDotsProps = React.ComponentProps<"div"> & {
   /** Accessible label for the indicators container. Defaults to "슬라이드 선택". */
   label?: string
+  /**
+   * 전체 배너(hero 이미지 위)처럼 pill을 배경과 분리해야 할 때 테두리를 추가한다.
+   * 원본 카드형 컨텍스트는 테두리 없음(default false).
+   */
+  bordered?: boolean
 }
 
-function CarouselDots({ className, label = "슬라이드 선택", ...rest }: CarouselDotsProps) {
+function CarouselDots({ className, label = "슬라이드 선택", bordered = false, ...rest }: CarouselDotsProps) {
   const { selectedIndex, slideCount, scrollTo } = useKrdsCarousel()
   if (slideCount === 0) return null
   return (
@@ -286,6 +291,7 @@ function CarouselDots({ className, label = "슬라이드 선택", ...rest }: Car
       // 원본을 정확히 재현한다(§4). padding-5 = 12px.
       className={cn(
         "bg-krds-gray-0 dark:bg-krds-gray-95 inline-flex h-10 items-center gap-1 rounded-full px-3",
+        bordered && "border-krds-border-light border",
         className
       )}
       {...rest}

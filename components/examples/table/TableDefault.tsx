@@ -1,8 +1,21 @@
-import { Table, TableHeader, TableBody, TableHead, TableRow, TableCell } from "@/registry/krds/ui/table"
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableCol,
+  TableColgroup,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/registry/krds/ui/table"
 
 export default function TableDefault() {
   return (
     <Table className="w-full">
+      <TableColgroup>
+        <TableCol style={{ width: "30%" }} />
+        <TableCol />
+      </TableColgroup>
       <TableHeader>
         <TableRow>
           <TableHead>제목1</TableHead>

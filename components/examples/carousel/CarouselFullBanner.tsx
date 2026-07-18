@@ -1,11 +1,11 @@
-import { Plus } from "lucide-react"
 import {
   Carousel,
   CarouselContent,
-  CarouselItem,
-  CarouselPrevious,
-  CarouselNext,
   CarouselDots,
+  CarouselItem,
+  CarouselMore,
+  CarouselNext,
+  CarouselPrevious,
 } from "@/registry/krds/ui/carousel"
 import { Button } from "@/registry/krds/ui/button"
 
@@ -66,14 +66,8 @@ export default function CarouselFullBanner() {
       </div>
 
       <div className="absolute bottom-5 left-1/2 flex -translate-x-1/2 items-center gap-2">
-        <CarouselDots />
-        <button
-          type="button"
-          aria-label="모든 슬라이드 보기"
-          className="border-krds-gray-20 hover:border-krds-gray-30 focus-visible:ring-krds-primary-50 bg-krds-surface text-krds-foreground inline-flex size-10 shrink-0 items-center justify-center rounded-full border transition-colors focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none"
-        >
-          <Plus className="size-5" aria-hidden="true" />
-        </button>
+        <CarouselDots bordered />
+        <CarouselMore aria-label="모든 슬라이드 보기" />
       </div>
     </Carousel>
   )

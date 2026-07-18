@@ -58,11 +58,11 @@ pnpm dlx shadcn@latest add \
   https://krdscn-ui.smlee.info/r/footer.json
 ```
 
-Masthead·SkipLink·Identifier는 Header·Footer가 참조하는 파일로 함께 설치됩니다.
+SkipLink·Identifier는 Header·Footer가 참조하는 파일로 함께 설치됩니다. 공식 배너(Masthead)는 별도 항목이며, 페이지 골격에서 헤더 위에 직접 배치합니다.
 
 ### Header
 
-`Header`는 내부에서 공식 배너(Masthead)와 건너뛰기 링크(SkipLink)를 자동으로 렌더링하므로 별도로 배치하지 않습니다. 유틸리티 메뉴·브랜드·액션·내비 네 영역을 조합합니다.
+`Header`는 건너뛰기 링크(SkipLink)를 첫 자식으로 자동 렌더링합니다(WAI Skip Navigation). 공식 배너(Masthead)는 헤더에 내장되지 않으므로, 필요하면 페이지 최상단에서 `Header` 위에 직접 배치합니다. 헤더 자체는 유틸리티 메뉴·브랜드·액션·내비 네 영역을 조합합니다.
 
 ```tsx
 import { Menu, Search } from "lucide-react"
