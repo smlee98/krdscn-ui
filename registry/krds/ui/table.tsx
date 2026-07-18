@@ -1,15 +1,6 @@
 // rsc:safe
 import * as React from "react"
-import {
-  Table as ShadcnTable,
-  TableHeader as ShadcnTableHeader,
-  TableBody as ShadcnTableBody,
-  TableFooter as ShadcnTableFooter,
-  TableHead as ShadcnTableHead,
-  TableRow as ShadcnTableRow,
-  TableCell as ShadcnTableCell,
-  TableCaption as ShadcnTableCaption,
-} from "@/components/ui/table"
+
 import { cn } from "@/lib/utils"
 
 export type TableProps = React.ComponentProps<"table">
@@ -39,17 +30,23 @@ function TableScroll({ className, mobileFullBleed = false, ...props }: TableScro
 
 function Table({ className, ...props }: TableProps) {
   return (
-    // KRDS size-medium(모바일) 이하에서 .tbl min-width 73.2rem → 표가 찌그러지지 않고 TableScroll에서 가로 스크롤 (_table.scss:87).
-    <ShadcnTable data-slot="krds-table" className={cn("w-full max-md:min-w-[732px]", className)} {...props} />
+    <div data-slot="krds-table-container" className="relative w-full overflow-x-auto">
+      {/* KRDS size-medium(모바일) 이하에서 .tbl min-width 73.2rem → 표가 찌그러지지 않고 TableScroll에서 가로 스크롤 (_table.scss:87). */}
+      <table
+        data-slot="krds-table"
+        className={cn("w-full caption-bottom text-sm max-md:min-w-[732px]", className)}
+        {...props}
+      />
+    </div>
   )
 }
 
 function TableHeader({ className, ...props }: TableHeaderProps) {
   return (
-    <ShadcnTableHeader
+    <thead
       data-slot="krds-table-header"
       className={cn(
-        "bg-krds-surface-secondary-subtle [&_tr:hover]:bg-krds-surface-secondary-subtle [&_tr]:border-b-krds-secondary-10",
+        "bg-krds-surface-secondary-subtle [&_tr:hover]:bg-krds-surface-secondary-subtle [&_tr]:border-b-krds-secondary-10 [&_tr]:border-b",
         className
       )}
       {...props}
@@ -58,16 +55,17 @@ function TableHeader({ className, ...props }: TableHeaderProps) {
 }
 
 function TableBody({ className, ...props }: TableBodyProps) {
-  return (
-    <ShadcnTableBody data-slot="krds-table-body" className={cn("[&_tr:last-child]:border-0", className)} {...props} />
-  )
+  return <tbody data-slot="krds-table-body" className={cn("[&_tr:last-child]:border-0", className)} {...props} />
 }
 
 function TableFooter({ className, ...props }: TableFooterProps) {
   return (
-    <ShadcnTableFooter
+    <tfoot
       data-slot="krds-table-footer"
-      className={cn("bg-krds-surface-secondary-subtle border-krds-secondary-10 border-t", className)}
+      className={cn(
+        "bg-krds-surface-secondary-subtle border-krds-secondary-10 border-t font-medium [&>tr]:last:border-b-0",
+        className
+      )}
       {...props}
     />
   )
@@ -75,10 +73,10 @@ function TableFooter({ className, ...props }: TableFooterProps) {
 
 function TableHead({ className, ...props }: TableHeadProps) {
   return (
-    <ShadcnTableHead
+    <th
       data-slot="krds-table-head"
       className={cn(
-        "text-krds-body-sm text-krds-foreground-bolder h-auto min-w-[80px] px-4 py-2 text-left align-middle font-bold break-words whitespace-normal",
+        "text-krds-body-sm text-krds-foreground-bolder h-auto min-w-[80px] px-4 py-2 text-left align-middle font-bold break-words whitespace-normal [&:has([role=checkbox])]:pr-0 [&>[role=checkbox]]:translate-y-[2px]",
         className
       )}
       {...props}
@@ -88,9 +86,12 @@ function TableHead({ className, ...props }: TableHeadProps) {
 
 function TableRow({ className, ...props }: TableRowProps) {
   return (
-    <ShadcnTableRow
+    <tr
       data-slot="krds-table-row"
-      className={cn("border-krds-border-light hover:bg-krds-surface-subtler border-b", className)}
+      className={cn(
+        "has-aria-expanded:bg-muted/50 data-[state=selected]:bg-muted border-krds-border-light hover:bg-krds-surface-subtler border-b transition-colors",
+        className
+      )}
       {...props}
     />
   )
@@ -98,10 +99,10 @@ function TableRow({ className, ...props }: TableRowProps) {
 
 function TableCell({ className, ...props }: TableCellProps) {
   return (
-    <ShadcnTableCell
+    <td
       data-slot="krds-table-cell"
       className={cn(
-        "text-krds-body-md text-krds-foreground-subtle min-w-[80px] px-4 py-3 align-middle break-words whitespace-normal",
+        "text-krds-body-md text-krds-foreground-subtle min-w-[80px] p-2 px-4 py-3 align-middle break-words whitespace-normal [&:has([role=checkbox])]:pr-0 [&>[role=checkbox]]:translate-y-[2px]",
         className
       )}
       {...props}
@@ -110,11 +111,11 @@ function TableCell({ className, ...props }: TableCellProps) {
 }
 
 function TableCaption({ className, ...props }: TableCaptionProps) {
-  // KRDS/a11y: caption at top (shadcn primitive defaults to caption-bottom).
+  // KRDS/a11y: caption at top (native <caption> defaults to caption-side: bottom via `caption-bottom` on <table>).
   return (
-    <ShadcnTableCaption
+    <caption
       data-slot="krds-table-caption"
-      className={cn("text-krds-foreground-disabled caption-top", className)}
+      className={cn("text-krds-foreground-disabled mt-4 caption-top text-sm", className)}
       {...props}
     />
   )
