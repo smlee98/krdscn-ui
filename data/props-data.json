@@ -2622,25 +2622,13 @@
   ],
   "KrdsTutorialPanel": [
     {
-      "name": "activeTab",
-      "type": "enum",
+      "name": "defaultOpen",
+      "type": "boolean",
       "description": "",
       "required": false
     },
     {
-      "name": "className",
-      "type": "string",
-      "description": "",
-      "required": false
-    },
-    {
-      "name": "defaultActiveTab",
-      "type": "enum",
-      "description": "",
-      "required": false
-    },
-    {
-      "name": "isOpen",
+      "name": "modal",
       "type": "boolean",
       "description": "",
       "required": false
@@ -2652,8 +2640,8 @@
       "required": false
     },
     {
-      "name": "onTabChange",
-      "type": "((tab: TutorialPanelTab) => void)",
+      "name": "open",
+      "type": "boolean",
       "description": "",
       "required": false
     }
