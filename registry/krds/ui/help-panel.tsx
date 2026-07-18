@@ -2,147 +2,183 @@
 "use client"
 
 /**
- * KRDS HelpPanel — right-side drawer composed on shadcn Sheet (Radix Dialog).
+ * KRDS HelpPanel — 우측 슬라이드 드로어(도움말). 통합 `radix-ui` 패키지의 Dialog
+ * 프리미티브를 직접 합성한다(Sheet 패턴): 개폐 상태·포커스 트랩·포털·오버레이·ESC·
+ * 슬라이드 애니메이션을 Dialog 가 담당하며, 손으로 만든 상태머신은 없다.
+ * (main-menu-mobile.tsx 와 동일한 접근 — shadcn Sheet 베이스를 감싸지 않는다.)
  *
- * Reference: https://www.krds.go.kr/storybook/react/?path=/docs/components-helppanel--docs
+ * 원본 셀렉터: `.help-panel-wrap` (help_panel.html)
+ *   _help_panel.scss — shadow(:29,61) / `.help-conts-area` padding-top(:66) / `.btn-help-panel`(:195)
  * Figma: node 360-44743
  *
- * Structure:
- *   <HelpPanel defaultOpen={false}>
- *     <HelpPanelTrigger>도움말</HelpPanelTrigger>   (rendered OUTSIDE — SheetTrigger)
- *     <HelpPanelContent srOnlyTitle="도움">         (rendered INSIDE SheetContent)
- *       <HelpSection title="..." description="...">
- *         <HelpLinkList links={[{text, href, target?, icon?}]} />
- *       </HelpSection>
- *       <HelpRelatedService>
- *         <HelpServiceGroup title="관련서비스/민원">...</HelpServiceGroup>
- *       </HelpRelatedService>
+ * 구조 (KRDS DOM 영역과 1:1):
+ *   <HelpPanel>
+ *     <HelpPanelTrigger>도움말</HelpPanelTrigger>        (Dialog.Trigger — 포털 밖)
+ *     <HelpPanelContent>                                 (Dialog.Portal + Overlay + Content)
+ *       <HelpPanelClose />                               (접어두기 — 패널에 고정)
+ *       <HelpPanelBody srOnlyTitle="도움">
+ *         <HelpSection title="..." description="...">
+ *           <HelpLinkList links={[{ text, href, target?, icon? }]} />
+ *         </HelpSection>
+ *         <HelpRelatedService>
+ *           <HelpServiceGroup title="관련서비스/민원">...</HelpServiceGroup>
+ *         </HelpRelatedService>
+ *         <HelpContentArea>
+ *           <HelpTutorialTitle title="..." href="..." />
+ *           <HelpCoachProcess>
+ *             <HelpCoachTask title="..." expandText="..." steps={[...]} />
+ *           </HelpCoachProcess>
+ *         </HelpContentArea>
+ *       </HelpPanelBody>
+ *       <HelpPanelAction>
+ *         <Button variant="secondary">그만 따라하기</Button>
+ *       </HelpPanelAction>
  *     </HelpPanelContent>
- *     <HelpPanelAction>
- *       <Button variant="secondary">그만 따라하기</Button>
- *     </HelpPanelAction>
- *     <HelpPanelClose />
  *   </HelpPanel>
  *
- * Trigger is auto-extracted from children via React element identity and
- * mounted as SheetTrigger; everything else renders inside SheetContent.
- * Open/close state, focus trap, portal, overlay, ESC handling, and slide
- * animation come from Sheet — no manual state management here.
+ * Trigger 와 Content 는 별도 파트로 소비자가 명시 합성한다 — 루트가 children 을
+ * `child.type` 으로 분류하지 않는다(Radix Dialog.Root 컨텍스트가 Trigger↔Content 를
+ * 자동 연결). 커스텀 context 는 두지 않는다.
  *
- * [의도적 이탈] KRDS 원본(help_panel.html)은 "도움/따라하기" 탭 패널 하나로 구성되며
- * tutorial_panel.html 과 마크업이 동일(기본 활성 탭만 다름)하다. 이 프로젝트는 이를
- * 의도적으로 분해했다: 원본 탭 구조는 (help)/tutorial-panel.tsx 가 충실 구현하고,
- * 본 HelpPanel 은 탭 없는 단순 도움말 변형을 제공한다. 탭 구조가 필요하면
- * TutorialPanel 을 사용할 것.
+ * [의도적 이탈] KRDS 원본(help_panel.html)은 "도움/따라하기" 탭 패널로 구성되며
+ * tutorial_panel.html 과 마크업이 동일(기본 활성 탭만 다름)하다. 본 HelpPanel 은 탭
+ * 없는 단순 도움말 변형을 제공하고, 탭 구조는 tutorial-panel.tsx 가 충실 구현한다.
+ * 코치 진행(HelpCoachProcess/HelpCoachTask)·튜토리얼 제목(HelpTutorialTitle) 마크업은
+ * tutorial-panel 과 겹치는 부분이 있어, 두 파일이 실제로 공유하게 되면 lib/ 승격 후보다.
  */
 
 import * as React from "react"
-import { ChevronRight, ChevronLeft, HelpCircle, MessageCircleQuestion, Phone } from "lucide-react"
+import { ChevronLeft, ChevronRight, HelpCircle } from "lucide-react"
 
 import { Dialog as DialogPrimitive } from "radix-ui"
 
+import { cn } from "@/lib/utils"
 import { Button } from "@/registry/krds/ui/button"
 import { Disclosure, DisclosureContent, DisclosureTrigger } from "@/registry/krds/ui/disclosure"
-import { cn } from "@/lib/utils"
 
-// ─── HelpPanel (Root) ─────────────────────────────────────────────────────────
+// ─── HelpLink (raw <a> 복붙 방지용 파일 내 단일 타입 헬퍼) ─────────────────────────
+//
+// 링크 목록·튜토리얼 제목의 앵커를 한 곳으로 모은다. className 은 호출부가 KRDS 클래스를
+// 그대로 전달하고(캐스트 없음), target="_blank" 일 때 rel 을 자동 보강한다.
+type HelpLinkProps = React.ComponentProps<"a"> & { href: string }
 
-type HelpPanelProps = {
-  isOpen?: boolean
-  defaultOpen?: boolean
-  onOpenChange?: (open: boolean) => void
-  className?: string
-  children?: React.ReactNode
-}
-
-function HelpPanel({ isOpen, defaultOpen = false, onOpenChange, className, children }: HelpPanelProps) {
-  // Split children: HelpPanelTrigger mounts as SheetTrigger asChild;
-  // everything else renders inside SheetContent.
-  const childArray = React.Children.toArray(children)
-  const triggers: React.ReactNode[] = []
-  const inner: React.ReactNode[] = []
-  childArray.forEach((child) => {
-    if (React.isValidElement(child) && child.type === HelpPanelTrigger) {
-      triggers.push(child)
-    } else {
-      inner.push(child)
-    }
-  })
-
+function HelpLink({ href, target, rel, ...props }: HelpLinkProps) {
   return (
-    <DialogPrimitive.Root open={isOpen} defaultOpen={defaultOpen} onOpenChange={onOpenChange}>
-      {triggers.length > 0 ? <DialogPrimitive.Trigger asChild>{triggers[0]}</DialogPrimitive.Trigger> : null}
-      <DialogPrimitive.Portal>
-        <DialogPrimitive.Overlay className="data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:animate-in data-[state=open]:fade-in-0 fixed inset-0 z-50 bg-black/50" />
-        <DialogPrimitive.Content
-          data-slot="krds-help-panel"
-          className={cn(
-            "fixed z-50 flex flex-col transition ease-in-out",
-            "data-[state=closed]:animate-out data-[state=closed]:slide-out-to-right data-[state=closed]:duration-300",
-            "data-[state=open]:animate-in data-[state=open]:slide-in-from-right data-[state=open]:duration-500",
-            "inset-y-0 right-0 h-full",
-            "krds-help-panel",
-            "w-[390px] gap-0 p-0 sm:max-w-[390px]",
-            "border-krds-border bg-krds-surface-subtler border-l",
-            className
-          )}
-        >
-          <DialogPrimitive.Title className="sr-only">도움말</DialogPrimitive.Title>
-          <DialogPrimitive.Description className="sr-only">도움말 패널 콘텐츠</DialogPrimitive.Description>
-          <div
-            className={cn(
-              "help-panel-wrap flex h-full flex-col",
-              // KRDS --krds-help-panel--shadow: 0 0 0.2rem shadow2, 0 0.8rem 1.6rem shadow3 (_help_panel.scss:29,61)
-              "shadow-[0_0_2px_0_rgba(0,0,0,0.08),0_8px_16px_0_rgba(0,0,0,0.12)]",
-              "dark:shadow-[0_0_2px_0_rgba(0,0,0,0.2),0_8px_16px_0_rgba(0,0,0,0.4)]"
-            )}
-          >
-            {/* KRDS .help-conts-area padding-top = padding-10 + size-height-6 = 80px, to clear the
-                fixed '접어두기' close button (_help_panel.scss:66). */}
-            <div className="help-conts-area flex h-full flex-col overflow-y-auto px-10 pt-20 pb-10">{inner}</div>
-          </div>
-        </DialogPrimitive.Content>
-      </DialogPrimitive.Portal>
-    </DialogPrimitive.Root>
+    <a
+      data-slot="krds-help-link"
+      href={href}
+      target={target}
+      rel={rel ?? (target === "_blank" ? "noopener noreferrer" : undefined)}
+      {...props}
+    />
   )
 }
 
+// ─── HelpPanel (Root) ─────────────────────────────────────────────────────────
+// Dialog.Root 그대로 — open/defaultOpen/onOpenChange 를 프리미티브에 전파한다.
+
+type HelpPanelProps = React.ComponentProps<typeof DialogPrimitive.Root>
+
+function HelpPanel(props: HelpPanelProps) {
+  return <DialogPrimitive.Root {...props} />
+}
+
 // ─── HelpPanelTrigger ─────────────────────────────────────────────────────────
-// Mounted as SheetTrigger asChild by HelpPanel root — open behavior, aria-expanded,
-// and aria-controls are wired automatically by Sheet (Radix Dialog.Trigger).
+// Dialog.Trigger asChild 로 Button 을 감싼다 — open 동작, aria-expanded, aria-controls
+// 는 Radix Dialog.Trigger 가 자동 배선한다.
 
 type HelpPanelTriggerProps = Omit<React.ComponentProps<"button">, "children"> & {
   children?: React.ReactNode
+  label?: string
 }
 
-function HelpPanelTrigger({ className, children, ...props }: HelpPanelTriggerProps) {
+function HelpPanelTrigger({ className, children, label = "도움말", ...props }: HelpPanelTriggerProps) {
   return (
-    <Button
-      type="button"
-      variant="tertiary"
-      size="sm"
-      className={cn("gap-1", className)}
-      {...props}
-      // data-slot 은 {...props} 뒤에 둬야 한다: dispatcher(dynamic/help-panel)가
-      // SheetTrigger asChild 로 감싸면 Radix Slot 이 data-slot="sheet-trigger" 를
-      // props 로 주입한다. 앞에 두면 그 값에 덮여 krds-help-panel-trigger 가 사라진다.
-      // (modal/tutorial-panel 등 다른 KRDS 트리거와의 슬롯 네이밍 일관성 유지)
-      data-slot="krds-help-panel-trigger"
-    >
-      <ChevronLeft className="size-4" aria-hidden="true" />
-      <span>{children ?? "도움말"}</span>
-    </Button>
+    <DialogPrimitive.Trigger asChild>
+      <Button
+        type="button"
+        variant="tertiary"
+        size="sm"
+        className={cn("gap-1", className)}
+        {...props}
+        // data-slot 은 {...props} 뒤에 둔다: Button 내부가 data-slot="krds-button" 을 먼저
+        // 쓰고 전달받은 props 로 덮으므로, 여기서 명시해야 krds-help-panel-trigger 로 확정된다.
+        data-slot="krds-help-panel-trigger"
+      >
+        <ChevronLeft className="size-4" aria-hidden="true" />
+        <span>{children ?? label}</span>
+      </Button>
+    </DialogPrimitive.Trigger>
+  )
+}
+
+// ─── HelpPanelContent ─────────────────────────────────────────────────────────
+// 드로어 표면 — Dialog.Portal + Overlay + Content. children 은 콘텐츠 영역에 렌더된다.
+
+type HelpPanelContentProps = React.ComponentProps<typeof DialogPrimitive.Content> & {
+  title?: string
+  description?: string
+  overlayClassName?: string
+}
+
+function HelpPanelContent({
+  title = "도움말",
+  description = "도움말 패널 콘텐츠",
+  overlayClassName,
+  className,
+  children,
+  ...props
+}: HelpPanelContentProps) {
+  return (
+    <DialogPrimitive.Portal>
+      <DialogPrimitive.Overlay
+        className={cn(
+          "data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:animate-in data-[state=open]:fade-in-0 fixed inset-0 z-50 bg-black/50",
+          overlayClassName
+        )}
+      />
+      <DialogPrimitive.Content
+        data-slot="krds-help-panel-content"
+        className={cn(
+          "fixed z-50 flex flex-col transition ease-in-out",
+          "data-[state=closed]:animate-out data-[state=closed]:slide-out-to-right data-[state=closed]:duration-300",
+          "data-[state=open]:animate-in data-[state=open]:slide-in-from-right data-[state=open]:duration-500",
+          "inset-y-0 right-0 h-full",
+          "krds-help-panel",
+          "w-[390px] gap-0 p-0 sm:max-w-[390px]",
+          "border-krds-border bg-krds-surface-subtler border-l",
+          className
+        )}
+        {...props}
+      >
+        <DialogPrimitive.Title className="sr-only">{title}</DialogPrimitive.Title>
+        <DialogPrimitive.Description className="sr-only">{description}</DialogPrimitive.Description>
+        <div
+          className={cn(
+            "help-panel-wrap flex h-full flex-col",
+            // KRDS --krds-help-panel--shadow: 0 0 0.2rem shadow2, 0 0.8rem 1.6rem shadow3 (_help_panel.scss:29,61)
+            "shadow-[0_0_2px_0_rgba(0,0,0,0.08),0_8px_16px_0_rgba(0,0,0,0.12)]",
+            "dark:shadow-[0_0_2px_0_rgba(0,0,0,0.2),0_8px_16px_0_rgba(0,0,0,0.4)]"
+          )}
+        >
+          {/* KRDS .help-conts-area padding-top = padding-10 + size-height-6 = 80px, to clear the
+              fixed '접어두기' close button (_help_panel.scss:66). */}
+          <div className="help-conts-area flex h-full flex-col overflow-y-auto px-10 pt-20 pb-10">{children}</div>
+        </div>
+      </DialogPrimitive.Content>
+    </DialogPrimitive.Portal>
   )
 }
 
 // ─── HelpPanelClose ───────────────────────────────────────────────────────────
-// "접어두기" button — closes the panel via SheetClose.
+// "접어두기" 버튼 — Dialog.Close 로 패널을 닫는다.
 
 type HelpPanelCloseProps = Omit<React.ComponentProps<"button">, "children"> & {
   children?: React.ReactNode
+  label?: string
 }
 
-function HelpPanelClose({ className, children, ...props }: HelpPanelCloseProps) {
+function HelpPanelClose({ className, children, label = "접어두기", ...props }: HelpPanelCloseProps) {
   return (
     <DialogPrimitive.Close asChild>
       <button
@@ -162,22 +198,24 @@ function HelpPanelClose({ className, children, ...props }: HelpPanelCloseProps) 
         )}
         {...props}
       >
-        <span>{children ?? "접어두기"}</span>
+        <span>{children ?? label}</span>
         <ChevronRight className="size-4" aria-hidden="true" />
       </button>
     </DialogPrimitive.Close>
   )
 }
 
-// ─── HelpPanelContent ─────────────────────────────────────────────────────────
+// ─── HelpPanelBody ────────────────────────────────────────────────────────────
+// 콘텐츠 그룹 래퍼 (KRDS .help-conts-area-inner) — 도움말 섹션들을 gap-8 로 묶는다.
+// close/action 은 이 래퍼 밖(콘텐츠 영역 직계)에 두어 KRDS 간격을 유지한다.
 
-type HelpPanelContentProps = React.ComponentProps<"div"> & {
+type HelpPanelBodyProps = React.ComponentProps<"div"> & {
   srOnlyTitle?: string
 }
 
-function HelpPanelContent({ srOnlyTitle = "도움", className, children, ...props }: HelpPanelContentProps) {
+function HelpPanelBody({ srOnlyTitle = "도움", className, children, ...props }: HelpPanelBodyProps) {
   return (
-    <div data-slot="krds-help-panel-content" className={cn("flex flex-col gap-8", className)} {...props}>
+    <div data-slot="krds-help-panel-body" className={cn("flex flex-col gap-8", className)} {...props}>
       <div className="help-conts-area-inner flex flex-col gap-8">
         <h3 className="sr-only">{srOnlyTitle}</h3>
         {children}
@@ -191,9 +229,10 @@ function HelpPanelContent({ srOnlyTitle = "도움", className, children, ...prop
 type HelpSectionProps = React.ComponentProps<"div"> & {
   title: React.ReactNode
   description?: React.ReactNode
+  helpLabel?: string
 }
 
-function HelpSection({ title, description, className, children, ...props }: HelpSectionProps) {
+function HelpSection({ title, description, helpLabel = "도움말", className, children, ...props }: HelpSectionProps) {
   return (
     <div
       data-slot="krds-help-section"
@@ -210,9 +249,9 @@ function HelpSection({ title, description, className, children, ...props }: Help
               "text-krds-foreground inline-flex size-8 items-center justify-center rounded",
               "hover:bg-krds-surface-subtle focus-visible:krds-focus-ring"
             )}
-            aria-label="도움말"
+            aria-label={helpLabel}
           >
-            <span className="sr-only">도움말</span>
+            <span className="sr-only">{helpLabel}</span>
             <HelpCircle className="size-5" aria-hidden="true" />
           </button>
         </h4>
@@ -248,10 +287,9 @@ function HelpLinkList({ links, iconPosition = "right", className, ...props }: He
         const icon = link.icon ?? <ChevronRight className="size-4" aria-hidden="true" />
         return (
           <li key={i}>
-            <a
+            <HelpLink
               href={link.href}
               target={link.target}
-              rel={link.target === "_blank" ? "noopener noreferrer" : undefined}
               className={cn(
                 // KRDS .link-list 링크는 검정(text-basic) 17px 무밑줄 + 아이콘 (help_panel.html — 파랑/밑줄 아님)
                 "text-krds-body-md text-krds-foreground inline-flex items-center gap-1",
@@ -262,7 +300,7 @@ function HelpLinkList({ links, iconPosition = "right", className, ...props }: He
               {iconPosition === "left" && icon}
               <span>{link.text}</span>
               {iconPosition === "right" && icon}
-            </a>
+            </HelpLink>
           </li>
         )
       })}
@@ -305,20 +343,20 @@ function HelpServiceGroup({ title, className, children, ...props }: HelpServiceG
 
 // ─── HelpTutorialTitle ────────────────────────────────────────────────────────
 
-type HelpTutorialTitleProps = {
+type HelpTutorialTitleProps = Omit<React.ComponentProps<"h4">, "title"> & {
   title: React.ReactNode
   href?: string
-  className?: string
 }
 
-function HelpTutorialTitle({ title, href, className }: HelpTutorialTitleProps) {
+function HelpTutorialTitle({ title, href, className, ...props }: HelpTutorialTitleProps) {
   return (
     <h4
       data-slot="krds-help-tutorial-title"
       className={cn("help-title text-krds-heading-sm text-krds-foreground font-bold", className)}
+      {...props}
     >
       {href ? (
-        <a
+        <HelpLink
           href={href}
           className={cn(
             "hover:text-krds-foreground-primary inline-flex items-center gap-1",
@@ -327,7 +365,7 @@ function HelpTutorialTitle({ title, href, className }: HelpTutorialTitleProps) {
         >
           <span>{title}</span>
           <ChevronRight className="size-4" aria-hidden="true" />
-        </a>
+        </HelpLink>
       ) : (
         title
       )}
@@ -355,17 +393,16 @@ function HelpCoachProcess({ className, children, ...props }: React.ComponentProp
 
 // ─── HelpCoachTask ────────────────────────────────────────────────────────────
 
-type HelpCoachTaskProps = {
+type HelpCoachTaskProps = Omit<React.ComponentProps<"li">, "title"> & {
   title: React.ReactNode
   isCurrent?: boolean
   expandText: React.ReactNode
   steps: React.ReactNode[]
-  className?: string
 }
 
-function HelpCoachTask({ title, isCurrent = false, expandText, steps, className }: HelpCoachTaskProps) {
+function HelpCoachTask({ title, isCurrent = false, expandText, steps, className, ...props }: HelpCoachTaskProps) {
   return (
-    <li data-slot="krds-help-coach-task" className={cn("flex flex-col gap-2", className)}>
+    <li data-slot="krds-help-coach-task" className={cn("flex flex-col gap-2", className)} {...props}>
       <h4
         className={cn(
           "tit text-krds-body-md font-bold",
@@ -405,7 +442,7 @@ function HelpPanelAction({ className, children, ...props }: React.ComponentProps
 }
 
 // ─── HelpContentArea ──────────────────────────────────────────────────────────
-// Generic container (used to wrap tutorial title + coach process)
+// 일반 컨테이너 (튜토리얼 제목 + 코치 진행을 감싸는 데 사용)
 
 function HelpContentArea({ className, children, ...props }: React.ComponentProps<"div">) {
   return (
@@ -415,14 +452,12 @@ function HelpContentArea({ className, children, ...props }: React.ComponentProps
   )
 }
 
-// ─── Re-exported helper icons (for example consumers) ─────────────────────────
-
-export { Phone as HelpPhoneIcon, MessageCircleQuestion as HelpFaqIcon }
-
 export {
   HelpPanel,
   HelpPanelTrigger,
   HelpPanelContent,
+  HelpPanelClose,
+  HelpPanelBody,
   HelpSection,
   HelpLinkList,
   HelpRelatedService,
@@ -432,13 +467,13 @@ export {
   HelpCoachTask,
   HelpPanelAction,
   HelpContentArea,
-  HelpPanelClose,
 }
 export type {
   HelpPanelProps,
   HelpPanelTriggerProps,
-  HelpPanelCloseProps,
   HelpPanelContentProps,
+  HelpPanelCloseProps,
+  HelpPanelBodyProps,
   HelpSectionProps,
   HelpLinkListProps,
   HelpLinkItem,
