@@ -345,12 +345,14 @@
     {
       "name": "monthSelectLabel",
       "type": "string",
+      "defaultValue": "월 선택",
       "description": "",
       "required": false
     },
     {
       "name": "nextButtonLabel",
       "type": "string",
+      "defaultValue": "다음 달",
       "description": "",
       "required": false
     },
@@ -423,6 +425,7 @@
     {
       "name": "prevButtonLabel",
       "type": "string",
+      "defaultValue": "이전 달",
       "description": "",
       "required": false
     },
@@ -479,6 +482,7 @@
     {
       "name": "yearSelectLabel",
       "type": "string",
+      "defaultValue": "연도 선택",
       "description": "",
       "required": false
     }
@@ -1370,56 +1374,26 @@
   ],
   "KrdsHelpPanel": [
     {
-      "name": "absoluteStrokeWidth",
+      "name": "defaultOpen",
       "type": "boolean",
       "description": "",
       "required": false
     },
     {
-      "name": "aria-label",
-      "type": "string",
-      "description": "Defines a string value that labels the current element.\n@see aria-labelledby.",
-      "required": false
-    },
-    {
-      "name": "className",
-      "type": "string",
+      "name": "modal",
+      "type": "boolean",
       "description": "",
       "required": false
     },
     {
-      "name": "id",
-      "type": "string",
+      "name": "onOpenChange",
+      "type": "((open: boolean) => void)",
       "description": "",
       "required": false
     },
     {
-      "name": "onClick",
-      "type": "MouseEventHandler<SVGSVGElement>",
-      "description": "",
-      "required": false
-    },
-    {
-      "name": "size",
-      "type": "string | number",
-      "description": "",
-      "required": false
-    },
-    {
-      "name": "style",
-      "type": "CSSProperties",
-      "description": "",
-      "required": false
-    },
-    {
-      "name": "tabIndex",
-      "type": "number",
-      "description": "",
-      "required": false
-    },
-    {
-      "name": "type",
-      "type": "string",
+      "name": "open",
+      "type": "boolean",
       "description": "",
       "required": false
     }
