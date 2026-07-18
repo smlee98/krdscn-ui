@@ -1,7 +1,17 @@
 // rsc:client
 "use client"
-
-import { format } from "date-fns"
+/**
+ * KRDS Calendar — react-day-picker(shadcn Calendar 베이스) 위에 KRDS 날짜 셀·헤더·
+ * 푸터 스펙을 입힌 달력.
+ *
+ * 근거(_calendar.scss): 날짜 셀 44×44 rounded-full, 이동 버튼 아이콘 20px(size-height-3),
+ *   드롭다운 caret icon--size-small, 기간 밴드 action-secondary-on-selected(= bg-krds-surface).
+ * 단일 렌더 경로: react-day-picker `DayButton` 슬롯(KrdsDayButton) 하나만 날짜 셀을 그린다.
+ * 베이스(§3 legacy 허용): `@/components/ui/calendar`(shadcn/react-day-picker) 잠정 유지.
+ * context(1): CalendarNavContext — viewMonth와 goToMonth를 월/연도 드롭다운 파트에 전달해,
+ *   합성 이벤트 캐스트 없이 뷰를 이동한다(스타일 전달용이 아닌 실제 내비 상태).
+ */
+import { format, setMonth, setYear, startOfMonth } from "date-fns"
 import { ko } from "date-fns/locale"
 import { ChevronDown, ChevronLeft, ChevronRight } from "lucide-react"
 import * as React from "react"
@@ -9,42 +19,13 @@ import { type DateRange, type DayButton, type Dropdown as RdpDropdown } from "re
 
 import { Calendar as ShadcnCalendar } from "@/components/ui/calendar"
 import { Button } from "@/registry/krds/ui/button"
-import {
-  Select as PrimitiveSelect,
-  SelectContent as PrimitiveSelectContent,
-  SelectItem as PrimitiveSelectItem,
-  SelectTrigger as PrimitiveSelectTrigger,
-  SelectValue as PrimitiveSelectValue,
-} from "@/components/ui/select"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/registry/krds/ui/select"
 import { cn } from "@/lib/utils"
 
-// ─── Types (public API preserved) ────────────────────────────────────────────
+// ─── Types (public API) ───────────────────────────────────────────────────────
 
 export type CalendarMode = "single" | "range"
 export type CalendarPosition = "top" | "bottom"
-
-export type CalendarDate = {
-  year: number
-  month: number
-  day: number
-  isToday?: boolean
-  isDisabled?: boolean
-  isOld?: boolean
-  isNew?: boolean
-  isDayOff?: boolean
-  hasEvent?: boolean
-  isSelected?: boolean
-  isStart?: boolean
-  isEnd?: boolean
-  isPeriod?: boolean
-}
-
-export type CalendarYearMonth = {
-  value: number
-  label: string
-  isActive?: boolean
-  isDisabled?: boolean
-}
 
 export type CalendarProps = Omit<React.HTMLAttributes<HTMLDivElement>, "onChange"> & {
   mode?: CalendarMode
@@ -85,32 +66,6 @@ export type CalendarProps = Omit<React.HTMLAttributes<HTMLDivElement>, "onChange
   readOnly?: boolean
 }
 
-export type CalendarInputProps = Omit<React.InputHTMLAttributes<HTMLInputElement>, "onChange"> & {
-  mode?: CalendarMode
-  onChange?: (value: string) => void
-}
-
-export type CalendarButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
-  variant?: "icon" | "move" | "switch" | "date" | "action"
-  isActive?: boolean
-  isSelected?: boolean
-}
-
-export type CalendarDropdownProps = React.HTMLAttributes<HTMLDivElement> & {
-  isOpen?: boolean
-  items?: CalendarYearMonth[]
-  onItemSelect?: (item: CalendarYearMonth) => void
-  onToggle?: () => void
-}
-
-export type CalendarTableProps = React.HTMLAttributes<HTMLTableElement> & {
-  dates?: CalendarDate[]
-  mode?: CalendarMode
-  currentYear?: number
-  currentMonth?: number
-  onDateClick?: (date: CalendarDate) => void
-}
-
 // ─── Helpers ──────────────────────────────────────────────────────────────────
 
 function formatKrdsDate(date: Date): string {
@@ -123,14 +78,11 @@ function parseKrdsDate(str: string): Date | undefined {
   return new Date(Number(m[1]), Number(m[2]) - 1, Number(m[3]))
 }
 
-// ─── Shared day-cell state classes ───────────────────────────────────────────
-// KrdsDayButton (RDP-driven) and the standalone CalendarTable/CalendarButton
-// primitives render the same KRDS date-cell states independently — keep them
-// visually identical by editing the state colors once, here.
-// Hover/selected map to KRDS _calendar.scss `action-secondary-on-selected`
-// (resolves to gray-0/white, i.e. `bg-krds-surface`) and `action-secondary-active`
-// (resolves to secondary-70, i.e. `bg-krds-secondary-bold`) respectively —
-// both already match the project's semantic tokens exactly, in light and dark.
+// ─── Day-cell state classes (single source: KrdsDayButton) ───────────────────
+// Hover/selected map to KRDS `_calendar.scss`: `action-secondary-on-selected`
+// (gray-0/white → `bg-krds-surface`) and `action-secondary-active`
+// (secondary-70 → `bg-krds-secondary-bold`); both match the semantic tokens in
+// light and dark (high-contrast).
 const KRDS_DAY_TEXT_DEFAULT = "text-krds-foreground/80"
 const KRDS_DAY_TEXT_DAY_OFF = "text-krds-foreground-danger"
 const KRDS_DAY_TEXT_EVENT = "text-krds-foreground-information underline underline-offset-2"
@@ -165,6 +117,7 @@ function KrdsDayButton({ className, day, modifiers, children, ...rest }: React.C
     <button
       ref={ref}
       type="button"
+      data-slot="krds-calendar-day"
       data-day={day.date.toLocaleDateString()}
       data-selected-single={isSelectedSingle || undefined}
       data-range-start={isRangeStart || undefined}
@@ -200,51 +153,72 @@ function KrdsDayButton({ className, day, modifiers, children, ...rest }: React.C
   )
 }
 
-// ─── KrdsCalendarDropdown: KRDS-styled year/month select (Radix-based) ───────
+// ─── Calendar navigation context (viewMonth ↔ month/year dropdowns) ──────────
 
-function KrdsCalendarDropdown({
+type CalendarNavContextValue = {
+  viewMonth: Date
+  goToMonth: (date: Date) => void
+  monthSelectLabel: string
+  yearSelectLabel: string
+}
+
+const CalendarNavContext = React.createContext<CalendarNavContextValue | null>(null)
+
+function useCalendarNav(): CalendarNavContextValue {
+  const ctx = React.useContext(CalendarNavContext)
+  if (!ctx) throw new Error("Calendar 드롭다운은 <Calendar> 안에서만 사용할 수 있습니다.")
+  return ctx
+}
+
+// KRDS-styled year/month dropdown: KRDS Select(sorting) overriding the compact
+// borderless calendar-caret look. Drives viewMonth directly via context — no
+// react-day-picker onChange event is fabricated.
+const CALENDAR_DROPDOWN_TRIGGER =
+  "h-10 gap-1 rounded-[6px] px-2 font-bold text-krds-body-md text-krds-foreground " +
+  "data-[state=open]:bg-krds-surface-secondary-subtle hover:bg-black/5 dark:hover:bg-white/10 [&_svg]:size-4"
+
+function CalendarNavDropdown({
+  axis,
   options,
   value,
-  onChange,
   disabled,
-  "aria-label": ariaLabel,
-}: React.ComponentProps<typeof RdpDropdown>) {
-  const handleValueChange = (next: string) => {
-    const synthetic = {
-      target: { value: next },
-      currentTarget: { value: next },
-    } as unknown as React.ChangeEvent<HTMLSelectElement>
-    onChange?.(synthetic)
-  }
+}: {
+  axis: "month" | "year"
+} & Pick<React.ComponentProps<typeof RdpDropdown>, "options" | "value" | "disabled">) {
+  const { viewMonth, goToMonth, monthSelectLabel, yearSelectLabel } = useCalendarNav()
+  const ariaLabel = axis === "month" ? monthSelectLabel : yearSelectLabel
 
   return (
-    <PrimitiveSelect
+    <Select
+      variant="sorting"
       value={value !== undefined ? String(value) : undefined}
-      onValueChange={handleValueChange}
+      onValueChange={(next) => {
+        const n = Number(next)
+        const base = startOfMonth(viewMonth)
+        goToMonth(axis === "month" ? setMonth(base, n) : setYear(base, n))
+      }}
       disabled={disabled}
     >
-      <PrimitiveSelectTrigger
-        aria-label={ariaLabel}
-        data-slot="krds-calendar-dropdown"
-        className={cn(
-          "h-10 gap-1 rounded-[6px] border-0 bg-transparent px-2 shadow-none",
-          "text-krds-body-md text-krds-foreground font-bold",
-          "data-[state=open]:bg-krds-surface-secondary-subtle hover:bg-black/5 dark:hover:bg-white/10",
-          "focus-visible:krds-focus-ring",
-          "[&_svg:not([class*='text-'])]:text-krds-foreground [&_svg]:opacity-100 [&_svg:not([class*='size-'])]:size-4"
-        )}
-      >
-        <PrimitiveSelectValue />
-      </PrimitiveSelectTrigger>
-      <PrimitiveSelectContent className="max-h-72">
+      <SelectTrigger data-slot="krds-calendar-dropdown" aria-label={ariaLabel} className={CALENDAR_DROPDOWN_TRIGGER}>
+        <SelectValue />
+      </SelectTrigger>
+      <SelectContent className="max-h-72">
         {options?.map((o) => (
-          <PrimitiveSelectItem key={o.value} value={String(o.value)} disabled={o.disabled}>
+          <SelectItem key={o.value} value={String(o.value)} disabled={o.disabled}>
             {o.label}
-          </PrimitiveSelectItem>
+          </SelectItem>
         ))}
-      </PrimitiveSelectContent>
-    </PrimitiveSelect>
+      </SelectContent>
+    </Select>
   )
+}
+
+function KrdsMonthsDropdown(props: React.ComponentProps<typeof RdpDropdown>) {
+  return <CalendarNavDropdown axis="month" options={props.options} value={props.value} disabled={props.disabled} />
+}
+
+function KrdsYearsDropdown(props: React.ComponentProps<typeof RdpDropdown>) {
+  return <CalendarNavDropdown axis="year" options={props.options} value={props.value} disabled={props.disabled} />
 }
 
 // ─── KrdsMonth: restructure RDP <Month> children into .calendar-head + .calendar-body ─
@@ -260,8 +234,7 @@ function KrdsMonth({
   displayIndex?: number
 }) {
   // With navLayout="around" + numberOfMonths=1, RDP passes [prev, caption, next, grid]
-  const kids = React.Children.toArray(children)
-  const [prev, caption, next, grid] = kids
+  const [prev, caption, next, grid] = React.Children.toArray(children)
   return (
     <div className={cn("flex w-full flex-col", className)} {...rest}>
       <div data-slot="krds-calendar-head" className="flex h-14 w-full items-center justify-between px-6 py-2">
@@ -273,176 +246,6 @@ function KrdsMonth({
         {grid}
       </div>
     </div>
-  )
-}
-
-// ─── Sub-components (exported for compound usage) ─────────────────────────────
-
-function CalendarInput({ mode: _mode, onChange, className, ...rest }: CalendarInputProps) {
-  return (
-    <input
-      data-slot="krds-calendar-input"
-      type="text"
-      className={cn(
-        "border-krds-border-dark bg-krds-surface text-krds-body-sm rounded-[6px] border px-4 py-2",
-        "text-krds-foreground placeholder:text-krds-foreground-disabled",
-        "focus:border-krds-border-primary focus-visible:krds-focus-ring",
-        className
-      )}
-      {...rest}
-      onChange={(e) => onChange?.(e.target.value)}
-    />
-  )
-}
-
-function CalendarButton({ variant = "date", isActive, isSelected, className, children, ...rest }: CalendarButtonProps) {
-  return (
-    <button
-      type="button"
-      data-slot="krds-calendar-button"
-      data-active={isActive || undefined}
-      data-selected={isSelected || undefined}
-      className={cn(
-        "focus-visible:krds-focus-ring inline-flex items-center justify-center transition-colors outline-none",
-        variant === "move" &&
-          "border-krds-border-light size-8 rounded-full border-[0.8px] bg-transparent hover:bg-black/5 dark:hover:bg-white/10",
-        variant === "switch" &&
-          "text-krds-body-md text-krds-foreground rounded-[6px] px-2 py-1 font-bold hover:bg-black/5 dark:hover:bg-white/10",
-        variant === "icon" && "size-8 rounded-full hover:bg-black/5 dark:hover:bg-white/10",
-        variant === "date" && [
-          "text-krds-body-md size-11 rounded-full",
-          !isSelected && !isActive && KRDS_DAY_TEXT_DEFAULT,
-          !isSelected && !isActive && KRDS_DAY_HOVER,
-          (isSelected || isActive) && KRDS_DAY_SELECTED,
-        ],
-        variant === "action" &&
-          "border-krds-border-dark bg-krds-surface text-krds-body-sm text-krds-foreground h-10 min-w-16 rounded-[6px] border px-3 hover:bg-black/5 dark:hover:bg-white/10",
-        className
-      )}
-      {...rest}
-    >
-      {children}
-    </button>
-  )
-}
-
-function CalendarDropdown({ isOpen, items = [], onItemSelect, onToggle, className, ...rest }: CalendarDropdownProps) {
-  return (
-    <div data-slot="krds-calendar-dropdown" className={cn("relative", className)} {...rest}>
-      <button
-        type="button"
-        onClick={onToggle}
-        className="text-krds-body-md text-krds-foreground focus-visible:krds-focus-ring inline-flex h-10 items-center gap-1 rounded-[6px] px-2 font-bold hover:bg-black/5 dark:hover:bg-white/10"
-      >
-        {items.find((i) => i.isActive)?.label ?? ""}
-        <ChevronDown size={16} aria-hidden className="shrink-0" />
-      </button>
-      {isOpen && (
-        <div className="border-krds-border-light bg-krds-surface absolute left-0 z-10 mt-1 max-h-48 min-w-[3.125rem] overflow-y-auto rounded-[6px] border shadow-md">
-          {items.map((item) => (
-            <button
-              key={item.value}
-              type="button"
-              disabled={item.isDisabled}
-              onClick={() => onItemSelect?.(item)}
-              className={cn(
-                "text-krds-body-sm focus-visible:krds-focus-ring w-full px-3 py-1 text-left hover:bg-black/5 dark:hover:bg-white/10",
-                item.isActive && "text-krds-foreground-secondary font-bold",
-                item.isDisabled && "cursor-not-allowed opacity-40"
-              )}
-            >
-              {item.label}
-            </button>
-          ))}
-        </div>
-      )}
-    </div>
-  )
-}
-
-const WEEKDAYS = ["일", "월", "화", "수", "목", "금", "토"]
-
-function CalendarTable({
-  dates = [],
-  mode: _mode = "single",
-  currentYear,
-  currentMonth,
-  onDateClick,
-  className,
-  ...rest
-}: CalendarTableProps) {
-  const weeks: CalendarDate[][] = []
-  for (let i = 0; i < dates.length; i += 7) {
-    weeks.push(dates.slice(i, i + 7))
-  }
-  return (
-    <table data-slot="krds-calendar-table" className={cn("w-full border-collapse", className)} {...rest}>
-      <caption className="sr-only">
-        {currentYear}년 {currentMonth}월 달력
-      </caption>
-      <thead>
-        <tr>
-          {WEEKDAYS.map((day) => (
-            <th
-              key={day}
-              scope="col"
-              className="text-krds-body-sm text-krds-foreground h-6 w-11 text-center font-normal"
-            >
-              {day}
-            </th>
-          ))}
-        </tr>
-      </thead>
-      <tbody>
-        {weeks.map((week, wi) => (
-          <tr key={wi}>
-            {week.map((date, di) => {
-              const isDimmed = date.isOld || date.isNew
-              const isHighlighted = date.isSelected || date.isStart || date.isEnd
-              const isPeriodCell = date.isPeriod
-              return (
-                <td key={di} className="relative p-0 text-center">
-                  {isPeriodCell && <span aria-hidden className="bg-krds-surface absolute inset-x-0 inset-y-0" />}
-                  {date.isStart && !date.isEnd && (
-                    <span aria-hidden className="bg-krds-surface absolute inset-y-0 right-0 left-1/2" />
-                  )}
-                  {date.isEnd && !date.isStart && (
-                    <span aria-hidden className="bg-krds-surface absolute inset-y-0 right-1/2 left-0" />
-                  )}
-                  <button
-                    type="button"
-                    disabled={date.isDisabled}
-                    onClick={() => onDateClick?.(date)}
-                    className={cn(
-                      "text-krds-body-md relative z-10 inline-flex size-11 items-center justify-center rounded-full transition-colors outline-none",
-                      isDimmed && KRDS_DAY_TEXT_DISABLED,
-                      !isDimmed && !isHighlighted && !date.isDayOff && !date.hasEvent && KRDS_DAY_TEXT_DEFAULT,
-                      date.isDisabled && "cursor-not-allowed opacity-40",
-                      date.isDayOff && !isHighlighted && !isDimmed && KRDS_DAY_TEXT_DAY_OFF,
-                      !date.isDayOff && date.hasEvent && !isHighlighted && !isDimmed && KRDS_DAY_TEXT_EVENT,
-                      isHighlighted && KRDS_DAY_SELECTED,
-                      !isHighlighted && !date.isDisabled && KRDS_DAY_HOVER,
-                      date.isStart && !date.isEnd && "rounded-r-none",
-                      date.isEnd && !date.isStart && "rounded-l-none"
-                    )}
-                    aria-pressed={isHighlighted}
-                    aria-label={`${date.year}년 ${date.month}월 ${date.day}일`}
-                  >
-                    {date.day}
-                    {date.isToday && !isHighlighted && (
-                      <span
-                        aria-hidden
-                        className="bg-krds-point-50 absolute bottom-1.5 left-1/2 size-1 -translate-x-1/2 rounded-full"
-                      />
-                    )}
-                  </button>
-                </td>
-              )
-            })}
-          </tr>
-        ))}
-      </tbody>
-    </table>
   )
 }
 
@@ -500,13 +303,17 @@ function Calendar({
   onTodayClick,
   onConfirm,
   onCancel,
+  prevButtonLabel = "이전 달",
+  nextButtonLabel = "다음 달",
+  yearSelectLabel = "연도 선택",
+  monthSelectLabel = "월 선택",
   todayButtonText = "오늘",
   cancelButtonText = "취소",
   confirmButtonText = "선택",
   disabled = false,
   readOnly = false,
   className,
-  // Unused in standalone Calendar (used by DateInput wrapper)
+  // Consumed by the DateInput wrapper, not the standalone Calendar surface.
   position: _position,
   label: _label,
   inputId: _inputId,
@@ -516,10 +323,6 @@ function Calendar({
   startTitle: _st,
   endTitle: _et,
   openButtonLabel: _obl,
-  prevButtonLabel: _pbl,
-  nextButtonLabel: _nbl,
-  yearSelectLabel: _ysl,
-  monthSelectLabel: _msl,
   ...rest
 }: CalendarProps) {
   const today = new Date()
@@ -536,13 +339,17 @@ function Calendar({
   const rangeEndDate = rangeEndStr ? parseKrdsDate(rangeEndStr) : undefined
 
   const disabledMatcher = disabledDates.map(parseKrdsDate).filter((d): d is Date => d !== undefined)
-
   const eventDateObjects = eventDates.map(parseKrdsDate).filter((d): d is Date => d !== undefined)
-
   const holidayDateObjects = holidays.map(parseKrdsDate).filter((d): d is Date => d !== undefined)
 
   const initialMonth = selectedDate ?? rangeStartDate ?? today
   const [viewMonth, setViewMonth] = React.useState<Date>(initialMonth)
+
+  function goToMonth(next: Date) {
+    setViewMonth(next)
+    onMonthChange?.(next.getMonth() + 1)
+    onYearChange?.(next.getFullYear())
+  }
 
   function handleTodayClick() {
     const todayStr = formatKrdsDate(today)
@@ -568,6 +375,10 @@ function Calendar({
     startMonth: new Date(2000, 0, 1),
     endMonth: new Date(today.getFullYear() + 10, 11, 31),
     locale: ko,
+    labels: {
+      labelPrevious: () => prevButtonLabel,
+      labelNext: () => nextButtonLabel,
+    },
     disabled: disabledMatcher.length > 0 ? disabledMatcher : undefined,
     modifiers: Object.keys(extraModifiers).length > 0 ? extraModifiers : undefined,
     classNames: SHADCN_CLASSNAMES,
@@ -579,7 +390,8 @@ function Calendar({
     },
     components: {
       DayButton: KrdsDayButton,
-      Dropdown: KrdsCalendarDropdown,
+      MonthsDropdown: KrdsMonthsDropdown,
+      YearsDropdown: KrdsYearsDropdown,
       Month: KrdsMonth,
       Chevron: ({
         orientation,
@@ -593,15 +405,10 @@ function Calendar({
           return <ChevronLeft className={cn("text-krds-foreground size-5", chevronClassName)} />
         if (orientation === "right")
           return <ChevronRight className={cn("text-krds-foreground size-5", chevronClassName)} />
-        // Dropdown caret: KRDS icon--size-small (unaffected by the move-button fix above).
         return <ChevronDown className={cn("text-krds-foreground size-4", chevronClassName)} />
       },
     },
-    onMonthChange: (m: Date) => {
-      setViewMonth(m)
-      onMonthChange?.(m.getMonth() + 1)
-      onYearChange?.(m.getFullYear())
-    },
+    onMonthChange: (m: Date) => goToMonth(m),
   }
 
   const calendarNode =
@@ -648,7 +455,9 @@ function Calendar({
       )}
       {...rest}
     >
-      {calendarNode}
+      <CalendarNavContext.Provider value={{ viewMonth, goToMonth, monthSelectLabel, yearSelectLabel }}>
+        {calendarNode}
+      </CalendarNavContext.Provider>
       <div className="border-krds-border-light bg-krds-surface flex w-full items-center gap-4 border-t px-6 py-4">
         <Button type="button" variant="text" size="sm" onClick={handleTodayClick} disabled={disabled}>
           {todayButtonText}
@@ -666,4 +475,4 @@ function Calendar({
   )
 }
 
-export { Calendar, CalendarButton, CalendarDropdown, CalendarInput, CalendarTable }
+export { Calendar }
