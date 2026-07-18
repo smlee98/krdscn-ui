@@ -2,35 +2,74 @@
 "use client"
 
 /**
- * KRDS TutorialPanel — slide-in help+tutorial drawer from the right.
- * Base: radix-ui Dialog (직접 합성, 측면 슬라이드 시트 스타일).
+ * KRDS TutorialPanel — 우측 슬라이드 드로어(도움 + 따라하기 탭). 통합 `radix-ui`
+ * 패키지의 Dialog 프리미티브를 직접 합성한다(Sheet 패턴): 개폐·포커스 트랩·포털·
+ * 오버레이·ESC·슬라이드 애니메이션을 Dialog 가 담당한다. 탭 상태는 `@/registry/krds/ui/tab`
+ * (radix Tabs)에, 단계 접기는 `@/registry/krds/ui/disclosure`(radix Collapsible)에 위임한다.
+ * 손으로 만든 상태머신·외부클릭 핸들러·children 신원 분류는 없다.
  *
- * Dot-notation API (mirrors KRDS storybook contract):
- *   <TutorialPanel.Root defaultActiveTab="tutorial">
- *     <TutorialPanel.Trigger>도움말</TutorialPanel.Trigger>
- *     <TutorialPanel.Container>
- *       <TutorialPanel.Tabs>
- *         <TutorialPanel.TabPanel value="help">
- *           <TutorialPanel.HelpContent helpContent={...} relatedServices={...} />
- *         </TutorialPanel.TabPanel>
- *         <TutorialPanel.TabPanel value="tutorial">
- *           <TutorialPanel.TutorialContent title="..." steps={...} />
- *         </TutorialPanel.TabPanel>
- *       </TutorialPanel.Tabs>
- *       <TutorialPanel.Close />
- *     </TutorialPanel.Container>
- *   </TutorialPanel.Root>
+ * 원본 셀렉터: `.help-panel-wrap` / `.help-conts-area` / `.krds-tutorial-task-list`
+ *   (tutorial_panel.html) — _help_panel.scss shadow(:29,61) / padding-top(:66) / `.btn-help-panel`(:195)
+ * Figma: node 360:44771
  *
- * Figma source: KRDS_v1.0.0 — node 360:44771.
+ * 구조 (KRDS DOM 영역과 1:1):
+ *   <TutorialPanel>                                    (Dialog.Root — open/defaultOpen 전파)
+ *     <TutorialPanelTrigger>도움말</TutorialPanelTrigger>   (Dialog.Trigger — 포털 밖)
+ *     <TutorialPanelContent>                           (Dialog.Portal + Overlay + Content)
+ *       <TutorialPanelClose />                          (접어두기 — 패널에 고정)
+ *       <TutorialPanelContainer>                        (.help-panel-wrap 그림자 래퍼)
+ *         <TutorialPanelTabs defaultValue="tutorial">
+ *           <TutorialPanelTabPanel value="help">
+ *             <TutorialPanelHelpContent>
+ *               <TutorialPanelSection title="..." description="...">
+ *                 <TutorialPanelLinkList links={[...]} />
+ *               </TutorialPanelSection>
+ *               <TutorialPanelRelatedService>
+ *                 <TutorialPanelServiceGroup title="관련서비스/민원">
+ *                   <TutorialPanelLinkList links={[...]} />
+ *                 </TutorialPanelServiceGroup>
+ *               </TutorialPanelRelatedService>
+ *             </TutorialPanelHelpContent>
+ *           </TutorialPanelTabPanel>
+ *           <TutorialPanelTabPanel value="tutorial">
+ *             <TutorialPanelTutorialContent>
+ *               <TutorialPanelTitle title="..." href="..." />
+ *               <TutorialPanelTaskList>
+ *                 <TutorialPanelTask title="..." steps={[...]} isCurrent />
+ *               </TutorialPanelTaskList>
+ *               <TutorialPanelAction>
+ *                 <Button variant="secondary">그만 따라하기</Button>
+ *               </TutorialPanelAction>
+ *             </TutorialPanelTutorialContent>
+ *           </TutorialPanelTabPanel>
+ *         </TutorialPanelTabs>
+ *       </TutorialPanelContainer>
+ *     </TutorialPanelContent>
+ *   </TutorialPanel>
+ *
+ * Trigger 와 Content 는 별도 파트로 소비자가 명시 합성한다 — 루트가 children 을
+ * `child.type` 으로 분류하지 않는다(Radix Dialog.Root 컨텍스트가 Trigger↔Content 를
+ * 자동 연결). 커스텀 context 는 두지 않는다(탭 상태는 Tab 프리미티브 소관).
+ *
+ * [help-panel 과의 관계 — 별도 구현] KRDS tutorial_panel.html 과 help_panel.html 은
+ * 구조가 유사하나 실제 렌더 클래스가 다르다: 따라하기 목록은 `.krds-tutorial-task-list`
+ * (help-panel 은 `.coach-help-process`), Task 제목은 `text-krds-body-lg mb-4`(help-panel 은
+ * `text-krds-body-md`), 단계 목록은 `ul.krds-info-list.decimal`(help-panel 은 `ol`),
+ * 도움 링크는 밑줄 `text-krds-body-sm krds-info-list`(help-panel 은 무밑줄 `link-list`
+ * `text-krds-body-md`), 제목은 뒤로가기 앵커(`<a title="이전으로 돌아가기">` + ChevronLeft;
+ * help-panel 은 `<h4>` + 정방향 링크)이고 도움 헤더에 물음표 아이콘 버튼이 없다. 렌더가
+ * 달라 lib/ 공유 승격 대신 각 파일이 radix Dialog 를 독립 합성한다(단일 소유 유지).
  */
 
 import * as React from "react"
 import { ChevronLeft, ChevronRight, MessageCircleQuestion, Phone } from "lucide-react"
+
 import { Dialog as DialogPrimitive } from "radix-ui"
-import { Button } from "@/registry/krds/ui/button"
-import { Tab, TabContent, TabList, TabPanel as KrdsTabPanel, TabTrigger } from "@/registry/krds/ui/tab"
-import { Disclosure, DisclosureContent, DisclosureTrigger } from "@/registry/krds/ui/disclosure"
+
 import { cn } from "@/lib/utils"
+import { Button } from "@/registry/krds/ui/button"
+import { Disclosure, DisclosureContent, DisclosureTrigger } from "@/registry/krds/ui/disclosure"
+import { Tab, TabContent, TabList, TabPanel as KrdsTabPanel, TabTrigger } from "@/registry/krds/ui/tab"
 
 // ─── Types ───────────────────────────────────────────────────────────────────
 
@@ -46,81 +85,10 @@ type TutorialLink = {
   iconPosition?: "left" | "right"
 }
 
-type TutorialHelpContent = {
-  title: string
-  description: React.ReactNode
-  links: TutorialLink[]
-}
-
-type TutorialRelatedService = {
-  title: string
-  description?: React.ReactNode
-  links: TutorialLink[]
-}
-
-type TutorialStep = {
-  title: string
-  current?: boolean
-  steps?: string[]
-  content?: React.ReactNode
-}
-
-type TutorialPanelContextValue = {
-  isOpen: boolean
-  setOpen: (open: boolean) => void
-  activeTab: TutorialPanelTab
-  setActiveTab: (tab: TutorialPanelTab) => void
-}
-
-type TutorialPanelRootProps = {
-  isOpen?: boolean
-  onOpenChange?: (open: boolean) => void
-  activeTab?: TutorialPanelTab
-  defaultActiveTab?: TutorialPanelTab
-  onTabChange?: (tab: TutorialPanelTab) => void
-  className?: string
-  children?: React.ReactNode
-}
-
-type TutorialPanelTriggerProps = React.ComponentProps<"button">
-
-type TutorialPanelContainerProps = React.ComponentProps<"div">
-
-type TutorialPanelTabsProps = {
-  id?: string
-  className?: string
-  children?: React.ReactNode
-}
-
-type TutorialPanelTabPanelProps = React.ComponentProps<"div"> & {
-  value: TutorialPanelTab
-}
-
-type TutorialPanelHelpContentProps = Omit<React.ComponentProps<"div">, "content"> & {
-  helpContent: TutorialHelpContent
-  relatedServices?: TutorialRelatedService[]
-}
-
-type TutorialPanelTutorialContentProps = React.ComponentProps<"div"> & {
-  title: string
-  steps?: TutorialStep[]
-  onTutorialStop?: () => void
-  stopButtonText?: string
-}
-
-type TutorialPanelCloseProps = React.ComponentProps<"button">
-
-// ─── Context ─────────────────────────────────────────────────────────────────
-
-const TutorialPanelContext = React.createContext<TutorialPanelContextValue | null>(null)
-
-function useTutorialPanel(): TutorialPanelContextValue {
-  const ctx = React.useContext(TutorialPanelContext)
-  if (!ctx) throw new Error("TutorialPanel parts must be rendered inside <TutorialPanel.Root>.")
-  return ctx
-}
-
-// ─── Helpers ─────────────────────────────────────────────────────────────────
+// ─── TutorialLink (raw <a> 복붙 방지용 파일 내 단일 헬퍼) ──────────────────────────
+//
+// 도움/관련서비스 링크 앵커를 한 곳으로 모은다(§3 내비 앵커 규칙). icon 유니온을 아이콘
+// 노드로 해석하고 iconPosition 으로 좌/우 배치, external 이면 rel 을 자동 보강한다.
 
 function renderLinkIcon(icon: TutorialLinkIcon | undefined) {
   if (!icon) return null
@@ -129,11 +97,12 @@ function renderLinkIcon(icon: TutorialLinkIcon | undefined) {
   return <ChevronRight size={16} aria-hidden={true} className="shrink-0" />
 }
 
-function TutorialLinkAnchor({ link, className }: { link: TutorialLink; className?: string }) {
+function TutorialLink({ link, className }: { link: TutorialLink; className?: string }) {
   const iconPosition = link.iconPosition ?? "right"
   const icon = renderLinkIcon(link.icon)
   return (
     <a
+      data-slot="krds-tutorial-panel-link"
       href={link.href}
       target={link.external ? "_blank" : undefined}
       rel={link.external ? "noopener noreferrer" : undefined}
@@ -152,129 +121,131 @@ function TutorialLinkAnchor({ link, className }: { link: TutorialLink; className
   )
 }
 
-// ─── TutorialPanel.Root ──────────────────────────────────────────────────────
+// ─── TutorialPanel (Root) ─────────────────────────────────────────────────────
+// Dialog.Root 그대로 — open/defaultOpen/onOpenChange 를 프리미티브에 전파한다.
 
-function TutorialPanelRoot({
-  isOpen,
-  onOpenChange,
-  activeTab,
-  defaultActiveTab = "tutorial",
-  onTabChange,
+type TutorialPanelProps = React.ComponentProps<typeof DialogPrimitive.Root>
+
+function TutorialPanel(props: TutorialPanelProps) {
+  return <DialogPrimitive.Root {...props} />
+}
+
+// ─── TutorialPanelTrigger ─────────────────────────────────────────────────────
+// Dialog.Trigger asChild 로 Button 을 감싼다 — open 동작, aria-expanded/controls 는
+// Radix Dialog.Trigger 가 자동 배선한다.
+
+type TutorialPanelTriggerProps = Omit<React.ComponentProps<"button">, "children"> & {
+  children?: React.ReactNode
+  label?: string
+}
+
+function TutorialPanelTrigger({ className, children, label = "도움말", ...props }: TutorialPanelTriggerProps) {
+  return (
+    <DialogPrimitive.Trigger asChild>
+      <Button
+        type="button"
+        variant="tertiary"
+        size="sm"
+        className={className}
+        {...props}
+        // data-slot 은 {...props} 뒤에 둔다: Button 내부가 data-slot="krds-button" 을 먼저
+        // 쓰고 전달받은 props 로 덮으므로, 여기서 명시해야 확정된다.
+        data-slot="krds-tutorial-panel-trigger"
+      >
+        <ChevronLeft size={16} aria-hidden={true} className="shrink-0" />
+        <span>{children ?? label}</span>
+      </Button>
+    </DialogPrimitive.Trigger>
+  )
+}
+
+// ─── TutorialPanelContent ─────────────────────────────────────────────────────
+// 드로어 표면 — Dialog.Portal + Overlay + Content. children 은 콘텐츠 영역에 렌더된다.
+
+type TutorialPanelContentProps = React.ComponentProps<typeof DialogPrimitive.Content> & {
+  title?: string
+  description?: string
+  overlayClassName?: string
+}
+
+function TutorialPanelContent({
+  title = "도움말 및 따라하기 패널",
+  description = "도움말 및 따라하기 정보",
+  overlayClassName,
   className,
   children,
-}: TutorialPanelRootProps) {
-  const isOpenControlled = isOpen !== undefined
-  const [internalOpen, setInternalOpen] = React.useState(false)
-  const open = isOpenControlled ? isOpen : internalOpen
-
-  const isTabControlled = activeTab !== undefined
-  const [internalTab, setInternalTab] = React.useState<TutorialPanelTab>(defaultActiveTab)
-  const tab = isTabControlled ? activeTab : internalTab
-
-  const setOpen = React.useCallback(
-    (next: boolean) => {
-      if (!isOpenControlled) setInternalOpen(next)
-      onOpenChange?.(next)
-    },
-    [isOpenControlled, onOpenChange]
-  )
-
-  const setActiveTab = React.useCallback(
-    (next: TutorialPanelTab) => {
-      if (!isTabControlled) setInternalTab(next)
-      onTabChange?.(next)
-    },
-    [isTabControlled, onTabChange]
-  )
-
-  const ctx = React.useMemo<TutorialPanelContextValue>(
-    () => ({ isOpen: open, setOpen, activeTab: tab, setActiveTab }),
-    [open, setOpen, tab, setActiveTab]
-  )
-
-  // Split children: TutorialPanel.Trigger renders OUTSIDE the SheetContent
-  // (alongside the trigger button area), the rest render INSIDE.
-  const childArray = React.Children.toArray(children)
-  const triggers: React.ReactNode[] = []
-  const inner: React.ReactNode[] = []
-  childArray.forEach((child) => {
-    // dispatcher(dynamic/tutorial-panel) 경유 시 child.type 은 dispatcher 의 Trigger 함수라
-    // KRDS 내부 함수 identity 비교가 빗나간다. displayName 마커로 양쪽을 모두 식별한다.
-    const isTrigger =
-      React.isValidElement(child) &&
-      (child.type === TutorialPanelTrigger ||
-        (child.type as { displayName?: string }).displayName === "TutorialPanelTrigger")
-    if (isTrigger) {
-      triggers.push(child)
-    } else {
-      inner.push(child)
-    }
-  })
-
+  ...props
+}: TutorialPanelContentProps) {
   return (
-    <TutorialPanelContext.Provider value={ctx}>
-      <DialogPrimitive.Root open={open} onOpenChange={setOpen}>
-        {triggers.length > 0 ? <DialogPrimitive.Trigger asChild>{triggers[0]}</DialogPrimitive.Trigger> : null}
-        <DialogPrimitive.Portal>
-          <DialogPrimitive.Overlay className="data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:animate-in data-[state=open]:fade-in-0 fixed inset-0 z-50 bg-black/50" />
-          <DialogPrimitive.Content
-            data-slot="krds-tutorial-panel"
-            className={cn(
-              "fixed z-50 flex flex-col transition ease-in-out",
-              "data-[state=closed]:animate-out data-[state=closed]:slide-out-to-right data-[state=closed]:duration-300",
-              "data-[state=open]:animate-in data-[state=open]:slide-in-from-right data-[state=open]:duration-500",
-              "inset-y-0 right-0 h-full",
-              // KRDS .help-conts-area padding-top = padding-10 + size-height-6 = 80px, to clear the
-              // fixed '접어두기' close button (_help_panel.scss:66).
-              "flex w-[390px] flex-col gap-8 overflow-y-auto px-10 pt-20 pb-10",
-              "border-krds-border bg-krds-surface-subtler border-l",
-              className
-            )}
-          >
-            <DialogPrimitive.Title className="sr-only">도움말 및 따라하기 패널</DialogPrimitive.Title>
-            <DialogPrimitive.Description className="sr-only">도움말 및 따라하기 정보</DialogPrimitive.Description>
-            {inner}
-          </DialogPrimitive.Content>
-        </DialogPrimitive.Portal>
-      </DialogPrimitive.Root>
-    </TutorialPanelContext.Provider>
+    <DialogPrimitive.Portal>
+      <DialogPrimitive.Overlay
+        className={cn(
+          "data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:animate-in data-[state=open]:fade-in-0 fixed inset-0 z-50 bg-black/50",
+          overlayClassName
+        )}
+      />
+      <DialogPrimitive.Content
+        data-slot="krds-tutorial-panel"
+        className={cn(
+          "fixed z-50 flex flex-col transition ease-in-out",
+          "data-[state=closed]:animate-out data-[state=closed]:slide-out-to-right data-[state=closed]:duration-300",
+          "data-[state=open]:animate-in data-[state=open]:slide-in-from-right data-[state=open]:duration-500",
+          "inset-y-0 right-0 h-full",
+          // KRDS .help-conts-area padding-top = padding-10 + size-height-6 = 80px, to clear the
+          // fixed '접어두기' close button (_help_panel.scss:66).
+          "flex w-[390px] flex-col gap-8 overflow-y-auto px-10 pt-20 pb-10",
+          "border-krds-border bg-krds-surface-subtler border-l",
+          className
+        )}
+        {...props}
+      >
+        <DialogPrimitive.Title className="sr-only">{title}</DialogPrimitive.Title>
+        <DialogPrimitive.Description className="sr-only">{description}</DialogPrimitive.Description>
+        {children}
+      </DialogPrimitive.Content>
+    </DialogPrimitive.Portal>
   )
 }
 
-// ─── TutorialPanel.Trigger ───────────────────────────────────────────────────
+// ─── TutorialPanelClose ───────────────────────────────────────────────────────
+// "접어두기" 버튼 — Dialog.Close 로 패널을 닫는다.
 
-function TutorialPanelTrigger({ children = "도움말", className, onClick, ...props }: TutorialPanelTriggerProps) {
-  const ctx = React.useContext(TutorialPanelContext)
+type TutorialPanelCloseProps = Omit<React.ComponentProps<"button">, "children"> & {
+  children?: React.ReactNode
+  label?: string
+}
+
+function TutorialPanelClose({ className, children, label = "접어두기", ...props }: TutorialPanelCloseProps) {
   return (
-    <Button
-      type="button"
-      variant="tertiary"
-      size="sm"
-      data-slot="krds-tutorial-panel-trigger"
-      onClick={(event) => {
-        onClick?.(event)
-        if (!event.defaultPrevented) ctx?.setOpen(!ctx.isOpen)
-      }}
-      className={className}
-      {...props}
-    >
-      <ChevronLeft size={16} aria-hidden={true} className="shrink-0" />
-      <span>{children}</span>
-    </Button>
+    <DialogPrimitive.Close asChild>
+      <Button
+        type="button"
+        variant="tertiary"
+        size="sm"
+        // 접어두기는 krds-btn small tertiary(보더 버튼, help_panel.html:173) — help-panel 접어두기와 동일 처리.
+        className={cn("btn-help-panel fold absolute top-10 right-10", className)}
+        {...props}
+        data-slot="krds-tutorial-panel-close"
+      >
+        <span>{children ?? label}</span>
+        <ChevronRight size={16} aria-hidden={true} className="shrink-0" />
+      </Button>
+    </DialogPrimitive.Close>
   )
 }
 
-TutorialPanelTrigger.displayName = "TutorialPanelTrigger"
+// ─── TutorialPanelContainer ───────────────────────────────────────────────────
+// .help-panel-wrap 그림자 래퍼. Dialog 는 열림 상태에서만 Content 를 마운트하므로 KRDS
+// `.expand`(열림) 클래스를 정적으로 부여한다.
 
-// ─── TutorialPanel.Container ─────────────────────────────────────────────────
+type TutorialPanelContainerProps = React.ComponentProps<"div">
 
 function TutorialPanelContainer({ children, className, ...props }: TutorialPanelContainerProps) {
-  const ctx = useTutorialPanel()
   return (
     <div
       data-slot="krds-tutorial-panel-container"
-      data-expand={ctx.isOpen ? "true" : undefined}
-      className={cn("krds-help-panel flex flex-col gap-8", ctx.isOpen && "expand", className)}
+      data-expand="true"
+      className={cn("krds-help-panel expand flex flex-col gap-8", className)}
       {...props}
     >
       <div
@@ -291,213 +262,315 @@ function TutorialPanelContainer({ children, className, ...props }: TutorialPanel
   )
 }
 
-// ─── TutorialPanel.Tabs ──────────────────────────────────────────────────────
+// ─── TutorialPanelTabs ────────────────────────────────────────────────────────
+// Tab 프리미티브(radix Tabs)에 탭 상태를 위임한다 — 기본 활성 탭은 따라하기.
 
-function TutorialPanelTabs({ children, className, id }: TutorialPanelTabsProps) {
-  const ctx = useTutorialPanel()
+type TutorialPanelTabsProps = {
+  id?: string
+  value?: TutorialPanelTab
+  defaultValue?: TutorialPanelTab
+  onValueChange?: (value: TutorialPanelTab) => void
+  helpLabel?: string
+  tutorialLabel?: string
+  className?: string
+  children?: React.ReactNode
+}
+
+function TutorialPanelTabs({
+  id,
+  value,
+  defaultValue = "tutorial",
+  onValueChange,
+  helpLabel = "도움",
+  tutorialLabel = "따라하기",
+  className,
+  children,
+}: TutorialPanelTabsProps) {
   return (
     <Tab
       variant="line"
       type="secondary"
-      value={ctx.activeTab}
-      onValueChange={(value) => ctx.setActiveTab(value as TutorialPanelTab)}
+      value={value}
+      defaultValue={defaultValue}
+      onValueChange={(next) => onValueChange?.(next as TutorialPanelTab)}
       className={cn("layer", className)}
     >
       <TabList id={id} className="border-krds-border border-b">
-        <TabTrigger value="help">도움</TabTrigger>
-        <TabTrigger value="tutorial">따라하기</TabTrigger>
+        <TabTrigger value="help">{helpLabel}</TabTrigger>
+        <TabTrigger value="tutorial">{tutorialLabel}</TabTrigger>
       </TabList>
       <TabContent>{children}</TabContent>
     </Tab>
   )
 }
 
-// ─── TutorialPanel.TabPanel ──────────────────────────────────────────────────
+// ─── TutorialPanelTabPanel ────────────────────────────────────────────────────
 
-function TutorialPanelTabPanel({ value, children, className, ...props }: TutorialPanelTabPanelProps) {
-  const heading = value === "help" ? "도움" : "따라하기"
+type TutorialPanelTabPanelProps = React.ComponentProps<"div"> & {
+  value: TutorialPanelTab
+  heading?: string
+}
+
+function TutorialPanelTabPanel({ value, heading, children, className, ...props }: TutorialPanelTabPanelProps) {
+  const srHeading = heading ?? (value === "help" ? "도움" : "따라하기")
   return (
     <KrdsTabPanel value={value} className={cn("flex flex-col gap-6", className)} {...props}>
-      <h3 className="sr-only">{heading}</h3>
+      <h3 className="sr-only">{srHeading}</h3>
       {children}
     </KrdsTabPanel>
   )
 }
 
-// ─── TutorialPanel.HelpContent ───────────────────────────────────────────────
+// ─── TutorialPanelHelpContent ─────────────────────────────────────────────────
+// 도움 탭 콘텐츠 래퍼 (섹션 + 관련서비스를 gap-8 로 묶는다).
 
-function TutorialPanelHelpContent({
-  helpContent,
-  relatedServices = [],
-  className,
-  ...props
-}: TutorialPanelHelpContentProps) {
+function TutorialPanelHelpContent({ className, children, ...props }: React.ComponentProps<"div">) {
   return (
     <div data-slot="krds-tutorial-panel-help-content" className={cn("flex flex-col gap-8", className)} {...props}>
-      <section className="flex flex-col gap-3">
-        <h4 className="text-krds-heading-sm text-krds-foreground font-bold">{helpContent.title}</h4>
-        <div className="text-krds-body-sm text-krds-foreground">{helpContent.description}</div>
-        {helpContent.links.length > 0 ? (
-          <ul className="krds-info-list flex flex-col gap-1">
-            {helpContent.links.map((link, index) => (
-              <li key={`${link.href}-${index}`}>
-                <TutorialLinkAnchor link={link} />
-              </li>
-            ))}
-          </ul>
-        ) : null}
-      </section>
-      {relatedServices.length > 0 ? (
-        <div className="related-service-area flex flex-col gap-6">
-          {relatedServices.map((service, idx) => (
-            <section key={`${service.title}-${idx}`} className="flex flex-col gap-3">
-              <h4 className="text-krds-heading-xs text-krds-foreground font-bold">{service.title}</h4>
-              {service.description ? (
-                <div className="text-krds-body-sm text-krds-foreground">{service.description}</div>
-              ) : null}
-              {service.links.length > 0 ? (
-                <ul className="krds-info-list flex flex-col gap-1">
-                  {service.links.map((link, linkIdx) => (
-                    <li key={`${link.href}-${linkIdx}`}>
-                      <TutorialLinkAnchor link={link} />
-                    </li>
-                  ))}
-                </ul>
-              ) : null}
-            </section>
-          ))}
-        </div>
-      ) : null}
+      {children}
     </div>
   )
 }
 
-// ─── TutorialPanel.TutorialContent ───────────────────────────────────────────
+// ─── TutorialPanelSection ─────────────────────────────────────────────────────
+// 도움 탭의 주 섹션 — 제목(heading-sm) + 설명 + children(링크 목록).
 
-function TutorialPanelTutorialContent({
-  title,
-  steps = [],
-  onTutorialStop,
-  stopButtonText = "그만 따라하기",
-  className,
-  ...props
-}: TutorialPanelTutorialContentProps) {
+type TutorialPanelSectionProps = Omit<React.ComponentProps<"section">, "title"> & {
+  title: React.ReactNode
+  description?: React.ReactNode
+}
+
+function TutorialPanelSection({ title, description, className, children, ...props }: TutorialPanelSectionProps) {
   return (
-    <div data-slot="krds-tutorial-panel-tutorial-content" className={cn("flex flex-col gap-6", className)} {...props}>
-      <a
-        href="#"
-        title="이전으로 돌아가기"
-        className="text-krds-heading-sm text-krds-foreground hover:text-krds-foreground-primary focus-visible:krds-focus-ring inline-flex items-center gap-1 rounded-[2px] font-bold"
-      >
-        <ChevronLeft size={20} aria-hidden={true} className="shrink-0" />
-        <span>{title}</span>
-      </a>
-      <ul
-        className={cn(
-          "krds-tutorial-task-list flex flex-col gap-10",
-          "[&>li+li]:border-krds-border-light [&>li+li]:border-t [&>li+li]:pt-10"
-        )}
-      >
-        {steps.map((step, index) => {
-          const stepCount = step.steps?.length ?? 0
-          const buttonText = `전체 ${stepCount}단계`
-          return (
-            <li key={`${step.title}-${index}`} className="flex flex-col gap-2">
-              <h4
-                className={cn(
-                  "tit text-krds-body-lg mb-4 font-bold",
-                  step.current ? "current text-krds-foreground-primary" : "text-krds-foreground"
-                )}
-              >
-                {step.title}
-              </h4>
-              {stepCount > 0 ? (
-                <Disclosure defaultOpen={step.current} className="conts-expand-area">
-                  <DisclosureTrigger>{buttonText}</DisclosureTrigger>
-                  <DisclosureContent>
-                    <ul className="krds-info-list decimal flex list-decimal flex-col gap-1 pl-5">
-                      {step.steps?.map((sub, subIdx) => (
-                        <li key={`${sub}-${subIdx}`} className="text-krds-body-sm text-krds-foreground">
-                          {sub}
-                        </li>
-                      ))}
-                    </ul>
-                  </DisclosureContent>
-                </Disclosure>
-              ) : null}
-              {step.content ? (
-                <div className="step-content text-krds-body-sm text-krds-foreground">{step.content}</div>
-              ) : null}
-            </li>
-          )
-        })}
-      </ul>
-      <div className="help-panel-action border-krds-border-light flex w-full flex-col gap-2 border-t pt-8">
-        <Button
-          type="button"
-          variant="secondary"
-          size="default"
-          className="coach-btn-stop w-full"
-          onClick={onTutorialStop}
-        >
-          {stopButtonText}
-        </Button>
-      </div>
-    </div>
+    <section data-slot="krds-tutorial-panel-section" className={cn("flex flex-col gap-3", className)} {...props}>
+      <h4 className="text-krds-heading-sm text-krds-foreground font-bold">{title}</h4>
+      {description != null ? <div className="text-krds-body-sm text-krds-foreground">{description}</div> : null}
+      {children}
+    </section>
   )
 }
 
-// ─── TutorialPanel.Close ─────────────────────────────────────────────────────
+// ─── TutorialPanelLinkList ────────────────────────────────────────────────────
+// 링크 leaf 목록 (§50: 동종 leaf 배열은 허용, 구조 반복은 파트로).
 
-function TutorialPanelClose({ children = "접어두기", className, onClick, ...props }: TutorialPanelCloseProps) {
-  const ctx = useTutorialPanel()
+type TutorialPanelLinkListProps = React.ComponentProps<"ul"> & {
+  links: TutorialLink[]
+}
+
+function TutorialPanelLinkList({ links, className, ...props }: TutorialPanelLinkListProps) {
   return (
-    <Button
-      type="button"
-      variant="tertiary"
-      size="sm"
-      data-slot="krds-tutorial-panel-close"
-      onClick={(event) => {
-        onClick?.(event)
-        if (!event.defaultPrevented) ctx.setOpen(false)
-      }}
-      // 접어두기는 krds-btn small tertiary(보더 버튼, help_panel.html:173) — help-panel 접어두기와 동일 처리
-      className={cn("btn-help-panel fold absolute top-10 right-10", className)}
+    <ul
+      data-slot="krds-tutorial-panel-link-list"
+      className={cn("krds-info-list flex flex-col gap-1", className)}
       {...props}
     >
-      <span>{children}</span>
-      <ChevronRight size={16} aria-hidden={true} className="shrink-0" />
-    </Button>
+      {links.map((link, index) => (
+        <li key={`${link.href}-${index}`}>
+          <TutorialLink link={link} />
+        </li>
+      ))}
+    </ul>
   )
 }
 
-// ─── Compound export ─────────────────────────────────────────────────────────
+// ─── TutorialPanelRelatedService ──────────────────────────────────────────────
 
-const TutorialPanel = Object.assign(TutorialPanelRoot, {
-  Root: TutorialPanelRoot,
-  Trigger: TutorialPanelTrigger,
-  Container: TutorialPanelContainer,
-  Tabs: TutorialPanelTabs,
-  TabPanel: TutorialPanelTabPanel,
-  HelpContent: TutorialPanelHelpContent,
-  TutorialContent: TutorialPanelTutorialContent,
-  Close: TutorialPanelClose,
-})
+function TutorialPanelRelatedService({ className, children, ...props }: React.ComponentProps<"div">) {
+  return (
+    <div
+      data-slot="krds-tutorial-panel-related-service"
+      className={cn("related-service-area flex flex-col gap-6", className)}
+      {...props}
+    >
+      {children}
+    </div>
+  )
+}
 
-export { TutorialPanel }
+// ─── TutorialPanelServiceGroup ────────────────────────────────────────────────
+// 관련서비스 그룹 — 제목(heading-xs) + 설명 + children(링크 목록).
+
+type TutorialPanelServiceGroupProps = Omit<React.ComponentProps<"section">, "title"> & {
+  title: React.ReactNode
+  description?: React.ReactNode
+}
+
+function TutorialPanelServiceGroup({
+  title,
+  description,
+  className,
+  children,
+  ...props
+}: TutorialPanelServiceGroupProps) {
+  return (
+    <section data-slot="krds-tutorial-panel-service-group" className={cn("flex flex-col gap-3", className)} {...props}>
+      <h4 className="text-krds-heading-xs text-krds-foreground font-bold">{title}</h4>
+      {description != null ? <div className="text-krds-body-sm text-krds-foreground">{description}</div> : null}
+      {children}
+    </section>
+  )
+}
+
+// ─── TutorialPanelTutorialContent ─────────────────────────────────────────────
+// 따라하기 탭 콘텐츠 래퍼.
+
+function TutorialPanelTutorialContent({ className, children, ...props }: React.ComponentProps<"div">) {
+  return (
+    <div data-slot="krds-tutorial-panel-tutorial-content" className={cn("flex flex-col gap-6", className)} {...props}>
+      {children}
+    </div>
+  )
+}
+
+// ─── TutorialPanelTitle ───────────────────────────────────────────────────────
+// 따라하기 제목 — 뒤로가기 앵커(ChevronLeft). help-panel 정방향 링크와 대비된다.
+
+type TutorialPanelTitleProps = Omit<React.ComponentProps<"a">, "title"> & {
+  title: React.ReactNode
+  href?: string
+  backLabel?: string
+}
+
+function TutorialPanelTitle({
+  title,
+  href = "#",
+  backLabel = "이전으로 돌아가기",
+  className,
+  ...props
+}: TutorialPanelTitleProps) {
+  return (
+    <a
+      data-slot="krds-tutorial-panel-title"
+      href={href}
+      title={backLabel}
+      className={cn(
+        "text-krds-heading-sm text-krds-foreground hover:text-krds-foreground-primary focus-visible:krds-focus-ring inline-flex items-center gap-1 rounded-[2px] font-bold",
+        className
+      )}
+      {...props}
+    >
+      <ChevronLeft size={20} aria-hidden={true} className="shrink-0" />
+      <span>{title}</span>
+    </a>
+  )
+}
+
+// ─── TutorialPanelTaskList ────────────────────────────────────────────────────
+
+function TutorialPanelTaskList({ className, children, ...props }: React.ComponentProps<"ul">) {
+  return (
+    <ul
+      data-slot="krds-tutorial-panel-task-list"
+      className={cn(
+        "krds-tutorial-task-list flex flex-col gap-10",
+        "[&>li+li]:border-krds-border-light [&>li+li]:border-t [&>li+li]:pt-10",
+        className
+      )}
+      {...props}
+    >
+      {children}
+    </ul>
+  )
+}
+
+// ─── TutorialPanelTask ────────────────────────────────────────────────────────
+// 단일 Task — 제목 + (단계 접기 Disclosure) + 부가 설명. 단계는 동종 leaf 배열.
+
+type TutorialPanelTaskProps = Omit<React.ComponentProps<"li">, "title" | "content"> & {
+  title: React.ReactNode
+  isCurrent?: boolean
+  steps?: string[]
+  expandText?: React.ReactNode
+  content?: React.ReactNode
+}
+
+function TutorialPanelTask({
+  title,
+  isCurrent = false,
+  steps = [],
+  expandText,
+  content,
+  className,
+  ...props
+}: TutorialPanelTaskProps) {
+  const label = expandText ?? `전체 ${steps.length}단계`
+  return (
+    <li data-slot="krds-tutorial-panel-task" className={cn("flex flex-col gap-2", className)} {...props}>
+      <h4
+        className={cn(
+          "tit text-krds-body-lg mb-4 font-bold",
+          isCurrent ? "current text-krds-foreground-primary" : "text-krds-foreground"
+        )}
+      >
+        {title}
+      </h4>
+      {steps.length > 0 ? (
+        <Disclosure defaultOpen={isCurrent} className="conts-expand-area">
+          <DisclosureTrigger>{label}</DisclosureTrigger>
+          <DisclosureContent>
+            <ul className="krds-info-list decimal flex list-decimal flex-col gap-1 pl-5">
+              {steps.map((sub, subIdx) => (
+                <li key={`${sub}-${subIdx}`} className="text-krds-body-sm text-krds-foreground">
+                  {sub}
+                </li>
+              ))}
+            </ul>
+          </DisclosureContent>
+        </Disclosure>
+      ) : null}
+      {content != null ? <div className="step-content text-krds-body-sm text-krds-foreground">{content}</div> : null}
+    </li>
+  )
+}
+
+// ─── TutorialPanelAction ──────────────────────────────────────────────────────
+// 하단 액션 영역 (예: "그만 따라하기" 버튼을 children 으로 받는다).
+
+function TutorialPanelAction({ className, children, ...props }: React.ComponentProps<"div">) {
+  return (
+    <div
+      data-slot="krds-tutorial-panel-action"
+      className={cn("help-panel-action border-krds-border-light flex w-full flex-col gap-2 border-t pt-8", className)}
+      {...props}
+    >
+      {children}
+    </div>
+  )
+}
+
+export {
+  TutorialPanel,
+  TutorialPanelTrigger,
+  TutorialPanelContent,
+  TutorialPanelClose,
+  TutorialPanelContainer,
+  TutorialPanelTabs,
+  TutorialPanelTabPanel,
+  TutorialPanelHelpContent,
+  TutorialPanelSection,
+  TutorialPanelLinkList,
+  TutorialPanelRelatedService,
+  TutorialPanelServiceGroup,
+  TutorialPanelTutorialContent,
+  TutorialPanelTitle,
+  TutorialPanelTaskList,
+  TutorialPanelTask,
+  TutorialPanelAction,
+}
 export type {
   TutorialPanelTab,
   TutorialLink,
   TutorialLinkIcon,
-  TutorialHelpContent,
-  TutorialRelatedService,
-  TutorialStep,
-  TutorialPanelRootProps,
+  TutorialPanelProps,
   TutorialPanelTriggerProps,
+  TutorialPanelContentProps,
+  TutorialPanelCloseProps,
   TutorialPanelContainerProps,
   TutorialPanelTabsProps,
   TutorialPanelTabPanelProps,
-  TutorialPanelHelpContentProps,
-  TutorialPanelTutorialContentProps,
-  TutorialPanelCloseProps,
+  TutorialPanelSectionProps,
+  TutorialPanelLinkListProps,
+  TutorialPanelServiceGroupProps,
+  TutorialPanelTitleProps,
+  TutorialPanelTaskProps,
 }
