@@ -175,11 +175,11 @@ function Resize({
                       >
                         <span
                           aria-hidden
-                          style={{
-                            fontSize: charFontSize,
-                            color: isSelected ? "#ffffff" : "#1e2124",
-                            lineHeight: 1,
-                          }}
+                          // selected "가" sits on bg-krds-secondary-bold (saturated blue in
+                          // both modes) → mode-fixed white; unselected sits on bg-krds-surface
+                          // (white→black) so it must auto-switch via the foreground token.
+                          className={isSelected ? "text-krds-gray-0" : "text-krds-foreground"}
+                          style={{ fontSize: charFontSize, lineHeight: 1 }}
                         >
                           가
                         </span>

@@ -10,7 +10,7 @@ function IconErrorFill({ className }: { className?: string }) {
   return (
     <svg viewBox="0 0 16 16" aria-hidden="true" className={className} xmlns="http://www.w3.org/2000/svg">
       <circle cx="8" cy="8" r="8" fill="currentColor" />
-      <path d="M5.5 5.5l5 5M10.5 5.5l-5 5" stroke="#fff" strokeWidth="1.6" strokeLinecap="round" />
+      <path d="M5.5 5.5l5 5M10.5 5.5l-5 5" className="stroke-krds-gray-0" strokeWidth="1.6" strokeLinecap="round" />
     </svg>
   )
 }
@@ -21,7 +21,7 @@ function IconSuccessFill({ className }: { className?: string }) {
       <circle cx="8" cy="8" r="8" fill="currentColor" />
       <path
         d="M4.5 8.2l2.4 2.4 4.6-4.8"
-        stroke="#fff"
+        className="stroke-krds-gray-0"
         strokeWidth="1.6"
         strokeLinecap="round"
         strokeLinejoin="round"
@@ -35,8 +35,8 @@ function IconInformationFill({ className }: { className?: string }) {
   return (
     <svg viewBox="0 0 16 16" aria-hidden="true" className={className} xmlns="http://www.w3.org/2000/svg">
       <circle cx="8" cy="8" r="8" fill="currentColor" />
-      <path d="M8 7.2v4" stroke="#fff" strokeWidth="1.6" strokeLinecap="round" />
-      <circle cx="8" cy="4.8" r="0.9" fill="#fff" />
+      <path d="M8 7.2v4" className="stroke-krds-gray-0" strokeWidth="1.6" strokeLinecap="round" />
+      <circle cx="8" cy="4.8" r="0.9" className="fill-krds-gray-0" />
     </svg>
   )
 }

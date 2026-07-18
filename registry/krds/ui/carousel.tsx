@@ -293,7 +293,11 @@ function CarouselPlayPause({
 // (more) affordance with a plus icon. Renders as a link when `href` is given, else a
 // button. Shares the circular KRDS arrow-button chrome.
 
-type CarouselMoreProps = Omit<React.ComponentProps<"a">, "href"> & {
+// Polymorphic a/button (contract §3): props are the attributes common to both
+// elements, so `rest` (incl. onClick: MouseEventHandler<HTMLElement>) spreads onto
+// whichever element renders with no cast. Anchor-only attrs (target/rel/download)
+// are intentionally out of scope for this compact "more" affordance.
+type CarouselMoreProps = React.HTMLAttributes<HTMLElement> & {
   href?: string
   size?: CarouselArrowSize
   /** Accessible label. Defaults to "모든 슬라이드 보기". */
@@ -322,16 +326,8 @@ function CarouselMore({ href, size = "small", label = "모든 슬라이드 보�
       </a>
     )
   }
-  const { onClick, ...anchorRest } = rest
   return (
-    <button
-      type="button"
-      data-slot="krds-carousel-more"
-      aria-label={label}
-      onClick={onClick as unknown as React.MouseEventHandler<HTMLButtonElement>}
-      className={classes}
-      {...(anchorRest as React.ComponentProps<"button">)}
-    >
+    <button type="button" data-slot="krds-carousel-more" aria-label={label} className={classes} {...rest}>
       {inner}
     </button>
   )
