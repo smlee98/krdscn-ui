@@ -38,11 +38,26 @@ function wrap(name, fragment) {
 <link rel="stylesheet" href="/resources/css/token/krds_tokens.css" />
 <link rel="stylesheet" href="/resources/css/common/common.css" />
 <link rel="stylesheet" href="/resources/css/component/component.css" />
+<link rel="stylesheet" href="/resources/css/plugin/swiper-bundle.min.css" />
 <style>body{margin:0;padding:24px;background:#fff}</style>
 </head>
 <body>
 ${fragment}
+<script src="/resources/js/plugin/swiper-bundle.min.js"></script>
 <script src="/resources/js/component/ui-script.js"></script>
+<script>
+  // 캐러셀(carousel.html 등)은 원본 사이트에서 페이지별 인라인 스크립트로 Swiper를
+  // 초기화한다(ui-script.js에는 없음) — 하네스는 표준 클래스명 기반 범용 초기화로 근사한다.
+  if (window.Swiper) {
+    document.querySelectorAll(".swiper").forEach((el) => {
+      new Swiper(el, {
+        loop: el.querySelectorAll(".swiper-slide").length > 1,
+        navigation: { nextEl: el.querySelector(".swiper-button-next"), prevEl: el.querySelector(".swiper-button-prev") },
+        pagination: el.querySelector(".swiper-pagination") ? { el: el.querySelector(".swiper-pagination"), clickable: true } : false,
+      })
+    })
+  }
+</script>
 </body>
 </html>`
 }

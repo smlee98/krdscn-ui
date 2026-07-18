@@ -133,6 +133,88 @@ const TARGETS = {
       },
     ],
   },
+  // ─── 2026-07-18 재작성 커버리지 확대: 최초 5개 타깃에 없던 재작성 파일 ─────────
+  "main-menu": {
+    orig: `${ORIG}/main_menu_pc`,
+    ours: `${OURS}/main-menu`,
+    oursReadySlot: "krds-main-menu",
+    // 원본 샘플·우리 예제 모두 서브메뉴가 기본 펼침 상태(sample/is-open) — 액션 불필요.
+    shots: [{ name: "default", action: null }],
+  },
+  "main-menu-mobile": {
+    orig: `${ORIG}/main_menu_mobile`,
+    ours: `${OURS}/main-menu`,
+    oursReadySlot: "krds-main-menu-mobile-trigger",
+    shots: [
+      // 원본 조각은 드로어 내부만 담고 있어 항상 "열린" 상태 — 우리는 트리거만 기본 노출.
+      { name: "default", action: null },
+      {
+        name: "open",
+        action: async (page, side) => {
+          if (side === "ours") {
+            await page.locator('[data-slot="krds-main-menu-mobile-trigger"]').first().click()
+            await page.waitForTimeout(400)
+          }
+          // orig는 default 샷과 동일(이미 열린 조각) — 별도 액션 없음.
+        },
+      },
+    ],
+  },
+  "file-upload": {
+    orig: `${ORIG}/file_upload`,
+    ours: `${OURS}/file-upload`,
+    oursReadySlot: "krds-file-upload",
+    shots: [{ name: "default", action: null }],
+  },
+  modal: {
+    orig: `${ORIG}/modal`,
+    ours: `${OURS}/modal`,
+    oursReadySlot: "krds-modal-trigger",
+    shots: [
+      { name: "default", action: null },
+      {
+        name: "open",
+        action: async (page, side) => {
+          if (side === "ours") {
+            await page.locator('[data-slot="krds-modal-trigger"]').first().click()
+          } else {
+            await page.locator(".open-modal").first().click()
+          }
+          await page.waitForTimeout(400)
+        },
+      },
+    ],
+  },
+  "tutorial-panel": {
+    orig: `${ORIG}/tutorial_panel`,
+    ours: `${OURS}/tutorial-panel`,
+    oursReadySlot: "krds-tutorial-panel-trigger",
+    shots: [
+      { name: "default", action: null },
+      {
+        name: "open",
+        action: async (page, side) => {
+          if (side === "ours") {
+            await page.locator('[data-slot="krds-tutorial-panel-trigger"]').first().click()
+            await page.waitForTimeout(400)
+          }
+          // orig 조각은 이미 "krds-help-panel expand" 상태(정적 샘플) — 클릭 불필요.
+        },
+      },
+    ],
+  },
+  carousel: {
+    orig: `${ORIG}/carousel`,
+    ours: `${OURS}/carousel`,
+    oursReadySlot: "krds-carousel",
+    shots: [{ name: "default", action: null }],
+  },
+  table: {
+    orig: `${ORIG}/table`,
+    ours: `${OURS}/table`,
+    oursReadySlot: "krds-table",
+    shots: [{ name: "default", action: null }],
+  },
 }
 
 async function launch() {
