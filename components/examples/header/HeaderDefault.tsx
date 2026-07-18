@@ -19,7 +19,7 @@ import {
 
 export default function HeaderDefault() {
   return (
-    <Header className="w-full">
+    <Header className="w-full" sticky={false}>
       <HeaderTop>
         <HeaderUtility>
           <HeaderUtilityItem href="#">KRDS 소개</HeaderUtilityItem>
