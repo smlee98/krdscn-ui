@@ -43,7 +43,12 @@ export type StructuredListProps = {
   size?: StructuredListSize
   /** Render as a selectable (checkbox-bearing) card. */
   selectable?: boolean
-  /** Selected/checked highlight border (KRDS `.is-check`). Only meaningful when `selectable`. */
+  /**
+   * Selected/checked highlight border (KRDS `.is-check`). Only meaningful when `selectable`.
+   * Purely visual — the accessible checked state belongs to the real checkbox control
+   * consumers place inside `StructuredListCheck`; the `<li>`'s implicit `listitem` role
+   * doesn't support `aria-checked` (KRDS 원본도 `<li>`에 aria-checked를 두지 않는다).
+   */
   checked?: boolean
   className?: string
   children?: React.ReactNode
@@ -64,7 +69,6 @@ function StructuredList({
       data-size={size}
       data-selectable={selectable || undefined}
       data-checked={checked || undefined}
-      aria-checked={selectable ? checked : undefined}
       className={cn(
         "group/structured-list border-krds-border bg-krds-surface list-none overflow-hidden rounded-[12px] border",
         // relative: .card-btn(StructuredListActions)의 절대 배치 기준
