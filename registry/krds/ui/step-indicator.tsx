@@ -73,7 +73,13 @@ function StepIndicatorItem({ className, step, children, ...props }: React.Compon
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
             >
-              <path d="M1 4L3.5 6.5L9 1" stroke="#fff" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+              <path
+                d="M1 4L3.5 6.5L9 1"
+                className="stroke-krds-gray-0"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
             </svg>
           </div>
         ) : isActive ? (
