@@ -7,7 +7,11 @@
  * 근거(_calendar.scss): 날짜 셀 44×44 rounded-full, 이동 버튼 아이콘 20px(size-height-3),
  *   드롭다운 caret icon--size-small, 기간 밴드 action-secondary-on-selected(= bg-krds-surface).
  * 단일 렌더 경로: react-day-picker `DayButton` 슬롯(KrdsDayButton) 하나만 날짜 셀을 그린다.
- * 베이스(§3 legacy 허용): `@/components/ui/calendar`(shadcn/react-day-picker) 잠정 유지.
+ * 합성(§3 졸업): react-day-picker `DayPicker`를 직접 합성한다(shadcn 베이스 흡수 완료).
+ *   흡수한 것 — data-slot="calendar" Root, 컨테이너 chrome className, showOutsideDays.
+ *   RDP는 `{...getDefaultClassNames(), ...classNames}`를 내부 병합하므로 베이스가 덧대던
+ *   defaultClassNames 재병합은 불필요하고, navLayout="around"·드롭다운 오버라이드로
+ *   nav/dropdown/week-number 파트는 렌더되지 않아 그 classNames는 흡수 대상에서 제외한다.
  * context(1): CalendarNavContext — viewMonth와 goToMonth를 월/연도 드롭다운 파트에 전달해,
  *   합성 이벤트 캐스트 없이 뷰를 이동한다(스타일 전달용이 아닌 실제 내비 상태).
  */
@@ -15,9 +19,8 @@ import { format, setMonth, setYear, startOfMonth } from "date-fns"
 import { ko } from "date-fns/locale"
 import { ChevronDown, ChevronLeft, ChevronRight } from "lucide-react"
 import * as React from "react"
-import { type DateRange, type DayButton, type Dropdown as RdpDropdown } from "react-day-picker"
+import { DayPicker, type DateRange, type DayButton, type Dropdown as RdpDropdown } from "react-day-picker"
 
-import { Calendar as ShadcnCalendar } from "@/components/ui/calendar"
 import { Button } from "@/registry/krds/ui/button"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/registry/krds/ui/select"
 import { cn } from "@/lib/utils"
@@ -377,6 +380,7 @@ function Calendar({
   if (rangeStartOnlyDate) extraModifiers.rangeStartOnly = [rangeStartOnlyDate]
 
   const sharedProps = {
+    showOutsideDays: true,
     captionLayout: "dropdown" as const,
     navLayout: "around" as const,
     month: viewMonth,
@@ -390,13 +394,30 @@ function Calendar({
     disabled: disabledMatcher.length > 0 ? disabledMatcher : undefined,
     modifiers: Object.keys(extraModifiers).length > 0 ? extraModifiers : undefined,
     classNames: SHADCN_CLASSNAMES,
-    className: "[--cell-size:--spacing(11)] bg-transparent p-0 pt-4 pb-0",
+    // Absorbed shadcn base chrome: applied to the DayPicker root before the KRDS
+    // `--cell-size`/spacing reset. `bg-background`/`p-3`/`--cell-size:8` are visually
+    // overridden by the trailing KRDS utilities but kept verbatim so the root class
+    // string stays byte-identical to the previous base-wrapped render.
+    className: cn(
+      "group/calendar bg-background p-3 [--cell-size:--spacing(8)] [[data-slot=card-content]_&]:bg-transparent [[data-slot=popover-content]_&]:bg-transparent",
+      String.raw`rtl:**:[.rdp-button\_next>svg]:rotate-180`,
+      String.raw`rtl:**:[.rdp-button\_previous>svg]:rotate-180`,
+      "[--cell-size:--spacing(11)] bg-transparent p-0 pt-4 pb-0"
+    ),
     formatters: {
       formatYearDropdown: (date: Date) => `${date.getFullYear()}년`,
       formatMonthDropdown: (date: Date) => format(date, "M월", { locale: ko }),
       formatCaption: (date: Date) => format(date, "yyyy년 M월", { locale: ko }),
     },
     components: {
+      // Absorbed shadcn base Root: stamps data-slot="calendar" on the RDP root div.
+      Root: ({
+        className: rootClassName,
+        rootRef,
+        ...rootProps
+      }: React.HTMLAttributes<HTMLDivElement> & { rootRef?: React.Ref<HTMLDivElement> }) => (
+        <div data-slot="calendar" ref={rootRef} className={cn(rootClassName)} {...rootProps} />
+      ),
       DayButton: KrdsDayButton,
       MonthsDropdown: KrdsMonthsDropdown,
       YearsDropdown: KrdsYearsDropdown,
@@ -421,7 +442,7 @@ function Calendar({
 
   const calendarNode =
     mode === "range" ? (
-      <ShadcnCalendar
+      <DayPicker
         mode="range"
         selected={rangeStartDate ? { from: rangeStartDate, to: rangeEndDate } : undefined}
         onSelect={(range: DateRange | undefined) => {
@@ -434,7 +455,7 @@ function Calendar({
         {...sharedProps}
       />
     ) : (
-      <ShadcnCalendar
+      <DayPicker
         mode="single"
         selected={selectedDate}
         onSelect={(date: Date | undefined) => {
