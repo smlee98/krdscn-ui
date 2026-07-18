@@ -279,6 +279,18 @@ async function buildThemeFields() {
   return { cssVars, css: cssField }
 }
 
+// COMPONENT_COPY 는 SidebarItemId(문서 사이드바 최상위 항목)로만 타입이 고정돼 있어
+// 별도 문서 페이지가 없는 레지스트리 아이템은 description 이 비게 된다:
+//  - field-message: text-input/select/textarea/date-input 이 공유하는 힌트·에러 메시지 파트 (자체 사이드바 항목 없음)
+//  - main-menu-mobile: main-menu 문서 페이지 안에 두 번째 예제로만 포함되는 모바일 GNB 드로어
+// 새 사이드바 항목을 만들 정도는 아니라 여기서만 보강한다.
+const EXTRA_DESCRIPTIONS: Record<string, string> = {
+  "field-message":
+    "필드 메시지는 입력 필드 아래에 힌트·에러·성공·안내 상태를 아이콘과 함께 보여주는 공용 메시지 파트이다.",
+  "main-menu-mobile":
+    "모바일 메인 메뉴는 작은 화면에서 전체 메뉴·검색·로그인·서비스 바로가기를 담는 전체화면 드로어이다.",
+}
+
 // ── 컴포넌트 항목 ────────────────────────────────────────────────────────────────
 const entryFiles = (await fs.readdir(KRDS_UI_DIR))
   .filter((file) => file.endsWith(".tsx"))
@@ -295,7 +307,7 @@ for (const entryFile of entryFiles) {
     name,
     type: "registry:ui",
     title: name,
-    description: copy?.intro,
+    description: copy?.intro ?? EXTRA_DESCRIPTIONS[name],
     dependencies: packages.map(toDependency),
     registryDependencies: [
       itemRef("krds-theme"),

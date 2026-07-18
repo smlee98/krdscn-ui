@@ -25,14 +25,13 @@ pnpm dlx shadcn@latest add https://krdscn-ui.smlee.info/r/krds-all.json
 
 ## KRDS 토큰 연결
 
-설치 시 KRDS 디자인 토큰 파일(`app/krds.css`)이 함께 복사됩니다. 전역 CSS(예: `app/globals.css`)에 한 줄을 추가해 토큰을 연결하세요.
+컴포넌트를 하나라도 설치하면 CLI가 `krds-theme` 레지스트리 아이템(`registry:theme`)을 자동으로 함께 설치합니다. 파일을 복사하거나 `@import`를 직접 추가할 필요가 없습니다 — KRDS 색상 팔레트, 시맨틱 토큰(light/high-contrast), 타이포그래피, 포커스 링 유틸리티가 `components.json`에 지정된 프로젝트 CSS 파일(기본 `app/globals.css`)에 `@theme inline` / `:root` / `.dark` / `@utility` 블록으로 직접 병합됩니다.
 
-```css
-@import "tailwindcss";
-@import "./krds.css";
+```bash
+pnpm dlx shadcn@latest add https://krdscn-ui.smlee.info/r/krds-theme.json
 ```
 
-이 파일에는 KRDS 색상 팔레트, 시맨틱 토큰(light/high-contrast), 타이포그래피, 포커스 링 유틸리티가 들어 있습니다. Tailwind CSS v4 기준이며, 다크 모드는 `.dark` 클래스를 사용합니다.
+토큰만 먼저 확인하고 싶다면 위처럼 `krds-theme` 하나만 설치해도 됩니다. Tailwind CSS v4 기준이며, 다크 모드는 `.dark` 클래스를 사용합니다.
 
 ## 단일 컴포넌트 설치
 
