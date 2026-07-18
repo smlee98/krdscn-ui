@@ -1106,6 +1106,27 @@
       "required": false
     },
     {
+      "name": "countUnit",
+      "type": "string",
+      "defaultValue": "개",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "deleteAllText",
+      "type": "string",
+      "defaultValue": "전체 파일 삭제",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "deleteText",
+      "type": "string",
+      "defaultValue": "삭제",
+      "description": "",
+      "required": false
+    },
+    {
       "name": "description",
       "type": "string",
       "description": "",
@@ -1119,8 +1140,22 @@
       "required": false
     },
     {
+      "name": "downloadText",
+      "type": "string",
+      "defaultValue": "다운로드",
+      "description": "",
+      "required": false
+    },
+    {
       "name": "files",
       "type": "FileItem[]",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "fileTypeErrorMessage",
+      "type": "((acceptedLabel: string) => string)",
+      "defaultValue": "(acceptedLabel) =>\n    `지원하지 않는 파일 형식입니다.\\n${acceptedLabel} 형식만 업로드 가능합니다.`",
       "description": "",
       "required": false
     },
@@ -1141,6 +1176,13 @@
       "name": "maxFileSize",
       "type": "number",
       "defaultValue": "20 * 1024 * 1024",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "maxSizeErrorMessage",
+      "type": "((maxSizeLabel: string) => string)",
+      "defaultValue": "(maxSizeLabel) =>\n    `등록 가능한 파일 용량을 초과하였습니다.\\n${maxSizeLabel} 미만의 파일만 등록할 수 있습니다.`",
       "description": "",
       "required": false
     },
@@ -1175,6 +1217,20 @@
       "required": false
     },
     {
+      "name": "previewText",
+      "type": "string",
+      "defaultValue": "바로보기",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "selectFileText",
+      "type": "string",
+      "defaultValue": "파일선택",
+      "description": "",
+      "required": false
+    },
+    {
       "name": "style",
       "type": "CSSProperties",
       "description": "",
@@ -1183,6 +1239,20 @@
     {
       "name": "tabIndex",
       "type": "number",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "uploadErrorMessage",
+      "type": "string",
+      "defaultValue": "파일 업로드에 실패했습니다.",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "uploadingLabel",
+      "type": "string",
+      "defaultValue": "업로드 중",
       "description": "",
       "required": false
     },
@@ -1551,8 +1621,38 @@
   ],
   "KrdsMainMenu": [
     {
+      "name": "aria-label",
+      "type": "string",
+      "description": "Defines a string value that labels the current element.\n@see aria-labelledby.",
+      "required": false
+    },
+    {
       "name": "className",
       "type": "string",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "id",
+      "type": "string",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "onClick",
+      "type": "MouseEventHandler<HTMLDivElement>",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "style",
+      "type": "CSSProperties",
+      "description": "",
+      "required": false
+    },
+    {
+      "name": "tabIndex",
+      "type": "number",
       "description": "",
       "required": false
     }
