@@ -1,7 +1,7 @@
 // rsc:client
 "use client"
 /**
- * KRDS Carousel — wraps the shadcn/Embla carousel and adds KRDS-spec indicators.
+ * KRDS Carousel — composes embla-carousel-react directly and adds KRDS-spec indicators.
  *
  * Figma sources:
  *  - Arrow buttons : 343:24138 (4 sizes × 2 directions; circle, #cdd1d5 border, #33363d chevron)
@@ -19,22 +19,27 @@
  */
 
 import * as React from "react"
+import useEmblaCarousel, { type UseEmblaCarouselType } from "embla-carousel-react"
 import { ChevronLeft, ChevronRight, Pause, Play, Plus } from "lucide-react"
 
-import {
-  Carousel as ShadcnCarousel,
-  CarouselContent as ShadcnCarouselContent,
-  CarouselItem as ShadcnCarouselItem,
-  type CarouselApi,
-} from "@/components/ui/carousel"
 import { cn } from "@/lib/utils"
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
+type CarouselApi = UseEmblaCarouselType[1]
+type CarouselOptions = Parameters<typeof useEmblaCarousel>[0]
+type CarouselPlugin = Parameters<typeof useEmblaCarousel>[1]
+
 type CarouselArrowSize = "xsmall" | "small" | "medium" | "large"
 
+// Single compound context (contract §2). Beyond the KRDS-derived state (selectedIndex,
+// slideCount, scroll helpers) it also carries the embla ref + orientation that
+// CarouselContent/CarouselItem need, now that the embla composition is inlined here
+// rather than delegated to a shadcn base — so one provider covers every sub-part.
 type CarouselContextValue = {
+  carouselRef: ReturnType<typeof useEmblaCarousel>[0]
   api: CarouselApi | undefined
+  orientation: "horizontal" | "vertical"
   selectedIndex: number
   slideCount: number
   scrollTo: (index: number) => void
@@ -54,22 +59,49 @@ function useKrdsCarousel() {
 
 // ─── Carousel (Root) ──────────────────────────────────────────────────────────
 
-type CarouselProps = React.ComponentProps<typeof ShadcnCarousel>
+type CarouselProps = React.ComponentProps<"div"> & {
+  opts?: CarouselOptions
+  plugins?: CarouselPlugin
+  orientation?: "horizontal" | "vertical"
+  setApi?: (api: CarouselApi) => void
+}
 
-function Carousel({ children, className, setApi: externalSetApi, ...props }: CarouselProps) {
-  const [api, setApi] = React.useState<CarouselApi>()
+function Carousel({
+  orientation = "horizontal",
+  opts,
+  setApi: externalSetApi,
+  plugins,
+  className,
+  children,
+  ...props
+}: CarouselProps) {
+  const [carouselRef, api] = useEmblaCarousel({ ...opts, axis: orientation === "horizontal" ? "x" : "y" }, plugins)
   const [selectedIndex, setSelectedIndex] = React.useState(0)
   const [slideCount, setSlideCount] = React.useState(0)
   const [canScrollPrev, setCanScrollPrev] = React.useState(false)
   const [canScrollNext, setCanScrollNext] = React.useState(false)
 
-  const handleSetApi = React.useCallback(
-    (a: CarouselApi) => {
-      setApi(a)
-      externalSetApi?.(a)
+  const scrollTo = React.useCallback((i: number) => api?.scrollTo(i), [api])
+  const scrollPrev = React.useCallback(() => api?.scrollPrev(), [api])
+  const scrollNext = React.useCallback(() => api?.scrollNext(), [api])
+
+  const handleKeyDown = React.useCallback(
+    (event: React.KeyboardEvent<HTMLDivElement>) => {
+      if (event.key === "ArrowLeft") {
+        event.preventDefault()
+        scrollPrev()
+      } else if (event.key === "ArrowRight") {
+        event.preventDefault()
+        scrollNext()
+      }
     },
-    [externalSetApi]
+    [scrollPrev, scrollNext]
   )
+
+  React.useEffect(() => {
+    if (!api) return
+    externalSetApi?.(api)
+  }, [api, externalSetApi])
 
   React.useEffect(() => {
     if (!api) return
@@ -88,29 +120,61 @@ function Carousel({ children, className, setApi: externalSetApi, ...props }: Car
     }
   }, [api])
 
-  const scrollTo = React.useCallback((i: number) => api?.scrollTo(i), [api])
-  const scrollPrev = React.useCallback(() => api?.scrollPrev(), [api])
-  const scrollNext = React.useCallback(() => api?.scrollNext(), [api])
-
   return (
     <KrdsCarouselContext.Provider
-      value={{ api, selectedIndex, slideCount, scrollTo, scrollPrev, scrollNext, canScrollPrev, canScrollNext }}
+      value={{
+        carouselRef,
+        api,
+        orientation,
+        selectedIndex,
+        slideCount,
+        scrollTo,
+        scrollPrev,
+        scrollNext,
+        canScrollPrev,
+        canScrollNext,
+      }}
     >
-      <ShadcnCarousel data-slot="krds-carousel" setApi={handleSetApi} className={className} {...props}>
+      <div
+        onKeyDownCapture={handleKeyDown}
+        className={cn("relative", className)}
+        role="region"
+        aria-roledescription="carousel"
+        data-slot="krds-carousel"
+        {...props}
+      >
         {children}
-      </ShadcnCarousel>
+      </div>
     </KrdsCarouselContext.Provider>
   )
 }
 
-// ─── CarouselContent / CarouselItem — pass-throughs ───────────────────────────
+// ─── CarouselContent / CarouselItem ───────────────────────────────────────────
 
-function CarouselContent({ className, ...props }: React.ComponentProps<typeof ShadcnCarouselContent>) {
-  return <ShadcnCarouselContent data-slot="krds-carousel-content" className={className} {...props} />
+function CarouselContent({ className, ...props }: React.ComponentProps<"div">) {
+  const { carouselRef, orientation } = useKrdsCarousel()
+  return (
+    <div ref={carouselRef} className="overflow-hidden" data-slot="carousel-content">
+      <div
+        data-slot="krds-carousel-content"
+        className={cn("flex", orientation === "horizontal" ? "-ml-4" : "-mt-4 flex-col", className)}
+        {...props}
+      />
+    </div>
+  )
 }
 
-function CarouselItem({ className, ...props }: React.ComponentProps<typeof ShadcnCarouselItem>) {
-  return <ShadcnCarouselItem data-slot="krds-carousel-item" className={className} {...props} />
+function CarouselItem({ className, ...props }: React.ComponentProps<"div">) {
+  const { orientation } = useKrdsCarousel()
+  return (
+    <div
+      role="group"
+      aria-roledescription="slide"
+      data-slot="krds-carousel-item"
+      className={cn("min-w-0 shrink-0 grow-0 basis-full", orientation === "horizontal" ? "pl-4" : "pt-4", className)}
+      {...props}
+    />
+  )
 }
 
 // ─── CarouselArrow / CarouselPrevious / CarouselNext ──────────────────────────
