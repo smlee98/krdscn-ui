@@ -4,21 +4,8 @@
 import * as React from "react"
 import { Eye, EyeOff } from "lucide-react"
 import { cn } from "@/lib/utils"
+import { IconDeleteFill } from "@/lib/icons"
 import { renderFieldMessage } from "@/registry/krds/ui/field-message"
-
-function IconDelete({ className }: { className?: string }) {
-  return (
-    <svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden className={className}>
-      <rect width="20" height="20" rx="10" fill="#CDD1D5" />
-      <path
-        fillRule="evenodd"
-        clipRule="evenodd"
-        d="M6.06491 4.93451C5.75249 4.62209 5.24595 4.62209 4.93353 4.93451C4.62112 5.24693 4.62112 5.75346 4.93353 6.06588L8.86863 10.001L4.9351 13.9345C4.62268 14.2469 4.62268 14.7535 4.9351 15.0659C5.24752 15.3783 5.75405 15.3783 6.06647 15.0659L10 11.1323L13.9335 15.0659C14.246 15.3783 14.7525 15.3783 15.0649 15.0659C15.3773 14.7535 15.3773 14.2469 15.0649 13.9345L11.1314 10.001L15.0665 6.06588C15.3789 5.75346 15.3789 5.24693 15.0665 4.93451C14.754 4.62209 14.2475 4.62209 13.9351 4.93451L10 8.86961L6.06491 4.93451Z"
-        fill="#33363D"
-      />
-    </svg>
-  )
-}
 
 type TextInputSize = "small" | "medium" | "large"
 
@@ -165,7 +152,7 @@ function TextInput({
             onClick={handleClear}
             className="text-krds-foreground focus-visible:krds-focus-ring inline-flex shrink-0 items-center justify-center rounded-full"
           >
-            <IconDelete className={sizeIcon[size]} />
+            <IconDeleteFill className={sizeIcon[size]} />
           </button>
         )}
 
