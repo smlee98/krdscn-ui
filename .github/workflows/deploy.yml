@@ -36,8 +36,11 @@ jobs:
         run: yarn install --immutable
 
       # registry:build(tsx + shadcn build) + next build(output: export → ./out)
-      # basePath 미설정 = 루트 배포 (GITHUB_PAGES_BASE_PATH 주지 않음)
+      # 프로젝트 페이지(krdscn-ui.github.io/ui/) 대응으로 basePath=/ui.
+      # js.org 승인 후 CF 프록시(krdscn-ui.js.org 루트) 렌더를 위해 이 env 제거 예정.
       - name: Build static export
+        env:
+          GITHUB_PAGES_BASE_PATH: /ui
         run: yarn build
 
       - name: Upload Pages artifact
