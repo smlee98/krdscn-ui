@@ -191,7 +191,7 @@ export default function Home() {
                 </Link>
               </Button>
               <Button asChild variant="outline" size="lg">
-                <a href="https://github.com/smlee98/krdscn-ui" target="_blank" rel="noreferrer">
+                <a href="https://github.com/krdscn-ui/ui" target="_blank" rel="noreferrer">
                   GitHub
                 </a>
               </Button>
