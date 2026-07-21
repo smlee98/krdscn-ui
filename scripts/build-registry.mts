@@ -39,7 +39,7 @@ try {
 
 const ROOT = process.cwd()
 const REGISTRY_NAME = "krdscn-ui"
-const HOMEPAGE = "https://krdscn-ui.smlee.info"
+const HOMEPAGE = "https://krdscn-ui.js.org"
 // 항목 간 참조(registryDependencies) base URL — 로컬 E2E 테스트 시 KRDS_REGISTRY_URL 로 오버라이드
 const REGISTRY_URL = process.env.KRDS_REGISTRY_URL ?? `${HOMEPAGE}/r`
 const KRDS_UI_DIR = path.join(ROOT, "registry/krds/ui")

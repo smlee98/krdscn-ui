@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button"
 import { getAllPagesFromFolder, getPagesFromFolder } from "@/lib/page-tree"
 import { source } from "@/lib/source"
 
-const installCommand = "npx shadcn@latest add https://krdscn-ui.smlee.info/r/krds-all.json"
+const installCommand = "npx shadcn@latest add https://krdscn-ui.js.org/r/krds-all.json"
 
 const steps = [
   {
